@@ -50,7 +50,7 @@ sealed abstract class LengthUnit(code: String)
 sealed abstract class TimeUnit(code: String)
 sealed abstract class VelocityUnit(code: String)
 
-object UnitSystem extends UnitSystem{
+object UnitSystem{
 
   // Length Unit
   case object mm extends LengthUnit("millimetre")

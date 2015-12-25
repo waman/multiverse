@@ -1,11 +1,10 @@
 package org.waman.multiverse
 
-import org.waman.scalatest_util.{WamanCustomSpec, ImplicitConversion}
-import org.waman.worldsheet.physics.WorldSheetPhysicsCustomSpec
-import org.waman.worldsheet.physics.unit.MKSUnitSystem._
+import org.waman.scalatest_util.ImplicitConversion
+
 import scala.language.postfixOps
 
-class MKSUnitSystemSpec extends MultiverseCustomSpec{
+class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
 
   def %(value: Double) = value +- (value / 100.0)
 
@@ -39,7 +38,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec{
     }
 
     "length unit can be enclosed by parenthesis" in {
-      import org.waman.worldsheet.physics.unit.UnitSystem._
+      import UnitSystem._
       __SetUp__
       val x = 1000.0 (cm)
       __Exercise__
@@ -72,26 +71,26 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec{
       __Exercise__
       t should be (a [Time])
       (t ms) should equal (%(1000.0))
-      (t s) should equal (%(60.0))
-      (t min) should equal (%(1.0))
+      (t s) should equal (%(1.0))
+      (t min) should equal (%(1.0/60.0))
     }
 
     "time unit can be specified like property access" in {
       __SetUp__
       val t = 1.0.s
       __Exercise__
-      t should be (a [Length])
+      t should be (a [Time])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
       (t min) should equal (%(1/60.0))
     }
 
     "time unit can be enclosed by parenthesis" in {
-      import org.waman.worldsheet.physics.unit.UnitSystem._
+      import UnitSystem._
       __SetUp__
       val t = 1.0 (s)
       __Exercise__
-      t should be (a [Length])
+      t should be (a [Time])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
       (t min) should equal (%(1/60.0))
@@ -133,7 +132,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec{
     }
 
     "velocity unit can be enclosed by parenthesis" in {
-      import org.waman.worldsheet.physics.unit.UnitSystem._
+      import UnitSystem._
       __SetUp__
       val v = 72.0 (`km/h`)
       __Exercise__
