@@ -38,6 +38,9 @@ scalacOptions ++= Seq(
 //***** Running *****
 fork := true
 
-initialCommands in console := "import org.waman.multiverse.MKSUnitSystem._"
+initialCommands in console :=
+  """import org.waman.multiverse.MKSUnitSystem._
+    |import scala.language.postfixOps
+  """.stripMargin
 
 crossPaths := false

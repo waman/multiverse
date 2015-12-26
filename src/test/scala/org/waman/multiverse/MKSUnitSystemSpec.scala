@@ -1,7 +1,6 @@
 package org.waman.multiverse
 
 import org.waman.scalatest_util.ImplicitConversion
-
 import scala.language.postfixOps
 
 class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
@@ -10,42 +9,42 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
 
   "Length" - {
 
-    "m method called on a Double value should return a Length in metre" taggedAs ImplicitConversion ignore {
+    "m property called on a Double value should return a Length in metre" taggedAs ImplicitConversion ignore {
       __Verify__
       noException should be thrownBy{
         convertImplicitly[Length](1.0 m)
       }
     }
 
-    "m method should return a value of length in metre" in {
+    "Length unit can be specified by property access" in {
       __SetUp__
-      val x = 1000.0 cm;
+      val x = 100.0.m
       __Exercise__
       x should be (a [Length])
-      (x cm) should equal (%(1000.0))
-      (x m) should equal (%(10.0))
-      (x km) should equal (%(0.01))
+      (x cm) should equal (%(10000.0))
+      (x m) should equal (%(100.0))
+      (x km) should equal (%(0.1))
     }
 
-    "length unit can be specified like property access" in {
+    "m method should return a value of length in metre" in {
       __SetUp__
-      val x = 1000.0.cm
+      val x = 100.0 m;
       __Exercise__
       x should be (a [Length])
-      (x cm) should equal (%(1000.0))
-      (x m) should equal (%(10.0))
-      (x km) should equal (%(0.01))
+      (x cm) should equal (%(10000.0))
+      (x m) should equal (%(100.0))
+      (x km) should equal (%(0.1))
     }
 
     "length unit can be enclosed by parenthesis" in {
       import UnitSystem._
       __SetUp__
-      val x = 1000.0 (cm)
+      val x = 100.0 (m)
       __Exercise__
       x should be (a [Length])
-      (x cm) should equal (%(1000.0))
-      (x m) should equal (%(10.0))
-      (x km) should equal (%(0.01))
+      (x cm) should equal (%(10000.0))
+      (x m) should equal (%(100.0))
+      (x km) should equal (%(0.1))
     }
 
     "Length object should be implicitly converted to a Double value in metre" in {
@@ -65,16 +64,6 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       }
     }
 
-    "s method should return a value of Time in second" in {
-      __SetUp__
-      val t = 1.0 s;
-      __Exercise__
-      t should be (a [Time])
-      (t ms) should equal (%(1000.0))
-      (t s) should equal (%(1.0))
-      (t min) should equal (%(1.0/60.0))
-    }
-
     "time unit can be specified like property access" in {
       __SetUp__
       val t = 1.0.s
@@ -85,8 +74,18 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       (t min) should equal (%(1/60.0))
     }
 
+    "s method should return a value of Time in second" in {
+      __SetUp__
+      val t = 1.0 s;
+      __Exercise__
+      t should be (a [Time])
+      (t ms) should equal (%(1000.0))
+      (t s) should equal (%(1.0))
+      (t min) should equal (%(1.0/60.0))
+    }
+
     "time unit can be enclosed by parenthesis" in {
-      import UnitSystem._
+      import TimeUnit._
       __SetUp__
       val t = 1.0 (s)
       __Exercise__
@@ -98,9 +97,9 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
 
     "Time object should be implicitly converted to a Double value in metre" in {
       __SetUp__
-      val x: Double = 1.0 cm;
+      val x: Double = 1.0 minute;
       __Exercise__
-      x should equal (%(0.01))
+      x should equal (%(60.0))
     }
   }
 
@@ -132,7 +131,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     }
 
     "velocity unit can be enclosed by parenthesis" in {
-      import UnitSystem._
+      import VelocityUnit._
       __SetUp__
       val v = 72.0 (`km/h`)
       __Exercise__
@@ -149,7 +148,6 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     }
 
     "Velocity object should be created by dividing Length by Time" in {
-      import UnitSystem._
       __SetUp__
       val v = 20.0 m/s;
       __Exercise__
@@ -158,7 +156,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     }
 
     "Velocity object should be created by dividing Length by Time (property access)" in {
-      import UnitSystem._
+      import TimeUnit._
       __SetUp__
       val v = 20.0.m/s
       __Exercise__
