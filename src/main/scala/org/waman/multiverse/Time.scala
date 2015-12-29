@@ -1,10 +1,22 @@
 package org.waman.multiverse
 
-trait Time{
-  def ms: Double = s * 1000.0
-  def s : Double
-  def min : Double = s / 60.0
-  def h   : Double = s / 3600.0
+import spire.math.{Real, Fractional}
+import spire.implicits._
+
+abstract class Time[A: Fractional]{
+
+  def ms : A = s * 1000
+  def s  : A
+  def min: A = s / 60
+  def h  : A = s / 3600
+}
+
+object Time{
+  val msInSecond = r"0.001"
+  val minInSecond = r"60"
+  val hInSecond = minInSecond * 60
+  val dInSecond = hInSecond * 24
+//  val yrInSecond =
 }
 
 sealed abstract class TimeUnit(code: String)
@@ -16,38 +28,17 @@ object TimeUnit{
   case object h    extends TimeUnit("hour")
 }
 
-trait TimeUnitInterpreter {
+trait TimeUnitInterpreter[A]{
 
-  val value: Double
+  def ms    : Time[A]
+  def s     : Time[A]
+  def minute: Time[A]
+  def h     : Time[A]
 
-  def ms: Time = MilliSecondTime(value)
-  def s: Time = SecondTime(value)
-  def minute: Time = MinuteTime(value)
-  def h: Time = HourTime(value)
-
-  def apply(unit: TimeUnit): Time = unit match {
-    case _ if unit == TimeUnit.ms => ms
-    case _ if unit == TimeUnit.s => s
+  def apply(unit: TimeUnit): Time[A] = unit match {
+    case _ if unit == TimeUnit.ms  => ms
+    case _ if unit == TimeUnit.s   => s
     case _ if unit == TimeUnit.min => minute
-    case _ if unit == TimeUnit.h => h
-  }
-
-  case class MilliSecondTime(value: Double) extends Time {
-    override def ms: Double = value
-    override def s: Double = value / 1000.0
-  }
-
-  case class SecondTime(value: Double) extends Time {
-    override def s: Double = value
-  }
-
-  case class MinuteTime(value: Double) extends Time {
-    override def s: Double = value * 60.0
-    override def min: Double = value
-  }
-
-  case class HourTime(value: Double) extends Time {
-    override def s: Double = value * 3600.0
-    override def h: Double = value
+    case _ if unit == TimeUnit.h   => h
   }
 }

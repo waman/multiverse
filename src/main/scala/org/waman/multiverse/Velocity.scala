@@ -1,38 +1,32 @@
 package org.waman.multiverse
 
+import spire.math.Fractional
+import spire.implicits._
 
-trait Velocity{
-  def `m/s` : Double
-  def `km/h`: Double = `m/s` * (3600.0 / 1000.0)
+abstract class Velocity[A: Fractional]{
+
+  val algebra = implicitly[Fractional[A]]
+
+  def `m/s` : A
+  def `km/h`: A = `m/s` * 3600.0 / 1000.0
   //  def c     : Double =
 }
 
-sealed abstract class VelocityUnit(code: String)
+sealed abstract class VelocityUnit(code: String) extends CompositeUnit[LengthUnit, TimeUnit]
 
 object VelocityUnit{
   case object `m/s` extends VelocityUnit("metre per second")
   case object `km/h` extends VelocityUnit("kilometre per hour")
 }
 
-trait VelocityUnitInterpreter{
+trait VelocityUnitInterpreter[A]{
 
-  val value: Double
+  def `m/s` : Velocity[A]
+  def `km/h`: Velocity[A]
+  //  def c     : Velocity
 
-  def `m/s` : Velocity = MetrePerSecondVelocity(value)
-  def `km/h`: Velocity = KilometrePerHour(value)
-  //  def c     : Velocity = SpeedOfLight(value)
-
-  def apply(unit: VelocityUnit): Velocity = unit match{
-    case _ if unit == VelocityUnit.`m/s` => `m/s`
+  def apply(unit: VelocityUnit): Velocity[A] = unit match{
+    case _ if unit == VelocityUnit.`m/s`  => `m/s`
     case _ if unit == VelocityUnit.`km/h` => `km/h`
-  }
-
-  case class MetrePerSecondVelocity(value: Double) extends Velocity{
-    override def `m/s`: Double = value
-  }
-
-  case class KilometrePerHour(value: Double) extends Velocity{
-    override def `m/s` : Double = value * (1000.0 / 3600.0)
-    override def `km/h`: Double = value
   }
 }

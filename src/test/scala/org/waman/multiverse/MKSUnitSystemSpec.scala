@@ -5,14 +5,12 @@ import scala.language.postfixOps
 
 class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
 
-  def %(value: Double) = value +- (value / 100.0)
-
   "Length" - {
 
     "m property called on a Double value should return a Length in metre" taggedAs ImplicitConversion ignore {
       __Verify__
       noException should be thrownBy{
-        convertImplicitly[Length](1.0 m)
+        convertImplicitly[Length[Double]](1.0 m)
       }
     }
 
@@ -20,7 +18,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val x = 100.0.m
       __Exercise__
-      x should be (a [Length])
+      x should be (a [Length[_]])
       (x cm) should equal (%(10000.0))
       (x m) should equal (%(100.0))
       (x km) should equal (%(0.1))
@@ -30,7 +28,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val x = 100.0 m;
       __Exercise__
-      x should be (a [Length])
+      x should be (a [Length[_]])
       (x cm) should equal (%(10000.0))
       (x m) should equal (%(100.0))
       (x km) should equal (%(0.1))
@@ -41,7 +39,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val x = 100.0 (m)
       __Exercise__
-      x should be (a [Length])
+      x should be (a [Length[_]])
       (x cm) should equal (%(10000.0))
       (x m) should equal (%(100.0))
       (x km) should equal (%(0.1))
@@ -60,7 +58,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     "s method called on a Double value should return a Time in second" taggedAs ImplicitConversion ignore {
       __Verify__
       noException should be thrownBy{
-        convertImplicitly[Time](1.0 s)
+        convertImplicitly[Time[Double]](1.0 s)
       }
     }
 
@@ -68,7 +66,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val t = 1.0.s
       __Exercise__
-      t should be (a [Time])
+      t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
       (t min) should equal (%(1/60.0))
@@ -78,7 +76,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val t = 1.0 s;
       __Exercise__
-      t should be (a [Time])
+      t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
       (t min) should equal (%(1.0/60.0))
@@ -89,7 +87,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val t = 1.0 (s)
       __Exercise__
-      t should be (a [Time])
+      t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
       (t min) should equal (%(1/60.0))
@@ -108,7 +106,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     "`m/s` method called on a Double value should return a Velocity in m/s" taggedAs ImplicitConversion ignore {
       __Verify__
       noException should be thrownBy{
-        convertImplicitly[Velocity](1.0 `m/s`)
+        convertImplicitly[Velocity[Double]](1.0 `m/s`)
       }
     }
 
@@ -116,7 +114,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val v = 72.0 `km/h`;
       __Exercise__
-      v should be (a [Velocity])
+      v should be (a [Velocity[_]])
       (v `m/s`) should equal (%(20.0))
       (v `km/h`) should equal (%(72.0))
     }
@@ -125,7 +123,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val v = 72.0.`km/h`
       __Exercise__
-      v should be (a [Velocity])
+      v should be (a [Velocity[_]])
       (v `m/s`) should equal (%(20.0))
       (v `km/h`) should equal (%(72.0))
     }
@@ -135,7 +133,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       __SetUp__
       val v = 72.0 (`km/h`)
       __Exercise__
-      v should be (a [Velocity])
+      v should be (a [Velocity[_]])
       (v `m/s`) should equal (%(20.0))
       (v `km/h`) should equal (%(72.0))
     }

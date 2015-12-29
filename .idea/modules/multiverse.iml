@@ -19,111 +19,18 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="SBT: org.scala-lang:scala-library:2.11.7:jar" type="Scala">
-        <properties>
-          <compiler-classpath>
-            <root url="file://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-compiler/jars/scala-compiler-2.11.7.jar" />
-            <root url="file://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar" />
-            <root url="file://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.7.jar" />
-          </compiler-classpath>
-        </properties>
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="SBT: org.scala-lang:scala-reflect:2.11.2:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" scope="TEST">
-      <library name="SBT: org.scala-lang:scala-reflect:2.11.5:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" scope="TEST">
-      <library name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.2:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" scope="TEST">
-      <library name="SBT: org.scalamock:scalamock-core_2.11:3.2.2:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scalamock/scalamock-core_2.11/jars/scalamock-core_2.11-3.2.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" scope="TEST">
-      <library name="SBT: org.scalamock:scalamock-scalatest-support_2.11:3.2.2:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scalamock/scalamock-scalatest-support_2.11/jars/scalamock-scalatest-support_2.11-3.2.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" scope="TEST">
-      <library name="SBT: org.scalatest:scalatest_2.11:2.2.4:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/bundles/scalatest_2.11-2.2.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="SBT: org.spire-math:spire-macros_2.11:0.8.2:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.spire-math/spire-macros_2.11/jars/spire-macros_2.11-0.8.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="SBT: org.spire-math:spire_2.11:0.8.2:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.spire-math/spire_2.11/jars/spire_2.11-0.8.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="SBT: org.typelevel:machinist_2.11:0.3.0:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.typelevel/machinist_2.11/jars/machinist_2.11-0.3.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" scope="TEST">
-      <library name="SBT: org.waman:scalatest-util:0.1:jar">
-        <CLASSES>
-          <root url="jar://$USER_HOME$/.ivy2/local/org.waman/scalatest-util/0.1/jars/scalatest-util.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.11.7:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.11.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang:scala-reflect:2.11.5:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang.modules:scala-xml_2.11:1.0.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-sbt:test-interface:1.0:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalacheck:scalacheck_2.11:1.12.5:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalamock:scalamock-core_2.11:3.2.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalamock:scalamock-scalatest-support_2.11:3.2.2:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scalatest:scalatest_2.11:2.2.4:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.spire-math:spire-macros_2.11:0.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.spire-math:spire_2.11:0.8.2:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.typelevel:machinist_2.11:0.3.0:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.waman:scalatest-util:0.1:jar" level="project" />
   </component>
 </module>

@@ -1,65 +1,93 @@
 package org.waman.multiverse
 
-trait Length{
-  def mm: Double = m * 1000.0
-  def cm: Double = m * 100.0
-  def m : Double
-  def km: Double = m / 1000.0
+import spire.implicits._
+import spire.math.{Real, Fractional}
 
-  def /(timeUnit: TimeUnit): Velocity = {
+abstract class Length[A: Fractional] extends UnitConverter[A]{
+
+  protected val algebra = implicitly[Fractional[A]]
+
+  def mm: A = convertTo(m, LengthUnit.mm.inMetre)
+  def cm: A = convertTo(m, LengthUnit.cm.inMetre)
+  def m : A
+  def km: A = convertTo(m, LengthUnit.km.inMetre)
+
+  def au: A = convertTo(m, LengthUnit.au.inMetre)
+  def ly: A = convertTo(m, LengthUnit.ly.inMetre)
+  def pc: A = convertTo(m, LengthUnit.pc.inMetre)
+
+  def in: A = convertTo(m, LengthUnit.in.inMetre)
+  def ft: A = convertTo(m, LengthUnit.ft.inMetre)
+  def yd: A = convertTo(m, LengthUnit.yd.inMetre)
+  def mi: A = convertTo(m, LengthUnit.mi.inMetre)
+
+
+  def /(timeUnit: TimeUnit): Velocity[A] = {
     val timeInSecond: Double = timeUnit match{
-      case _ if timeUnit == TimeUnit.ms => 0.001
-      case _ if timeUnit == TimeUnit.s  => 1
-      case _ if timeUnit == TimeUnit.min  => 60
-      case _ if timeUnit == TimeUnit.h    => 3600
+      case _ if timeUnit == TimeUnit.ms  => 0.001
+      case _ if timeUnit == TimeUnit.s   => 1
+      case _ if timeUnit == TimeUnit.min => 60
+      case _ if timeUnit == TimeUnit.h   => 3600
     }
     new UnitInterpreter(m / timeInSecond).`m/s`
   }
 }
 
-sealed abstract class LengthUnit(code: String)
+sealed abstract class LengthUnit(name: String, val inMetre: Real = r"1")
 
 object LengthUnit{
-  case object mm extends LengthUnit("millimetre")
-  case object cm extends LengthUnit("centimetre")
+  case object mm extends LengthUnit("millimetre", r"0.001")
+  case object cm extends LengthUnit("centimetre", r"0.01")
   case object m  extends LengthUnit("metre")
-  case object km extends LengthUnit("kilometre")
+  case object km extends LengthUnit("kilometre", r"1000")
+
+  case object au extends LengthUnit("astronomical unit", r"149597870700")
+  case object ly extends LengthUnit("light year", r"9.4607304725808e15")
+  case object pc extends LengthUnit("parsec", r"3.08567782e16")
+
+  case object in extends LengthUnit("inch", r"0.0254")
+  case object ft extends LengthUnit("feet", r"0.3048")
+  case object yd extends LengthUnit("yard", r"0.9144")
+  case object mi extends LengthUnit("mile", r"1609.344")
 }
 
-trait LengthUnitInterpreter {
+trait LengthUnitInterpreter[A] extends UnitConverter[A]{
 
-  val value: Double
+  val value: A
 
-  def mm: Length = MillimetreLength(value)
-  def cm: Length = CentimetreLength(value)
-  def m : Length = MetreLength(value)
-  def km: Length = KilometreLength(value)
+  def mm: Length[A]
+  def cm: Length[A]
+  def m : Length[A]
+  def km: Length[A]
 
-  def m(per: Per): MetrePer = new MetrePer(value)
+  def au: Length[A]
+  def ly: Length[A]
+  def pc: Length[A]
 
-  def apply(unit: LengthUnit): Length = unit match {
+  def in: Length[A]
+  def ft: Length[A]
+  def yd: Length[A]
+  def mi: Length[A]
+
+  def apply(unit: LengthUnit): Length[A] = unit match {
     case _ if unit == LengthUnit.mm => mm
     case _ if unit == LengthUnit.cm => cm
-    case _ if unit == LengthUnit.m => m
+    case _ if unit == LengthUnit.m  => m
     case _ if unit == LengthUnit.km => km
+
+    case _ if unit == LengthUnit.au => au
+    case _ if unit == LengthUnit.ly => ly
+    case _ if unit == LengthUnit.pc => pc
+
+    case _ if unit == LengthUnit.in => in
+    case _ if unit == LengthUnit.ft => ft
+    case _ if unit == LengthUnit.yd => yd
+    case _ if unit == LengthUnit.mi => mi
   }
 
-  case class MillimetreLength(value: Double) extends Length {
-    override def mm: Double = value
-    override def m: Double = value / 1000.0
-  }
+  def m(per: Per): LengthPer
 
-  case class CentimetreLength(value: Double) extends Length {
-    override def cm: Double = value
-    override def m: Double = value / 100.0
-  }
-
-  case class MetreLength(value: Double) extends Length {
-    override def m: Double = value
-  }
-
-  case class KilometreLength(value: Double) extends Length {
-    override def m: Double = value * 1000
-    override def km: Double = value
+  trait LengthPer{
+    def s: Velocity[A]
   }
 }
