@@ -1,31 +1,26 @@
 package org.waman.multiverse
 
-import spire.math.{Real, Fractional}
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
-abstract class Time[A: Fractional]{
+abstract class Time[A: Fractional] extends UnitConverter[A]{
 
-  def ms : A = s * 1000
+  protected val algebra = implicitly[Fractional[A]]
+
+  def ms : A = div(s, TimeUnit.ms.inSecond)
   def s  : A
-  def min: A = s / 60
-  def h  : A = s / 3600
+  def min: A = div(s, TimeUnit.min.inSecond)
+  def h  : A = div(s, TimeUnit.h.inSecond)
 }
 
-object Time{
-  val msInSecond = r"0.001"
-  val minInSecond = r"60"
-  val hInSecond = minInSecond * 60
-  val dInSecond = hInSecond * 24
-//  val yrInSecond =
-}
-
-sealed abstract class TimeUnit(code: String)
+sealed abstract class TimeUnit(name: String, val inSecond: Real = r"1")
 
 object TimeUnit{
-  case object ms extends TimeUnit("millisecond")
-  case object s  extends TimeUnit("second")
-  case object min  extends TimeUnit("minute")
-  case object h    extends TimeUnit("hour")
+  case object ms  extends TimeUnit("millisecond", r"0.001")
+  case object s   extends TimeUnit("second")
+  case object min extends TimeUnit("minute", r"60")
+  case object h   extends TimeUnit("hour", r"60" * r"60")
+  case object day extends TimeUnit("day", r"60" * r"60" * r"24")
 }
 
 trait TimeUnitInterpreter[A]{

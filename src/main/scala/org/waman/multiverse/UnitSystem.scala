@@ -24,16 +24,27 @@ object UnitSystem{
     prop.mapValues(Real(_)).toMap
   }
 
-  // Length
-  val mm = LengthUnit.mm
-  val cm = LengthUnit.cm
-  val m  = LengthUnit.m
-  val km = LengthUnit.km
+  //***** Length *****
+  val nm = LengthUnit.NanoMetre
+  val µm = LengthUnit.MicroMetre
+  val mm = LengthUnit.MilliMetre
+  val cm = LengthUnit.CentiMetre
+  val m  = LengthUnit.Metre
+  val km = LengthUnit.KiloMetre
+  val Mm = LengthUnit.MegaMetre
+  val Gm = LengthUnit.GigaMetre
+  val Tm = LengthUnit.TeraMetre
 
-  val inch = LengthUnit.in
-  val ft   = LengthUnit.ft
-  val yard = LengthUnit.yd
-  val mile = LengthUnit.mi
+  // astronomy
+  val au = LengthUnit.AstronomicalUnit
+  val ly = LengthUnit.LightYear
+  val pc = LengthUnit.Parsec
+
+  // yard-pond
+  val in = LengthUnit.Inch
+  val ft = LengthUnit.Feet
+  val yd = LengthUnit.Yard
+  val mi = LengthUnit.Mile
 
   // Time
   val ms  = TimeUnit.ms
