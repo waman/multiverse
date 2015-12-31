@@ -60,8 +60,8 @@ object UnitSystem{
   val `km/h` = VelocityUnit.`km/h`
 
   // Angle
-  val deg = AngleUnit.deg
-  val rad = AngleUnit.rad
+  val deg = AngleUnit.Degree
+  val rad = AngleUnit.Radian
 
   // Angular Velocity
   val `rad/s` = AngularVelocityUnit.`rad/s`

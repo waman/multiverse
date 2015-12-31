@@ -30,15 +30,8 @@ abstract class Length[A: Fractional] extends UnitConverter[A]{
 
   def apply(unit: LengthUnit): A = unit.accept(this)
 
-  def /(timeUnit: TimeUnit): Velocity[A] = {
-    val timeInSecond: Real = timeUnit match{
-      case _ if timeUnit == TimeUnit.MilliSecond  => TimeUnit.MilliSecond.inSecond
-      case _ if timeUnit == TimeUnit.Second   => TimeUnit.Second.inSecond
-      case _ if timeUnit == TimeUnit.Minute => TimeUnit.Minute.inSecond
-      case _ if timeUnit == TimeUnit.Hour   => TimeUnit.Hour.inSecond
-    }
-    new UnitInterpreter(m / real(timeInSecond)).`m/s`
-  }
+  def /(timeUnit: TimeUnit): Velocity[A] =
+    new UnitInterpreter(m / real(timeUnit.inSecond)).`m/s`
 }
 
 sealed abstract class LengthUnit(val inMetre: Real = r"1"){
