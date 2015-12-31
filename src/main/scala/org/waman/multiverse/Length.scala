@@ -30,33 +30,12 @@ abstract class Length[A: Fractional] extends UnitConverter[A]{
 
   def apply(unit: LengthUnit): A = unit.accept(this)
 
-//  def apply(unit: LengthUnit): A = unit match {
-//    case _ if unit == LengthUnit.NanoMetre => nm
-//    case _ if unit == LengthUnit.MicroMetre => µm
-//    case _ if unit == LengthUnit.MilliMetre => mm
-//    case _ if unit == LengthUnit.CentiMetre => cm
-//    case _ if unit == LengthUnit.Metre  => m
-//    case _ if unit == LengthUnit.KiloMetre => km
-//    case _ if unit == LengthUnit.MegaMetre  => Mm
-//    case _ if unit == LengthUnit.GigaMetre => Gm
-//    case _ if unit == LengthUnit.TeraMetre => Tm
-//
-//    case _ if unit == LengthUnit.AstronomicalUnit => au
-//    case _ if unit == LengthUnit.LightYear => ly
-//    case _ if unit == LengthUnit.Parsec => pc
-//
-//    case _ if unit == LengthUnit.Inch => in
-//    case _ if unit == LengthUnit.Feet => ft
-//    case _ if unit == LengthUnit.Yard => yd
-//    case _ if unit == LengthUnit.Mile => mi
-//  }
-
   def /(timeUnit: TimeUnit): Velocity[A] = {
     val timeInSecond: Real = timeUnit match{
-      case _ if timeUnit == TimeUnit.ms  => TimeUnit.ms.inSecond
-      case _ if timeUnit == TimeUnit.s   => TimeUnit.s.inSecond
-      case _ if timeUnit == TimeUnit.min => TimeUnit.min.inSecond
-      case _ if timeUnit == TimeUnit.h   => TimeUnit.h.inSecond
+      case _ if timeUnit == TimeUnit.MilliSecond  => TimeUnit.MilliSecond.inSecond
+      case _ if timeUnit == TimeUnit.Second   => TimeUnit.Second.inSecond
+      case _ if timeUnit == TimeUnit.Minute => TimeUnit.Minute.inSecond
+      case _ if timeUnit == TimeUnit.Hour   => TimeUnit.Hour.inSecond
     }
     new UnitInterpreter(m / real(timeInSecond)).`m/s`
   }
@@ -179,27 +158,6 @@ trait LengthUnitInterpreter[A] extends UnitConverter[A]{
   def mi: Length[A]
 
   def apply(unit: LengthUnit): Length[A] = unit.accept(this)
-
-//  def apply(unit: LengthUnit): Length[A] = unit match {
-//    case _ if unit == LengthUnit.NanoMetre => nm
-//    case _ if unit == LengthUnit.MicroMetre => µm
-//    case _ if unit == LengthUnit.MilliMetre => mm
-//    case _ if unit == LengthUnit.CentiMetre => cm
-//    case _ if unit == LengthUnit.Metre  => m
-//    case _ if unit == LengthUnit.KiloMetre => km
-//    case _ if unit == LengthUnit.MegaMetre  => Mm
-//    case _ if unit == LengthUnit.GigaMetre => Gm
-//    case _ if unit == LengthUnit.TeraMetre => Tm
-//
-//    case _ if unit == LengthUnit.AstronomicalUnit => au
-//    case _ if unit == LengthUnit.LightYear => ly
-//    case _ if unit == LengthUnit.Parsec => pc
-//
-//    case _ if unit == LengthUnit.Inch => in
-//    case _ if unit == LengthUnit.Feet => ft
-//    case _ if unit == LengthUnit.Yard => yd
-//    case _ if unit == LengthUnit.Mile => mi
-//  }
 
   def m(per: Per): LengthPer
 

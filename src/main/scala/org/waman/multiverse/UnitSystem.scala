@@ -47,10 +47,13 @@ object UnitSystem{
   val mi = LengthUnit.Mile
 
   // Time
-  val ms  = TimeUnit.ms
-  val s   = TimeUnit.s
-  val min = TimeUnit.min
-  val h   = TimeUnit.h
+  val ns  = TimeUnit.NanoSecond
+  val µs  = TimeUnit.MicroSecond
+  val ms  = TimeUnit.MilliSecond
+  val s   = TimeUnit.Second
+  val min = TimeUnit.Minute
+  val h   = TimeUnit.Hour
+  val d   = TimeUnit.Day
 
   // Velocity
   val `m/s`  = VelocityUnit.`m/s`

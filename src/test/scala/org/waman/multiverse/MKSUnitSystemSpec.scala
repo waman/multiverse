@@ -85,7 +85,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     "time unit can be enclosed by parenthesis" in {
       import TimeUnit._
       __SetUp__
-      val t = 1.0 (s)
+      val t = 1.0 (Second)
       __Exercise__
       t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
@@ -156,7 +156,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     "Velocity object should be created by dividing Length by Time (property access)" in {
       import TimeUnit._
       __SetUp__
-      val v = 20.0.m/s
+      val v = 20.0.m/Second
       __Exercise__
       (v `m/s`) should equal (%(20.0))
       (v `km/h`) should equal (%(72.0))

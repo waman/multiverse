@@ -11,10 +11,10 @@ abstract class Angle[A: Fractional]{
 
   def /(timeUnit: TimeUnit): AngularVelocity[A] = {
     val timeInSecond: Double = timeUnit match{
-      case _ if timeUnit == TimeUnit.ms  => 0.001
-      case _ if timeUnit == TimeUnit.s   => 1
-      case _ if timeUnit == TimeUnit.min => 60
-      case _ if timeUnit == TimeUnit.h   => 3600
+      case _ if timeUnit == TimeUnit.MilliSecond  => 0.001
+      case _ if timeUnit == TimeUnit.Second   => 1
+      case _ if timeUnit == TimeUnit.Minute => 60
+      case _ if timeUnit == TimeUnit.Hour   => 3600
     }
     new UnitInterpreter(deg / timeInSecond).`rad/s`
   }

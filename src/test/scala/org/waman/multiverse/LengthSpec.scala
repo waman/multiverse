@@ -41,7 +41,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
 
   val oneMetre = 1.0 m
 
-  "Tests where converting metre unit to some unit like 1.0 m => 1000.0 mm" in {
+  "Tests where converting metre unit to other units like 1.0 m => 1000.0 mm" in {
     val conversions =
       Table(
         ("length"   , "expected"),

@@ -49,16 +49,19 @@ class UnitInterpreter[A: Fractional](val value: A)
 
   //***** Time *****
   protected def newSecondTime(a: A): Time[A] = SecondTime(a)
-  private def newSecondTime(a: A, u: Double): Time[A] = newSecondTime(times(a, u))
+  private def newSecondTime(a: A, u: Real): Time[A] = newSecondTime(times(a, u))
 
   case class SecondTime(value: A) extends Time[A] {
     override def s: A = value
   }
 
-  override def ms    : Time[A] = newSecondTime(value, 0.001)
+  override def ns    : Time[A] = newSecondTime(value, TimeUnit.NanoSecond.inSecond)
+  override def µs    : Time[A] = newSecondTime(value, TimeUnit.MicroSecond.inSecond)
+  override def ms    : Time[A] = newSecondTime(value, TimeUnit.MilliSecond.inSecond)
   override def s     : Time[A] = newSecondTime(value)
-  override def minute: Time[A] = newSecondTime(value, 60)
-  override def h     : Time[A] = newSecondTime(value, 3600)
+  override def minute: Time[A] = newSecondTime(value, TimeUnit.Minute.inSecond)
+  override def h     : Time[A] = newSecondTime(value, TimeUnit.Hour.inSecond)
+  override def d     : Time[A] = newSecondTime(value, TimeUnit.Day.inSecond)
 
   //***** Velocity *****
   protected def newMetrePerSecondVelocity(a: A): Velocity[A] = MetrePerSecondVelocity(a)
