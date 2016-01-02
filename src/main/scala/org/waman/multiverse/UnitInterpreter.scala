@@ -45,6 +45,20 @@ class UnitInterpreter[A: Fractional](val value: A)
   override protected def newMetrePer(value: A, u: Real): TimePostfixOps[Velocity[A]] =
     new MetrePer(times(value, u))
 
+  class MetrePer(metre: A) extends TimePostfixOps[Velocity[A]]{
+
+    private def newMetrePerSecondVelocity(a: A): Velocity[A] = MetrePerSecondVelocity(a)
+    private def newMetrePerSecondVelocity(a: A, u: Real): Velocity[A] = newMetrePerSecondVelocity(div(a, u))
+
+    override def ns     = newMetrePerSecondVelocity(metre, TimeUnit.NanoSecond.inSecond)
+    override def µs     = newMetrePerSecondVelocity(metre, TimeUnit.MicroSecond.inSecond)
+    override def ms     = newMetrePerSecondVelocity(metre, TimeUnit.MilliSecond.inSecond)
+    override def s      = newMetrePerSecondVelocity(metre)
+    override def minute = newMetrePerSecondVelocity(metre, TimeUnit.Minute.inSecond)
+    override def h      = newMetrePerSecondVelocity(metre, TimeUnit.Hour.inSecond)
+    override def d      = newMetrePerSecondVelocity(metre, TimeUnit.Day.inSecond)
+  }
+
   //***** Time *****
   protected def newSecondTime(a: A): Time[A] = SecondTime(a)
   private def newSecondTime(a: A, u: Real): Time[A] = newSecondTime(times(a, u))

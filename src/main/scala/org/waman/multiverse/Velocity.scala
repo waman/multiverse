@@ -54,26 +54,38 @@ abstract class Velocity[A: Fractional]
   override def mi = callMetre(`m/s`, LengthUnit.Mile.inMetre)
 
   // for style like "velocity m/s"
-  override def nm(per: Per): TimePostfixOps[A] = ???
-  override def µm(per: Per): TimePostfixOps[A] = ???
-  override def mm(per: Per): TimePostfixOps[A] = ???
-  override def cm(per: Per): TimePostfixOps[A] = ???
-  override def m (per: Per): TimePostfixOps[A] = ???
-  override def km(per: Per): TimePostfixOps[A] = ???
-  override def Mm(per: Per): TimePostfixOps[A] = ???
-  override def Gm(per: Per): TimePostfixOps[A] = ???
-  override def Tm(per: Per): TimePostfixOps[A] = ???
+  private def callMeterPer(a: A): TimePostfixOps[A] = new TimePostfixOps[A]{
+    override def ns     = times(a, TimeUnit.NanoSecond.inSecond)
+    override def µs     = times(a, TimeUnit.MicroSecond.inSecond)
+    override def ms     = times(a, TimeUnit.MilliSecond.inSecond)
+    override def s      = a
+    override def d      = times(a, TimeUnit.Day.inSecond)
+    override def minute = times(a, TimeUnit.Minute.inSecond)
+    override def h      = times(a, TimeUnit.Hour.inSecond)
+  }
+
+  private def callMeterPer(a: A, u: Real): TimePostfixOps[A] = callMeterPer(div(a, u))
+
+  override def nm(per: Per) = callMeterPer(`m/s`, LengthUnit.Nanometre.inMetre)
+  override def µm(per: Per) = callMeterPer(`m/s`, LengthUnit.Micrometre.inMetre)
+  override def mm(per: Per) = callMeterPer(`m/s`, LengthUnit.Millimetre.inMetre)
+  override def cm(per: Per) = callMeterPer(`m/s`, LengthUnit.Centimetre.inMetre)
+  override def m (per: Per) = callMeterPer(`m/s`)
+  override def km(per: Per) = callMeterPer(`m/s`, LengthUnit.Kilometre.inMetre)
+  override def Mm(per: Per) = callMeterPer(`m/s`, LengthUnit.Megametre.inMetre)
+  override def Gm(per: Per) = callMeterPer(`m/s`, LengthUnit.Megametre.inMetre)
+  override def Tm(per: Per) = callMeterPer(`m/s`, LengthUnit.Gigametre.inMetre)
 
   // astronomy
-  override def au(per: Per): TimePostfixOps[A] = ???
-  override def ly(per: Per): TimePostfixOps[A] = ???
-  override def pc(per: Per): TimePostfixOps[A] = ???
+  override def au(per: Per) = callMeterPer(`m/s`, LengthUnit.AstronomicalUnit.inMetre)
+  override def ly(per: Per) = callMeterPer(`m/s`, LengthUnit.LightYear.inMetre)
+  override def pc(per: Per) = callMeterPer(`m/s`, LengthUnit.Parsec.inMetre)
 
   // yard-pond
-  override def in(per: Per): TimePostfixOps[A] = ???
-  override def ft(per: Per): TimePostfixOps[A] = ???
-  override def yd(per: Per): TimePostfixOps[A] = ???
-  override def mi(per: Per): TimePostfixOps[A] = ???
+  override def in(per: Per) = callMeterPer(`m/s`, LengthUnit.Inch.inMetre)
+  override def ft(per: Per) = callMeterPer(`m/s`, LengthUnit.Feet.inMetre)
+  override def yd(per: Per) = callMeterPer(`m/s`, LengthUnit.Yard.inMetre)
+  override def mi(per: Per) = callMeterPer(`m/s`, LengthUnit.Mile.inMetre)
 }
 
 case class MetrePerSecondVelocity[A: Fractional](value: A) extends Velocity[A]{

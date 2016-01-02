@@ -4,6 +4,7 @@
       <w>centi</w>
       <w>deca</w>
       <w>deci</w>
+      <w>deunitizer</w>
       <w>giga</w>
       <w>gigametre</w>
       <w>hecto</w>
@@ -12,6 +13,7 @@
       <w>multiverse</w>
       <w>rad/s</w>
       <w>terametre</w>
+      <w>unitizer</w>
     </words>
   </dictionary>
 </component>
