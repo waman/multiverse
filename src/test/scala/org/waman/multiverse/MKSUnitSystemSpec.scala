@@ -69,7 +69,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
-      (t min) should equal (%(1/60.0))
+      (t minute) should equal (%(1/60.0))
     }
 
     "s method should return a value of Time in second" in {
@@ -79,7 +79,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
-      (t min) should equal (%(1.0/60.0))
+      (t minute) should equal (%(1.0/60.0))
     }
 
     "time unit can be enclosed by parenthesis" in {
@@ -90,7 +90,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
       t should be (a [Time[_]])
       (t ms) should equal (%(1000.0))
       (t s) should equal (%(1.0))
-      (t min) should equal (%(1/60.0))
+      (t minute) should equal (%(1/60.0))
     }
 
     "Time object should be implicitly converted to a Double value in metre" in {
@@ -131,7 +131,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
     "velocity unit can be enclosed by parenthesis" in {
       import VelocityUnit._
       __SetUp__
-      val v = 72.0 (`km/h`)
+      val v = 72.0 (KilometrePerHour)
       __Exercise__
       v should be (a [Velocity[_]])
       (v `m/s`) should equal (%(20.0))

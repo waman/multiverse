@@ -25,15 +25,15 @@ object UnitSystem{
   }
 
   //***** Length *****
-  val nm = LengthUnit.NanoMetre
-  val µm = LengthUnit.MicroMetre
-  val mm = LengthUnit.MilliMetre
-  val cm = LengthUnit.CentiMetre
+  val nm = LengthUnit.Nanometre
+  val µm = LengthUnit.Micrometre
+  val mm = LengthUnit.Millimetre
+  val cm = LengthUnit.Centimetre
   val m  = LengthUnit.Metre
-  val km = LengthUnit.KiloMetre
-  val Mm = LengthUnit.MegaMetre
-  val Gm = LengthUnit.GigaMetre
-  val Tm = LengthUnit.TeraMetre
+  val km = LengthUnit.Kilometre
+  val Mm = LengthUnit.Megametre
+  val Gm = LengthUnit.Gigametre
+  val Tm = LengthUnit.Terametre
 
   // astronomy
   val au = LengthUnit.AstronomicalUnit
@@ -56,8 +56,8 @@ object UnitSystem{
   val d   = TimeUnit.Day
 
   // Velocity
-  val `m/s`  = VelocityUnit.`m/s`
-  val `km/h` = VelocityUnit.`km/h`
+  val `m/s`  = VelocityUnit.MetrePerSecond
+  val `km/h` = VelocityUnit.KilometrePerHour
 
   // Angle
   val deg = AngleUnit.Degree

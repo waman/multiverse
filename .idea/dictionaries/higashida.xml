@@ -5,10 +5,13 @@
       <w>deca</w>
       <w>deci</w>
       <w>giga</w>
+      <w>gigametre</w>
       <w>hecto</w>
       <w>km/h</w>
+      <w>megametre</w>
       <w>multiverse</w>
       <w>rad/s</w>
+      <w>terametre</w>
     </words>
   </dictionary>
 </component>

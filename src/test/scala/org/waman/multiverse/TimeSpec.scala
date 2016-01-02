@@ -36,7 +36,7 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSyst
         (Seq(oneSecond.µs , oneSecond µs , oneSecond (µs)) , 1e6),
         (Seq(oneSecond.ms , oneSecond ms , oneSecond (ms)) , 1e3),
         (Seq(oneSecond.s  , oneSecond s  , oneSecond (s))  , 1.0),
-        (Seq(oneSecond.min, oneSecond min, oneSecond (min)), 1.0/60.0),
+        (Seq(oneSecond.minute, oneSecond minute, oneSecond (min)), 1.0/60.0),
         (Seq(oneSecond.h  , oneSecond h  , oneSecond (h))  , 1.0/3600.0),
         (Seq(oneSecond.d  , oneSecond d  , oneSecond (d))  , 1.0/(3600.0 * 24.0))
       )
