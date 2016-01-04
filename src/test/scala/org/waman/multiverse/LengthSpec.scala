@@ -9,7 +9,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
   "Tests where converting from some units to metre like 3.0 mm => 0.003 m" in {
     val conversions =
       Table(
-        ("length", "expectedInMetre"),
+        ("length", "expected"),
         (Seq(3.0.nm, 3.0 nm, 3.0 (nm)), 3e-9),
         (Seq(3.0.µm, 3.0 µm, 3.0 (µm)), 3e-6),
         (Seq(3.0.mm, 3.0 mm, 3.0 (mm)), 3e-3),
@@ -32,9 +32,9 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(3.0.mi, 3.0 mi, 3.0 (mi)), 3.0 * 1609.344)
       )
 
-    forAll(conversions){ (ls: Seq[Length[Double]], expectedInMetre: Double) =>
+    forAll(conversions){ (ls: Seq[Length[Double]], expected: Double) =>
       ls.foreach{ l =>
-        (l m) should equal (%(expectedInMetre))
+        (l m) should equal (%(expected))
       }
     }
   }
@@ -49,7 +49,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(threeMetre.µm, threeMetre µm, threeMetre (µm)), 3e6),
         (Seq(threeMetre.mm, threeMetre mm, threeMetre (mm)), 3e3),
         (Seq(threeMetre.cm, threeMetre cm, threeMetre (cm)), 3e2),
-        (Seq(threeMetre.m, threeMetre m, threeMetre (m)), 3.0),
+        (Seq(threeMetre.m , threeMetre m , threeMetre (m)) , 3.0),
         (Seq(threeMetre.km, threeMetre km, threeMetre (km)), 3e-3),
         (Seq(threeMetre.Mm, threeMetre Mm, threeMetre (Mm)), 3e-6),
         (Seq(threeMetre.Gm, threeMetre Gm, threeMetre (Gm)), 3e-9),

@@ -6,6 +6,17 @@ import scala.language.implicitConversions
 import scala.collection.JavaConversions._
 import spire.math.{Real, Fractional}
 
+trait ValueWithUnit[A, U <: PhysicalUnit]{
+  val value: A
+  val unit: U
+  override def toString = s"$value (${unit.symbol})"
+}
+
+trait PhysicalUnit{
+  val name: String
+  val symbol: String
+}
+
 class Per
 
 trait UnitSystem{
@@ -47,9 +58,9 @@ object UnitSystem{
   val mi = LengthUnit.Mile
 
   // Time
-  val ns  = TimeUnit.NanoSecond
-  val µs  = TimeUnit.MicroSecond
-  val ms  = TimeUnit.MilliSecond
+  val ns  = TimeUnit.Nanosecond
+  val µs  = TimeUnit.Microsecond
+  val ms  = TimeUnit.Millisecond
   val s   = TimeUnit.Second
   val min = TimeUnit.Minute
   val h   = TimeUnit.Hour
@@ -64,5 +75,6 @@ object UnitSystem{
   val rad = AngleUnit.Radian
 
   // Angular Velocity
-  val `rad/s` = AngularVelocityUnit.`rad/s`
+  val `rad/s` = AngularVelocityUnit.RadianPerSecond
+  val `deg/s` = AngularVelocityUnit.DegreePerSecond
 }

@@ -1,102 +1,52 @@
 package org.waman.multiverse
 
-import spire.math.{Fractional, Real}
-import spire.implicits._
+import spire.math.Fractional
 
-class UnitInterpreter[A: Fractional](val value: A)
-  extends LengthUnitInterpreter[A]
-  with TimeUnitInterpreter[A]
-  with VelocityUnitInterpreter[A]
-  with AngleUnitInterpreter[A]
-  with AngularVelocityUnitInterpreter[A]{
+class UnitInterpreter[A: Fractional](protected val value: A)
+    extends LengthUnitInterpreter[A]
+    with TimeUnitInterpreter[A]
+    with VelocityUnitInterpreter[A]
+    with AngleUnitInterpreter[A]
+    with AngularVelocityUnitInterpreter[A]
+    with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
 
   //***** Length *****
-  protected def newMetreLength(a: A): Length[A] = MetreLength(a)
-  private def newMetreLength(a: A, u: Real): Length[A] = newMetreLength(times(a, u))
-
-  case class MetreLength(value: A) extends Length[A]{
-    override def m: A = value
-  }
-
-  override def nm: Length[A] = newMetreLength(value, LengthUnit.Nanometre.inMetre)
-  override def µm: Length[A] = newMetreLength(value, LengthUnit.Micrometre.inMetre)
-  override def mm: Length[A] = newMetreLength(value, LengthUnit.Millimetre.inMetre)
-  override def cm: Length[A] = newMetreLength(value, LengthUnit.Centimetre.inMetre)
-  override def m : Length[A] = newMetreLength(value)
-  override def km: Length[A] = newMetreLength(value, LengthUnit.Kilometre.inMetre)
-  override def Mm: Length[A] = newMetreLength(value, LengthUnit.Megametre.inMetre)
-  override def Gm: Length[A] = newMetreLength(value, LengthUnit.Gigametre.inMetre)
-  override def Tm: Length[A] = newMetreLength(value, LengthUnit.Terametre.inMetre)
-
-  // astronomy
-  override def au: Length[A] = newMetreLength(value, LengthUnit.AstronomicalUnit.inMetre)
-  override def ly: Length[A] = newMetreLength(value, LengthUnit.LightYear.inMetre)
-  override def pc: Length[A] = newMetreLength(value, LengthUnit.Parsec.inMetre)
-
-  // yard-pond
-  override def in: Length[A] = newMetreLength(value, LengthUnit.Inch.inMetre)
-  override def ft: Length[A] = newMetreLength(value, LengthUnit.Feet.inMetre)
-  override def yd: Length[A] = newMetreLength(value, LengthUnit.Yard.inMetre)
-  override def mi: Length[A] = newMetreLength(value, LengthUnit.Mile.inMetre)
+  override def apply(lengthUnit: LengthUnit) = new Length(value, lengthUnit)
 
   // Length -> Velocity
-  override protected def newMetrePer(value: A, u: Real): TimePostfixOps[Velocity[A]] =
-    new MetrePer(times(value, u))
-
-  class MetrePer(metre: A) extends TimePostfixOps[Velocity[A]]{
-
-    private def newMetrePerSecondVelocity(a: A): Velocity[A] = MetrePerSecondVelocity(a)
-    private def newMetrePerSecondVelocity(a: A, u: Real): Velocity[A] = newMetrePerSecondVelocity(div(a, u))
-
-    override def ns     = newMetrePerSecondVelocity(metre, TimeUnit.NanoSecond.inSecond)
-    override def µs     = newMetrePerSecondVelocity(metre, TimeUnit.MicroSecond.inSecond)
-    override def ms     = newMetrePerSecondVelocity(metre, TimeUnit.MilliSecond.inSecond)
-    override def s      = newMetrePerSecondVelocity(metre)
-    override def minute = newMetrePerSecondVelocity(metre, TimeUnit.Minute.inSecond)
-    override def h      = newMetrePerSecondVelocity(metre, TimeUnit.Hour.inSecond)
-    override def d      = newMetrePerSecondVelocity(metre, TimeUnit.Day.inSecond)
+  override protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
+    override def ns     = apply(lengthUnit / TimeUnit.Nanosecond)
+    override def µs     = apply(lengthUnit / TimeUnit.Microsecond)
+    override def ms     = apply(lengthUnit / TimeUnit.Millisecond)
+    override def s      = apply(lengthUnit / TimeUnit.Second)
+    override def minute = apply(lengthUnit / TimeUnit.Minute)
+    override def h      = apply(lengthUnit / TimeUnit.Hour)
+    override def d      = apply(lengthUnit / TimeUnit.Day)
   }
 
   //***** Time *****
-  protected def newSecondTime(a: A): Time[A] = SecondTime(a)
-  private def newSecondTime(a: A, u: Real): Time[A] = newSecondTime(times(a, u))
-
-  case class SecondTime(value: A) extends Time[A] {
-    override def s: A = value
-  }
-
-  override def ns    : Time[A] = newSecondTime(value, TimeUnit.NanoSecond.inSecond)
-  override def µs    : Time[A] = newSecondTime(value, TimeUnit.MicroSecond.inSecond)
-  override def ms    : Time[A] = newSecondTime(value, TimeUnit.MilliSecond.inSecond)
-  override def s     : Time[A] = newSecondTime(value)
-  override def minute: Time[A] = newSecondTime(value, TimeUnit.Minute.inSecond)
-  override def h     : Time[A] = newSecondTime(value, TimeUnit.Hour.inSecond)
-  override def d     : Time[A] = newSecondTime(value, TimeUnit.Day.inSecond)
+  override def apply(timeUnit: TimeUnit) = new Time(value, timeUnit)
 
   //***** Velocity *****
-  private def newMetrePerSecondVelocity(a: A): Velocity[A] = MetrePerSecondVelocity(a)
-  private def newMetrePerSecondVelocity(a: A, u: Real): Velocity[A] = newMetrePerSecondVelocity(times(a, u))
-
-  override def `m/s` : Velocity[A] = newMetrePerSecondVelocity(value)
-  override def `km/h`: Velocity[A] = newMetrePerSecondVelocity(value, VelocityUnit.KilometrePerHour.inMetrePerSecond)
-  //  def c     : Velocity = SpeedOfLight(value)
-
-  override protected def newVelocity(value: A, unit: VelocityUnit): Velocity[A] =
-    new UnitInterpreter[A](times(value, unit.inMetrePerSecond)).`m/s`
+  override def apply(velocityUnit: VelocityUnit) = new Velocity(value, velocityUnit)
 
   //***** Angle *****
-  override def deg: Angle[A] = RadianAngle(Angle.degreeToRadian(value))
-  override def rad: Angle[A] = RadianAngle(value)
+  override def apply(angleUnit: AngleUnit) = new Angle(value, angleUnit)
 
-  case class RadianAngle(value: A) extends Angle[A]{
-    override def rad: A = value
-  }
-
-  override def rad(per: Per): TimePostfixOps[AngularVelocity[A]] = ???
+  override protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]] =
+    new TimePostfixOps[AngularVelocity[A]] {
+      override def ns     = apply(unit / TimeUnit.Nanosecond)
+      override def µs     = apply(unit / TimeUnit.Microsecond)
+      override def ms     = apply(unit / TimeUnit.Millisecond)
+      override def s      = apply(unit / TimeUnit.Second)
+      override def minute = apply(unit / TimeUnit.Minute)
+      override def h      = apply(unit / TimeUnit.Hour)
+      override def d      = apply(unit / TimeUnit.Day)
+    }
 
   //***** Angular Velocity *****
+  override def apply(unit: AngularVelocityUnit) = new AngularVelocity(value, unit)
 
-  override def `rad/s`: AngularVelocity[A] = ???
 }

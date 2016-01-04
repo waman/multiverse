@@ -17,66 +17,48 @@ trait DivisibleByTime[A]{
   def /(timeUnit: TimeUnit): A
 }
 
-abstract class Time[A: Fractional] extends TimePostfixOps[A] with UnitConverter[A]{
+class Time[A: Fractional](val value: A, val unit: TimeUnit)
+    extends ValueWithUnit[A, TimeUnit]
+    with TimePostfixOps[A]
+    with UnitConverter[A]{
 
-  protected val algebra = implicitly[Fractional[A]]
+  protected lazy val algebra = implicitly[Fractional[A]]
 
-  def ns    : A = div(s, TimeUnit.NanoSecond.inSecond)
-  def µs    : A = div(s, TimeUnit.MicroSecond.inSecond)
-  def ms    : A = div(s, TimeUnit.MilliSecond.inSecond)
-  def s     : A
-  def minute: A = div(s, TimeUnit.Minute.inSecond)
-  def h     : A = div(s, TimeUnit.Hour.inSecond)
-  def d     : A = div(s, TimeUnit.Day.inSecond)
+  def apply(evalUnit: TimeUnit): A =
+    if(evalUnit == unit) value
+    else value * real(unit.inSecond) / real(evalUnit.inSecond)
 
-  def apply(unit: TimeUnit): A = unit.accept(this)
+  override def ns     = apply(TimeUnit.Nanosecond)
+  override def µs     = apply(TimeUnit.Microsecond)
+  override def ms     = apply(TimeUnit.Millisecond)
+  override def s      = apply(TimeUnit.Second)
+  override def minute = apply(TimeUnit.Minute)
+  override def h      = apply(TimeUnit.Hour)
+  override def d      = apply(TimeUnit.Day)
 }
 
-abstract class TimeUnit(val inSecond: Real = r"1"){
-  def accept[A](t: Time[A]): A
-  def accept[A](ui: TimeUnitInterpreter[A]): Time[A]
-}
+abstract class TimeUnit(val name: String, val symbol: String, val inSecond: Real) extends PhysicalUnit
 
 object TimeUnit{
 
-  case object NanoSecond  extends TimeUnit(r"1e-9"){
-    override def accept[A](t: Time[A]): A = t.ns
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.ns
-  }
-
-  case object MicroSecond extends TimeUnit(r"1e-6"){
-    override def accept[A](t: Time[A]): A = t.µs
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.µs
-  }
-
-  case object MilliSecond  extends TimeUnit(r"1e-3"){
-    override def accept[A](t: Time[A]): A = t.ms
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.ms
-  }
-
-  case object Second extends TimeUnit(){
-    override def accept[A](t: Time[A]): A = t.s
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.s
-  }
-
-  case object Minute extends TimeUnit(r"60"){
-    override def accept[A](t: Time[A]): A = t.minute
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.minute
-  }
-
-  case object Hour extends TimeUnit(r"3600"){
-    override def accept[A](t: Time[A]): A = t.h
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.h
-  }
-
-  case object Day extends TimeUnit(r"3600" * r"24"){
-    override def accept[A](t: Time[A]): A = t.d
-    override def accept[A](ui: TimeUnitInterpreter[A]): Time[A] = ui.d
-  }
+  case object Nanosecond  extends TimeUnit("Nanosecond" , "ns"    , r"1e-9")
+  case object Microsecond extends TimeUnit("Microsecond", "µs"    , r"1e-6")
+  case object Millisecond extends TimeUnit("Millisecond", "ms"    , r"1e-3")
+  case object Second      extends TimeUnit("Second"     , "s"     , r"1")
+  case object Minute      extends TimeUnit("Minute"     , "minute", r"60")
+  case object Hour        extends TimeUnit("Hour"       , "h"     , r"3600")
+  case object Day         extends TimeUnit("Day"        , "d"     , r"3600" * r"24")
 }
 
 trait TimeUnitInterpreter[A] extends TimePostfixOps[Time[A]]{
 
-  val value: A
-  def apply(unit: TimeUnit): Time[A] = unit.accept(this)
+  def apply(unit: TimeUnit): Time[A]
+
+  override def ns     = apply(TimeUnit.Nanosecond)
+  override def µs     = apply(TimeUnit.Microsecond)
+  override def ms     = apply(TimeUnit.Millisecond)
+  override def s      = apply(TimeUnit.Second)
+  override def minute = apply(TimeUnit.Minute)
+  override def h      = apply(TimeUnit.Hour)
+  override def d      = apply(TimeUnit.Day)
 }

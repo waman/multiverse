@@ -1,13 +1,20 @@
 package org.waman.multiverse
 
-
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._
+import spire.implicits._
 import scala.language.postfixOps
 
 class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
-  "Tests where converting from some units to m/s like 1.0 km/h => 1000.0/3600.0 m/s" in {
+  "VelocityUnit should return a proper value by inMetrePerSecond" in {
+    __SetUp__
+    val vu = km/h
+    __Verify__
+    vu.inMetrePerSecond should equal (r"1000" / r"3600")
+  }
+
+  "Tests where converting from some units to m/s like 3.0 km/h => 3.0 * 1000.0/3600.0 m/s" in {
     val conversions =
       Table(
         ("length", "expected"),
@@ -24,16 +31,16 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnit
     }
   }
 
-  val oneMpS = 3.0.`m/s`
+  val threeMps = 3.0.`m/s`
 
-  "Tests where converting metre unit to other units like 1.0 m => 1000.0 mm" in {
+  "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
     val conversions =
       Table(
         ("length", "expected"),
-        (Seq(oneMpS.`m/s`, oneMpS `m/s`, oneMpS (`m/s`), oneMpS.m/s, oneMpS m/s, oneMpS (m/s)), 3.0),
-        (Seq(oneMpS.`km/h`, oneMpS `km/h`, oneMpS (`km/h`), oneMpS.km/h, oneMpS km/h, oneMpS (km/h)), 3.0*3600.0/1000.0),
-        (Seq(oneMpS.km/min, oneMpS km/minute, oneMpS (km/min)), 3.0*60.0/1000.0),
-        (Seq(oneMpS.cm/min, oneMpS cm/minute, oneMpS (cm/min)), 3.0*60.0/0.01)
+        (Seq(threeMps.`m/s`, threeMps `m/s`, threeMps (`m/s`), threeMps.m/s, threeMps m/s, threeMps (m/s)), 3.0),
+        (Seq(threeMps.`km/h`, threeMps `km/h`, threeMps (`km/h`), threeMps.km/h, threeMps km/h, threeMps (km/h)), 3.0*3600.0/1000.0),
+        (Seq(threeMps.km/min, threeMps km/minute, threeMps (km/min)), 3.0*60.0/1000.0),
+        (Seq(threeMps.cm/min, threeMps cm/minute, threeMps (cm/min)), 3.0*60.0/0.01)
       )
 
     forAll(conversions){ (vs: Seq[Double], expected: Double) =>

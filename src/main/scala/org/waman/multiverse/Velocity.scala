@@ -8,115 +8,110 @@ trait VelocityPostfixOps[A]{
   def `km/h`: A
 }
 
-abstract class Velocity[A: Fractional]
-    extends VelocityPostfixOps[A]  // for style like "velocity.`m/s`" and "velocity `m/s`"
+class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
+    extends ValueWithUnit[A, VelocityUnit]
+    with VelocityPostfixOps[A]  // for style like "velocity.`m/s`" and "velocity `m/s`"
     with LengthPostfixOps[DivisibleByTime[A]]  // for style like "velocity.m/s" ( = "velocity.m./(s)")
     with LengthPer[TimePostfixOps[A]]  // for style like "velocity m/s" ( = "velocity.m(/).s")
     with UnitConverter[A]{
 
-  val algebra = implicitly[Fractional[A]]
-
-  def `m/s` : A
-  def `km/h`: A = div(`m/s`, VelocityUnit.KilometrePerHour.inMetrePerSecond)
+  protected lazy val algebra = implicitly[Fractional[A]]
 
   // for style like "velocity (m/s)" ( = "velocity.apply(m/s)")
-  def apply(unit: VelocityUnit): A = unit match {
-    case u: PredefinedVelocityUnit => u.accept(this)
-    case _ => div(`m/s`, unit.inMetrePerSecond)
-  }
+  def apply(evalUnit: VelocityUnit): A =
+    if(evalUnit == unit) value
+    else value * real(unit.inMetrePerSecond) / real(evalUnit.inMetrePerSecond)
+
+  def `m/s`  = apply(VelocityUnit.MetrePerSecond)
+  def `km/h` = apply(VelocityUnit.KilometrePerHour)
 
   // for style like "velocity.m/s"
-  private def callMetre(metre: A) = new DivisibleByTime[A]{
-    override def /(timeUnit: TimeUnit): A = times(metre, timeUnit.inSecond)
+  private def callLength(lengthUnit: LengthUnit) = new DivisibleByTime[A]{
+    override def /(timeUnit: TimeUnit): A = apply(lengthUnit / timeUnit)
   }
 
-  private def callMetre(metre: A, inMetre: Real): DivisibleByTime[A] = callMetre(div(metre, inMetre))
-
-  override def nm = callMetre(`m/s`, LengthUnit.Nanometre.inMetre)
-  override def µm = callMetre(`m/s`, LengthUnit.Micrometre.inMetre)
-  override def mm = callMetre(`m/s`, LengthUnit.Millimetre.inMetre)
-  override def cm = callMetre(`m/s`, LengthUnit.Centimetre.inMetre)
-  override def m  = callMetre(`m/s`)
-  override def km = callMetre(`m/s`, LengthUnit.Kilometre.inMetre)
-  override def Mm = callMetre(`m/s`, LengthUnit.Megametre.inMetre)
-  override def Gm = callMetre(`m/s`, LengthUnit.Gigametre.inMetre)
-  override def Tm = callMetre(`m/s`, LengthUnit.Terametre.inMetre)
+  override def nm = callLength(LengthUnit.Nanometre)
+  override def µm = callLength(LengthUnit.Micrometre)
+  override def mm = callLength(LengthUnit.Millimetre)
+  override def cm = callLength(LengthUnit.Centimetre)
+  override def m  = callLength(LengthUnit.Metre)
+  override def km = callLength(LengthUnit.Kilometre)
+  override def Mm = callLength(LengthUnit.Megametre)
+  override def Gm = callLength(LengthUnit.Gigametre)
+  override def Tm = callLength(LengthUnit.Terametre)
 
   // astronomy
-  override def au = callMetre(`m/s`, LengthUnit.AstronomicalUnit.inMetre)
-  override def ly = callMetre(`m/s`, LengthUnit.LightYear.inMetre)
-  override def pc = callMetre(`m/s`, LengthUnit.Parsec.inMetre)
+  override def au = callLength(LengthUnit.AstronomicalUnit)
+  override def ly = callLength(LengthUnit.LightYear)
+  override def pc = callLength(LengthUnit.Parsec)
 
   // yard-pond
-  override def in = callMetre(`m/s`, LengthUnit.Inch.inMetre)
-  override def ft = callMetre(`m/s`, LengthUnit.Feet.inMetre)
-  override def yd = callMetre(`m/s`, LengthUnit.Yard.inMetre)
-  override def mi = callMetre(`m/s`, LengthUnit.Mile.inMetre)
+  override def in = callLength(LengthUnit.Inch)
+  override def ft = callLength(LengthUnit.Feet)
+  override def yd = callLength(LengthUnit.Yard)
+  override def mi = callLength(LengthUnit.Mile)
 
   // for style like "velocity m/s"
-  private def callMeterPer(a: A): TimePostfixOps[A] = new TimePostfixOps[A]{
-    override def ns     = times(a, TimeUnit.NanoSecond.inSecond)
-    override def µs     = times(a, TimeUnit.MicroSecond.inSecond)
-    override def ms     = times(a, TimeUnit.MilliSecond.inSecond)
-    override def s      = a
-    override def d      = times(a, TimeUnit.Day.inSecond)
-    override def minute = times(a, TimeUnit.Minute.inSecond)
-    override def h      = times(a, TimeUnit.Hour.inSecond)
+  private def callLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[A]{
+    override def ns     = apply(lengthUnit / TimeUnit.Nanosecond)
+    override def µs     = apply(lengthUnit / TimeUnit.Microsecond)
+    override def ms     = apply(lengthUnit / TimeUnit.Millisecond)
+    override def s      = apply(lengthUnit / TimeUnit.Second)
+    override def d      = apply(lengthUnit / TimeUnit.Day)
+    override def minute = apply(lengthUnit / TimeUnit.Minute)
+    override def h      = apply(lengthUnit / TimeUnit.Hour)
   }
 
-  private def callMeterPer(a: A, u: Real): TimePostfixOps[A] = callMeterPer(div(a, u))
-
-  override def nm(per: Per) = callMeterPer(`m/s`, LengthUnit.Nanometre.inMetre)
-  override def µm(per: Per) = callMeterPer(`m/s`, LengthUnit.Micrometre.inMetre)
-  override def mm(per: Per) = callMeterPer(`m/s`, LengthUnit.Millimetre.inMetre)
-  override def cm(per: Per) = callMeterPer(`m/s`, LengthUnit.Centimetre.inMetre)
-  override def m (per: Per) = callMeterPer(`m/s`)
-  override def km(per: Per) = callMeterPer(`m/s`, LengthUnit.Kilometre.inMetre)
-  override def Mm(per: Per) = callMeterPer(`m/s`, LengthUnit.Megametre.inMetre)
-  override def Gm(per: Per) = callMeterPer(`m/s`, LengthUnit.Megametre.inMetre)
-  override def Tm(per: Per) = callMeterPer(`m/s`, LengthUnit.Gigametre.inMetre)
+  override def nm(per: Per) = callLengthPer(LengthUnit.Nanometre)
+  override def µm(per: Per) = callLengthPer(LengthUnit.Micrometre)
+  override def mm(per: Per) = callLengthPer(LengthUnit.Millimetre)
+  override def cm(per: Per) = callLengthPer(LengthUnit.Centimetre)
+  override def m (per: Per) = callLengthPer(LengthUnit.Metre)
+  override def km(per: Per) = callLengthPer(LengthUnit.Kilometre)
+  override def Mm(per: Per) = callLengthPer(LengthUnit.Megametre)
+  override def Gm(per: Per) = callLengthPer(LengthUnit.Megametre)
+  override def Tm(per: Per) = callLengthPer(LengthUnit.Gigametre)
 
   // astronomy
-  override def au(per: Per) = callMeterPer(`m/s`, LengthUnit.AstronomicalUnit.inMetre)
-  override def ly(per: Per) = callMeterPer(`m/s`, LengthUnit.LightYear.inMetre)
-  override def pc(per: Per) = callMeterPer(`m/s`, LengthUnit.Parsec.inMetre)
+  override def au(per: Per) = callLengthPer(LengthUnit.AstronomicalUnit)
+  override def ly(per: Per) = callLengthPer(LengthUnit.LightYear)
+  override def pc(per: Per) = callLengthPer(LengthUnit.Parsec)
 
   // yard-pond
-  override def in(per: Per) = callMeterPer(`m/s`, LengthUnit.Inch.inMetre)
-  override def ft(per: Per) = callMeterPer(`m/s`, LengthUnit.Feet.inMetre)
-  override def yd(per: Per) = callMeterPer(`m/s`, LengthUnit.Yard.inMetre)
-  override def mi(per: Per) = callMeterPer(`m/s`, LengthUnit.Mile.inMetre)
+  override def in(per: Per) = callLengthPer(LengthUnit.Inch)
+  override def ft(per: Per) = callLengthPer(LengthUnit.Feet)
+  override def yd(per: Per) = callLengthPer(LengthUnit.Yard)
+  override def mi(per: Per) = callLengthPer(LengthUnit.Mile)
 }
 
-case class MetrePerSecondVelocity[A: Fractional](value: A) extends Velocity[A]{
-  override def `m/s`: A = value
+trait VelocityUnit extends PhysicalUnit{
+  def inMetrePerSecond: Real
 }
 
-trait VelocityUnit{
-  val inMetrePerSecond: Real
-}
+trait CompositeVelocityUnit extends VelocityUnit{
+  def lengthUnit: LengthUnit
+  def timeUnit: TimeUnit
 
-trait PredefinedVelocityUnit extends VelocityUnit{
-  def accept[A](v: Velocity[A]): A
-  def accept[A](ui: VelocityUnitInterpreter[A]): Velocity[A]
+  override val name: String = s"${lengthUnit.name}Per${timeUnit.name}"
+  override val symbol: String = s"${lengthUnit.symbol}/${timeUnit.symbol}"
+  override def inMetrePerSecond: Real = lengthUnit.inMetre / timeUnit.inSecond
 }
 
 object VelocityUnit{
 
-  case object MetrePerSecond extends PredefinedVelocityUnit{
-    override val inMetrePerSecond: Real = r"1"
-    override def accept[A](v: Velocity[A]): A = v.`m/s`
-    override def accept[A](ui: VelocityUnitInterpreter[A]): Velocity[A] = ui.`m/s`
+  case object MetrePerSecond extends CompositeVelocityUnit{
+    override def lengthUnit: LengthUnit = LengthUnit.Metre
+    override def timeUnit: TimeUnit = TimeUnit.Second
   }
 
-  case object KilometrePerHour extends PredefinedVelocityUnit{
-    override val inMetrePerSecond: Real = r"1000" / r"3600"
-    override def accept[A](v: Velocity[A]): A = v.`km/h`
-    override def accept[A](ui: VelocityUnitInterpreter[A]): Velocity[A] = ui.`km/h`
+  case object KilometrePerHour extends CompositeVelocityUnit{
+    override def lengthUnit: LengthUnit = LengthUnit.Kilometre
+    override def timeUnit: TimeUnit = TimeUnit.Hour
   }
 
-  def apply(value: Real): VelocityUnit = new VelocityUnit{
-    override val inMetrePerSecond: Real = value
+  def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit = new CompositeVelocityUnit{
+    override def lengthUnit: LengthUnit = lUnit
+    override def timeUnit: TimeUnit = tUnit
   }
 }
 
@@ -124,12 +119,8 @@ trait VelocityUnitInterpreter[A]
     extends VelocityPostfixOps[Velocity[A]]
     with UnitConverter[A]{
 
-  val value: A
+  def apply(unit: VelocityUnit): Velocity[A]
 
-  def apply(unit: VelocityUnit): Velocity[A] = unit match {
-    case u: PredefinedVelocityUnit => u.accept(this)
-    case _ => newVelocity(value, unit)
-  }
-
-  protected def newVelocity(value: A, unit: VelocityUnit): Velocity[A]
+  def `m/s`  = apply(VelocityUnit.MetrePerSecond)
+  def `km/h` = apply(VelocityUnit.KilometrePerHour)
 }

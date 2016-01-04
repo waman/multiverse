@@ -71,172 +71,128 @@ trait LengthPer[A]{
   def mi(per: Per): A
 }
 
-abstract class Length[A: Fractional]
-  extends LengthPostfixOps[A]
-  with DivisibleByTime[Velocity[A]]
-  with UnitConverter[A]{
+class Length[A: Fractional](val value: A, val unit: LengthUnit)
+    extends ValueWithUnit[A, LengthUnit]
+    with LengthPostfixOps[A]
+    with DivisibleByTime[Velocity[A]]
+    with UnitConverter[A]{
 
-  protected val algebra = implicitly[Fractional[A]]
+  protected lazy val algebra = implicitly[Fractional[A]]
 
   /**
     *  For style like <code>length.m</code> and <code>length m</code>
     *  where <code>length</code> is a Length object
     */
-  override def nm: A = div(m, LengthUnit.Nanometre.inMetre)
-  override def µm: A = div(m, LengthUnit.Micrometre.inMetre)
-  override def mm: A = div(m, LengthUnit.Millimetre.inMetre)
-  override def cm: A = div(m, LengthUnit.Centimetre.inMetre)
-  override def m : A
-  override def km: A = div(m, LengthUnit.Kilometre.inMetre)
-  override def Mm: A = div(m, LengthUnit.Megametre.inMetre)
-  override def Gm: A = div(m, LengthUnit.Gigametre.inMetre)
-  override def Tm: A = div(m, LengthUnit.Terametre.inMetre)
+  override def nm: A = apply(LengthUnit.Nanometre)
+  override def µm: A = apply(LengthUnit.Micrometre)
+  override def mm: A = apply(LengthUnit.Millimetre)
+  override def cm: A = apply(LengthUnit.Centimetre)
+  override def m : A = apply(LengthUnit.Metre)
+  override def km: A = apply(LengthUnit.Kilometre)
+  override def Mm: A = apply(LengthUnit.Megametre)
+  override def Gm: A = apply(LengthUnit.Gigametre)
+  override def Tm: A = apply(LengthUnit.Terametre)
 
   // astronomy
-  override def au: A = div(m, LengthUnit.AstronomicalUnit.inMetre)
-  override def ly: A = div(m, LengthUnit.LightYear.inMetre)
-  override def pc: A = div(m, LengthUnit.Parsec.inMetre)
+  override def au: A = apply(LengthUnit.AstronomicalUnit)
+  override def ly: A = apply(LengthUnit.LightYear)
+  override def pc: A = apply(LengthUnit.Parsec)
 
   // yard-pond
-  override def in: A = div(m, LengthUnit.Inch.inMetre)
-  override def ft: A = div(m, LengthUnit.Feet.inMetre)
-  override def yd: A = div(m, LengthUnit.Yard.inMetre)
-  override def mi: A = div(m, LengthUnit.Mile.inMetre)
+  override def in: A = apply(LengthUnit.Inch)
+  override def ft: A = apply(LengthUnit.Feet)
+  override def yd: A = apply(LengthUnit.Yard)
+  override def mi: A = apply(LengthUnit.Mile)
 
   /** For style like <code>length (m)</code> where <code>length</code> is a Length object*/
-  def apply(unit: LengthUnit): A = unit.accept(this)
+  def apply(evalUnit: LengthUnit): A =
+    if(evalUnit == unit) value
+    else value * real(unit.inMetre) / real(evalUnit.inMetre)
 
   /** For style like <code>1.0.m/s</code> */
-  override def /(timeUnit: TimeUnit): Velocity[A] = MetrePerSecondVelocity(div(m, timeUnit.inSecond))
+  override def /(timeUnit: TimeUnit): Velocity[A] = new Velocity(value, unit / timeUnit)
 }
 
-abstract class LengthUnit(val inMetre: Real = r"1")
-    extends DivisibleByTime[VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
+abstract class LengthUnit(val name: String, val symbol: String, val inMetre: Real)
+    extends PhysicalUnit
+    with DivisibleByTime[VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
 
-  def accept[A](l: Length[A]): A
-  def accept[A](ui: LengthUnitInterpreter[A]): Length[A]
-
-  override def /(timeUnit: TimeUnit): VelocityUnit = new VelocityUnit{
-    override val inMetrePerSecond: Real = inMetre / timeUnit.inSecond
-  }
+  override def /(timeUnit: TimeUnit): VelocityUnit = VelocityUnit(this, timeUnit)
 }
 
 object LengthUnit{
 
-  case object Nanometre extends LengthUnit(r"1e-9") { // 1e-9 m/nm
-    override def accept[A](l: Length[A]) = l.nm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.nm
-  }
-
-  case object Micrometre extends LengthUnit(r"1e-6") {
-    override def accept[A](l: Length[A]) = l.µm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.µm
-  }
-
-  case object Millimetre extends LengthUnit(r"1e-3") {
-    override def accept[A](l: Length[A]) = l.mm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.mm
-  }
-
-  case object Centimetre extends LengthUnit(r"1e-2") {
-    override def accept[A](l: Length[A]) = l.cm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.cm
-  }
-
-  case object Metre  extends LengthUnit() {
-    override def accept[A](l: Length[A]) = l.m
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.m
-  }
-
-  case object Kilometre extends LengthUnit(r"1e3") {
-    override def accept[A](l: Length[A]) = l.km
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.km
-  }
-
-  case object Megametre extends LengthUnit(r"1e6") {
-    override def accept[A](l: Length[A]) = l.Mm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.Mm
-  }
-
-  case object Gigametre extends LengthUnit(r"1e9") {
-    override def accept[A](l: Length[A]) = l.Gm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.Gm
-  }
-
-  case object Terametre extends LengthUnit(r"1e12") {
-    override def accept[A](l: Length[A]) = l.Tm
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.Tm
-  }
+  case object Nanometre  extends LengthUnit("Nanometre" , "nm", r"1e-9")
+  case object Micrometre extends LengthUnit("Micrometre", "µm", r"1e-6")
+  case object Millimetre extends LengthUnit("Millimetre", "mm", r"1e-3")
+  case object Centimetre extends LengthUnit("Centimetre", "cm", r"1e-2")
+  case object Metre      extends LengthUnit("Metre"     , "m" , r"1")
+  case object Kilometre  extends LengthUnit("Kilometre" , "km", r"1e3")
+  case object Megametre  extends LengthUnit("Megametre" , "Mm", r"1e6")
+  case object Gigametre  extends LengthUnit("Gigametre" , "Gm", r"1e9")
+  case object Terametre  extends LengthUnit("Terametre" , "Tm", r"1e12")
 
   // astronomy
-  case object AstronomicalUnit extends LengthUnit(r"149597870700") {
-    override def accept[A](l: Length[A]) = l.au
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.au
-  }
-
-  case object LightYear extends LengthUnit(r"9.4607304725808e15") {
-    override def accept[A](l: Length[A]) = l.ly
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.ly
-  }
-
-  case object Parsec extends LengthUnit(r"3.08567782e16") {
-    override def accept[A](l: Length[A]) = l.pc
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.pc
-  }
+  case object AstronomicalUnit extends LengthUnit("AstronomicalUnit", "au", r"149597870700")
+  case object LightYear        extends LengthUnit("LightYear"       , "ly", r"9.4607304725808e15")
+  case object Parsec           extends LengthUnit("Parsec"          , "pc", r"3.08567782e16")
 
   // yard-pond
-  case object Inch extends LengthUnit(r"0.0254") {
-    override def accept[A](l: Length[A]) = l.in
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.in
-  }
-
-  case object Feet extends LengthUnit(r"0.3048") {
-    override def accept[A](l: Length[A]) = l.ft
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.ft
-  }
-
-  case object Yard extends LengthUnit(r"0.9144") {
-    override def accept[A](l: Length[A]) = l.yd
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.yd
-  }
-
-  case object Mile extends LengthUnit(r"1609.344") {
-    override def accept[A](l: Length[A]) = l.mi
-    override def accept[A](ui: LengthUnitInterpreter[A]) = ui.mi
-  }
+  case object Inch extends LengthUnit("Inch", "in", r"0.0254")
+  case object Feet extends LengthUnit("Feet", "ft", r"0.3048")
+  case object Yard extends LengthUnit("Yard", "yd", r"0.9144")
+  case object Mile extends LengthUnit("Mile", "mi", r"1609.344")
 }
 
 trait LengthUnitInterpreter[A]
-  extends LengthPostfixOps[Length[A]]
-  with LengthPer[TimePostfixOps[Velocity[A]]]  // for style like "1.0 m/s" ( = 1.0.m(/).s)
-  with UnitConverter[A]{
-
-  val value: A
-
-  // for style "1.0 m/s" ( = "1.0.m(/).s")
-  protected def newMetrePer(value: A, u: Real = r"1"): TimePostfixOps[Velocity[A]]
-
-  override def nm(per: Per) = newMetrePer(value, LengthUnit.Nanometre.inMetre)
-  override def µm(per: Per) = newMetrePer(value, LengthUnit.Micrometre.inMetre)
-  override def mm(per: Per) = newMetrePer(value, LengthUnit.Millimetre.inMetre)
-  override def cm(per: Per) = newMetrePer(value, LengthUnit.Centimetre.inMetre)
-  override def m(per: Per)  = newMetrePer(value)
-  override def km(per: Per) = newMetrePer(value, LengthUnit.Kilometre.inMetre)
-  override def Mm(per: Per) = newMetrePer(value, LengthUnit.Megametre.inMetre)
-  override def Gm(per: Per) = newMetrePer(value, LengthUnit.Gigametre.inMetre)
-  override def Tm(per: Per) = newMetrePer(value, LengthUnit.Terametre.inMetre)
-
-  // astronomy
-  override def au(per: Per) = newMetrePer(value, LengthUnit.AstronomicalUnit.inMetre)
-  override def ly(per: Per) = newMetrePer(value, LengthUnit.LightYear.inMetre)
-  override def pc(per: Per) = newMetrePer(value, LengthUnit.Parsec.inMetre)
-
-  // yard-pond
-  override def in(per: Per) = newMetrePer(value, LengthUnit.Inch.inMetre)
-  override def ft(per: Per) = newMetrePer(value, LengthUnit.Feet.inMetre)
-  override def yd(per: Per) = newMetrePer(value, LengthUnit.Yard.inMetre)
-  override def mi(per: Per) = newMetrePer(value, LengthUnit.Mile.inMetre)
+    extends LengthPostfixOps[Length[A]]
+    with LengthPer[TimePostfixOps[Velocity[A]]]{  // for style like "1.0 m/s" ( = 1.0.m(/).s)
 
   // for style like "1.0 (m)" ( = "1.0.apply(m)")
-  def apply(unit: LengthUnit): Length[A] = unit.accept(this)
+  def apply(unit: LengthUnit): Length[A]
+
+  override def nm = apply(LengthUnit.Nanometre)
+  override def µm = apply(LengthUnit.Micrometre)
+  override def mm = apply(LengthUnit.Millimetre)
+  override def cm = apply(LengthUnit.Centimetre)
+  override def m  = apply(LengthUnit.Metre)
+  override def km = apply(LengthUnit.Kilometre)
+  override def Mm = apply(LengthUnit.Megametre)
+  override def Gm = apply(LengthUnit.Gigametre)
+  override def Tm = apply(LengthUnit.Terametre)
+
+  // astronomy
+  override def au = apply(LengthUnit.AstronomicalUnit)
+  override def ly = apply(LengthUnit.LightYear)
+  override def pc = apply(LengthUnit.Parsec)
+
+  // yard-pond
+  override def in = apply(LengthUnit.Inch)
+  override def ft = apply(LengthUnit.Feet)
+  override def yd = apply(LengthUnit.Yard)
+  override def mi = apply(LengthUnit.Mile)
+
+  // for style "1.0 m/s" ( = "1.0.m(/).s")
+  protected def newLengthPer(unit: LengthUnit): TimePostfixOps[Velocity[A]]
+
+  override def nm(per: Per) = newLengthPer(LengthUnit.Nanometre)
+  override def µm(per: Per) = newLengthPer(LengthUnit.Micrometre)
+  override def mm(per: Per) = newLengthPer(LengthUnit.Millimetre)
+  override def cm(per: Per) = newLengthPer(LengthUnit.Centimetre)
+  override def m(per: Per)  = newLengthPer(LengthUnit.Metre)
+  override def km(per: Per) = newLengthPer(LengthUnit.Kilometre)
+  override def Mm(per: Per) = newLengthPer(LengthUnit.Megametre)
+  override def Gm(per: Per) = newLengthPer(LengthUnit.Gigametre)
+  override def Tm(per: Per) = newLengthPer(LengthUnit.Terametre)
+
+  // astronomy
+  override def au(per: Per) = newLengthPer(LengthUnit.AstronomicalUnit)
+  override def ly(per: Per) = newLengthPer(LengthUnit.LightYear)
+  override def pc(per: Per) = newLengthPer(LengthUnit.Parsec)
+
+  // yard-pond
+  override def in(per: Per) = newLengthPer(LengthUnit.Inch)
+  override def ft(per: Per) = newLengthPer(LengthUnit.Feet)
+  override def yd(per: Per) = newLengthPer(LengthUnit.Yard)
+  override def mi(per: Per) = newLengthPer(LengthUnit.Mile)
 }
