@@ -11,7 +11,7 @@ trait VelocityPostfixOps[A]{
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends ValueWithUnit[A, VelocityUnit]
     with VelocityPostfixOps[A]  // for style like "velocity.`m/s`" and "velocity `m/s`"
-    with LengthPostfixOps[DivisibleByTime[A]]  // for style like "velocity.m/s" ( = "velocity.m./(s)")
+    with LengthPostfixOps[DivisibleBy[TimeUnit, A]]  // for style like "velocity.m/s" ( = "velocity.m./(s)")
     with LengthPer[TimePostfixOps[A]]  // for style like "velocity m/s" ( = "velocity.m(/).s")
     with UnitConverter[A]{
 
@@ -19,14 +19,14 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
 
   // for style like "velocity (m/s)" ( = "velocity.apply(m/s)")
   def apply(evalUnit: VelocityUnit): A =
-    if(evalUnit == unit) value
+    if(unit == evalUnit) value
     else value * real(unit.inMetrePerSecond) / real(evalUnit.inMetrePerSecond)
 
   def `m/s`  = apply(VelocityUnit.MetrePerSecond)
   def `km/h` = apply(VelocityUnit.KilometrePerHour)
 
   // for style like "velocity.m/s"
-  private def callLength(lengthUnit: LengthUnit) = new DivisibleByTime[A]{
+  private def callLength(lengthUnit: LengthUnit) = new DivisibleBy[TimeUnit, A]{
     override def /(timeUnit: TimeUnit): A = apply(lengthUnit / timeUnit)
   }
 
@@ -88,28 +88,29 @@ trait VelocityUnit extends PhysicalUnit{
   def inMetrePerSecond: Real
 }
 
-trait CompositeVelocityUnit extends VelocityUnit{
+trait QuotientVelocityUnit extends VelocityUnit with QuotientUnit[LengthUnit, TimeUnit]{
   def lengthUnit: LengthUnit
   def timeUnit: TimeUnit
 
-  override val name: String = s"${lengthUnit.name}Per${timeUnit.name}"
-  override val symbol: String = s"${lengthUnit.symbol}/${timeUnit.symbol}"
+  override def numeratorUnit: LengthUnit = lengthUnit
+  override def denominatorUnit: TimeUnit = timeUnit
+
   override def inMetrePerSecond: Real = lengthUnit.inMetre / timeUnit.inSecond
 }
 
 object VelocityUnit{
 
-  case object MetrePerSecond extends CompositeVelocityUnit{
+  case object MetrePerSecond extends QuotientVelocityUnit{
     override def lengthUnit: LengthUnit = LengthUnit.Metre
     override def timeUnit: TimeUnit = TimeUnit.Second
   }
 
-  case object KilometrePerHour extends CompositeVelocityUnit{
+  case object KilometrePerHour extends QuotientVelocityUnit{
     override def lengthUnit: LengthUnit = LengthUnit.Kilometre
     override def timeUnit: TimeUnit = TimeUnit.Hour
   }
 
-  def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit = new CompositeVelocityUnit{
+  def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit = new QuotientVelocityUnit{
     override def lengthUnit: LengthUnit = lUnit
     override def timeUnit: TimeUnit = tUnit
   }

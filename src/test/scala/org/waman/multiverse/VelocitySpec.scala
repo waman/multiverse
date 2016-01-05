@@ -3,15 +3,25 @@ package org.waman.multiverse
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._
 import spire.implicits._
+
 import scala.language.postfixOps
 
 class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
-  "VelocityUnit should return a proper value by inMetrePerSecond" in {
-    __SetUp__
-    val vu = km/h
-    __Verify__
-    vu.inMetrePerSecond should equal (r"1000" / r"3600")
+  "VelocityUnit should" - {
+
+    "return a velocity value of 1 km/h in metre per second by 'inMetrePerSecond' property" in {
+      __SetUp__
+      val vu = km/h
+      __Verify__
+      vu.inMetrePerSecond should equal (r"1000" / r"3600")
+    }
+
+    "be evaluated as equal even if different objects" in {
+      __Verify__
+      (km/h) should equal (km/h)
+      (km/h).hashCode should equal ((km/h).hashCode)
+    }
   }
 
   "Tests where converting from some units to m/s like 3.0 km/h => 3.0 * 1000.0/3600.0 m/s" in {

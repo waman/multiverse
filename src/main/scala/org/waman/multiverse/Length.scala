@@ -74,7 +74,7 @@ trait LengthPer[A]{
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends ValueWithUnit[A, LengthUnit]
     with LengthPostfixOps[A]
-    with DivisibleByTime[Velocity[A]]
+    with DivisibleBy[TimeUnit, Velocity[A]]
     with UnitConverter[A]{
 
   protected lazy val algebra = implicitly[Fractional[A]]
@@ -106,16 +106,16 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 
   /** For style like <code>length (m)</code> where <code>length</code> is a Length object*/
   def apply(evalUnit: LengthUnit): A =
-    if(evalUnit == unit) value
+    if(unit == evalUnit) value
     else value * real(unit.inMetre) / real(evalUnit.inMetre)
 
   /** For style like <code>1.0.m/s</code> */
   override def /(timeUnit: TimeUnit): Velocity[A] = new Velocity(value, unit / timeUnit)
 }
 
-abstract class LengthUnit(val name: String, val symbol: String, val inMetre: Real)
+sealed abstract class LengthUnit(val name: String, val symbol: String, val inMetre: Real)
     extends PhysicalUnit
-    with DivisibleByTime[VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
+    with DivisibleBy[TimeUnit, VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
 
   override def /(timeUnit: TimeUnit): VelocityUnit = VelocityUnit(this, timeUnit)
 }

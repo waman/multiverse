@@ -12,11 +12,6 @@ trait ValueWithUnit[A, U <: PhysicalUnit]{
   override def toString = s"$value (${unit.symbol})"
 }
 
-trait PhysicalUnit{
-  val name: String
-  val symbol: String
-}
-
 class Per
 
 trait UnitSystem{

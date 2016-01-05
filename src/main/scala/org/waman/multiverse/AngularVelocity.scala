@@ -11,20 +11,20 @@ trait AngularVelocityPostfixOps[A]{
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
     extends ValueWithUnit[A, AngularVelocityUnit]
     with AngularVelocityPostfixOps[A]
-    with AnglePostfixOps[DivisibleByTime[A]]
+    with AnglePostfixOps[DivisibleBy[TimeUnit, A]]
     with AnglePer[TimePostfixOps[A]]
     with UnitConverter[A]{
 
   protected override lazy val algebra: Fractional[A] = implicitly[Fractional[A]]
 
   def apply(evalUnit: AngularVelocityUnit): A =
-    if(evalUnit == unit) value
+    if(unit == evalUnit) value
     else value * real(unit.inRadianPerSecond) / real(evalUnit.inRadianPerSecond)
 
   override def `rad/s`: A = apply(AngularVelocityUnit.RadianPerSecond)
   override def `deg/s`: A = apply(AngularVelocityUnit.DegreePerSecond)
 
-  private def callAngle(angleUnit: AngleUnit) = new DivisibleByTime[A]{
+  private def callAngle(angleUnit: AngleUnit) = new DivisibleBy[TimeUnit, A]{
     override def /(timeUnit: TimeUnit): A = apply(angleUnit / timeUnit)
   }
 
@@ -49,28 +49,29 @@ trait AngularVelocityUnit extends PhysicalUnit{
   def inRadianPerSecond: Real
 }
 
-trait CompositeAngularVelocityUnit extends AngularVelocityUnit{
+trait QuotientAngularVelocityUnit extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
   def angleUnit: AngleUnit
   def timeUnit: TimeUnit
 
-  override val name: String = s"${angleUnit.name}Per${timeUnit.name}"
-  override val symbol: String = s"${angleUnit.symbol}/${timeUnit.symbol}"
+  override def numeratorUnit: AngleUnit = angleUnit
+  override def denominatorUnit: TimeUnit = timeUnit
+
   override def inRadianPerSecond: Real = angleUnit.inRadian / timeUnit.inSecond
 }
 
 object AngularVelocityUnit{
 
-  case object RadianPerSecond extends CompositeAngularVelocityUnit{
+  case object RadianPerSecond extends QuotientAngularVelocityUnit{
     override def angleUnit: AngleUnit = AngleUnit.Radian
     override def timeUnit: TimeUnit = TimeUnit.Second
   }
 
-  case object DegreePerSecond extends CompositeAngularVelocityUnit{
+  case object DegreePerSecond extends QuotientAngularVelocityUnit{
     override def angleUnit: AngleUnit = AngleUnit.Degree
     override def timeUnit: TimeUnit = TimeUnit.Second
   }
 
-  def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit = new CompositeAngularVelocityUnit{
+  def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit = new QuotientAngularVelocityUnit{
     override def angleUnit: AngleUnit = aUnit
     override def timeUnit: TimeUnit = tUnit
   }

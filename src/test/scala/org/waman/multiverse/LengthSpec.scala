@@ -3,6 +3,7 @@ package org.waman.multiverse
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._
 import scala.language.postfixOps
+import spire.implicits._
 
 class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 

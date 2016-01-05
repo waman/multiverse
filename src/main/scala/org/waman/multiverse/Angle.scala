@@ -17,13 +17,13 @@ trait AnglePer[A]{
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     extends ValueWithUnit[A, AngleUnit]
     with AnglePostfixOps[A]
-    with DivisibleByTime[AngularVelocity[A]]
+    with DivisibleBy[TimeUnit, AngularVelocity[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
 
   def apply(evalUnit: AngleUnit): A =
-    if(evalUnit == unit) value
+    if(unit == evalUnit) value
     else value * real(unit.inRadian) / real(evalUnit.inRadian)
 
   override def rad: A = apply(AngleUnit.Radian)
@@ -34,7 +34,7 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
 
 abstract class AngleUnit(val name: String, val symbol: String, val inRadian: Real)
     extends PhysicalUnit
-    with DivisibleByTime[AngularVelocityUnit]{
+    with DivisibleBy[TimeUnit, AngularVelocityUnit]{
 
   override def /(timeUnit: TimeUnit): AngularVelocityUnit = AngularVelocityUnit(this, timeUnit)
 }

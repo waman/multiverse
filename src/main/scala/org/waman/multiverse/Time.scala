@@ -13,9 +13,6 @@ trait TimePostfixOps[A]{
   def d     : A
 }
 
-trait DivisibleByTime[A]{
-  def /(timeUnit: TimeUnit): A
-}
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends ValueWithUnit[A, TimeUnit]
@@ -25,7 +22,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   protected lazy val algebra = implicitly[Fractional[A]]
 
   def apply(evalUnit: TimeUnit): A =
-    if(evalUnit == unit) value
+    if(unit == evalUnit) value
     else value * real(unit.inSecond) / real(evalUnit.inSecond)
 
   override def ns     = apply(TimeUnit.Nanosecond)
@@ -37,7 +34,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   override def d      = apply(TimeUnit.Day)
 }
 
-abstract class TimeUnit(val name: String, val symbol: String, val inSecond: Real) extends PhysicalUnit
+sealed abstract class TimeUnit(val name: String, val symbol: String, val inSecond: Real) extends PhysicalUnit
 
 object TimeUnit{
 

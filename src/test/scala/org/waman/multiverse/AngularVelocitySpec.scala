@@ -2,9 +2,27 @@ package org.waman.multiverse
 
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._
+import spire.math.Real
 import scala.language.postfixOps
+import spire.implicits._
 
 class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
+
+  "AngularVelocityUnit should" - {
+
+    "return an angular velocity value of 1 deg/h in rad per second by 'inRadianPerSecond' property" in {
+      __SetUp__
+      val avu = deg/h
+      __Verify__
+      avu.inRadianPerSecond should equal (Real.pi / r"180" / r"3600")
+    }
+
+    "be evaluated as equal even if different objects" in {
+      __Verify__
+      (deg/h) should equal (deg/h)
+      (deg/h).hashCode should equal ((deg/h).hashCode)
+    }
+  }
 
   "Tests where converting from some units to rad/s like 3.0 deg/s => 3.0 * 2 PI / 360 rad/s" in {
     val conversions =
