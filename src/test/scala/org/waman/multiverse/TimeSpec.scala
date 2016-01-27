@@ -6,6 +6,23 @@ import scala.language.postfixOps
 
 class TimeSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
+  "UnitSystem#getSupportedUnits method should return supported units of time" in {
+    __SetUp__
+    import TimeUnit._
+    __Exercise__
+    val result = UnitSystem.getSupportedUnits(classOf[TimeUnit])
+    __Verify__
+    result should contain theSameElementsAs Seq(
+      Nanosecond,
+      Microsecond,
+      Millisecond,
+      Second,
+      Minute,
+      Hour,
+      Day
+    )
+  }
+
   "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
     val conversions =
       Table(

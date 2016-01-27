@@ -8,6 +8,17 @@ import scala.language.postfixOps
 
 class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
+  "UnitSystem#getSupportedUnits method should return supported units of velocity" in {
+    __SetUp__
+    import VelocityUnit._
+    __Exercise__
+    val result = UnitSystem.getSupportedUnits(classOf[VelocityUnit])
+    __Verify__
+    result should contain allOf (
+      MetrePerSecond,
+      KilometrePerHour)
+  }
+
   "VelocityUnit should" - {
 
     "return a velocity value of 1 km/h in metre per second by 'inMetrePerSecond' property" in {

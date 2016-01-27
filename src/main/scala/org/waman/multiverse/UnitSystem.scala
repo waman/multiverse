@@ -2,9 +2,9 @@ package org.waman.multiverse
 
 import java.{util => jcf}
 
+import spire.math.Fractional
+
 import scala.language.implicitConversions
-import scala.collection.JavaConversions._
-import spire.math.{Real, Fractional}
 
 trait ValueWithUnit[A, U <: PhysicalUnit]{
   val value: A
@@ -24,11 +24,11 @@ trait UnitSystem{
 
 object UnitSystem{
 
-  def loadSystemResource(resource: String): Map[String, Real] = {
-    val prop = new jcf.Properties()
-    prop.load(ClassLoader.getSystemResourceAsStream(resource))
-    prop.mapValues(Real(_)).toMap
-  }
+  def getSupportedUnits[U <: PhysicalUnit](unitType: Class[U]): Seq[U]  =
+    UnitSystem.getClass.getMethods
+      .filter(m => unitType.isAssignableFrom(m.getReturnType))
+      .map(_.invoke(this))
+      .map(u => unitType.cast(u))
 
   //***** Length *****
   val nm = LengthUnit.Nanometre

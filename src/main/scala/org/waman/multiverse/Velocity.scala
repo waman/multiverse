@@ -84,13 +84,12 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   override def mi(per: Per) = callLengthPer(LengthUnit.Mile)
 }
 
-trait VelocityUnit extends PhysicalUnit{
+sealed trait VelocityUnit extends PhysicalUnit{
   def inMetrePerSecond: Real
 }
 
-trait QuotientVelocityUnit extends VelocityUnit with QuotientUnit[LengthUnit, TimeUnit]{
-  def lengthUnit: LengthUnit
-  def timeUnit: TimeUnit
+class QuotientVelocityUnit(val lengthUnit: LengthUnit, val timeUnit: TimeUnit)
+    extends VelocityUnit with QuotientUnit[LengthUnit, TimeUnit]{
 
   override def numeratorUnit: LengthUnit = lengthUnit
   override def denominatorUnit: TimeUnit = timeUnit
@@ -100,20 +99,12 @@ trait QuotientVelocityUnit extends VelocityUnit with QuotientUnit[LengthUnit, Ti
 
 object VelocityUnit{
 
-  case object MetrePerSecond extends QuotientVelocityUnit{
-    override def lengthUnit: LengthUnit = LengthUnit.Metre
-    override def timeUnit: TimeUnit = TimeUnit.Second
-  }
+  case object MetrePerSecond extends QuotientVelocityUnit(LengthUnit.Metre, TimeUnit.Second)
 
-  case object KilometrePerHour extends QuotientVelocityUnit{
-    override def lengthUnit: LengthUnit = LengthUnit.Kilometre
-    override def timeUnit: TimeUnit = TimeUnit.Hour
-  }
+  case object KilometrePerHour extends QuotientVelocityUnit(LengthUnit.Kilometre, TimeUnit.Hour)
 
-  def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit = new QuotientVelocityUnit{
-    override def lengthUnit: LengthUnit = lUnit
-    override def timeUnit: TimeUnit = tUnit
-  }
+  def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit =
+    new QuotientVelocityUnit(lUnit, tUnit)
 }
 
 trait VelocityUnitInterpreter[A]

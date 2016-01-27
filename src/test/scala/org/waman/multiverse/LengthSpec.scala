@@ -2,10 +2,37 @@ package org.waman.multiverse
 
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._
+
 import scala.language.postfixOps
-import spire.implicits._
 
 class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
+
+  "UnitSystem#getSupportedUnits method should return supported units of length" in {
+    __SetUp__
+    import LengthUnit._
+    __Exercise__
+    val result = UnitSystem.getSupportedUnits(classOf[LengthUnit])
+    __Verify__
+    result should contain theSameElementsAs Seq(
+      Nanometre,
+      Micrometre,
+      Millimetre,
+      Centimetre,
+      Metre,
+      Kilometre,
+      Megametre,
+      Gigametre,
+      Terametre,
+
+      AstronomicalUnit,
+      LightYear,
+      Parsec,
+
+      Inch,
+      Feet,
+      Yard,
+      Mile)
+  }
 
   "Tests where converting from some units to metre like 3.0 mm => 0.003 m" in {
     val conversions =

@@ -7,6 +7,18 @@ import scala.language.postfixOps
 
 class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
+  "UnitSystem#getSupportedUnits method should return supported units of angle" in {
+    __SetUp__
+    import AngleUnit._
+    __Exercise__
+    val result = UnitSystem.getSupportedUnits(classOf[AngleUnit])
+    __Verify__
+    result should contain theSameElementsAs Seq(
+      Radian,
+      Degree
+    )
+  }
+
   "Tests where converting from some units to radian like 3.0 deg => 3.0 * 2 PI / 360 rad" in {
     val conversions =
       Table(

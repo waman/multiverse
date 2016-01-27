@@ -8,6 +8,17 @@ import spire.implicits._
 
 class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
+  "UnitSystem#getSupportedUnits method should return supported units of angular velocity" in {
+    __SetUp__
+    import AngularVelocityUnit._
+    __Exercise__
+    val result = UnitSystem.getSupportedUnits(classOf[AngularVelocityUnit])
+    __Verify__
+    result should contain allOf (
+      RadianPerSecond,
+      DegreePerSecond)
+  }
+
   "AngularVelocityUnit should" - {
 
     "return an angular velocity value of 1 deg/h in rad per second by 'inRadianPerSecond' property" in {

@@ -49,9 +49,8 @@ trait AngularVelocityUnit extends PhysicalUnit{
   def inRadianPerSecond: Real
 }
 
-trait QuotientAngularVelocityUnit extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
-  def angleUnit: AngleUnit
-  def timeUnit: TimeUnit
+sealed class QuotientAngularVelocityUnit(val angleUnit: AngleUnit, val timeUnit: TimeUnit)
+    extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
 
   override def numeratorUnit: AngleUnit = angleUnit
   override def denominatorUnit: TimeUnit = timeUnit
@@ -61,20 +60,14 @@ trait QuotientAngularVelocityUnit extends AngularVelocityUnit with QuotientUnit[
 
 object AngularVelocityUnit{
 
-  case object RadianPerSecond extends QuotientAngularVelocityUnit{
-    override def angleUnit: AngleUnit = AngleUnit.Radian
-    override def timeUnit: TimeUnit = TimeUnit.Second
-  }
+  case object RadianPerSecond
+    extends QuotientAngularVelocityUnit(AngleUnit.Radian, TimeUnit.Second)
 
-  case object DegreePerSecond extends QuotientAngularVelocityUnit{
-    override def angleUnit: AngleUnit = AngleUnit.Degree
-    override def timeUnit: TimeUnit = TimeUnit.Second
-  }
+  case object DegreePerSecond
+    extends QuotientAngularVelocityUnit(AngleUnit.Degree, TimeUnit.Second)
 
-  def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit = new QuotientAngularVelocityUnit{
-    override def angleUnit: AngleUnit = aUnit
-    override def timeUnit: TimeUnit = tUnit
-  }
+  def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit =
+    new QuotientAngularVelocityUnit(aUnit, tUnit)
 }
 
 trait AngularVelocityUnitInterpreter[A] extends AngularVelocityPostfixOps[AngularVelocity[A]]{
