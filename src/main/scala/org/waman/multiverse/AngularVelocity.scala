@@ -33,7 +33,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
   private def callAnglePer(angleUnit: AngleUnit) = new TimePostfixOps[A]{
     override def ns     = apply(angleUnit / TimeUnit.Nanosecond)
-    override def µs     = apply(angleUnit / TimeUnit.Microsecond)
+    override def μs     = apply(angleUnit / TimeUnit.Microsecond)
     override def ms     = apply(angleUnit / TimeUnit.Millisecond)
     override def s      = apply(angleUnit / TimeUnit.Second)
     override def d      = apply(angleUnit / TimeUnit.Day)

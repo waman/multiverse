@@ -33,8 +33,10 @@ object UnitSystem{
       .map(u => unitType.cast(u))
 
   //***** Length *****
+  val fm = LengthUnit.Femtometre
+  val pm = LengthUnit.Picometre
   val nm = LengthUnit.Nanometre
-  val µm = LengthUnit.Micrometre
+  val μm = LengthUnit.Micrometre
   val mm = LengthUnit.Millimetre
   val cm = LengthUnit.Centimetre
   val m  = LengthUnit.Metre
@@ -43,20 +45,27 @@ object UnitSystem{
   val Gm = LengthUnit.Gigametre
   val Tm = LengthUnit.Terametre
 
+  // microscopic
+  val f = LengthUnit.Fermi
+  val Å = LengthUnit.Angstrom
+  val μ = LengthUnit.Micron
+
   // astronomy
   val au = LengthUnit.AstronomicalUnit
   val ly = LengthUnit.LightYear
   val pc = LengthUnit.Parsec
 
   // yard-pond
+  val pt = LengthUnit.Point
   val in = LengthUnit.Inch
   val ft = LengthUnit.Feet
   val yd = LengthUnit.Yard
   val mi = LengthUnit.Mile
+  val NM = LengthUnit.NauticalMile
 
   // Time
   val ns  = TimeUnit.Nanosecond
-  val µs  = TimeUnit.Microsecond
+  val μs  = TimeUnit.Microsecond
   val ms  = TimeUnit.Millisecond
   val s   = TimeUnit.Second
   val min = TimeUnit.Minute

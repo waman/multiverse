@@ -30,8 +30,10 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     override def /(timeUnit: TimeUnit): A = apply(lengthUnit / timeUnit)
   }
 
+  override def fm = callLength(LengthUnit.Femtometre)
+  override def pm = callLength(LengthUnit.Picometre)
   override def nm = callLength(LengthUnit.Nanometre)
-  override def µm = callLength(LengthUnit.Micrometre)
+  override def μm = callLength(LengthUnit.Micrometre)
   override def mm = callLength(LengthUnit.Millimetre)
   override def cm = callLength(LengthUnit.Centimetre)
   override def m  = callLength(LengthUnit.Metre)
@@ -40,21 +42,28 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   override def Gm = callLength(LengthUnit.Gigametre)
   override def Tm = callLength(LengthUnit.Terametre)
 
+  // microscopic
+  override def f = callLength(LengthUnit.Fermi)
+  override def Å = callLength(LengthUnit.Angstrom)
+  override def μ = callLength(LengthUnit.Micron)
+
   // astronomy
   override def au = callLength(LengthUnit.AstronomicalUnit)
   override def ly = callLength(LengthUnit.LightYear)
   override def pc = callLength(LengthUnit.Parsec)
 
   // yard-pond
+  override def pt = callLength(LengthUnit.Point)
   override def in = callLength(LengthUnit.Inch)
   override def ft = callLength(LengthUnit.Feet)
   override def yd = callLength(LengthUnit.Yard)
   override def mi = callLength(LengthUnit.Mile)
+  override def NM = callLength(LengthUnit.NauticalMile)
 
   // for style like "velocity m/s"
   private def callLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[A]{
     override def ns     = apply(lengthUnit / TimeUnit.Nanosecond)
-    override def µs     = apply(lengthUnit / TimeUnit.Microsecond)
+    override def μs     = apply(lengthUnit / TimeUnit.Microsecond)
     override def ms     = apply(lengthUnit / TimeUnit.Millisecond)
     override def s      = apply(lengthUnit / TimeUnit.Second)
     override def d      = apply(lengthUnit / TimeUnit.Day)
@@ -62,6 +71,8 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     override def h      = apply(lengthUnit / TimeUnit.Hour)
   }
 
+  override def fm(per: Per) = callLengthPer(LengthUnit.Femtometre)
+  override def pm(per: Per) = callLengthPer(LengthUnit.Picometre)
   override def nm(per: Per) = callLengthPer(LengthUnit.Nanometre)
   override def µm(per: Per) = callLengthPer(LengthUnit.Micrometre)
   override def mm(per: Per) = callLengthPer(LengthUnit.Millimetre)
@@ -72,16 +83,23 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   override def Gm(per: Per) = callLengthPer(LengthUnit.Megametre)
   override def Tm(per: Per) = callLengthPer(LengthUnit.Gigametre)
 
+  // microscopic
+  override def f(per: Per) = callLengthPer(LengthUnit.Fermi)
+  override def Å(per: Per) = callLengthPer(LengthUnit.Angstrom)
+  override def μ(per: Per) = callLengthPer(LengthUnit.Micron)
+
   // astronomy
   override def au(per: Per) = callLengthPer(LengthUnit.AstronomicalUnit)
   override def ly(per: Per) = callLengthPer(LengthUnit.LightYear)
   override def pc(per: Per) = callLengthPer(LengthUnit.Parsec)
 
   // yard-pond
+  override def pt(per: Per) = callLengthPer(LengthUnit.Point)
   override def in(per: Per) = callLengthPer(LengthUnit.Inch)
   override def ft(per: Per) = callLengthPer(LengthUnit.Feet)
   override def yd(per: Per) = callLengthPer(LengthUnit.Yard)
   override def mi(per: Per) = callLengthPer(LengthUnit.Mile)
+  override def NM(per: Per) = callLengthPer(LengthUnit.NauticalMile)
 }
 
 sealed trait VelocityUnit extends PhysicalUnit{

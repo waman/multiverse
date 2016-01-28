@@ -18,7 +18,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   // Length -> Velocity
   override protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
     override def ns     = apply(lengthUnit / TimeUnit.Nanosecond)
-    override def µs     = apply(lengthUnit / TimeUnit.Microsecond)
+    override def μs     = apply(lengthUnit / TimeUnit.Microsecond)
     override def ms     = apply(lengthUnit / TimeUnit.Millisecond)
     override def s      = apply(lengthUnit / TimeUnit.Second)
     override def minute = apply(lengthUnit / TimeUnit.Minute)
@@ -38,7 +38,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]] =
     new TimePostfixOps[AngularVelocity[A]] {
       override def ns     = apply(unit / TimeUnit.Nanosecond)
-      override def µs     = apply(unit / TimeUnit.Microsecond)
+      override def μs     = apply(unit / TimeUnit.Microsecond)
       override def ms     = apply(unit / TimeUnit.Millisecond)
       override def s      = apply(unit / TimeUnit.Second)
       override def minute = apply(unit / TimeUnit.Minute)
@@ -48,5 +48,4 @@ class UnitInterpreter[A: Fractional](protected val value: A)
 
   //***** Angular Velocity *****
   override def apply(unit: AngularVelocityUnit) = new AngularVelocity(value, unit)
-
 }
