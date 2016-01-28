@@ -9,7 +9,7 @@ trait VelocityPostfixOps[A]{
 }
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
-    extends ValueWithUnit[A, VelocityUnit]
+    extends Quantity[A, VelocityUnit]
     with VelocityPostfixOps[A]  // for style like "velocity.`m/s`" and "velocity `m/s`"
     with LengthPostfixOps[DivisibleBy[TimeUnit, A]]  // for style like "velocity.m/s" ( = "velocity.m./(s)")
     with LengthPer[TimePostfixOps[A]]  // for style like "velocity m/s" ( = "velocity.m(/).s")

@@ -15,7 +15,7 @@ trait AnglePer[A]{
 }
 
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
-    extends ValueWithUnit[A, AngleUnit]
+    extends Quantity[A, AngleUnit]
     with AnglePostfixOps[A]
     with DivisibleBy[TimeUnit, AngularVelocity[A]]
     with UnitConverter[A]{

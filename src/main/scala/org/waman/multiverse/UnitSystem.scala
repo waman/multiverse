@@ -6,12 +6,6 @@ import spire.math.Fractional
 
 import scala.language.implicitConversions
 
-trait ValueWithUnit[A, U <: PhysicalUnit]{
-  val value: A
-  val unit: U
-  override def toString = s"$value (${unit.symbol})"
-}
-
 class Per
 
 trait UnitSystem{
@@ -23,6 +17,14 @@ trait UnitSystem{
 }
 
 object UnitSystem{
+
+  def getSupportedQuantities: Seq[String] =
+    Seq("Length", "Time", "Velocity", "Angle", "AngularVelocity")
+
+  def getSupportedUnits[U <: PhysicalUnit](quantityName: String): Seq[U] = {
+    val unitType = Class.forName(s"org.waman.multiverse.${quantityName}Unit").asInstanceOf[Class[U]]
+    getSupportedUnits(unitType)
+  }
 
   def getSupportedUnits[U <: PhysicalUnit](unitType: Class[U]): Seq[U]  =
     UnitSystem.getClass.getMethods

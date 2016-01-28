@@ -72,7 +72,7 @@ trait LengthPer[A]{
 }
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
-    extends ValueWithUnit[A, LengthUnit]
+    extends Quantity[A, LengthUnit]
     with LengthPostfixOps[A]
     with DivisibleBy[TimeUnit, Velocity[A]]
     with UnitConverter[A]{

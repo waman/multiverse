@@ -15,7 +15,7 @@ trait TimePostfixOps[A]{
 
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
-    extends ValueWithUnit[A, TimeUnit]
+    extends Quantity[A, TimeUnit]
     with TimePostfixOps[A]
     with UnitConverter[A]{
 

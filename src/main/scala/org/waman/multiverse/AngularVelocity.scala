@@ -9,7 +9,7 @@ trait AngularVelocityPostfixOps[A]{
 }
 
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
-    extends ValueWithUnit[A, AngularVelocityUnit]
+    extends Quantity[A, AngularVelocityUnit]
     with AngularVelocityPostfixOps[A]
     with AnglePostfixOps[DivisibleBy[TimeUnit, A]]
     with AnglePer[TimePostfixOps[A]]
