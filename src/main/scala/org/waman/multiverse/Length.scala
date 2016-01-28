@@ -184,6 +184,41 @@ object LengthUnit{
   case object NauticalMile extends LengthUnit("NauticalMile", "NM", r"1852")
 }
 
+trait PredefinedLengthUnit{
+
+  val fm = LengthUnit.Femtometre
+  val pm = LengthUnit.Picometre
+  val nm = LengthUnit.Nanometre
+  val μm = LengthUnit.Micrometre
+  val mm = LengthUnit.Millimetre
+  val cm = LengthUnit.Centimetre
+  val m  = LengthUnit.Metre
+  val km = LengthUnit.Kilometre
+  val Mm = LengthUnit.Megametre
+  val Gm = LengthUnit.Gigametre
+  val Tm = LengthUnit.Terametre
+
+  // microscopic
+  val f = LengthUnit.Fermi
+  val Å = LengthUnit.Angstrom
+  val μ = LengthUnit.Micron
+
+  // astronomy
+  val au = LengthUnit.AstronomicalUnit
+  val ly = LengthUnit.LightYear
+  val pc = LengthUnit.Parsec
+
+  // yard-pond
+  val pt = LengthUnit.Point
+  val in = LengthUnit.Inch
+  val ft = LengthUnit.Feet
+  val yd = LengthUnit.Yard
+  val mi = LengthUnit.Mile
+  val NM = LengthUnit.NauticalMile
+}
+
+object PredefinedLengthUnit extends PredefinedLengthUnit
+
 trait LengthUnitInterpreter[A]
     extends LengthPostfixOps[Length[A]]
     with LengthPer[TimePostfixOps[Velocity[A]]]{  // for style like "1.0 m/s" ( = 1.0.m(/).s)

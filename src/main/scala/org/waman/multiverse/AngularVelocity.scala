@@ -30,6 +30,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
   override def rad = callAngle(AngleUnit.Radian)
   override def deg = callAngle(AngleUnit.Degree)
+  override def °   = callAngle(AngleUnit.Degree)
 
   private def callAnglePer(angleUnit: AngleUnit) = new TimePostfixOps[A]{
     override def ns     = apply(angleUnit / TimeUnit.Nanosecond)
@@ -43,6 +44,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
   override def rad(per: Per) = callAnglePer(AngleUnit.Radian)
   override def deg(per: Per) = callAnglePer(AngleUnit.Degree)
+  override def °  (per: Per) = callAnglePer(AngleUnit.Degree)
 }
 
 trait AngularVelocityUnit extends PhysicalUnit{
@@ -69,6 +71,13 @@ object AngularVelocityUnit{
   def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit =
     new QuotientAngularVelocityUnit(aUnit, tUnit)
 }
+
+trait PredefinedAngularVelocityUnit{
+  val `rad/s` = AngularVelocityUnit.RadianPerSecond
+  val `deg/s` = AngularVelocityUnit.DegreePerSecond
+}
+
+object PredefinedAngularVelocityUnit extends PredefinedAngularVelocityUnit
 
 trait AngularVelocityUnitInterpreter[A] extends AngularVelocityPostfixOps[AngularVelocity[A]]{
 

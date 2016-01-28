@@ -6,6 +6,12 @@ import spire.implicits._
 
 import scala.language.postfixOps
 
+/**
+  * Expected values are from
+  * <a href="https://ja.wikipedia.org/wiki/%E5%8D%98%E4%BD%8D%E3%81%AE%E6%8F%9B%E7%AE%97%E4%B8%80%E8%A6%A7">
+  *   単位の換算一覧
+  * </a>
+  */
 class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
   "UnitSystem#getSupportedUnits method should return supported units of velocity" in {
@@ -38,11 +44,11 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnit
   "Tests where converting from some units to m/s like 3.0 km/h => 3.0 * 1000.0/3600.0 m/s" in {
     val conversions =
       Table(
-        ("length", "expected"),
+        ("velocity", "expected"),
         (Seq(3.0.`m/s` , 3.0 `m/s` , 3.0 (`m/s`) , 3.0.m/s , 3.0 m/s , 3.0 (m/s)) , 3.0),
-        (Seq(3.0.`km/h`, 3.0 `km/h`, 3.0 (`km/h`), 3.0.km/h, 3.0 km/h, 3.0 (km/h)), 3.0*1000.0/3600.0),
-        (Seq(3.0.km/min, 3.0 km/minute, 3.0 (km/min)), 3.0*1000.0/60.0),
-        (Seq(3.0.cm/min, 3.0 cm/minute, 3.0 (cm/min)), 3.0*0.01/60.0)
+        (Seq(3.0.`km/h`, 3.0 `km/h`, 3.0 (`km/h`), 3.0.km/h, 3.0 km/h, 3.0 (km/h)), 3.0 * 2.777778e-1),
+        (Seq(3.0.km/min, 3.0 km/minute, 3.0 (km/min)), 3.0 * 16.66667),
+        (Seq(3.0.cm/min, 3.0 cm/minute, 3.0 (cm/min)), 3.0 * 0.0001666667)
       )
 
     forAll(conversions){ (vs: Seq[Velocity[Double]], expected: Double) =>
@@ -57,11 +63,15 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnit
   "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
     val conversions =
       Table(
-        ("length", "expected"),
-        (Seq(threeMps.`m/s`, threeMps `m/s`, threeMps (`m/s`), threeMps.m/s, threeMps m/s, threeMps (m/s)), 3.0),
-        (Seq(threeMps.`km/h`, threeMps `km/h`, threeMps (`km/h`), threeMps.km/h, threeMps km/h, threeMps (km/h)), 3.0*3600.0/1000.0),
-        (Seq(threeMps.km/min, threeMps km/minute, threeMps (km/min)), 3.0*60.0/1000.0),
-        (Seq(threeMps.cm/min, threeMps cm/minute, threeMps (cm/min)), 3.0*60.0/0.01)
+        ("velocity", "expected"),
+        (Seq(threeMps.`m/s`, threeMps `m/s`, threeMps (`m/s`),
+          threeMps.m/s, threeMps m/s, threeMps (m/s)), 3.0),
+
+        (Seq(threeMps.`km/h`, threeMps `km/h`, threeMps (`km/h`),
+          threeMps.km/h, threeMps km/h, threeMps (km/h)), 3.0 / 2.777778e-1),
+
+        (Seq(threeMps.km/min, threeMps km/minute, threeMps (km/min)), 3.0 / 16.66667),
+        (Seq(threeMps.cm/min, threeMps cm/minute, threeMps (cm/min)), 3.0 / 0.0001666667)
       )
 
     forAll(conversions){ (vs: Seq[Double], expected: Double) =>

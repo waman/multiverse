@@ -125,6 +125,13 @@ object VelocityUnit{
     new QuotientVelocityUnit(lUnit, tUnit)
 }
 
+trait PredefinedVelocityUnit{
+  val `m/s`  = VelocityUnit.MetrePerSecond
+  val `km/h` = VelocityUnit.KilometrePerHour
+}
+
+object PredefinedVelocityUnit extends PredefinedVelocityUnit
+
 trait VelocityUnitInterpreter[A]
     extends VelocityPostfixOps[Velocity[A]]
     with UnitConverter[A]{

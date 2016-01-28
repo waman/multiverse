@@ -13,7 +13,6 @@ trait TimePostfixOps[A]{
   def d     : A
 }
 
-
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends Quantity[A, TimeUnit]
     with TimePostfixOps[A]
@@ -46,6 +45,19 @@ object TimeUnit{
   case object Hour        extends TimeUnit("Hour"       , "h"     , r"3600")
   case object Day         extends TimeUnit("Day"        , "d"     , r"3600" * r"24")
 }
+
+trait PredefinedTimeUnit{
+
+  val ns  = TimeUnit.Nanosecond
+  val μs  = TimeUnit.Microsecond
+  val ms  = TimeUnit.Millisecond
+  val s   = TimeUnit.Second
+  val min = TimeUnit.Minute
+  val h   = TimeUnit.Hour
+  val d   = TimeUnit.Day
+}
+
+object PredefinedTimeUnit extends PredefinedTimeUnit
 
 trait TimeUnitInterpreter[A] extends TimePostfixOps[Time[A]]{
 

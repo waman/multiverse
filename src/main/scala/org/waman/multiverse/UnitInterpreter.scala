@@ -8,6 +8,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
     with VelocityUnitInterpreter[A]
     with AngleUnitInterpreter[A]
     with AngularVelocityUnitInterpreter[A]
+    with SolidAngleUnitInterpreter[A]
     with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -48,4 +49,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
 
   //***** Angular Velocity *****
   override def apply(unit: AngularVelocityUnit) = new AngularVelocity(value, unit)
+
+  //***** Solid Angle *****
+  override def apply(unit: SolidAngleUnit) = new SolidAngle(value, unit)
 }
