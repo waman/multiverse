@@ -4,6 +4,7 @@ import spire.math.Fractional
 
 class UnitInterpreter[A: Fractional](protected val value: A)
     extends LengthUnitInterpreter[A]
+    with AreaUnitInterpreter[A]
     with TimeUnitInterpreter[A]
     with VelocityUnitInterpreter[A]
     with AngleUnitInterpreter[A]
@@ -16,16 +17,8 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   //***** Length *****
   override def apply(lengthUnit: LengthUnit) = new Length(value, lengthUnit)
 
-  // Length -> Velocity
-  override protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
-    override def ns     = apply(lengthUnit / TimeUnit.Nanosecond)
-    override def μs     = apply(lengthUnit / TimeUnit.Microsecond)
-    override def ms     = apply(lengthUnit / TimeUnit.Millisecond)
-    override def s      = apply(lengthUnit / TimeUnit.Second)
-    override def minute = apply(lengthUnit / TimeUnit.Minute)
-    override def h      = apply(lengthUnit / TimeUnit.Hour)
-    override def d      = apply(lengthUnit / TimeUnit.Day)
-  }
+  //****** Area *****
+  override def apply(areaUnit: AreaUnit): Area[A] = new Area(value, areaUnit)
 
   //***** Time *****
   override def apply(timeUnit: TimeUnit) = new Time(value, timeUnit)
@@ -35,17 +28,6 @@ class UnitInterpreter[A: Fractional](protected val value: A)
 
   //***** Angle *****
   override def apply(angleUnit: AngleUnit) = new Angle(value, angleUnit)
-
-  override protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]] =
-    new TimePostfixOps[AngularVelocity[A]] {
-      override def ns     = apply(unit / TimeUnit.Nanosecond)
-      override def μs     = apply(unit / TimeUnit.Microsecond)
-      override def ms     = apply(unit / TimeUnit.Millisecond)
-      override def s      = apply(unit / TimeUnit.Second)
-      override def minute = apply(unit / TimeUnit.Minute)
-      override def h      = apply(unit / TimeUnit.Hour)
-      override def d      = apply(unit / TimeUnit.Day)
-    }
 
   //***** Angular Velocity *****
   override def apply(unit: AngularVelocityUnit) = new AngularVelocity(value, unit)

@@ -23,27 +23,26 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     else value * real(unit.inMetrePerSecond) / real(evalUnit.inMetrePerSecond)
 
   def `m/s`  = apply(VelocityUnit.MetrePerSecond)
-  def `km/h` = apply(VelocityUnit.KilometrePerHour)
+  def `km/h` = apply(VelocityUnit.KiloMetrePerHour)
 
   // for style like "velocity.m/s"
   private def callLength(lengthUnit: LengthUnit) = new DivisibleBy[TimeUnit, A]{
     override def /(timeUnit: TimeUnit): A = apply(lengthUnit / timeUnit)
   }
 
-  override def fm = callLength(LengthUnit.Femtometre)
-  override def pm = callLength(LengthUnit.Picometre)
-  override def nm = callLength(LengthUnit.Nanometre)
-  override def μm = callLength(LengthUnit.Micrometre)
-  override def mm = callLength(LengthUnit.Millimetre)
-  override def cm = callLength(LengthUnit.Centimetre)
+  override def fm = callLength(LengthUnit.FemtoMetre)
+  override def pm = callLength(LengthUnit.PicoMetre)
+  override def nm = callLength(LengthUnit.NanoMetre)
+  override def μm = callLength(LengthUnit.MicroMetre)
+  override def mm = callLength(LengthUnit.MilliMetre)
+  override def cm = callLength(LengthUnit.CentiMetre)
   override def m  = callLength(LengthUnit.Metre)
-  override def km = callLength(LengthUnit.Kilometre)
-  override def Mm = callLength(LengthUnit.Megametre)
-  override def Gm = callLength(LengthUnit.Gigametre)
-  override def Tm = callLength(LengthUnit.Terametre)
+  override def km = callLength(LengthUnit.KiloMetre)
+  override def Mm = callLength(LengthUnit.MegaMetre)
+  override def Gm = callLength(LengthUnit.GigaMetre)
+  override def Tm = callLength(LengthUnit.TeraMetre)
 
   // microscopic
-  override def f = callLength(LengthUnit.Fermi)
   override def Å = callLength(LengthUnit.Angstrom)
   override def μ = callLength(LengthUnit.Micron)
 
@@ -62,29 +61,28 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
 
   // for style like "velocity m/s"
   private def callLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[A]{
-    override def ns     = apply(lengthUnit / TimeUnit.Nanosecond)
-    override def μs     = apply(lengthUnit / TimeUnit.Microsecond)
-    override def ms     = apply(lengthUnit / TimeUnit.Millisecond)
+    override def ns     = apply(lengthUnit / TimeUnit.NanoSecond)
+    override def μs     = apply(lengthUnit / TimeUnit.MicroSecond)
+    override def ms     = apply(lengthUnit / TimeUnit.MilliSecond)
     override def s      = apply(lengthUnit / TimeUnit.Second)
     override def d      = apply(lengthUnit / TimeUnit.Day)
     override def minute = apply(lengthUnit / TimeUnit.Minute)
     override def h      = apply(lengthUnit / TimeUnit.Hour)
   }
 
-  override def fm(per: Per) = callLengthPer(LengthUnit.Femtometre)
-  override def pm(per: Per) = callLengthPer(LengthUnit.Picometre)
-  override def nm(per: Per) = callLengthPer(LengthUnit.Nanometre)
-  override def µm(per: Per) = callLengthPer(LengthUnit.Micrometre)
-  override def mm(per: Per) = callLengthPer(LengthUnit.Millimetre)
-  override def cm(per: Per) = callLengthPer(LengthUnit.Centimetre)
+  override def fm(per: Per) = callLengthPer(LengthUnit.FemtoMetre)
+  override def pm(per: Per) = callLengthPer(LengthUnit.PicoMetre)
+  override def nm(per: Per) = callLengthPer(LengthUnit.NanoMetre)
+  override def µm(per: Per) = callLengthPer(LengthUnit.MicroMetre)
+  override def mm(per: Per) = callLengthPer(LengthUnit.MilliMetre)
+  override def cm(per: Per) = callLengthPer(LengthUnit.CentiMetre)
   override def m (per: Per) = callLengthPer(LengthUnit.Metre)
-  override def km(per: Per) = callLengthPer(LengthUnit.Kilometre)
-  override def Mm(per: Per) = callLengthPer(LengthUnit.Megametre)
-  override def Gm(per: Per) = callLengthPer(LengthUnit.Megametre)
-  override def Tm(per: Per) = callLengthPer(LengthUnit.Gigametre)
+  override def km(per: Per) = callLengthPer(LengthUnit.KiloMetre)
+  override def Mm(per: Per) = callLengthPer(LengthUnit.MegaMetre)
+  override def Gm(per: Per) = callLengthPer(LengthUnit.MegaMetre)
+  override def Tm(per: Per) = callLengthPer(LengthUnit.GigaMetre)
 
   // microscopic
-  override def f(per: Per) = callLengthPer(LengthUnit.Fermi)
   override def Å(per: Per) = callLengthPer(LengthUnit.Angstrom)
   override def μ(per: Per) = callLengthPer(LengthUnit.Micron)
 
@@ -119,7 +117,7 @@ object VelocityUnit{
 
   case object MetrePerSecond extends QuotientVelocityUnit(LengthUnit.Metre, TimeUnit.Second)
 
-  case object KilometrePerHour extends QuotientVelocityUnit(LengthUnit.Kilometre, TimeUnit.Hour)
+  case object KiloMetrePerHour extends QuotientVelocityUnit(LengthUnit.KiloMetre, TimeUnit.Hour)
 
   def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit =
     new QuotientVelocityUnit(lUnit, tUnit)
@@ -127,7 +125,7 @@ object VelocityUnit{
 
 trait PredefinedVelocityUnit{
   val `m/s`  = VelocityUnit.MetrePerSecond
-  val `km/h` = VelocityUnit.KilometrePerHour
+  val `km/h` = VelocityUnit.KiloMetrePerHour
 }
 
 object PredefinedVelocityUnit extends PredefinedVelocityUnit
@@ -139,5 +137,5 @@ trait VelocityUnitInterpreter[A]
   def apply(unit: VelocityUnit): Velocity[A]
 
   def `m/s`  = apply(VelocityUnit.MetrePerSecond)
-  def `km/h` = apply(VelocityUnit.KilometrePerHour)
+  def `km/h` = apply(VelocityUnit.KiloMetrePerHour)
 }

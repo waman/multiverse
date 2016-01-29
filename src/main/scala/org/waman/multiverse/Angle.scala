@@ -6,14 +6,18 @@ import spire.implicits._
 
 trait AnglePostfixOps[A]{
   def rad: A
-  def deg: A
-  def °  : A
+
+  def deg : A
+  def °   : A
+  def grad: A
 }
 
 trait AnglePer[A]{
   def rad(per: Per): A
-  def deg(per: Per): A
-  def °(per: Per): A
+
+  def deg(per: Per) : A
+  def °(per: Per)   : A
+  def grad(per: Per): A
 }
 
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
@@ -29,8 +33,10 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     else value * real(unit.inRadian) / real(evalUnit.inRadian)
 
   override def rad: A = apply(AngleUnit.Radian)
-  override def deg: A = apply(AngleUnit.Degree)
-  override def °  : A = apply(AngleUnit.Degree)
+
+  override def deg : A = apply(AngleUnit.Degree)
+  override def °   : A = apply(AngleUnit.Degree)
+  override def grad: A = apply(AngleUnit.Gradian)
 
   override def /(timeUnit: TimeUnit): AngularVelocity[A] = new AngularVelocity(value, unit / timeUnit)
 }
@@ -46,12 +52,14 @@ object AngleUnit{
   case object Radian extends AngleUnit("Radian", "rad", r"1")
   case object Degree extends AngleUnit("Degree", "deg", Real.pi / r"180")
   case object SymbolicDegree extends AngleUnit("Degree", "°", Real.pi / r"180")
+  case object Gradian extends AngleUnit("Gradian", "grad", Real.pi / r"200")
 }
 
 trait PredefinedAngleUnit{
-  val rad = AngleUnit.Radian
-  val deg = AngleUnit.Degree
-  val °   = AngleUnit.SymbolicDegree
+  val rad  = AngleUnit.Radian
+  val deg  = AngleUnit.Degree
+  val °    = AngleUnit.SymbolicDegree
+  val grad = AngleUnit.Gradian
 }
 
 object PredefinedAngleUnit extends PredefinedAngleUnit
@@ -62,13 +70,26 @@ trait AngleUnitInterpreter[A]
 
   def apply(unit: AngleUnit): Angle[A]
 
-  override def rad: Angle[A] = apply(AngleUnit.Radian)
-  override def deg: Angle[A] = apply(AngleUnit.Degree)
-  override def °  : Angle[A] = apply(AngleUnit.SymbolicDegree)
+  override def rad : Angle[A] = apply(AngleUnit.Radian)
+  override def deg : Angle[A] = apply(AngleUnit.Degree)
+  override def °   : Angle[A] = apply(AngleUnit.SymbolicDegree)
+  override def grad: Angle[A] = apply(AngleUnit.Gradian)
 
-  protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]]
+  protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]] =
+    new TimePostfixOps[AngularVelocity[A]] {
+      override def ns     = apply(unit / TimeUnit.NanoSecond)
+      override def μs     = apply(unit / TimeUnit.MicroSecond)
+      override def ms     = apply(unit / TimeUnit.MilliSecond)
+      override def s      = apply(unit / TimeUnit.Second)
+      override def minute = apply(unit / TimeUnit.Minute)
+      override def h      = apply(unit / TimeUnit.Hour)
+      override def d      = apply(unit / TimeUnit.Day)
+    }
 
-  override def rad(per: Per) = newAnglePer(AngleUnit.Radian)
-  override def deg(per: Per) = newAnglePer(AngleUnit.Degree)
-  override def °(per: Per)   = newAnglePer(AngleUnit.SymbolicDegree)
+  def apply(unit: AngularVelocityUnit): AngularVelocity[A]
+
+  override def rad(per: Per)  = newAnglePer(AngleUnit.Radian)
+  override def deg(per: Per)  = newAnglePer(AngleUnit.Degree)
+  override def °(per: Per)    = newAnglePer(AngleUnit.SymbolicDegree)
+  override def grad(per: Per) = newAnglePer(AngleUnit.Gradian)
 }

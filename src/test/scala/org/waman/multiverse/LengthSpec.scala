@@ -7,9 +7,7 @@ import scala.language.postfixOps
 
 /**
   * Expected values are from
-  * <a href="https://ja.wikipedia.org/wiki/%E5%8D%98%E4%BD%8D%E3%81%AE%E6%8F%9B%E7%AE%97%E4%B8%80%E8%A6%A7">
-  *   単位の換算一覧
-  * </a>
+  * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
 class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
@@ -20,19 +18,18 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
     val result = UnitSystem.getSupportedUnits(classOf[LengthUnit])
     __Verify__
     result should contain theSameElementsAs Seq(
-      Femtometre,
-      Picometre,
-      Nanometre,
-      Micrometre,
-      Millimetre,
-      Centimetre,
+      FemtoMetre,
+      PicoMetre,
+      NanoMetre,
+      MicroMetre,
+      MilliMetre,
+      CentiMetre,
       Metre,
-      Kilometre,
-      Megametre,
-      Gigametre,
-      Terametre,
+      KiloMetre,
+      MegaMetre,
+      GigaMetre,
+      TeraMetre,
 
-      Fermi,
       Angstrom,
       Micron,
 
@@ -49,7 +46,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
     )
   }
 
-  "Tests where converting from some units to metre like 3.0 mm => 0.003 m" in {
+  "Tests where converting from some units to Metre like 3.0 mm => 0.003 m" in {
     val conversions =
       Table(
         ("length", "expected"),
@@ -66,7 +63,6 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(3.0.Tm, 3.0 Tm, 3.0 (Tm)), 3e12),
 
         // microscopic
-        (Seq(3.0.f, 3.0 f, 3.0 (f)), 3.0 * 1e-15),
         (Seq(3.0.Å, 3.0 Å, 3.0 (Å)), 3.0 * 1e-10),
         (Seq(3.0.μ, 3.0 μ, 3.0 (μ)), 3.0 * 1e-6),
 
@@ -93,7 +89,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
 
   val threeMetre = 3.0 m
 
-  "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
+  "Tests where converting Metre unit to other units like 3.0 m => 3000.0 mm" in {
     val conversions =
       Table(
         ("length", "expected"),
@@ -110,7 +106,6 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(threeMetre.Tm, threeMetre Tm, threeMetre (Tm)), 3e-12),
 
         // microscopic
-        (Seq(threeMetre.f, threeMetre f, threeMetre (f)), 3e15),
         (Seq(threeMetre.Å, threeMetre Å, threeMetre (Å)), 3e10),
         (Seq(threeMetre.μ, threeMetre μ, threeMetre (μ)), 3e6),
 

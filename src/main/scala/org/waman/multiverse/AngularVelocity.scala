@@ -28,23 +28,25 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
     override def /(timeUnit: TimeUnit): A = apply(angleUnit / timeUnit)
   }
 
-  override def rad = callAngle(AngleUnit.Radian)
-  override def deg = callAngle(AngleUnit.Degree)
-  override def °   = callAngle(AngleUnit.Degree)
+  override def rad  = callAngle(AngleUnit.Radian)
+  override def deg  = callAngle(AngleUnit.Degree)
+  override def °    = callAngle(AngleUnit.SymbolicDegree)
+  override def grad = callAngle(AngleUnit.Gradian)
 
   private def callAnglePer(angleUnit: AngleUnit) = new TimePostfixOps[A]{
-    override def ns     = apply(angleUnit / TimeUnit.Nanosecond)
-    override def μs     = apply(angleUnit / TimeUnit.Microsecond)
-    override def ms     = apply(angleUnit / TimeUnit.Millisecond)
+    override def ns     = apply(angleUnit / TimeUnit.NanoSecond)
+    override def μs     = apply(angleUnit / TimeUnit.MicroSecond)
+    override def ms     = apply(angleUnit / TimeUnit.MilliSecond)
     override def s      = apply(angleUnit / TimeUnit.Second)
     override def d      = apply(angleUnit / TimeUnit.Day)
     override def minute = apply(angleUnit / TimeUnit.Minute)
     override def h      = apply(angleUnit / TimeUnit.Hour)
   }
 
-  override def rad(per: Per) = callAnglePer(AngleUnit.Radian)
-  override def deg(per: Per) = callAnglePer(AngleUnit.Degree)
-  override def °  (per: Per) = callAnglePer(AngleUnit.Degree)
+  override def rad(per: Per)  = callAnglePer(AngleUnit.Radian)
+  override def deg(per: Per)  = callAnglePer(AngleUnit.Degree)
+  override def °(per: Per)    = callAnglePer(AngleUnit.SymbolicDegree)
+  override def grad(per: Per) = callAnglePer(AngleUnit.Gradian)
 }
 
 trait AngularVelocityUnit extends PhysicalUnit{

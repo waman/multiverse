@@ -7,9 +7,7 @@ import scala.language.postfixOps
 
 /**
   * Expected values are from
-  * <a href="https://ja.wikipedia.org/wiki/%E5%8D%98%E4%BD%8D%E3%81%AE%E6%8F%9B%E7%AE%97%E4%B8%80%E8%A6%A7">
-  *   単位の換算一覧
-  * </a>
+  * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
 class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
@@ -22,7 +20,8 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
     result should contain theSameElementsAs Seq(
       Radian,
       Degree,
-      SymbolicDegree
+      SymbolicDegree,
+      Gradian
     )
   }
 
@@ -30,9 +29,10 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
     val conversions =
       Table(
         ("angle", "expected"),
-        (Seq(3.0.rad, 3.0 rad, 3.0 (rad)), 3.0),
-        (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * 17.453293e-3),
-        (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * 17.453293e-3)
+        (Seq(3.0.rad , 3.0 rad , 3.0 (rad) ), 3.0),
+        (Seq(3.0.deg , 3.0 deg , 3.0 (deg)) , 3.0 * 17.453293e-3),
+        (Seq(3.0.°   , 3.0 °   , 3.0 (°))   , 3.0 * 17.453293e-3),
+        (Seq(3.0.grad, 3.0 grad, 3.0 (grad)), 3.0 * 15.707963e-3)
       )
 
     forAll(conversions){ (ls: Seq[Angle[Double]], expected: Double) =>
@@ -48,9 +48,10 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
     val conversions =
       Table(
         ("angle", "expected"),
-        (Seq(threeRadian.rad, threeRadian rad, threeRadian (rad)), 3.0),
-        (Seq(threeRadian.deg, threeRadian deg, threeRadian (deg)), 3.0 / 17.453293e-3),
-        (Seq(threeRadian.°  , threeRadian °  , threeRadian (°))  , 3.0 / 17.453293e-3)
+        (Seq(threeRadian.rad , threeRadian rad , threeRadian (rad)) , 3.0),
+        (Seq(threeRadian.deg , threeRadian deg , threeRadian (deg)) , 3.0 / 17.453293e-3),
+        (Seq(threeRadian.°   , threeRadian °   , threeRadian (°))   , 3.0 / 17.453293e-3),
+        (Seq(threeRadian.grad, threeRadian grad, threeRadian (grad)), 3.0 / 15.707963e-3)
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

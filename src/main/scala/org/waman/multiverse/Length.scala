@@ -39,7 +39,6 @@ trait LengthPostfixOps[A]{
 
   // microscopic
   def Å: A
-  def f: A
   def μ: A
 
   // astronomy
@@ -71,7 +70,6 @@ trait LengthPer[A]{
   def Tm(per: Per): A
 
   // astronomy
-  def f(per: Per): A
   def Å(per: Per): A
   def μ(per: Per): A
 
@@ -101,20 +99,19 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     *  For style like <code>length.m</code> and <code>length m</code>
     *  where <code>length</code> is a Length object
     */
-  override def fm: A = apply(LengthUnit.Femtometre)
-  override def pm: A = apply(LengthUnit.Picometre)
-  override def nm: A = apply(LengthUnit.Nanometre)
-  override def μm: A = apply(LengthUnit.Micrometre)
-  override def mm: A = apply(LengthUnit.Millimetre)
-  override def cm: A = apply(LengthUnit.Centimetre)
+  override def fm: A = apply(LengthUnit.FemtoMetre)
+  override def pm: A = apply(LengthUnit.PicoMetre)
+  override def nm: A = apply(LengthUnit.NanoMetre)
+  override def μm: A = apply(LengthUnit.MicroMetre)
+  override def mm: A = apply(LengthUnit.MilliMetre)
+  override def cm: A = apply(LengthUnit.CentiMetre)
   override def m : A = apply(LengthUnit.Metre)
-  override def km: A = apply(LengthUnit.Kilometre)
-  override def Mm: A = apply(LengthUnit.Megametre)
-  override def Gm: A = apply(LengthUnit.Gigametre)
-  override def Tm: A = apply(LengthUnit.Terametre)
+  override def km: A = apply(LengthUnit.KiloMetre)
+  override def Mm: A = apply(LengthUnit.MegaMetre)
+  override def Gm: A = apply(LengthUnit.GigaMetre)
+  override def Tm: A = apply(LengthUnit.TeraMetre)
 
   // microscopic
-  override def f: A = apply(LengthUnit.Fermi)
   override def Å: A = apply(LengthUnit.Angstrom)
   override def μ: A = apply(LengthUnit.Micron)
 
@@ -153,20 +150,19 @@ sealed abstract class LengthUnit(val name: String, val symbol: String, val inMet
 
 object LengthUnit{
 
-  case object Femtometre extends LengthUnit("Femtometre", "fm", r"1e-15")
-  case object Picometre  extends LengthUnit("Picometre" , "pm", r"1e-12")
-  case object Nanometre  extends LengthUnit("Nanometre" , "nm", r"1e-9")
-  case object Micrometre extends LengthUnit("Micrometre", "μm", r"1e-6")
-  case object Millimetre extends LengthUnit("Millimetre", "mm", r"1e-3")
-  case object Centimetre extends LengthUnit("Centimetre", "cm", r"1e-2")
+  case object FemtoMetre extends LengthUnit("FemtoMetre[Fermi]", "fm", r"1e-15")
+  case object PicoMetre  extends LengthUnit("PicoMetre" , "pm", r"1e-12")
+  case object NanoMetre  extends LengthUnit("NanoMetre" , "nm", r"1e-9")
+  case object MicroMetre extends LengthUnit("MicroMetre", "μm", r"1e-6")
+  case object MilliMetre extends LengthUnit("MilliMetre", "mm", r"1e-3")
+  case object CentiMetre extends LengthUnit("CentiMetre", "cm", r"1e-2")
   case object Metre      extends LengthUnit("Metre"     , "m" , r"1")
-  case object Kilometre  extends LengthUnit("Kilometre" , "km", r"1e3")
-  case object Megametre  extends LengthUnit("Megametre" , "Mm", r"1e6")
-  case object Gigametre  extends LengthUnit("Gigametre" , "Gm", r"1e9")
-  case object Terametre  extends LengthUnit("Terametre" , "Tm", r"1e12")
+  case object KiloMetre  extends LengthUnit("KiloMetre" , "km", r"1e3")
+  case object MegaMetre  extends LengthUnit("MegaMetre" , "Mm", r"1e6")
+  case object GigaMetre  extends LengthUnit("GigaMetre" , "Gm", r"1e9")
+  case object TeraMetre  extends LengthUnit("TeraMetre" , "Tm", r"1e12")
 
   // microscopic
-  case object Fermi    extends LengthUnit("Gigametre", "Gm", r"1e-15")
   case object Angstrom extends LengthUnit("Angstrom" , "Å" , r"1e-10")
   case object Micron   extends LengthUnit("Micron"   , "μ" , r"1e-6")
 
@@ -186,20 +182,19 @@ object LengthUnit{
 
 trait PredefinedLengthUnit{
 
-  val fm = LengthUnit.Femtometre
-  val pm = LengthUnit.Picometre
-  val nm = LengthUnit.Nanometre
-  val μm = LengthUnit.Micrometre
-  val mm = LengthUnit.Millimetre
-  val cm = LengthUnit.Centimetre
+  val fm = LengthUnit.FemtoMetre
+  val pm = LengthUnit.PicoMetre
+  val nm = LengthUnit.NanoMetre
+  val μm = LengthUnit.MicroMetre
+  val mm = LengthUnit.MilliMetre
+  val cm = LengthUnit.CentiMetre
   val m  = LengthUnit.Metre
-  val km = LengthUnit.Kilometre
-  val Mm = LengthUnit.Megametre
-  val Gm = LengthUnit.Gigametre
-  val Tm = LengthUnit.Terametre
+  val km = LengthUnit.KiloMetre
+  val Mm = LengthUnit.MegaMetre
+  val Gm = LengthUnit.GigaMetre
+  val Tm = LengthUnit.TeraMetre
 
   // microscopic
-  val f = LengthUnit.Fermi
   val Å = LengthUnit.Angstrom
   val μ = LengthUnit.Micron
 
@@ -226,20 +221,19 @@ trait LengthUnitInterpreter[A]
   // for style like "1.0 (m)" ( = "1.0.apply(m)")
   def apply(unit: LengthUnit): Length[A]
 
-  override def fm = apply(LengthUnit.Femtometre)
-  override def pm = apply(LengthUnit.Picometre)
-  override def nm = apply(LengthUnit.Nanometre)
-  override def μm = apply(LengthUnit.Micrometre)
-  override def mm = apply(LengthUnit.Millimetre)
-  override def cm = apply(LengthUnit.Centimetre)
+  override def fm = apply(LengthUnit.FemtoMetre)
+  override def pm = apply(LengthUnit.PicoMetre)
+  override def nm = apply(LengthUnit.NanoMetre)
+  override def μm = apply(LengthUnit.MicroMetre)
+  override def mm = apply(LengthUnit.MilliMetre)
+  override def cm = apply(LengthUnit.CentiMetre)
   override def m  = apply(LengthUnit.Metre)
-  override def km = apply(LengthUnit.Kilometre)
-  override def Mm = apply(LengthUnit.Megametre)
-  override def Gm = apply(LengthUnit.Gigametre)
-  override def Tm = apply(LengthUnit.Terametre)
+  override def km = apply(LengthUnit.KiloMetre)
+  override def Mm = apply(LengthUnit.MegaMetre)
+  override def Gm = apply(LengthUnit.GigaMetre)
+  override def Tm = apply(LengthUnit.TeraMetre)
 
   // microscopic
-  override def f = apply(LengthUnit.Fermi)
   override def μ = apply(LengthUnit.Micron)
   override def Å = apply(LengthUnit.Angstrom)
 
@@ -256,23 +250,33 @@ trait LengthUnitInterpreter[A]
   override def mi = apply(LengthUnit.Mile)
   override def NM = apply(LengthUnit.NauticalMile)
 
+  // Length -> Velocity
   // for style "1.0 m/s" ( = "1.0.m(/).s")
-  protected def newLengthPer(unit: LengthUnit): TimePostfixOps[Velocity[A]]
+  protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
+    override def ns     = apply(lengthUnit / TimeUnit.NanoSecond)
+    override def μs     = apply(lengthUnit / TimeUnit.MicroSecond)
+    override def ms     = apply(lengthUnit / TimeUnit.MilliSecond)
+    override def s      = apply(lengthUnit / TimeUnit.Second)
+    override def minute = apply(lengthUnit / TimeUnit.Minute)
+    override def h      = apply(lengthUnit / TimeUnit.Hour)
+    override def d      = apply(lengthUnit / TimeUnit.Day)
+  }
 
-  override def fm(per: Per) = newLengthPer(LengthUnit.Femtometre)
-  override def pm(per: Per) = newLengthPer(LengthUnit.Picometre)
-  override def nm(per: Per) = newLengthPer(LengthUnit.Nanometre)
-  override def µm(per: Per) = newLengthPer(LengthUnit.Micrometre)
-  override def mm(per: Per) = newLengthPer(LengthUnit.Millimetre)
-  override def cm(per: Per) = newLengthPer(LengthUnit.Centimetre)
+  def apply(velocityUnit: VelocityUnit): Velocity[A]
+
+  override def fm(per: Per) = newLengthPer(LengthUnit.FemtoMetre)
+  override def pm(per: Per) = newLengthPer(LengthUnit.PicoMetre)
+  override def nm(per: Per) = newLengthPer(LengthUnit.NanoMetre)
+  override def µm(per: Per) = newLengthPer(LengthUnit.MicroMetre)
+  override def mm(per: Per) = newLengthPer(LengthUnit.MilliMetre)
+  override def cm(per: Per) = newLengthPer(LengthUnit.CentiMetre)
   override def m(per: Per)  = newLengthPer(LengthUnit.Metre)
-  override def km(per: Per) = newLengthPer(LengthUnit.Kilometre)
-  override def Mm(per: Per) = newLengthPer(LengthUnit.Megametre)
-  override def Gm(per: Per) = newLengthPer(LengthUnit.Gigametre)
-  override def Tm(per: Per) = newLengthPer(LengthUnit.Terametre)
+  override def km(per: Per) = newLengthPer(LengthUnit.KiloMetre)
+  override def Mm(per: Per) = newLengthPer(LengthUnit.MegaMetre)
+  override def Gm(per: Per) = newLengthPer(LengthUnit.GigaMetre)
+  override def Tm(per: Per) = newLengthPer(LengthUnit.TeraMetre)
 
   // microscopic
-  override def f(per: Per) = newLengthPer(LengthUnit.Fermi)
   override def Å(per: Per) = newLengthPer(LengthUnit.Angstrom)
   override def μ(per: Per) = newLengthPer(LengthUnit.Micron)
 

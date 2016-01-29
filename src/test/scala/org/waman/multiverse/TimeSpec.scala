@@ -6,9 +6,7 @@ import scala.language.postfixOps
 
 /**
   * Expected values are from
-  * <a href="https://ja.wikipedia.org/wiki/%E5%8D%98%E4%BD%8D%E3%81%AE%E6%8F%9B%E7%AE%97%E4%B8%80%E8%A6%A7">
-  *   単位の換算一覧
-  * </a>
+  * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
 class TimeSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
 
@@ -19,9 +17,9 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSyst
     val result = UnitSystem.getSupportedUnits(classOf[TimeUnit])
     __Verify__
     result should contain theSameElementsAs Seq(
-      Nanosecond,
-      Microsecond,
-      Millisecond,
+      NanoSecond,
+      MicroSecond,
+      MilliSecond,
       Second,
       Minute,
       Hour,

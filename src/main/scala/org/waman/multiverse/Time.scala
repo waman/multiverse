@@ -24,9 +24,9 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
     if(unit == evalUnit) value
     else value * real(unit.inSecond) / real(evalUnit.inSecond)
 
-  override def ns     = apply(TimeUnit.Nanosecond)
-  override def μs     = apply(TimeUnit.Microsecond)
-  override def ms     = apply(TimeUnit.Millisecond)
+  override def ns     = apply(TimeUnit.NanoSecond)
+  override def μs     = apply(TimeUnit.MicroSecond)
+  override def ms     = apply(TimeUnit.MilliSecond)
   override def s      = apply(TimeUnit.Second)
   override def minute = apply(TimeUnit.Minute)
   override def h      = apply(TimeUnit.Hour)
@@ -37,9 +37,9 @@ sealed abstract class TimeUnit(val name: String, val symbol: String, val inSecon
 
 object TimeUnit{
 
-  case object Nanosecond  extends TimeUnit("Nanosecond" , "ns"    , r"1e-9")
-  case object Microsecond extends TimeUnit("Microsecond", "μs"    , r"1e-6")
-  case object Millisecond extends TimeUnit("Millisecond", "ms"    , r"1e-3")
+  case object NanoSecond  extends TimeUnit("NanoSecond" , "ns"    , r"1e-9")
+  case object MicroSecond extends TimeUnit("MicroSecond", "μs"    , r"1e-6")
+  case object MilliSecond extends TimeUnit("MilliSecond", "ms"    , r"1e-3")
   case object Second      extends TimeUnit("Second"     , "s"     , r"1")
   case object Minute      extends TimeUnit("Minute"     , "minute", r"60")
   case object Hour        extends TimeUnit("Hour"       , "h"     , r"3600")
@@ -48,9 +48,9 @@ object TimeUnit{
 
 trait PredefinedTimeUnit{
 
-  val ns  = TimeUnit.Nanosecond
-  val μs  = TimeUnit.Microsecond
-  val ms  = TimeUnit.Millisecond
+  val ns  = TimeUnit.NanoSecond
+  val μs  = TimeUnit.MicroSecond
+  val ms  = TimeUnit.MilliSecond
   val s   = TimeUnit.Second
   val min = TimeUnit.Minute
   val h   = TimeUnit.Hour
@@ -63,9 +63,9 @@ trait TimeUnitInterpreter[A] extends TimePostfixOps[Time[A]]{
 
   def apply(unit: TimeUnit): Time[A]
 
-  override def ns     = apply(TimeUnit.Nanosecond)
-  override def μs     = apply(TimeUnit.Microsecond)
-  override def ms     = apply(TimeUnit.Millisecond)
+  override def ns     = apply(TimeUnit.NanoSecond)
+  override def μs     = apply(TimeUnit.MicroSecond)
+  override def ms     = apply(TimeUnit.MilliSecond)
   override def s      = apply(TimeUnit.Second)
   override def minute = apply(TimeUnit.Minute)
   override def h      = apply(TimeUnit.Hour)
