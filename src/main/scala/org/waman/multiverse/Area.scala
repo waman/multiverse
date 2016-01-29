@@ -5,19 +5,31 @@ import spire.math.Fractional
 import spire.implicits._
 
 trait AreaPostfixOps[A]{
+
+  def ym2: A
+  def zm2: A
+  def am2: A
   def fm2: A
   def pm2: A
   def nm2: A
   def μm2: A
   def mm2: A
   def cm2: A
+  def dm2: A
   def m2 : A
-  def a  : A
-  def ha : A
+  def dam2: A
+  def hm2: A
   def km2: A
   def Mm2: A
   def Gm2: A
   def Tm2: A
+  def Pm2: A
+  def Em2: A
+  def Zm2: A
+  def Ym2: A
+
+  def a  : A
+  def ha : A
 
   // microscopic
   def yb: A
@@ -31,6 +43,12 @@ trait AreaPostfixOps[A]{
   def b : A
   def kb: A
   def Mb: A
+  def Gb: A
+  def Tb: A
+  def Pb: A
+  def Eb: A
+  def Zb: A
+  def Yb: A
 
   // yard-pond
   def ac: A
@@ -47,52 +65,81 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
     if(unit == evalUnit) value
     else value * real(unit.inSquareMetre) / real(evalUnit.inSquareMetre)
 
-  override def fm2: A = apply(AreaUnit.SquareFemtoMetre)
-  override def pm2: A = apply(AreaUnit.SquarePicoMetre)
-  override def nm2: A = apply(AreaUnit.SquareNanoMetre)
-  override def μm2: A = apply(AreaUnit.SquareMicroMetre)
-  override def mm2: A = apply(AreaUnit.SquareMilliMetre)
-  override def cm2: A = apply(AreaUnit.SquareCentiMetre)
-  override def m2 : A = apply(AreaUnit.SquareMetre)
-  override def a  : A = apply(AreaUnit.Are)
-  override def ha : A = apply(AreaUnit.Hectare)
-  override def km2: A = apply(AreaUnit.SquareKiloMetre)
-  override def Mm2: A = apply(AreaUnit.SquareMegaMetre)
-  override def Gm2: A = apply(AreaUnit.SquareGigaMetre)
-  override def Tm2: A = apply(AreaUnit.SquareTeraMetre)
+  override def ym2 = apply(AreaUnit.SquareYoctoMetre)
+  override def zm2 = apply(AreaUnit.SquareZeptoMetre)
+  override def am2 = apply(AreaUnit.SquareAttoMetre)
+  override def fm2 = apply(AreaUnit.SquareFemtoMetre)
+  override def pm2 = apply(AreaUnit.SquarePicoMetre)
+  override def nm2 = apply(AreaUnit.SquareNanoMetre)
+  override def μm2 = apply(AreaUnit.SquareMicroMetre)
+  override def mm2 = apply(AreaUnit.SquareMilliMetre)
+  override def cm2 = apply(AreaUnit.SquareCentiMetre)
+  override def dm2 = apply(AreaUnit.SquareDeciMetre)
+  override def m2  = apply(AreaUnit.SquareMetre)
+  override def dam2 = apply(AreaUnit.SquareDecaMetre)
+  override def hm2 = apply(AreaUnit.SquareHectoMetre)
+  override def km2 = apply(AreaUnit.SquareKiloMetre)
+  override def Mm2 = apply(AreaUnit.SquareMegaMetre)
+  override def Gm2 = apply(AreaUnit.SquareGigaMetre)
+  override def Tm2 = apply(AreaUnit.SquareTeraMetre)
+  override def Pm2 = apply(AreaUnit.SquarePetaMetre)
+  override def Em2 = apply(AreaUnit.SquareExaMetre)
+  override def Zm2 = apply(AreaUnit.SquareZettaMetre)
+  override def Ym2 = apply(AreaUnit.SquareYottaMetre)
 
-  override def yb: A = apply(AreaUnit.YoctoBarn)
-  override def zb: A = apply(AreaUnit.ZeptoBarn)
-  override def ab: A = apply(AreaUnit.AttoBarn)
-  override def fb: A = apply(AreaUnit.FemtoBarn)
-  override def pb: A = apply(AreaUnit.PicoBarn)
-  override def nb: A = apply(AreaUnit.NanoBarn)
-  override def μb: A = apply(AreaUnit.MicroBarn)
-  override def mb: A = apply(AreaUnit.MilliBarn)
-  override def b : A = apply(AreaUnit.Barn)
-  override def kb: A = apply(AreaUnit.KiloBarn)
-  override def Mb: A = apply(AreaUnit.MegaBarn)
+  override def a   = apply(AreaUnit.Are)
+  override def ha  = apply(AreaUnit.Hectare)
 
-  override def ac: A = apply(AreaUnit.Acre)
+  override def yb = apply(AreaUnit.YoctoBarn)
+  override def zb = apply(AreaUnit.ZeptoBarn)
+  override def ab = apply(AreaUnit.AttoBarn)
+  override def fb = apply(AreaUnit.FemtoBarn)
+  override def pb = apply(AreaUnit.PicoBarn)
+  override def nb = apply(AreaUnit.NanoBarn)
+  override def μb = apply(AreaUnit.MicroBarn)
+  override def mb = apply(AreaUnit.MilliBarn)
+  override def b  = apply(AreaUnit.Barn)
+  override def kb = apply(AreaUnit.KiloBarn)
+  override def Mb = apply(AreaUnit.MegaBarn)
+  override def Gb = apply(AreaUnit.GigaBarn)
+  override def Tb = apply(AreaUnit.TeraBarn)
+  override def Pb = apply(AreaUnit.PetaBarn)
+  override def Eb = apply(AreaUnit.ExaBarn)
+  override def Zb = apply(AreaUnit.ZettaBarn)
+  override def Yb = apply(AreaUnit.YottaBarn)
+
+  override def ac = apply(AreaUnit.Acre)
 }
 
 abstract class AreaUnit(val name: String, val symbol: String, val inSquareMetre: Real)
   extends PhysicalUnit
 
 object AreaUnit{
+
+  case object SquareYoctoMetre extends AreaUnit("SquareYoctoMetre" , "ym2", r"1e-48")
+  case object SquareZeptoMetre extends AreaUnit("SquareZeptoMetre" , "zm2", r"1e-42")
+  case object SquareAttoMetre  extends AreaUnit("SquareAttoMetre"  , "am2", r"1e-36")
   case object SquareFemtoMetre extends AreaUnit("SquareFemtoMetre" , "fm2", r"1e-30")
   case object SquarePicoMetre  extends AreaUnit("SquarePicoMetre"  , "pm2", r"1e-24")
   case object SquareNanoMetre  extends AreaUnit("SquareNanoMetre"  , "nm2", r"1e-18")
   case object SquareMicroMetre extends AreaUnit("SquareMicroMetre" , "μm2", r"1e-12")
   case object SquareMilliMetre extends AreaUnit("SquareMilliMetre" , "mm2", r"1e-6")
   case object SquareCentiMetre extends AreaUnit("SquareCentiMetre" , "cm2", r"1e-4")
+  case object SquareDeciMetre  extends AreaUnit("SquareDeciMetre"  , "dm2", r"1e-2")
   case object SquareMetre      extends AreaUnit("SquareMetre"      , "m2" , r"1")
-  case object Are              extends AreaUnit("Are"              , "a"  , r"1e2")
-  case object Hectare          extends AreaUnit("Hectare"          , "ha" , r"1e4")
+  case object SquareDecaMetre  extends AreaUnit("SquareDecaMetre"  , "dam2", r"1e2")
+  case object SquareHectoMetre extends AreaUnit("SquareHectoMetre" , "hm2", r"1e4")
   case object SquareKiloMetre  extends AreaUnit("SquareKiloMetre"  , "km2", r"1e6")
   case object SquareMegaMetre  extends AreaUnit("SquareMegaMetre"  , "Mm2", r"1e12")
   case object SquareGigaMetre  extends AreaUnit("SquareGigaMetre"  , "Gm2", r"1e18")
   case object SquareTeraMetre  extends AreaUnit("SquareTeraMetre"  , "Tm2", r"1e24")
+  case object SquarePetaMetre  extends AreaUnit("SquarePetaMetre"  , "Pm2", r"1e30")
+  case object SquareExaMetre   extends AreaUnit("SquareExaMetre"   , "Em2", r"1e36")
+  case object SquareZettaMetre extends AreaUnit("SquareZettaMetre" , "Zm2", r"1e42")
+  case object SquareYottaMetre extends AreaUnit("SquareYottaMetre" , "Ym2", r"1e48")
+
+  case object Are              extends AreaUnit("Are"              , "a"  , r"1e2")
+  case object Hectare          extends AreaUnit("Hectare"          , "ha" , r"1e4")
 
   case object YoctoBarn extends AreaUnit("YoctoBarn", "yb", r"1e-52")
   case object ZeptoBarn extends AreaUnit("ZeptoBarn", "zb", r"1e-49")
@@ -105,24 +152,42 @@ object AreaUnit{
   case object Barn      extends AreaUnit("Barn"     , "b" , r"1e-28")
   case object KiloBarn  extends AreaUnit("KiloBarn", "kb", r"1e-25")
   case object MegaBarn  extends AreaUnit("MegaBarn" , "Mb", r"1e-22")
+  case object GigaBarn  extends AreaUnit("GigaBarn" , "Mb", r"1e-19")
+  case object TeraBarn  extends AreaUnit("TeraBarn" , "Mb", r"1e-16")
+  case object PetaBarn  extends AreaUnit("PetaBarn" , "Pb", r"1e-13")
+  case object ExaBarn   extends AreaUnit("ExaBarn"  , "Eb", r"1e-10")
+  case object ZettaBarn extends AreaUnit("ZettaBarn", "Zb", r"1e-7")
+  case object YottaBarn extends AreaUnit("YottaBarn", "Yb", r"1e-4")
 
   case object Acre extends AreaUnit("Acre", "ac", r"4046.8564224")
 }
 
 trait PredefinedAreaUnit{
+
+  val ym2 = AreaUnit.SquareYoctoMetre
+  val zm2 = AreaUnit.SquareZeptoMetre
+  val am2 = AreaUnit.SquareAttoMetre
   val fm2 = AreaUnit.SquareFemtoMetre
   val pm2 = AreaUnit.SquarePicoMetre
   val nm2 = AreaUnit.SquareNanoMetre
   val μm2 = AreaUnit.SquareMicroMetre
   val mm2 = AreaUnit.SquareMilliMetre
   val cm2 = AreaUnit.SquareCentiMetre
+  val dm2 = AreaUnit.SquareDeciMetre
   val m2  = AreaUnit.SquareMetre
-  val a   = AreaUnit.Are
-  val ha  = AreaUnit.Hectare
+  val dam2 = AreaUnit.SquareDecaMetre
+  val hm2 = AreaUnit.SquareHectoMetre
   val km2 = AreaUnit.SquareKiloMetre
   val Mm2 = AreaUnit.SquareMegaMetre
   val Gm2 = AreaUnit.SquareGigaMetre
   val Tm2 = AreaUnit.SquareTeraMetre
+  val Pm2 = AreaUnit.SquarePetaMetre
+  val Em2 = AreaUnit.SquareExaMetre
+  val Zm2 = AreaUnit.SquareZettaMetre
+  val Ym2 = AreaUnit.SquareYottaMetre
+
+  val a   = AreaUnit.Are
+  val ha  = AreaUnit.Hectare
 
   val yb = AreaUnit.YoctoBarn
   val zb = AreaUnit.ZeptoBarn
@@ -135,6 +200,12 @@ trait PredefinedAreaUnit{
   val b  = AreaUnit.Barn
   val kb = AreaUnit.KiloBarn
   val Mb = AreaUnit.MegaBarn
+  val Gb = AreaUnit.GigaBarn
+  val Tb = AreaUnit.TeraBarn
+  val Pb = AreaUnit.PetaBarn
+  val Eb = AreaUnit.ExaBarn
+  val Zb = AreaUnit.ZettaBarn
+  val Yb = AreaUnit.YottaBarn
 
   val ac = AreaUnit.Acre
 }
@@ -146,33 +217,50 @@ trait AreaUnitInterpreter[A]
 
   def apply(unit: AreaUnit): Area[A]
 
-  override def fm2: Area[A] = apply(AreaUnit.SquareFemtoMetre)
-  override def pm2: Area[A] = apply(AreaUnit.SquarePicoMetre)
-  override def nm2: Area[A] = apply(AreaUnit.SquareNanoMetre)
-  override def μm2: Area[A] = apply(AreaUnit.SquareMicroMetre)
-  override def mm2: Area[A] = apply(AreaUnit.SquareMilliMetre)
-  override def cm2: Area[A] = apply(AreaUnit.SquareCentiMetre)
-  override def m2 : Area[A] = apply(AreaUnit.SquareMetre)
-  override def a  : Area[A] = apply(AreaUnit.Are)
-  override def ha : Area[A] = apply(AreaUnit.Hectare)
-  override def km2: Area[A] = apply(AreaUnit.SquareKiloMetre)
-  override def Mm2: Area[A] = apply(AreaUnit.SquareMegaMetre)
-  override def Gm2: Area[A] = apply(AreaUnit.SquareGigaMetre)
-  override def Tm2: Area[A] = apply(AreaUnit.SquareTeraMetre)
+  override def ym2 = apply(AreaUnit.SquareYoctoMetre)
+  override def zm2 = apply(AreaUnit.SquareZeptoMetre)
+  override def am2 = apply(AreaUnit.SquareAttoMetre)
+  override def fm2 = apply(AreaUnit.SquareFemtoMetre)
+  override def pm2 = apply(AreaUnit.SquarePicoMetre)
+  override def nm2 = apply(AreaUnit.SquareNanoMetre)
+  override def μm2 = apply(AreaUnit.SquareMicroMetre)
+  override def mm2 = apply(AreaUnit.SquareMilliMetre)
+  override def cm2 = apply(AreaUnit.SquareCentiMetre)
+  override def dm2 = apply(AreaUnit.SquareDeciMetre)
+  override def m2  = apply(AreaUnit.SquareMetre)
+  override def dam2 = apply(AreaUnit.SquareDecaMetre)
+  override def hm2 = apply(AreaUnit.SquareHectoMetre)
+  override def km2 = apply(AreaUnit.SquareKiloMetre)
+  override def Mm2 = apply(AreaUnit.SquareMegaMetre)
+  override def Gm2 = apply(AreaUnit.SquareGigaMetre)
+  override def Tm2 = apply(AreaUnit.SquareTeraMetre)
+  override def Pm2 = apply(AreaUnit.SquarePetaMetre)
+  override def Em2 = apply(AreaUnit.SquareExaMetre)
+  override def Zm2 = apply(AreaUnit.SquareZettaMetre)
+  override def Ym2 = apply(AreaUnit.SquareYottaMetre)
+
+  override def a   = apply(AreaUnit.Are)
+  override def ha  = apply(AreaUnit.Hectare)
 
   // microscopic
-  override def yb: Area[A] = apply(AreaUnit.YoctoBarn)
-  override def zb: Area[A] = apply(AreaUnit.ZeptoBarn)
-  override def ab: Area[A] = apply(AreaUnit.AttoBarn)
-  override def fb: Area[A] = apply(AreaUnit.FemtoBarn)
-  override def pb: Area[A] = apply(AreaUnit.PicoBarn)
-  override def nb: Area[A] = apply(AreaUnit.NanoBarn)
-  override def μb: Area[A] = apply(AreaUnit.MicroBarn)
-  override def mb: Area[A] = apply(AreaUnit.MilliBarn)
-  override def b : Area[A] = apply(AreaUnit.Barn)
-  override def kb: Area[A] = apply(AreaUnit.KiloBarn)
-  override def Mb: Area[A] = apply(AreaUnit.MegaBarn)
+  override def yb = apply(AreaUnit.YoctoBarn)
+  override def zb = apply(AreaUnit.ZeptoBarn)
+  override def ab = apply(AreaUnit.AttoBarn)
+  override def fb = apply(AreaUnit.FemtoBarn)
+  override def pb = apply(AreaUnit.PicoBarn)
+  override def nb = apply(AreaUnit.NanoBarn)
+  override def μb = apply(AreaUnit.MicroBarn)
+  override def mb = apply(AreaUnit.MilliBarn)
+  override def b  = apply(AreaUnit.Barn)
+  override def kb = apply(AreaUnit.KiloBarn)
+  override def Mb = apply(AreaUnit.MegaBarn)
+  override def Gb = apply(AreaUnit.GigaBarn)
+  override def Tb = apply(AreaUnit.TeraBarn)
+  override def Pb = apply(AreaUnit.PetaBarn)
+  override def Eb = apply(AreaUnit.ExaBarn)
+  override def Zb = apply(AreaUnit.ZettaBarn)
+  override def Yb = apply(AreaUnit.YottaBarn)
 
   // yard-pond
-  override def ac: Area[A] = apply(AreaUnit.Acre)
+  override def ac = apply(AreaUnit.Acre)
 }

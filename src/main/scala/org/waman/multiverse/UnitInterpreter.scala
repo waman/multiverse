@@ -5,6 +5,7 @@ import spire.math.Fractional
 class UnitInterpreter[A: Fractional](protected val value: A)
     extends LengthUnitInterpreter[A]
     with AreaUnitInterpreter[A]
+    with VolumeUnitInterpreter[A]
     with TimeUnitInterpreter[A]
     with VelocityUnitInterpreter[A]
     with AngleUnitInterpreter[A]
@@ -19,6 +20,9 @@ class UnitInterpreter[A: Fractional](protected val value: A)
 
   //****** Area *****
   override def apply(areaUnit: AreaUnit): Area[A] = new Area(value, areaUnit)
+
+  //***** Volume *****
+  override def apply(volumeUnit: VolumeUnit): Volume[A] = new Volume(value, volumeUnit)
 
   //***** Time *****
   override def apply(timeUnit: TimeUnit) = new Time(value, timeUnit)

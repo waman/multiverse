@@ -32,11 +32,11 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     if(unit == evalUnit) value
     else value * real(unit.inRadian) / real(evalUnit.inRadian)
 
-  override def rad: A = apply(AngleUnit.Radian)
+  override def rad  = apply(AngleUnit.Radian)
 
-  override def deg : A = apply(AngleUnit.Degree)
-  override def °   : A = apply(AngleUnit.Degree)
-  override def grad: A = apply(AngleUnit.Gradian)
+  override def deg  = apply(AngleUnit.Degree)
+  override def °    = apply(AngleUnit.Degree)
+  override def grad = apply(AngleUnit.Gradian)
 
   override def /(timeUnit: TimeUnit): AngularVelocity[A] = new AngularVelocity(value, unit / timeUnit)
 }
@@ -70,10 +70,10 @@ trait AngleUnitInterpreter[A]
 
   def apply(unit: AngleUnit): Angle[A]
 
-  override def rad : Angle[A] = apply(AngleUnit.Radian)
-  override def deg : Angle[A] = apply(AngleUnit.Degree)
-  override def °   : Angle[A] = apply(AngleUnit.SymbolicDegree)
-  override def grad: Angle[A] = apply(AngleUnit.Gradian)
+  override def rad  = apply(AngleUnit.Radian)
+  override def deg  = apply(AngleUnit.Degree)
+  override def °    = apply(AngleUnit.SymbolicDegree)
+  override def grad = apply(AngleUnit.Gradian)
 
   protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]] =
     new TimePostfixOps[AngularVelocity[A]] {

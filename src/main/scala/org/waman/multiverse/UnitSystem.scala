@@ -18,6 +18,7 @@ trait UnitSystem{
 
 object UnitSystem extends PredefinedLengthUnit
   with PredefinedAreaUnit
+  with PredefinedVolumeUnit
   with PredefinedTimeUnit
   with PredefinedVelocityUnit
   with PredefinedAngleUnit
@@ -25,7 +26,7 @@ object UnitSystem extends PredefinedLengthUnit
   with PredefinedSolidAngleUnit{
 
   def getSupportedQuantities: Seq[String] =
-    Seq("Length", "Area", "Time", "Velocity", "Angle", "AngularVelocity", "SolidAngle")
+    Seq("Length", "Area", "Volume", "Time", "Velocity", "Angle", "AngularVelocity", "SolidAngle")
 
   def getSupportedUnits[U <: PhysicalUnit](quantityName: String): Seq[U] = {
     val unitType = Class.forName(s"org.waman.multiverse.${quantityName}Unit").asInstanceOf[Class[U]]

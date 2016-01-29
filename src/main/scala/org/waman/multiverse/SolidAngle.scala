@@ -5,7 +5,7 @@ import spire.math.Fractional
 import spire.implicits._
 
 trait SolidAnglePostfixOps[A]{
-  def sr: A
+  def sr  : A
   def deg2: A
 }
 
@@ -20,8 +20,8 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
     if(unit == evalUnit) value
     else value * real(unit.inSteradian) / real(evalUnit.inSteradian)
 
-  override def sr  : A = apply(SolidAngleUnit.Steradian)
-  override def deg2: A = apply(SolidAngleUnit.SquareDegree)
+  override def sr   = apply(SolidAngleUnit.Steradian)
+  override def deg2 = apply(SolidAngleUnit.SquareDegree)
 }
 
 abstract class SolidAngleUnit(val name: String, val symbol: String, val inSteradian: Real)
@@ -33,7 +33,7 @@ object SolidAngleUnit{
 }
 
 trait PredefinedSolidAngleUnit{
-  val sr = SolidAngleUnit.Steradian
+  val sr   = SolidAngleUnit.Steradian
   val deg2 = SolidAngleUnit.SquareDegree
 }
 
@@ -44,6 +44,6 @@ trait SolidAngleUnitInterpreter[A]
 
   def apply(unit: SolidAngleUnit): SolidAngle[A]
 
-  override def sr  : SolidAngle[A] = apply(SolidAngleUnit.Steradian)
-  override def deg2: SolidAngle[A] = apply(SolidAngleUnit.SquareDegree)
+  override def sr   = apply(SolidAngleUnit.Steradian)
+  override def deg2 = apply(SolidAngleUnit.SquareDegree)
 }

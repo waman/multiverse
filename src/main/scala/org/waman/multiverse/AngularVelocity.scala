@@ -21,8 +21,8 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
     if(unit == evalUnit) value
     else value * real(unit.inRadianPerSecond) / real(evalUnit.inRadianPerSecond)
 
-  override def `rad/s`: A = apply(AngularVelocityUnit.RadianPerSecond)
-  override def `deg/s`: A = apply(AngularVelocityUnit.DegreePerSecond)
+  override def `rad/s` = apply(AngularVelocityUnit.RadianPerSecond)
+  override def `deg/s` = apply(AngularVelocityUnit.DegreePerSecond)
 
   private def callAngle(angleUnit: AngleUnit) = new DivisibleBy[TimeUnit, A]{
     override def /(timeUnit: TimeUnit): A = apply(angleUnit / timeUnit)
@@ -85,7 +85,7 @@ trait AngularVelocityUnitInterpreter[A] extends AngularVelocityPostfixOps[Angula
 
   def apply(unit: AngularVelocityUnit): AngularVelocity[A]
 
-  override def `rad/s`: AngularVelocity[A] = apply(AngularVelocityUnit.RadianPerSecond)
-  override def `deg/s`: AngularVelocity[A] = apply(AngularVelocityUnit.DegreePerSecond)
+  override def `rad/s` = apply(AngularVelocityUnit.RadianPerSecond)
+  override def `deg/s` = apply(AngularVelocityUnit.DegreePerSecond)
 
 }
