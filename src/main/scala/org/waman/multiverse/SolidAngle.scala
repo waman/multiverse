@@ -24,12 +24,16 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
   override def deg2 = apply(SolidAngleUnit.SquareDegree)
 }
 
-abstract class SolidAngleUnit(val name: String, val symbol: String, val inSteradian: Real)
-  extends PhysicalUnit
+abstract class SolidAngleUnit(val symbol: String, val inSteradian: Real)
+  extends PhysicalUnit {
+
+  override protected def baseUnit = SolidAngleUnit.Steradian
+  override protected def inBaseUnitAccessor = () => inSteradian
+}
 
 object SolidAngleUnit{
-  case object Steradian extends SolidAngleUnit("Steradian", "sr", r"1")
-  case object SquareDegree extends SolidAngleUnit("SquareDegree", "deg2", (Real.pi / r"180")**2)
+  case object Steradian    extends SolidAngleUnit("sr", r"1")
+  case object SquareDegree extends SolidAngleUnit("deg2", (Real.pi / r"180")**2)
 }
 
 trait PredefinedSolidAngleUnit{

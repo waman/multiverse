@@ -57,7 +57,7 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   override def μ = callLength(LengthUnit.Micron)
 
   // astronomy
-  override def au = callLength(LengthUnit.AstronomicalUnit)
+  override def AU = callLength(LengthUnit.AstronomicalUnit)
   override def ly = callLength(LengthUnit.LightYear)
   override def pc = callLength(LengthUnit.Parsec)
 
@@ -107,7 +107,7 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   override def μ(per: Per) = callLengthPer(LengthUnit.Micron)
 
   // astronomy
-  override def au(per: Per) = callLengthPer(LengthUnit.AstronomicalUnit)
+  override def AU(per: Per) = callLengthPer(LengthUnit.AstronomicalUnit)
   override def ly(per: Per) = callLengthPer(LengthUnit.LightYear)
   override def pc(per: Per) = callLengthPer(LengthUnit.Parsec)
 
@@ -122,6 +122,9 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
 
 sealed trait VelocityUnit extends PhysicalUnit{
   def inMetrePerSecond: Real
+
+  override protected def baseUnit = VelocityUnit.MetrePerSecond
+  override protected def inBaseUnitAccessor = () => inMetrePerSecond
 }
 
 class QuotientVelocityUnit(val lengthUnit: LengthUnit, val timeUnit: TimeUnit)

@@ -51,6 +51,9 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
 trait AngularVelocityUnit extends PhysicalUnit{
   def inRadianPerSecond: Real
+
+  override protected def baseUnit = AngularVelocityUnit.RadianPerSecond
+  override protected def inBaseUnitAccessor = () => inRadianPerSecond
 }
 
 sealed class QuotientAngularVelocityUnit(val angleUnit: AngleUnit, val timeUnit: TimeUnit)

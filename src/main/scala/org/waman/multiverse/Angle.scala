@@ -41,18 +41,21 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
   override def /(timeUnit: TimeUnit): AngularVelocity[A] = new AngularVelocity(value, unit / timeUnit)
 }
 
-abstract class AngleUnit(val name: String, val symbol: String, val inRadian: Real)
+abstract class AngleUnit(val symbol: String, val inRadian: Real)
     extends PhysicalUnit
     with DivisibleBy[TimeUnit, AngularVelocityUnit]{
+
+  override protected def baseUnit = AngleUnit.Radian
+  override protected def inBaseUnitAccessor = () => inRadian
 
   override def /(timeUnit: TimeUnit): AngularVelocityUnit = AngularVelocityUnit(this, timeUnit)
 }
 
 object AngleUnit{
-  case object Radian extends AngleUnit("Radian", "rad", r"1")
-  case object Degree extends AngleUnit("Degree", "deg", Real.pi / r"180")
-  case object SymbolicDegree extends AngleUnit("Degree", "°", Real.pi / r"180")
-  case object Gradian extends AngleUnit("Gradian", "grad", Real.pi / r"200")
+  case object Radian extends AngleUnit("rad", r"1")
+  case object Degree extends AngleUnit("deg", Real.pi / r"180")
+  case object SymbolicDegree extends AngleUnit("°", Real.pi / r"180")
+  case object Gradian extends AngleUnit("grad", Real.pi / r"200")
 }
 
 trait PredefinedAngleUnit{

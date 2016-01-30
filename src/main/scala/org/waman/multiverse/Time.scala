@@ -33,17 +33,22 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   override def d      = apply(TimeUnit.Day)
 }
 
-sealed abstract class TimeUnit(val name: String, val symbol: String, val inSecond: Real) extends PhysicalUnit
+sealed abstract class TimeUnit(val symbol: String, val inSecond: Real)
+  extends PhysicalUnit {
+
+  override protected def baseUnit = TimeUnit.Second
+  override protected def inBaseUnitAccessor = () => inSecond
+}
 
 object TimeUnit{
 
-  case object NanoSecond  extends TimeUnit("NanoSecond" , "ns"    , r"1e-9")
-  case object MicroSecond extends TimeUnit("MicroSecond", "μs"    , r"1e-6")
-  case object MilliSecond extends TimeUnit("MilliSecond", "ms"    , r"1e-3")
-  case object Second      extends TimeUnit("Second"     , "s"     , r"1")
-  case object Minute      extends TimeUnit("Minute"     , "minute", r"60")
-  case object Hour        extends TimeUnit("Hour"       , "h"     , r"3600")
-  case object Day         extends TimeUnit("Day"        , "d"     , r"3600" * r"24")
+  case object NanoSecond  extends TimeUnit("ns"    , r"1e-9")
+  case object MicroSecond extends TimeUnit("μs"    , r"1e-6")
+  case object MilliSecond extends TimeUnit("ms"    , r"1e-3")
+  case object Second      extends TimeUnit("s"     , r"1")
+  case object Minute      extends TimeUnit("minute", r"60")
+  case object Hour        extends TimeUnit("h"     , r"3600")
+  case object Day         extends TimeUnit("d"     , r"3600" * r"24")
 }
 
 trait PredefinedTimeUnit{

@@ -52,7 +52,7 @@ trait LengthPostfixOps[A]{
   def μ: A
 
   // astronomy
-  def au: A
+  def AU: A
   def ly: A
   def pc: A
 
@@ -94,7 +94,7 @@ trait LengthPer[A]{
   def μ(per: Per): A
 
   // astronomy
-  def au(per: Per): A
+  def AU(per: Per): A
   def ly(per: Per): A
   def pc(per: Per): A
 
@@ -146,7 +146,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   override def μ = apply(LengthUnit.Micron)
 
   // astronomy
-  override def au = apply(LengthUnit.AstronomicalUnit)
+  override def AU = apply(LengthUnit.AstronomicalUnit)
   override def ly = apply(LengthUnit.LightYear)
   override def pc = apply(LengthUnit.Parsec)
 
@@ -171,53 +171,56 @@ object Length{
   def prankLength: Length[Real] = new Length(r"1.61624e-35", LengthUnit.Metre)  // TODO
 }
 
-sealed abstract class LengthUnit(val name: String, val symbol: String, val inMetre: Real)
+sealed abstract class LengthUnit(val symbol: String, val inMetre: Real)
     extends PhysicalUnit
     with DivisibleBy[TimeUnit, VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
+
+  override protected def baseUnit = LengthUnit.Metre
+  override protected def inBaseUnitAccessor = () => inMetre
 
   override def /(timeUnit: TimeUnit): VelocityUnit = VelocityUnit(this, timeUnit)
 }
 
 object LengthUnit{
 
-  case object YoctoMetre extends LengthUnit("PicoMetre" , "ym", r"1e-24")
-  case object ZeptoMetre extends LengthUnit("NanoMetre" , "zm", r"1e-21")
-  case object AttoMetre  extends LengthUnit("MicroMetre", "am", r"1e-18")
-  case object FemtoMetre extends LengthUnit("FemtoMetre", "am", r"1e-15")
-  case object PicoMetre  extends LengthUnit("PicoMetre" , "pm", r"1e-12")
-  case object NanoMetre  extends LengthUnit("NanoMetre" , "nm", r"1e-9")
-  case object MicroMetre extends LengthUnit("MicroMetre", "μm", r"1e-6")
-  case object MilliMetre extends LengthUnit("MilliMetre", "mm", r"1e-3")
-  case object CentiMetre extends LengthUnit("CentiMetre", "cm", r"1e-2")
-  case object DeciMetre  extends LengthUnit("DeciMetre" , "dm", r"1e-1")
-  case object Metre      extends LengthUnit("Metre"     , "m" , r"1")
-  case object DecaMetre  extends LengthUnit("DecaMetre" , "dam", r"10")
-  case object HectoMetre extends LengthUnit("HectoMetre", "hm", r"1e2")
-  case object KiloMetre  extends LengthUnit("KiloMetre" , "km", r"1e3")
-  case object MegaMetre  extends LengthUnit("MegaMetre" , "Mm", r"1e6")
-  case object GigaMetre  extends LengthUnit("GigaMetre" , "Gm", r"1e9")
-  case object TeraMetre  extends LengthUnit("TeraMetre" , "Tm", r"1e12")
-  case object PetaMetre  extends LengthUnit("PetaMetre" , "Pm", r"1e15")
-  case object ExaMetre   extends LengthUnit("ExaMetre"  , "Em", r"1e18")
-  case object ZettaMetre extends LengthUnit("ZettaMetre" , "Zm", r"1e21")
-  case object YottaMetre extends LengthUnit("YottaMetre" , "Ym", r"1e24")
+  case object YoctoMetre extends LengthUnit("ym", r"1e-24")
+  case object ZeptoMetre extends LengthUnit("zm", r"1e-21")
+  case object AttoMetre  extends LengthUnit("am", r"1e-18")
+  case object FemtoMetre extends LengthUnit("am", r"1e-15")
+  case object PicoMetre  extends LengthUnit("pm", r"1e-12")
+  case object NanoMetre  extends LengthUnit("nm", r"1e-9")
+  case object MicroMetre extends LengthUnit("μm", r"1e-6")
+  case object MilliMetre extends LengthUnit("mm", r"1e-3")
+  case object CentiMetre extends LengthUnit("cm", r"1e-2")
+  case object DeciMetre  extends LengthUnit("dm", r"1e-1")
+  case object Metre      extends LengthUnit("m" , r"1")
+  case object DecaMetre  extends LengthUnit("dam", r"10")
+  case object HectoMetre extends LengthUnit("hm", r"1e2")
+  case object KiloMetre  extends LengthUnit("km", r"1e3")
+  case object MegaMetre  extends LengthUnit("Mm", r"1e6")
+  case object GigaMetre  extends LengthUnit("Gm", r"1e9")
+  case object TeraMetre  extends LengthUnit("Tm", r"1e12")
+  case object PetaMetre  extends LengthUnit("Pm", r"1e15")
+  case object ExaMetre   extends LengthUnit("Em", r"1e18")
+  case object ZettaMetre extends LengthUnit("Zm", r"1e21")
+  case object YottaMetre extends LengthUnit("Ym", r"1e24")
 
   // microscopic
-  case object Angstrom extends LengthUnit("Angstrom" , "Å" , r"1e-10")
-  case object Micron   extends LengthUnit("Micron"   , "μ" , r"1e-6")
+  case object Angstrom extends LengthUnit("Å" , r"1e-10")
+  case object Micron   extends LengthUnit("μ" , r"1e-6")
 
   // astronomy
-  case object AstronomicalUnit extends LengthUnit("AstronomicalUnit", "au", r"149597870700")
-  case object LightYear        extends LengthUnit("LightYear"       , "ly", r"9.4607304725808e15")
-  case object Parsec           extends LengthUnit("Parsec"          , "pc", r"3.08567782e16")
+  case object AstronomicalUnit extends LengthUnit("AU", r"149597870700")
+  case object LightYear        extends LengthUnit("ly", r"9.4607304725808e15")
+  case object Parsec           extends LengthUnit("pc", r"3.08567782e16")
 
   // yard-pond
-  case object Point extends LengthUnit("Point", "pt", r"1/72" * Inch.inMetre)
-  case object Inch extends LengthUnit("Inch", "in", r"0.0254")
-  case object Feet extends LengthUnit("Feet", "ft", r"0.3048")
-  case object Yard extends LengthUnit("Yard", "yd", r"0.9144")
-  case object Mile extends LengthUnit("Mile", "mi", r"1609.344")
-  case object NauticalMile extends LengthUnit("NauticalMile", "NM", r"1852")
+  case object Point extends LengthUnit("pt", r"1/72" * Inch.inMetre)
+  case object Inch extends LengthUnit("in", r"0.0254")
+  case object Feet extends LengthUnit("ft", r"0.3048")
+  case object Yard extends LengthUnit("yd", r"0.9144")
+  case object Mile extends LengthUnit("mi", r"1609.344")
+  case object NauticalMile extends LengthUnit("NM", r"1852")
 }
 
 trait PredefinedLengthUnit{
@@ -249,7 +252,7 @@ trait PredefinedLengthUnit{
   val μ = LengthUnit.Micron
 
   // astronomy
-  val au = LengthUnit.AstronomicalUnit
+  val AU = LengthUnit.AstronomicalUnit
   val ly = LengthUnit.LightYear
   val pc = LengthUnit.Parsec
 
@@ -298,7 +301,7 @@ trait LengthUnitInterpreter[A]
   override def Å = apply(LengthUnit.Angstrom)
 
   // astronomy
-  override def au = apply(LengthUnit.AstronomicalUnit)
+  override def AU = apply(LengthUnit.AstronomicalUnit)
   override def ly = apply(LengthUnit.LightYear)
   override def pc = apply(LengthUnit.Parsec)
 
@@ -351,7 +354,7 @@ trait LengthUnitInterpreter[A]
   override def μ(per: Per) = newLengthPer(LengthUnit.Micron)
 
   // astronomy
-  override def au(per: Per) = newLengthPer(LengthUnit.AstronomicalUnit)
+  override def AU(per: Per) = newLengthPer(LengthUnit.AstronomicalUnit)
   override def ly(per: Per) = newLengthPer(LengthUnit.LightYear)
   override def pc(per: Per) = newLengthPer(LengthUnit.Parsec)
 
