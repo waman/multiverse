@@ -246,7 +246,6 @@ trait LengthUnitInterpreter[A]
   // Length -> Velocity
   // for style "1.0 m/s" ( = "1.0.m(/).s")
   protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
-
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(lengthUnit / timeUnit)
   }
 

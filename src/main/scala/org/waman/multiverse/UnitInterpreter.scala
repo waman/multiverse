@@ -2,40 +2,30 @@ package org.waman.multiverse
 
 import spire.math.Fractional
 
-class UnitInterpreter[A: Fractional](protected val value: A)
-    extends LengthUnitInterpreter[A]
-    with AreaUnitInterpreter[A]
-    with VolumeUnitInterpreter[A]
-    with TimeUnitInterpreter[A]
-    with VelocityUnitInterpreter[A]
-    with AngleUnitInterpreter[A]
-    with AngularVelocityUnitInterpreter[A]
-    with SolidAngleUnitInterpreter[A]
-    with UnitConverter[A]{
+class UnitInterpreter[A: Fractional](protected val value: A) extends LengthUnitInterpreter[A]
+  with AreaUnitInterpreter[A]
+  with VolumeUnitInterpreter[A]
+  with AngleUnitInterpreter[A]
+  with SolidAngleUnitInterpreter[A]
+  with MassUnitInterpreter[A]
+  with DensityUnitInterpreter[A]
+  with TimeUnitInterpreter[A]
+  with FrequencyUnitInterpreter[A]
+  with VelocityUnitInterpreter[A]
+  with AngularVelocityUnitInterpreter[A]
+  with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
 
-  //***** Length *****
-  override def apply(lengthUnit: LengthUnit) = new Length(value, lengthUnit)
-
-  //****** Area *****
-  override def apply(areaUnit: AreaUnit): Area[A] = new Area(value, areaUnit)
-
-  //***** Volume *****
-  override def apply(volumeUnit: VolumeUnit): Volume[A] = new Volume(value, volumeUnit)
-
-  //***** Time *****
-  override def apply(timeUnit: TimeUnit) = new Time(value, timeUnit)
-
-  //***** Velocity *****
-  override def apply(velocityUnit: VelocityUnit) = new Velocity(value, velocityUnit)
-
-  //***** Angle *****
-  override def apply(angleUnit: AngleUnit) = new Angle(value, angleUnit)
-
-  //***** Angular Velocity *****
-  override def apply(unit: AngularVelocityUnit) = new AngularVelocity(value, unit)
-
-  //***** Solid Angle *****
-  override def apply(unit: SolidAngleUnit) = new SolidAngle(value, unit)
+  override def apply(lengthUnit: LengthUnit)                   = new Length(value, lengthUnit)
+  override def apply(areaUnit: AreaUnit)                       = new Area(value, areaUnit)
+  override def apply(volumeUnit: VolumeUnit)                   = new Volume(value, volumeUnit)
+  override def apply(angleUnit: AngleUnit)                     = new Angle(value, angleUnit)
+  override def apply(solidAngleUnit: SolidAngleUnit)           = new SolidAngle(value, solidAngleUnit)
+  override def apply(massUnit: MassUnit)                       = new Mass(value, massUnit)
+  override def apply(densityUnit: DensityUnit)                 = new Density(value, densityUnit)
+  override def apply(timeUnit: TimeUnit)                       = new Time(value, timeUnit)
+  override def apply(frequencyUnit: FrequencyUnit)             = new Frequency(value, frequencyUnit)
+  override def apply(velocityUnit: VelocityUnit)               = new Velocity(value, velocityUnit)
+  override def apply(angularVelocityUnit: AngularVelocityUnit) = new AngularVelocity(value, angularVelocityUnit)
 }
