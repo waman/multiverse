@@ -4,8 +4,11 @@ import spire.math._
 import spire.implicits._
 
 trait AngularVelocityPostfixOps[A]{
-  def `rad/s`: A
-  def `deg/s`: A
+
+  protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit): A
+
+  def `rad/s`: A = angularVelocityPostfixOps(AngularVelocityUnit.RadianPerSecond)
+  def `deg/s`: A = angularVelocityPostfixOps(AngularVelocityUnit.DegreePerSecond)
 }
 
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
@@ -19,41 +22,25 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
   def apply(evalUnit: AngularVelocityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.inRadianPerSecond) / real(evalUnit.inRadianPerSecond)
+    else value * real(unit.unitInRadianPerSecond) / real(evalUnit.unitInRadianPerSecond)
 
-  override def `rad/s` = apply(AngularVelocityUnit.RadianPerSecond)
-  override def `deg/s` = apply(AngularVelocityUnit.DegreePerSecond)
+  override protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit) =
+    apply(angularVelocityUnit)
 
-  private def callAngle(angleUnit: AngleUnit) = new DivisibleBy[TimeUnit, A]{
+  override protected def anglePostfixOps(angleUnit: AngleUnit) = new DivisibleBy[TimeUnit, A]{
     override def /(timeUnit: TimeUnit): A = apply(angleUnit / timeUnit)
   }
 
-  override def rad  = callAngle(AngleUnit.Radian)
-  override def deg  = callAngle(AngleUnit.Degree)
-  override def °    = callAngle(AngleUnit.SymbolicDegree)
-  override def grad = callAngle(AngleUnit.Gradian)
-
-  private def callAnglePer(angleUnit: AngleUnit) = new TimePostfixOps[A]{
-    override def ns     = apply(angleUnit / TimeUnit.NanoSecond)
-    override def μs     = apply(angleUnit / TimeUnit.MicroSecond)
-    override def ms     = apply(angleUnit / TimeUnit.MilliSecond)
-    override def s      = apply(angleUnit / TimeUnit.Second)
-    override def d      = apply(angleUnit / TimeUnit.Day)
-    override def minute = apply(angleUnit / TimeUnit.Minute)
-    override def h      = apply(angleUnit / TimeUnit.Hour)
+  override protected def anglePer(angleUnit: AngleUnit) = new TimePostfixOps[A]{
+    override protected def timePostfixOps(timeUnit: TimeUnit) = apply(angleUnit / timeUnit)
   }
-
-  override def rad(per: Per)  = callAnglePer(AngleUnit.Radian)
-  override def deg(per: Per)  = callAnglePer(AngleUnit.Degree)
-  override def °(per: Per)    = callAnglePer(AngleUnit.SymbolicDegree)
-  override def grad(per: Per) = callAnglePer(AngleUnit.Gradian)
 }
 
 trait AngularVelocityUnit extends PhysicalUnit{
-  def inRadianPerSecond: Real
+  def unitInRadianPerSecond: Real
 
   override protected def baseUnit = AngularVelocityUnit.RadianPerSecond
-  override protected def inBaseUnitAccessor = () => inRadianPerSecond
+  override protected def inBaseUnitAccessor = () => unitInRadianPerSecond
 }
 
 sealed class QuotientAngularVelocityUnit(val angleUnit: AngleUnit, val timeUnit: TimeUnit)
@@ -62,7 +49,7 @@ sealed class QuotientAngularVelocityUnit(val angleUnit: AngleUnit, val timeUnit:
   override def numeratorUnit: AngleUnit = angleUnit
   override def denominatorUnit: TimeUnit = timeUnit
 
-  override def inRadianPerSecond: Real = angleUnit.inRadian / timeUnit.inSecond
+  override def unitInRadianPerSecond: Real = angleUnit.unitInRadian / timeUnit.unitInSecond
 }
 
 object AngularVelocityUnit{
@@ -88,7 +75,6 @@ trait AngularVelocityUnitInterpreter[A] extends AngularVelocityPostfixOps[Angula
 
   def apply(unit: AngularVelocityUnit): AngularVelocity[A]
 
-  override def `rad/s` = apply(AngularVelocityUnit.RadianPerSecond)
-  override def `deg/s` = apply(AngularVelocityUnit.DegreePerSecond)
-
+  override protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit) =
+    apply(angularVelocityUnit)
 }

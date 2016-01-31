@@ -6,53 +6,55 @@ import spire.implicits._
 
 trait VolumePostfixOps[A]{
 
+  protected def volumePostfixOps(volumeUnit: VolumeUnit): A
+
   // cubic
-  def ym3: A
-  def zm3: A
-  def am3: A
-  def fm3: A
-  def pm3: A
-  def nm3: A
-  def μm3: A
-  def mm3: A
-  def cm3: A
-  def dm3: A
-  def m3 : A
-  def dam3: A
-  def hm3: A
-  def km3: A
-  def Mm3: A
-  def Gm3: A
-  def Tm3: A
-  def Pm3: A
-  def Em3: A
-  def Zm3: A
-  def Ym3: A
+  def ym3: A = volumePostfixOps(VolumeUnit.CubicYoctoMetre)
+  def zm3: A = volumePostfixOps(VolumeUnit.CubicZeptoMetre)
+  def am3: A = volumePostfixOps(VolumeUnit.CubicAttoMetre)
+  def fm3: A = volumePostfixOps(VolumeUnit.CubicFemtoMetre)
+  def pm3: A = volumePostfixOps(VolumeUnit.CubicPicoMetre)
+  def nm3: A = volumePostfixOps(VolumeUnit.CubicNanoMetre)
+  def μm3: A = volumePostfixOps(VolumeUnit.CubicMicroMetre)
+  def mm3: A = volumePostfixOps(VolumeUnit.CubicMilliMetre)
+  def cm3: A = volumePostfixOps(VolumeUnit.CubicCentiMetre)
+  def dm3: A = volumePostfixOps(VolumeUnit.CubicDeciMetre)
+  def m3 : A = volumePostfixOps(VolumeUnit.CubicMetre)
+  def dam3: A = volumePostfixOps(VolumeUnit.CubicDecaMetre)
+  def hm3: A = volumePostfixOps(VolumeUnit.CubicHectoMetre)
+  def km3: A = volumePostfixOps(VolumeUnit.CubicKiloMetre)
+  def Mm3: A = volumePostfixOps(VolumeUnit.CubicMegaMetre)
+  def Gm3: A = volumePostfixOps(VolumeUnit.CubicGigaMetre)
+  def Tm3: A = volumePostfixOps(VolumeUnit.CubicTeraMetre)
+  def Pm3: A = volumePostfixOps(VolumeUnit.CubicPetaMetre)
+  def Em3: A = volumePostfixOps(VolumeUnit.CubicExaMetre)
+  def Zm3: A = volumePostfixOps(VolumeUnit.CubicZettaMetre)
+  def Ym3: A = volumePostfixOps(VolumeUnit.CubicYottaMetre)
 
   // litre
-  def yL: A
-  def zL: A
-  def aL: A
-  def fL: A
-  def pL: A
-  def nL: A
-  def μL: A
-  def mL: A
-  def cL: A
-  def dL: A
-  def L : A
-  def daL: A
-  def hL: A
-  def kL: A
-  def ML: A
-  def GL: A
-  def TL: A
-  def PL: A
-  def EL: A
-  def ZL: A
-  def YL: A
+  def yL: A = volumePostfixOps(VolumeUnit.YoctoLitre)
+  def zL: A = volumePostfixOps(VolumeUnit.ZeptoLitre)
+  def aL: A = volumePostfixOps(VolumeUnit.AttoLitre)
+  def fL: A = volumePostfixOps(VolumeUnit.FemtoLitre)
+  def pL: A = volumePostfixOps(VolumeUnit.PicoLitre)
+  def nL: A = volumePostfixOps(VolumeUnit.NanoLitre)
+  def μL: A = volumePostfixOps(VolumeUnit.MicroLitre)
+  def mL: A = volumePostfixOps(VolumeUnit.MilliLitre)
+  def cL: A = volumePostfixOps(VolumeUnit.CentiLitre)
+  def dL: A = volumePostfixOps(VolumeUnit.DeciLitre)
+  def L : A = volumePostfixOps(VolumeUnit.Litre)
+  def daL: A = volumePostfixOps(VolumeUnit.DecaLitre)
+  def hL: A = volumePostfixOps(VolumeUnit.HectoLitre)
+  def kL: A = volumePostfixOps(VolumeUnit.KiloLitre)
+  def ML: A = volumePostfixOps(VolumeUnit.MegaLitre)
+  def GL: A = volumePostfixOps(VolumeUnit.GigaLitre)
+  def TL: A = volumePostfixOps(VolumeUnit.TeraLitre)
+  def PL: A = volumePostfixOps(VolumeUnit.PetaLitre)
+  def EL: A = volumePostfixOps(VolumeUnit.ExaLitre)
+  def ZL: A = volumePostfixOps(VolumeUnit.ZettaLitre)
+  def YL: A = volumePostfixOps(VolumeUnit.YottaLitre)
 
-  def λ: A
+  def λ: A = volumePostfixOps(VolumeUnit.Lambda)
 }
 
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
@@ -64,62 +66,16 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
 
   def apply(evalUnit: VolumeUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.inCubicMetre) / real(evalUnit.inCubicMetre)
+    else value * real(unit.unitInCubicMetre) / real(evalUnit.unitInCubicMetre)
 
-  // cubic
-  def ym3 = apply(VolumeUnit.CubicYoctoMetre)
-  def zm3 = apply(VolumeUnit.CubicZeptoMetre)
-  def am3 = apply(VolumeUnit.CubicAttoMetre)
-  def fm3 = apply(VolumeUnit.CubicFemtoMetre)
-  def pm3 = apply(VolumeUnit.CubicPicoMetre)
-  def nm3 = apply(VolumeUnit.CubicNanoMetre)
-  def μm3 = apply(VolumeUnit.CubicMicroMetre)
-  def mm3 = apply(VolumeUnit.CubicMilliMetre)
-  def cm3 = apply(VolumeUnit.CubicCentiMetre)
-  def dm3 = apply(VolumeUnit.CubicDeciMetre)
-  def m3  = apply(VolumeUnit.CubicMetre)
-  def dam3 = apply(VolumeUnit.CubicDecaMetre)
-  def hm3 = apply(VolumeUnit.CubicHectoMetre)
-  def km3 = apply(VolumeUnit.CubicKiloMetre)
-  def Mm3 = apply(VolumeUnit.CubicMegaMetre)
-  def Gm3 = apply(VolumeUnit.CubicGigaMetre)
-  def Tm3 = apply(VolumeUnit.CubicTeraMetre)
-  def Pm3 = apply(VolumeUnit.CubicPetaMetre)
-  def Em3 = apply(VolumeUnit.CubicExaMetre)
-  def Zm3 = apply(VolumeUnit.CubicZettaMetre)
-  def Ym3 = apply(VolumeUnit.CubicYottaMetre)
-
-  // litre
-  def yL = apply(VolumeUnit.YoctoLitre)
-  def zL = apply(VolumeUnit.ZeptoLitre)
-  def aL = apply(VolumeUnit.AttoLitre)
-  def fL = apply(VolumeUnit.FemtoLitre)
-  def pL = apply(VolumeUnit.PicoLitre)
-  def nL = apply(VolumeUnit.NanoLitre)
-  def μL = apply(VolumeUnit.MicroLitre)
-  def mL = apply(VolumeUnit.MilliLitre)
-  def cL = apply(VolumeUnit.CentiLitre)
-  def dL = apply(VolumeUnit.DeciLitre)
-  def L  = apply(VolumeUnit.Litre)
-  def daL = apply(VolumeUnit.DecaLitre)
-  def hL = apply(VolumeUnit.HectoLitre)
-  def kL = apply(VolumeUnit.KiloLitre)
-  def ML = apply(VolumeUnit.MegaLitre)
-  def GL = apply(VolumeUnit.GigaLitre)
-  def TL = apply(VolumeUnit.TeraLitre)
-  def PL = apply(VolumeUnit.PetaLitre)
-  def EL = apply(VolumeUnit.ExaLitre)
-  def ZL = apply(VolumeUnit.ZettaLitre)
-  def YL = apply(VolumeUnit.YottaLitre)
-
-  override def λ = apply(VolumeUnit.Lambda)
+  override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
 }
 
-abstract class VolumeUnit(val symbol: String, val inCubicMetre: Real)
+abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
   extends PhysicalUnit {
 
   override protected def baseUnit = VolumeUnit.CubicMetre
-  override protected def inBaseUnitAccessor = () => inCubicMetre
+  override protected def inBaseUnitAccessor = () => unitInCubicMetre
 }
 
 object VolumeUnit{
@@ -226,49 +182,5 @@ trait VolumeUnitInterpreter[A]
 
   def apply(unit: VolumeUnit): Volume[A]
 
-  override def ym3 = apply(VolumeUnit.CubicYoctoMetre)
-  override def zm3 = apply(VolumeUnit.CubicZeptoMetre)
-  override def am3 = apply(VolumeUnit.CubicAttoMetre)
-  override def fm3 = apply(VolumeUnit.CubicFemtoMetre)
-  override def pm3 = apply(VolumeUnit.CubicPicoMetre)
-  override def nm3 = apply(VolumeUnit.CubicNanoMetre)
-  override def μm3 = apply(VolumeUnit.CubicMicroMetre)
-  override def mm3 = apply(VolumeUnit.CubicMilliMetre)
-  override def cm3 = apply(VolumeUnit.CubicCentiMetre)
-  override def dm3 = apply(VolumeUnit.CubicDeciMetre)
-  override def m3  = apply(VolumeUnit.CubicMetre)
-  override def dam3 = apply(VolumeUnit.CubicDecaMetre)
-  override def hm3 = apply(VolumeUnit.CubicHectoMetre)
-  override def km3 = apply(VolumeUnit.CubicKiloMetre)
-  override def Mm3 = apply(VolumeUnit.CubicMegaMetre)
-  override def Gm3 = apply(VolumeUnit.CubicGigaMetre)
-  override def Tm3 = apply(VolumeUnit.CubicTeraMetre)
-  override def Pm3 = apply(VolumeUnit.CubicPetaMetre)
-  override def Em3 = apply(VolumeUnit.CubicExaMetre)
-  override def Zm3 = apply(VolumeUnit.CubicZettaMetre)
-  override def Ym3 = apply(VolumeUnit.CubicYottaMetre)
-
-  override def yL = apply(VolumeUnit.YoctoLitre)
-  override def zL = apply(VolumeUnit.ZeptoLitre)
-  override def aL = apply(VolumeUnit.AttoLitre)
-  override def fL = apply(VolumeUnit.FemtoLitre)
-  override def pL = apply(VolumeUnit.PicoLitre)
-  override def nL = apply(VolumeUnit.NanoLitre)
-  override def μL = apply(VolumeUnit.MicroLitre)
-  override def mL = apply(VolumeUnit.MilliLitre)
-  override def cL = apply(VolumeUnit.CentiLitre)
-  override def dL = apply(VolumeUnit.DeciLitre)
-  override def L  = apply(VolumeUnit.Litre)
-  override def daL = apply(VolumeUnit.DecaLitre)
-  override def hL = apply(VolumeUnit.HectoLitre)
-  override def kL = apply(VolumeUnit.KiloLitre)
-  override def ML = apply(VolumeUnit.MegaLitre)
-  override def GL = apply(VolumeUnit.GigaLitre)
-  override def TL = apply(VolumeUnit.TeraLitre)
-  override def PL = apply(VolumeUnit.PetaLitre)
-  override def EL = apply(VolumeUnit.ExaLitre)
-  override def ZL = apply(VolumeUnit.ZettaLitre)
-  override def YL = apply(VolumeUnit.YottaLitre)
-
-  override def λ = apply(VolumeUnit.Lambda)
+  override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
 }

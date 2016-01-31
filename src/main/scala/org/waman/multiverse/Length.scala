@@ -25,86 +25,90 @@ import spire.math.{Real, Fractional}
 
 trait LengthPostfixOps[A]{
 
-  def ym: A
-  def zm: A
-  def am: A
-  def fm: A
-  def pm: A
-  def nm: A
-  def μm: A
-  def mm: A
-  def cm: A
-  def dm: A
-  def m : A
-  def dam: A
-  def hm: A
-  def km: A
-  def Mm: A
-  def Gm: A
-  def Tm: A
-  def Pm: A
-  def Em: A
-  def Zm: A
-  def Ym: A
+  protected def lengthPostfixOps(lengthUnit: LengthUnit): A
+
+  def ym: A = lengthPostfixOps(LengthUnit.YoctoMetre)
+  def zm: A = lengthPostfixOps(LengthUnit.ZeptoMetre)
+  def am: A = lengthPostfixOps(LengthUnit.AttoMetre)
+  def fm: A = lengthPostfixOps(LengthUnit.FemtoMetre)
+  def pm: A = lengthPostfixOps(LengthUnit.PicoMetre)
+  def nm: A = lengthPostfixOps(LengthUnit.NanoMetre)
+  def μm: A = lengthPostfixOps(LengthUnit.MicroMetre)
+  def mm: A = lengthPostfixOps(LengthUnit.MilliMetre)
+  def cm: A = lengthPostfixOps(LengthUnit.CentiMetre)
+  def dm: A = lengthPostfixOps(LengthUnit.DeciMetre)
+  def m : A = lengthPostfixOps(LengthUnit.Metre)
+  def dam: A = lengthPostfixOps(LengthUnit.DecaMetre)
+  def hm: A = lengthPostfixOps(LengthUnit.HectoMetre)
+  def km: A = lengthPostfixOps(LengthUnit.KiloMetre)
+  def Mm: A = lengthPostfixOps(LengthUnit.MegaMetre)
+  def Gm: A = lengthPostfixOps(LengthUnit.GigaMetre)
+  def Tm: A = lengthPostfixOps(LengthUnit.TeraMetre)
+  def Pm: A = lengthPostfixOps(LengthUnit.PetaMetre)
+  def Em: A = lengthPostfixOps(LengthUnit.ExaMetre)
+  def Zm: A = lengthPostfixOps(LengthUnit.ZettaMetre)
+  def Ym: A = lengthPostfixOps(LengthUnit.YottaMetre)
 
   // microscopic
-  def Å: A
-  def μ: A
+  def Å: A = lengthPostfixOps(LengthUnit.Angstrom)
+  def μ: A = lengthPostfixOps(LengthUnit.Micron)
 
   // astronomy
-  def AU: A
-  def ly: A
-  def pc: A
+  def au: A = lengthPostfixOps(LengthUnit.AstronomicalUnit)
+  def ly: A = lengthPostfixOps(LengthUnit.LightYear)
+  def pc: A = lengthPostfixOps(LengthUnit.Parsec)
 
   // yard-pond
-  def pt: A
-  def in: A
-  def ft: A
-  def yd: A
-  def mi: A
-  def NM: A
+  def pt: A = lengthPostfixOps(LengthUnit.Point)
+  def in: A = lengthPostfixOps(LengthUnit.Inch)
+  def ft: A = lengthPostfixOps(LengthUnit.Feet)
+  def yd: A = lengthPostfixOps(LengthUnit.Yard)
+  def mi: A = lengthPostfixOps(LengthUnit.Mile)
+  def NM: A = lengthPostfixOps(LengthUnit.NauticalMile)
 }
 
 trait LengthPer[A]{
 
-  def ym(per: Per): A
-  def zm(per: Per): A
-  def am(per: Per): A
-  def fm(per: Per): A
-  def pm(per: Per): A
-  def nm(per: Per): A
-  def µm(per: Per): A
-  def mm(per: Per): A
-  def cm(per: Per): A
-  def dm(per: Per): A
-  def m (per: Per): A
-  def dam(per: Per): A
-  def hm(per: Per): A
-  def km(per: Per): A
-  def Mm(per: Per): A
-  def Gm(per: Per): A
-  def Tm(per: Per): A
-  def Pm(per: Per): A
-  def Em(per: Per): A
-  def Zm(per: Per): A
-  def Ym(per: Per): A
+  protected def lengthPer(lengthUnit: LengthUnit): A
+
+  def ym(per: Per):A = lengthPer(LengthUnit.YoctoMetre)
+  def zm(per: Per):A = lengthPer(LengthUnit.ZeptoMetre)
+  def am(per: Per):A = lengthPer(LengthUnit.AttoMetre)
+  def fm(per: Per):A = lengthPer(LengthUnit.FemtoMetre)
+  def pm(per: Per):A = lengthPer(LengthUnit.PicoMetre)
+  def nm(per: Per):A = lengthPer(LengthUnit.NanoMetre)
+  def μm(per: Per):A = lengthPer(LengthUnit.MicroMetre)
+  def mm(per: Per):A = lengthPer(LengthUnit.MilliMetre)
+  def cm(per: Per):A = lengthPer(LengthUnit.CentiMetre)
+  def dm(per: Per):A = lengthPer(LengthUnit.DeciMetre)
+  def m (per: Per):A = lengthPer(LengthUnit.Metre)
+  def dam(per: Per):A = lengthPer(LengthUnit.DecaMetre)
+  def hm(per: Per):A = lengthPer(LengthUnit.HectoMetre)
+  def km(per: Per):A = lengthPer(LengthUnit.KiloMetre)
+  def Mm(per: Per):A = lengthPer(LengthUnit.MegaMetre)
+  def Gm(per: Per):A = lengthPer(LengthUnit.GigaMetre)
+  def Tm(per: Per):A = lengthPer(LengthUnit.TeraMetre)
+  def Pm(per: Per):A = lengthPer(LengthUnit.PetaMetre)
+  def Em(per: Per):A = lengthPer(LengthUnit.ExaMetre)
+  def Zm(per: Per):A = lengthPer(LengthUnit.ZettaMetre)
+  def Ym(per: Per):A = lengthPer(LengthUnit.YottaMetre)
+
+  // microscopic
+  def Å(per: Per):A = lengthPer(LengthUnit.Angstrom)
+  def μ(per: Per):A = lengthPer(LengthUnit.Micron)
 
   // astronomy
-  def Å(per: Per): A
-  def μ(per: Per): A
-
-  // astronomy
-  def AU(per: Per): A
-  def ly(per: Per): A
-  def pc(per: Per): A
+  def au(per: Per):A = lengthPer(LengthUnit.AstronomicalUnit)
+  def ly(per: Per):A = lengthPer(LengthUnit.LightYear)
+  def pc(per: Per):A = lengthPer(LengthUnit.Parsec)
 
   // yard-pond
-  def pt(per: Per): A
-  def in(per: Per): A
-  def ft(per: Per): A
-  def yd(per: Per): A
-  def mi(per: Per): A
-  def NM(per: Per): A
+  def pt(per: Per):A = lengthPer(LengthUnit.Point)
+  def in(per: Per):A = lengthPer(LengthUnit.Inch)
+  def ft(per: Per):A = lengthPer(LengthUnit.Feet)
+  def yd(per: Per):A = lengthPer(LengthUnit.Yard)
+  def mi(per: Per):A = lengthPer(LengthUnit.Mile)
+  def NM(per: Per):A = lengthPer(LengthUnit.NauticalMile)
 }
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
@@ -119,49 +123,12 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     *  For style like <code>length.m</code> and <code>length m</code>
     *  where <code>length</code> is a Length object
     */
-  override def ym = apply(LengthUnit.YoctoMetre)
-  override def zm = apply(LengthUnit.ZeptoMetre)
-  override def am = apply(LengthUnit.AttoMetre)
-  override def fm = apply(LengthUnit.FemtoMetre)
-  override def pm = apply(LengthUnit.PicoMetre)
-  override def nm = apply(LengthUnit.NanoMetre)
-  override def μm = apply(LengthUnit.MicroMetre)
-  override def mm = apply(LengthUnit.MilliMetre)
-  override def cm = apply(LengthUnit.CentiMetre)
-  override def dm = apply(LengthUnit.DeciMetre)
-  override def m  = apply(LengthUnit.Metre)
-  override def dam = apply(LengthUnit.DecaMetre)
-  override def hm = apply(LengthUnit.HectoMetre)
-  override def km = apply(LengthUnit.KiloMetre)
-  override def Mm = apply(LengthUnit.MegaMetre)
-  override def Gm = apply(LengthUnit.GigaMetre)
-  override def Tm = apply(LengthUnit.TeraMetre)
-  override def Pm = apply(LengthUnit.PetaMetre)
-  override def Em = apply(LengthUnit.ExaMetre)
-  override def Zm = apply(LengthUnit.ZettaMetre)
-  override def Ym = apply(LengthUnit.YottaMetre)
-
-  // microscopic
-  override def Å = apply(LengthUnit.Angstrom)
-  override def μ = apply(LengthUnit.Micron)
-
-  // astronomy
-  override def AU = apply(LengthUnit.AstronomicalUnit)
-  override def ly = apply(LengthUnit.LightYear)
-  override def pc = apply(LengthUnit.Parsec)
-
-  // yard-pond
-  override def pt = apply(LengthUnit.Point)
-  override def in = apply(LengthUnit.Inch)
-  override def ft = apply(LengthUnit.Feet)
-  override def yd = apply(LengthUnit.Yard)
-  override def mi = apply(LengthUnit.Mile)
-  override def NM = apply(LengthUnit.NauticalMile)
+  override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(lengthUnit)
 
   /** For style like <code>length (m)</code> where <code>length</code> is a Length object*/
   def apply(evalUnit: LengthUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.inMetre) / real(evalUnit.inMetre)
+    else value * real(unit.unitInMetre) / real(evalUnit.unitInMetre)
 
   /** For style like <code>1.0.m/s</code> */
   override def /(timeUnit: TimeUnit): Velocity[A] = new Velocity(value, unit / timeUnit)
@@ -171,12 +138,12 @@ object Length{
   def prankLength: Length[Real] = new Length(r"1.61624e-35", LengthUnit.Metre)  // TODO
 }
 
-sealed abstract class LengthUnit(val symbol: String, val inMetre: Real)
+sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
     extends PhysicalUnit
     with DivisibleBy[TimeUnit, VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
 
   override protected def baseUnit = LengthUnit.Metre
-  override protected def inBaseUnitAccessor = () => inMetre
+  override protected def inBaseUnitAccessor = () => unitInMetre
 
   override def /(timeUnit: TimeUnit): VelocityUnit = VelocityUnit(this, timeUnit)
 }
@@ -210,12 +177,12 @@ object LengthUnit{
   case object Micron   extends LengthUnit("μ" , r"1e-6")
 
   // astronomy
-  case object AstronomicalUnit extends LengthUnit("AU", r"149597870700")
+  case object AstronomicalUnit extends LengthUnit("au", r"149597870700")
   case object LightYear        extends LengthUnit("ly", r"9.4607304725808e15")
   case object Parsec           extends LengthUnit("pc", r"3.08567782e16")
 
   // yard-pond
-  case object Point extends LengthUnit("pt", r"1/72" * Inch.inMetre)
+  case object Point extends LengthUnit("pt", r"1/72" * Inch.unitInMetre)
   case object Inch extends LengthUnit("in", r"0.0254")
   case object Feet extends LengthUnit("ft", r"0.3048")
   case object Yard extends LengthUnit("yd", r"0.9144")
@@ -252,7 +219,7 @@ trait PredefinedLengthUnit{
   val μ = LengthUnit.Micron
 
   // astronomy
-  val AU = LengthUnit.AstronomicalUnit
+  val au = LengthUnit.AstronomicalUnit
   val ly = LengthUnit.LightYear
   val pc = LengthUnit.Parsec
 
@@ -274,95 +241,16 @@ trait LengthUnitInterpreter[A]
   // for style like "1.0 (m)" ( = "1.0.apply(m)")
   def apply(unit: LengthUnit): Length[A]
 
-  override def ym = apply(LengthUnit.YoctoMetre)
-  override def zm = apply(LengthUnit.ZeptoMetre)
-  override def am = apply(LengthUnit.AttoMetre)
-  override def fm = apply(LengthUnit.FemtoMetre)
-  override def pm = apply(LengthUnit.PicoMetre)
-  override def nm = apply(LengthUnit.NanoMetre)
-  override def μm = apply(LengthUnit.MicroMetre)
-  override def mm = apply(LengthUnit.MilliMetre)
-  override def cm = apply(LengthUnit.CentiMetre)
-  override def dm = apply(LengthUnit.DeciMetre)
-  override def m  = apply(LengthUnit.Metre)
-  override def dam = apply(LengthUnit.DecaMetre)
-  override def hm = apply(LengthUnit.HectoMetre)
-  override def km = apply(LengthUnit.KiloMetre)
-  override def Mm = apply(LengthUnit.MegaMetre)
-  override def Gm = apply(LengthUnit.GigaMetre)
-  override def Tm = apply(LengthUnit.TeraMetre)
-  override def Pm = apply(LengthUnit.PetaMetre)
-  override def Em = apply(LengthUnit.ExaMetre)
-  override def Zm = apply(LengthUnit.ZettaMetre)
-  override def Ym = apply(LengthUnit.YottaMetre)
-
-  // microscopic
-  override def μ = apply(LengthUnit.Micron)
-  override def Å = apply(LengthUnit.Angstrom)
-
-  // astronomy
-  override def AU = apply(LengthUnit.AstronomicalUnit)
-  override def ly = apply(LengthUnit.LightYear)
-  override def pc = apply(LengthUnit.Parsec)
-
-  // yard-pond
-  override def pt = apply(LengthUnit.Point)
-  override def in = apply(LengthUnit.Inch)
-  override def ft = apply(LengthUnit.Feet)
-  override def yd = apply(LengthUnit.Yard)
-  override def mi = apply(LengthUnit.Mile)
-  override def NM = apply(LengthUnit.NauticalMile)
+  override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(lengthUnit)
 
   // Length -> Velocity
   // for style "1.0 m/s" ( = "1.0.m(/).s")
   protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
-    override def ns     = apply(lengthUnit / TimeUnit.NanoSecond)
-    override def μs     = apply(lengthUnit / TimeUnit.MicroSecond)
-    override def ms     = apply(lengthUnit / TimeUnit.MilliSecond)
-    override def s      = apply(lengthUnit / TimeUnit.Second)
-    override def minute = apply(lengthUnit / TimeUnit.Minute)
-    override def h      = apply(lengthUnit / TimeUnit.Hour)
-    override def d      = apply(lengthUnit / TimeUnit.Day)
+
+    override protected def timePostfixOps(timeUnit: TimeUnit) = apply(lengthUnit / timeUnit)
   }
 
+  override protected def lengthPer(lengthUnit: LengthUnit) = newLengthPer(lengthUnit)
+
   def apply(velocityUnit: VelocityUnit): Velocity[A]
-
-  override def ym(per: Per) = newLengthPer(LengthUnit.YoctoMetre)
-  override def zm(per: Per) = newLengthPer(LengthUnit.ZeptoMetre)
-  override def am(per: Per) = newLengthPer(LengthUnit.AttoMetre)
-  override def fm(per: Per) = newLengthPer(LengthUnit.FemtoMetre)
-  override def pm(per: Per) = newLengthPer(LengthUnit.PicoMetre)
-  override def nm(per: Per) = newLengthPer(LengthUnit.NanoMetre)
-  override def µm(per: Per) = newLengthPer(LengthUnit.MicroMetre)
-  override def mm(per: Per) = newLengthPer(LengthUnit.MilliMetre)
-  override def cm(per: Per) = newLengthPer(LengthUnit.CentiMetre)
-  override def dm(per: Per) = newLengthPer(LengthUnit.DeciMetre)
-  override def m(per: Per)  = newLengthPer(LengthUnit.Metre)
-  override def dam(per: Per) = newLengthPer(LengthUnit.DecaMetre)
-  override def hm(per: Per) = newLengthPer(LengthUnit.HectoMetre)
-  override def km(per: Per) = newLengthPer(LengthUnit.KiloMetre)
-  override def Mm(per: Per) = newLengthPer(LengthUnit.MegaMetre)
-  override def Gm(per: Per) = newLengthPer(LengthUnit.GigaMetre)
-  override def Tm(per: Per) = newLengthPer(LengthUnit.TeraMetre)
-  override def Pm(per: Per) = newLengthPer(LengthUnit.PetaMetre)
-  override def Em(per: Per) = newLengthPer(LengthUnit.ExaMetre)
-  override def Zm(per: Per) = newLengthPer(LengthUnit.ZettaMetre)
-  override def Ym(per: Per) = newLengthPer(LengthUnit.YottaMetre)
-
-  // microscopic
-  override def Å(per: Per) = newLengthPer(LengthUnit.Angstrom)
-  override def μ(per: Per) = newLengthPer(LengthUnit.Micron)
-
-  // astronomy
-  override def AU(per: Per) = newLengthPer(LengthUnit.AstronomicalUnit)
-  override def ly(per: Per) = newLengthPer(LengthUnit.LightYear)
-  override def pc(per: Per) = newLengthPer(LengthUnit.Parsec)
-
-  // yard-pond
-  override def pt(per: Per) = newLengthPer(LengthUnit.Point)
-  override def in(per: Per) = newLengthPer(LengthUnit.Inch)
-  override def ft(per: Per) = newLengthPer(LengthUnit.Feet)
-  override def yd(per: Per) = newLengthPer(LengthUnit.Yard)
-  override def mi(per: Per) = newLengthPer(LengthUnit.Mile)
-  override def NM(per: Per) = newLengthPer(LengthUnit.NauticalMile)
 }

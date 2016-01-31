@@ -21,7 +21,8 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
       Radian,
       Degree,
       SymbolicDegree,
-      Gradian
+      Gradian,
+      Turn
     )
   }
 
@@ -29,10 +30,11 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
     val conversions =
       Table(
         ("angle", "expected"),
-        (Seq(3.0.rad , 3.0 rad , 3.0 (rad) ), 3.0),
-        (Seq(3.0.deg , 3.0 deg , 3.0 (deg)) , 3.0 * 17.453293e-3),
-        (Seq(3.0.°   , 3.0 °   , 3.0 (°))   , 3.0 * 17.453293e-3),
-        (Seq(3.0.grad, 3.0 grad, 3.0 (grad)), 3.0 * 15.707963e-3)
+        (Seq(3.0.rad, 3.0 rad, 3.0 (rad)), 3.0),
+        (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * 17.453293e-3),
+        (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * 17.453293e-3),
+        (Seq(3.0.gon, 3.0 gon, 3.0 (gon)), 3.0 * 15.707963e-3),
+        (Seq(3.0.tr , 3.0 tr , 3.0 (tr)) , 3.0 * 2.0 * Math.PI)
       )
 
     forAll(conversions){ (ls: Seq[Angle[Double]], expected: Double) =>
@@ -48,10 +50,11 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
     val conversions =
       Table(
         ("angle", "expected"),
-        (Seq(threeRadian.rad , threeRadian rad , threeRadian (rad)) , 3.0),
-        (Seq(threeRadian.deg , threeRadian deg , threeRadian (deg)) , 3.0 / 17.453293e-3),
-        (Seq(threeRadian.°   , threeRadian °   , threeRadian (°))   , 3.0 / 17.453293e-3),
-        (Seq(threeRadian.grad, threeRadian grad, threeRadian (grad)), 3.0 / 15.707963e-3)
+        (Seq(threeRadian.rad, threeRadian rad, threeRadian (rad)), 3.0),
+        (Seq(threeRadian.deg, threeRadian deg, threeRadian (deg)), 3.0 / 17.453293e-3),
+        (Seq(threeRadian.°  , threeRadian °  , threeRadian (°))  , 3.0 / 17.453293e-3),
+        (Seq(threeRadian.gon, threeRadian gon, threeRadian (gon)), 3.0 / 15.707963e-3),
+        (Seq(threeRadian.tr , threeRadian tr , threeRadian (tr)) , 3.0 / (2.0 * Math.PI))
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

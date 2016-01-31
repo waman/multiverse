@@ -30,7 +30,7 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks with 
       __SetUp__
       val avu = deg/h
       __Verify__
-      avu.inRadianPerSecond should equal (Real.pi / r"180" / r"3600")
+      avu.unitInRadianPerSecond should equal (Real.pi / r"180" / r"3600")
     }
 
     "be evaluated as equal even if different objects" in {

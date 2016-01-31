@@ -87,7 +87,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(3.0.μ, 3.0 μ, 3.0 (μ)), 3.0 * 1e-6),
 
         // astronomy
-        (Seq(3.0.AU, 3.0 AU, 3.0 (AU)), 3.0 * 149597870700.0),
+        (Seq(3.0.au, 3.0 au, 3.0 (au)), 3.0 * 149597870700.0),
         (Seq(3.0.ly, 3.0 ly, 3.0 (ly)), 3.0 * 9.4607304725808e15),
         (Seq(3.0.pc, 3.0 pc, 3.0 (pc)), 3.0 * 3.08567782e16),
 
@@ -140,7 +140,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(threeMetre.μ, threeMetre μ, threeMetre (μ)), 3e6),
 
         // astronomy
-        (Seq(threeMetre.AU, threeMetre AU, threeMetre (AU)), 3.0/149597870700.0),
+        (Seq(threeMetre.au, threeMetre au, threeMetre (au)), 3.0/149597870700.0),
         (Seq(threeMetre.ly, threeMetre ly, threeMetre (ly)), 3.0/9.4607304725808e15),
         (Seq(threeMetre.pc, threeMetre pc, threeMetre (pc)), 3.0/3.08567782e16),
 

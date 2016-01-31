@@ -63,7 +63,7 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
 
   def apply(evalUnit: AreaUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.inSquareMetre) / real(evalUnit.inSquareMetre)
+    else value * real(unit.unitInSquareMetre) / real(evalUnit.unitInSquareMetre)
 
   override def ym2 = apply(AreaUnit.SquareYoctoMetre)
   override def zm2 = apply(AreaUnit.SquareZeptoMetre)
@@ -111,11 +111,11 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
   override def ac = apply(AreaUnit.Acre)
 }
 
-abstract class AreaUnit(val symbol: String, val inSquareMetre: Real)
+abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
   extends PhysicalUnit {
 
   override protected def baseUnit = AreaUnit.SquareMetre
-  override protected def inBaseUnitAccessor = () => inSquareMetre
+  override protected def inBaseUnitAccessor = () => unitInSquareMetre
 }
 
 object AreaUnit{

@@ -29,7 +29,7 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks with MKSUnit
       __SetUp__
       val vu = km/h
       __Verify__
-      vu.inMetrePerSecond should equal (r"1000" / r"3600")
+      vu.unitInMetrePerSecond should equal (r"1000" / r"3600")
     }
 
     "be evaluated as equal even if different objects" in {
