@@ -28,7 +28,7 @@ class SolidAngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUn
       Table(
         ("solidAngle", "expected"),
         (Seq(3.0.sr, 3.0 sr, 3.0 (sr)), 3.0),
-        (Seq(3.0.deg2, 3.0 deg2, 3.0 (deg2)), 3.0 * 0.00030461742)
+        (Seq(3.0.deg2, 3.0 deg2, 3.0 (deg2)), 3.0 * (Math.PI / 180.0) * (Math.PI / 180.0))
       )
 
     forAll(conversions){ (ls: Seq[SolidAngle[Double]], expected: Double) =>
@@ -45,7 +45,7 @@ class SolidAngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUn
       Table(
         ("solidAngle", "expected"),
         (Seq(three_sr.sr, three_sr sr, three_sr (sr)), 3.0),
-        (Seq(three_sr.deg2, three_sr deg2, three_sr (deg2)), 3.0 / 0.00030461742)
+        (Seq(three_sr.deg2, three_sr deg2, three_sr (deg2)), 3.0 * (180.0 / Math.PI) * (180.0 / Math.PI))
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

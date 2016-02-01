@@ -7,8 +7,8 @@ trait AngularVelocityPostfixOps[A]{
 
   protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit): A
 
-  def `rad/s`: A = angularVelocityPostfixOps(AngularVelocityUnit.RadianPerSecond)
-  def `deg/s`: A = angularVelocityPostfixOps(AngularVelocityUnit.DegreePerSecond)
+  def rpm: A = angularVelocityPostfixOps(AngularVelocityUnit.RevolutionPerMinute)
+  def cps: A = angularVelocityPostfixOps(AngularVelocityUnit.CyclePerSecond)
 }
 
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
@@ -36,37 +36,36 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
   }
 }
 
-trait AngularVelocityUnit extends PhysicalUnit{
+sealed abstract class AngularVelocityUnit extends PhysicalUnit{
   def unitInRadianPerSecond: Real
 
-  override protected def baseUnit = AngularVelocityUnit.RadianPerSecond
-  override protected def inBaseUnitAccessor = () => unitInRadianPerSecond
-}
-
-sealed class QuotientAngularVelocityUnit(val angleUnit: AngleUnit, val timeUnit: TimeUnit)
-    extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
-
-  override def numeratorUnit: AngleUnit = angleUnit
-  override def denominatorUnit: TimeUnit = timeUnit
-
-  override def unitInRadianPerSecond: Real = angleUnit.unitInRadian / timeUnit.unitInSecond
+  override protected lazy val baseUnit = AngleUnit.Radian / TimeUnit.Second
+  override protected lazy val inBaseUnitAccessor = () => unitInRadianPerSecond
 }
 
 object AngularVelocityUnit{
 
-  case object RadianPerSecond
-    extends QuotientAngularVelocityUnit(AngleUnit.Radian, TimeUnit.Second)
+  private[AngularVelocityUnit] class AngularVelocityUnitImpl(val symbol: String, val unitInRadianPerSecond: Real)
+    extends AngularVelocityUnit
 
-  case object DegreePerSecond
-    extends QuotientAngularVelocityUnit(AngleUnit.Degree, TimeUnit.Second)
+  case object RevolutionPerMinute extends AngularVelocityUnitImpl("rpm", r"2" * Real.pi / r"60")
+  case object CyclePerSecond      extends AngularVelocityUnitImpl("cps", r"2" * Real.pi)
+
+
+  private[AngularVelocityUnit]
+  class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
+    extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
+
+    override lazy val unitInRadianPerSecond: Real = numeratorUnit.unitInRadian / denominatorUnit.unitInSecond
+  }
 
   def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit =
     new QuotientAngularVelocityUnit(aUnit, tUnit)
 }
 
 trait PredefinedAngularVelocityUnit{
-  val `rad/s` = AngularVelocityUnit.RadianPerSecond
-  val `deg/s` = AngularVelocityUnit.DegreePerSecond
+  val rpm = AngularVelocityUnit.RevolutionPerMinute
+  val cps = AngularVelocityUnit.CyclePerSecond
 }
 
 object PredefinedAngularVelocityUnit extends PredefinedAngularVelocityUnit

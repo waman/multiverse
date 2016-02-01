@@ -18,8 +18,27 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks with MKSUni
     val result = UnitSystem.getSupportedUnits(classOf[FrequencyUnit])
     __Verify__
     result should contain allOf (
-      RevolutionPerMinute,
-      CyclePerSecond)
+      YoctoHeltz,
+      ZeptoHeltz,
+      AttoHeltz ,
+      FemtoHeltz,
+      PicoHeltz ,
+      NanoHeltz ,
+      MicroHeltz,
+      MilliHeltz,
+      CentiHeltz,
+      DeciHeltz ,
+      Heltz     ,
+      DecaHeltz ,
+      HectoHeltz,
+      KiloHeltz ,
+      MegaHeltz ,
+      GigaHeltz ,
+      TeraHeltz ,
+      PetaHeltz ,
+      ExaHeltz  ,
+      ZettaHeltz,
+      YottaHeltz)
   }
 
   "Tests where converting from some units to rad/s like 3.0 deg/s => 3.0 * 2 PI / 360 rad/s" in {
@@ -46,10 +65,7 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks with MKSUni
         (Seq(3.0.PHz, 3.0 PHz, 3.0 (PHz)), 3e15),
         (Seq(3.0.EHz, 3.0 EHz, 3.0 (EHz)), 3e18),
         (Seq(3.0.ZHz, 3.0 ZHz, 3.0 (ZHz)), 3e21),
-        (Seq(3.0.YHz, 3.0 YHz, 3.0 (YHz)), 3e24),
-        
-        (Seq(3.0.rpm, 3.0 rpm, 3.0 (rpm)), 3.0 / 60.0),
-        (Seq(3.0.cps, 3.0 cps, 3.0 (cps)), 3.0)
+        (Seq(3.0.YHz, 3.0 YHz, 3.0 (YHz)), 3e24)
       )
 
     forAll(conversions){ (fs: Seq[Frequency[Double]], expected: Double) =>
@@ -85,10 +101,7 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks with MKSUni
         (Seq(threeHz.PHz, threeHz PHz, threeHz(PHz)), 3e-15),
         (Seq(threeHz.EHz, threeHz EHz, threeHz(EHz)), 3e-18),
         (Seq(threeHz.ZHz, threeHz ZHz, threeHz(ZHz)), 3e-21),
-        (Seq(threeHz.YHz, threeHz YHz, threeHz(YHz)), 3e-24),
-
-        (Seq(threeHz.rpm, threeHz rpm, threeHz(rpm)), 3.0 * 60.0),
-        (Seq(threeHz.cps, threeHz cps, threeHz(cps)), 3.0)
+        (Seq(threeHz.YHz, threeHz YHz, threeHz(YHz)), 3e-24)
       )
 
     forAll(conversions) { (as: Seq[Double], expected: Double) =>

@@ -20,8 +20,8 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks with 
     val result = UnitSystem.getSupportedUnits(classOf[AngularVelocityUnit])
     __Verify__
     result should contain allOf (
-      RadianPerSecond,
-      DegreePerSecond)
+      RevolutionPerMinute,
+      CyclePerSecond)
   }
 
   "AngularVelocityUnit should" - {
@@ -44,31 +44,31 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks with 
     val conversions =
       Table(
         ("angularVelocity", "expected"),
-        (Seq(3.0.`rad/s`, 3.0 `rad/s`, 3.0 (`rad/s`), 3.0.rad/s, 3.0 rad/s, 3.0 (rad/s)) , 3.0),
-        (Seq(3.0.`deg/s`, 3.0 `deg/s`, 3.0 (`deg/s`), 3.0.deg/s, 3.0 deg/s, 3.0 (deg/s)), 3.0 * 0.017453),
-        (Seq(3.0.deg/min, 3.0 deg/minute, 3.0 (deg/min)), 3.0 * 0.017453 / 60.0)
+        (Seq(3.0.rad/s  , 3.0 rad/s     , 3.0 (rad/s))  , 3.0),
+        (Seq(3.0.deg/s  , 3.0 deg/s     , 3.0 (deg/s))  , 3.0 * Math.PI / 180.0),
+        (Seq(3.0.rpm    , 3.0 rpm       , 3.0 (rpm))    , 3.0 * 2.0 * Math.PI / 60.0),
+        (Seq(3.0.cps    , 3.0 cps       , 3.0 (cps))    , 3.0 * 2.0 * Math.PI),
+        (Seq(3.0.deg/min, 3.0 deg/minute, 3.0 (deg/min)), 3.0 * Math.PI / 180.0 / 60.0)
       )
 
     forAll(conversions){ (avs: Seq[AngularVelocity[Double]], expected: Double) =>
       avs.foreach{ av =>
-        (av `rad/s`) should equal (%(expected))
+        (av rad/s) should equal (%(expected))
       }
     }
   }
 
-  val threeRpS = 3.0.`rad/s`
+  val threeRpS = 3.0 rad/s
 
   "Tests where converting metre unit to other units like 3.0 rad/s => 3.0 * 180.0 / PI deg/s" in {
     val conversions =
       Table(
         ("angularVelocity", "expected"),
-        (Seq(threeRpS.`rad/s`, threeRpS `rad/s`, threeRpS (`rad/s`),
-          threeRpS.rad/s, threeRpS rad/s, threeRpS (rad/s)), 3.0),
-
-        (Seq(threeRpS.`deg/s`, threeRpS `deg/s`, threeRpS (`deg/s`),
-          threeRpS.deg/s, threeRpS deg/s, threeRpS (deg/s)), 3.0 / 0.017453),
-
-        (Seq(threeRpS.deg/min, threeRpS deg/minute, threeRpS (deg/min)), 3.0 / 0.017453 * 60.0)
+        (Seq(threeRpS.rad/s  , threeRpS rad/s     , threeRpS (rad/s))  , 3.0),
+        (Seq(threeRpS.deg/s  , threeRpS deg/s     , threeRpS (deg/s))  , 3.0 * 180.0 / Math.PI),
+        (Seq(threeRpS.rpm    , threeRpS rpm       , threeRpS (rpm))    , 3.0 * 60.0 / (2.0 * Math.PI) ),
+        (Seq(threeRpS.cps    , threeRpS cps       , threeRpS (cps))    , 3.0 / (2.0 * Math.PI)),
+        (Seq(threeRpS.deg/min, threeRpS deg/minute, threeRpS (deg/min)), 3.0 * 180.0 * 60.0 / Math.PI)
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

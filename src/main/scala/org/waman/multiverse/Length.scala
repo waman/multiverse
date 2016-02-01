@@ -142,8 +142,8 @@ sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
     extends PhysicalUnit
     with DivisibleBy[TimeUnit, VelocityUnit]{ // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
 
-  override protected def baseUnit = LengthUnit.Metre
-  override protected def inBaseUnitAccessor = () => unitInMetre
+  override protected val baseUnit = LengthUnit.Metre
+  override protected val inBaseUnitAccessor = () => unitInMetre
 
   override def /(timeUnit: TimeUnit): VelocityUnit = VelocityUnit(this, timeUnit)
 }

@@ -74,8 +74,8 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
 abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
   extends PhysicalUnit {
 
-  override protected def baseUnit = VolumeUnit.CubicMetre
-  override protected def inBaseUnitAccessor = () => unitInCubicMetre
+  override protected val baseUnit = VolumeUnit.CubicMetre
+  override protected val inBaseUnitAccessor = () => unitInCubicMetre
 }
 
 object VolumeUnit{
@@ -101,27 +101,27 @@ object VolumeUnit{
   case object CubicZettaMetre extends VolumeUnit("Zm3", r"1e63")
   case object CubicYottaMetre extends VolumeUnit("Ym3", r"1e72")
 
-  case object YoctoLitre extends VolumeUnit("yL", r"1e-24")
-  case object ZeptoLitre extends VolumeUnit("zL", r"1e-21")
-  case object AttoLitre  extends VolumeUnit("aL", r"1e-18")
-  case object FemtoLitre extends VolumeUnit("fL", r"1e-15")
-  case object PicoLitre  extends VolumeUnit("pL", r"1e-12")
-  case object NanoLitre  extends VolumeUnit("nL", r"1e-9")
-  case object MicroLitre extends VolumeUnit("μL", r"1e-6")
-  case object MilliLitre extends VolumeUnit("mL", r"1e-3")
-  case object CentiLitre extends VolumeUnit("cL", r"1e-2")
-  case object DeciLitre  extends VolumeUnit("dL", r"1e-1")
-  case object Litre      extends VolumeUnit("L" , r"1")
-  case object DecaLitre  extends VolumeUnit("daL", r"1e1")
-  case object HectoLitre extends VolumeUnit("hL", r"1e2")
-  case object KiloLitre  extends VolumeUnit("kL", r"1e3")
-  case object MegaLitre  extends VolumeUnit("ML", r"1e6")
-  case object GigaLitre  extends VolumeUnit("GL", r"1e9")
-  case object TeraLitre  extends VolumeUnit("TL", r"1e12")
-  case object PetaLitre  extends VolumeUnit("PL", r"1e15")
-  case object ExaLitre   extends VolumeUnit("EL", r"1e18")
-  case object ZettaLitre extends VolumeUnit("ZL", r"1e21")
-  case object YottaLitre extends VolumeUnit("YL", r"1e24")
+  case object YoctoLitre extends VolumeUnit("yL", r"1e-27")
+  case object ZeptoLitre extends VolumeUnit("zL", r"1e-24")
+  case object AttoLitre  extends VolumeUnit("aL", r"1e-21")
+  case object FemtoLitre extends VolumeUnit("fL", r"1e-18")
+  case object PicoLitre  extends VolumeUnit("pL", r"1e-15")
+  case object NanoLitre  extends VolumeUnit("nL", r"1e-12")
+  case object MicroLitre extends VolumeUnit("μL", r"1e-9")
+  case object MilliLitre extends VolumeUnit("mL", r"1e-6")
+  case object CentiLitre extends VolumeUnit("cL", r"1e-5")
+  case object DeciLitre  extends VolumeUnit("dL", r"1e-4")
+  case object Litre      extends VolumeUnit("L" , r"1e-3")
+  case object DecaLitre  extends VolumeUnit("daL", r"1e-2")
+  case object HectoLitre extends VolumeUnit("hL", r"1e-1")
+  case object KiloLitre  extends VolumeUnit("kL", r"1")
+  case object MegaLitre  extends VolumeUnit("ML", r"1e3")
+  case object GigaLitre  extends VolumeUnit("GL", r"1e6")
+  case object TeraLitre  extends VolumeUnit("TL", r"1e9")
+  case object PetaLitre  extends VolumeUnit("PL", r"1e12")
+  case object ExaLitre   extends VolumeUnit("EL", r"1e15")
+  case object ZettaLitre extends VolumeUnit("ZL", r"1e18")
+  case object YottaLitre extends VolumeUnit("YL", r"1e21")
 
   case object Lambda extends VolumeUnit("λ", r"1e-9")
 }

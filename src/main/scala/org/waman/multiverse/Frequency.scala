@@ -28,9 +28,6 @@ trait FrequencyPostfixOps[A]{
   def EHz: A = frequencyPostfixOps(FrequencyUnit.ExaHeltz)
   def ZHz: A = frequencyPostfixOps(FrequencyUnit.ZettaHeltz)
   def YHz: A = frequencyPostfixOps(FrequencyUnit.YottaHeltz)
-
-  def rpm: A = frequencyPostfixOps(FrequencyUnit.RevolutionPerMinute)
-  def cps: A = frequencyPostfixOps(FrequencyUnit.CyclePerSecond)
 }
 
 class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
@@ -50,8 +47,8 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
 sealed abstract class FrequencyUnit(val symbol: String, val unitInHeltz: Real)
   extends PhysicalUnit {
 
-  override protected def baseUnit = FrequencyUnit.Heltz
-  override protected def inBaseUnitAccessor = () => unitInHeltz
+  override protected val baseUnit = FrequencyUnit.Heltz
+  override protected val inBaseUnitAccessor = () => unitInHeltz
 }
 
 object FrequencyUnit{
@@ -77,9 +74,6 @@ object FrequencyUnit{
   case object ExaHeltz   extends FrequencyUnit("EHz", r"1e18")
   case object ZettaHeltz extends FrequencyUnit("ZHz", r"1e21")
   case object YottaHeltz extends FrequencyUnit("YHz", r"1e24")
-
-  case object RevolutionPerMinute extends FrequencyUnit("rpm", r"1/60")
-  case object CyclePerSecond      extends FrequencyUnit("cps", r"1")
 }
 
 trait PredefinedFrequencyUnit{
@@ -105,9 +99,6 @@ trait PredefinedFrequencyUnit{
   val EHz = FrequencyUnit.ExaHeltz
   val ZHz = FrequencyUnit.ZettaHeltz
   val YHz = FrequencyUnit.YottaHeltz
-
-  val rpm = FrequencyUnit.RevolutionPerMinute
-  val cps = FrequencyUnit.CyclePerSecond
 }
 
 object PredefinedFrequencyUnit extends PredefinedFrequencyUnit

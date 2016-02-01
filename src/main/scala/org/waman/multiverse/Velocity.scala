@@ -7,8 +7,7 @@ trait VelocityPostfixOps[A]{
 
   protected def velocityPostfixOps(velocityUnit: VelocityUnit): A
 
-  def `m/s`  = velocityPostfixOps(VelocityUnit.MetrePerSecond)
-  def `km/h` = velocityPostfixOps(VelocityUnit.KiloMetrePerHour)
+  def c = velocityPostfixOps(VelocityUnit.SpeedOfLight)
 }
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
@@ -41,32 +40,30 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
 sealed trait VelocityUnit extends PhysicalUnit{
   def unitInMetrePerSecond: Real
 
-  override protected def baseUnit = VelocityUnit.MetrePerSecond
-  override protected def inBaseUnitAccessor = () => unitInMetrePerSecond
-}
-
-class QuotientVelocityUnit(val lengthUnit: LengthUnit, val timeUnit: TimeUnit)
-    extends VelocityUnit with QuotientUnit[LengthUnit, TimeUnit]{
-
-  override def numeratorUnit: LengthUnit = lengthUnit
-  override def denominatorUnit: TimeUnit = timeUnit
-
-  override def unitInMetrePerSecond: Real = lengthUnit.unitInMetre / timeUnit.unitInSecond
+  override protected lazy val baseUnit = LengthUnit.Metre / TimeUnit.Second
+  override protected lazy val inBaseUnitAccessor = () => unitInMetrePerSecond
 }
 
 object VelocityUnit{
 
-  case object MetrePerSecond extends QuotientVelocityUnit(LengthUnit.Metre, TimeUnit.Second)
+  private[VelocityUnit] abstract class VelocityUnitImpl(val symbol: String, val unitInMetrePerSecond: Real)
+    extends VelocityUnit
 
-  case object KiloMetrePerHour extends QuotientVelocityUnit(LengthUnit.KiloMetre, TimeUnit.Hour)
+  case object SpeedOfLight extends VelocityUnitImpl("c", r"299792458")
+
+
+  private[VelocityUnit] class QuotientVelocityUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
+    extends VelocityUnit with QuotientUnit[LengthUnit, TimeUnit]{
+
+    override lazy val unitInMetrePerSecond: Real = numeratorUnit.unitInMetre / denominatorUnit.unitInSecond
+  }
 
   def apply(lUnit: LengthUnit, tUnit: TimeUnit): VelocityUnit =
     new QuotientVelocityUnit(lUnit, tUnit)
 }
 
 trait PredefinedVelocityUnit{
-  val `m/s`  = VelocityUnit.MetrePerSecond
-  val `km/h` = VelocityUnit.KiloMetrePerHour
+  val c = VelocityUnit.SpeedOfLight
 }
 
 object PredefinedVelocityUnit extends PredefinedVelocityUnit

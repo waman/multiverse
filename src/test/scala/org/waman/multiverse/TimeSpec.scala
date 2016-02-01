@@ -72,8 +72,8 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSyst
         (Seq(3.0.Ys, 3.0 Ys, 3.0 (Ys)), 3e24),
 
         (Seq(3.0.minute, 3.0 minute, 3.0 (min)), 3.0 * 60.0),
-        (Seq(3.0.h     , 3.0 h     , 3.0 (h))  , 3.0 * 3600.0),
-        (Seq(3.0.d     , 3.0 d     , 3.0 (d))  , 3.0 * 86400.0)
+        (Seq(3.0.h     , 3.0 h     , 3.0 (h))  , 3.0 * 60.0 * 60.0),
+        (Seq(3.0.d     , 3.0 d     , 3.0 (d))  , 3.0 * 60.0 * 60.0 * 24.0)
       )
 
     forAll(conversions){ (ts: Seq[Time[Double]], expected: Double) =>
@@ -112,8 +112,8 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSyst
         (Seq(threeSecond.Ys, threeSecond Ys, threeSecond (Ys)), 3e-24),
 
         (Seq(threeSecond.minute, threeSecond minute, threeSecond (min)), 3.0/60.0),
-        (Seq(threeSecond.h     , threeSecond h     , threeSecond (h))  , 3.0/3600.0),
-        (Seq(threeSecond.d     , threeSecond d     , threeSecond (d))  , 3.0/86400.0)
+        (Seq(threeSecond.h     , threeSecond h     , threeSecond (h))  , 3.0/(60.0 * 60.0)),
+        (Seq(threeSecond.d     , threeSecond d     , threeSecond (d))  , 3.0/(60.0 * 60.0 * 24.0))
       )
 
     forAll(conversions){ (ts: Seq[Double], expected: Double) =>

@@ -47,8 +47,8 @@ abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
     extends PhysicalUnit
     with DivisibleBy[TimeUnit, AngularVelocityUnit]{
 
-  override protected def baseUnit = AngleUnit.Radian
-  override protected def inBaseUnitAccessor = () => unitInRadian
+  override protected val baseUnit = AngleUnit.Radian
+  override protected val inBaseUnitAccessor = () => unitInRadian
 
   override def /(timeUnit: TimeUnit): AngularVelocityUnit = AngularVelocityUnit(this, timeUnit)
 }

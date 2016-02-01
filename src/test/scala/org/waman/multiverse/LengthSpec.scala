@@ -71,7 +71,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
         (Seq(3.0.cm, 3.0 cm, 3.0 (cm)), 3e-2),
         (Seq(3.0.dm, 3.0 dm, 3.0 (dm)), 3e-1),
         (Seq(3.0.m , 3.0 m , 3.0 (m)) , 3.0),
-        (Seq(3.0.dam, 3.0 dam, 3.0 (dam)), 30.0),
+        (Seq(3.0.dam, 3.0 dam, 3.0 (dam)), 3e1),
         (Seq(3.0.hm, 3.0 hm, 3.0 (hm)), 3e2),
         (Seq(3.0.km, 3.0 km, 3.0 (km)), 3e3),
         (Seq(3.0.Mm, 3.0 Mm, 3.0 (Mm)), 3e6),

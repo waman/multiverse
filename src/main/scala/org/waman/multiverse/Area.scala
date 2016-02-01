@@ -114,8 +114,8 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
 abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
   extends PhysicalUnit {
 
-  override protected def baseUnit = AreaUnit.SquareMetre
-  override protected def inBaseUnitAccessor = () => unitInSquareMetre
+  override protected val baseUnit = AreaUnit.SquareMetre
+  override protected val inBaseUnitAccessor = () => unitInSquareMetre
 }
 
 object AreaUnit{

@@ -80,8 +80,8 @@ abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
   extends PhysicalUnit
     with DivisibleBy[VolumeUnit, DensityUnit]{
 
-  override protected def baseUnit = MassUnit.KiloGram
-  override protected def inBaseUnitAccessor = () => unitInKiloGram
+  override protected val baseUnit = MassUnit.KiloGram
+  override protected val inBaseUnitAccessor = () => unitInKiloGram
 
   override def /(volumeUnit: VolumeUnit): DensityUnit = DensityUnit(this, volumeUnit)
 }

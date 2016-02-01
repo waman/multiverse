@@ -49,7 +49,7 @@ trait QuotientUnit[A <: PhysicalUnit, B <: PhysicalUnit] extends PhysicalUnit{
   def denominatorUnit: B
 
   override lazy val name: String = s"${numeratorUnit.name}Per${denominatorUnit.name}"
-  override lazy val symbol: String = s"${numeratorUnit.symbol}${denominatorUnit.symbol}"
+  override lazy val symbol: String = s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
 
   override def equals(other: Any): Boolean = other match {
     case that: QuotientUnit[_, _] =>

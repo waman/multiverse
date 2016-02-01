@@ -31,9 +31,9 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
       Table(
         ("angle", "expected"),
         (Seq(3.0.rad, 3.0 rad, 3.0 (rad)), 3.0),
-        (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * 17.453293e-3),
-        (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * 17.453293e-3),
-        (Seq(3.0.gon, 3.0 gon, 3.0 (gon)), 3.0 * 15.707963e-3),
+        (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * Math.PI / 180.0),
+        (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * Math.PI / 180.0),
+        (Seq(3.0.gon, 3.0 gon, 3.0 (gon)), 3.0 * 2.0 * Math.PI / 400.0),
         (Seq(3.0.tr , 3.0 tr , 3.0 (tr)) , 3.0 * 2.0 * Math.PI)
       )
 
@@ -51,9 +51,9 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSys
       Table(
         ("angle", "expected"),
         (Seq(threeRadian.rad, threeRadian rad, threeRadian (rad)), 3.0),
-        (Seq(threeRadian.deg, threeRadian deg, threeRadian (deg)), 3.0 / 17.453293e-3),
-        (Seq(threeRadian.°  , threeRadian °  , threeRadian (°))  , 3.0 / 17.453293e-3),
-        (Seq(threeRadian.gon, threeRadian gon, threeRadian (gon)), 3.0 / 15.707963e-3),
+        (Seq(threeRadian.deg, threeRadian deg, threeRadian (deg)), 3.0 * 180.0 / Math.PI),
+        (Seq(threeRadian.°  , threeRadian °  , threeRadian (°))  , 3.0 * 180.0 / Math.PI),
+        (Seq(threeRadian.gon, threeRadian gon, threeRadian (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
         (Seq(threeRadian.tr , threeRadian tr , threeRadian (tr)) , 3.0 / (2.0 * Math.PI))
       )
 

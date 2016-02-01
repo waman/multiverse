@@ -10,7 +10,7 @@ class Per
 
 trait UnitSystem{
 
-  implicit def convertDoubleToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
+  implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
     new UnitInterpreter(value)
 
   val / = new Per
@@ -22,7 +22,7 @@ object UnitSystem extends PredefinedLengthUnit
   with PredefinedAngleUnit
   with PredefinedSolidAngleUnit
   with PredefinedMassUnit
-  with PredefinedDensityUnit
+//  with PredefinedDensityUnit
   with PredefinedTimeUnit
   with PredefinedFrequencyUnit
   with PredefinedVelocityUnit
