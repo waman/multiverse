@@ -34,6 +34,10 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
   override protected def anglePer(angleUnit: AngleUnit) = new TimePostfixOps[A]{
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(angleUnit / timeUnit)
   }
+
+  def toFrequency: Frequency[A] = new Frequency(
+    div(rad(UnitSystem./).s, 2.0 * Real.pi),
+    FrequencyUnit.Heltz)
 }
 
 sealed abstract class AngularVelocityUnit extends PhysicalUnit{

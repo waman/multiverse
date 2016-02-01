@@ -42,6 +42,11 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
     else value * real(unit.unitInHeltz) / real(evalUnit.unitInHeltz)
 
   override protected def frequencyPostfixOps(frequencyUnit: FrequencyUnit) = apply(frequencyUnit)
+
+  def toAngularVelocity: AngularVelocity[A] = new AngularVelocity(
+    times(Hz, 2.0 * Real.pi),
+    AngleUnit.Radian / TimeUnit.Second
+  )
 }
 
 sealed abstract class FrequencyUnit(val symbol: String, val unitInHeltz: Real)

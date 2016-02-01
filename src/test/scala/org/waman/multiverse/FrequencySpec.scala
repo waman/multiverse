@@ -41,6 +41,20 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks with MKSUni
       YottaHeltz)
   }
 
+  "Frequency object should be converted to a frequency by toFrequency method" in {
+
+    val conversions =
+      Table(
+        ("frequency", "expected"),
+        (3.0 Hz, 3.0 * 2.0 * Math.PI),
+        (3.0 GHz, 3.0 * 1e9 * 2.0 * Math.PI)
+      )
+
+    forAll(conversions){ (f: Frequency[Double], expected: Double) =>
+      f.toAngularVelocity.rad/s should equal (%(expected))
+    }
+  }
+
   "Tests where converting from some units to rad/s like 3.0 deg/s => 3.0 * 2 PI / 360 rad/s" in {
     val conversions =
       Table(

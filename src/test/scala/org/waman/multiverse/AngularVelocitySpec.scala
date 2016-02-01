@@ -28,15 +28,28 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks with 
 
     "return an angular velocity value of 1 deg/h in rad per second by 'inRadianPerSecond' property" in {
       __SetUp__
-      val avu = deg/h
+      val avu = deg / h
       __Verify__
-      avu.unitInRadianPerSecond should equal (Real.pi / r"180" / r"3600")
+      avu.unitInRadianPerSecond should equal(Real.pi / r"180" / r"3600")
     }
 
     "be evaluated as equal even if different objects" in {
       __Verify__
-      (deg/h) should equal (deg/h)
-      (deg/h).hashCode should equal ((deg/h).hashCode)
+      (deg / h) should equal(deg / h)
+      (deg / h).hashCode should equal((deg / h).hashCode)
+    }
+  }
+
+  "AngularVelocity object should be converted to a frequency by toFrequency method" in {
+    val conversions =
+      Table(
+        ("angularVelocity", "expected"),
+        (3.0 rad/s, 3.0 / (2.0 * Math.PI)),
+        (3.0 rpm, 3.0 / 60.0)
+      )
+
+    forAll(conversions){ (av: AngularVelocity[Double], expected: Double) =>
+      av.toFrequency.Hz should equal (%(expected))
     }
   }
 

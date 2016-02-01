@@ -13,16 +13,23 @@ trait UnitSystem{
   implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
     new UnitInterpreter(value)
 
+  implicit def convertAngularVelocityToFrequency[A: Fractional](av: AngularVelocity[A]): Frequency[A] =
+    av.toFrequency
+
+  implicit def convertFrequencyToAngularVelocity[A: Fractional](f: Frequency[A]): AngularVelocity[A] =
+    f.toAngularVelocity
+
   val / = new Per
 }
 
-object UnitSystem extends PredefinedLengthUnit
+object UnitSystem extends UnitSystem
+  with PredefinedLengthUnit
   with PredefinedAreaUnit
   with PredefinedVolumeUnit
   with PredefinedAngleUnit
   with PredefinedSolidAngleUnit
   with PredefinedMassUnit
-//  with PredefinedDensityUnit
+  with PredefinedDensityUnit
   with PredefinedTimeUnit
   with PredefinedFrequencyUnit
   with PredefinedVelocityUnit

@@ -44,6 +44,10 @@ object DensityUnit{
     new QuotientDensityUnit(mUnit, vUnit)
 }
 
+trait PredefinedDensityUnit
+
+object PredefinedDensityUnit extends PredefinedDensityUnit
+
 trait DensityUnitInterpreter[A]
     extends UnitConverter[A]{
 
