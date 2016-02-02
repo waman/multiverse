@@ -57,10 +57,63 @@ trait VolumePostfixOps[A]{
   def λ: A = volumePostfixOps(VolumeUnit.Lambda)
 }
 
-class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
-  extends Quantity[A, VolumeUnit]
-    with VolumePostfixOps[A]
-    with UnitConverter[A]{
+trait VolumePer[A]{
+
+  protected def volumePer(volumeUnit: VolumeUnit): A
+
+  // cubic
+  def ym3(per: Per): A = volumePer(VolumeUnit.CubicYoctoMetre)
+  def zm3(per: Per): A = volumePer(VolumeUnit.CubicZeptoMetre)
+  def am3(per: Per): A = volumePer(VolumeUnit.CubicAttoMetre)
+  def fm3(per: Per): A = volumePer(VolumeUnit.CubicFemtoMetre)
+  def pm3(per: Per): A = volumePer(VolumeUnit.CubicPicoMetre)
+  def nm3(per: Per): A = volumePer(VolumeUnit.CubicNanoMetre)
+  def μm3(per: Per): A = volumePer(VolumeUnit.CubicMicroMetre)
+  def mm3(per: Per): A = volumePer(VolumeUnit.CubicMilliMetre)
+  def cm3(per: Per): A = volumePer(VolumeUnit.CubicCentiMetre)
+  def dm3(per: Per): A = volumePer(VolumeUnit.CubicDeciMetre)
+  def m3 (per: Per): A = volumePer(VolumeUnit.CubicMetre)
+  def dam3(per: Per): A = volumePer(VolumeUnit.CubicDecaMetre)
+  def hm3(per: Per): A = volumePer(VolumeUnit.CubicHectoMetre)
+  def km3(per: Per): A = volumePer(VolumeUnit.CubicKiloMetre)
+  def Mm3(per: Per): A = volumePer(VolumeUnit.CubicMegaMetre)
+  def Gm3(per: Per): A = volumePer(VolumeUnit.CubicGigaMetre)
+  def Tm3(per: Per): A = volumePer(VolumeUnit.CubicTeraMetre)
+  def Pm3(per: Per): A = volumePer(VolumeUnit.CubicPetaMetre)
+  def Em3(per: Per): A = volumePer(VolumeUnit.CubicExaMetre)
+  def Zm3(per: Per): A = volumePer(VolumeUnit.CubicZettaMetre)
+  def Ym3(per: Per): A = volumePer(VolumeUnit.CubicYottaMetre)
+
+  // litre
+  def yL(per: Per): A = volumePer(VolumeUnit.YoctoLitre)
+  def zL(per: Per): A = volumePer(VolumeUnit.ZeptoLitre)
+  def aL(per: Per): A = volumePer(VolumeUnit.AttoLitre)
+  def fL(per: Per): A = volumePer(VolumeUnit.FemtoLitre)
+  def pL(per: Per): A = volumePer(VolumeUnit.PicoLitre)
+  def nL(per: Per): A = volumePer(VolumeUnit.NanoLitre)
+  def μL(per: Per): A = volumePer(VolumeUnit.MicroLitre)
+  def mL(per: Per): A = volumePer(VolumeUnit.MilliLitre)
+  def cL(per: Per): A = volumePer(VolumeUnit.CentiLitre)
+  def dL(per: Per): A = volumePer(VolumeUnit.DeciLitre)
+  def L (per: Per): A = volumePer(VolumeUnit.Litre)
+  def daL(per: Per): A = volumePer(VolumeUnit.DecaLitre)
+  def hL(per: Per): A = volumePer(VolumeUnit.HectoLitre)
+  def kL(per: Per): A = volumePer(VolumeUnit.KiloLitre)
+  def ML(per: Per): A = volumePer(VolumeUnit.MegaLitre)
+  def GL(per: Per): A = volumePer(VolumeUnit.GigaLitre)
+  def TL(per: Per): A = volumePer(VolumeUnit.TeraLitre)
+  def PL(per: Per): A = volumePer(VolumeUnit.PetaLitre)
+  def EL(per: Per): A = volumePer(VolumeUnit.ExaLitre)
+  def ZL(per: Per): A = volumePer(VolumeUnit.ZettaLitre)
+  def YL(per: Per): A = volumePer(VolumeUnit.YottaLitre)
+
+  def λ(per: Per): A = volumePer(VolumeUnit.Lambda)
+}
+
+class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity[A, VolumeUnit]
+  with VolumePostfixOps[A]
+  with DivisibleBy[TimeUnit, VolumeFlow[A]]
+  with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
 
@@ -69,16 +122,21 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
     else value * real(unit.unitInCubicMetre) / real(evalUnit.unitInCubicMetre)
 
   override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
+
+  override def /(timeUnit: TimeUnit): VolumeFlow[A] = new VolumeFlow(value, unit / timeUnit)
 }
 
 abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit with DivisibleBy[TimeUnit, VolumeFlowUnit] {
 
   override protected val baseUnit = VolumeUnit.CubicMetre
   override protected val inBaseUnitAccessor = () => unitInCubicMetre
+
+  override def /(timeUnit: TimeUnit): VolumeFlowUnit = VolumeFlowUnit(this, timeUnit)
 }
 
 object VolumeUnit{
+
   case object CubicYoctoMetre extends VolumeUnit("ym3", r"1e-72")
   case object CubicZeptoMetre extends VolumeUnit("zm3", r"1e-63")
   case object CubicAttoMetre  extends VolumeUnit("am3", r"1e-54")
@@ -177,10 +235,16 @@ trait PredefinedVolumeUnit{
 
 object PredefinedVolumeUnit extends PredefinedVolumeUnit
 
-trait VolumeUnitInterpreter[A]
-  extends VolumePostfixOps[Volume[A]]{
+trait VolumeUnitInterpreter[A] extends VolumePostfixOps[Volume[A]]
+  with VolumePer[TimePostfixOps[VolumeFlow[A]]]{
 
   def apply(unit: VolumeUnit): Volume[A]
 
   override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
+
+  override protected def volumePer(volumeUnit: VolumeUnit) =  new TimePostfixOps[VolumeFlow[A]]{
+    override protected def timePostfixOps(timeUnit: TimeUnit) = apply(volumeUnit / timeUnit)
+  }
+
+  def apply(volumeFlowUnit: VolumeFlowUnit): VolumeFlow[A]
 }

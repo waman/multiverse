@@ -1,8 +1,9 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.MKSUnitSystem.{a => are, _}
 import scala.language.postfixOps
 
-class MKSUnitSystemSpec extends MultiverseCustomSpec with MKSUnitSystem{
+class MKSUnitSystemSpec extends MultiverseCustomSpec{
 
   """MKSUnitSystem class should has the proper number of conversion methods
     | (methods whose name starts with "convert" and ends with "ToFractional")""".stripMargin in {

@@ -61,7 +61,7 @@ trait LengthPostfixOps[A]{
   // yard-pond
   def pt: A = lengthPostfixOps(LengthUnit.Point)
   def in: A = lengthPostfixOps(LengthUnit.Inch)
-  def ft: A = lengthPostfixOps(LengthUnit.Feet)
+  def ft: A = lengthPostfixOps(LengthUnit.Foot)
   def yd: A = lengthPostfixOps(LengthUnit.Yard)
   def mi: A = lengthPostfixOps(LengthUnit.Mile)
   def NM: A = lengthPostfixOps(LengthUnit.NauticalMile)
@@ -105,7 +105,7 @@ trait LengthPer[A]{
   // yard-pond
   def pt(per: Per):A = lengthPer(LengthUnit.Point)
   def in(per: Per):A = lengthPer(LengthUnit.Inch)
-  def ft(per: Per):A = lengthPer(LengthUnit.Feet)
+  def ft(per: Per):A = lengthPer(LengthUnit.Foot)
   def yd(per: Per):A = lengthPer(LengthUnit.Yard)
   def mi(per: Per):A = lengthPer(LengthUnit.Mile)
   def NM(per: Per):A = lengthPer(LengthUnit.NauticalMile)
@@ -184,7 +184,7 @@ object LengthUnit{
   // yard-pond
   case object Point extends LengthUnit("pt", r"1/72" * Inch.unitInMetre)
   case object Inch extends LengthUnit("in", r"0.0254")
-  case object Feet extends LengthUnit("ft", r"0.3048")
+  case object Foot extends LengthUnit("ft", r"0.3048")
   case object Yard extends LengthUnit("yd", r"0.9144")
   case object Mile extends LengthUnit("mi", r"1609.344")
   case object NauticalMile extends LengthUnit("NM", r"1852")
@@ -226,7 +226,7 @@ trait PredefinedLengthUnit{
   // yard-pond
   val pt = LengthUnit.Point
   val in = LengthUnit.Inch
-  val ft = LengthUnit.Feet
+  val ft = LengthUnit.Foot
   val yd = LengthUnit.Yard
   val mi = LengthUnit.Mile
   val NM = LengthUnit.NauticalMile
@@ -245,11 +245,9 @@ trait LengthUnitInterpreter[A]
 
   // Length -> Velocity
   // for style "1.0 m/s" ( = "1.0.m(/).s")
-  protected def newLengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
+  override protected def lengthPer(lengthUnit: LengthUnit) = new TimePostfixOps[Velocity[A]]{
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(lengthUnit / timeUnit)
   }
-
-  override protected def lengthPer(lengthUnit: LengthUnit) = newLengthPer(lengthUnit)
 
   def apply(velocityUnit: VelocityUnit): Velocity[A]
 }

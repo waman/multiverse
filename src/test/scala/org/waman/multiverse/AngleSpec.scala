@@ -9,7 +9,7 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class AngleSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
+class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
 
   "UnitSystem#getSupportedUnits method should return supported units of angle" in {
     __SetUp__

@@ -9,7 +9,7 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
+class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
 
   "UnitSystem#getSupportedUnits method should return supported units of length" in {
     __SetUp__
@@ -49,7 +49,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSy
 
       Point,
       Inch,
-      Feet,
+      Foot,
       Yard,
       Mile,
       NauticalMile

@@ -10,7 +10,7 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class MassSpec extends MultiverseCustomSpec with PropertyChecks with MKSUnitSystem{
+class MassSpec extends MultiverseCustomSpec with PropertyChecks{
 
     "UnitSystem#getSupportedUnits method should return supported units of mass" in {
       __SetUp__

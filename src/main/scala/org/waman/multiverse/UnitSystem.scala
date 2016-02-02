@@ -8,7 +8,18 @@ import scala.language.implicitConversions
 
 class Per
 
-trait UnitSystem{
+trait UnitSystem extends PredefinedLengthUnit
+    with PredefinedAreaUnit
+    with PredefinedVolumeUnit
+    with PredefinedAngleUnit
+    with PredefinedSolidAngleUnit
+    with PredefinedMassUnit
+    with PredefinedDensityUnit
+    with PredefinedTimeUnit
+    with PredefinedFrequencyUnit
+    with PredefinedVelocityUnit
+    with PredefinedAngularVelocityUnit
+    with PredefinedVolumeFlowUnit{
 
   implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
     new UnitInterpreter(value)
@@ -22,18 +33,7 @@ trait UnitSystem{
   val / = new Per
 }
 
-object UnitSystem extends UnitSystem
-  with PredefinedLengthUnit
-  with PredefinedAreaUnit
-  with PredefinedVolumeUnit
-  with PredefinedAngleUnit
-  with PredefinedSolidAngleUnit
-  with PredefinedMassUnit
-  with PredefinedDensityUnit
-  with PredefinedTimeUnit
-  with PredefinedFrequencyUnit
-  with PredefinedVelocityUnit
-  with PredefinedAngularVelocityUnit{
+object UnitSystem extends UnitSystem{
 
   def getSupportedQuantities: Seq[String] =
     Seq("Length",
@@ -46,8 +46,8 @@ object UnitSystem extends UnitSystem
       "Time",
       "Frequency",
       "Velocity",
-      "AngularVelocity"//,
-//      "VolumeFlow",
+      "AngularVelocity",
+      "VolumeFlow"//,
 //      "Acceleration",
 //      "Force",
 //      "Pressure",

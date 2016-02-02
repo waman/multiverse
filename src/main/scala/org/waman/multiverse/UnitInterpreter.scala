@@ -2,7 +2,8 @@ package org.waman.multiverse
 
 import spire.math.Fractional
 
-class UnitInterpreter[A: Fractional](protected val value: A) extends LengthUnitInterpreter[A]
+class UnitInterpreter[A: Fractional](protected val value: A)
+  extends LengthUnitInterpreter[A]
   with AreaUnitInterpreter[A]
   with VolumeUnitInterpreter[A]
   with AngleUnitInterpreter[A]
@@ -13,6 +14,7 @@ class UnitInterpreter[A: Fractional](protected val value: A) extends LengthUnitI
   with FrequencyUnitInterpreter[A]
   with VelocityUnitInterpreter[A]
   with AngularVelocityUnitInterpreter[A]
+  with VolumeFlowUnitInterpreter[A]
   with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -28,4 +30,5 @@ class UnitInterpreter[A: Fractional](protected val value: A) extends LengthUnitI
   override def apply(frequencyUnit: FrequencyUnit)             = new Frequency(value, frequencyUnit)
   override def apply(velocityUnit: VelocityUnit)               = new Velocity(value, velocityUnit)
   override def apply(angularVelocityUnit: AngularVelocityUnit) = new AngularVelocity(value, angularVelocityUnit)
+  override def apply(volumeFlowUnit: VolumeFlowUnit)           = new VolumeFlow(value, volumeFlowUnit)
 }
