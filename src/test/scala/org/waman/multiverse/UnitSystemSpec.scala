@@ -16,6 +16,17 @@ class UnitSystemSpec extends MultiverseCustomSpec{
     }
   }
 
+  "UnitSystem#getSupportedContext method should return all values of Context" in {
+    import Context._
+    __Exercise__
+    val sut = UnitSystem.getSupportedContext
+    __Verify__
+    sut should contain theSameElementsAs Seq(
+      UnitedStates,
+      Imperial
+      )
+  }
+
   "ImplicitConversions" - {
 
     "AngularVelocity should be implicitly converted to Frequency" taggedAs ImplicitConversion ignore {

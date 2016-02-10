@@ -38,14 +38,14 @@ class SolidAngleSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val three_sr = 3.0 sr
-
   "Tests where converting radian unit to other units like 3.0 rad => 3.0 * (360 / 2 * PI)**2 deg" in {
+    val value = 3.0 sr
+
     val conversions =
       Table(
         ("solidAngle", "expected"),
-        (Seq(three_sr.sr, three_sr sr, three_sr (sr)), 3.0),
-        (Seq(three_sr.deg2, three_sr deg2, three_sr (deg2)), 3.0 * (180.0 / Math.PI) * (180.0 / Math.PI))
+        (Seq(value.sr, value sr, value (sr)), 3.0),
+        (Seq(value.deg2, value deg2, value (deg2)), 3.0 * (180.0 / Math.PI) * (180.0 / Math.PI))
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

@@ -123,57 +123,57 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val three_m2 = 3.0 m2
-
   "Tests where converting square metre unit to other units like 3.0 m2 => 3.0 * 1e-6 km2" in {
     import UnitSystem.{a => are}
+    val value = 3.0 m2
+
     val conversions =
       Table(
         ("area", "expected"),
-        (Seq(three_m2.ym2, three_m2 ym2, three_m2 (ym2)), 3e48),
-        (Seq(three_m2.zm2, three_m2 zm2, three_m2 (zm2)), 3e42),
-        (Seq(three_m2.am2, three_m2 am2, three_m2 (am2)), 3e36),
-        (Seq(three_m2.fm2, three_m2 fm2, three_m2 (fm2)), 3e30),
-        (Seq(three_m2.pm2, three_m2 pm2, three_m2 (pm2)), 3e24),
-        (Seq(three_m2.nm2, three_m2 nm2, three_m2 (nm2)), 3e18),
-        (Seq(three_m2.μm2, three_m2 μm2, three_m2 (μm2)), 3e12),
-        (Seq(three_m2.mm2, three_m2 mm2, three_m2 (mm2)), 3e6),
-        (Seq(three_m2.cm2, three_m2 cm2, three_m2 (cm2)), 3e4),
-        (Seq(three_m2.dm2, three_m2 dm2, three_m2 (dm2)), 3e2),
-        (Seq(three_m2.m2 , three_m2 m2 , three_m2 (m2)) , 3.0),
-        (Seq(three_m2.dam2, three_m2 dam2, three_m2 (dam2)), 3e-2),
-        (Seq(three_m2.hm2, three_m2 hm2, three_m2 (hm2)), 3e-4),
-        (Seq(three_m2.km2, three_m2 km2, three_m2 (km2)), 3e-6),
-        (Seq(three_m2.Mm2, three_m2 Mm2, three_m2 (Mm2)), 3e-12),
-        (Seq(three_m2.Gm2, three_m2 Gm2, three_m2 (Gm2)), 3e-18),
-        (Seq(three_m2.Tm2, three_m2 Tm2, three_m2 (Tm2)), 3e-24),
-        (Seq(three_m2.Pm2, three_m2 Pm2, three_m2 (Pm2)), 3e-30),
-        (Seq(three_m2.Em2, three_m2 Em2, three_m2 (Em2)), 3e-36),
-        (Seq(three_m2.Zm2, three_m2 Zm2, three_m2 (Zm2)), 3e-42),
-        (Seq(three_m2.Ym2, three_m2 Ym2, three_m2 (Ym2)), 3e-48),
+        (Seq(value.ym2, value ym2, value (ym2)), 3e48),
+        (Seq(value.zm2, value zm2, value (zm2)), 3e42),
+        (Seq(value.am2, value am2, value (am2)), 3e36),
+        (Seq(value.fm2, value fm2, value (fm2)), 3e30),
+        (Seq(value.pm2, value pm2, value (pm2)), 3e24),
+        (Seq(value.nm2, value nm2, value (nm2)), 3e18),
+        (Seq(value.μm2, value μm2, value (μm2)), 3e12),
+        (Seq(value.mm2, value mm2, value (mm2)), 3e6),
+        (Seq(value.cm2, value cm2, value (cm2)), 3e4),
+        (Seq(value.dm2, value dm2, value (dm2)), 3e2),
+        (Seq(value.m2 , value m2 , value (m2)) , 3.0),
+        (Seq(value.dam2, value dam2, value (dam2)), 3e-2),
+        (Seq(value.hm2, value hm2, value (hm2)), 3e-4),
+        (Seq(value.km2, value km2, value (km2)), 3e-6),
+        (Seq(value.Mm2, value Mm2, value (Mm2)), 3e-12),
+        (Seq(value.Gm2, value Gm2, value (Gm2)), 3e-18),
+        (Seq(value.Tm2, value Tm2, value (Tm2)), 3e-24),
+        (Seq(value.Pm2, value Pm2, value (Pm2)), 3e-30),
+        (Seq(value.Em2, value Em2, value (Em2)), 3e-36),
+        (Seq(value.Zm2, value Zm2, value (Zm2)), 3e-42),
+        (Seq(value.Ym2, value Ym2, value (Ym2)), 3e-48),
 
-        (Seq(three_m2.a  , three_m2 a  , three_m2 (are)), 3e-2),
-        (Seq(three_m2.ha , three_m2 ha , three_m2 (ha)) , 3e-4),
+        (Seq(value.a  , value a  , value (are)), 3e-2),
+        (Seq(value.ha , value ha , value (ha)) , 3e-4),
 
-        (Seq(three_m2.yb, three_m2 yb, three_m2 (yb)), 3e52),
-        (Seq(three_m2.zb, three_m2 zb, three_m2 (zb)), 3e49),
-        (Seq(three_m2.ab, three_m2 ab, three_m2 (ab)), 3e46),
-        (Seq(three_m2.fb, three_m2 fb, three_m2 (fb)), 3e43),
-        (Seq(three_m2.pb, three_m2 pb, three_m2 (pb)), 3e40),
-        (Seq(three_m2.nb, three_m2 nb, three_m2 (nb)), 3e37),
-        (Seq(three_m2.μb, three_m2 μb, three_m2 (μb)), 3e34),
-        (Seq(three_m2.mb, three_m2 mb, three_m2 (mb)), 3e31),
-        (Seq(three_m2.b , three_m2 b , three_m2 (b)) , 3e28),
-        (Seq(three_m2.kb, three_m2 kb, three_m2 (kb)), 3e25),
-        (Seq(three_m2.Mb, three_m2 Mb, three_m2 (Mb)), 3e22),
-        (Seq(three_m2.Gb, three_m2 Gb, three_m2 (Gb)), 3e19),
-        (Seq(three_m2.Tb, three_m2 Tb, three_m2 (Tb)), 3e16),
-        (Seq(three_m2.Pb, three_m2 Pb, three_m2 (Pb)), 3e13),
-        (Seq(three_m2.Eb, three_m2 Eb, three_m2 (Eb)), 3e10),
-        (Seq(three_m2.Zb, three_m2 Zb, three_m2 (Zb)), 3e7),
-        (Seq(three_m2.Yb, three_m2 Yb, three_m2 (Yb)), 3e4),
+        (Seq(value.yb, value yb, value (yb)), 3e52),
+        (Seq(value.zb, value zb, value (zb)), 3e49),
+        (Seq(value.ab, value ab, value (ab)), 3e46),
+        (Seq(value.fb, value fb, value (fb)), 3e43),
+        (Seq(value.pb, value pb, value (pb)), 3e40),
+        (Seq(value.nb, value nb, value (nb)), 3e37),
+        (Seq(value.μb, value μb, value (μb)), 3e34),
+        (Seq(value.mb, value mb, value (mb)), 3e31),
+        (Seq(value.b , value b , value (b)) , 3e28),
+        (Seq(value.kb, value kb, value (kb)), 3e25),
+        (Seq(value.Mb, value Mb, value (Mb)), 3e22),
+        (Seq(value.Gb, value Gb, value (Gb)), 3e19),
+        (Seq(value.Tb, value Tb, value (Tb)), 3e16),
+        (Seq(value.Pb, value Pb, value (Pb)), 3e13),
+        (Seq(value.Eb, value Eb, value (Eb)), 3e10),
+        (Seq(value.Zb, value Zb, value (Zb)), 3e7),
+        (Seq(value.Yb, value Yb, value (Yb)), 3e4),
 
-        (Seq(three_m2.ac , three_m2 ac , three_m2 (ac)) , 3.0 / 4046.8564224)
+        (Seq(value.ac , value ac , value (ac)) , 3.0 / 4046.8564224)
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

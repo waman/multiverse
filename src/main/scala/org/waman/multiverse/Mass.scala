@@ -29,6 +29,8 @@ trait MassPostfixOps[A]{
   def Eg: A = massPostfixOps(MassUnit.ExaGram)
   def Zg: A = massPostfixOps(MassUnit.ZettaGram)
   def Yg: A = massPostfixOps(MassUnit.YottaGram)
+
+  def grain: A = massPostfixOps(MassUnit.Grain)
 }
 
 trait MassPer[A]{
@@ -61,7 +63,7 @@ trait MassPer[A]{
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
   extends Quantity[A, MassUnit]
     with MassPostfixOps[A]
-    with DivisibleBy[VolumeUnit, Density[A]]
+    with DivisibleByVolume[Density[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -78,7 +80,10 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 
 abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
   extends PhysicalUnit
-    with DivisibleBy[VolumeUnit, DensityUnit]{
+    with DivisibleByVolume[DensityUnit]{
+
+  def this(symbol: String, factor: Real, massUnit: MassUnit) =
+    this(symbol, factor * massUnit.unitInKiloGram)
 
   override protected val baseUnit = MassUnit.KiloGram
   override protected val inBaseUnitAccessor = () => unitInKiloGram
@@ -88,52 +93,41 @@ abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
 
 object MassUnit{
 
-  case object YoctoGram extends MassUnit("yg", r"1e-27")
-  case object ZeptoGram extends MassUnit("zg", r"1e-24")
-  case object AttoGram  extends MassUnit("ag", r"1e-21")
-  case object FemtoGram extends MassUnit("ag", r"1e-18")
-  case object PicoGram  extends MassUnit("pg", r"1e-15")
-  case object NanoGram  extends MassUnit("ng", r"1e-12")
-  case object MicroGram extends MassUnit("μg", r"1e-9")
-  case object MilliGram extends MassUnit("mg", r"1e-6")
-  case object CentiGram extends MassUnit("cg", r"1e-5")
-  case object DeciGram  extends MassUnit("dg", r"1e-4")
+  case object YoctoGram extends MassUnit("yg", r"1e-24", Gram)
+  case object ZeptoGram extends MassUnit("zg", r"1e-21", Gram)
+  case object AttoGram  extends MassUnit("ag", r"1e-18", Gram)
+  case object FemtoGram extends MassUnit("ag", r"1e-15", Gram)
+  case object PicoGram  extends MassUnit("pg", r"1e-12", Gram)
+  case object NanoGram  extends MassUnit("ng", r"1e-9", Gram)
+  case object MicroGram extends MassUnit("μg", r"1e-6", Gram)
+  case object MilliGram extends MassUnit("mg", r"1e-3", Gram)
+  case object CentiGram extends MassUnit("cg", r"1e-2", Gram)
+  case object DeciGram  extends MassUnit("dg", r"1e-1", Gram)
   case object Gram      extends MassUnit("g" , r"1e-3")
-  case object DecaGram  extends MassUnit("dag", r"1e-2")
-  case object HectoGram extends MassUnit("hg", r"1e-1")
+  case object DecaGram  extends MassUnit("dag", r"1e1", Gram)
+  case object HectoGram extends MassUnit("hg", r"1e2", Gram)
   case object KiloGram  extends MassUnit("kg", r"1")
-  case object MegaGram  extends MassUnit("Mg", r"1e3")
-  case object GigaGram  extends MassUnit("Gg", r"1e6")
-  case object TeraGram  extends MassUnit("Tg", r"1e9")
-  case object PetaGram  extends MassUnit("Pg", r"1e12")
-  case object ExaGram   extends MassUnit("Eg", r"1e15")
-  case object ZettaGram extends MassUnit("Zg", r"1e18")
-  case object YottaGram extends MassUnit("Yg", r"1e21")
+  case object MegaGram  extends MassUnit("Mg", r"1e6", Gram)
+  case object GigaGram  extends MassUnit("Gg", r"1e9", Gram)
+  case object TeraGram  extends MassUnit("Tg", r"1e12", Gram)
+  case object PetaGram  extends MassUnit("Pg", r"1e15", Gram)
+  case object ExaGram   extends MassUnit("Eg", r"1e18", Gram)
+  case object ZettaGram extends MassUnit("Zg", r"1e21", Gram)
+  case object YottaGram extends MassUnit("Yg", r"1e24", Gram)
+
+  case object Grain extends MassUnit("gr", r"6479891", MilliGram)
+  case object Carat extends MassUnit("kt", r"3" + r"1/6", Grain)
+  case object Carat_Metric extends MassUnit("ct", r"200", MilliGram)
+  case object Ounce extends MassUnit("oz", r"28", Gram)
+  case object Pound extends MassUnit("lb", r"0.45359237")
+  case object Tonne extends MassUnit("t", r"1000")
+
+  case object ElectronVolt extends MassUnit("eV", r"1.78266184e-36")  // TODO
 }
 
-trait PredefinedMassUnit{
+trait PredefinedMassUnit extends MassPostfixOps[MassUnit]{
 
-  val yg = MassUnit.YoctoGram
-  val zg = MassUnit.ZeptoGram
-  val ag = MassUnit.AttoGram
-  val fg = MassUnit.FemtoGram
-  val pg = MassUnit.PicoGram
-  val ng = MassUnit.NanoGram
-  val μg = MassUnit.MicroGram
-  val mg = MassUnit.MilliGram
-  val cg = MassUnit.CentiGram
-  val dg = MassUnit.DeciGram
-  val g  = MassUnit.Gram
-  val dag = MassUnit.DecaGram
-  val hg = MassUnit.HectoGram
-  val kg = MassUnit.KiloGram
-  val Mg = MassUnit.MegaGram
-  val Gg = MassUnit.GigaGram
-  val Tg = MassUnit.TeraGram
-  val Pg = MassUnit.PetaGram
-  val Eg = MassUnit.ExaGram
-  val Zg = MassUnit.ZettaGram
-  val Yg = MassUnit.YottaGram
+  override protected def massPostfixOps(massUnit: MassUnit) = massUnit
 }
 
 object PredefinedMassUnit extends PredefinedMassUnit

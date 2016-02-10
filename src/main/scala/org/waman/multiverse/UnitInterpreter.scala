@@ -15,6 +15,8 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with VelocityUnitInterpreter[A]
   with AngularVelocityUnitInterpreter[A]
   with VolumeFlowUnitInterpreter[A]
+  with AccelerationUnitInterpreter[A]
+  with ForceUnitInterpreter[A]
   with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -31,4 +33,6 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(velocityUnit: VelocityUnit)               = new Velocity(value, velocityUnit)
   override def apply(angularVelocityUnit: AngularVelocityUnit) = new AngularVelocity(value, angularVelocityUnit)
   override def apply(volumeFlowUnit: VolumeFlowUnit)           = new VolumeFlow(value, volumeFlowUnit)
+  override def apply(accelerationUnit: AccelerationUnit)       = new Acceleration(value, accelerationUnit)
+  override def apply(forceUnit: ForceUnit)                     = new Force(value, forceUnit)
 }

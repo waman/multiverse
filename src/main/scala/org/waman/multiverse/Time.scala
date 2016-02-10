@@ -51,6 +51,9 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 sealed abstract class TimeUnit(val symbol: String, val unitInSecond: Real)
   extends PhysicalUnit {
 
+  def this(symbol: String, factor: Real, timeUnit: TimeUnit) =
+    this(symbol, factor * timeUnit.unitInSecond)
+
   override protected val baseUnit = TimeUnit.Second
   override protected val inBaseUnitAccessor = () => unitInSecond
 }
@@ -68,7 +71,7 @@ object TimeUnit{
   case object CentiSecond extends TimeUnit("cs", r"1e-2")
   case object DeciSecond  extends TimeUnit("ds", r"1e-1")
   case object Second      extends TimeUnit("s" , r"1")
-  case object DecaSecond  extends TimeUnit("das", r"10")
+  case object DecaSecond  extends TimeUnit("das", r"1e1")
   case object HectoSecond extends TimeUnit("hs", r"1e2")
   case object KiloSecond  extends TimeUnit("ks", r"1e3")
   case object MegaSecond  extends TimeUnit("Ms", r"1e6")
@@ -80,37 +83,12 @@ object TimeUnit{
   case object YottaSecond extends TimeUnit("Ys", r"1e24")
 
   case object Minute      extends TimeUnit("minute", r"60")
-  case object Hour        extends TimeUnit("h"     , r"3600")
-  case object Day         extends TimeUnit("d"     , r"3600" * r"24")
+  case object Hour        extends TimeUnit("h"     , r"60", Minute)
+  case object Day         extends TimeUnit("d"     , r"24", Hour)
 }
 
-trait PredefinedTimeUnit{
-
-  val ys = TimeUnit.YoctoSecond
-  val zs = TimeUnit.ZeptoSecond
-  val as = TimeUnit.AttoSecond
-  val fs = TimeUnit.FemtoSecond
-  val ps = TimeUnit.PicoSecond
-  val ns = TimeUnit.NanoSecond
-  val μs = TimeUnit.MicroSecond
-  val ms = TimeUnit.MilliSecond
-  val cs = TimeUnit.CentiSecond
-  val ds = TimeUnit.DeciSecond
-  val s  = TimeUnit.Second
-  val das = TimeUnit.DecaSecond
-  val hs = TimeUnit.HectoSecond
-  val ks = TimeUnit.KiloSecond
-  val Ms = TimeUnit.MegaSecond
-  val Gs = TimeUnit.GigaSecond
-  val Ts = TimeUnit.TeraSecond
-  val Ps = TimeUnit.PetaSecond
-  val Es = TimeUnit.ExaSecond
-  val Zs = TimeUnit.ZettaSecond
-  val Ys = TimeUnit.YottaSecond
-
-  val min = TimeUnit.Minute
-  val h   = TimeUnit.Hour
-  val d   = TimeUnit.Day
+trait PredefinedTimeUnit extends TimePostfixOps[TimeUnit]{
+  override protected def timePostfixOps(timeUnit: TimeUnit) = timeUnit
 }
 
 object PredefinedTimeUnit extends PredefinedTimeUnit

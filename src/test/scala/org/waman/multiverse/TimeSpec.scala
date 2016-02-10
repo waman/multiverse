@@ -71,7 +71,7 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.Zs, 3.0 Zs, 3.0 (Zs)), 3e21),
         (Seq(3.0.Ys, 3.0 Ys, 3.0 (Ys)), 3e24),
 
-        (Seq(3.0.minute, 3.0 minute, 3.0 (min)), 3.0 * 60.0),
+        (Seq(3.0.minute, 3.0 minute, 3.0 (minute)), 3.0 * 60.0),
         (Seq(3.0.h     , 3.0 h     , 3.0 (h))  , 3.0 * 60.0 * 60.0),
         (Seq(3.0.d     , 3.0 d     , 3.0 (d))  , 3.0 * 60.0 * 60.0 * 24.0)
       )
@@ -83,37 +83,37 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val threeSecond = 3.0 s
-
   "Tests where converting second unit to other units like 1.0 s => 1000.0 ms" in {
+    val value = 3.0 s
+
     val conversions =
       Table(
         ("time", "expected"),
-        (Seq(threeSecond.ys, threeSecond ys, threeSecond (ys)), 3e24),
-        (Seq(threeSecond.zs, threeSecond zs, threeSecond (zs)), 3e21),
-        (Seq(threeSecond.as, threeSecond as, threeSecond (as)), 3e18),
-        (Seq(threeSecond.fs, threeSecond fs, threeSecond (fs)), 3e15),
-        (Seq(threeSecond.ps, threeSecond ps, threeSecond (ps)), 3e12),
-        (Seq(threeSecond.ns, threeSecond ns, threeSecond (ns)), 3e9),
-        (Seq(threeSecond.μs, threeSecond μs, threeSecond (μs)), 3e6),
-        (Seq(threeSecond.ms, threeSecond ms, threeSecond (ms)), 3e3),
-        (Seq(threeSecond.cs, threeSecond cs, threeSecond (cs)), 3e2),
-        (Seq(threeSecond.ds, threeSecond ds, threeSecond (ds)), 3e1),
-        (Seq(threeSecond.s , threeSecond s , threeSecond (s)) , 3.0),
-        (Seq(threeSecond.das, threeSecond das, threeSecond (das)), 3e-1),
-        (Seq(threeSecond.hs, threeSecond hs, threeSecond (hs)), 3e-2),
-        (Seq(threeSecond.ks, threeSecond ks, threeSecond (ks)), 3e-3),
-        (Seq(threeSecond.Ms, threeSecond Ms, threeSecond (Ms)), 3e-6),
-        (Seq(threeSecond.Gs, threeSecond Gs, threeSecond (Gs)), 3e-9),
-        (Seq(threeSecond.Ts, threeSecond Ts, threeSecond (Ts)), 3e-12),
-        (Seq(threeSecond.Ps, threeSecond Ps, threeSecond (Ps)), 3e-15),
-        (Seq(threeSecond.Es, threeSecond Es, threeSecond (Es)), 3e-18),
-        (Seq(threeSecond.Zs, threeSecond Zs, threeSecond (Zs)), 3e-21),
-        (Seq(threeSecond.Ys, threeSecond Ys, threeSecond (Ys)), 3e-24),
+        (Seq(value.ys, value ys, value (ys)), 3e24),
+        (Seq(value.zs, value zs, value (zs)), 3e21),
+        (Seq(value.as, value as, value (as)), 3e18),
+        (Seq(value.fs, value fs, value (fs)), 3e15),
+        (Seq(value.ps, value ps, value (ps)), 3e12),
+        (Seq(value.ns, value ns, value (ns)), 3e9),
+        (Seq(value.μs, value μs, value (μs)), 3e6),
+        (Seq(value.ms, value ms, value (ms)), 3e3),
+        (Seq(value.cs, value cs, value (cs)), 3e2),
+        (Seq(value.ds, value ds, value (ds)), 3e1),
+        (Seq(value.s , value s , value (s)) , 3.0),
+        (Seq(value.das, value das, value (das)), 3e-1),
+        (Seq(value.hs, value hs, value (hs)), 3e-2),
+        (Seq(value.ks, value ks, value (ks)), 3e-3),
+        (Seq(value.Ms, value Ms, value (Ms)), 3e-6),
+        (Seq(value.Gs, value Gs, value (Gs)), 3e-9),
+        (Seq(value.Ts, value Ts, value (Ts)), 3e-12),
+        (Seq(value.Ps, value Ps, value (Ps)), 3e-15),
+        (Seq(value.Es, value Es, value (Es)), 3e-18),
+        (Seq(value.Zs, value Zs, value (Zs)), 3e-21),
+        (Seq(value.Ys, value Ys, value (Ys)), 3e-24),
 
-        (Seq(threeSecond.minute, threeSecond minute, threeSecond (min)), 3.0/60.0),
-        (Seq(threeSecond.h     , threeSecond h     , threeSecond (h))  , 3.0/(60.0 * 60.0)),
-        (Seq(threeSecond.d     , threeSecond d     , threeSecond (d))  , 3.0/(60.0 * 60.0 * 24.0))
+        (Seq(value.minute, value minute, value (minute)), 3.0/60.0),
+        (Seq(value.h     , value h     , value (h))  , 3.0/(60.0 * 60.0)),
+        (Seq(value.d     , value d     , value (d))  , 3.0/(60.0 * 60.0 * 24.0))
       )
 
     forAll(conversions){ (ts: Seq[Double], expected: Double) =>

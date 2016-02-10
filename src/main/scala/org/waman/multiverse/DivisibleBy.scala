@@ -1,5 +1,13 @@
 package org.waman.multiverse
 
-trait DivisibleBy[A, R]{
-  def /(divUnit: A): R
+trait DivisibleByTime[R]{
+  def /(timeUnit: TimeUnit): R
+}
+
+trait DivisibleByTimeSquared[R]{
+  def /(timeSquaredUnit: TimeSquaredUnit): R
+}
+
+trait DivisibleByVolume[R]{
+  def /(volumeUnit: VolumeUnit): R
 }

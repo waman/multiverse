@@ -5,7 +5,7 @@ import spire.implicits._
 
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
   extends Quantity[A, DensityUnit]
-    with MassPostfixOps[DivisibleBy[VolumeUnit, A]]
+    with MassPostfixOps[DivisibleByVolume[A]]
     with MassPer[VolumePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -13,9 +13,9 @@ class Density[A: Fractional](val value: A, val unit: DensityUnit)
 
   def apply(evalUnit: DensityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInKilogramPerCubicMetre) / real(evalUnit.unitInKilogramPerCubicMetre)
+    else value * real(unit.unitInKiloGramPerCubicMetre) / real(evalUnit.unitInKiloGramPerCubicMetre)
 
-  override protected def massPostfixOps(massUnit: MassUnit) = new DivisibleBy[VolumeUnit, A]{
+  override protected def massPostfixOps(massUnit: MassUnit) = new DivisibleByVolume[A]{
     override def /(volumeUnit: VolumeUnit): A = apply(massUnit / volumeUnit)
   }
 
@@ -25,10 +25,10 @@ class Density[A: Fractional](val value: A, val unit: DensityUnit)
 }
 
 sealed trait DensityUnit extends PhysicalUnit{
-  def unitInKilogramPerCubicMetre: Real
+  def unitInKiloGramPerCubicMetre: Real
 
   override protected lazy val baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
-  override protected val inBaseUnitAccessor = () => unitInKilogramPerCubicMetre
+  override protected val inBaseUnitAccessor = () => unitInKiloGramPerCubicMetre
 }
 
 object DensityUnit{
@@ -36,7 +36,7 @@ object DensityUnit{
   class QuotientDensityUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
     extends DensityUnit with QuotientUnit[MassUnit, VolumeUnit]{
 
-    override lazy val unitInKilogramPerCubicMetre: Real =
+    override lazy val unitInKiloGramPerCubicMetre: Real =
       numeratorUnit.unitInKiloGram / denominatorUnit.unitInCubicMetre
   }
 

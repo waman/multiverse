@@ -2,6 +2,7 @@ package org.waman.multiverse
 
 import spire.math._
 import spire.implicits._
+import org.waman.multiverse.MultiverseUtil.twoPi
 
 trait AngularVelocityPostfixOps[A]{
 
@@ -14,7 +15,7 @@ trait AngularVelocityPostfixOps[A]{
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
     extends Quantity[A, AngularVelocityUnit]
     with AngularVelocityPostfixOps[A]
-    with AnglePostfixOps[DivisibleBy[TimeUnit, A]]
+    with AnglePostfixOps[DivisibleByTime[A]]
     with AnglePer[TimePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -27,7 +28,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
   override protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit) =
     apply(angularVelocityUnit)
 
-  override protected def anglePostfixOps(angleUnit: AngleUnit) = new DivisibleBy[TimeUnit, A]{
+  override protected def anglePostfixOps(angleUnit: AngleUnit) = new DivisibleByTime[A]{
     override def /(timeUnit: TimeUnit): A = apply(angleUnit / timeUnit)
   }
 
@@ -36,7 +37,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
   }
 
   def toFrequency: Frequency[A] = new Frequency(
-    div(rad(UnitSystem./).s, 2.0 * Real.pi),
+    div(rad(UnitSystem./).s, twoPi),
     FrequencyUnit.Heltz)
 }
 
@@ -49,32 +50,34 @@ sealed abstract class AngularVelocityUnit extends PhysicalUnit{
 
 object AngularVelocityUnit{
 
-  private[AngularVelocityUnit] class AngularVelocityUnitImpl(val symbol: String, val unitInRadianPerSecond: Real)
+  private[AngularVelocityUnit] class AngularVelocityUnitImpl
+    (val symbol: String, val unitInRadianPerSecond: Real)
     extends AngularVelocityUnit
 
-  case object RevolutionPerMinute extends AngularVelocityUnitImpl("rpm", r"2" * Real.pi / r"60")
-  case object CyclePerSecond      extends AngularVelocityUnitImpl("cps", r"2" * Real.pi)
+  case object CyclePerSecond      extends AngularVelocityUnitImpl("cps", twoPi)
+  case object RevolutionPerMinute extends AngularVelocityUnitImpl("rpm", twoPi / r"60")
 
 
   private[AngularVelocityUnit]
   class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
     extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
 
-    override lazy val unitInRadianPerSecond: Real = numeratorUnit.unitInRadian / denominatorUnit.unitInSecond
+    override lazy val unitInRadianPerSecond: Real =
+      numeratorUnit.unitInRadian / denominatorUnit.unitInSecond
   }
 
   def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit =
     new QuotientAngularVelocityUnit(aUnit, tUnit)
 }
 
-trait PredefinedAngularVelocityUnit{
-  val rpm = AngularVelocityUnit.RevolutionPerMinute
-  val cps = AngularVelocityUnit.CyclePerSecond
+trait PredefinedAngularVelocityUnit extends AngularVelocityPostfixOps[AngularVelocityUnit]{
+  override protected def angularVelocityPostfixOps(avUnit: AngularVelocityUnit) = avUnit
 }
 
 object PredefinedAngularVelocityUnit extends PredefinedAngularVelocityUnit
 
-trait AngularVelocityUnitInterpreter[A] extends AngularVelocityPostfixOps[AngularVelocity[A]]{
+trait AngularVelocityUnitInterpreter[A]
+    extends AngularVelocityPostfixOps[AngularVelocity[A]]{
 
   def apply(unit: AngularVelocityUnit): AngularVelocity[A]
 

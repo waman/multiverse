@@ -44,8 +44,8 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.m/s   , 3.0 m/s      , 3.0 (m/s))   , 3.0),
         (Seq(3.0.km/h  , 3.0 km/h     , 3.0 (km/h))  , 3.0 * 1000.0 / 3600.0),
         (Seq(3.0.c     , 3.0 c        , 3.0 (c))     , 3.0 * 299792458),
-        (Seq(3.0.km/min, 3.0 km/minute, 3.0 (km/min)), 3.0 * 1000.0 / 60.0),
-        (Seq(3.0.cm/min, 3.0 cm/minute, 3.0 (cm/min)), 3.0 * 0.01 / 60.0)
+        (Seq(3.0.km/minute, 3.0 km/minute, 3.0 (km/minute)), 3.0 * 1000.0 / 60.0),
+        (Seq(3.0.cm/minute, 3.0 cm/minute, 3.0 (cm/minute)), 3.0 * 0.01 / 60.0)
       )
 
     forAll(conversions){ (vs: Seq[Velocity[Double]], expected: Double) =>
@@ -55,17 +55,17 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val threeMps = 3.0 m/s
-
   "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
+    val value = 3.0 m/s
+
     val conversions =
       Table(
         ("velocity", "expected"),
-        (Seq(threeMps.m/s   , threeMps m/s      , threeMps (m/s))   , 3.0),
-        (Seq(threeMps.km/h  , threeMps km/h     , threeMps (km/h))  , 3.0 * 3600.0 / 1000.0),
-        (Seq(threeMps.c     , threeMps c        , threeMps (c))     , 3.0 / 299792458),
-        (Seq(threeMps.km/min, threeMps km/minute, threeMps (km/min)), 3.0 * 60.0 / 1000.0),
-        (Seq(threeMps.cm/min, threeMps cm/minute, threeMps (cm/min)), 3.0 * 60.0 / 0.01)
+        (Seq(value.m/s   , value m/s      , value (m/s))   , 3.0),
+        (Seq(value.km/h  , value km/h     , value (km/h))  , 3.0 * 3600.0 / 1000.0),
+        (Seq(value.c     , value c        , value (c))     , 3.0 / 299792458),
+        (Seq(value.km/minute, value km/minute, value (km/minute)), 3.0 * 60.0 / 1000.0),
+        (Seq(value.cm/minute, value cm/minute, value (cm/minute)), 3.0 * 60.0 / 0.01)
       )
 
     forAll(conversions){ (vs: Seq[Double], expected: Double) =>

@@ -89,33 +89,33 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val threeHz = 3.0 Hz
-
   "Tests where converting metre unit to other units like 3.0 rad/s => 3.0 * 180.0 / PI deg/s" in {
+    val value = 3.0 Hz
+
     val conversions =
       Table(
         ("frequency", "expected"),
-        (Seq(threeHz.yHz, threeHz yHz, threeHz(yHz)), 3e24),
-        (Seq(threeHz.zHz, threeHz zHz, threeHz(zHz)), 3e21),
-        (Seq(threeHz.aHz, threeHz aHz, threeHz(aHz)), 3e18),
-        (Seq(threeHz.fHz, threeHz fHz, threeHz(fHz)), 3e15),
-        (Seq(threeHz.pHz, threeHz pHz, threeHz(pHz)), 3e12),
-        (Seq(threeHz.nHz, threeHz nHz, threeHz(nHz)), 3e9),
-        (Seq(threeHz.μHz, threeHz μHz, threeHz(μHz)), 3e6),
-        (Seq(threeHz.mHz, threeHz mHz, threeHz(mHz)), 3e3),
-        (Seq(threeHz.cHz, threeHz cHz, threeHz(cHz)), 3e2),
-        (Seq(threeHz.dHz, threeHz dHz, threeHz(dHz)), 3e1),
-        (Seq(threeHz.Hz, threeHz Hz, threeHz(Hz)), 3.0),
-        (Seq(threeHz.daHz, threeHz daHz, threeHz(daHz)), 3e-1),
-        (Seq(threeHz.hHz, threeHz hHz, threeHz(hHz)), 3e-2),
-        (Seq(threeHz.kHz, threeHz kHz, threeHz(kHz)), 3e-3),
-        (Seq(threeHz.MHz, threeHz MHz, threeHz(MHz)), 3e-6),
-        (Seq(threeHz.GHz, threeHz GHz, threeHz(GHz)), 3e-9),
-        (Seq(threeHz.THz, threeHz THz, threeHz(THz)), 3e-12),
-        (Seq(threeHz.PHz, threeHz PHz, threeHz(PHz)), 3e-15),
-        (Seq(threeHz.EHz, threeHz EHz, threeHz(EHz)), 3e-18),
-        (Seq(threeHz.ZHz, threeHz ZHz, threeHz(ZHz)), 3e-21),
-        (Seq(threeHz.YHz, threeHz YHz, threeHz(YHz)), 3e-24)
+        (Seq(value.yHz, value yHz, value(yHz)), 3e24),
+        (Seq(value.zHz, value zHz, value(zHz)), 3e21),
+        (Seq(value.aHz, value aHz, value(aHz)), 3e18),
+        (Seq(value.fHz, value fHz, value(fHz)), 3e15),
+        (Seq(value.pHz, value pHz, value(pHz)), 3e12),
+        (Seq(value.nHz, value nHz, value(nHz)), 3e9),
+        (Seq(value.μHz, value μHz, value(μHz)), 3e6),
+        (Seq(value.mHz, value mHz, value(mHz)), 3e3),
+        (Seq(value.cHz, value cHz, value(cHz)), 3e2),
+        (Seq(value.dHz, value dHz, value(dHz)), 3e1),
+        (Seq(value.Hz, value Hz, value(Hz)), 3.0),
+        (Seq(value.daHz, value daHz, value(daHz)), 3e-1),
+        (Seq(value.hHz, value hHz, value(hHz)), 3e-2),
+        (Seq(value.kHz, value kHz, value(kHz)), 3e-3),
+        (Seq(value.MHz, value MHz, value(MHz)), 3e-6),
+        (Seq(value.GHz, value GHz, value(GHz)), 3e-9),
+        (Seq(value.THz, value THz, value(THz)), 3e-12),
+        (Seq(value.PHz, value PHz, value(PHz)), 3e-15),
+        (Seq(value.EHz, value EHz, value(EHz)), 3e-18),
+        (Seq(value.ZHz, value ZHz, value(ZHz)), 3e-21),
+        (Seq(value.YHz, value YHz, value(YHz)), 3e-24)
       )
 
     forAll(conversions) { (as: Seq[Double], expected: Double) =>

@@ -61,7 +61,7 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.deg/s  , 3.0 deg/s     , 3.0 (deg/s))  , 3.0 * Math.PI / 180.0),
         (Seq(3.0.rpm    , 3.0 rpm       , 3.0 (rpm))    , 3.0 * 2.0 * Math.PI / 60.0),
         (Seq(3.0.cps    , 3.0 cps       , 3.0 (cps))    , 3.0 * 2.0 * Math.PI),
-        (Seq(3.0.deg/min, 3.0 deg/minute, 3.0 (deg/min)), 3.0 * Math.PI / 180.0 / 60.0)
+        (Seq(3.0.deg/minute, 3.0 deg/minute, 3.0 (deg/minute)), 3.0 * Math.PI / 180.0 / 60.0)
       )
 
     forAll(conversions){ (avs: Seq[AngularVelocity[Double]], expected: Double) =>
@@ -71,17 +71,17 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val threeRpS = 3.0 rad/s
-
   "Tests where converting metre unit to other units like 3.0 rad/s => 3.0 * 180.0 / PI deg/s" in {
+    val value = 3.0 rad/s
+
     val conversions =
       Table(
         ("angularVelocity", "expected"),
-        (Seq(threeRpS.rad/s  , threeRpS rad/s     , threeRpS (rad/s))  , 3.0),
-        (Seq(threeRpS.deg/s  , threeRpS deg/s     , threeRpS (deg/s))  , 3.0 * 180.0 / Math.PI),
-        (Seq(threeRpS.rpm    , threeRpS rpm       , threeRpS (rpm))    , 3.0 * 60.0 / (2.0 * Math.PI) ),
-        (Seq(threeRpS.cps    , threeRpS cps       , threeRpS (cps))    , 3.0 / (2.0 * Math.PI)),
-        (Seq(threeRpS.deg/min, threeRpS deg/minute, threeRpS (deg/min)), 3.0 * 180.0 * 60.0 / Math.PI)
+        (Seq(value.rad/s  , value rad/s     , value (rad/s))  , 3.0),
+        (Seq(value.deg/s  , value deg/s     , value (deg/s))  , 3.0 * 180.0 / Math.PI),
+        (Seq(value.rpm    , value rpm       , value (rpm))    , 3.0 * 60.0 / (2.0 * Math.PI) ),
+        (Seq(value.cps    , value cps       , value (cps))    , 3.0 / (2.0 * Math.PI)),
+        (Seq(value.deg/minute, value deg/minute, value (deg/minute)), 3.0 * 180.0 * 60.0 / Math.PI)
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

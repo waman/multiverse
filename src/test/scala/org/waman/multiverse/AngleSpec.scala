@@ -20,7 +20,6 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
     result should contain theSameElementsAs Seq(
       Radian,
       Degree,
-      SymbolicDegree,
       Gradian,
       Turn
     )
@@ -44,17 +43,17 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val threeRadian = 3.0 rad
-
   "Tests where converting radian unit to other units like 3.0 rad => 3.0 * 360 / 2 * PI deg" in {
+    val value = 3.0 rad
+
     val conversions =
       Table(
         ("angle", "expected"),
-        (Seq(threeRadian.rad, threeRadian rad, threeRadian (rad)), 3.0),
-        (Seq(threeRadian.deg, threeRadian deg, threeRadian (deg)), 3.0 * 180.0 / Math.PI),
-        (Seq(threeRadian.°  , threeRadian °  , threeRadian (°))  , 3.0 * 180.0 / Math.PI),
-        (Seq(threeRadian.gon, threeRadian gon, threeRadian (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
-        (Seq(threeRadian.tr , threeRadian tr , threeRadian (tr)) , 3.0 / (2.0 * Math.PI))
+        (Seq(value.rad, value rad, value (rad)), 3.0),
+        (Seq(value.deg, value deg, value (deg)), 3.0 * 180.0 / Math.PI),
+        (Seq(value.°  , value °  , value (°))  , 3.0 * 180.0 / Math.PI),
+        (Seq(value.gon, value gon, value (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
+        (Seq(value.tr , value tr , value (tr)) , 3.0 / (2.0 * Math.PI))
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

@@ -1,5 +1,6 @@
 package org.waman.multiverse
 
+import java.lang.reflect.Method
 import java.{util => jcf}
 
 import spire.math.Fractional
@@ -19,7 +20,11 @@ trait UnitSystem extends PredefinedLengthUnit
     with PredefinedFrequencyUnit
     with PredefinedVelocityUnit
     with PredefinedAngularVelocityUnit
-    with PredefinedVolumeFlowUnit{
+    with PredefinedVolumeFlowUnit
+    with PredefinedTimeSquaredUnit
+    with PredefinedAccelerationUnit
+    with PredefinedForceUnit
+    with HasContext{
 
   implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
     new UnitInterpreter(value)
@@ -35,7 +40,7 @@ trait UnitSystem extends PredefinedLengthUnit
 
 object UnitSystem extends UnitSystem{
 
-  def getSupportedQuantities: Seq[String] =
+  val getSupportedQuantities: Seq[String] =
     Seq("Length",
       "Area",
       "Volume",
@@ -66,10 +71,37 @@ object UnitSystem extends UnitSystem{
   }
 
   def getSupportedUnits[U <: PhysicalUnit](unitType: Class[U]): Seq[U]  = {
-    val predef = Class.forName(s"org.waman.multiverse.Predefined${unitType.getSimpleName}")
-    predef.getMethods
-      .filter(m => unitType.isAssignableFrom(m.getReturnType))
-      .map(_.invoke(this))
-      .map(u => unitType.cast(u))
+    getPostfixOpsClass(unitType).getMethods
+      .filterNot(_.getName.endsWith("PostfixOps"))
+      .filterNot(_.getName.startsWith("_"))
+      .flatMap(m => getUnits(m, unitType))
+      .distinct
+    }
+
+  def getSupportedUnits[U <: PhysicalUnit](unitType: Class[U], ord: U => String): Seq[U] =
+    getSupportedUnits(unitType).sortBy(ord)
+
+  private def getUnits[U <: PhysicalUnit](m: Method, unitType: Class[U]): Seq[U] =
+    m.getParameterCount match{
+      case 0 => Seq(unitType.cast(m.invoke(this)))
+      case 1 => getSupportedContext(unitType, m.getName).map(c => m.invoke(this, c).asInstanceOf[U])
+  }
+
+  lazy val getSupportedContext: Seq[Context] = {
+    val cc = classOf[Context]
+    getClass.getMethods
+      .filter(m => cc.isAssignableFrom(m.getReturnType))
+      .map(m => cc.cast(m.invoke(this)))
+  }
+
+  def getSupportedContext[U <: PhysicalUnit](unitType: Class[U], unitSymbol: String): Seq[Context] = {
+    val m = getPostfixOpsClass(unitType).getMethods.find(_.getName == s"_$unitSymbol").get
+    val pf = m.invoke(this).asInstanceOf[PartialFunction[Context, _]]
+    getSupportedContext.filter(c => pf.isDefinedAt(c))
+  }
+
+  private def getPostfixOpsClass[U <: PhysicalUnit](unitType: Class[U]): Class[_] = {
+    val unitName = unitType.getSimpleName
+    Class.forName(s"org.waman.multiverse.${unitName.substring(0, unitName.length - 4)}PostfixOps")
   }
 }

@@ -12,14 +12,21 @@ trait PhysicalUnit{
   protected def baseUnit: PhysicalUnit
   protected def inBaseUnitAccessor: () => Real
 
-  override def toString: String = {
-    val s = s"${name.padTo(20, ' ')} ($symbol)"
-    val base = baseUnit
+  override def toString: String = s"$name ($symbol)"
 
-    if (this == base) s
-    else s.padTo(30, ' ') + s": 1 ${symbol.padTo(5, ' ')} = ${inBaseUnitAccessor()} ${base.symbol}"
+  def toDetailString: String = {
+    val s = s"${name.padTo(30, ' ')} ($symbol)"
+    val valueInBaseUnit = inBaseUnitAccessor()
+
+    if (valueInBaseUnit == Real.one) s
+    else {
+      val eqSymbol = if(this.isInstanceOf[NotExact]) "~" else "="
+      s.padTo(45, ' ') + s": 1 ${symbol.padTo(8, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbol}"
+    }
   }
 }
+
+trait NotExact
 
 trait ProductUnit[A <: PhysicalUnit, B <: PhysicalUnit] extends PhysicalUnit{
   def firstUnit: A

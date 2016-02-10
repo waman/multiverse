@@ -81,29 +81,9 @@ object FrequencyUnit{
   case object YottaHeltz extends FrequencyUnit("YHz", r"1e24")
 }
 
-trait PredefinedFrequencyUnit{
+trait PredefinedFrequencyUnit extends FrequencyPostfixOps[FrequencyUnit]{
 
-  val yHz = FrequencyUnit.YoctoHeltz
-  val zHz = FrequencyUnit.ZeptoHeltz
-  val aHz = FrequencyUnit.AttoHeltz
-  val fHz = FrequencyUnit.FemtoHeltz
-  val pHz = FrequencyUnit.PicoHeltz
-  val nHz = FrequencyUnit.NanoHeltz
-  val μHz = FrequencyUnit.MicroHeltz
-  val mHz = FrequencyUnit.MilliHeltz
-  val cHz = FrequencyUnit.CentiHeltz
-  val dHz = FrequencyUnit.DeciHeltz
-  val Hz  = FrequencyUnit.Heltz
-  val daHz = FrequencyUnit.DecaHeltz
-  val hHz = FrequencyUnit.HectoHeltz
-  val kHz = FrequencyUnit.KiloHeltz
-  val MHz = FrequencyUnit.MegaHeltz
-  val GHz = FrequencyUnit.GigaHeltz
-  val THz = FrequencyUnit.TeraHeltz
-  val PHz = FrequencyUnit.PetaHeltz
-  val EHz = FrequencyUnit.ExaHeltz
-  val ZHz = FrequencyUnit.ZettaHeltz
-  val YHz = FrequencyUnit.YottaHeltz
+  override protected def frequencyPostfixOps(frequencyUnit: FrequencyUnit) = frequencyUnit
 }
 
 object PredefinedFrequencyUnit extends PredefinedFrequencyUnit

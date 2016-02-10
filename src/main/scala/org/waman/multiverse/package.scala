@@ -13,5 +13,5 @@ package object multiverse {
   def printSupportedQuantities(): Unit = UnitSystem.getSupportedQuantities.foreach(println)
 
   def printSupportedUnits(quantityName: String): Unit =
-    UnitSystem.getSupportedUnits[PhysicalUnit](quantityName).foreach(println)
+    UnitSystem.getSupportedUnits[PhysicalUnit](quantityName).map(_.toDetailString).foreach(println)
 }

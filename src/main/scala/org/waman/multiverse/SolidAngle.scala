@@ -3,6 +3,7 @@ package org.waman.multiverse
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+import org.waman.multiverse.MultiverseUtil.twoPi
 
 trait SolidAnglePostfixOps[A]{
 
@@ -35,12 +36,11 @@ abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
 
 object SolidAngleUnit{
   case object Steradian    extends SolidAngleUnit("sr", r"1")
-  case object SquareDegree extends SolidAngleUnit("deg2", (Real.pi / r"180")**2)
+  case object SquareDegree extends SolidAngleUnit("deg2", (twoPi / r"360")**2)
 }
 
-trait PredefinedSolidAngleUnit{
-  val sr   = SolidAngleUnit.Steradian
-  val deg2 = SolidAngleUnit.SquareDegree
+trait PredefinedSolidAngleUnit extends SolidAnglePostfixOps[SolidAngleUnit]{
+  override protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit) = solidAngleUnit
 }
 
 object PredefinedSolidAngleUnit extends PredefinedSolidAngleUnit

@@ -77,33 +77,33 @@ class MassSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  val three_kg = 3.0 kg
-
   "Tests where converting a mass unit to other units like 3.0 kg/m3 => 3e-3 g/cm3" in {
+    val value = 3.0 kg
+
     val conversions =
       Table(
         ("mass", "expected"),
-        (Seq(three_kg.yg, three_kg yg, three_kg (yg)), 3e27),
-        (Seq(three_kg.zg, three_kg zg, three_kg (zg)), 3e24),
-        (Seq(three_kg.ag, three_kg ag, three_kg (ag)), 3e21),
-        (Seq(three_kg.fg, three_kg fg, three_kg (fg)), 3e18),
-        (Seq(three_kg.pg, three_kg pg, three_kg (pg)), 3e15),
-        (Seq(three_kg.ng, three_kg ng, three_kg (ng)), 3e12),
-        (Seq(three_kg.μg, three_kg μg, three_kg (μg)), 3e9),
-        (Seq(three_kg.mg, three_kg mg, three_kg (mg)), 3e6),
-        (Seq(three_kg.cg, three_kg cg, three_kg (cg)), 3e5),
-        (Seq(three_kg.dg, three_kg dg, three_kg (dg)), 3e4),
-        (Seq(three_kg.g , three_kg g , three_kg (g)) , 3e3),
-        (Seq(three_kg.dag, three_kg dag, three_kg (dag)), 3e2),
-        (Seq(three_kg.hg, three_kg hg, three_kg (hg)), 3e1),
-        (Seq(three_kg.kg, three_kg kg, three_kg (kg)), 3.0),
-        (Seq(three_kg.Mg, three_kg Mg, three_kg (Mg)), 3e-3),
-        (Seq(three_kg.Gg, three_kg Gg, three_kg (Gg)), 3e-6),
-        (Seq(three_kg.Tg, three_kg Tg, three_kg (Tg)), 3e-9),
-        (Seq(three_kg.Pg, three_kg Pg, three_kg (Pg)), 3e-12),
-        (Seq(three_kg.Eg, three_kg Eg, three_kg (Eg)), 3e-15),
-        (Seq(three_kg.Zg, three_kg Zg, three_kg (Zg)), 3e-18),
-        (Seq(three_kg.Yg, three_kg Yg, three_kg (Yg)), 3e-21)
+        (Seq(value.yg, value yg, value (yg)), 3e27),
+        (Seq(value.zg, value zg, value (zg)), 3e24),
+        (Seq(value.ag, value ag, value (ag)), 3e21),
+        (Seq(value.fg, value fg, value (fg)), 3e18),
+        (Seq(value.pg, value pg, value (pg)), 3e15),
+        (Seq(value.ng, value ng, value (ng)), 3e12),
+        (Seq(value.μg, value μg, value (μg)), 3e9),
+        (Seq(value.mg, value mg, value (mg)), 3e6),
+        (Seq(value.cg, value cg, value (cg)), 3e5),
+        (Seq(value.dg, value dg, value (dg)), 3e4),
+        (Seq(value.g , value g , value (g)) , 3e3),
+        (Seq(value.dag, value dag, value (dag)), 3e2),
+        (Seq(value.hg, value hg, value (hg)), 3e1),
+        (Seq(value.kg, value kg, value (kg)), 3.0),
+        (Seq(value.Mg, value Mg, value (Mg)), 3e-3),
+        (Seq(value.Gg, value Gg, value (Gg)), 3e-6),
+        (Seq(value.Tg, value Tg, value (Tg)), 3e-9),
+        (Seq(value.Pg, value Pg, value (Pg)), 3e-12),
+        (Seq(value.Eg, value Eg, value (Eg)), 3e-15),
+        (Seq(value.Zg, value Zg, value (Zg)), 3e-18),
+        (Seq(value.Yg, value Yg, value (Yg)), 3e-21)
       )
 
     forAll(conversions){ (ms: Seq[Double], expected: Double) =>
