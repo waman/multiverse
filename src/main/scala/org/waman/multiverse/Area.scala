@@ -1,8 +1,7 @@
 package org.waman.multiverse
 
-import spire.math.Real
-import spire.math.Fractional
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait AreaPostfixOps[A]{
 
@@ -76,6 +75,15 @@ abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
   def this(symbol: String, factor: Real, areaUnit: AreaUnit) =
     this(symbol, factor * areaUnit.unitInSquareMetre)
 
+  def this(symbol: String, lengthUnit: LengthUnit) =
+    this(symbol, lengthUnit.unitInMetre **2)
+
+  def this(symbol: String, factor: Real, lengthUnit: LengthUnit) =
+    this(symbol, factor * (lengthUnit.unitInMetre**2))
+
+  def this(symbol: String, lengthUnit1: LengthUnit, lengthUnit2: LengthUnit) =
+    this(symbol, lengthUnit1.unitInMetre * lengthUnit2.unitInMetre)
+
   override protected val baseUnit = AreaUnit.SquareMetre
   override protected val inBaseUnitAccessor = () => unitInSquareMetre
 }
@@ -125,7 +133,19 @@ object AreaUnit{
   case object ZettaBarn extends AreaUnit("Zb", r"1e21", Barn)
   case object YottaBarn extends AreaUnit("Yb", r"1e24", Barn)
 
-  case object Acre extends AreaUnit("ac", r"4046.8564224")
+  case object SquareInch extends AreaUnit("sq_in", LengthUnit.Inch)
+  case object SquareLink extends AreaUnit("sq_ch", LengthUnit.Link)
+  case object SquareChain extends AreaUnit("sq_ch", LengthUnit.Chain)
+  case object SquareFoot extends AreaUnit("sq_ft", LengthUnit.Foot)
+  case object SquareFoot_US_Survey extends AreaUnit("sq_ft(US)", LengthUnit.Foot_US_Survey)
+
+  case object SquareLink_US_Survey extends AreaUnit("sq_ch(US)", LengthUnit.Link_US_Survey)
+  case object SquareChain_US_Survey extends AreaUnit("sq_ch(US)", LengthUnit.Chain_US_Survey)
+
+  case object CircularInch extends AreaUnit("circ_in", Real.pi/4.0, SquareInch)
+
+  case object Acre extends AreaUnit("ac", 10, LengthUnit.Chain)
+  case object Board extends AreaUnit("bd", LengthUnit.Inch, LengthUnit.Foot)
 }
 
 trait PredefinedAreaUnit extends AreaPostfixOps[AreaUnit]{

@@ -1,8 +1,9 @@
 package org.waman.multiverse
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.LengthUnit._
 import org.waman.multiverse.UnitSystem._
-import LengthUnit._
+
 import scala.language.postfixOps
 
 /**
@@ -51,11 +52,12 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
       LightYear,
       Parsec,
 
-      ThousandthOfAnInch,
+      Mil,
       Twip,
       Point,
       Line,
       Inch,
+      Link,
       Foot,
       Yard,
       Ell,
@@ -70,6 +72,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
       NauticalMile_Admiralty,
       NauticalLeague,
 
+      Link_US_Survey,
       Foot_US_Survey,
       Mile_US_Survey,
 
@@ -123,12 +126,13 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.pc, 3.0 pc, 3.0 (pc)), 3.0 * 3.08567782e16),
 
         // yard-pond
-        (Seq(3.0.thou, 3.0 thou, 3.0 (thou)), 3.0 * 2.543e-5),
         (Seq(3.0.mil , 3.0 mil , 3.0 (mil)) , 3.0 * 2.543e-5),
+        (Seq(3.0.thou, 3.0 thou, 3.0 (thou)), 3.0 * 2.543e-5),
         (Seq(3.0.twp , 3.0 twp , 3.0 (twp)) , 3.0 * 1.7639e-5),
         (Seq(3.0.pt  , 3.0 pt  , 3.0 (pt))  , 3.0 * 0.352778e-3),
         (Seq(3.0.ln  , 3.0 ln  , 3.0 (ln))  , 3.0 * 0.002116),
         (Seq(3.0.in  , 3.0 in  , 3.0 (in))  , 3.0 * 0.0254),
+        (Seq(3.0.lnk , 3.0 lnk , 3.0 (lnk)) , 3.0 * 0.66 * 0.3048),
         (Seq(3.0.ft  , 3.0 ft  , 3.0 (ft))  , 3.0 * 0.3048),
         (Seq(3.0.yd  , 3.0 yd  , 3.0 (yd))  , 3.0 * 0.9144),
         (Seq(3.0.ell , 3.0 ell , 3.0 (ell)) , 3.0 * 1.143),
@@ -146,8 +150,9 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.nl      , 3.0 nl      , 3.0 (nl))      , 3.0 * 5556),
         (Seq(3.0.NL      , 3.0 NL      , 3.0 (NL))      , 3.0 * 5556),
 
-        (Seq(3.0.ft(US), 3.0 ft(US), 3.0 (ft(US))), 3.0 * 0.304800610),
-        (Seq(3.0.mi(US), 3.0 mi(US), 3.0 (mi(US))), 3.0 * 1609.347219),
+        (Seq(3.0.lnk(US), 3.0 lnk(US), 3.0 (lnk(US))), 3.0 * 0.2011684),
+        (Seq(3.0.ft(US) , 3.0 ft(US) , 3.0 (ft(US))) , 3.0 * 0.304800610),
+        (Seq(3.0.mi(US) , 3.0 mi(US) , 3.0 (mi(US))) , 3.0 * 1609.347219),
 
         (Seq(3.0.mf, 3.0 mf, 3.0 (mf)), 3.0 * 0.31622776601),
         (Seq(3.0.smf, 3.0 smf, 3.0 (smf)), 3.0 * 0.3),
@@ -213,6 +218,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.pt  , value pt  , value (pt))  , 3.0 / 0.352778e-3),
         (Seq(value.ln  , value ln  , value (ln))  , 3.0 / 0.002116),
         (Seq(value.in  , value in  , value (in))  , 3.0 / 0.0254),
+        (Seq(value.lnk , value lnk , value (lnk)) , 3.0 / (0.66 * 0.3048)),
         (Seq(value.ft  , value ft  , value (ft))  , 3.0 / 0.3048),
         (Seq(value.yd  , value yd  , value (yd))  , 3.0 / 0.9144),
         (Seq(value.ell , value ell , value (ell)) , 3.0 / 1.143),
@@ -230,8 +236,9 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.nl      , value nl      , value (nl))      , 3.0 / 5556),
         (Seq(value.NL      , value NL      , value (NL))      , 3.0 / 5556),
 
-        (Seq(value.ft(US), value ft(US), value (ft(US))), 3.0 / 0.304800610),
-        (Seq(value.mi(US), value mi(US), value (mi(US))), 3.0 / 1609.347219),
+        (Seq(value.lnk(US), value lnk(US), value (lnk(US))), 3.0 / 0.2011684),
+        (Seq(value.ft(US) , value ft(US) , value (ft(US))) , 3.0 / 0.304800610),
+        (Seq(value.mi(US) , value mi(US) , value (mi(US))) , 3.0 / 1609.347219),
 
         (Seq(value.mf , value mf , value (mf)) , 3.0 / 0.31622776601),
         (Seq(value.smf, value smf, value (smf)), 3.0 / 0.3),
@@ -245,10 +252,17 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  "Conversion between point, inch, feet, yard and mile" in {
-    ((3.0 * 72.0 pt) in) should equal (%(3.0))
-    ((3.0 ft) in) should equal (%(3.0 * 12.0))
-    ((3.0 yd) ft) should equal (%(3.0 * 3.0))
-    ((3.0 mi) yd) should equal (%(3.0 * 1760))
+  "Unit with Context should" in {
+    val conversions =
+      Table(
+        "velocity",
+        3.0.nmi(Adm)/h,
+//        3.0 nmi(Adm)/h,
+        3.0 (nmi(Adm)/h)
+      )
+
+    forAll(conversions){ (v: Velocity[Double]) =>
+      (v m/s) should equal (%(3.0.nmi(Adm).m / 3600.0))
+    }
   }
 }
