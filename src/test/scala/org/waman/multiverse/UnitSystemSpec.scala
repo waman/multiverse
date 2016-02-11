@@ -1,7 +1,8 @@
 package org.waman.multiverse
 
-import org.waman.scalatest_util.ImplicitConversion
 import org.waman.multiverse.UnitSystem._
+import org.waman.scalatest_util.ImplicitConversion
+
 import scala.language.postfixOps
 
 class UnitSystemSpec extends MultiverseCustomSpec{
@@ -16,15 +17,11 @@ class UnitSystemSpec extends MultiverseCustomSpec{
     }
   }
 
-  "UnitSystem#getSupportedContext method should return all values of Context" in {
-    import Context._
+  "UnitSystem#getSupportedContext() should" in {
     __Exercise__
-    val sut = UnitSystem.getSupportedContext
+    val sut = UnitSystem.getSupportedContext(classOf[LengthUnit], "mi")
     __Verify__
-    sut should contain theSameElementsAs Seq(
-      UnitedStates,
-      Imperial
-      )
+    sut should contain theSameElementsAs Seq(Context.UnitedStates)
   }
 
   "ImplicitConversions" - {

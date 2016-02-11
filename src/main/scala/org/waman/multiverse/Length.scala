@@ -25,6 +25,7 @@ import spire.math.{Fractional, Real}
  */
 
 trait LengthPostfixOps[A]{
+  import LengthPostfixOps._
 
   protected def lengthPostfixOps(lengthUnit: LengthUnit): A
 
@@ -55,11 +56,7 @@ trait LengthPostfixOps[A]{
   def Å: A = lengthPostfixOps(LengthUnit.Angstrom)
   def a0: A = lengthPostfixOps(LengthUnit.AtomicUnitOfLength)
   def xu: A = lengthPostfixOps(LengthUnit.XUnit)
-  def xu(c: Context): A = _xu(c)
-  lazy val _xu: PartialFunction[Context, A] = {
-    case Cu_KAlpha1 => lengthPostfixOps(LengthUnit.XUnit_Cu_KAlpha1)
-    case Mo_KAlpha1 => lengthPostfixOps(LengthUnit.XUnit_Mo_KAlpha1)
-  }
+  def xu(c: Context): A = lengthPostfixOps(_xu(c))
   def lp: A = lengthPostfixOps(LengthUnit.PlanckLength)
 
   // astronomy
@@ -86,28 +83,15 @@ trait LengthPostfixOps[A]{
   def lea : A = lengthPostfixOps(LengthUnit.League)
 
   def nmi: A = lengthPostfixOps(LengthUnit.NauticalMile)
-  def nmi(c: Context): A = _nmi(c)
-  lazy val _nmi: PartialFunction[Context, A] = {
-    case Admiralty => lengthPostfixOps(LengthUnit.NauticalMile_Admiralty)
-  }
+  def nmi(c: Context): A = lengthPostfixOps(_nmi(c))
   def NM: A = nmi
-  def NM(c: Context): A = _NM(c)
-  lazy val _NM: PartialFunction[Context, A] = _nmi
+  def NM(c: Context): A = lengthPostfixOps(_NM(c))
   def nl: A = lengthPostfixOps(LengthUnit.NauticalLeague)
   def NL: A = nl
 
-  def lnk(c: Context) = _lnk(c)
-  lazy val _lnk: PartialFunction[Context, A] = {
-    case UnitedStates => lengthPostfixOps(LengthUnit.Link_US_Survey)
-  }
-  def ft(c: Context) = _ft(c)
-  lazy val _ft: PartialFunction[Context, A] = {
-    case UnitedStates => lengthPostfixOps(LengthUnit.Foot_US_Survey)
-  }
-  def mi(c: Context) = _mi(c)
-  lazy val _mi: PartialFunction[Context, A] = {
-    case UnitedStates => lengthPostfixOps(LengthUnit.Mile_US_Survey)
-  }
+  def lnk(c: Context): A = lengthPostfixOps(_lnk(c))
+  def ft(c: Context) : A = lengthPostfixOps(_ft(c))
+  def mi(c: Context) : A = lengthPostfixOps(_mi(c))
 
   def mf : A = lengthPostfixOps(LengthUnit.MetricFoot)
   def smf: A = lengthPostfixOps(LengthUnit.ShortMetricFoot)
@@ -115,6 +99,31 @@ trait LengthPostfixOps[A]{
 
   def Fr : A = lengthPostfixOps(LengthUnit.French)
   def fur: A = lengthPostfixOps(LengthUnit.Furlong)
+}
+
+object LengthPostfixOps{
+  lazy val _xu: PartialFunction[Context, LengthUnit] = {
+    case Cu_KAlpha1 => LengthUnit.XUnit_Cu_KAlpha1
+    case Mo_KAlpha1 => LengthUnit.XUnit_Mo_KAlpha1
+  }
+
+  lazy val _nmi: PartialFunction[Context, LengthUnit] = {
+    case Admiralty => LengthUnit.NauticalMile_Admiralty
+  }
+
+  lazy val _NM: PartialFunction[Context, LengthUnit] = _nmi
+
+  lazy val _lnk: PartialFunction[Context, LengthUnit] = {
+    case UnitedStates => LengthUnit.Link_US_Survey
+  }
+
+  lazy val _ft: PartialFunction[Context, LengthUnit] = {
+    case UnitedStates => LengthUnit.Foot_US_Survey
+  }
+
+  lazy val _mi: PartialFunction[Context, LengthUnit] = {
+    case UnitedStates => LengthUnit.Mile_US_Survey
+  }
 }
 
 trait LengthPer[A]{

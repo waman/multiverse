@@ -1,11 +1,12 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.Context._
-import spire.math.Real
-import spire.math.Fractional
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait VolumePostfixOps[A]{
+
+  import VolumePostfixOps._
 
   protected def volumePostfixOps(volumeUnit: VolumeUnit): A
 
@@ -57,17 +58,20 @@ trait VolumePostfixOps[A]{
 
   def cu_in: A = volumePostfixOps(VolumeUnit.CubicInch)
 
-  def gal(c: Context): A = _gal(c)
-
-  def _gal: PartialFunction[Context, A] = {
-    case UnitedStates | UnitedStates_Fluid => volumePostfixOps(VolumeUnit.Gallon_US_fluid)
-    case UnitedStates_Dry => volumePostfixOps(VolumeUnit.Gallon_US_dry)
-    case Imperial         => volumePostfixOps(VolumeUnit.Gallon_imperial)
-  }
+  def gal(c: Context): A = volumePostfixOps(_gal(c))
 
 //  def bal =
 
   def λ: A = volumePostfixOps(VolumeUnit.Lambda)
+}
+
+object VolumePostfixOps{
+
+  lazy val _gal: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates | UnitedStates_Fluid => VolumeUnit.Gallon_US_fluid
+    case UnitedStates_Dry => VolumeUnit.Gallon_US_dry
+    case Imperial         => VolumeUnit.Gallon_imperial
+  }
 }
 
 trait VolumePer[A]{

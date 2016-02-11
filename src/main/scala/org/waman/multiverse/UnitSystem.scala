@@ -71,9 +71,8 @@ object UnitSystem extends UnitSystem{
   }
 
   def getSupportedUnits[U <: PhysicalUnit](unitType: Class[U]): Seq[U]  = {
-    getPostfixOpsClass(unitType).getMethods
+    getPostfixOpsClass(unitType, true).getMethods
       .filterNot(_.getName.endsWith("PostfixOps"))
-      .filterNot(_.getName.startsWith("_"))
       .flatMap(m => getUnits(m, unitType))
       .distinct
     }
@@ -87,21 +86,17 @@ object UnitSystem extends UnitSystem{
       case 1 => getSupportedContext(unitType, m.getName).map(c => m.invoke(this, c).asInstanceOf[U])
   }
 
-  lazy val getSupportedContext: Seq[Context] = {
-    val cc = classOf[Context]
-    getClass.getMethods
-      .filter(m => cc.isAssignableFrom(m.getReturnType))
-      .map(m => cc.cast(m.invoke(this)))
-  }
-
   def getSupportedContext[U <: PhysicalUnit](unitType: Class[U], unitSymbol: String): Seq[Context] = {
-    val m = getPostfixOpsClass(unitType).getMethods.find(_.getName == s"_$unitSymbol").get
-    val pf = m.invoke(this).asInstanceOf[PartialFunction[Context, _]]
-    getSupportedContext.filter(c => pf.isDefinedAt(c))
+    val c = getPostfixOpsClass(unitType, isClass = false)
+    val instance = c.getField("MODULE$").get(null)
+    val m = c.getMethod(s"_$unitSymbol")
+    val pf = m.invoke(instance).asInstanceOf[PartialFunction[Context, _]]
+    Context.values.filter(c => pf.isDefinedAt(c))
   }
 
-  private def getPostfixOpsClass[U <: PhysicalUnit](unitType: Class[U]): Class[_] = {
+  private def getPostfixOpsClass[U <: PhysicalUnit](unitType: Class[U], isClass: Boolean): Class[_] = {
+    val dollar = if(isClass) "" else "$"
     val unitName = unitType.getSimpleName
-    Class.forName(s"org.waman.multiverse.${unitName.substring(0, unitName.length - 4)}PostfixOps")
+    Class.forName(s"org.waman.multiverse.${unitName.substring(0, unitName.length - 4)}PostfixOps$dollar")
   }
 }
