@@ -61,7 +61,27 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
       ZettaBarn,
       YottaBarn,
 
-      Acre
+      SquareMil,
+      SquareInch,
+      SquareLink,
+      SquareFoot,
+      SquareChain,
+      SquareYard,
+      SquareRod,
+      SquareMile,
+      Acre,
+      Rood,
+
+      SquareLink_US_Survey,
+      SquareFoot_US_Survey,
+      SquareChain_US_Survey,
+      SquareMile_US_Survey,
+      Acre_US_Survey,
+
+      CircularMil,
+      CircularInch,
+
+      Board
     )
   }
 
@@ -113,7 +133,27 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.Zb, 3.0 Zb, 3.0 (Zb)), 3e-7),
         (Seq(3.0.Yb, 3.0 Yb, 3.0 (Yb)), 3e-4),
 
-        (Seq(3.0.ac, 3.0 ac, 3.0 (ac)), 3.0 * 4046.8564224)
+        (Seq(3.0.sq_mil, 3.0 sq_mil, 3.0 (sq_mil)), 3.0 * 6.4516e-10),
+        (Seq(3.0.sq_in , 3.0 sq_in , 3.0 (sq_in)) , 3.0 * 6.4516e-4),
+        (Seq(3.0.sq_lnk, 3.0 sq_lnk, 3.0 (sq_lnk)), 3.0 * 4.0468564224e-2),
+        (Seq(3.0.sq_ft , 3.0 sq_ft , 3.0 (sq_ft)) , 3.0 * 9.290304e-2),
+        (Seq(3.0.sq_ch , 3.0 sq_ch , 3.0 (sq_ch)) , 3.0 * 404.68564224),
+        (Seq(3.0.sq_yd , 3.0 sq_yd , 3.0 (sq_yd)) , 3.0 * 0.83612736),
+        (Seq(3.0.sq_rd , 3.0 sq_rd , 3.0 (sq_rd)) , 3.0 * 25.29285264),
+        (Seq(3.0.sq_mi , 3.0 sq_mi , 3.0 (sq_mi)) , 3.0 * 2.589988110336e6),
+        (Seq(3.0.ac, 3.0 ac, 3.0 (ac)), 3.0 * 4046.8564224),
+        (Seq(3.0.ro, 3.0 ro, 3.0 (ro)), 3.0 * 1011.7141056),
+
+        (Seq(3.0.sq_lnk(US), 3.0 sq_lnk(US), 3.0 (sq_lnk(US))), 3.0 * 4.046872e-2),
+        (Seq(3.0.sq_ft(US) , 3.0 sq_ft(US) , 3.0 (sq_ft(US))) , 3.0 * 9.2903411613275e-2),
+        (Seq(3.0.sq_ch(US) , 3.0 sq_ch(US) , 3.0 (sq_ch(US))) , 3.0 * 404.6873),
+        (Seq(3.0.sq_mi(US) , 3.0 sq_mi(US) , 3.0 (sq_mi(US))) , 3.0 * 2.58999847e6),
+        (Seq(3.0.ac(US), 3.0 ac(US), 3.0 (ac(US))), 3.0 * 4046.873),
+
+        (Seq(3.0.circ_mil, 3.0 circ_mil, 3.0 (circ_mil)), 3.0 * 5.067075e-10),
+        (Seq(3.0.circ_in , 3.0 circ_in , 3.0 (circ_in)) , 3.0 * 5.067075e-4),
+
+        (Seq(3.0.bd, 3.0 bd, 3.0 (bd)), 3.0 * 7.74192e-3)
       )
 
     forAll(conversions){ (ls: Seq[Area[Double]], expected: Double) =>
@@ -173,7 +213,27 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.Zb, value Zb, value (Zb)), 3e7),
         (Seq(value.Yb, value Yb, value (Yb)), 3e4),
 
-        (Seq(value.ac , value ac , value (ac)) , 3.0 / 4046.8564224)
+        (Seq(value.sq_mil, value sq_mil, value (sq_mil)), 3.0 / 6.4516e-10),
+        (Seq(value.sq_in , value sq_in , value (sq_in)) , 3.0 / 6.4516e-4),
+        (Seq(value.sq_lnk, value sq_lnk, value (sq_lnk)), 3.0 / 4.0468564224e-2),
+        (Seq(value.sq_ft , value sq_ft , value (sq_ft)) , 3.0 / 9.290304e-2),
+        (Seq(value.sq_ch , value sq_ch , value (sq_ch)) , 3.0 / 404.68564224),
+        (Seq(value.sq_yd , value sq_yd , value (sq_yd)) , 3.0 / 0.83612736),
+        (Seq(value.sq_rd , value sq_rd , value (sq_rd)) , 3.0 / 25.29285264),
+        (Seq(value.sq_mi , value sq_mi , value (sq_mi)) , 3.0 / 2.589988110336e6),
+        (Seq(value.ac, value ac, value (ac)), 3.0 / 4046.8564224),
+        (Seq(value.ro, value ro, value (ro)), 3.0 / 1011.7141056),
+
+        (Seq(value.sq_lnk(US), value sq_lnk(US), value (sq_lnk(US))), 3.0 / 4.046872e-2),
+        (Seq(value.sq_ft(US) , value sq_ft(US) , value (sq_ft(US))) , 3.0 / 9.2903411613275e-2),
+        (Seq(value.sq_ch(US) , value sq_ch(US) , value (sq_ch(US))) , 3.0 / 404.6873),
+        (Seq(value.sq_mi(US) , value sq_mi(US) , value (sq_mi(US))) , 3.0 / 2.58999847e6),
+        (Seq(value.ac(US), value ac(US), value (ac(US))), 3.0 / 4046.873),
+
+        (Seq(value.circ_mil, value circ_mil, value (circ_mil)), 3.0 / 5.067075e-10),
+        (Seq(value.circ_in , value circ_in , value (circ_in)) , 3.0 / 5.067075e-4),
+
+        (Seq(value.bd, value bd, value (bd)), 3.0 / 7.74192e-3)
       )
 
     forAll(conversions){ (as: Seq[Double], expected: Double) =>

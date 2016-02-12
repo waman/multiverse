@@ -1,9 +1,12 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.Context._
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
 trait AreaPostfixOps[A]{
+
+  import AreaPostfixOps._
 
   protected def areaPostfixOps(areaUnit: AreaUnit): A
 
@@ -52,7 +55,50 @@ trait AreaPostfixOps[A]{
   def Yb: A = areaPostfixOps(AreaUnit.YottaBarn)
 
   // yard-pond
+  def sq_mil: A = areaPostfixOps(AreaUnit.SquareMil)
+  def sq_in : A = areaPostfixOps(AreaUnit.SquareInch)
+  def sq_lnk: A = areaPostfixOps(AreaUnit.SquareLink)
+  def sq_ft : A = areaPostfixOps(AreaUnit.SquareFoot)
+  def sq_ch : A = areaPostfixOps(AreaUnit.SquareChain)
+  def sq_yd : A = areaPostfixOps(AreaUnit.SquareYard)
+  def sq_rd : A = areaPostfixOps(AreaUnit.SquareRod)
+  def sq_mi : A = areaPostfixOps(AreaUnit.SquareMile)
   def ac: A = areaPostfixOps(AreaUnit.Acre)
+  def ro: A = areaPostfixOps(AreaUnit.Rood)
+
+  def sq_lnk(c: Context): A = areaPostfixOps(_sq_lnk(c))
+  def sq_ft (c: Context): A = areaPostfixOps(_sq_ft(c))
+  def sq_ch (c: Context): A = areaPostfixOps(_sq_ch(c))
+  def sq_mi (c: Context): A = areaPostfixOps(_sq_mi(c))
+  def ac(c: Context): A = areaPostfixOps(_ac(c))
+
+  def circ_mil: A = areaPostfixOps(AreaUnit.CircularMil)
+  def circ_in : A = areaPostfixOps(AreaUnit.CircularInch)
+
+  def bd: A = areaPostfixOps(AreaUnit.Board)
+}
+
+object AreaPostfixOps{
+
+  lazy val _sq_lnk: PartialFunction[Context, AreaUnit] = {
+    case UnitedStates => AreaUnit.SquareLink_US_Survey
+  }
+
+  lazy val _sq_ft: PartialFunction[Context, AreaUnit] = {
+    case UnitedStates => AreaUnit.SquareFoot_US_Survey
+  }
+
+  lazy val _sq_ch: PartialFunction[Context, AreaUnit] = {
+    case UnitedStates => AreaUnit.SquareChain_US_Survey
+  }
+
+  lazy val _sq_mi: PartialFunction[Context, AreaUnit] = {
+    case UnitedStates => AreaUnit.SquareMile_US_Survey
+  }
+
+  lazy val _ac: PartialFunction[Context, AreaUnit] = {
+    case UnitedStates => AreaUnit.Acre_US_Survey
+  }
 }
 
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
@@ -133,18 +179,26 @@ object AreaUnit{
   case object ZettaBarn extends AreaUnit("Zb", r"1e21", Barn)
   case object YottaBarn extends AreaUnit("Yb", r"1e24", Barn)
 
-  case object SquareInch extends AreaUnit("sq_in", LengthUnit.Inch)
-  case object SquareLink extends AreaUnit("sq_ch", LengthUnit.Link)
-  case object SquareChain extends AreaUnit("sq_ch", LengthUnit.Chain)
-  case object SquareFoot extends AreaUnit("sq_ft", LengthUnit.Foot)
-  case object SquareFoot_US_Survey extends AreaUnit("sq_ft(US)", LengthUnit.Foot_US_Survey)
+  case object SquareMil   extends AreaUnit("sq_mil", LengthUnit.Mil)
+  case object SquareInch  extends AreaUnit("sq_in" , LengthUnit.Inch)
+  case object SquareLink  extends AreaUnit("sq_lnk", LengthUnit.Link)
+  case object SquareFoot  extends AreaUnit("sq_ft" , LengthUnit.Foot)
+  case object SquareChain extends AreaUnit("sq_ch" , LengthUnit.Chain)
+  case object SquareYard  extends AreaUnit("sq_yd" , LengthUnit.Yard)
+  case object SquareRod   extends AreaUnit("sq_rd" , LengthUnit.Rod)
+  case object SquareMile  extends AreaUnit("sq_mi" , LengthUnit.Mile)
+  case object Acre extends AreaUnit("ac", 10, LengthUnit.Chain)
+  case object Rood extends AreaUnit("ro", r"1/4", Acre)
 
-  case object SquareLink_US_Survey extends AreaUnit("sq_ch(US)", LengthUnit.Link_US_Survey)
-  case object SquareChain_US_Survey extends AreaUnit("sq_ch(US)", LengthUnit.Chain_US_Survey)
+  case object SquareLink_US_Survey  extends AreaUnit("sq_lnk(US)", LengthUnit.Link_US_Survey)
+  case object SquareFoot_US_Survey  extends AreaUnit("sq_ft(US)" , LengthUnit.Foot_US_Survey)
+  case object SquareChain_US_Survey extends AreaUnit("sq_ch(US)" , LengthUnit.Chain_US_Survey)
+  case object SquareMile_US_Survey  extends AreaUnit("sq_mi(US)" , LengthUnit.Mile_US_Survey)
+  case object Acre_US_Survey extends AreaUnit("acre(US)", 10, LengthUnit.Chain_US_Survey)
 
+  case object CircularMil extends AreaUnit("circ_mil", Real.pi/4.0, SquareMil)
   case object CircularInch extends AreaUnit("circ_in", Real.pi/4.0, SquareInch)
 
-  case object Acre extends AreaUnit("ac", 10, LengthUnit.Chain)
   case object Board extends AreaUnit("bd", LengthUnit.Inch, LengthUnit.Foot)
 }
 
