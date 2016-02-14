@@ -1,18 +1,18 @@
 package org.waman.multiverse
 
-import spire.math.Real
-import spire.math.Fractional
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait VolumeFlowPostfixOps[A]{
+  import VolumeFlowUnit._
 
   protected def volumeFlowPostfixOps(volumeFlowUnit: VolumeFlowUnit): A
 
-//  def CFM: A = volumeFlowPostfixOps(VolumeFlowUnit.CubicFootPerMinute)
-//  def GPD: A = volumeFlowPostfixOps(VolumeFlowUnit.GallonPerDay)
-//  def GPH: A = volumeFlowPostfixOps(VolumeFlowUnit.GallonPerHour)
-//  def GPM: A = volumeFlowPostfixOps(VolumeFlowUnit.GallonPerMinute)
-  def LPM: A = volumeFlowPostfixOps(VolumeFlowUnit.LitrePerMinute)
+//  def CFM: A = volumeFlowPostfixOps(CubicFootPerMinute)
+//  def GPD: A = volumeFlowPostfixOps(GallonPerDay)
+//  def GPH: A = volumeFlowPostfixOps(GallonPerHour)
+//  def GPM: A = volumeFlowPostfixOps(GallonPerMinute)
+  def LPM: A = volumeFlowPostfixOps(LitrePerMinute)
 }
 
 class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit) extends Quantity[A, VolumeFlowUnit]
@@ -47,8 +47,8 @@ sealed trait VolumeFlowUnit extends PhysicalUnit{
 
 object VolumeFlowUnit{
 
-  import VolumeUnit._
   import TimeUnit._
+  import VolumeUnit._
 
   abstract class VolumeFlowUnitImpl(val symbol: String, val unitInCubicMetrePerSecond: Real)
     extends VolumeFlowUnit

@@ -4,10 +4,11 @@ import spire.implicits._
 import spire.math.{Fractional, Real}
 
 trait TimeSquaredPostfixOps[A]{
+  import TimeSquaredUnit._
 
   protected def timeSquaredPostfixOps(timeSquaredUnit: TimeSquaredUnit): A
   
-  def s2: A = timeSquaredPostfixOps(TimeSquaredUnit.SecondSquared)
+  def s2: A = timeSquaredPostfixOps(SecondSquared)
 }
 
 class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)

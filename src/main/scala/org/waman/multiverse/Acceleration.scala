@@ -1,18 +1,19 @@
 package org.waman.multiverse
 
-import spire.math.{Real, Fractional}
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait AccelerationPostfixOps[A]{
+  import AccelerationUnit._
 
   protected def accelerationPostfixOps(accelerationUnit: AccelerationUnit): A
 
-  def g0  = accelerationPostfixOps(AccelerationUnit.StandardGravity)
-  def Gal = accelerationPostfixOps(AccelerationUnit.Galileo)
+  def g0  = accelerationPostfixOps(StandardGravity)
+  def Gal = accelerationPostfixOps(Galileo)
 
-  def ips2 = accelerationPostfixOps(AccelerationUnit.InchPerSecondSquared)
-  def fps2 = accelerationPostfixOps(AccelerationUnit.FootPerSecondSquared)
-  def mps2 = accelerationPostfixOps(AccelerationUnit.MilePerSecondSquared)
+  def ips2 = accelerationPostfixOps(InchPerSecondSquared)
+  def fps2 = accelerationPostfixOps(FootPerSecondSquared)
+  def mps2 = accelerationPostfixOps(MilePerSecondSquared)
 }
 
 class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)

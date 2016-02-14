@@ -1,63 +1,65 @@
 package org.waman.multiverse
 
-import spire.math.Real
-import spire.math.Fractional
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait MassPostfixOps[A]{
 
+  import MassUnit._
+
   protected def massPostfixOps(massUnit: MassUnit): A
 
-  def yg: A = massPostfixOps(MassUnit.YoctoGram)
-  def zg: A = massPostfixOps(MassUnit.ZeptoGram)
-  def ag: A = massPostfixOps(MassUnit.AttoGram)
-  def fg: A = massPostfixOps(MassUnit.FemtoGram)
-  def pg: A = massPostfixOps(MassUnit.PicoGram)
-  def ng: A = massPostfixOps(MassUnit.NanoGram)
-  def μg: A = massPostfixOps(MassUnit.MicroGram)
-  def mg: A = massPostfixOps(MassUnit.MilliGram)
-  def cg: A = massPostfixOps(MassUnit.CentiGram)
-  def dg: A = massPostfixOps(MassUnit.DeciGram)
-  def g : A = massPostfixOps(MassUnit.Gram)
-  def dag: A = massPostfixOps(MassUnit.DecaGram)
-  def hg: A = massPostfixOps(MassUnit.HectoGram)
-  def kg: A = massPostfixOps(MassUnit.KiloGram)
-  def Mg: A = massPostfixOps(MassUnit.MegaGram)
-  def Gg: A = massPostfixOps(MassUnit.GigaGram)
-  def Tg: A = massPostfixOps(MassUnit.TeraGram)
-  def Pg: A = massPostfixOps(MassUnit.PetaGram)
-  def Eg: A = massPostfixOps(MassUnit.ExaGram)
-  def Zg: A = massPostfixOps(MassUnit.ZettaGram)
-  def Yg: A = massPostfixOps(MassUnit.YottaGram)
+  def yg: A = massPostfixOps(YoctoGram)
+  def zg: A = massPostfixOps(ZeptoGram)
+  def ag: A = massPostfixOps(AttoGram)
+  def fg: A = massPostfixOps(FemtoGram)
+  def pg: A = massPostfixOps(PicoGram)
+  def ng: A = massPostfixOps(NanoGram)
+  def μg: A = massPostfixOps(MicroGram)
+  def mg: A = massPostfixOps(MilliGram)
+  def cg: A = massPostfixOps(CentiGram)
+  def dg: A = massPostfixOps(DeciGram)
+  def g : A = massPostfixOps(Gram)
+  def dag: A = massPostfixOps(DecaGram)
+  def hg: A = massPostfixOps(HectoGram)
+  def kg: A = massPostfixOps(KiloGram)
+  def Mg: A = massPostfixOps(MegaGram)
+  def Gg: A = massPostfixOps(GigaGram)
+  def Tg: A = massPostfixOps(TeraGram)
+  def Pg: A = massPostfixOps(PetaGram)
+  def Eg: A = massPostfixOps(ExaGram)
+  def Zg: A = massPostfixOps(ZettaGram)
+  def Yg: A = massPostfixOps(YottaGram)
 
-  def grain: A = massPostfixOps(MassUnit.Grain)
+  def grain: A = massPostfixOps(Grain)
 }
 
 trait MassPer[A]{
+  import MassUnit._
 
   protected def massPer(massUnit: MassUnit): A
 
-  def yg(per: Per): A = massPer(MassUnit.YoctoGram)
-  def zg(per: Per): A = massPer(MassUnit.ZeptoGram)
-  def ag(per: Per): A = massPer(MassUnit.AttoGram)
-  def fg(per: Per): A = massPer(MassUnit.FemtoGram)
-  def pg(per: Per): A = massPer(MassUnit.PicoGram)
-  def ng(per: Per): A = massPer(MassUnit.NanoGram)
-  def μg(per: Per): A = massPer(MassUnit.MicroGram)
-  def mg(per: Per): A = massPer(MassUnit.MilliGram)
-  def cg(per: Per): A = massPer(MassUnit.CentiGram)
-  def dg(per: Per): A = massPer(MassUnit.DeciGram)
-  def g (per: Per): A = massPer(MassUnit.Gram)
-  def dag(per: Per): A = massPer(MassUnit.DecaGram)
-  def hg(per: Per): A = massPer(MassUnit.HectoGram)
-  def kg(per: Per): A = massPer(MassUnit.KiloGram)
-  def Mg(per: Per): A = massPer(MassUnit.MegaGram)
-  def Gg(per: Per): A = massPer(MassUnit.GigaGram)
-  def Tg(per: Per): A = massPer(MassUnit.TeraGram)
-  def Pg(per: Per): A = massPer(MassUnit.PetaGram)
-  def Eg(per: Per): A = massPer(MassUnit.ExaGram)
-  def Zg(per: Per): A = massPer(MassUnit.ZettaGram)
-  def Yg(per: Per): A = massPer(MassUnit.YottaGram)
+  def yg(per: Per): A = massPer(YoctoGram)
+  def zg(per: Per): A = massPer(ZeptoGram)
+  def ag(per: Per): A = massPer(AttoGram)
+  def fg(per: Per): A = massPer(FemtoGram)
+  def pg(per: Per): A = massPer(PicoGram)
+  def ng(per: Per): A = massPer(NanoGram)
+  def μg(per: Per): A = massPer(MicroGram)
+  def mg(per: Per): A = massPer(MilliGram)
+  def cg(per: Per): A = massPer(CentiGram)
+  def dg(per: Per): A = massPer(DeciGram)
+  def g (per: Per): A = massPer(Gram)
+  def dag(per: Per): A = massPer(DecaGram)
+  def hg(per: Per): A = massPer(HectoGram)
+  def kg(per: Per): A = massPer(KiloGram)
+  def Mg(per: Per): A = massPer(MegaGram)
+  def Gg(per: Per): A = massPer(GigaGram)
+  def Tg(per: Per): A = massPer(TeraGram)
+  def Pg(per: Per): A = massPer(PetaGram)
+  def Eg(per: Per): A = massPer(ExaGram)
+  def Zg(per: Per): A = massPer(ZettaGram)
+  def Yg(per: Per): A = massPer(YottaGram)
 }
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)

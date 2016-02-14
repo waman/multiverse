@@ -4,13 +4,14 @@ import spire.implicits._
 import spire.math.{Fractional, Real}
 
 trait ForcePostfixOps[A]{
+  import ForceUnit._
 
   protected def forcePostfixOps(forceUnit: ForceUnit): A
 
-  def N  : A = forcePostfixOps(ForceUnit.Newton)
-  def dyn: A = forcePostfixOps(ForceUnit.Dyne)
-  def kgf: A = forcePostfixOps(ForceUnit.KiloGramForce)
-  def kp : A = forcePostfixOps(ForceUnit.KiloGramForce)
+  def N  : A = forcePostfixOps(Newton)
+  def dyn: A = forcePostfixOps(Dyne)
+  def kgf: A = forcePostfixOps(KiloGramForce)
+  def kp : A = forcePostfixOps(KiloGramForce)
 }
 
 class Force[A: Fractional](val value: A, val unit: ForceUnit)

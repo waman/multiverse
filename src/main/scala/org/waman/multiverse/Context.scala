@@ -8,8 +8,9 @@ object Context{
   case object UnitedStates_Fluid     extends Context("US_fl")
   case object UnitedStates_Dry       extends Context("US_dry")
   case object UnitedStates_Dry_Level extends Context("US_lvl")
-  case object Imperial               extends Context("imp")
-  case object Admiralty              extends Context("Adm")
+
+  case object Imperial  extends Context("imp")
+  case object Admiralty extends Context("Adm")
 
   case object Cu_KAlpha1 extends Context("CuKα1")
   case object Mo_KAlpha1 extends Context("MoKα1")
@@ -23,14 +24,16 @@ object Context{
 }
 
 trait HasContext{
-  val US     = Context.UnitedStates
-  val US_fl  = Context.UnitedStates_Fluid
-  val US_dry = Context.UnitedStates_Dry
-  val US_lvl = Context.UnitedStates_Dry_Level
+  import Context._
 
-  val imp = Context.Imperial
-  val Adm = Context.Admiralty
+  val US     = UnitedStates
+  val US_fl  = UnitedStates_Fluid
+  val US_dry = UnitedStates_Dry
+  val US_lvl = UnitedStates_Dry_Level
 
-  val CuKα1 = Context.Cu_KAlpha1
-  val MoKα1 = Context.Mo_KAlpha1
+  val imp = Imperial
+  val Adm = Admiralty
+
+  val CuKα1 = Cu_KAlpha1
+  val MoKα1 = Mo_KAlpha1
 }

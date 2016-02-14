@@ -33,6 +33,7 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * Math.PI / 180.0),
         (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * Math.PI / 180.0),
         (Seq(3.0.gon, 3.0 gon, 3.0 (gon)), 3.0 * 2.0 * Math.PI / 400.0),
+        (Seq(3.0.ᵍ  , 3.0 ᵍ  , 3.0 (ᵍ))   , 3.0 * 2.0 * Math.PI / 400.0),
         (Seq(3.0.tr , 3.0 tr , 3.0 (tr)) , 3.0 * 2.0 * Math.PI)
       )
 
@@ -53,6 +54,7 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.deg, value deg, value (deg)), 3.0 * 180.0 / Math.PI),
         (Seq(value.°  , value °  , value (°))  , 3.0 * 180.0 / Math.PI),
         (Seq(value.gon, value gon, value (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
+        (Seq(value.ᵍ  , value ᵍ   , value (ᵍ))  , 3.0 * 400.0 / (2.0 * Math.PI)),
         (Seq(value.tr , value tr , value (tr)) , 3.0 / (2.0 * Math.PI))
       )
 

@@ -1,15 +1,16 @@
 package org.waman.multiverse
 
-import spire.math._
-import spire.implicits._
 import org.waman.multiverse.MultiverseUtil.twoPi
+import spire.implicits._
+import spire.math._
 
 trait AngularVelocityPostfixOps[A]{
+  import AngularVelocityUnit._
 
   protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit): A
 
-  def rpm: A = angularVelocityPostfixOps(AngularVelocityUnit.RevolutionPerMinute)
-  def cps: A = angularVelocityPostfixOps(AngularVelocityUnit.CyclePerSecond)
+  def rpm: A = angularVelocityPostfixOps(RevolutionPerMinute)
+  def cps: A = angularVelocityPostfixOps(CyclePerSecond)
 }
 
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)

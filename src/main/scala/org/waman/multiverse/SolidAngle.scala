@@ -1,16 +1,16 @@
 package org.waman.multiverse
 
-import spire.math.Real
-import spire.math.Fractional
-import spire.implicits._
 import org.waman.multiverse.MultiverseUtil.twoPi
+import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait SolidAnglePostfixOps[A]{
+  import SolidAngleUnit._
 
   protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit): A
 
-  def sr  : A = solidAnglePostfixOps(SolidAngleUnit.Steradian)
-  def deg2: A = solidAnglePostfixOps(SolidAngleUnit.SquareDegree)
+  def sr  : A = solidAnglePostfixOps(Steradian)
+  def deg2: A = solidAnglePostfixOps(SquareDegree)
 }
 
 class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)

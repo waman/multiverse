@@ -1,35 +1,33 @@
 package org.waman.multiverse
 
-import spire.math.Real
-import spire.math.Fractional
-
 import org.waman.multiverse.MultiverseUtil.twoPi
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait AnglePostfixOps[A]{
+  import AngleUnit._
 
   protected def anglePostfixOps(angleUnit: AngleUnit): A
 
-  def rad: A = anglePostfixOps(AngleUnit.Radian)
-  def deg: A = anglePostfixOps(AngleUnit.Degree)
-  def °  : A = anglePostfixOps(AngleUnit.Degree)
-  def gon: A = anglePostfixOps(AngleUnit.Gradian)
-  def grad: A = anglePostfixOps(AngleUnit.Gradian)
-  def grade: A = anglePostfixOps(AngleUnit.Gradian)
-  def tr : A = anglePostfixOps(AngleUnit.Turn)
+  def rad: A = anglePostfixOps(Radian)
+  def deg: A = anglePostfixOps(Degree)
+  def °  : A = anglePostfixOps(Degree)
+  def gon: A = anglePostfixOps(Gradian)
+  def ᵍ  : A = anglePostfixOps(Gradian)
+  def tr : A = anglePostfixOps(Turn)
 }
 
 trait AnglePer[A]{
+  import AngleUnit._
 
   protected def anglePer(angleUnit: AngleUnit): A
 
-  def rad(per: Per): A = anglePer(AngleUnit.Radian)
-  def deg(per: Per): A = anglePer(AngleUnit.Degree)
-  def °  (per: Per): A = anglePer(AngleUnit.Degree)
-  def gon(per: Per): A = anglePer(AngleUnit.Gradian)
-  def grad(per: Per): A = anglePer(AngleUnit.Gradian)
-  def grade(per: Per): A = anglePer(AngleUnit.Gradian)
-  def tr (per: Per): A = anglePer(AngleUnit.Turn)
+  def rad(per: Per): A = anglePer(Radian)
+  def deg(per: Per): A = anglePer(Degree)
+  def °  (per: Per): A = anglePer(Degree)
+  def gon(per: Per): A = anglePer(Gradian)
+  def ᵍ  (per: Per): A = anglePer(Gradian)
+  def tr (per: Per): A = anglePer(Turn)
 }
 
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
@@ -65,10 +63,10 @@ abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
 
 object AngleUnit{
 
-  case object Radian         extends AngleUnit("rad", r"1")
-  case object Degree         extends AngleUnit("deg;°", twoPi / r"360")
-  case object Gradian        extends AngleUnit("gon;grad;grade", twoPi / r"400")
-  case object Turn           extends AngleUnit("tr" , twoPi)
+  case object Radian  extends AngleUnit("rad", r"1")
+  case object Degree  extends AngleUnit("deg;°", twoPi / r"360")
+  case object Gradian extends AngleUnit("gon;ᵍ", twoPi / r"400")
+  case object Turn    extends AngleUnit("tr" , twoPi)
 }
 
 trait PredefinedAngleUnit extends AnglePostfixOps[AngleUnit]{

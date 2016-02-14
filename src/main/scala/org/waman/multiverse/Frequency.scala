@@ -4,30 +4,31 @@ import spire.implicits._
 import spire.math.{Fractional, Real}
 
 trait FrequencyPostfixOps[A]{
+  import FrequencyUnit._
 
   protected def frequencyPostfixOps(frequencyUnit: FrequencyUnit): A
 
-  def yHz: A = frequencyPostfixOps(FrequencyUnit.YoctoHeltz)
-  def zHz: A = frequencyPostfixOps(FrequencyUnit.ZeptoHeltz)
-  def aHz: A = frequencyPostfixOps(FrequencyUnit.AttoHeltz)
-  def fHz: A = frequencyPostfixOps(FrequencyUnit.FemtoHeltz)
-  def pHz: A = frequencyPostfixOps(FrequencyUnit.PicoHeltz)
-  def nHz: A = frequencyPostfixOps(FrequencyUnit.NanoHeltz)
-  def μHz: A = frequencyPostfixOps(FrequencyUnit.MicroHeltz)
-  def mHz: A = frequencyPostfixOps(FrequencyUnit.MilliHeltz)
-  def cHz: A = frequencyPostfixOps(FrequencyUnit.CentiHeltz)
-  def dHz: A = frequencyPostfixOps(FrequencyUnit.DeciHeltz)
-  def Hz : A = frequencyPostfixOps(FrequencyUnit.Heltz)
-  def daHz: A = frequencyPostfixOps(FrequencyUnit.DecaHeltz)
-  def hHz: A = frequencyPostfixOps(FrequencyUnit.HectoHeltz)
-  def kHz: A = frequencyPostfixOps(FrequencyUnit.KiloHeltz)
-  def MHz: A = frequencyPostfixOps(FrequencyUnit.MegaHeltz)
-  def GHz: A = frequencyPostfixOps(FrequencyUnit.GigaHeltz)
-  def THz: A = frequencyPostfixOps(FrequencyUnit.TeraHeltz)
-  def PHz: A = frequencyPostfixOps(FrequencyUnit.PetaHeltz)
-  def EHz: A = frequencyPostfixOps(FrequencyUnit.ExaHeltz)
-  def ZHz: A = frequencyPostfixOps(FrequencyUnit.ZettaHeltz)
-  def YHz: A = frequencyPostfixOps(FrequencyUnit.YottaHeltz)
+  def yHz: A = frequencyPostfixOps(YoctoHeltz)
+  def zHz: A = frequencyPostfixOps(ZeptoHeltz)
+  def aHz: A = frequencyPostfixOps(AttoHeltz)
+  def fHz: A = frequencyPostfixOps(FemtoHeltz)
+  def pHz: A = frequencyPostfixOps(PicoHeltz)
+  def nHz: A = frequencyPostfixOps(NanoHeltz)
+  def μHz: A = frequencyPostfixOps(MicroHeltz)
+  def mHz: A = frequencyPostfixOps(MilliHeltz)
+  def cHz: A = frequencyPostfixOps(CentiHeltz)
+  def dHz: A = frequencyPostfixOps(DeciHeltz)
+  def Hz : A = frequencyPostfixOps(Heltz)
+  def daHz: A = frequencyPostfixOps(DecaHeltz)
+  def hHz: A = frequencyPostfixOps(HectoHeltz)
+  def kHz: A = frequencyPostfixOps(KiloHeltz)
+  def MHz: A = frequencyPostfixOps(MegaHeltz)
+  def GHz: A = frequencyPostfixOps(GigaHeltz)
+  def THz: A = frequencyPostfixOps(TeraHeltz)
+  def PHz: A = frequencyPostfixOps(PetaHeltz)
+  def EHz: A = frequencyPostfixOps(ExaHeltz)
+  def ZHz: A = frequencyPostfixOps(ZettaHeltz)
+  def YHz: A = frequencyPostfixOps(YottaHeltz)
 }
 
 class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)

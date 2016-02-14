@@ -1,40 +1,48 @@
 package org.waman.multiverse
 
-import spire.math.{Real, Fractional}
-import spire.implicits._
 import org.waman.multiverse.Context._
+import spire.implicits._
+import spire.math.{Fractional, Real}
 
 trait VelocityPostfixOps[A]{
+  import VelocityPostfixOps._
+  import VelocityUnit._
 
   protected def velocityPostfixOps(velocityUnit: VelocityUnit): A
 
-  def M = velocityPostfixOps(VelocityUnit.MachNumber)
-  def c = velocityPostfixOps(VelocityUnit.SpeedOfLight)
+  def M = velocityPostfixOps(MachNumber)
+  def c = velocityPostfixOps(SpeedOfLight)
 
-  def kn = velocityPostfixOps(VelocityUnit.Knot)
-  def kn(c: Context) = _kn(c)
-  def _kn(c: Context): PartialFunction[Context, A] = {
-    case Admiralty => velocityPostfixOps(VelocityUnit.Knot_Admiralty)
+  def kn = velocityPostfixOps(Knot)
+  def kn(c: Context) = velocityPostfixOps(_kn(c))
+
+  def ips = velocityPostfixOps(InchPerSecond)
+  def ipm = velocityPostfixOps(InchPerMinute)
+  def iph = velocityPostfixOps(InchPerHour)
+
+  def fps = velocityPostfixOps(FootPerSecond)
+  def fpm = velocityPostfixOps(FootPerMinute)
+  def fph = velocityPostfixOps(FootPerHour)
+
+  def mps = velocityPostfixOps(MilePerSecond)
+  def mpm = velocityPostfixOps(MilePerMinute)
+  def mph = velocityPostfixOps(MilePerHour)
+}
+
+object VelocityPostfixOps{
+  import VelocityUnit._
+
+  lazy val _kn: PartialFunction[Context, VelocityUnit] = {
+    case Admiralty => Knot_Admiralty
   }
-
-  def ips = velocityPostfixOps(VelocityUnit.InchPerSecond)
-  def ipm = velocityPostfixOps(VelocityUnit.InchPerMinute)
-  def iph = velocityPostfixOps(VelocityUnit.InchPerHour)
-
-  def fps = velocityPostfixOps(VelocityUnit.FootPerSecond)
-  def fpm = velocityPostfixOps(VelocityUnit.FootPerMinute)
-  def fph = velocityPostfixOps(VelocityUnit.FootPerHour)
-
-  def mps = velocityPostfixOps(VelocityUnit.MilePerSecond)
-  def mpm = velocityPostfixOps(VelocityUnit.MilePerMinute)
-  def mph = velocityPostfixOps(VelocityUnit.MilePerHour)
 }
 
 trait VelocityPer[A] {
+  import VelocityUnit._
 
   protected def velocityPer(velocityUnit: VelocityUnit): A
 
-  def c(per: Per) = velocityPer(VelocityUnit.SpeedOfLight)
+  def c(per: Per) = velocityPer(SpeedOfLight)
 }
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)

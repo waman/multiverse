@@ -26,85 +26,90 @@ import spire.math.{Fractional, Real}
 
 trait LengthPostfixOps[A]{
   import LengthPostfixOps._
+  import LengthUnit._
 
   protected def lengthPostfixOps(lengthUnit: LengthUnit): A
 
-  def ym: A = lengthPostfixOps(LengthUnit.YoctoMetre)
-  def zm: A = lengthPostfixOps(LengthUnit.ZeptoMetre)
-  def am: A = lengthPostfixOps(LengthUnit.AttoMetre)
-  def fm: A = lengthPostfixOps(LengthUnit.FemtoMetre)
-  def pm: A = lengthPostfixOps(LengthUnit.PicoMetre)
-  def nm: A = lengthPostfixOps(LengthUnit.NanoMetre)
-  def μm: A = lengthPostfixOps(LengthUnit.MicroMetre)
-  def mm: A = lengthPostfixOps(LengthUnit.MilliMetre)
-  def cm: A = lengthPostfixOps(LengthUnit.CentiMetre)
-  def dm: A = lengthPostfixOps(LengthUnit.DeciMetre)
-  def m : A = lengthPostfixOps(LengthUnit.Metre)
-  def dam: A = lengthPostfixOps(LengthUnit.DecaMetre)
-  def hm: A = lengthPostfixOps(LengthUnit.HectoMetre)
-  def km: A = lengthPostfixOps(LengthUnit.KiloMetre)
-  def Mm: A = lengthPostfixOps(LengthUnit.MegaMetre)
-  def Gm: A = lengthPostfixOps(LengthUnit.GigaMetre)
-  def Tm: A = lengthPostfixOps(LengthUnit.TeraMetre)
-  def Pm: A = lengthPostfixOps(LengthUnit.PetaMetre)
-  def Em: A = lengthPostfixOps(LengthUnit.ExaMetre)
-  def Zm: A = lengthPostfixOps(LengthUnit.ZettaMetre)
-  def Ym: A = lengthPostfixOps(LengthUnit.YottaMetre)
+  def ym: A = lengthPostfixOps(YoctoMetre)
+  def zm: A = lengthPostfixOps(ZeptoMetre)
+  def am: A = lengthPostfixOps(AttoMetre)
+  def fm: A = lengthPostfixOps(FemtoMetre)
+  def pm: A = lengthPostfixOps(PicoMetre)
+  def nm: A = lengthPostfixOps(NanoMetre)
+  def μm: A = lengthPostfixOps(MicroMetre)
+  def mm: A = lengthPostfixOps(MilliMetre)
+  def cm: A = lengthPostfixOps(CentiMetre)
+  def dm: A = lengthPostfixOps(DeciMetre)
+  def m : A = lengthPostfixOps(Metre)
+  def dam: A = lengthPostfixOps(DecaMetre)
+  def hm: A = lengthPostfixOps(HectoMetre)
+  def km: A = lengthPostfixOps(KiloMetre)
+  def Mm: A = lengthPostfixOps(MegaMetre)
+  def Gm: A = lengthPostfixOps(GigaMetre)
+  def Tm: A = lengthPostfixOps(TeraMetre)
+  def Pm: A = lengthPostfixOps(PetaMetre)
+  def Em: A = lengthPostfixOps(ExaMetre)
+  def Zm: A = lengthPostfixOps(ZettaMetre)
+  def Ym: A = lengthPostfixOps(YottaMetre)
 
   // microscopic
-  def μ: A = lengthPostfixOps(LengthUnit.Micron)
-  def Å: A = lengthPostfixOps(LengthUnit.Angstrom)
-  def a0: A = lengthPostfixOps(LengthUnit.AtomicUnitOfLength)
-  def xu: A = lengthPostfixOps(LengthUnit.XUnit)
+  def μ: A = lengthPostfixOps(Micron)
+  def Å: A = lengthPostfixOps(Angstrom)
+  def a0: A = lengthPostfixOps(AtomicUnitOfLength)
+  def xu: A = lengthPostfixOps(XUnit)
   def xu(c: Context): A = lengthPostfixOps(_xu(c))
-  def lp: A = lengthPostfixOps(LengthUnit.PlanckLength)
+  def lp: A = lengthPostfixOps(PlanckLength)
 
   // astronomy
-  def au: A = lengthPostfixOps(LengthUnit.AstronomicalUnit)
-  def ly: A = lengthPostfixOps(LengthUnit.LightYear)
-  def pc: A = lengthPostfixOps(LengthUnit.Parsec)
+  def au: A = lengthPostfixOps(AstronomicalUnit)
+  def ly: A = lengthPostfixOps(LightYear)
+  def pc: A = lengthPostfixOps(Parsec)
 
   // yard-pond
-  def mil : A = lengthPostfixOps(LengthUnit.Mil)
+  def mil : A = lengthPostfixOps(Mil)
   def thou: A = mil
-  def twp : A = lengthPostfixOps(LengthUnit.Twip)
-  def pt  : A = lengthPostfixOps(LengthUnit.Point)
-  def ln  : A = lengthPostfixOps(LengthUnit.Line)
-  def in  : A = lengthPostfixOps(LengthUnit.Inch)
-  def lnk : A = lengthPostfixOps(LengthUnit.Link)
-  def ft  : A = lengthPostfixOps(LengthUnit.Foot)
-  def yd  : A = lengthPostfixOps(LengthUnit.Yard)
-  def ell : A = lengthPostfixOps(LengthUnit.Ell)
-  def ftm : A = lengthPostfixOps(LengthUnit.Fathom)
-  def rd  : A = lengthPostfixOps(LengthUnit.Rod)
-  def rope: A = lengthPostfixOps(LengthUnit.Rope)
-  def ch  : A = lengthPostfixOps(LengthUnit.Chain)
-  def mi  : A = lengthPostfixOps(LengthUnit.Mile)
-  def lea : A = lengthPostfixOps(LengthUnit.League)
+  def twp : A = lengthPostfixOps(Twip)
+  def pt  : A = lengthPostfixOps(Point)
+  def ln  : A = lengthPostfixOps(Line)
+  def in  : A = lengthPostfixOps(Inch)
+  def li  : A = lengthPostfixOps(Link)
+  def lnk : A = li
+  def ft  : A = lengthPostfixOps(Foot)
+  def yd  : A = lengthPostfixOps(Yard)
+  def ell : A = lengthPostfixOps(Ell)
+  def ftm : A = lengthPostfixOps(Fathom)
+  def rd  : A = lengthPostfixOps(Rod)
+  def rope: A = lengthPostfixOps(Rope)
+  def ch  : A = lengthPostfixOps(Chain)
+  def mi  : A = lengthPostfixOps(Mile)
+  def lea : A = lengthPostfixOps(League)
 
-  def nmi: A = lengthPostfixOps(LengthUnit.NauticalMile)
+  def nmi: A = lengthPostfixOps(NauticalMile)
   def nmi(c: Context): A = lengthPostfixOps(_nmi(c))
   def NM: A = nmi
   def NM(c: Context): A = lengthPostfixOps(_NM(c))
-  def nl: A = lengthPostfixOps(LengthUnit.NauticalLeague)
+  def nl: A = lengthPostfixOps(NauticalLeague)
   def NL: A = nl
+  def cb: A = lengthPostfixOps(Cable)
+  def cb(c: Context): A = lengthPostfixOps(_cb(c))
 
+  def li (c: Context): A = lengthPostfixOps(_li(c))
   def lnk(c: Context): A = lengthPostfixOps(_lnk(c))
-  def ft(c: Context) : A = lengthPostfixOps(_ft(c))
-  def mi(c: Context) : A = lengthPostfixOps(_mi(c))
+  def ft (c: Context): A = lengthPostfixOps(_ft(c))
+  def mi (c: Context): A = lengthPostfixOps(_mi(c))
 
-  def mf : A = lengthPostfixOps(LengthUnit.MetricFoot)
-  def smf: A = lengthPostfixOps(LengthUnit.ShortMetricFoot)
-  def lmf: A = lengthPostfixOps(LengthUnit.LongMetricFoot)
+  def mf : A = lengthPostfixOps(MetricFoot)
+  def smf: A = lengthPostfixOps(ShortMetricFoot)
+  def lmf: A = lengthPostfixOps(LongMetricFoot)
 
-  def Fr : A = lengthPostfixOps(LengthUnit.French)
-  def fur: A = lengthPostfixOps(LengthUnit.Furlong)
+  def Fr : A = lengthPostfixOps(French)
+  def fur: A = lengthPostfixOps(Furlong)
 }
 
 object LengthPostfixOps{
   lazy val _xu: PartialFunction[Context, LengthUnit] = {
-    case Cu_KAlpha1 => LengthUnit.XUnit_Cu_KAlpha1
-    case Mo_KAlpha1 => LengthUnit.XUnit_Mo_KAlpha1
+    case Cu_KAlpha1 => LengthUnit.XUnit_CuKAlpha1
+    case Mo_KAlpha1 => LengthUnit.XUnit_MoKAlpha1
   }
 
   lazy val _nmi: PartialFunction[Context, LengthUnit] = {
@@ -113,9 +118,11 @@ object LengthPostfixOps{
 
   lazy val _NM: PartialFunction[Context, LengthUnit] = _nmi
 
-  lazy val _lnk: PartialFunction[Context, LengthUnit] = {
+  lazy val _li: PartialFunction[Context, LengthUnit] = {
     case UnitedStates => LengthUnit.Link_US_Survey
   }
+
+  lazy val _lnk: PartialFunction[Context, LengthUnit] = _li
 
   lazy val _ft: PartialFunction[Context, LengthUnit] = {
     case UnitedStates => LengthUnit.Foot_US_Survey
@@ -124,75 +131,83 @@ object LengthPostfixOps{
   lazy val _mi: PartialFunction[Context, LengthUnit] = {
     case UnitedStates => LengthUnit.Mile_US_Survey
   }
+
+  lazy val _cb: PartialFunction[Context, LengthUnit] = {
+    case UnitedStates => LengthUnit.Cable_US
+    case Imperial => LengthUnit.Cable_imperial
+  }
 }
 
 trait LengthPer[A]{
+  import LengthUnit._
 
   protected def lengthPer(lengthUnit: LengthUnit): A
 
-  def ym(per: Per): A = lengthPer(LengthUnit.YoctoMetre)
-  def zm(per: Per): A = lengthPer(LengthUnit.ZeptoMetre)
-  def am(per: Per): A = lengthPer(LengthUnit.AttoMetre)
-  def fm(per: Per): A = lengthPer(LengthUnit.FemtoMetre)
-  def pm(per: Per): A = lengthPer(LengthUnit.PicoMetre)
-  def nm(per: Per): A = lengthPer(LengthUnit.NanoMetre)
-  def μm(per: Per): A = lengthPer(LengthUnit.MicroMetre)
-  def mm(per: Per): A = lengthPer(LengthUnit.MilliMetre)
-  def cm(per: Per): A = lengthPer(LengthUnit.CentiMetre)
-  def dm(per: Per): A = lengthPer(LengthUnit.DeciMetre)
-  def m (per: Per): A = lengthPer(LengthUnit.Metre)
-  def dam(per: Per):A = lengthPer(LengthUnit.DecaMetre)
-  def hm(per: Per): A = lengthPer(LengthUnit.HectoMetre)
-  def km(per: Per): A = lengthPer(LengthUnit.KiloMetre)
-  def Mm(per: Per): A = lengthPer(LengthUnit.MegaMetre)
-  def Gm(per: Per): A = lengthPer(LengthUnit.GigaMetre)
-  def Tm(per: Per): A = lengthPer(LengthUnit.TeraMetre)
-  def Pm(per: Per): A = lengthPer(LengthUnit.PetaMetre)
-  def Em(per: Per): A = lengthPer(LengthUnit.ExaMetre)
-  def Zm(per: Per): A = lengthPer(LengthUnit.ZettaMetre)
-  def Ym(per: Per): A = lengthPer(LengthUnit.YottaMetre)
+  def ym(per: Per): A = lengthPer(YoctoMetre)
+  def zm(per: Per): A = lengthPer(ZeptoMetre)
+  def am(per: Per): A = lengthPer(AttoMetre)
+  def fm(per: Per): A = lengthPer(FemtoMetre)
+  def pm(per: Per): A = lengthPer(PicoMetre)
+  def nm(per: Per): A = lengthPer(NanoMetre)
+  def μm(per: Per): A = lengthPer(MicroMetre)
+  def mm(per: Per): A = lengthPer(MilliMetre)
+  def cm(per: Per): A = lengthPer(CentiMetre)
+  def dm(per: Per): A = lengthPer(DeciMetre)
+  def m (per: Per): A = lengthPer(Metre)
+  def dam(per: Per):A = lengthPer(DecaMetre)
+  def hm(per: Per): A = lengthPer(HectoMetre)
+  def km(per: Per): A = lengthPer(KiloMetre)
+  def Mm(per: Per): A = lengthPer(MegaMetre)
+  def Gm(per: Per): A = lengthPer(GigaMetre)
+  def Tm(per: Per): A = lengthPer(TeraMetre)
+  def Pm(per: Per): A = lengthPer(PetaMetre)
+  def Em(per: Per): A = lengthPer(ExaMetre)
+  def Zm(per: Per): A = lengthPer(ZettaMetre)
+  def Ym(per: Per): A = lengthPer(YottaMetre)
 
   // microscopic
-  def μ(per: Per): A = lengthPer(LengthUnit.Micron)
-  def Å(per: Per): A = lengthPer(LengthUnit.Angstrom)
-  def a0(per: Per): A = lengthPer(LengthUnit.AtomicUnitOfLength)
-  def xu(per: Per): A = lengthPer(LengthUnit.XUnit)
-  def lp(per: Per): A = lengthPer(LengthUnit.PlanckLength)
+  def μ(per: Per): A = lengthPer(Micron)
+  def Å(per: Per): A = lengthPer(Angstrom)
+  def a0(per: Per): A = lengthPer(AtomicUnitOfLength)
+  def xu(per: Per): A = lengthPer(XUnit)
+  def lp(per: Per): A = lengthPer(PlanckLength)
 
   // astronomy
-  def au(per: Per): A = lengthPer(LengthUnit.AstronomicalUnit)
-  def ly(per: Per): A = lengthPer(LengthUnit.LightYear)
-  def pc(per: Per): A = lengthPer(LengthUnit.Parsec)
+  def au(per: Per): A = lengthPer(AstronomicalUnit)
+  def ly(per: Per): A = lengthPer(LightYear)
+  def pc(per: Per): A = lengthPer(Parsec)
 
   // yard-pond
-  def mil (per: Per): A = lengthPer(LengthUnit.Mil)
+  def mil (per: Per): A = lengthPer(Mil)
   def thou(per: Per): A = mil(per)
-  def twp (per: Per): A = lengthPer(LengthUnit.Twip)
-  def pt  (per: Per): A = lengthPer(LengthUnit.Point)
-  def ln  (per: Per): A = lengthPer(LengthUnit.Line)
-  def in  (per: Per): A = lengthPer(LengthUnit.Inch)
-  def lnk (per: Per): A = lengthPer(LengthUnit.Link)
-  def ft  (per: Per): A = lengthPer(LengthUnit.Foot)
-  def yd  (per: Per): A = lengthPer(LengthUnit.Yard)
-  def ell (per: Per): A = lengthPer(LengthUnit.Ell)
-  def ftm (per: Per): A = lengthPer(LengthUnit.Fathom)
-  def rd  (per: Per): A = lengthPer(LengthUnit.Rod)
-  def rope(per: Per): A = lengthPer(LengthUnit.Rope)
-  def ch  (per: Per): A = lengthPer(LengthUnit.Chain)
-  def mi  (per: Per): A = lengthPer(LengthUnit.Mile)
-  def lea (per: Per): A = lengthPer(LengthUnit.League)
+  def twp (per: Per): A = lengthPer(Twip)
+  def pt  (per: Per): A = lengthPer(Point)
+  def ln  (per: Per): A = lengthPer(Line)
+  def in  (per: Per): A = lengthPer(Inch)
+  def li  (per: Per): A = lengthPer(Link)
+  def lnk (per: Per): A = li(per)
+  def ft  (per: Per): A = lengthPer(Foot)
+  def yd  (per: Per): A = lengthPer(Yard)
+  def ell (per: Per): A = lengthPer(Ell)
+  def ftm (per: Per): A = lengthPer(Fathom)
+  def rd  (per: Per): A = lengthPer(Rod)
+  def rope(per: Per): A = lengthPer(Rope)
+  def ch  (per: Per): A = lengthPer(Chain)
+  def mi  (per: Per): A = lengthPer(Mile)
+  def lea (per: Per): A = lengthPer(League)
 
-  def nmi(per: Per): A = lengthPer(LengthUnit.NauticalMile)
+  def nmi(per: Per): A = lengthPer(NauticalMile)
   def NM(per: Per): A = nmi(per)
-  def nl(per: Per): A = lengthPer(LengthUnit.NauticalLeague)
+  def nl(per: Per): A = lengthPer(NauticalLeague)
   def NL(per: Per): A = nl(per)
+  def cb(per: Per): A = lengthPer(Cable)
 
-  def mf (per: Per): A = lengthPer(LengthUnit.MetricFoot)
-  def smf(per: Per): A = lengthPer(LengthUnit.ShortMetricFoot)
-  def lmf(per: Per): A = lengthPer(LengthUnit.LongMetricFoot)
+  def mf (per: Per): A = lengthPer(MetricFoot)
+  def smf(per: Per): A = lengthPer(ShortMetricFoot)
+  def lmf(per: Per): A = lengthPer(LongMetricFoot)
 
-  def Fr (per: Per): A = lengthPer(LengthUnit.French)
-  def fur(per: Per): A = lengthPer(LengthUnit.Furlong)
+  def Fr (per: Per): A = lengthPer(French)
+  def fur(per: Per): A = lengthPer(Furlong)
 }
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
@@ -266,8 +281,8 @@ object LengthUnit{
   case object Angstrom           extends LengthUnit("Å" , r"1e-10")
   case object AtomicUnitOfLength extends LengthUnit("a0", r"5.2917721092e-11") with NotExact
   case object XUnit              extends LengthUnit("xu", r"1.0021e-13") with NotExact
-  case object XUnit_Cu_KAlpha1   extends LengthUnit("xu(CuKα1)", r"1.0020769928e-13") with NotExact
-  case object XUnit_Mo_KAlpha1   extends LengthUnit("xu(MoKα1)", r"1.0020995553e-13") with NotExact
+  case object XUnit_CuKAlpha1    extends LengthUnit("xu(CuKα1)", r"1.0020769928e-13") with NotExact
+  case object XUnit_MoKAlpha1    extends LengthUnit("xu(MoKα1)", r"1.0020995553e-13") with NotExact
   case object PlanckLength       extends LengthUnit("lp", r"1.61624e-35") with NotExact
 
   // astronomy
@@ -282,7 +297,7 @@ object LengthUnit{
   case object Line   extends LengthUnit("ln"  , r"1/12", Inch)
   case object Inch   extends LengthUnit("in"  , r"2.54", CentiMetre)
   case object Foot   extends LengthUnit("ft"  , 12, Inch)
-  case object Link   extends LengthUnit("lnk", r"0.66", Foot)
+  case object Link   extends LengthUnit("li;lnk", r"0.66", Foot)
   case object Yard   extends LengthUnit("yd"  , 3, Foot)
   case object Ell    extends LengthUnit("ell" , 45, Inch)
   case object Fathom extends LengthUnit("ftm" , 6, Foot)
@@ -295,6 +310,9 @@ object LengthUnit{
   case object NauticalMile           extends LengthUnit("NM;nmi", 1852)
   case object NauticalMile_Admiralty extends LengthUnit("NM(Adm);nmi(Adm)", 6080, Foot)
   case object NauticalLeague         extends LengthUnit("NL;nl", 3, NauticalMile)
+  case object Cable          extends LengthUnit("cb"     , r"1/10", NauticalMile)
+  case object Cable_US       extends LengthUnit("cb(US)" , 720, Foot)
+  case object Cable_imperial extends LengthUnit("cb(imp)", 608, Foot)
 
   case object Link_US_Survey  extends LengthUnit("lnk(US)", r"0.66", Foot_US_Survey)
   case object Foot_US_Survey  extends LengthUnit("ft(US)", r"1200/3937")

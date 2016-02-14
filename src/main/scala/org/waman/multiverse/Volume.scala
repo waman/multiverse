@@ -1,130 +1,242 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.Context._
+import org.waman.multiverse.VolumeUnit._
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
 trait VolumePostfixOps[A]{
-
   import VolumePostfixOps._
+  import VolumeUnit._
 
   protected def volumePostfixOps(volumeUnit: VolumeUnit): A
 
   // cubic
-  def ym3: A = volumePostfixOps(VolumeUnit.CubicYoctoMetre)
-  def zm3: A = volumePostfixOps(VolumeUnit.CubicZeptoMetre)
-  def am3: A = volumePostfixOps(VolumeUnit.CubicAttoMetre)
-  def fm3: A = volumePostfixOps(VolumeUnit.CubicFemtoMetre)
-  def pm3: A = volumePostfixOps(VolumeUnit.CubicPicoMetre)
-  def nm3: A = volumePostfixOps(VolumeUnit.CubicNanoMetre)
-  def μm3: A = volumePostfixOps(VolumeUnit.CubicMicroMetre)
-  def mm3: A = volumePostfixOps(VolumeUnit.CubicMilliMetre)
-  def cm3: A = volumePostfixOps(VolumeUnit.CubicCentiMetre)
-  def dm3: A = volumePostfixOps(VolumeUnit.CubicDeciMetre)
-  def m3 : A = volumePostfixOps(VolumeUnit.CubicMetre)
-  def dam3: A = volumePostfixOps(VolumeUnit.CubicDecaMetre)
-  def hm3: A = volumePostfixOps(VolumeUnit.CubicHectoMetre)
-  def km3: A = volumePostfixOps(VolumeUnit.CubicKiloMetre)
-  def Mm3: A = volumePostfixOps(VolumeUnit.CubicMegaMetre)
-  def Gm3: A = volumePostfixOps(VolumeUnit.CubicGigaMetre)
-  def Tm3: A = volumePostfixOps(VolumeUnit.CubicTeraMetre)
-  def Pm3: A = volumePostfixOps(VolumeUnit.CubicPetaMetre)
-  def Em3: A = volumePostfixOps(VolumeUnit.CubicExaMetre)
-  def Zm3: A = volumePostfixOps(VolumeUnit.CubicZettaMetre)
-  def Ym3: A = volumePostfixOps(VolumeUnit.CubicYottaMetre)
+  def ym3: A = volumePostfixOps(CubicYoctoMetre)
+  def zm3: A = volumePostfixOps(CubicZeptoMetre)
+  def am3: A = volumePostfixOps(CubicAttoMetre)
+  def fm3: A = volumePostfixOps(CubicFemtoMetre)
+  def pm3: A = volumePostfixOps(CubicPicoMetre)
+  def nm3: A = volumePostfixOps(CubicNanoMetre)
+  def μm3: A = volumePostfixOps(CubicMicroMetre)
+  def mm3: A = volumePostfixOps(CubicMilliMetre)
+  def cm3: A = volumePostfixOps(CubicCentiMetre)
+  def dm3: A = volumePostfixOps(CubicDeciMetre)
+  def m3 : A = volumePostfixOps(CubicMetre)
+  def dam3: A = volumePostfixOps(CubicDecaMetre)
+  def hm3: A = volumePostfixOps(CubicHectoMetre)
+  def km3: A = volumePostfixOps(CubicKiloMetre)
+  def Mm3: A = volumePostfixOps(CubicMegaMetre)
+  def Gm3: A = volumePostfixOps(CubicGigaMetre)
+  def Tm3: A = volumePostfixOps(CubicTeraMetre)
+  def Pm3: A = volumePostfixOps(CubicPetaMetre)
+  def Em3: A = volumePostfixOps(CubicExaMetre)
+  def Zm3: A = volumePostfixOps(CubicZettaMetre)
+  def Ym3: A = volumePostfixOps(CubicYottaMetre)
 
   // litre
-  def yL: A = volumePostfixOps(VolumeUnit.YoctoLitre)
-  def zL: A = volumePostfixOps(VolumeUnit.ZeptoLitre)
-  def aL: A = volumePostfixOps(VolumeUnit.AttoLitre)
-  def fL: A = volumePostfixOps(VolumeUnit.FemtoLitre)
-  def pL: A = volumePostfixOps(VolumeUnit.PicoLitre)
-  def nL: A = volumePostfixOps(VolumeUnit.NanoLitre)
-  def μL: A = volumePostfixOps(VolumeUnit.MicroLitre)
-  def mL: A = volumePostfixOps(VolumeUnit.MilliLitre)
-  def cL: A = volumePostfixOps(VolumeUnit.CentiLitre)
-  def dL: A = volumePostfixOps(VolumeUnit.DeciLitre)
-  def L : A = volumePostfixOps(VolumeUnit.Litre)
-  def daL: A = volumePostfixOps(VolumeUnit.DecaLitre)
-  def hL: A = volumePostfixOps(VolumeUnit.HectoLitre)
-  def kL: A = volumePostfixOps(VolumeUnit.KiloLitre)
-  def ML: A = volumePostfixOps(VolumeUnit.MegaLitre)
-  def GL: A = volumePostfixOps(VolumeUnit.GigaLitre)
-  def TL: A = volumePostfixOps(VolumeUnit.TeraLitre)
-  def PL: A = volumePostfixOps(VolumeUnit.PetaLitre)
-  def EL: A = volumePostfixOps(VolumeUnit.ExaLitre)
-  def ZL: A = volumePostfixOps(VolumeUnit.ZettaLitre)
-  def YL: A = volumePostfixOps(VolumeUnit.YottaLitre)
+  def yL: A = volumePostfixOps(YoctoLitre)
+  def zL: A = volumePostfixOps(ZeptoLitre)
+  def aL: A = volumePostfixOps(AttoLitre)
+  def fL: A = volumePostfixOps(FemtoLitre)
+  def pL: A = volumePostfixOps(PicoLitre)
+  def nL: A = volumePostfixOps(NanoLitre)
+  def μL: A = volumePostfixOps(MicroLitre)
+  def mL: A = volumePostfixOps(MilliLitre)
+  def cL: A = volumePostfixOps(CentiLitre)
+  def dL: A = volumePostfixOps(DeciLitre)
+  def L : A = volumePostfixOps(Litre)
+  def daL: A = volumePostfixOps(DecaLitre)
+  def hL: A = volumePostfixOps(HectoLitre)
+  def kL: A = volumePostfixOps(KiloLitre)
+  def ML: A = volumePostfixOps(MegaLitre)
+  def GL: A = volumePostfixOps(GigaLitre)
+  def TL: A = volumePostfixOps(TeraLitre)
+  def PL: A = volumePostfixOps(PetaLitre)
+  def EL: A = volumePostfixOps(ExaLitre)
+  def ZL: A = volumePostfixOps(ZettaLitre)
+  def YL: A = volumePostfixOps(YottaLitre)
 
-  def cu_in: A = volumePostfixOps(VolumeUnit.CubicInch)
+  def λ: A = volumePostfixOps(Lambda)
 
-  def gal(c: Context): A = volumePostfixOps(_gal(c))
+  def cu_in: A = volumePostfixOps(CubicInch)
+  def cu_ft: A = volumePostfixOps(CubicFoot)
+  def cu_yd: A = volumePostfixOps(CubicYard)
+  def cu_fm: A = volumePostfixOps(CubicFathom)
+  def cu_mi: A = volumePostfixOps(CubicMile)
 
-//  def bal =
+  def fbm: A = volumePostfixOps(BoardFoot)
+  def ac_ft: A = volumePostfixOps(AcreFoot)
 
-  def λ: A = volumePostfixOps(VolumeUnit.Lambda)
+  def beer_gal: A = volumePostfixOps(Gallon_beer)
+  def per: A = volumePostfixOps(Perch)
+  def bl : A = volumePostfixOps(Barrel)
+  def bbl: A = bl
+
+  def minim(c: Context): A = volumePostfixOps(_minim(c))
+  def US_fl_oz         : A = volumePostfixOps(Fluid_Ounce_US)
+  def fl_oz(c: Context): A = volumePostfixOps(_fl_oz(c))
+  def gi(c: Context)   : A = volumePostfixOps(_gi(c))
+  def nog              : A = volumePostfixOps(Gill_imperial)
+  def pt(c: Context)   : A = volumePostfixOps(_pt(c))
+  def qt(c: Context)   : A = volumePostfixOps(_qt(c))
+  def US_gal           : A = volumePostfixOps(Gallon_US_fluid)
+  def imp_gal          : A = volumePostfixOps(Gallon_imperial)
+  def gal(c: Context)  : A = volumePostfixOps(_gal(c))
+  def pk(c: Context)   : A = volumePostfixOps(_pk(c))
+  def bu(c: Context)   : A = volumePostfixOps(_bu(c))
+  def fl_bl            : A = volumePostfixOps(Barrel_US_fluid)
+  def fl_bl(c: Context): A = volumePostfixOps(_fl_bl(c))
+  def bl(c: Context)   : A = volumePostfixOps(_bl(c))
+  def hhd(c: Context)  : A = volumePostfixOps(_hhd(c))
+
+  def fl_s: A = volumePostfixOps(FluidScruple)
+  def fl_dr(c: Context): A = volumePostfixOps(_fl_dr(c))
+  def bkt: A = volumePostfixOps(Bucket)
 }
 
 object VolumePostfixOps{
 
+  lazy val _minim: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates => Minim_US
+    case Imperial => Minim_imperial
+  }
+
+  lazy val _fl_oz: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates => Fluid_Ounce_US
+    case Imperial => Fluid_Ounce_imperial
+  }
+
+  lazy val _gi: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates => Gill_US
+    case Imperial => Gill_imperial
+  }
+
+  lazy val _pt: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates_Fluid => Pint_US_fluid
+    case UnitedStates_Dry => Pint_US_dry
+    case Imperial => Pint_imperial
+  }
+
+  lazy val _qt: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates_Fluid => Quart_US_fluid
+    case UnitedStates_Dry => Quart_US_dry
+    case Imperial => Quart_imperial
+  }
+
   lazy val _gal: PartialFunction[Context, VolumeUnit] = {
-    case UnitedStates | UnitedStates_Fluid => VolumeUnit.Gallon_US_fluid
-    case UnitedStates_Dry => VolumeUnit.Gallon_US_dry
-    case Imperial         => VolumeUnit.Gallon_imperial
+    case UnitedStates | UnitedStates_Fluid => Gallon_US_fluid
+    case UnitedStates_Dry => Gallon_US_dry
+    case Imperial => Gallon_imperial
+  }
+
+  lazy val _pk: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates_Dry => Peck_US_dry
+    case Imperial => Peck_imperial
+  }
+
+  lazy val _bu: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates_Dry => Bushel_US_dry
+    case UnitedStates_Dry_Level => Bushel_US_dry_level
+    case Imperial => Bushel_imperial
+  }
+
+  lazy val _bl: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates_Fluid => Barrel_US_fluid
+    case UnitedStates_Dry => Barrel_US_dry
+    case Imperial => Barrel_imperial
+  }
+
+  lazy val _fl_bl: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates => Barrel_US_fluid
+  }
+
+  lazy val _hhd: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates => Hogshead_US
+    case Imperial => Hogshead_imperial
+  }
+
+  lazy val _fl_dr: PartialFunction[Context, VolumeUnit] = {
+    case UnitedStates => FluidDram_US
+    case Imperial => FluidDrachm_imperial
   }
 }
 
 trait VolumePer[A]{
+  import VolumeUnit._
 
   protected def volumePer(volumeUnit: VolumeUnit): A
 
   // cubic
-  def ym3(per: Per): A = volumePer(VolumeUnit.CubicYoctoMetre)
-  def zm3(per: Per): A = volumePer(VolumeUnit.CubicZeptoMetre)
-  def am3(per: Per): A = volumePer(VolumeUnit.CubicAttoMetre)
-  def fm3(per: Per): A = volumePer(VolumeUnit.CubicFemtoMetre)
-  def pm3(per: Per): A = volumePer(VolumeUnit.CubicPicoMetre)
-  def nm3(per: Per): A = volumePer(VolumeUnit.CubicNanoMetre)
-  def μm3(per: Per): A = volumePer(VolumeUnit.CubicMicroMetre)
-  def mm3(per: Per): A = volumePer(VolumeUnit.CubicMilliMetre)
-  def cm3(per: Per): A = volumePer(VolumeUnit.CubicCentiMetre)
-  def dm3(per: Per): A = volumePer(VolumeUnit.CubicDeciMetre)
-  def m3 (per: Per): A = volumePer(VolumeUnit.CubicMetre)
-  def dam3(per: Per): A = volumePer(VolumeUnit.CubicDecaMetre)
-  def hm3(per: Per): A = volumePer(VolumeUnit.CubicHectoMetre)
-  def km3(per: Per): A = volumePer(VolumeUnit.CubicKiloMetre)
-  def Mm3(per: Per): A = volumePer(VolumeUnit.CubicMegaMetre)
-  def Gm3(per: Per): A = volumePer(VolumeUnit.CubicGigaMetre)
-  def Tm3(per: Per): A = volumePer(VolumeUnit.CubicTeraMetre)
-  def Pm3(per: Per): A = volumePer(VolumeUnit.CubicPetaMetre)
-  def Em3(per: Per): A = volumePer(VolumeUnit.CubicExaMetre)
-  def Zm3(per: Per): A = volumePer(VolumeUnit.CubicZettaMetre)
-  def Ym3(per: Per): A = volumePer(VolumeUnit.CubicYottaMetre)
+  def ym3(per: Per): A = volumePer(CubicYoctoMetre)
+  def zm3(per: Per): A = volumePer(CubicZeptoMetre)
+  def am3(per: Per): A = volumePer(CubicAttoMetre)
+  def fm3(per: Per): A = volumePer(CubicFemtoMetre)
+  def pm3(per: Per): A = volumePer(CubicPicoMetre)
+  def nm3(per: Per): A = volumePer(CubicNanoMetre)
+  def μm3(per: Per): A = volumePer(CubicMicroMetre)
+  def mm3(per: Per): A = volumePer(CubicMilliMetre)
+  def cm3(per: Per): A = volumePer(CubicCentiMetre)
+  def dm3(per: Per): A = volumePer(CubicDeciMetre)
+  def m3 (per: Per): A = volumePer(CubicMetre)
+  def dam3(per: Per): A = volumePer(CubicDecaMetre)
+  def hm3(per: Per): A = volumePer(CubicHectoMetre)
+  def km3(per: Per): A = volumePer(CubicKiloMetre)
+  def Mm3(per: Per): A = volumePer(CubicMegaMetre)
+  def Gm3(per: Per): A = volumePer(CubicGigaMetre)
+  def Tm3(per: Per): A = volumePer(CubicTeraMetre)
+  def Pm3(per: Per): A = volumePer(CubicPetaMetre)
+  def Em3(per: Per): A = volumePer(CubicExaMetre)
+  def Zm3(per: Per): A = volumePer(CubicZettaMetre)
+  def Ym3(per: Per): A = volumePer(CubicYottaMetre)
 
   // litre
-  def yL(per: Per): A = volumePer(VolumeUnit.YoctoLitre)
-  def zL(per: Per): A = volumePer(VolumeUnit.ZeptoLitre)
-  def aL(per: Per): A = volumePer(VolumeUnit.AttoLitre)
-  def fL(per: Per): A = volumePer(VolumeUnit.FemtoLitre)
-  def pL(per: Per): A = volumePer(VolumeUnit.PicoLitre)
-  def nL(per: Per): A = volumePer(VolumeUnit.NanoLitre)
-  def μL(per: Per): A = volumePer(VolumeUnit.MicroLitre)
-  def mL(per: Per): A = volumePer(VolumeUnit.MilliLitre)
-  def cL(per: Per): A = volumePer(VolumeUnit.CentiLitre)
-  def dL(per: Per): A = volumePer(VolumeUnit.DeciLitre)
-  def L (per: Per): A = volumePer(VolumeUnit.Litre)
-  def daL(per: Per): A = volumePer(VolumeUnit.DecaLitre)
-  def hL(per: Per): A = volumePer(VolumeUnit.HectoLitre)
-  def kL(per: Per): A = volumePer(VolumeUnit.KiloLitre)
-  def ML(per: Per): A = volumePer(VolumeUnit.MegaLitre)
-  def GL(per: Per): A = volumePer(VolumeUnit.GigaLitre)
-  def TL(per: Per): A = volumePer(VolumeUnit.TeraLitre)
-  def PL(per: Per): A = volumePer(VolumeUnit.PetaLitre)
-  def EL(per: Per): A = volumePer(VolumeUnit.ExaLitre)
-  def ZL(per: Per): A = volumePer(VolumeUnit.ZettaLitre)
-  def YL(per: Per): A = volumePer(VolumeUnit.YottaLitre)
+  def yL(per: Per): A = volumePer(YoctoLitre)
+  def zL(per: Per): A = volumePer(ZeptoLitre)
+  def aL(per: Per): A = volumePer(AttoLitre)
+  def fL(per: Per): A = volumePer(FemtoLitre)
+  def pL(per: Per): A = volumePer(PicoLitre)
+  def nL(per: Per): A = volumePer(NanoLitre)
+  def μL(per: Per): A = volumePer(MicroLitre)
+  def mL(per: Per): A = volumePer(MilliLitre)
+  def cL(per: Per): A = volumePer(CentiLitre)
+  def dL(per: Per): A = volumePer(DeciLitre)
+  def L (per: Per): A = volumePer(Litre)
+  def daL(per: Per): A = volumePer(DecaLitre)
+  def hL(per: Per): A = volumePer(HectoLitre)
+  def kL(per: Per): A = volumePer(KiloLitre)
+  def ML(per: Per): A = volumePer(MegaLitre)
+  def GL(per: Per): A = volumePer(GigaLitre)
+  def TL(per: Per): A = volumePer(TeraLitre)
+  def PL(per: Per): A = volumePer(PetaLitre)
+  def EL(per: Per): A = volumePer(ExaLitre)
+  def ZL(per: Per): A = volumePer(ZettaLitre)
+  def YL(per: Per): A = volumePer(YottaLitre)
 
-  def λ(per: Per): A = volumePer(VolumeUnit.Lambda)
+  def λ(per: Per): A = volumePer(Lambda)
+
+  def cu_in(per: Per): A = volumePer(CubicInch)
+  def cu_ft(per: Per): A = volumePer(CubicFoot)
+  def cu_yd(per: Per): A = volumePer(CubicYard)
+  def cu_fm(per: Per): A = volumePer(CubicFathom)
+  def cu_mi(per: Per): A = volumePer(CubicMile)
+
+  def fbm(per: Per): A = volumePer(BoardFoot)
+  def ac_ft(per: Per): A = volumePer(AcreFoot)
+
+  def beer_gal(per: Per): A = volumePer(Gallon_beer)
+  def per(per: Per): A = volumePer(Perch)
+  def bl (per: Per): A = volumePer(Barrel)
+  def bbl(per: Per): A = bl(per)
+
+  def US_fl_oz(per: Per): A = volumePer(Fluid_Ounce_US)
+  def US_gal  (per: Per): A = volumePer(Gallon_US_fluid)
+  def imp_gal (per: Per): A = volumePer(Gallon_imperial)
+  def nog     (per: Per): A = volumePer(Gill_imperial)
+  def fl_bl   (per: Per): A = volumePer(Barrel_US_fluid)
+
+  def fl_s(per: Per): A = volumePer(FluidScruple)
+  def bkt(per: Per): A = volumePer(Bucket)
 }
 
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity[A, VolumeUnit]
@@ -208,40 +320,59 @@ object VolumeUnit{
   case object ZettaLitre extends VolumeUnit("ZL", r"1e21", Litre)
   case object YottaLitre extends VolumeUnit("YL", r"1e24", Litre)
 
+  case object Lambda extends VolumeUnit("λ", r"1e-9")
+
   case object CubicInch   extends VolumeUnit("cu_in", LengthUnit.Inch)
-  case object CubicFathom extends VolumeUnit("cu_fm", LengthUnit.Fathom)
   case object CubicFoot   extends VolumeUnit("cu_ft", LengthUnit.Foot)
   case object CubicYard   extends VolumeUnit("cu_yd", LengthUnit.Yard)
+  case object CubicFathom extends VolumeUnit("cu_fm", LengthUnit.Fathom)
   case object CubicMile   extends VolumeUnit("cu_mi", LengthUnit.Mile)
 
   case object BoardFoot extends VolumeUnit("fbm", 144, CubicInch)
   case object AcreFoot extends VolumeUnit("ac_ft", AreaUnit.Acre, LengthUnit.Foot)
 
-  case object Gallon_beer     extends VolumeUnit("beer_gal", 282, CubicInch)
-  case object Gallon_US_fluid extends VolumeUnit("US_gal;gal(US);gal(US_fl)", 231, CubicInch)
-  case object Gallon_US_dry   extends VolumeUnit("gal(US_dry)", r"1/8", Bushel_US_dry_level)
-  case object Gallon_imperial extends VolumeUnit("imp_gal;gal(imp)", r"4.54609e-3")
+  case object Gallon_beer extends VolumeUnit("beer_gal", 282, CubicInch)
+  case object Perch extends VolumeUnit("per", r"33/2" * r"3/2", CubicFoot)
+  case object Barrel extends VolumeUnit("bl;bbl", 42, Gallon_US_fluid)
 
-  case object Quart_US_fluid extends VolumeUnit("qt(US);qt(US_fl)", r"1/4", Gallon_US_fluid)
-  case object Quart_US_dry   extends VolumeUnit("qt(US_dry)", r"1/4", Gallon_US_dry)
-  case object Quart_imperial extends VolumeUnit("qt(imp)", r"1/4", Gallon_imperial)
+  // US
+  case object Minim_US       extends VolumeUnit("minim(US)", r"1/480", Fluid_Ounce_US)
+  case object Fluid_Ounce_US extends VolumeUnit("US_fl_oz;fl_oz(US)", r"1/128", Gallon_US_fluid)
+  case object Gill_US        extends VolumeUnit("gi(US)", 4, Fluid_Ounce_US)
+  case object Hogshead_US    extends VolumeUnit("hhd(US)", 2, Barrel_US_fluid)
+  case object FluidDram_US   extends VolumeUnit("fl_dr(US)", r"1/8", Fluid_Ounce_US)
 
-  case object Pint_US_fluid extends VolumeUnit("pt(US);pt(US_fl)", r"1/8", Gallon_US_fluid)
+  // US fluid
+  case object Pint_US_fluid        extends VolumeUnit("pt(US_fl)", r"1/8", Gallon_US_fluid)
+  case object Quart_US_fluid       extends VolumeUnit("qt(US_fl)", r"1/4", Gallon_US_fluid)
+  case object Gallon_US_fluid      extends VolumeUnit("US_gal;gal(US);gal(US_fl)", 231, CubicInch)
+  case object Barrel_US_fluid      extends VolumeUnit("bl(US_fl);fl_bl;fl_bl(US)", r"31.5", Gallon_US_fluid)
+
+  // US dry
   case object Pint_US_dry   extends VolumeUnit("pt(US_dry)", r"1/8", Gallon_US_dry)
-  case object Pint_imperial extends VolumeUnit("pt(imp)", r"1/8", Gallon_imperial)
-
-  case object Barrel          extends VolumeUnit("bl;bbl", 42, Gallon_US_fluid)
-  case object Barrel_US_fluid extends VolumeUnit("fl_bl(US)", r"31.5", Gallon_US_fluid)
-  case object Barrel_US_dry   extends VolumeUnit("bl(US)", 105, Quart_US_dry)
-  case object Barrel_imperial extends VolumeUnit("bl(imp)", 36, Gallon_imperial)
-
+  case object Quart_US_dry  extends VolumeUnit("qt(US_dry)", r"1/4", Gallon_US_dry)
+  case object Gallon_US_dry extends VolumeUnit("gal(US_dry)", r"1/8", Bushel_US_dry_level)
+  case object Peck_US_dry   extends VolumeUnit("pk(US_dry)", r"1/4", Bushel_US_dry_level)
+  case object Bushel_US_dry extends VolumeUnit("bu(US_dry)", r"5/4", Bushel_US_dry_level)
   case object Bushel_US_dry_level extends VolumeUnit("bu(US_lvl)", r"2150.42", CubicInch)
-  case object Bushel_US_dry       extends VolumeUnit("bu(US_dry)", r"1.25", Bushel_US_dry_level)
-  case object Bushel_imperial     extends VolumeUnit("bu(imp)", 8, Gallon_imperial)
+  case object Barrel_US_dry extends VolumeUnit("bl(US);bl(US_dry)", 105, Quart_US_dry)
+
+  // imperial
+  case object Minim_imperial       extends VolumeUnit("minim(imp)", r"1/480", Fluid_Ounce_imperial)
+  case object Fluid_Ounce_imperial extends VolumeUnit("fl_oz(imp)", r"1/160", Gallon_imperial)
+  case object Gill_imperial        extends VolumeUnit("gi(imp);nog", 5, Fluid_Ounce_imperial)
+  case object Pint_imperial        extends VolumeUnit("pt(imp)", r"1/8", Gallon_imperial)
+  case object Quart_imperial       extends VolumeUnit("qt(imp)", r"1/4", Gallon_imperial)
+  case object Gallon_imperial      extends VolumeUnit("imp_gal;gal(imp)", r"4.54609", Litre)
+  case object Peck_imperial        extends VolumeUnit("pk(imp)", 2, Gallon_imperial)
+  case object Bushel_imperial      extends VolumeUnit("bu(imp)", 8, Gallon_imperial)
+  case object Barrel_imperial      extends VolumeUnit("bl(imp)", 36, Gallon_imperial)
+  case object Hogshead_imperial    extends VolumeUnit("hhd(imp)", 2, Barrel_imperial)
+
+  case object FluidScruple extends VolumeUnit("fl_s", r"1/24", Fluid_Ounce_imperial)
+  case object FluidDrachm_imperial extends VolumeUnit("fl_dr(imp)", r"1/8", Fluid_Ounce_imperial)
 
   case object Bucket extends VolumeUnit("bkt", 4, Gallon_imperial)
-
-  case object Lambda extends VolumeUnit("λ", r"1e-9")
 }
 
 trait PredefinedVolumeUnit extends VolumePostfixOps[VolumeUnit]{
