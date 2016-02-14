@@ -9,7 +9,19 @@ trait SolidAnglePostfixOps[A]{
 
   protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit): A
 
+  def dasr: A = solidAnglePostfixOps(DecaSteradian)
   def sr  : A = solidAnglePostfixOps(Steradian)
+  def dsr : A = solidAnglePostfixOps(DeciSteradian)
+  def csr : A = solidAnglePostfixOps(CentiSteradian)
+  def msr : A = solidAnglePostfixOps(MilliSteradian)
+  def μsr : A = solidAnglePostfixOps(MicroSteradian)
+  def nsr : A = solidAnglePostfixOps(NanoSteradian)
+  def psr : A = solidAnglePostfixOps(PicoSteradian)
+  def fsr : A = solidAnglePostfixOps(FemtoSteradian)
+  def asr : A = solidAnglePostfixOps(AttoSteradian)
+  def zsr : A = solidAnglePostfixOps(ZeptoSteradian)
+  def ysr : A = solidAnglePostfixOps(YoctoSteradian)
+  
   def deg2: A = solidAnglePostfixOps(SquareDegree)
 }
 
@@ -35,7 +47,19 @@ abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
 }
 
 object SolidAngleUnit{
-  case object Steradian    extends SolidAngleUnit("sr", r"1")
+  case object DecaSteradian  extends SolidAngleUnit("dasr", r"1e1")
+  case object Steradian      extends SolidAngleUnit("sr", 1)
+  case object DeciSteradian  extends SolidAngleUnit("dsr", r"1e-1")
+  case object CentiSteradian extends SolidAngleUnit("csr", r"1e-2")
+  case object MilliSteradian extends SolidAngleUnit("msr", r"1e-3")
+  case object MicroSteradian extends SolidAngleUnit("μsr", r"1e-6")
+  case object NanoSteradian  extends SolidAngleUnit("nsr", r"1e-9")
+  case object PicoSteradian  extends SolidAngleUnit("psr", r"1e-12")
+  case object FemtoSteradian extends SolidAngleUnit("fsr", r"1e-15")
+  case object AttoSteradian  extends SolidAngleUnit("asr", r"1e-18")
+  case object ZeptoSteradian extends SolidAngleUnit("zsr", r"1e-21")
+  case object YoctoSteradian extends SolidAngleUnit("ysr", r"1e-24")
+  
   case object SquareDegree extends SolidAngleUnit("deg2", (twoPi / r"360")**2)
 }
 
