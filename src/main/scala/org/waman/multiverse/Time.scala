@@ -50,13 +50,13 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 }
 
 sealed abstract class TimeUnit(val symbol: String, val unitInSecond: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit[TimeUnit]{
 
   def this(symbol: String, factor: Real, timeUnit: TimeUnit) =
     this(symbol, factor * timeUnit.unitInSecond)
 
-  override protected val baseUnit = TimeUnit.Second
-  override protected val inBaseUnitAccessor = () => unitInSecond
+  override val baseUnit = TimeUnit.Second
+  override val inBaseUnitAccessor = () => unitInSecond
 }
 
 object TimeUnit{

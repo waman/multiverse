@@ -72,13 +72,13 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   }
 }
 
-sealed trait VelocityUnit extends PhysicalUnit
+sealed trait VelocityUnit extends PhysicalUnit[VelocityUnit]
   with DivisibleByTime[AccelerationUnit]{
 
   def unitInMetrePerSecond: Real
 
-  override protected lazy val baseUnit = LengthUnit.Metre / TimeUnit.Second
-  override protected lazy val inBaseUnitAccessor = () => unitInMetrePerSecond
+  override  lazy val baseUnit = LengthUnit.Metre / TimeUnit.Second
+  override  lazy val inBaseUnitAccessor = () => unitInMetrePerSecond
 
   override def /(timeUnit: TimeUnit) = AccelerationUnit(this, timeUnit)
 }
@@ -112,7 +112,7 @@ object VelocityUnit{
 
   // Length/Time
   private[VelocityUnit] class QuotientVelocityUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
-    extends VelocityUnit with QuotientUnit[LengthUnit, TimeUnit]{
+    extends VelocityUnit with QuotientUnit[VelocityUnit, LengthUnit, TimeUnit]{
 
     override lazy val unitInMetrePerSecond: Real = numeratorUnit.unitInMetre / denominatorUnit.unitInSecond
   }

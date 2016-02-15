@@ -40,10 +40,10 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
 }
 
 abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit[SolidAngleUnit]{
 
-  override protected val baseUnit = SolidAngleUnit.Steradian
-  override protected val inBaseUnitAccessor = () => unitInSteradian
+  override val baseUnit = SolidAngleUnit.Steradian
+  override val inBaseUnitAccessor = () => unitInSteradian
 }
 
 object SolidAngleUnit{

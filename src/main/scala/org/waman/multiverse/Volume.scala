@@ -80,6 +80,7 @@ trait VolumePostfixOps[A]{
   def nog              : A = volumePostfixOps(Gill_imperial)
   def pt(c: Context)   : A = volumePostfixOps(_pt(c))
   def qt(c: Context)   : A = volumePostfixOps(_qt(c))
+  def gal              : A = volumePostfixOps(Gallon_US_fluid)
   def US_gal           : A = volumePostfixOps(Gallon_US_fluid)
   def imp_gal          : A = volumePostfixOps(Gallon_imperial)
   def gal(c: Context)  : A = volumePostfixOps(_gal(c))
@@ -230,6 +231,7 @@ trait VolumePer[A]{
   def bbl(per: Per): A = bl(per)
 
   def US_fl_oz(per: Per): A = volumePer(Fluid_Ounce_US)
+  def gal     (per: Per): A = volumePer(Gallon_US_fluid)
   def US_gal  (per: Per): A = volumePer(Gallon_US_fluid)
   def imp_gal (per: Per): A = volumePer(Gallon_imperial)
   def nog     (per: Per): A = volumePer(Gill_imperial)
@@ -257,7 +259,8 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity
 }
 
 abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
-  extends PhysicalUnit with DivisibleByTime[VolumeFlowUnit] {
+    extends PhysicalUnit[VolumeUnit]
+    with DivisibleByTime[VolumeFlowUnit] {
 
   def this(symbol: String, factor: Real, volumeUnit: VolumeUnit) =
     this(symbol, factor * volumeUnit.unitInCubicMetre)
@@ -268,8 +271,8 @@ abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
   def this(symbol: String, areaUnit: AreaUnit, lengthUnit: LengthUnit) =
     this(symbol, areaUnit.unitInSquareMetre * lengthUnit.unitInMetre)
 
-  override protected val baseUnit = VolumeUnit.CubicMetre
-  override protected val inBaseUnitAccessor = () => unitInCubicMetre
+  override val baseUnit = VolumeUnit.CubicMetre
+  override val inBaseUnitAccessor = () => unitInCubicMetre
 
   override def /(timeUnit: TimeUnit): VolumeFlowUnit = VolumeFlowUnit(this, timeUnit)
 }
@@ -345,7 +348,7 @@ object VolumeUnit{
   // US fluid
   case object Pint_US_fluid        extends VolumeUnit("pt(US_fl)", r"1/8", Gallon_US_fluid)
   case object Quart_US_fluid       extends VolumeUnit("qt(US_fl)", r"1/4", Gallon_US_fluid)
-  case object Gallon_US_fluid      extends VolumeUnit("US_gal;gal(US);gal(US_fl)", 231, CubicInch)
+  case object Gallon_US_fluid      extends VolumeUnit("gal;US_gal;gal(US);gal(US_fl)", 231, CubicInch)
   case object Barrel_US_fluid      extends VolumeUnit("bl(US_fl);fl_bl;fl_bl(US)", r"31.5", Gallon_US_fluid)
 
   // US dry

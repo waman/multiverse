@@ -29,15 +29,15 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
 }
 
 sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit[ForceUnit]{
 
-  override protected val baseUnit = ForceUnit.Newton
-  override protected val inBaseUnitAccessor = () => unitInNewton
+  override val baseUnit = ForceUnit.Newton
+  override val inBaseUnitAccessor = () => unitInNewton
 }
 
 object ForceUnit{
 
-  case object Newton        extends ForceUnit("N"  , r"1")
+  case object Newton        extends ForceUnit("N"  , 1)
   case object Dyne          extends ForceUnit("dyn", r"1e-5")
   case object KiloGramForce extends ForceUnit("kgf;kp", r"9.80665")
 }

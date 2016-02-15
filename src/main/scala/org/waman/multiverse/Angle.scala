@@ -94,14 +94,14 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
 }
 
 abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
-    extends PhysicalUnit
+    extends PhysicalUnit[AngleUnit]
     with DivisibleByTime[AngularVelocityUnit]{
 
   def this(symbol: String, factor: Real, angleUnit: AngleUnit) =
     this(symbol, factor * angleUnit.unitInRadian)
 
-  override protected val baseUnit = AngleUnit.Radian
-  override protected val inBaseUnitAccessor = () => unitInRadian
+  override val baseUnit = AngleUnit.Radian
+  override val inBaseUnitAccessor = () => unitInRadian
 
   override def /(timeUnit: TimeUnit): AngularVelocityUnit =
     AngularVelocityUnit(this, timeUnit)

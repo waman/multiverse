@@ -26,18 +26,18 @@ class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
 }
 
 sealed abstract class TimeSquaredUnit(val symbol: String, val unitInSecondSquared: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit[TimeSquaredUnit]{
 
   def this(symbol: String, factor: Real, timeSquaredUnit: TimeSquaredUnit) =
     this(symbol, factor * timeSquaredUnit.unitInSecondSquared)
 
-  override protected val baseUnit = TimeSquaredUnit.SecondSquared
-  override protected val inBaseUnitAccessor = () => unitInSecondSquared
+  override val baseUnit = TimeSquaredUnit.SecondSquared
+  override val inBaseUnitAccessor = () => unitInSecondSquared
 }
 
 object TimeSquaredUnit{
 
-  case object SecondSquared extends TimeSquaredUnit("s2" , r"1")
+  case object SecondSquared extends TimeSquaredUnit("s2" , 1)
 }
 
 trait PredefinedTimeSquaredUnit extends TimeSquaredPostfixOps[TimeSquaredUnit]{

@@ -51,10 +51,10 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
 }
 
 sealed abstract class FrequencyUnit(val symbol: String, val unitInHeltz: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit[FrequencyUnit]{
 
-  override protected val baseUnit = FrequencyUnit.Heltz
-  override protected val inBaseUnitAccessor = () => unitInHeltz
+  override val baseUnit = FrequencyUnit.Heltz
+  override val inBaseUnitAccessor = () => unitInHeltz
 }
 
 object FrequencyUnit{

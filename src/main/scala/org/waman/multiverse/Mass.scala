@@ -81,14 +81,13 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 }
 
 abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
-  extends PhysicalUnit
-    with DivisibleByVolume[DensityUnit]{
+  extends PhysicalUnit[MassUnit] with DivisibleByVolume[DensityUnit]{
 
   def this(symbol: String, factor: Real, massUnit: MassUnit) =
     this(symbol, factor * massUnit.unitInKiloGram)
 
-  override protected val baseUnit = MassUnit.KiloGram
-  override protected val inBaseUnitAccessor = () => unitInKiloGram
+  override val baseUnit = MassUnit.KiloGram
+  override val inBaseUnitAccessor = () => unitInKiloGram
 
   override def /(volumeUnit: VolumeUnit): DensityUnit = DensityUnit(this, volumeUnit)
 }

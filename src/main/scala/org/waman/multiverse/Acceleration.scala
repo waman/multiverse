@@ -51,16 +51,17 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
   }
 }
 
-sealed trait AccelerationUnit extends PhysicalUnit{
+sealed abstract class AccelerationUnit extends PhysicalUnit[AccelerationUnit]{
   def unitInMetrePerSecondSquared: Real
 
-  override protected lazy val baseUnit = LengthUnit.Metre / TimeSquaredUnit.SecondSquared
-  override protected lazy val inBaseUnitAccessor = () => unitInMetrePerSecondSquared
+  override lazy val baseUnit = LengthUnit.Metre / TimeSquaredUnit.SecondSquared
+  override lazy val inBaseUnitAccessor = () => unitInMetrePerSecondSquared
 }
 
 object AccelerationUnit{
 
-  private[AccelerationUnit] abstract class AccelerationUnitImpl(val symbol: String, val unitInMetrePerSecondSquared: Real)
+  private[AccelerationUnit] abstract
+  class AccelerationUnitImpl(val symbol: String, val unitInMetrePerSecondSquared: Real)
     extends AccelerationUnit{
 
     def this(symbol: String, lengthUnit: LengthUnit) =
@@ -77,7 +78,7 @@ object AccelerationUnit{
   // Length/Time2
   private[AccelerationUnit]
   class LengthOverTimeSquared(val numeratorUnit: LengthUnit, val denominatorUnit: TimeSquaredUnit)
-    extends AccelerationUnit with QuotientUnit[LengthUnit, TimeSquaredUnit]{
+    extends AccelerationUnit with QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit]{
 
     override lazy val unitInMetrePerSecondSquared: Real =
       numeratorUnit.unitInMetre / denominatorUnit.unitInSecondSquared
@@ -89,7 +90,7 @@ object AccelerationUnit{
   // Velocity/Time
   private[AccelerationUnit]
   class VelocityOverTime(val numeratorUnit: VelocityUnit, val denominatorUnit: TimeUnit)
-    extends AccelerationUnit with QuotientUnit[VelocityUnit, TimeUnit]{
+    extends AccelerationUnit with QuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit]{
 
     override lazy val unitInMetrePerSecondSquared: Real =
       numeratorUnit.unitInMetrePerSecond / denominatorUnit.unitInSecond

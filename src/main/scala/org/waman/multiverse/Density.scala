@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
-import spire.math.{Real, Fractional}
 import spire.implicits._
+import spire.math.{Fractional, Real}
 
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
   extends Quantity[A, DensityUnit]
@@ -24,17 +24,18 @@ class Density[A: Fractional](val value: A, val unit: DensityUnit)
   }
 }
 
-sealed trait DensityUnit extends PhysicalUnit{
+sealed trait DensityUnit extends PhysicalUnit[DensityUnit]{
+
   def unitInKiloGramPerCubicMetre: Real
 
-  override protected lazy val baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
-  override protected val inBaseUnitAccessor = () => unitInKiloGramPerCubicMetre
+  override lazy val baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
+  override lazy val inBaseUnitAccessor = () => unitInKiloGramPerCubicMetre
 }
 
 object DensityUnit{
 
   class QuotientDensityUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
-    extends DensityUnit with QuotientUnit[MassUnit, VolumeUnit]{
+    extends DensityUnit with QuotientUnit[DensityUnit, MassUnit, VolumeUnit]{
 
     override lazy val unitInKiloGramPerCubicMetre: Real =
       numeratorUnit.unitInKiloGram / denominatorUnit.unitInCubicMetre

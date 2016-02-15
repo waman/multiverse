@@ -38,15 +38,15 @@ class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit) extends 
   }
 }
 
-sealed trait VolumeFlowUnit extends PhysicalUnit{
+sealed abstract class VolumeFlowUnit extends PhysicalUnit[VolumeFlowUnit]{
+
   def unitInCubicMetrePerSecond: Real
 
-  override protected lazy val baseUnit = VolumeUnit.CubicMetre / TimeUnit.Second
-  override protected lazy val inBaseUnitAccessor = () => unitInCubicMetrePerSecond
+  override lazy val baseUnit = VolumeUnit.CubicMetre / TimeUnit.Second
+  override lazy val inBaseUnitAccessor = () => unitInCubicMetrePerSecond
 }
 
 object VolumeFlowUnit{
-
   import TimeUnit._
   import VolumeUnit._
 
@@ -60,10 +60,12 @@ object VolumeFlowUnit{
   case object LitrePerMinute     extends VolumeFlowUnitImpl("LPM", Litre.unitInCubicMetre / Minute.unitInSecond)
 
 
-  private[VolumeFlowUnit] class QuotientVolumeFlowUnit(val numeratorUnit: VolumeUnit, val denominatorUnit: TimeUnit)
-    extends VolumeFlowUnit with QuotientUnit[VolumeUnit, TimeUnit]{
+  private[VolumeFlowUnit]
+  class QuotientVolumeFlowUnit(val numeratorUnit: VolumeUnit, val denominatorUnit: TimeUnit)
+    extends VolumeFlowUnit with QuotientUnit[VolumeFlowUnit, VolumeUnit, TimeUnit]{
 
-    override lazy val unitInCubicMetrePerSecond: Real = numeratorUnit.unitInCubicMetre / denominatorUnit.unitInSecond
+    override lazy val unitInCubicMetrePerSecond: Real =
+      numeratorUnit.unitInCubicMetre / denominatorUnit.unitInSecond
   }
 
   def apply(lUnit: VolumeUnit, tUnit: TimeUnit): VolumeFlowUnit =

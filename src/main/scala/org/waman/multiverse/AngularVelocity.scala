@@ -42,11 +42,12 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
     FrequencyUnit.Heltz)
 }
 
-sealed abstract class AngularVelocityUnit extends PhysicalUnit{
+sealed abstract class AngularVelocityUnit extends PhysicalUnit[AngularVelocityUnit]{
+
   def unitInRadianPerSecond: Real
 
-  override protected lazy val baseUnit = AngleUnit.Radian / TimeUnit.Second
-  override protected lazy val inBaseUnitAccessor = () => unitInRadianPerSecond
+  override lazy val baseUnit = AngleUnit.Radian / TimeUnit.Second
+  override lazy val inBaseUnitAccessor = () => unitInRadianPerSecond
 }
 
 object AngularVelocityUnit{
@@ -61,7 +62,7 @@ object AngularVelocityUnit{
 
   private[AngularVelocityUnit]
   class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
-    extends AngularVelocityUnit with QuotientUnit[AngleUnit, TimeUnit]{
+    extends AngularVelocityUnit with QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit]{
 
     override lazy val unitInRadianPerSecond: Real =
       numeratorUnit.unitInRadian / denominatorUnit.unitInSecond

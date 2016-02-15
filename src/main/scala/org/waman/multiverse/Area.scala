@@ -116,7 +116,7 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
 }
 
 abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
-  extends PhysicalUnit {
+  extends PhysicalUnit[AreaUnit]{
 
   def this(symbol: String, factor: Real, areaUnit: AreaUnit) =
     this(symbol, factor * areaUnit.unitInSquareMetre)
@@ -130,8 +130,8 @@ abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
   def this(symbol: String, lengthUnit1: LengthUnit, lengthUnit2: LengthUnit) =
     this(symbol, lengthUnit1.unitInMetre * lengthUnit2.unitInMetre)
 
-  override protected val baseUnit = AreaUnit.SquareMetre
-  override protected val inBaseUnitAccessor = () => unitInSquareMetre
+  override val baseUnit = AreaUnit.SquareMetre
+  override val inBaseUnitAccessor = () => unitInSquareMetre
 }
 
 object AreaUnit{

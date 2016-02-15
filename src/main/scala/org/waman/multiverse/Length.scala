@@ -238,18 +238,21 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 }
 
 sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
-    extends PhysicalUnit
+    extends PhysicalUnit[LengthUnit]
+    with Ordered[LengthUnit]
     with DivisibleByTime[VelocityUnit] // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
     with DivisibleByTimeSquared[AccelerationUnit]{
 
   def this(symbol: String, factor: Real, lengthUnit: LengthUnit) =
     this(symbol, factor * lengthUnit.unitInMetre)
 
-  override protected val baseUnit = LengthUnit.Metre
-  override protected val inBaseUnitAccessor = () => unitInMetre
+  override val baseUnit = LengthUnit.Metre
+  override val inBaseUnitAccessor = () => unitInMetre
 
   override def /(timeUnit: TimeUnit) = VelocityUnit(this, timeUnit)
   override def /(timeSquaredUnit: TimeSquaredUnit) = AccelerationUnit(this, timeSquaredUnit)
+
+  override def compare(that: LengthUnit): Int = unitInMetre.compare(that.unitInMetre)
 }
 
 object LengthUnit{

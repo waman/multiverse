@@ -190,6 +190,7 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
         // US fluid
         (Seq(3.0.pt(US_fl) , 3.0 pt(US_fl) , 3.0 (pt(US_fl))) , 3.0 * 473.176473e-6),
         (Seq(3.0.qt(US_fl) , 3.0 qt(US_fl) , 3.0 (qt(US_fl))) , 3.0 * 946.352946e-6),
+        (Seq(3.0.gal       , 3.0 gal       , 3.0 (gal))       , 3.0 * 3.785411784e-3),
         (Seq(3.0.US_gal    , 3.0 US_gal    , 3.0 (US_gal))    , 3.0 * 3.785411784e-3),
         (Seq(3.0.gal(US_fl), 3.0 gal(US_fl), 3.0 (gal(US_fl))), 3.0 * 3.785411784e-3),
         (Seq(3.0.bl(US_fl) , 3.0 bl(US_fl) , 3.0 (bl(US_fl))) , 3.0 * 0.119240471196),
@@ -310,6 +311,7 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
         // US fluid
         (Seq(value.pt(US_fl) , value pt(US_fl) , value (pt(US_fl))) , 3.0 / 473.176473e-6),
         (Seq(value.qt(US_fl) , value qt(US_fl) , value (qt(US_fl))) , 3.0 / 946.352946e-6),
+        (Seq(value.gal       , value gal       , value (gal))       , 3.0 / 3.785411784e-3),
         (Seq(value.US_gal    , value US_gal    , value (US_gal))    , 3.0 / 3.785411784e-3),
         (Seq(value.gal(US_fl), value gal(US_fl), value (gal(US_fl))), 3.0 / 3.785411784e-3),
         (Seq(value.bl(US_fl) , value bl(US_fl) , value (bl(US_fl))) , 3.0 / 0.119240471196),
