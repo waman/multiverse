@@ -1,5 +1,8 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.metric.VolumeUnit
+import org.waman.multiverse.time.{TimeSquaredUnit, TimeUnit}
+
 trait DivisibleByTime[R]{
   def /(timeUnit: TimeUnit): R
 }

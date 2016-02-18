@@ -1,5 +1,11 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.angle._
+import org.waman.multiverse.fluid.{VolumeFlow, VolumeFlowUnit, VolumeFlowUnitInterpreter}
+import org.waman.multiverse.mass._
+import org.waman.multiverse.mechanics._
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
 import spire.math.Fractional
 
 class UnitInterpreter[A: Fractional](protected val value: A)
@@ -11,6 +17,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with MassUnitInterpreter[A]
   with DensityUnitInterpreter[A]
   with TimeUnitInterpreter[A]
+  with TimeSquaredUnitInterpreter[A]
   with FrequencyUnitInterpreter[A]
   with VelocityUnitInterpreter[A]
   with AngularVelocityUnitInterpreter[A]
@@ -29,6 +36,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(massUnit: MassUnit)                       = new Mass(value, massUnit)
   override def apply(densityUnit: DensityUnit)                 = new Density(value, densityUnit)
   override def apply(timeUnit: TimeUnit)                       = new Time(value, timeUnit)
+  override def apply(timeSquaredUnit: TimeSquaredUnit)         = new TimeSquared(value, timeSquaredUnit)
   override def apply(frequencyUnit: FrequencyUnit)             = new Frequency(value, frequencyUnit)
   override def apply(velocityUnit: VelocityUnit)               = new Velocity(value, velocityUnit)
   override def apply(angularVelocityUnit: AngularVelocityUnit) = new AngularVelocity(value, angularVelocityUnit)

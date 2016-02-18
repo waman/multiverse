@@ -1,5 +1,8 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.angle.AngleUnit
+import org.waman.multiverse.metric.LengthUnit
+
 class PhysicalUnitSpec extends MultiverseCustomSpec{
 
   "'name' property should return the name of the unit" in {

@@ -1,6 +1,9 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.UnitSystem._
+import org.waman.multiverse.angle.AngularVelocity
+import org.waman.multiverse.metric.LengthUnit
+import org.waman.multiverse.time.Frequency
 import org.waman.scalatest_util.ImplicitConversion
 
 import scala.language.postfixOps

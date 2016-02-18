@@ -3,6 +3,12 @@ package org.waman.multiverse
 import java.lang.reflect.Method
 import java.{util => jcf}
 
+import org.waman.multiverse.angle._
+import org.waman.multiverse.fluid.PredefinedVolumeFlowUnit
+import org.waman.multiverse.mass.{PredefinedDensityUnit, PredefinedMassUnit}
+import org.waman.multiverse.mechanics.{PredefinedAccelerationUnit, PredefinedForceUnit, PredefinedVelocityUnit}
+import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
+import org.waman.multiverse.time.{Frequency, PredefinedFrequencyUnit, PredefinedTimeSquaredUnit, PredefinedTimeUnit}
 import spire.math.Fractional
 
 import scala.language.implicitConversions
@@ -49,6 +55,7 @@ object UnitSystem extends UnitSystem{
       "Mass",
       "Density",
       "Time",
+      "TimeSquared",
       "Frequency",
       "Velocity",
       "AngularVelocity",

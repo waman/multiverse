@@ -1,8 +1,14 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.angle.{Angle, AngularVelocity, SolidAngle}
+import org.waman.multiverse.fluid.VolumeFlow
+import org.waman.multiverse.mass.{Density, Mass}
+import org.waman.multiverse.mechanics.Velocity
+import org.waman.multiverse.metric.{Area, Length, Volume}
+import org.waman.multiverse.time.{Frequency, Time}
 import spire.math.Fractional
-import scala.language.implicitConversions
-import scala.language.postfixOps
+
+import scala.language.{implicitConversions, postfixOps}
 
 trait MKSUnitSystem extends UnitSystem{
 
