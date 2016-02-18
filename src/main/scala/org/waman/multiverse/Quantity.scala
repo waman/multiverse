@@ -1,11 +1,14 @@
 package org.waman.multiverse
 
-import spire.math._
+import spire.math.Fractional
 
-trait Quantity[A, U <: PhysicalUnit[U]] extends Ordered[Quantity[A, U]]{
+abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
+    extends Ordered[Quantity[A, U]]{
+
   val value: A
   val unit: U
   def apply(unit: U): A
+
   override def toString = s"$value (${unit.symbol})"
 
   override def equals(other: Any): Boolean = other match {
@@ -30,13 +33,11 @@ trait Quantity[A, U <: PhysicalUnit[U]] extends Ordered[Quantity[A, U]]{
       41 + value.hashCode
       ) + unit.hashCode
 
-  protected val algebra: Fractional[A]
-
-  override def compare(that: Quantity[A, U]): Int ={
+  override def compare(that: Quantity[A, U]): Int = {
     val evalUnit = getSmallerUnit(that)
-    algebra.compare(this(evalUnit), that(evalUnit))
+    implicitly[Fractional[A]].compare(this(evalUnit), that(evalUnit))
   }
 
   private def getSmallerUnit(that: Quantity[A, U]): U =
-    List(this, that).map(_.unit).minBy(_.inBaseUnitAccessor().toDouble)
+    List(this, that).map(_.unit).min
 }

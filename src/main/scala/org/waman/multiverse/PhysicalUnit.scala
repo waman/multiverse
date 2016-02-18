@@ -2,7 +2,7 @@ package org.waman.multiverse
 
 import spire.math.Real
 
-trait PhysicalUnit[U <: PhysicalUnit[U]]{
+trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 
   lazy val name: String = {
     val cName = getClass.getSimpleName
@@ -25,6 +25,8 @@ trait PhysicalUnit[U <: PhysicalUnit[U]]{
       s.padTo(45, ' ') + s": 1 ${symbol.padTo(8, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbol}"
     }
   }
+
+  override def compare(that: U): Int = this.inBaseUnitAccessor().compare(that.inBaseUnitAccessor())
 }
 
 trait NotExact

@@ -6,22 +6,39 @@ class QuantitySpec extends MultiverseCustomSpec{
 
   "Equality" - {
 
-    "Quantities should be evaluated as true even if units are different" in {
+    "1 (m) should equal 100 (cm)" in {
       import IntegralAsRational._
-      __SetUp__
-      val len1 = 1 (m)
-      val len2 = 100 (cm)
+      __Exercise__
+      val result = 1 (m) == 100(cm)
       __Verify__
-      len1 should equal (len2)
+      result should be (true)
     }
 
-//    "Quantities should be comparable even if units are different" in {
-//      import IntegralAsDouble._
-//      __SetUp__
-//      val len1 = 1 (m)
-//      val len2 = 120 (cm)
-//      __Verify__
-//      len1 should be < len2
-//    }
+    "1 (m) should not equal 120 (cm)" in {
+      import IntegralAsRational._
+      __Exercise__
+      val result = 1 (m) == 120 (cm)
+      __Verify__
+      result should be (false)
+    }
+  }
+
+  "Order" - {
+
+    "1 (m) should be less than 120 (cm)" in {
+      import IntegralAsDouble._
+      __Exercise__
+      val result = 1 (m) < 120 (cm)
+      __Verify__
+      result should be (true)
+    }
+
+    "2 (m) should not be less than 120 (cm)" in {
+      import IntegralAsDouble._
+      __Exercise__
+      val result = 2 (m) < 120 (cm)
+      __Verify__
+      result should be (false)
+    }
   }
 }
