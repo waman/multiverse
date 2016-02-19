@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.angle._
-import org.waman.multiverse.fluid.{VolumeFlow, VolumeFlowUnit, VolumeFlowUnitInterpreter}
+import org.waman.multiverse.fluid._
 import org.waman.multiverse.mass._
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric._
@@ -24,6 +24,9 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with VolumeFlowUnitInterpreter[A]
   with AccelerationUnitInterpreter[A]
   with ForceUnitInterpreter[A]
+  with PressureUnitInterpreter[A]
+  with TorqueUnitInterpreter[A]
+  with EnergyUnitInterpreter[A]
   with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -43,4 +46,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(volumeFlowUnit: VolumeFlowUnit)           = new VolumeFlow(value, volumeFlowUnit)
   override def apply(accelerationUnit: AccelerationUnit)       = new Acceleration(value, accelerationUnit)
   override def apply(forceUnit: ForceUnit)                     = new Force(value, forceUnit)
+  override def apply(energyUnit: EnergyUnit)                   = new Energy(value, energyUnit)
+  override def apply(pressureUnit: PressureUnit)               = new Pressure(value, pressureUnit)
+  override def apply(torqueUnit: TorqueUnit)                   = new Torque(value, torqueUnit)
 }

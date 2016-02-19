@@ -4,15 +4,16 @@ import java.lang.reflect.Method
 import java.{util => jcf}
 
 import org.waman.multiverse.angle._
-import org.waman.multiverse.fluid.PredefinedVolumeFlowUnit
+import org.waman.multiverse.fluid.{PredefinedPressureUnit, PredefinedVolumeFlowUnit}
 import org.waman.multiverse.mass.{PredefinedDensityUnit, PredefinedMassUnit}
-import org.waman.multiverse.mechanics.{PredefinedAccelerationUnit, PredefinedForceUnit, PredefinedVelocityUnit}
+import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
 import org.waman.multiverse.time.{Frequency, PredefinedFrequencyUnit, PredefinedTimeSquaredUnit, PredefinedTimeUnit}
 import spire.math.Fractional
 
 import scala.language.implicitConversions
 
+class Dot
 class Per
 
 trait UnitSystem extends PredefinedLengthUnit
@@ -30,6 +31,9 @@ trait UnitSystem extends PredefinedLengthUnit
     with PredefinedTimeSquaredUnit
     with PredefinedAccelerationUnit
     with PredefinedForceUnit
+    with PredefinedPressureUnit
+    with PredefinedTorqueUnit
+    with PredefinedEnergyUnit
     with HasContext{
 
   implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
@@ -41,48 +45,58 @@ trait UnitSystem extends PredefinedLengthUnit
   implicit def convertFrequencyToAngularVelocity[A: Fractional](f: Frequency[A]): AngularVelocity[A] =
     f.toAngularVelocity
 
+  val * = new Dot
   val / = new Per
 }
 
 object UnitSystem extends UnitSystem{
 
-  val getSupportedQuantities: Seq[String] =
-    Seq("Length",
-      "Area",
-      "Volume",
-      "Angle",
-      "SolidAngle",
-      "Mass",
-      "Density",
-      "Time",
-      "TimeSquared",
-      "Frequency",
-      "Velocity",
-      "AngularVelocity",
-      "VolumeFlow"//,
-//      "Acceleration",
-//      "Force",
-//      "Pressure",
-//      "Torque",
-//      "Energy",
-//      "Power",
-//      "Action",
-//      "DynamicViscosity",
-//      "KinematicViscosity",
-//      "Temperature"
-    )
+  private val packageMap = Map(
+    "Length"          -> "metric",
+    "Area"            -> "metric",
+    "Volume"          -> "metric",
+    "Angle"           -> "angle",
+    "SolidAngle"      -> "angle",
+    "Mass"            -> "mass",
+    "Density"         -> "mass",
+    "Time"            -> "time",
+    "TimeSquared"     -> "time",
+    "Frequency"       -> "time",
+    "Velocity"        -> "mechanics",
+    "AngularVelocity" -> "angle",
+    "VolumeFlow"      -> "fluid",
+    "Acceleration"    -> "mechanics",
+    "Force"           -> "mechanics",
+    "Pressure"        -> "fluid",
+    "Torque"          -> "mechanics",
+    "Energy"          -> "mechanics"//,
+    //      "Power",
+    //      "Action",
+    //      "DynamicViscosity",
+    //      "KinematicViscosity",
+    //      "Temperature"
+
+
+  )
+
+  val getSupportedQuantities: Set[String] = packageMap.keySet
 
   def getSupportedUnits[U <: PhysicalUnit[U]](quantityName: String): Seq[U] = {
-    val unitType = Class.forName(s"org.waman.multiverse.${quantityName}Unit").asInstanceOf[Class[U]]
+    val className = s"org.waman.multiverse.${packageMap(quantityName)}.${quantityName}Unit"
+    val unitType = Class.forName(className).asInstanceOf[Class[U]]
     getSupportedUnits(unitType)
   }
 
   def getSupportedUnits[U <: PhysicalUnit[U]](unitType: Class[U]): Seq[U]  = {
-    getPostfixOpsClass(unitType, isClass=true).getMethods
-      .filterNot(_.getName.endsWith("PostfixOps"))
-      .flatMap(m => getUnits(m, unitType))
-      .distinct
+    getPostfixOpsClass(unitType, isClass=true) match{
+      case None => Nil
+      case Some(c) =>
+        c.getMethods
+        .filterNot(_.getName.endsWith("PostfixOps"))
+        .flatMap(m => getUnits(m, unitType))
+        .distinct
     }
+  }
 
   def getSupportedUnits[U <: PhysicalUnit[U]](unitType: Class[U], ord: U => String): Seq[U] =
     getSupportedUnits(unitType).sortBy(ord)
@@ -94,16 +108,24 @@ object UnitSystem extends UnitSystem{
   }
 
   def getSupportedContext[U <: PhysicalUnit[U]](unitType: Class[U], unitSymbol: String): Seq[Context] = {
-    val c = getPostfixOpsClass(unitType, isClass = false)
-    val instance = c.getField("MODULE$").get(null)
-    val m = c.getMethod(s"_$unitSymbol")
-    val pf = m.invoke(instance).asInstanceOf[PartialFunction[Context, _]]
-    Context.values.filter(c => pf.isDefinedAt(c))
+    getPostfixOpsClass(unitType, isClass = false) match {
+      case None => Nil
+      case Some(c) =>
+        val instance = c.getField("MODULE$").get(null)
+        val m = c.getMethod(s"_$unitSymbol")
+        val pf = m.invoke(instance).asInstanceOf[PartialFunction[Context, _]]
+        Context.values.filter(c => pf.isDefinedAt(c))
+    }
   }
 
-  private def getPostfixOpsClass[U <: PhysicalUnit[U]](unitType: Class[U], isClass: Boolean): Class[_] = {
+  private def getPostfixOpsClass[U <: PhysicalUnit[U]](unitType: Class[U], isClass: Boolean): Option[Class[_]] = {
     val dollar = if(isClass) "" else "$"
     val unitName = unitType.getSimpleName
-    Class.forName(s"org.waman.multiverse.${unitName.substring(0, unitName.length - 4)}PostfixOps$dollar")
+    val packageName = unitType.getPackage.getName
+    try {
+      Some(Class.forName(s"$packageName.${unitName.substring(0, unitName.length - 4)}PostfixOps$dollar"))
+    }catch{
+      case ex: Exception => None
+    }
   }
 }

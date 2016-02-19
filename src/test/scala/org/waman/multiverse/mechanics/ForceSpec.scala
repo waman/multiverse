@@ -13,10 +13,16 @@ import scala.language.postfixOps
 class ForceSpec extends MultiverseCustomSpec with PropertyChecks{
 
   "UnitSystem#getSupportedUnits method should return supported units of force" in {
+    __SetUp__
+    import ForceUnit._
     __Exercise__
     val result = UnitSystem.getSupportedUnits(classOf[ForceUnit])
     __Verify__
-    result should contain theSameElementsAs Seq()
+    result should contain theSameElementsAs Seq(
+      Newton,
+      KiloGramForce,
+      Dyne
+    )
   }
 
   "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {

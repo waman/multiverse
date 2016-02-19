@@ -1,6 +1,7 @@
 package org.waman.multiverse.mechanics
 
-import org.waman.multiverse.{PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse._
+import org.waman.multiverse.metric.{LengthPostfixOps, LengthUnit}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -15,9 +16,21 @@ trait ForcePostfixOps[A]{
   def kp : A = forcePostfixOps(KiloGramForce)
 }
 
+trait ForceDot[A]{
+  import ForceUnit._
+
+  protected def forceDot(forceUnit: ForceUnit): A
+
+  def N  (dot: Dot): A = forceDot(Newton)
+  def dyn(dot: Dot): A = forceDot(Dyne)
+  def kgf(dot: Dot): A = forceDot(KiloGramForce)
+  def kp (dot: Dot): A = forceDot(KiloGramForce)
+}
+
 class Force[A: Fractional](val value: A, val unit: ForceUnit)
   extends Quantity[A, ForceUnit]
     with ForcePostfixOps[A]
+    with MultiplicativeByLength[Torque[A]]
     with UnitConverter[A]{
 
   protected lazy val algebra = implicitly[Fractional[A]]
@@ -27,13 +40,18 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
     else value * real(unit.unitInNewton) / real(evalUnit.unitInNewton)
 
   override protected def forcePostfixOps(forceUnit: ForceUnit) = apply(forceUnit)
+
+  override def *(lengthUnit: LengthUnit): Torque[A] = new Torque(value, unit * lengthUnit)
 }
 
 sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
-  extends PhysicalUnit[ForceUnit]{
+  extends PhysicalUnit[ForceUnit]
+  with MultiplicativeByLength[TorqueUnit]{
 
   override val baseUnit = ForceUnit.Newton
   override val inBaseUnitAccessor = () => unitInNewton
+
+  override def *(lengthUnit: LengthUnit): TorqueUnit = TorqueUnit(this, lengthUnit)
 }
 
 object ForceUnit{
@@ -50,9 +68,17 @@ trait PredefinedForceUnit extends ForcePostfixOps[ForceUnit]{
 
 object PredefinedForceUnit extends PredefinedForceUnit
 
-trait ForceUnitInterpreter[A] extends ForcePostfixOps[Force[A]]{
+trait ForceUnitInterpreter[A]
+    extends ForcePostfixOps[Force[A]]
+    with ForceDot[LengthPostfixOps[Torque[A]]]{
 
   def apply(unit: ForceUnit): Force[A]
 
   override protected def forcePostfixOps(forceUnit: ForceUnit) = apply(forceUnit)
+
+  override protected def forceDot(forceUnit: ForceUnit) = new LengthPostfixOps[Torque[A]]{
+    override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(forceUnit * lengthUnit)
+  }
+
+  def apply(unit: TorqueUnit): Torque[A]
 }

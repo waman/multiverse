@@ -285,7 +285,7 @@ object LengthUnit{
   // microscopic
   case object Micron             extends LengthUnit("μ" , r"1e-6")
   case object Angstrom           extends LengthUnit("Å" , r"1e-10")
-  case object AtomicUnitOfLength extends LengthUnit("a0", r"5.2917721092e-11") with NotExact
+  case object AtomicUnitOfLength extends LengthUnit("a0", r"5.291772109217e-11") with NotExact
   case object XUnit              extends LengthUnit("xu", r"1.0021e-13") with NotExact
   case object XUnit_CuKAlpha1    extends LengthUnit("xu(CuKα1)", r"1.0020769928e-13") with NotExact
   case object XUnit_MoKAlpha1    extends LengthUnit("xu(MoKα1)", r"1.0020995553e-13") with NotExact

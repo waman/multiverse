@@ -118,12 +118,18 @@ object MassUnit{
   case object ZettaGram extends MassUnit("Zg", r"1e21", Gram)
   case object YottaGram extends MassUnit("Yg", r"1e24", Gram)
 
+  // microscopic
+  case object AtomicMassUnit extends MassUnit("u;AMU;Da", r"1.66053892173e-27") with NotExact
+  case object ElectronMass extends MassUnit("m_e", r"9.1093829140e-31") with NotExact
+
+  // yard-pond
   case object Grain extends MassUnit("gr", r"6479891", MilliGram)
-  case object Carat extends MassUnit("kt", r"3" + r"1/6", Grain)
-  case object Carat_Metric extends MassUnit("ct", r"200", MilliGram)
   case object Ounce extends MassUnit("oz", r"28", Gram)
   case object Pound extends MassUnit("lb", r"0.45359237")
   case object Tonne extends MassUnit("t", r"1000")
+
+  case object Carat extends MassUnit("kt", r"3" + r"1/6", Grain)
+  case object MetricCarat extends MassUnit("ct", r"200", MilliGram)
 
   case object ElectronVolt extends MassUnit("eV", r"1.78266184e-36") with NotExact
 }

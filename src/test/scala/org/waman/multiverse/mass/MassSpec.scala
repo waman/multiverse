@@ -77,7 +77,7 @@ class MassSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  "Tests where converting a mass unit to other units like 3.0 kg/m3 => 3e-3 g/cm3" in {
+  "Tests where converting a mass unit to other units like 3.0 kg => 3e3 g" in {
     val value = 3.0 kg
 
     val conversions =
