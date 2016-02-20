@@ -1,4 +1,4 @@
-package org.waman.multiverse.mechanics
+package org.waman.multiverse.energy
 
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._

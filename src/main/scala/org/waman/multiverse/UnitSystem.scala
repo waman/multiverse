@@ -4,8 +4,9 @@ import java.lang.reflect.Method
 import java.{util => jcf}
 
 import org.waman.multiverse.angle._
+import org.waman.multiverse.energy.{PredefinedActionUnit, PredefinedEnergyUnit, PredefinedPowerUnit}
 import org.waman.multiverse.fluid.{PredefinedPressureUnit, PredefinedVolumeFlowUnit}
-import org.waman.multiverse.mass.{PredefinedDensityUnit, PredefinedMassUnit}
+import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
 import org.waman.multiverse.time.{Frequency, PredefinedFrequencyUnit, PredefinedTimeSquaredUnit, PredefinedTimeUnit}
@@ -16,25 +17,7 @@ import scala.language.implicitConversions
 class Dot
 class Per
 
-trait UnitSystem extends PredefinedLengthUnit
-    with PredefinedAreaUnit
-    with PredefinedVolumeUnit
-    with PredefinedAngleUnit
-    with PredefinedSolidAngleUnit
-    with PredefinedMassUnit
-    with PredefinedDensityUnit
-    with PredefinedTimeUnit
-    with PredefinedFrequencyUnit
-    with PredefinedVelocityUnit
-    with PredefinedAngularVelocityUnit
-    with PredefinedVolumeFlowUnit
-    with PredefinedTimeSquaredUnit
-    with PredefinedAccelerationUnit
-    with PredefinedForceUnit
-    with PredefinedPressureUnit
-    with PredefinedTorqueUnit
-    with PredefinedEnergyUnit
-    with HasContext{
+trait UnitSystemImplicits{
 
   implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
     new UnitInterpreter(value)
@@ -48,6 +31,29 @@ trait UnitSystem extends PredefinedLengthUnit
   val * = new Dot
   val / = new Per
 }
+
+trait UnitSystem extends UnitSystemImplicits
+    with PredefinedLengthUnit
+    with PredefinedAreaUnit
+    with PredefinedVolumeUnit
+    with PredefinedAngleUnit
+    with PredefinedSolidAngleUnit
+    with PredefinedMassUnit
+//    with PredefinedDensityUnit
+    with PredefinedTimeUnit
+    with PredefinedFrequencyUnit
+    with PredefinedVelocityUnit
+    with PredefinedAngularVelocityUnit
+    with PredefinedVolumeFlowUnit
+    with PredefinedTimeSquaredUnit
+    with PredefinedAccelerationUnit
+    with PredefinedForceUnit
+    with PredefinedPressureUnit
+//    with PredefinedTorqueUnit
+    with PredefinedEnergyUnit
+    with PredefinedPowerUnit
+    with PredefinedActionUnit
+    with HasContext
 
 object UnitSystem extends UnitSystem{
 
@@ -69,9 +75,9 @@ object UnitSystem extends UnitSystem{
     "Force"           -> "mechanics",
     "Pressure"        -> "fluid",
     "Torque"          -> "mechanics",
-    "Energy"          -> "mechanics"//,
-    //      "Power",
-    //      "Action",
+    "Energy"          -> "energy",
+    "Power"           -> "energy",
+    "Action"          -> "energy"//,
     //      "DynamicViscosity",
     //      "KinematicViscosity",
     //      "Temperature"

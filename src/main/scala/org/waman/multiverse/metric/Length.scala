@@ -343,7 +343,7 @@ object PredefinedLengthUnit extends PredefinedLengthUnit
 trait LengthUnitInterpreter[A]
     extends LengthPostfixOps[Length[A]]
     with LengthPer[TimePostfixOps[Velocity[A]]  // for style like "1.0 m/s" ( = 1.0.m(/).s)
-      with TimeSquaredPostfixOps[Acceleration[A]]]{
+    with TimeSquaredPostfixOps[Acceleration[A]]]{
 
   // for style like "1.0 (m)" ( = "1.0.apply(m)")
   def apply(unit: LengthUnit): Length[A]
