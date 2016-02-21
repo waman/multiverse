@@ -4,6 +4,7 @@ import java.lang.reflect.Method
 import java.{util => jcf}
 
 import org.waman.multiverse.angle._
+import org.waman.multiverse.electric._
 import org.waman.multiverse.energy.{PredefinedActionUnit, PredefinedEnergyUnit, PredefinedPowerUnit}
 import org.waman.multiverse.fluid.{PredefinedDynamicViscosityUnit, PredefinedKinematicViscosityUnit, PredefinedPressureUnit, PredefinedVolumeFlowUnit}
 import org.waman.multiverse.mass.PredefinedMassUnit
@@ -55,6 +56,12 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedActionUnit
     with PredefinedDynamicViscosityUnit
     with PredefinedKinematicViscosityUnit
+    with PredefinedCurrentUnit
+    with PredefinedChargeUnit
+    with PredefinedDipoleUnit
+    with PredefinedVoltageUnit
+    with PredefinedResistanceUnit
+    with PredefinedCapacitanceUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
@@ -81,7 +88,13 @@ object UnitSystem extends UnitSystem{
     "Power"              -> "energy",
     "Action"             -> "energy",
     "DynamicViscosity"   -> "fluid",
-    "KinematicViscosity" -> "fluid"//,
+    "KinematicViscosity" -> "fluid",
+    "Current"            -> "electric",
+    "Charge"             -> "electric",
+    "Dipole"             -> "electric",
+    "Voltage"            -> "electric",
+    "Resistance"         -> "electric",
+    "Capacitance"        -> "electric"
     //      "Temperature"
 
 

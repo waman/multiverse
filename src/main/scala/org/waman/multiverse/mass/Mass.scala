@@ -99,7 +99,7 @@ object MassUnit{
   case object YoctoGram extends MassUnit("yg", r"1e-24", Gram)
   case object ZeptoGram extends MassUnit("zg", r"1e-21", Gram)
   case object AttoGram  extends MassUnit("ag", r"1e-18", Gram)
-  case object FemtoGram extends MassUnit("ag", r"1e-15", Gram)
+  case object FemtoGram extends MassUnit("fg", r"1e-15", Gram)
   case object PicoGram  extends MassUnit("pg", r"1e-12", Gram)
   case object NanoGram  extends MassUnit("ng", r"1e-9", Gram)
   case object MicroGram extends MassUnit("μg", r"1e-6", Gram)
