@@ -50,7 +50,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   override def *(timeUnit: TimeUnit) = new Action(value, unit * timeUnit)
 }
 
-abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
+sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
     extends PhysicalUnit[EnergyUnit]
     with MultiplicativeByTime[ActionUnit]{
 

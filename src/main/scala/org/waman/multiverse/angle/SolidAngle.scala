@@ -40,7 +40,7 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
   override protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit) = apply(solidAngleUnit)
 }
 
-abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
+sealed abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
   extends PhysicalUnit[SolidAngleUnit]{
 
   override val baseUnit = SolidAngleUnit.Steradian
@@ -48,6 +48,7 @@ abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
 }
 
 object SolidAngleUnit{
+
   case object DecaSteradian  extends SolidAngleUnit("dasr", r"1e1")
   case object Steradian      extends SolidAngleUnit("sr", 1)
   case object DeciSteradian  extends SolidAngleUnit("dsr", r"1e-1")

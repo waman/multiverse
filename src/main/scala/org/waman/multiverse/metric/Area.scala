@@ -1,7 +1,9 @@
 package org.waman.multiverse.metric
 
 import org.waman.multiverse.Context._
-import org.waman.multiverse.{Context, PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse._
+import org.waman.multiverse.fluid.{KinematicViscosity, KinematicViscosityUnit}
+import org.waman.multiverse.time.TimeUnit
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -102,9 +104,83 @@ object AreaPostfixOps{
   }
 }
 
+trait AreaPer[A]{
+  import AreaUnit._
+
+  protected def areaPer(areaUnit: AreaUnit): A
+
+  def ym2(per: Per): A = areaPer(SquareYoctoMetre)
+  def zm2(per: Per): A = areaPer(SquareZeptoMetre)
+  def am2(per: Per): A = areaPer(SquareAttoMetre)
+  def fm2(per: Per): A = areaPer(SquareFemtoMetre)
+  def pm2(per: Per): A = areaPer(SquarePicoMetre)
+  def nm2(per: Per): A = areaPer(SquareNanoMetre)
+  def μm2(per: Per): A = areaPer(SquareMicroMetre)
+  def mm2(per: Per): A = areaPer(SquareMilliMetre)
+  def cm2(per: Per): A = areaPer(SquareCentiMetre)
+  def dm2(per: Per): A = areaPer(SquareDeciMetre)
+  def m2 (per: Per): A = areaPer(SquareMetre)
+  def dam2(per: Per): A = areaPer(SquareDecaMetre)
+  def hm2(per: Per): A = areaPer(SquareHectoMetre)
+  def km2(per: Per): A = areaPer(SquareKiloMetre)
+  def Mm2(per: Per): A = areaPer(SquareMegaMetre)
+  def Gm2(per: Per): A = areaPer(SquareGigaMetre)
+  def Tm2(per: Per): A = areaPer(SquareTeraMetre)
+  def Pm2(per: Per): A = areaPer(SquarePetaMetre)
+  def Em2(per: Per): A = areaPer(SquareExaMetre)
+  def Zm2(per: Per): A = areaPer(SquareZettaMetre)
+  def Ym2(per: Per): A = areaPer(SquareYottaMetre)
+
+  def a (per: Per): A = areaPer(Are)
+  def ha(per: Per): A = areaPer(Hectare)
+
+  // microscopic
+  def yb(per: Per): A = areaPer(YoctoBarn)
+  def zb(per: Per): A = areaPer(ZeptoBarn)
+  def ab(per: Per): A = areaPer(AttoBarn)
+  def fb(per: Per): A = areaPer(FemtoBarn)
+  def pb(per: Per): A = areaPer(PicoBarn)
+  def nb(per: Per): A = areaPer(NanoBarn)
+  def μb(per: Per): A = areaPer(MicroBarn)
+  def mb(per: Per): A = areaPer(MilliBarn)
+  def b (per: Per): A = areaPer(Barn)
+  def kb(per: Per): A = areaPer(KiloBarn)
+  def Mb(per: Per): A = areaPer(MegaBarn)
+  def Gb(per: Per): A = areaPer(GigaBarn)
+  def Tb(per: Per): A = areaPer(TeraBarn)
+  def Pb(per: Per): A = areaPer(PetaBarn)
+  def Eb(per: Per): A = areaPer(ExaBarn)
+  def Zb(per: Per): A = areaPer(ZettaBarn)
+  def Yb(per: Per): A = areaPer(YottaBarn)
+
+  // yard-pond
+  def sq_mil(per: Per): A = areaPer(SquareMil)
+  def sq_in (per: Per): A = areaPer(SquareInch)
+  def sq_lnk(per: Per): A = areaPer(SquareLink)
+  def sq_ft (per: Per): A = areaPer(SquareFoot)
+  def sq_ch (per: Per): A = areaPer(SquareChain)
+  def sq_yd (per: Per): A = areaPer(SquareYard)
+  def sq_rd (per: Per): A = areaPer(SquareRod)
+  def sq_mi (per: Per): A = areaPer(SquareMile)
+  def ac(per: Per): A = areaPer(Acre)
+  def ro(per: Per): A = areaPer(Rood)
+
+//  def sq_lnk(c: Context)(per: Per): A = areaPer(_sq_lnk(c))
+//  def sq_ft (c: Context)(per: Per): A = areaPer(_sq_ft(c))
+//  def sq_ch (c: Context)(per: Per): A = areaPer(_sq_ch(c))
+//  def sq_mi (c: Context)(per: Per): A = areaPer(_sq_mi(c))
+//  def ac(c: Context)(per: Per): A = areaPer(_ac(c))
+
+  def circ_mil(per: Per): A = areaPer(CircularMil)
+  def circ_in (per: Per): A = areaPer(CircularInch)
+
+  def bd(per: Per): A = areaPer(Board)
+}
+
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
-  extends Quantity[A, AreaUnit]
+    extends Quantity[A, AreaUnit]
     with AreaPostfixOps[A]
+    with DivisibleByTime[KinematicViscosity[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -114,10 +190,13 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
     else value * real(unit.unitInSquareMetre) / real(evalUnit.unitInSquareMetre)
 
   override protected def areaPostfixOps(areaUnit: AreaUnit) = apply(areaUnit)
+
+  override def /(timeUnit: TimeUnit) = new KinematicViscosity[A](value, unit / timeUnit)
 }
 
-abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
-  extends PhysicalUnit[AreaUnit]{
+sealed abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
+    extends PhysicalUnit[AreaUnit]
+    with DivisibleByTime[KinematicViscosityUnit]{
 
   def this(symbol: String, factor: Real, areaUnit: AreaUnit) =
     this(symbol, factor * areaUnit.unitInSquareMetre)
@@ -133,6 +212,8 @@ abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
 
   override val baseUnit = AreaUnit.SquareMetre
   override val inBaseUnitAccessor = () => unitInSquareMetre
+
+  override def /(timeUnit: TimeUnit) = KinematicViscosityUnit(this, timeUnit)
 }
 
 object AreaUnit{

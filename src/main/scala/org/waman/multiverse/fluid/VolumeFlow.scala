@@ -56,7 +56,7 @@ object VolumeFlowUnit{
   abstract class VolumeFlowUnitImpl(val symbol: String, val unitInCubicMetrePerSecond: Real)
     extends VolumeFlowUnit
 
-//  case object CubicFootPerMinute extends VolumeFlowUnitImpl("CFM", CubicFeet)
+//  case object CubicFootPerMinute extends VolumeFlowUnitImpl("CFM", CubicFeet)  // TODO
 //  case object GallonPerDay       extends VolumeFlowUnitImpl("GPD", Real.pi / r"180")
 //  case object GallonPerHour      extends VolumeFlowUnitImpl("GPH", Real.pi / r"180")
 //  case object GallonPerMinute    extends VolumeFlowUnitImpl("GPM", Real.pi / r"200")

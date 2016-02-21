@@ -43,14 +43,15 @@ sealed trait ActionUnit extends PhysicalUnit[ActionUnit]{
 
   def unitInJouleSecond: Real
 
-  override  lazy val baseUnit = EnergyUnit.Joule * TimeUnit.Second
-  override  lazy val inBaseUnitAccessor = () => unitInJouleSecond
+  override lazy val baseUnit = EnergyUnit.Joule * TimeUnit.Second
+  override lazy val inBaseUnitAccessor = () => unitInJouleSecond
 }
 
 object ActionUnit{
 
+  // Custom
   private[ActionUnit]
-  abstract class ActionUnitImpl(val symbol: String, val unitInJouleSecond: Real)
+  class ActionUnitImpl(val symbol: String, val unitInJouleSecond: Real)
       extends ActionUnit{
 
     def this(symbol: String, energyUnit: EnergyUnit, timeUnit: TimeUnit) =
@@ -59,7 +60,7 @@ object ActionUnit{
 
   case object AtomicUnitOfAction extends ActionUnitImpl("hbar;ħ", r"1.05457168e-34") with NotExact
 
-  // Length/Time
+  // Quotient (Energy * Time)
   private[ActionUnit]
   class ProductActionUnit(val firstUnit: EnergyUnit, val secondUnit: TimeUnit)
       extends ActionUnit

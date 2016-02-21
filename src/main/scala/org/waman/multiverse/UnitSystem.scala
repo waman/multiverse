@@ -5,7 +5,7 @@ import java.{util => jcf}
 
 import org.waman.multiverse.angle._
 import org.waman.multiverse.energy.{PredefinedActionUnit, PredefinedEnergyUnit, PredefinedPowerUnit}
-import org.waman.multiverse.fluid.{PredefinedPressureUnit, PredefinedVolumeFlowUnit}
+import org.waman.multiverse.fluid.{PredefinedDynamicViscosityUnit, PredefinedKinematicViscosityUnit, PredefinedPressureUnit, PredefinedVolumeFlowUnit}
 import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
@@ -53,33 +53,35 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedEnergyUnit
     with PredefinedPowerUnit
     with PredefinedActionUnit
+    with PredefinedDynamicViscosityUnit
+    with PredefinedKinematicViscosityUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
 
   private val packageMap = Map(
-    "Length"          -> "metric",
-    "Area"            -> "metric",
-    "Volume"          -> "metric",
-    "Angle"           -> "angle",
-    "SolidAngle"      -> "angle",
-    "Mass"            -> "mass",
-    "Density"         -> "mass",
-    "Time"            -> "time",
-    "TimeSquared"     -> "time",
-    "Frequency"       -> "time",
-    "Velocity"        -> "mechanics",
-    "AngularVelocity" -> "angle",
-    "VolumeFlow"      -> "fluid",
-    "Acceleration"    -> "mechanics",
-    "Force"           -> "mechanics",
-    "Pressure"        -> "fluid",
-    "Torque"          -> "mechanics",
-    "Energy"          -> "energy",
-    "Power"           -> "energy",
-    "Action"          -> "energy"//,
-    //      "DynamicViscosity",
-    //      "KinematicViscosity",
+    "Length"             -> "metric",
+    "Area"               -> "metric",
+    "Volume"             -> "metric",
+    "Angle"              -> "angle",
+    "SolidAngle"         -> "angle",
+    "Mass"               -> "mass",
+    "Density"            -> "mass",
+    "Time"               -> "time",
+    "TimeSquared"        -> "time",
+    "Frequency"          -> "time",
+    "Velocity"           -> "mechanics",
+    "AngularVelocity"    -> "angle",
+    "VolumeFlow"         -> "fluid",
+    "Acceleration"       -> "mechanics",
+    "Force"              -> "mechanics",
+    "Pressure"           -> "fluid",
+    "Torque"             -> "mechanics",
+    "Energy"             -> "energy",
+    "Power"              -> "energy",
+    "Action"             -> "energy",
+    "DynamicViscosity"   -> "fluid",
+    "KinematicViscosity" -> "fluid"//,
     //      "Temperature"
 
 

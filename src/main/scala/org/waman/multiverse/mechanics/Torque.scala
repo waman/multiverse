@@ -36,7 +36,8 @@ sealed trait TorqueUnit extends PhysicalUnit[TorqueUnit]{
 
 object TorqueUnit{
 
-  class ProductTorqueUnit(val firstUnit: ForceUnit, val secondUnit: LengthUnit)
+  // Product (Force * Length)
+  private class ProductTorqueUnit(val firstUnit: ForceUnit, val secondUnit: LengthUnit)
     extends TorqueUnit with ProductUnit[TorqueUnit, ForceUnit, LengthUnit]{
 
     override lazy val unitInNewtonMetre: Real =

@@ -63,7 +63,8 @@ sealed abstract class AccelerationUnit extends PhysicalUnit[AccelerationUnit]{
 
 object AccelerationUnit{
 
-  private[AccelerationUnit] abstract
+  // Custom
+  private[AccelerationUnit]
   class AccelerationUnitImpl(val symbol: String, val unitInMetrePerSecondSquared: Real)
     extends AccelerationUnit{
 
@@ -78,7 +79,7 @@ object AccelerationUnit{
   case object FootPerSecondSquared extends AccelerationUnitImpl("fps2", LengthUnit.Foot)
   case object MilePerSecondSquared extends AccelerationUnitImpl("mps2", LengthUnit.Mile)
 
-  // Length/Time2
+  // Quotient (Length/Time2)
   private[AccelerationUnit]
   class LengthOverTimeSquared(val numeratorUnit: LengthUnit, val denominatorUnit: TimeSquaredUnit)
     extends AccelerationUnit with QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit]{
@@ -90,7 +91,7 @@ object AccelerationUnit{
   def apply(lUnit: LengthUnit, t2Unit: TimeSquaredUnit): AccelerationUnit =
     new LengthOverTimeSquared(lUnit, t2Unit)
 
-  // Velocity/Time
+  // Quotient (Velocity/Time)
   private[AccelerationUnit]
   class VelocityOverTime(val numeratorUnit: VelocityUnit, val denominatorUnit: TimeUnit)
     extends AccelerationUnit with QuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit]{

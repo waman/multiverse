@@ -88,7 +88,9 @@ sealed trait VelocityUnit extends PhysicalUnit[VelocityUnit]
 
 object VelocityUnit{
 
-  private[VelocityUnit] abstract class VelocityUnitImpl(val symbol: String, val unitInMetrePerSecond: Real)
+  // Custom
+  private[VelocityUnit]
+  class VelocityUnitImpl(val symbol: String, val unitInMetrePerSecond: Real)
     extends VelocityUnit{
 
     def this(symbol: String, lengthUnit: LengthUnit, timeUnit: TimeUnit) =
@@ -113,8 +115,9 @@ object VelocityUnit{
   case object MilePerMinute extends VelocityUnitImpl("mpm", LengthUnit.Mile, TimeUnit.Minute)
   case object MilePerHour   extends VelocityUnitImpl("mph", LengthUnit.Mile, TimeUnit.Hour)
 
-  // Length/Time
-  private[VelocityUnit] class QuotientVelocityUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
+  // Quotient (Length/Time)
+  private[VelocityUnit]
+  class QuotientVelocityUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
     extends VelocityUnit with QuotientUnit[VelocityUnit, LengthUnit, TimeUnit]{
 
     override lazy val unitInMetrePerSecond: Real = numeratorUnit.unitInMetre / denominatorUnit.unitInSecond

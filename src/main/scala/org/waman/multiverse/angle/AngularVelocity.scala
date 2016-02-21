@@ -54,16 +54,16 @@ sealed abstract class AngularVelocityUnit extends PhysicalUnit[AngularVelocityUn
 
 object AngularVelocityUnit{
 
-  private[AngularVelocityUnit] class AngularVelocityUnitImpl
-    (val symbol: String, val unitInRadianPerSecond: Real)
+  // Custom
+  private[AngularVelocityUnit]
+  class AngularVelocityUnitImpl(val symbol: String, val unitInRadianPerSecond: Real)
     extends AngularVelocityUnit
 
   case object CyclePerSecond      extends AngularVelocityUnitImpl("cps", twoPi)
   case object RevolutionPerMinute extends AngularVelocityUnitImpl("rpm", twoPi / r"60")
 
-
-  private[AngularVelocityUnit]
-  class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
+  // Quotient
+  private class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
     extends AngularVelocityUnit with QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit]{
 
     override lazy val unitInRadianPerSecond: Real =

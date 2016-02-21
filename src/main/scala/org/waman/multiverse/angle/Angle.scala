@@ -95,7 +95,7 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
   override def /(timeUnit: TimeUnit): AngularVelocity[A] = new AngularVelocity(value, unit / timeUnit)
 }
 
-abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
+sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
     extends PhysicalUnit[AngleUnit]
     with DivisibleByTime[AngularVelocityUnit]{
 

@@ -82,7 +82,7 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
   override def /(volumeUnit: VolumeUnit): Density[A] = new Density(value, unit / volumeUnit)
 }
 
-abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
+sealed abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
   extends PhysicalUnit[MassUnit] with DivisibleByVolume[DensityUnit]{
 
   def this(symbol: String, factor: Real, massUnit: MassUnit) =

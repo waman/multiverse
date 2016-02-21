@@ -28,7 +28,7 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
   override protected def powerPostfixOps(powerUnit: PowerUnit) = apply(powerUnit)
 }
 
-abstract class PowerUnit(val symbol: String, val unitInWatt: Real)
+sealed abstract class PowerUnit(val symbol: String, val unitInWatt: Real)
   extends PhysicalUnit[PowerUnit]{
 
   def this(symbol: String, factor: Real, powerUnit: PowerUnit) =

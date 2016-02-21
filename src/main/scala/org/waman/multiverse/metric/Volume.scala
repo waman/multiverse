@@ -266,7 +266,7 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity
     new VolumeFlow(value, unit / timeUnit)
 }
 
-abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
+sealed abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
     extends PhysicalUnit[VolumeUnit]
     with DivisibleByTime[VolumeFlowUnit] {
 
