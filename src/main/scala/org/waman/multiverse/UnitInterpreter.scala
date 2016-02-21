@@ -4,6 +4,7 @@ import org.waman.multiverse.angle._
 import org.waman.multiverse.electric._
 import org.waman.multiverse.energy._
 import org.waman.multiverse.fluid._
+import org.waman.multiverse.magnetic._
 import org.waman.multiverse.mass._
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric._
@@ -39,6 +40,9 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with VoltageUnitInterpreter[A]
   with ResistanceUnitInterpreter[A]
   with CapacitanceUnitInterpreter[A]
+  with FluxUnitInterpreter[A]
+  with FluxDensityUnitInterpreter[A]
+  with InductanceUnitInterpreter[A]
   with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -71,4 +75,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(voltageUnit: VoltageUnit)           = new Voltage(value, voltageUnit)
   override def apply(resistanceUnit: ResistanceUnit)     = new Resistance(value, resistanceUnit)
   override def apply(capacitanceUnit: CapacitanceUnit)   = new Capacitance(value, capacitanceUnit)
+  override def apply(fluxUnit: FluxUnit)                 = new Flux(value, fluxUnit)
+  override def apply(fluxDensityUnit: FluxDensityUnit)   = new FluxDensity(value, fluxDensityUnit)
+  override def apply(inductanceUnit: InductanceUnit)     = new Inductance(value, inductanceUnit)
 }

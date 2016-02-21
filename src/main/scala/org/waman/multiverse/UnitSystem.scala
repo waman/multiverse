@@ -7,6 +7,7 @@ import org.waman.multiverse.angle._
 import org.waman.multiverse.electric._
 import org.waman.multiverse.energy.{PredefinedActionUnit, PredefinedEnergyUnit, PredefinedPowerUnit}
 import org.waman.multiverse.fluid.{PredefinedDynamicViscosityUnit, PredefinedKinematicViscosityUnit, PredefinedPressureUnit, PredefinedVolumeFlowUnit}
+import org.waman.multiverse.magnetic.{PredefinedFluxDensityUnit, PredefinedFluxUnit, PredefinedInductanceUnit}
 import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
@@ -62,6 +63,9 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedVoltageUnit
     with PredefinedResistanceUnit
     with PredefinedCapacitanceUnit
+    with PredefinedFluxUnit
+    with PredefinedFluxDensityUnit
+    with PredefinedInductanceUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
@@ -94,7 +98,10 @@ object UnitSystem extends UnitSystem{
     "Dipole"             -> "electric",
     "Voltage"            -> "electric",
     "Resistance"         -> "electric",
-    "Capacitance"        -> "electric"
+    "Capacitance"        -> "electric",
+    "Flux"               -> "magnetic",
+    "FluxDensity"        -> "magnetic",
+    "Inductance"         -> "magnetic"
     //      "Temperature"
 
 
