@@ -22,8 +22,8 @@ trait AccelerationPostfixOps[A]{
 class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
   extends Quantity[A, AccelerationUnit]
     with AccelerationPostfixOps[A]
-    with LengthPostfixOps[DivisibleByTimeSquared[A]]
-    with VelocityPostfixOps[DivisibleByTime[A]]
+    with LengthPostfixOps[DivisibleByTimeSquaredUnit[A]]
+    with VelocityPostfixOps[DivisibleByTimeUnit[A]]
     with LengthPer[TimeSquaredPostfixOps[A]]
     with VelocityPer[TimePostfixOps[A]]
     with UnitConverter[A]{
@@ -36,11 +36,11 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
 
   override protected def accelerationPostfixOps(accelerationUnit: AccelerationUnit) = apply(accelerationUnit)
 
-  override protected def lengthPostfixOps(lengthUnit: LengthUnit) = new DivisibleByTimeSquared[A]{
+  override protected def lengthPostfixOps(lengthUnit: LengthUnit) = new DivisibleByTimeSquaredUnit[A]{
     override def /(timeSquaredUnit: TimeSquaredUnit): A = apply(lengthUnit / timeSquaredUnit)
   }
 
-  override protected def velocityPostfixOps(velocityUnit: VelocityUnit) = new DivisibleByTime[A]{
+  override protected def velocityPostfixOps(velocityUnit: VelocityUnit) = new DivisibleByTimeUnit[A]{
     override def /(timeUnit: TimeUnit): A = apply(velocityUnit / timeUnit)
   }
 

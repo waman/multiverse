@@ -18,7 +18,7 @@ trait AngularVelocityPostfixOps[A]{
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
     extends Quantity[A, AngularVelocityUnit]
     with AngularVelocityPostfixOps[A]
-    with AnglePostfixOps[DivisibleByTime[A]]
+    with AnglePostfixOps[DivisibleByTimeUnit[A]]
     with AnglePer[TimePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -31,7 +31,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
   override protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit) =
     apply(angularVelocityUnit)
 
-  override protected def anglePostfixOps(angleUnit: AngleUnit) = new DivisibleByTime[A]{
+  override protected def anglePostfixOps(angleUnit: AngleUnit) = new DivisibleByTimeUnit[A]{
     override def /(timeUnit: TimeUnit): A = apply(angleUnit / timeUnit)
   }
 

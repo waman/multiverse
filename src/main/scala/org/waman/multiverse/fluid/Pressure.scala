@@ -26,7 +26,7 @@ trait PressureDot[A]{
 class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
   extends Quantity[A, PressureUnit]
     with PressurePostfixOps[A]
-    with MultiplicativeByTime[DynamicViscosity[A]]
+    with MultiplicativeByTimeUnit[DynamicViscosity[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -42,7 +42,7 @@ class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
 
 sealed abstract class PressureUnit(val symbol: String, val unitInPascal: Real)
     extends PhysicalUnit[PressureUnit]
-    with MultiplicativeByTime[DynamicViscosityUnit]{
+    with MultiplicativeByTimeUnit[DynamicViscosityUnit]{
 
   def this(symbol: String, factor: Real, pressureUnit: PressureUnit) =
     this(symbol, factor * pressureUnit.unitInPascal)

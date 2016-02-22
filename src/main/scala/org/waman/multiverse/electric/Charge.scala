@@ -26,7 +26,7 @@ trait ChargeDot[A]{
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
   extends Quantity[A, ChargeUnit]
     with ChargePostfixOps[A]
-    with MultiplicativeByLength[Dipole[A]]
+    with MultiplicativeByLengthUnit[Dipole[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -42,7 +42,7 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
 
 sealed abstract class ChargeUnit(val symbol: String, val unitInCoulomb: Real)
     extends PhysicalUnit[ChargeUnit]
-    with MultiplicativeByLength[DipoleUnit]{
+    with MultiplicativeByLengthUnit[DipoleUnit]{
 
   override val baseUnit = ChargeUnit.Coulomb
   override val inBaseUnitAccessor = () => unitInCoulomb

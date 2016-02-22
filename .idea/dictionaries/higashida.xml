@@ -6,6 +6,7 @@
       <w>arad</w>
       <w>arcmin</w>
       <w>arcsec</w>
+      <w>candela</w>
       <w>centi</w>
       <w>circ</w>
       <w>crad</w>
@@ -25,6 +26,7 @@
       <w>hbar</w>
       <w>hecto</w>
       <w>heltz</w>
+      <w>illuminance</w>
       <w>kg/m</w>
       <w>km/h</w>
       <w>mrad</w>
@@ -34,6 +36,7 @@
       <w>prad</w>
       <w>rad/s</w>
       <w>steradian</w>
+      <w>stilb</w>
       <w>twip</w>
       <w>unitizer</w>
       <w>yrad</w>

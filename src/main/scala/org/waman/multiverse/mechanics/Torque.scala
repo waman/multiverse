@@ -7,7 +7,7 @@ import spire.math.{Fractional, Real}
 
 class Torque[A: Fractional](val value: A, val unit: TorqueUnit)
     extends Quantity[A, TorqueUnit]
-    with ForcePostfixOps[MultiplicativeByLength[A]]
+    with ForcePostfixOps[MultiplicativeByLengthUnit[A]]
     with ForceDot[LengthPostfixOps[A]]
     with UnitConverter[A]{
 
@@ -17,7 +17,7 @@ class Torque[A: Fractional](val value: A, val unit: TorqueUnit)
     if(unit == evalUnit) value
     else value * real(unit.unitInNewtonMetre) / real(evalUnit.unitInNewtonMetre)
 
-  override protected def forcePostfixOps(forceUnit: ForceUnit) = new MultiplicativeByLength[A]{
+  override protected def forcePostfixOps(forceUnit: ForceUnit) = new MultiplicativeByLengthUnit[A]{
     override def *(lengthUnit: LengthUnit): A = apply(forceUnit * lengthUnit)
   }
 

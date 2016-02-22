@@ -7,6 +7,7 @@ import org.waman.multiverse.angle._
 import org.waman.multiverse.electric._
 import org.waman.multiverse.energy.{PredefinedActionUnit, PredefinedEnergyUnit, PredefinedPowerUnit}
 import org.waman.multiverse.fluid.{PredefinedDynamicViscosityUnit, PredefinedKinematicViscosityUnit, PredefinedPressureUnit, PredefinedVolumeFlowUnit}
+import org.waman.multiverse.luminous.{PredefinedIlluminanceUnit, PredefinedLuminanceUnit, PredefinedLuminousFluxUnit, PredefinedLuminousIntensityUnit}
 import org.waman.multiverse.magnetic.{PredefinedFluxDensityUnit, PredefinedFluxUnit, PredefinedInductanceUnit}
 import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
@@ -66,6 +67,10 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedFluxUnit
     with PredefinedFluxDensityUnit
     with PredefinedInductanceUnit
+    with PredefinedLuminousIntensityUnit
+    with PredefinedLuminanceUnit
+    with PredefinedLuminousFluxUnit
+    with PredefinedIlluminanceUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
@@ -81,6 +86,7 @@ object UnitSystem extends UnitSystem{
     "Time"               -> "time",
     "TimeSquared"        -> "time",
     "Frequency"          -> "time",
+
     "Velocity"           -> "mechanics",
     "AngularVelocity"    -> "angle",
     "VolumeFlow"         -> "fluid",
@@ -91,6 +97,7 @@ object UnitSystem extends UnitSystem{
     "Energy"             -> "energy",
     "Power"              -> "energy",
     "Action"             -> "energy",
+
     "DynamicViscosity"   -> "fluid",
     "KinematicViscosity" -> "fluid",
     "Current"            -> "electric",
@@ -101,10 +108,13 @@ object UnitSystem extends UnitSystem{
     "Capacitance"        -> "electric",
     "Flux"               -> "magnetic",
     "FluxDensity"        -> "magnetic",
-    "Inductance"         -> "magnetic"
+
+    "Inductance"         -> "magnetic",
+    "LuminousIntensity"  -> "luminous",
+    "Luminance"          -> "luminous",
+    "LuminousFlux"       -> "luminous",
+    "Illuminance"        -> "luminous"
     //      "Temperature"
-
-
   )
 
   val getSupportedQuantities: Set[String] = packageMap.keySet

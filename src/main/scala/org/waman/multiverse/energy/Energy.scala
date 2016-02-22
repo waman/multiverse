@@ -36,7 +36,7 @@ trait EnergyPer[A]{
 class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   extends Quantity[A, EnergyUnit]
     with EnergyPostfixOps[A]
-    with MultiplicativeByTime[Action[A]]
+    with MultiplicativeByTimeUnit[Action[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -52,7 +52,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
 sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
     extends PhysicalUnit[EnergyUnit]
-    with MultiplicativeByTime[ActionUnit]{
+    with MultiplicativeByTimeUnit[ActionUnit]{
 
   def this(symbol: String, factor: Real, energyUnit: EnergyUnit) =
     this(symbol, factor * energyUnit.unitInJoule)
@@ -67,7 +67,7 @@ object EnergyUnit{
 
   case object Joule extends EnergyUnit("J", 1)
 
-  case object ElectronVolt extends EnergyUnit("eV", r"1.60217656535") with NotExact
+  case object ElectronVolt extends EnergyUnit("eV", r"1.60217656535e-19") with NotExact
 }
 
 trait PredefinedEnergyUnit extends EnergyPostfixOps[EnergyUnit]{

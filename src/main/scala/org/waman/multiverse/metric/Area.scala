@@ -180,7 +180,7 @@ trait AreaPer[A]{
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
     extends Quantity[A, AreaUnit]
     with AreaPostfixOps[A]
-    with DivisibleByTime[KinematicViscosity[A]]
+    with DivisibleByTimeUnit[KinematicViscosity[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -196,7 +196,7 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
 
 sealed abstract class AreaUnit(val symbol: String, val unitInSquareMetre: Real)
     extends PhysicalUnit[AreaUnit]
-    with DivisibleByTime[KinematicViscosityUnit]{
+    with DivisibleByTimeUnit[KinematicViscosityUnit]{
 
   def this(symbol: String, factor: Real, areaUnit: AreaUnit) =
     this(symbol, factor * areaUnit.unitInSquareMetre)

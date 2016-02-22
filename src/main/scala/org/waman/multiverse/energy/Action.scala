@@ -17,7 +17,7 @@ trait ActionPostfixOps[A]{
 class Action[A: Fractional](val value: A, val unit: ActionUnit)
     extends Quantity[A, ActionUnit]
     with ActionPostfixOps[A]
-    with EnergyPostfixOps[MultiplicativeByTime[A]]
+    with EnergyPostfixOps[MultiplicativeByTimeUnit[A]]
     with EnergyDot[TimePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -30,7 +30,7 @@ class Action[A: Fractional](val value: A, val unit: ActionUnit)
 
   override protected def actionPostfixOps(actionUnit: ActionUnit) = apply(actionUnit)
 
-  override protected def energyPostfixOps(energyUnit: EnergyUnit) = new MultiplicativeByTime[A] {
+  override protected def energyPostfixOps(energyUnit: EnergyUnit) = new MultiplicativeByTimeUnit[A] {
     override def *(timeUnit: TimeUnit) = apply(energyUnit * timeUnit)
   }
 

@@ -18,7 +18,7 @@ trait KinematicViscosityPostfixOps[A]{
 class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosityUnit)
     extends Quantity[A, KinematicViscosityUnit]
     with KinematicViscosityPostfixOps[A]
-    with AreaPostfixOps[DivisibleByTime[A]]
+    with AreaPostfixOps[DivisibleByTimeUnit[A]]
     with AreaPer[TimePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -31,7 +31,7 @@ class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosi
   override protected def kinematicViscosityPostfixOps(kinematicViscosityUnit: KinematicViscosityUnit) =
     apply(kinematicViscosityUnit)
 
-  override protected def areaPostfixOps(areaUnit: AreaUnit) = new DivisibleByTime[A]{
+  override protected def areaPostfixOps(areaUnit: AreaUnit) = new DivisibleByTimeUnit[A]{
     override def /(timeUnit: TimeUnit) = apply(areaUnit / timeUnit)
   }
 
@@ -59,15 +59,15 @@ object KinematicViscosityUnit{
 
   // Quotient (Area / Time)
   private[KinematicViscosityUnit]
-  class ProductKinematicViscosityUnit(val firstUnit: AreaUnit, val secondUnit: TimeUnit)
-    extends KinematicViscosityUnit with ProductUnit[KinematicViscosityUnit, AreaUnit, TimeUnit]{
+  class QuotientKinematicViscosityUnit(val numeratorUnit: AreaUnit, val denominatorUnit: TimeUnit)
+    extends KinematicViscosityUnit with QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit]{
 
     override lazy val unitInSquareMetrePerSecond: Real =
-      firstUnit.unitInSquareMetre * secondUnit.unitInSecond
+      numeratorUnit.unitInSquareMetre / denominatorUnit.unitInSecond
   }
 
   def apply(aUnit: AreaUnit, tUnit: TimeUnit): KinematicViscosityUnit =
-    new ProductKinematicViscosityUnit(aUnit, tUnit)
+    new QuotientKinematicViscosityUnit(aUnit, tUnit)
 }
 
 trait PredefinedKinematicViscosityUnit extends KinematicViscosityPostfixOps[KinematicViscosityUnit]{

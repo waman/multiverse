@@ -17,7 +17,7 @@ trait DipolePostfixOps[A]{
 class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
   extends Quantity[A, DipoleUnit]
     with DipolePostfixOps[A]
-    with ChargePostfixOps[MultiplicativeByLength[A]]
+    with ChargePostfixOps[MultiplicativeByLengthUnit[A]]
     with ChargeDot[LengthPostfixOps[A]]
     with UnitConverter[A]{
 
@@ -29,7 +29,7 @@ class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
 
   override protected def dipolePostfixOps(dipoleUnit: DipoleUnit) = apply(dipoleUnit)
 
-  override protected def chargePostfixOps(chargeUnit: ChargeUnit) = new MultiplicativeByLength[A]{
+  override protected def chargePostfixOps(chargeUnit: ChargeUnit) = new MultiplicativeByLengthUnit[A]{
     override def *(lengthUnit: LengthUnit) = apply(chargeUnit * lengthUnit)
   }
 

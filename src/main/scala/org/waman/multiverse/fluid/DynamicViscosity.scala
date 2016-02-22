@@ -17,7 +17,7 @@ trait DynamicViscosityPostfixOps[A]{
 class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUnit)
     extends Quantity[A, DynamicViscosityUnit]
     with DynamicViscosityPostfixOps[A]
-    with PressurePostfixOps[MultiplicativeByTime[A]]
+    with PressurePostfixOps[MultiplicativeByTimeUnit[A]]
     with PressureDot[TimePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -30,7 +30,7 @@ class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUn
   override protected def dynamicViscosityPostfixOps(dynamicViscosityUnit: DynamicViscosityUnit) =
     apply(dynamicViscosityUnit)
 
-  override protected def pressurePostfixOps(pressureUnit: PressureUnit) = new MultiplicativeByTime[A]{
+  override protected def pressurePostfixOps(pressureUnit: PressureUnit) = new MultiplicativeByTimeUnit[A]{
     override def *(timeUnit: TimeUnit) = apply(pressureUnit * timeUnit)
   }
 

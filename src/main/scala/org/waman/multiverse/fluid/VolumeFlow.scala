@@ -20,7 +20,7 @@ trait VolumeFlowPostfixOps[A]{
 
 class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit) extends Quantity[A, VolumeFlowUnit]
   with VolumeFlowPostfixOps[A]
-  with VolumePostfixOps[DivisibleByTime[A]]
+  with VolumePostfixOps[DivisibleByTimeUnit[A]]
   with VolumePer[TimePostfixOps[A]]
   with UnitConverter[A]{
 
@@ -32,7 +32,7 @@ class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit) extends 
 
   override protected def volumeFlowPostfixOps(volumeFlowUnit: VolumeFlowUnit) = apply(volumeFlowUnit)
 
-  override protected def volumePostfixOps(volumeUnit: VolumeUnit) = new DivisibleByTime[A]{
+  override protected def volumePostfixOps(volumeUnit: VolumeUnit) = new DivisibleByTimeUnit[A]{
     override def /(timeUnit: TimeUnit): A = apply(volumeUnit / timeUnit)
   }
 

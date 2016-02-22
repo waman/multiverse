@@ -7,7 +7,7 @@ import spire.math.{Fractional, Real}
 
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
   extends Quantity[A, DensityUnit]
-    with MassPostfixOps[DivisibleByVolume[A]]
+    with MassPostfixOps[DivisibleByVolumeUnit[A]]
     with MassPer[VolumePostfixOps[A]]
     with UnitConverter[A]{
 
@@ -17,7 +17,7 @@ class Density[A: Fractional](val value: A, val unit: DensityUnit)
     if(unit == evalUnit) value
     else value * real(unit.unitInKiloGramPerCubicMetre) / real(evalUnit.unitInKiloGramPerCubicMetre)
 
-  override protected def massPostfixOps(massUnit: MassUnit) = new DivisibleByVolume[A]{
+  override protected def massPostfixOps(massUnit: MassUnit) = new DivisibleByVolumeUnit[A]{
     override def /(volumeUnit: VolumeUnit): A = apply(massUnit / volumeUnit)
   }
 

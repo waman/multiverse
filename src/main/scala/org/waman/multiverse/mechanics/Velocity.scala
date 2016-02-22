@@ -51,7 +51,7 @@ trait VelocityPer[A] {
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends Quantity[A, VelocityUnit]
     with VelocityPostfixOps[A]  // for style like "velocity.`m/s`" and "velocity `m/s`"
-    with LengthPostfixOps[DivisibleByTime[A]]  // for style like "velocity.m/s" ( = "velocity.m./(s)")
+    with LengthPostfixOps[DivisibleByTimeUnit[A]]  // for style like "velocity.m/s" ( = "velocity.m./(s)")
     with LengthPer[TimePostfixOps[A]]  // for style like "velocity m/s" ( = "velocity.m(/).s")
     with UnitConverter[A]{
 
@@ -65,7 +65,7 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   override protected def velocityPostfixOps(velocityUnit: VelocityUnit) = apply(velocityUnit)
 
   // for style like "velocity.m/s"
-  override protected def lengthPostfixOps(lengthUnit: LengthUnit) = new DivisibleByTime[A]{
+  override protected def lengthPostfixOps(lengthUnit: LengthUnit) = new DivisibleByTimeUnit[A]{
     override def /(timeUnit: TimeUnit): A = apply(lengthUnit / timeUnit)
   }
 
@@ -76,7 +76,7 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
 }
 
 sealed trait VelocityUnit extends PhysicalUnit[VelocityUnit]
-  with DivisibleByTime[AccelerationUnit]{
+  with DivisibleByTimeUnit[AccelerationUnit]{
 
   def unitInMetrePerSecond: Real
 

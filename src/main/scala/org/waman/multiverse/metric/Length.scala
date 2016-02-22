@@ -216,8 +216,8 @@ trait LengthPer[A]{
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends Quantity[A, LengthUnit]
     with LengthPostfixOps[A]
-    with DivisibleByTime[Velocity[A]]
-    with DivisibleByTimeSquared[Acceleration[A]]
+    with DivisibleByTimeUnit[Velocity[A]]
+    with DivisibleByTimeSquaredUnit[Acceleration[A]]
     with UnitConverter[A]{
 
   protected lazy val algebra = implicitly[Fractional[A]]
@@ -243,8 +243,8 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
     extends PhysicalUnit[LengthUnit]
     with Ordered[LengthUnit]
-    with DivisibleByTime[VelocityUnit] // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
-    with DivisibleByTimeSquared[AccelerationUnit]{
+    with DivisibleByTimeUnit[VelocityUnit] // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
+    with DivisibleByTimeSquaredUnit[AccelerationUnit]{
 
   def this(symbol: String, factor: Real, lengthUnit: LengthUnit) =
     this(symbol, factor * lengthUnit.unitInMetre)

@@ -251,7 +251,7 @@ trait VolumePer[A]{
 
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity[A, VolumeUnit]
   with VolumePostfixOps[A]
-  with DivisibleByTime[VolumeFlow[A]]
+  with DivisibleByTimeUnit[VolumeFlow[A]]
   with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -268,7 +268,7 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity
 
 sealed abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
     extends PhysicalUnit[VolumeUnit]
-    with DivisibleByTime[VolumeFlowUnit] {
+    with DivisibleByTimeUnit[VolumeFlowUnit] {
 
   def this(symbol: String, factor: Real, volumeUnit: VolumeUnit) =
     this(symbol, factor * volumeUnit.unitInCubicMetre)

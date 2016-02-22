@@ -67,7 +67,7 @@ trait MassPer[A]{
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
   extends Quantity[A, MassUnit]
     with MassPostfixOps[A]
-    with DivisibleByVolume[Density[A]]
+    with DivisibleByVolumeUnit[Density[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -83,7 +83,7 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 }
 
 sealed abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
-  extends PhysicalUnit[MassUnit] with DivisibleByVolume[DensityUnit]{
+  extends PhysicalUnit[MassUnit] with DivisibleByVolumeUnit[DensityUnit]{
 
   def this(symbol: String, factor: Real, massUnit: MassUnit) =
     this(symbol, factor * massUnit.unitInKiloGram)

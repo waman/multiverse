@@ -1,16 +1,20 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.metric.VolumeUnit
+import org.waman.multiverse.metric.{AreaUnit, VolumeUnit}
 import org.waman.multiverse.time.{TimeSquaredUnit, TimeUnit}
 
-trait DivisibleByTime[R]{
+trait DivisibleByTimeUnit[R]{
   def /(timeUnit: TimeUnit): R
 }
 
-trait DivisibleByTimeSquared[R]{
+trait DivisibleByTimeSquaredUnit[R]{
   def /(timeSquaredUnit: TimeSquaredUnit): R
 }
 
-trait DivisibleByVolume[R]{
+trait DivisibleByAreaUnit[R]{
+  def /(areaUnit: AreaUnit): R
+}
+
+trait DivisibleByVolumeUnit[R]{
   def /(volumeUnit: VolumeUnit): R
 }

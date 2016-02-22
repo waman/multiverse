@@ -30,7 +30,7 @@ trait ForceDot[A]{
 class Force[A: Fractional](val value: A, val unit: ForceUnit)
   extends Quantity[A, ForceUnit]
     with ForcePostfixOps[A]
-    with MultiplicativeByLength[Torque[A]]
+    with MultiplicativeByLengthUnit[Torque[A]]
     with UnitConverter[A]{
 
   protected lazy val algebra = implicitly[Fractional[A]]
@@ -46,7 +46,7 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
 
 sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
   extends PhysicalUnit[ForceUnit]
-  with MultiplicativeByLength[TorqueUnit]{
+  with MultiplicativeByLengthUnit[TorqueUnit]{
 
   override val baseUnit = ForceUnit.Newton
   override val inBaseUnitAccessor = () => unitInNewton
