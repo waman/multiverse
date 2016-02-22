@@ -12,6 +12,7 @@ import org.waman.multiverse.magnetic.{PredefinedFluxDensityUnit, PredefinedFluxU
 import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
+import org.waman.multiverse.radiation.{PredefinedAbsorbedDoseUnit, PredefinedEquivalentDoseUnit, PredefinedExposureUnit, PredefinedRadioactivityUnit}
 import org.waman.multiverse.time.{Frequency, PredefinedFrequencyUnit, PredefinedTimeSquaredUnit, PredefinedTimeUnit}
 import spire.math.Fractional
 
@@ -44,11 +45,12 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedMassUnit
 //    with PredefinedDensityUnit
     with PredefinedTimeUnit
+    with PredefinedTimeSquaredUnit
     with PredefinedFrequencyUnit
+
     with PredefinedVelocityUnit
     with PredefinedAngularVelocityUnit
     with PredefinedVolumeFlowUnit
-    with PredefinedTimeSquaredUnit
     with PredefinedAccelerationUnit
     with PredefinedForceUnit
     with PredefinedPressureUnit
@@ -56,6 +58,7 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedEnergyUnit
     with PredefinedPowerUnit
     with PredefinedActionUnit
+
     with PredefinedDynamicViscosityUnit
     with PredefinedKinematicViscosityUnit
     with PredefinedCurrentUnit
@@ -66,11 +69,16 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedCapacitanceUnit
     with PredefinedFluxUnit
     with PredefinedFluxDensityUnit
+
     with PredefinedInductanceUnit
     with PredefinedLuminousIntensityUnit
     with PredefinedLuminanceUnit
     with PredefinedLuminousFluxUnit
     with PredefinedIlluminanceUnit
+    with PredefinedRadioactivityUnit
+    with PredefinedExposureUnit
+    with PredefinedAbsorbedDoseUnit
+    with PredefinedEquivalentDoseUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
@@ -113,8 +121,11 @@ object UnitSystem extends UnitSystem{
     "LuminousIntensity"  -> "luminous",
     "Luminance"          -> "luminous",
     "LuminousFlux"       -> "luminous",
-    "Illuminance"        -> "luminous"
-    //      "Temperature"
+    "Illuminance"        -> "luminous",
+    "Radioactivity"      -> "radiation",
+    "Exposure"           -> "radiation",
+    "AbsorbedDose"       -> "radiation",
+    "EquivalentDose"     -> "radiation"
   )
 
   val getSupportedQuantities: Set[String] = packageMap.keySet

@@ -9,6 +9,7 @@ import org.waman.multiverse.magnetic.{Flux, FluxDensity, Inductance}
 import org.waman.multiverse.mass.{Density, Mass}
 import org.waman.multiverse.mechanics.{Acceleration, Force, Torque, Velocity}
 import org.waman.multiverse.metric.{Area, Length, Volume}
+import org.waman.multiverse.radiation.{AbsorbedDose, EquivalentDose, Exposure, Radioactivity}
 import org.waman.multiverse.time.{Frequency, Time, TimeSquared}
 import spire.math.Fractional
 
@@ -54,6 +55,10 @@ trait MKSUnitSystem extends UnitSystem{
   implicit def convertLuminanceToFractional         [A: Fractional](l: Luminance[A])          : A = l.cd/m2
   implicit def convertLuminousFluxToFractional      [A: Fractional](lf: LuminousFlux[A])      : A = lf.lm
   implicit def convertIlluminanceToFractional       [A: Fractional](i: Illuminance[A])        : A = i.lx
+  implicit def convertRadioactivityToFractional     [A: Fractional](ra: Radioactivity[A])     : A = ra.Bq
+  implicit def convertExposureToFractional          [A: Fractional](e: Exposure[A])           : A = e.C/kg
+  implicit def convertAbsorbedDoseToFractional      [A: Fractional](ad: AbsorbedDose[A])      : A = ad.Gy
+  implicit def convertEquivalentDoseToFractional    [A: Fractional](ed: EquivalentDose[A])    : A = ed.Sv
 }
 
 object MKSUnitSystem extends MKSUnitSystem

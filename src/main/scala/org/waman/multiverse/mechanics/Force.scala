@@ -76,9 +76,10 @@ trait ForceUnitInterpreter[A]
 
   override protected def forcePostfixOps(forceUnit: ForceUnit) = apply(forceUnit)
 
+  // Force * Length -> Torque
+  def apply(unit: TorqueUnit): Torque[A]
+
   override protected def forceDot(forceUnit: ForceUnit) = new LengthPostfixOps[Torque[A]]{
     override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(forceUnit * lengthUnit)
   }
-
-  def apply(unit: TorqueUnit): Torque[A]
 }

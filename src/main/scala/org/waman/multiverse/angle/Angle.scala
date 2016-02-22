@@ -153,12 +153,10 @@ trait AngleUnitInterpreter[A]
 
   override protected def anglePostfixOps(angleUnit: AngleUnit) = apply(angleUnit)
 
-  protected def newAnglePer(unit: AngleUnit): TimePostfixOps[AngularVelocity[A]] =
-    new TimePostfixOps[AngularVelocity[A]] {
-      override protected def timePostfixOps(timeUnit: TimeUnit) = apply(unit / timeUnit)
-    }
-
+  // Angle / Time -> AngularVelocity
   def apply(unit: AngularVelocityUnit): AngularVelocity[A]
 
-  override protected def anglePer(angleUnit: AngleUnit) = newAnglePer(angleUnit)
+  override protected def anglePer(angleUnit: AngleUnit) = new TimePostfixOps[AngularVelocity[A]] {
+    override protected def timePostfixOps(timeUnit: TimeUnit) = apply(angleUnit / timeUnit)
+  }
 }

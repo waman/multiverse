@@ -51,6 +51,5 @@ trait FluxUnitInterpreter[A]
 
   def apply(unit: FluxUnit): Flux[A]
 
-  override protected def fluxPostfixOps(fluxUnit: FluxUnit) =
-    apply(fluxUnit)
+  override protected def fluxPostfixOps(fluxUnit: FluxUnit) = apply(fluxUnit)
 }

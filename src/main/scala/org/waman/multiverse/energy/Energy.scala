@@ -85,9 +85,10 @@ trait EnergyUnitInterpreter[A]
 
   override protected def energyPostfixOps(energyUnit: EnergyUnit) = apply(energyUnit)
 
+  // Energy * Time -> Action
+  def apply(unit: ActionUnit): Action[A]
+
   override protected def energyDot(energyUnit: EnergyUnit) = new TimePostfixOps[Action[A]]{
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(energyUnit * timeUnit)
   }
-
-  def apply(unit: ActionUnit): Action[A]
 }

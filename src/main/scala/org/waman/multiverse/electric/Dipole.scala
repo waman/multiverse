@@ -79,16 +79,9 @@ trait PredefinedDipoleUnit extends DipolePostfixOps[DipoleUnit]{
 object PredefinedDipoleUnit extends PredefinedDipoleUnit
 
 trait DipoleUnitInterpreter[A]
-    extends DipolePostfixOps[Dipole[A]]
-    with ChargeDot[LengthPostfixOps[Dipole[A]]]{
+    extends DipolePostfixOps[Dipole[A]]{
 
   def apply(unit: DipoleUnit): Dipole[A]
 
-  override protected def dipolePostfixOps(dipoleUnit: DipoleUnit) =
-    apply(dipoleUnit)
-
-  override protected def chargeDot(chargeUnit: ChargeUnit) = new LengthPostfixOps[Dipole[A]]{
-    override protected def lengthPostfixOps(lengthUnit: LengthUnit) =
-      apply(chargeUnit * lengthUnit)
-  }
+  override protected def dipolePostfixOps(dipoleUnit: DipoleUnit) = apply(dipoleUnit)
 }

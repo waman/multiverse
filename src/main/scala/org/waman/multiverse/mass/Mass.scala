@@ -149,13 +149,10 @@ trait MassUnitInterpreter[A]
 
   override protected def massPostfixOps(massUnit: MassUnit) = apply(massUnit)
 
-  override protected def massPer(massUnit: MassUnit) = newMassPer(massUnit)
-
-  protected def newMassPer(massUnit: MassUnit): VolumePostfixOps[Density[A]] =
-    new VolumePostfixOps[Density[A]] {
-
-      override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(massUnit / volumeUnit)
-    }
-
+  // Mass / Volume -> Density
   def apply(unit: DensityUnit): Density[A]
+
+  override protected def massPer(massUnit: MassUnit) = new VolumePostfixOps[Density[A]] {
+    override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(massUnit / volumeUnit)
+  }
 }

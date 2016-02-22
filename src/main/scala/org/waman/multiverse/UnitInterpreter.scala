@@ -9,6 +9,7 @@ import org.waman.multiverse.magnetic._
 import org.waman.multiverse.mass._
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric._
+import org.waman.multiverse.radiation._
 import org.waman.multiverse.time._
 import spire.math.Fractional
 
@@ -23,6 +24,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with TimeUnitInterpreter[A]
   with TimeSquaredUnitInterpreter[A]
   with FrequencyUnitInterpreter[A]
+
   with VelocityUnitInterpreter[A]
   with AngularVelocityUnitInterpreter[A]
   with VolumeFlowUnitInterpreter[A]
@@ -33,6 +35,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with EnergyUnitInterpreter[A]
   with PowerUnitInterpreter[A]
   with ActionUnitInterpreter[A]
+
   with DynamicViscosityUnitInterpreter[A]
   with KinematicViscosityUnitInterpreter[A]
   with CurrentUnitInterpreter[A]
@@ -43,11 +46,16 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with CapacitanceUnitInterpreter[A]
   with FluxUnitInterpreter[A]
   with FluxDensityUnitInterpreter[A]
+
   with InductanceUnitInterpreter[A]
   with LuminousIntensityUnitInterpreter[A]
   with LuminanceUnitInterpreter[A]
   with LuminousFluxUnitInterpreter[A]
   with IlluminanceUnitInterpreter[A]
+  with RadioactivityUnitInterpreter[A]
+  with ExposureUnitInterpreter[A]
+  with AbsorbedDoseUnitInterpreter[A]
+  with EquivalentDoseUnitInterpreter[A]
   with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -62,6 +70,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(unit: TimeUnit)               = new Time(value, unit)
   override def apply(unit: TimeSquaredUnit)        = new TimeSquared(value, unit)
   override def apply(unit: FrequencyUnit)          = new Frequency(value, unit)
+
   override def apply(unit: VelocityUnit)           = new Velocity(value, unit)
   override def apply(unit: AngularVelocityUnit)    = new AngularVelocity(value, unit)
   override def apply(unit: VolumeFlowUnit)         = new VolumeFlow(value, unit)
@@ -72,6 +81,7 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(unit: TorqueUnit)             = new Torque(value, unit)
   override def apply(unit: PowerUnit)              = new Power(value, unit)
   override def apply(unit: ActionUnit)             = new Action(value, unit)
+
   override def apply(unit: DynamicViscosityUnit)   = new DynamicViscosity(value, unit)
   override def apply(unit: KinematicViscosityUnit) = new KinematicViscosity(value, unit)
   override def apply(unit: CurrentUnit)            = new Current(value, unit)
@@ -82,9 +92,14 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(unit: CapacitanceUnit)        = new Capacitance(value, unit)
   override def apply(unit: FluxUnit)               = new Flux(value, unit)
   override def apply(unit: FluxDensityUnit)        = new FluxDensity(value, unit)
+
   override def apply(unit: InductanceUnit)         = new Inductance(value, unit)
   override def apply(unit: LuminousIntensityUnit)  = new LuminousIntensity(value, unit)
   override def apply(unit: LuminanceUnit)          = new Luminance(value, unit)
   override def apply(unit: LuminousFluxUnit)       = new LuminousFlux(value, unit)
   override def apply(unit: IlluminanceUnit)        = new Illuminance(value, unit)
+  override def apply(unit: RadioactivityUnit)      = new Radioactivity(value, unit)
+  override def apply(unit: ExposureUnit)           = new Exposure(value, unit)
+  override def apply(unit: AbsorbedDoseUnit)       = new AbsorbedDose(value, unit)
+  override def apply(unit: EquivalentDoseUnit)     = new EquivalentDose(value, unit)
 }

@@ -74,9 +74,10 @@ trait PressureUnitInterpreter[A]
 
   override protected def pressurePostfixOps(pressureUnit: PressureUnit) = apply(pressureUnit)
 
+  // Pressure * Time -> DynamicViscosity
+  protected def apply(unit: DynamicViscosityUnit): DynamicViscosity[A]
+
   override protected def pressureDot(pressureUnit: PressureUnit) = new TimePostfixOps[DynamicViscosity[A]]{
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(pressureUnit * timeUnit)
   }
-
-  protected def apply(unit: DynamicViscosityUnit): DynamicViscosity[A]
 }

@@ -399,9 +399,10 @@ trait VolumeUnitInterpreter[A] extends VolumePostfixOps[Volume[A]]
 
   override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
 
+  // Volume / Time -> VolumeFlow
+  def apply(volumeFlowUnit: VolumeFlowUnit): VolumeFlow[A]
+
   override protected def volumePer(volumeUnit: VolumeUnit) =  new TimePostfixOps[VolumeFlow[A]]{
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(volumeUnit / timeUnit)
   }
-
-  def apply(volumeFlowUnit: VolumeFlowUnit): VolumeFlow[A]
 }

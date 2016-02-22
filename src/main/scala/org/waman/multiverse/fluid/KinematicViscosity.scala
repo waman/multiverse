@@ -79,15 +79,10 @@ trait PredefinedKinematicViscosityUnit extends KinematicViscosityPostfixOps[Kine
 object PredefinedKinematicViscosityUnit extends PredefinedKinematicViscosityUnit
 
 trait KinematicViscosityUnitInterpreter[A]
-    extends KinematicViscosityPostfixOps[KinematicViscosity[A]]
-    with AreaPer[TimePostfixOps[KinematicViscosity[A]]]{
+    extends KinematicViscosityPostfixOps[KinematicViscosity[A]]{
 
   def apply(unit: KinematicViscosityUnit): KinematicViscosity[A]
 
   override protected def kinematicViscosityPostfixOps(kinematicViscosityUnit: KinematicViscosityUnit) =
     apply(kinematicViscosityUnit)
-
-  override protected def areaPer(areaUnit: AreaUnit) = new TimePostfixOps[KinematicViscosity[A]]{
-    override protected def timePostfixOps(timeUnit: TimeUnit) = apply(areaUnit / timeUnit)
-  }
 }

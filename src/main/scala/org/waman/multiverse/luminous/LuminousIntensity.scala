@@ -73,10 +73,11 @@ trait LuminousIntensityUnitInterpreter[A]
   override protected def luminousIntensityPostfixOps(luminousIntensityUnit: LuminousIntensityUnit) =
     apply(luminousIntensityUnit)
 
+  // LuminousIntensity / Area -> Luminance
+  def apply(unit: LuminanceUnit): Luminance[A]
+
   override protected def luminousIntensityPer(luminousIntensityUnit: LuminousIntensityUnit) =
     new AreaPostfixOps[Luminance[A]]{
       override protected def areaPostfixOps(areaUnit: AreaUnit) = apply(luminousIntensityUnit / areaUnit)
     }
-
-  def apply(unit: LuminanceUnit): Luminance[A]
 }

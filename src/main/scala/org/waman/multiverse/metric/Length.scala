@@ -350,7 +350,11 @@ trait LengthUnitInterpreter[A]
 
   override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(lengthUnit)
 
-  // Length -> Velocity
+  // Length / Time -> Velocity
+  // Length / TimeSquared -> Acceleration
+  def apply(velocityUnit: VelocityUnit): Velocity[A]
+  def apply(accelerationUnit: AccelerationUnit): Acceleration[A]
+
   // for style "1.0 m/s" ( = "1.0.m(/).s")
   override protected def lengthPer(lengthUnit: LengthUnit) =
     new TimePostfixOps[Velocity[A]] with TimeSquaredPostfixOps[Acceleration[A]]{
@@ -358,7 +362,4 @@ trait LengthUnitInterpreter[A]
       override protected def timeSquaredPostfixOps(timeSquaredUnit: TimeSquaredUnit) =
         apply(lengthUnit / timeSquaredUnit)
     }
-
-  def apply(velocityUnit: VelocityUnit): Velocity[A]
-  def apply(accelerationUnit: AccelerationUnit): Acceleration[A]
 }

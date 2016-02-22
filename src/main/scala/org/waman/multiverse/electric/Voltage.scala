@@ -60,6 +60,5 @@ trait VoltageUnitInterpreter[A]
 
   def apply(unit: VoltageUnit): Voltage[A]
 
-  override protected def voltagePostfixOps(voltageUnit: VoltageUnit) =
-    apply(voltageUnit)
+  override protected def voltagePostfixOps(voltageUnit: VoltageUnit) = apply(voltageUnit)
 }

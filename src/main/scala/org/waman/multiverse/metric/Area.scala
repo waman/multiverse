@@ -3,7 +3,7 @@ package org.waman.multiverse.metric
 import org.waman.multiverse.Context._
 import org.waman.multiverse._
 import org.waman.multiverse.fluid.{KinematicViscosity, KinematicViscosityUnit}
-import org.waman.multiverse.time.TimeUnit
+import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -294,9 +294,17 @@ trait PredefinedAreaUnit extends AreaPostfixOps[AreaUnit]{
 object PredefinedAreaUnit extends PredefinedAreaUnit
 
 trait AreaUnitInterpreter[A]
-  extends AreaPostfixOps[Area[A]]{
+    extends AreaPostfixOps[Area[A]]
+    with AreaPer[TimePostfixOps[KinematicViscosity[A]]]{
 
   def apply(unit: AreaUnit): Area[A]
 
   override protected def areaPostfixOps(areaUnit: AreaUnit) = apply(areaUnit)
+
+  // Area / Time -> KinematicViscosity
+  protected def apply(unit: KinematicViscosityUnit): KinematicViscosity[A]
+
+  override protected def areaPer(areaUnit: AreaUnit) = new TimePostfixOps[KinematicViscosity[A]]{
+    override protected def timePostfixOps(timeUnit: TimeUnit) = apply(areaUnit / timeUnit)
+  }
 }
