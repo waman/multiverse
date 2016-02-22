@@ -13,6 +13,7 @@ import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
 import org.waman.multiverse.radiation.{PredefinedAbsorbedDoseUnit, PredefinedEquivalentDoseUnit, PredefinedExposureUnit, PredefinedRadioactivityUnit}
+import org.waman.multiverse.thermal.{PredefinedEntropyUnit, PredefinedTemperatureUnit}
 import org.waman.multiverse.time.{Frequency, PredefinedFrequencyUnit, PredefinedTimeSquaredUnit, PredefinedTimeUnit}
 import spire.math.Fractional
 
@@ -71,6 +72,8 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedFluxDensityUnit
 
     with PredefinedInductanceUnit
+    with PredefinedTemperatureUnit
+    with PredefinedEntropyUnit
     with PredefinedLuminousIntensityUnit
     with PredefinedLuminanceUnit
     with PredefinedLuminousFluxUnit
@@ -78,6 +81,7 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedRadioactivityUnit
     with PredefinedExposureUnit
     with PredefinedAbsorbedDoseUnit
+
     with PredefinedEquivalentDoseUnit
     with HasContext
 
@@ -118,6 +122,8 @@ object UnitSystem extends UnitSystem{
     "FluxDensity"        -> "magnetic",
 
     "Inductance"         -> "magnetic",
+    "Temperature"        -> "thermal",
+    "Entropy"            -> "thermal",
     "LuminousIntensity"  -> "luminous",
     "Luminance"          -> "luminous",
     "LuminousFlux"       -> "luminous",
@@ -125,6 +131,7 @@ object UnitSystem extends UnitSystem{
     "Radioactivity"      -> "radiation",
     "Exposure"           -> "radiation",
     "AbsorbedDose"       -> "radiation",
+
     "EquivalentDose"     -> "radiation"
   )
 

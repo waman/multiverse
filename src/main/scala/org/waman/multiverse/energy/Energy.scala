@@ -1,6 +1,7 @@
 package org.waman.multiverse.energy
 
 import org.waman.multiverse._
+import org.waman.multiverse.thermal.{Entropy, EntropyUnit, TemperaturePostfixOps, TemperatureUnit}
 import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.{Fractional, Real}
@@ -37,6 +38,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   extends Quantity[A, EnergyUnit]
     with EnergyPostfixOps[A]
     with MultiplicativeByTimeUnit[Action[A]]
+    with DivisibleByTemperatureUnit[Entropy[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -48,11 +50,14 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   override protected def energyPostfixOps(energyUnit: EnergyUnit) = apply(energyUnit)
 
   override def *(timeUnit: TimeUnit) = new Action(value, unit * timeUnit)
+
+  override def /(temperatureUnit: TemperatureUnit) = new Entropy(value, unit / temperatureUnit)
 }
 
 sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
     extends PhysicalUnit[EnergyUnit]
-    with MultiplicativeByTimeUnit[ActionUnit]{
+    with MultiplicativeByTimeUnit[ActionUnit]
+    with DivisibleByTemperatureUnit[EntropyUnit]{
 
   def this(symbol: String, factor: Real, energyUnit: EnergyUnit) =
     this(symbol, factor * energyUnit.unitInJoule)
@@ -61,6 +66,8 @@ sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
   override val inBaseUnitAccessor = () => unitInJoule
 
   override def *(timeUnit: TimeUnit) = ActionUnit(this, timeUnit)
+
+  override def /(temperatureUnit: TemperatureUnit) = EntropyUnit(this, temperatureUnit)
 }
 
 object EnergyUnit{
@@ -79,7 +86,8 @@ object PredefinedEnergyUnit extends PredefinedEnergyUnit
 
 trait EnergyUnitInterpreter[A]
     extends EnergyPostfixOps[Energy[A]]
-    with EnergyDot[TimePostfixOps[Action[A]]]{
+    with EnergyDot[TimePostfixOps[Action[A]]]
+    with EnergyPer[TemperaturePostfixOps[Entropy[A]]]{
 
   def apply(unit: EnergyUnit): Energy[A]
 
@@ -90,5 +98,13 @@ trait EnergyUnitInterpreter[A]
 
   override protected def energyDot(energyUnit: EnergyUnit) = new TimePostfixOps[Action[A]]{
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(energyUnit * timeUnit)
+  }
+
+  // Energy / Temperature -> Entropy
+  def apply(unit: EntropyUnit): Entropy[A]
+
+  override protected def energyPer(energyUnit: EnergyUnit) = new TemperaturePostfixOps[Entropy[A]]{
+    override protected def temperaturePostfixOps(temperatureUnit: TemperatureUnit) =
+      apply(energyUnit / temperatureUnit)
   }
 }

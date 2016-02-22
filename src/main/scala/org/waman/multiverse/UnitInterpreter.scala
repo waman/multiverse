@@ -10,6 +10,7 @@ import org.waman.multiverse.mass._
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric._
 import org.waman.multiverse.radiation._
+import org.waman.multiverse.thermal._
 import org.waman.multiverse.time._
 import spire.math.Fractional
 
@@ -48,13 +49,16 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with FluxDensityUnitInterpreter[A]
 
   with InductanceUnitInterpreter[A]
+  with TemperatureUnitInterpreter[A]
+  with EntropyUnitInterpreter[A]
   with LuminousIntensityUnitInterpreter[A]
   with LuminanceUnitInterpreter[A]
   with LuminousFluxUnitInterpreter[A]
   with IlluminanceUnitInterpreter[A]
   with RadioactivityUnitInterpreter[A]
   with ExposureUnitInterpreter[A]
-  with AbsorbedDoseUnitInterpreter[A]
+    with AbsorbedDoseUnitInterpreter[A]
+
   with EquivalentDoseUnitInterpreter[A]
   with UnitConverter[A]{
 
@@ -94,6 +98,8 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(unit: FluxDensityUnit)        = new FluxDensity(value, unit)
 
   override def apply(unit: InductanceUnit)         = new Inductance(value, unit)
+  override def apply(unit: TemperatureUnit)        = new Temperature(value, unit)
+  override def apply(unit: EntropyUnit)            = new Entropy(value, unit)
   override def apply(unit: LuminousIntensityUnit)  = new LuminousIntensity(value, unit)
   override def apply(unit: LuminanceUnit)          = new Luminance(value, unit)
   override def apply(unit: LuminousFluxUnit)       = new LuminousFlux(value, unit)
@@ -101,5 +107,6 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(unit: RadioactivityUnit)      = new Radioactivity(value, unit)
   override def apply(unit: ExposureUnit)           = new Exposure(value, unit)
   override def apply(unit: AbsorbedDoseUnit)       = new AbsorbedDose(value, unit)
+
   override def apply(unit: EquivalentDoseUnit)     = new EquivalentDose(value, unit)
 }
