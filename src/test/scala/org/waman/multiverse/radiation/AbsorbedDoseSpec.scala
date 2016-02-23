@@ -22,31 +22,33 @@ class AbsorbedDoseSpec extends MultiverseCustomSpec with PropertyChecks{
     }
 
   "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+    __Exercise__
     val conversions =
       Table(
-        ("absorbedDose", "expected"),
+        ("absorbedDoses", "expected"),
         (Seq(3.0.Gy, 3.0 Gy, 3.0 (Gy)), 3.0)
       )
-
-    forAll(conversions){ (ads: Seq[AbsorbedDose[Double]], expected: Double) =>
-      ads.foreach{ ad =>
-        (ad Gy) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[AbsorbedDose[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut Gy) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
-    val value = 3.0 Gy
-
+    __SetUp__
+    val value = 3.0 (Gy)
+    __Exercise__
     val conversions =
       Table(
-        ("absorbedDose", "expected"),
+        ("absorbedDoses", "expected"),
         (Seq(value.Gy, value Gy, value (Gy)), 3.0)
       )
-
-    forAll(conversions){ (ads: Seq[Double], expected: Double) =>
-      ads.foreach{ ad =>
-        ad should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

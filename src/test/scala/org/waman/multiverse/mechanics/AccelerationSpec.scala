@@ -22,33 +22,35 @@ class AccelerationSpec extends MultiverseCustomSpec with PropertyChecks{
   //  }
 
   "Tests where converting from some units to m/s2 like 3.0 g0 => 3.0 * 9.80665 m/s2" in {
+    __Exercise__
     val conversions =
       Table(
-        ("acceleration", "expected"),
+        ("accelerations", "expected"),
         (Seq(3.0.m/s2, 3.0 m/s2, 3.0 (m/s2)), 3.0),
         (Seq(3.0.g0, 3.0 g0, 3.0 (g0)), 3.0 * 9.80665)
       )
-
-    forAll(conversions){ (accels: Seq[Acceleration[Double]], expected: Double) =>
-      accels.foreach{ accel =>
-        (accel m/s2) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Acceleration[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut m/s2) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a acceleration unit to other units like 3.0 m/s2 => 3.0 / 9.80665 g0" in {
-    val value = 3.0 m/s2
-
+    __SetUp__
+    val value = 3.0 (m/s2)
+    __Exercise__
     val conversions =
       Table(
-        ("acceleration", "expected"),
+        ("accelerations", "expected"),
         (Seq(value.m/s2, value m/s2, value (m/s2)), 3.0),
         (Seq(value.g0 , value g0 , value (g0)) , 3.0 / 9.80665)
       )
-
-    forAll(conversions){ (accels: Seq[Double], expected: Double) =>
-      accels.foreach{ accel =>
-        accel should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

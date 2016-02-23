@@ -99,6 +99,7 @@ trait LengthPostfixOps[A]{
   def li (c: Context): A = lengthPostfixOps(_li(c))
   def lnk(c: Context): A = lengthPostfixOps(_lnk(c))
   def ft (c: Context): A = lengthPostfixOps(_ft(c))
+  def ch (c: Context): A = lengthPostfixOps(_ch(c))
   def mi (c: Context): A = lengthPostfixOps(_mi(c))
 
   def mf : A = lengthPostfixOps(MetricFoot)
@@ -129,6 +130,10 @@ object LengthPostfixOps{
 
   lazy val _ft: PartialFunction[Context, LengthUnit] = {
     case UnitedStates => LengthUnit.Foot_US_Survey
+  }
+
+  lazy val _ch: PartialFunction[Context, LengthUnit] = {
+    case UnitedStates => LengthUnit.Chain_US_Survey
   }
 
   lazy val _mi: PartialFunction[Context, LengthUnit] = {
@@ -299,19 +304,19 @@ object LengthUnit{
   // yard-pond
   case object Mil    extends LengthUnit("mil;thou", r"1/1000", Inch)
   case object Twip   extends LengthUnit("twp", r"1/20", Point)
-  case object Point  extends LengthUnit("pt"  , r"1/72", Inch)
-  case object Line   extends LengthUnit("ln"  , r"1/12", Inch)
-  case object Inch   extends LengthUnit("in"  , r"2.54", CentiMetre)
-  case object Foot   extends LengthUnit("ft"  , 12, Inch)
+  case object Point  extends LengthUnit("pt", r"1/72", Inch)
+  case object Line   extends LengthUnit("ln", r"1/12", Inch)
+  case object Inch   extends LengthUnit("in", r"2.54", CentiMetre)
+  case object Foot   extends LengthUnit("ft", 12, Inch)
   case object Link   extends LengthUnit("li;lnk", r"0.66", Foot)
-  case object Yard   extends LengthUnit("yd"  , 3, Foot)
-  case object Ell    extends LengthUnit("ell" , 45, Inch)
-  case object Fathom extends LengthUnit("ftm" , 6, Foot)
-  case object Rod    extends LengthUnit("rd"  , r"16.5", Foot)
+  case object Yard   extends LengthUnit("yd", 3, Foot)
+  case object Ell    extends LengthUnit("ell", 45, Inch)
+  case object Fathom extends LengthUnit("ftm", 6, Foot)
+  case object Rod    extends LengthUnit("rd", r"16.5", Foot)
   case object Rope   extends LengthUnit("rope", 20, Foot)
-  case object Chain  extends LengthUnit("ch"  , 66, Foot)
-  case object Mile   extends LengthUnit("mi"  , 1760, Yard)
-  case object League extends LengthUnit("lea" , 3, Mile)
+  case object Chain  extends LengthUnit("ch", 66, Foot)
+  case object Mile   extends LengthUnit("mi", 1760, Yard)
+  case object League extends LengthUnit("lea", 3, Mile)
 
   case object NauticalMile           extends LengthUnit("NM;nmi", 1852)
   case object NauticalMile_Admiralty extends LengthUnit("NM(Adm);nmi(Adm)", 6080, Foot)
@@ -320,7 +325,7 @@ object LengthUnit{
   case object Cable_US       extends LengthUnit("cb(US)" , 720, Foot)
   case object Cable_imperial extends LengthUnit("cb(imp)", 608, Foot)
 
-  case object Link_US_Survey  extends LengthUnit("lnk(US)", r"0.66", Foot_US_Survey)
+  case object Link_US_Survey  extends LengthUnit("li(US);lnk(US)", r"0.66", Foot_US_Survey)
   case object Foot_US_Survey  extends LengthUnit("ft(US)", r"1200/3937")
   case object Chain_US_Survey extends LengthUnit("ch(US)", 66, Foot_US_Survey)
   case object Mile_US_Survey  extends LengthUnit("mi(US)", 5280, Foot_US_Survey)

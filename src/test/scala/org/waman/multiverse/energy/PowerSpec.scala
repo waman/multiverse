@@ -22,31 +22,33 @@ class PowerSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to kg like 3.0 kW => 3e3 W" in {
+    __Exercise__
     val conversions =
       Table(
-        ("power", "expected"),
+        ("powers", "expected"),
         (Seq(3.0.W, 3.0 W, 3.0 (W)), 3.0)
       )
-
-    forAll(conversions){ (ps: Seq[Power[Double]], expected: Double) =>
-      ps.foreach{ p =>
-        (p W) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Power[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut W) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a power unit to other units like 3.0 W => 3e-3 kW" in {
-    val value = 3.0 W
-
+    __SetUp__
+    val value = 3.0 (W)
+    __Exercise__
     val conversions =
       Table(
-        ("power", "expected"),
+        ("powers", "expected"),
         (Seq(value.W, value W, value (W)), 3.0)
       )
-
-    forAll(conversions){ (ps: Seq[Double], expected: Double) =>
-      ps.foreach{ p =>
-        p should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

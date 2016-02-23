@@ -26,31 +26,33 @@ class ForceSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("force", "expected"),
+        ("forces", "expected"),
         (Seq(3.0.N, 3.0 N, 3.0 (N)), 3.0)
       )
-
-    forAll(conversions){ (ts: Seq[Force[Double]], expected: Double) =>
-      ts.foreach{ t =>
-        (t N) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Force[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut N) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting second unit to other units like 1.0 s => 1000.0 ms" in {
-    val value = 3.0 N
-
+    __SetUp__
+    val value = 3.0 (N)
+    __Exercise__
     val conversions =
       Table(
-        ("force", "expected"),
+        ("forces", "expected"),
         (Seq(value.N, value N, value (N)), 3.0)
       )
-
-    forAll(conversions){ (fs: Seq[Double], expected: Double) =>
-      fs.foreach{ f =>
-        f should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

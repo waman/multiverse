@@ -22,36 +22,37 @@ class ActionSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to kg like 3.0 kJ => 3e3 J" in {
+    __Exercise__
     val conversions =
       Table(
-        ("action", "expected"),
+        ("actions", "expected"),
         (Seq(3.0.J*s , 3.0 J*s , 3.0 (J*s)) , 3.0),
         (Seq(3.0.hbar, 3.0 hbar, 3.0 (hbar)), 3.0 * 1.05457168e-34),
         (Seq(3.0.ħ   , 3.0 ħ   , 3.0 (ħ))   , 3.0 * 1.05457168e-34)
       )
-
-    forAll(conversions){ (as: Seq[Action[Double]], expected: Double) =>
-      as.foreach{ a =>
-        (a J*s) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Action[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut J*s) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a action unit to other units like 3.0 J => 3e-3 kJ" in {
-    import PredefinedActionUnit.hbar
-    val value = 3.0 J*s
-
+    __SetUp__
+    val value = 3.0 (J*s)
+    __Exercise__
     val conversions =
       Table(
-        ("action", "expected"),
+        ("actions", "expected"),
         (Seq(value.J*s , value J*s , value (J*s)) , 3.0),
         (Seq(value.hbar, value hbar, value (hbar)), 3.0 / 1.05457168e-34),
         (Seq(value.ħ   , value ħ   , value (ħ))   , 3.0 / 1.05457168e-34)
       )
-
-    forAll(conversions){ (as: Seq[Double], expected: Double) =>
-      as.foreach{ a =>
-        a should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

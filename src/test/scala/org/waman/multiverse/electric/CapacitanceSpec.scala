@@ -22,31 +22,33 @@ class CapacitanceSpec extends MultiverseCustomSpec with PropertyChecks{
     }
 
   "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+    __Exercise__
     val conversions =
       Table(
-        ("capacitance", "expected"),
+        ("capacitances", "expected"),
         (Seq(3.0.F, 3.0 F, 3.0 (F)), 3.0)
       )
-
-    forAll(conversions){ (cs: Seq[Capacitance[Double]], expected: Double) =>
-      cs.foreach{ c =>
-        (c F) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Capacitance[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut F) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
-    val value = 3.0 F
-
+    __SetUp__
+    val value = 3.0 (F)
+    __Exercise__
     val conversions =
       Table(
-        ("capacitance", "expected"),
+        ("capacitances", "expected"),
         (Seq(value.F, value F, value (F)), 3.0)
       )
-
-    forAll(conversions){ (cs: Seq[Double], expected: Double) =>
-      cs.foreach{ c =>
-        c should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

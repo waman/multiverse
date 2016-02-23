@@ -22,31 +22,33 @@ class VoltageSpec extends MultiverseCustomSpec with PropertyChecks{
     }
 
   "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+    __Exercise__
     val conversions =
       Table(
-        ("voltage", "expected"),
+        ("voltages", "expected"),
         (Seq(3.0.V, 3.0 V, 3.0 (V)), 3.0)
       )
-
-    forAll(conversions){ (vs: Seq[Voltage[Double]], expected: Double) =>
-      vs.foreach{ v =>
-        (v V) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Voltage[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut V) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
-    val value = 3.0 V
-
+    __SetUp__
+    val value = 3.0 (V)
+    __Exercise__
     val conversions =
       Table(
-        ("voltage", "expected"),
+        ("voltages", "expected"),
         (Seq(value.V, value V, value (V)), 3.0)
       )
-
-    forAll(conversions){ (vs: Seq[Double], expected: Double) =>
-      vs.foreach{ v =>
-        v should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

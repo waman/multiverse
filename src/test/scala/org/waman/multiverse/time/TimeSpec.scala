@@ -48,9 +48,10 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("time", "expected"),
+        ("times", "expected"),
         (Seq(3.0.ys, 3.0 ys, 3.0 (ys)), 3e-24),
         (Seq(3.0.zs, 3.0 zs, 3.0 (zs)), 3e-21),
         (Seq(3.0.as, 3.0 as, 3.0 (as)), 3e-18),
@@ -78,19 +79,20 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.d     , 3.0 d     , 3.0 (d))  , 3.0 * 60.0 * 60.0 * 24.0)
       )
 
-    forAll(conversions){ (ts: Seq[Time[Double]], expected: Double) =>
-      ts.foreach{ t =>
-        (t s) should equal (%(expected))
+    forAll(conversions){ (suts: Seq[Time[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut s) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting second unit to other units like 1.0 s => 1000.0 ms" in {
-    val value = 3.0 s
-
+    __SetUp__
+    val value = 3.0 (s)
+    __Exercise__
     val conversions =
       Table(
-        ("time", "expected"),
+        ("times", "expected"),
         (Seq(value.ys, value ys, value (ys)), 3e24),
         (Seq(value.zs, value zs, value (zs)), 3e21),
         (Seq(value.as, value as, value (as)), 3e18),
@@ -117,10 +119,10 @@ class TimeSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.h     , value h     , value (h))  , 3.0/(60.0 * 60.0)),
         (Seq(value.d     , value d     , value (d))  , 3.0/(60.0 * 60.0 * 24.0))
       )
-
-    forAll(conversions){ (ts: Seq[Double], expected: Double) =>
-      ts.foreach{ t =>
-        t should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

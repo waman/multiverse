@@ -39,37 +39,39 @@ class DensitySpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to m/s like 3.0 g/cm3 => 3000.0 kg/m3" in {
+    __Exercise__
     val conversions =
       Table(
-        ("density", "expected"),
+        ("densities", "expected"),
         (Seq(3.0.g/cm3, 3.0 g/cm3, 3.0 (g/cm3)), 3e3),
         (Seq(3.0.g/mL , 3.0 g/mL , 3.0 (g/mL)) , 3e3),
         (Seq(3.0.kg/m3, 3.0 kg/m3, 3.0 (kg/m3)), 3.0),
         (Seq(3.0.kg/L , 3.0 kg/L , 3.0 (kg/L)) , 3e3)
       )
-
-    forAll(conversions){ (ds: Seq[Density[Double]], expected: Double) =>
-      ds.foreach{ d =>
-        (d kg/m3) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Density[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut kg/m3) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a density unit to other units like 3.0 kg/m3 => 3e-3 g/cm3" in {
-    val value = 3.0 kg/m3
-
+    __SetUp__
+    val value = 3.0 (kg/m3)
+    __Exercise__
     val conversions =
       Table(
-        ("density", "expected"),
+        ("densities", "expected"),
         (Seq(value.g/cm3, value g/cm3, value (g/cm3)), 3e-3),
         (Seq(value.g/mL , value g/mL , value (g/mL)) , 3e-3),
         (Seq(value.kg/m3, value kg/m3, value (kg/m3)), 3.0),
         (Seq(value.kg/L , value kg/L , value (kg/L)) , 3e-3)
       )
-
-    forAll(conversions){ (ds: Seq[Double], expected: Double) =>
-      ds.foreach{ d =>
-        d should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

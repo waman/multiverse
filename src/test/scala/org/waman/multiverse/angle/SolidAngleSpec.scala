@@ -37,9 +37,10 @@ class SolidAngleSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to radian like 3.0 deg2 => 3.0 * (2 PI / 360)**2 sr" in {
+    __Exercise__
     val conversions =
       Table(
-        ("solidAngle", "expected"),
+        ("solid angles", "expected"),
         (Seq(3.0.dasr, 3.0 dasr, 3.0 (dasr)), 3e1),
         (Seq(3.0.sr, 3.0 sr, 3.0 (sr)), 3.0),
         (Seq(3.0.dsr, 3.0 dsr, 3.0 (dsr)), 3e-1),
@@ -53,22 +54,23 @@ class SolidAngleSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.zsr, 3.0 zsr, 3.0 (zsr)), 3e-21),
         (Seq(3.0.ysr, 3.0 ysr, 3.0 (ysr)), 3e-24),
 
-        (Seq(3.0.deg2, 3.0 deg2, 3.0 (deg2)), 3.0 * (Math.PI / 180.0) * (Math.PI / 180.0))
+        (Seq(3.0.deg2, 3.0 deg2, 3.0 (deg2)), 3.0 * Math.pow(Math.PI / 180.0, 2))
       )
-
-    forAll(conversions){ (ls: Seq[SolidAngle[Double]], expected: Double) =>
-      ls.foreach{ l =>
-        (l sr) should equal (%(expected))
+    __Exercise__
+    forAll(conversions){ (suts: Seq[SolidAngle[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut sr) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting radian unit to other units like 3.0 rad => 3.0 * (360 / 2 * PI)**2 deg" in {
-    val value = 3.0 sr
-
+    __SetUp__
+    val value = 3.0 (sr)
+    __Exercise__
     val conversions =
       Table(
-        ("solidAngle", "expected"),
+        ("solid angles", "expected"),
         (Seq(value.dasr, value dasr, value (dasr)), 3e-1),
         (Seq(value.sr, value sr, value (sr)), 3.0),
         (Seq(value.dsr, value dsr, value (dsr)), 3e1),
@@ -82,12 +84,12 @@ class SolidAngleSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.zsr, value zsr, value (zsr)), 3e21),
         (Seq(value.ysr, value ysr, value (ysr)), 3e24),
 
-        (Seq(value.deg2, value deg2, value (deg2)), 3.0 * (180.0 / Math.PI) * (180.0 / Math.PI))
+        (Seq(value.deg2, value deg2, value (deg2)), 3.0 * Math.pow(180.0 / Math.PI, 2))
       )
-
-    forAll(conversions){ (as: Seq[Double], expected: Double) =>
-      as.foreach{ a =>
-        a should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

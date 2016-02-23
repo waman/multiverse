@@ -37,33 +37,35 @@ class LuminanceSpec extends MultiverseCustomSpec with PropertyChecks{
 //  }
 
   "Tests where converting from some units to m2/s like 3.0 St => 3.0 * 10e-4 m2/s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("luminance", "expected"),
+        ("luminances", "expected"),
         (Seq(3.0.cd/m2, 3.0 cd/m2, 3.0 (cd/m2)), 3.0),
         (Seq(3.0.sb   , 3.0 sb   , 3.0 (sb))   , 3.0 * 1e4)
       )
-
-    forAll(conversions){ (ls: Seq[Luminance[Double]], expected: Double) =>
-      ls.foreach{ l =>
-        (l cd/m2) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Luminance[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut cd/m2) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting m2/s unit to other units like 3.0 m2/s => 3.0 / 1e-4 St" in {
-    val value = 3.0 cd/m2
-
+    __SetUp__
+    val value = 3.0 (cd/m2)
+    __Exercise__
     val conversions =
       Table(
-        ("luminance", "expected"),
+        ("luminances", "expected"),
         (Seq(value.cd/m2, value cd/m2, value (cd/m2)), 3.0),
         (Seq(value.sb   , value sb   , value (sb))   , 3.0 / 1e4)
       )
-
-    forAll(conversions){ (ls: Seq[Double], expected: Double) =>
-      ls.foreach{ l =>
-        l should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

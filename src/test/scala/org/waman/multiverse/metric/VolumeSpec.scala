@@ -117,9 +117,10 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to cubic metre like 3.0 km3 => 3e9 m3" in {
+    __Exercise__
     val conversions =
       Table(
-        ("volume", "expected"),
+        ("volumes", "expected"),
         (Seq(3.0.ym3, 3.0 ym3, 3.0 (ym3)), 3e-72),
         (Seq(3.0.zm3, 3.0 zm3, 3.0 (zm3)), 3e-63),
         (Seq(3.0.am3, 3.0 am3, 3.0 (am3)), 3e-54),
@@ -232,20 +233,21 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
 
         (Seq(3.0.bkt, 3.0 bkt, 3.0 (bkt)), 3.0 * 0.01818436)
       )
-
-    forAll(conversions){ (ls: Seq[Volume[Double]], expected: Double) =>
-      ls.foreach{ l =>
-        (l m3) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Volume[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut m3) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting cubic metre unit to other units like 3.0 m3 => 3.0 * 1e-6 km3" in {
-    val value = 3.0 m3
-
+    __SetUp__
+    val value = 3.0 (m3)
+    __Exercise__
     val conversions =
       Table(
-        ("volume", "expected"),
+        ("volumes", "expected"),
         (Seq(value.ym3, value ym3, value (ym3)), 3e72),
         (Seq(value.zm3, value zm3, value (zm3)), 3e63),
         (Seq(value.am3, value am3, value (am3)), 3e54),
@@ -358,10 +360,10 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
 
         (Seq(value.bkt, value bkt, value (bkt)), 3.0 / 0.01818436)
       )
-
-    forAll(conversions){ (as: Seq[Double], expected: Double) =>
-      as.foreach{ a =>
-        a should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

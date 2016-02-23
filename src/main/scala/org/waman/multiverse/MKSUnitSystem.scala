@@ -9,7 +9,7 @@ import org.waman.multiverse.magnetic.{Flux, FluxDensity, Inductance}
 import org.waman.multiverse.mass.{Density, Mass}
 import org.waman.multiverse.mechanics.{Acceleration, Force, Torque, Velocity}
 import org.waman.multiverse.metric.{Area, Length, Volume}
-import org.waman.multiverse.radiation.{AbsorbedDose, EquivalentDose, Exposure, Radioactivity}
+import org.waman.multiverse.radiation._
 import org.waman.multiverse.thermal.{Entropy, Temperature}
 import org.waman.multiverse.time.{Frequency, Time, TimeSquared}
 import spire.math.Fractional
@@ -18,50 +18,52 @@ import scala.language.{implicitConversions, postfixOps}
 
 trait MKSUnitSystem extends UnitSystem{
 
-  implicit def convertLengthToFractional            [A: Fractional](l: Length[A])             : A = l.m
-  implicit def convertAreaToFractional              [A: Fractional](a: Area[A])               : A = a.m2
-  implicit def convertVolumeToFractional            [A: Fractional](v: Volume[A])             : A = v.m3
-  implicit def convertAngleToFractional             [A: Fractional](a: Angle[A])              : A = a.rad
-  implicit def convertSolidAngleToFractional        [A: Fractional](sa: SolidAngle[A])        : A = sa.sr
-  implicit def convertMassToFractional              [A: Fractional](m: Mass[A])               : A = m.kg
-  implicit def convertDensityToFractional           [A: Fractional](d: Density[A])            : A = d.kg/m3
-  implicit def convertTimeToFractional              [A: Fractional](t: Time[A])               : A = t.s
-  implicit def convertTimeSquaredToFractional       [A: Fractional](ts: TimeSquared[A])       : A = ts.s2
-  implicit def convertFrequencyToFractional         [A: Fractional](f: Frequency[A])          : A = f.Hz
+  implicit def convertLengthToFractional            [A: Fractional](q: Length[A])            : A = q.m
+  implicit def convertAreaToFractional              [A: Fractional](q: Area[A])              : A = q.m2
+  implicit def convertVolumeToFractional            [A: Fractional](q: Volume[A])            : A = q.m3
+  implicit def convertAngleToFractional             [A: Fractional](q: Angle[A])             : A = q.rad
+  implicit def convertSolidAngleToFractional        [A: Fractional](q: SolidAngle[A])        : A = q.sr
+  implicit def convertMassToFractional              [A: Fractional](q: Mass[A])              : A = q.kg
+  implicit def convertDensityToFractional           [A: Fractional](q: Density[A])           : A = q.kg/m3
+  implicit def convertTimeToFractional              [A: Fractional](q: Time[A])              : A = q.s
+  implicit def convertTimeSquaredToFractional       [A: Fractional](q: TimeSquared[A])       : A = q.s2
+  implicit def convertFrequencyToFractional         [A: Fractional](q: Frequency[A])         : A = q.Hz
 
-  implicit def convertVelocityToFractional          [A: Fractional](v: Velocity[A])           : A = v.m/s
-  implicit def convertAngularVelocityToFractional   [A: Fractional](av: AngularVelocity[A])   : A = av.rad/s
-  implicit def convertVolumeFlowToFractional        [A: Fractional](vf: VolumeFlow[A])        : A = vf.m3/s
-  implicit def convertAccelerationToFractional      [A: Fractional](a: Acceleration[A])       : A = a.m/s2
-  implicit def convertForceToFractional             [A: Fractional](f: Force[A])              : A = f.N
-  implicit def convertPressureToFractional          [A: Fractional](p: Pressure[A])           : A = p.Pa
-  implicit def convertTorqueToFractional            [A: Fractional](t: Torque[A])             : A = t.N*m
-  implicit def convertEnergyToFractional            [A: Fractional](e: Energy[A])             : A = e.J
-  implicit def convertPowerToFractional             [A: Fractional](p: Power[A])              : A = p.W
-  implicit def convertActionToFractional            [A: Fractional](a: Action[A])             : A = a.ħ
+  implicit def convertVelocityToFractional          [A: Fractional](q: Velocity[A])          : A = q.m/s
+  implicit def convertAngularVelocityToFractional   [A: Fractional](q: AngularVelocity[A])   : A = q.rad/s
+  implicit def convertVolumeFlowToFractional        [A: Fractional](q: VolumeFlow[A])        : A = q.m3/s
+  implicit def convertAccelerationToFractional      [A: Fractional](q: Acceleration[A])      : A = q.m/s2
+  implicit def convertForceToFractional             [A: Fractional](q: Force[A])             : A = q.N
+  implicit def convertPressureToFractional          [A: Fractional](q: Pressure[A])          : A = q.Pa
+  implicit def convertTorqueToFractional            [A: Fractional](q: Torque[A])            : A = q.N*m
+  implicit def convertEnergyToFractional            [A: Fractional](q: Energy[A])            : A = q.J
+  implicit def convertPowerToFractional             [A: Fractional](q: Power[A])             : A = q.W
+  implicit def convertActionToFractional            [A: Fractional](q: Action[A])            : A = q.ħ
 
-  implicit def convertDynamicViscosityToFractional  [A: Fractional](dv: DynamicViscosity[A])  : A = dv.Pa*s
-  implicit def convertKinematicViscosityToFractional[A: Fractional](kv: KinematicViscosity[A]): A = kv.m2/s
-  implicit def convertCurrentToFractional           [A: Fractional](c: Current[A])            : A = c.A
-  implicit def convertChargeToFractional            [A: Fractional](c: Charge[A])             : A = c.C
-  implicit def convertDipoleToFractional            [A: Fractional](d: Dipole[A])             : A = d.C*m
-  implicit def convertVoltageToFractional           [A: Fractional](v: Voltage[A])            : A = v.V
-  implicit def convertResistanceToFractional        [A: Fractional](r: Resistance[A])         : A = r.Ω
-  implicit def convertCapacitanceToFractional       [A: Fractional](c: Capacitance[A])        : A = c.F
-  implicit def convertFluxToFractional              [A: Fractional](f: Flux[A])               : A = f.Wb
-  implicit def convertFluxDensityToFractional       [A: Fractional](fd: FluxDensity[A])       : A = fd.T
+  implicit def convertDynamicViscosityToFractional  [A: Fractional](q: DynamicViscosity[A])  : A = q.Pa*s
+  implicit def convertKinematicViscosityToFractional[A: Fractional](q: KinematicViscosity[A]): A = q.m2/s
+  implicit def convertCurrentToFractional           [A: Fractional](q: Current[A])           : A = q.A
+  implicit def convertChargeToFractional            [A: Fractional](q: Charge[A])            : A = q.C
+  implicit def convertDipoleToFractional            [A: Fractional](q: Dipole[A])            : A = q.C*m
+  implicit def convertVoltageToFractional           [A: Fractional](q: Voltage[A])           : A = q.V
+  implicit def convertResistanceToFractional        [A: Fractional](q: Resistance[A])        : A = q.Ω
+  implicit def convertCapacitanceToFractional       [A: Fractional](q: Capacitance[A])       : A = q.F
+  implicit def convertFluxToFractional              [A: Fractional](q: Flux[A])              : A = q.Wb
+  implicit def convertFluxDensityToFractional       [A: Fractional](q: FluxDensity[A])       : A = q.T
 
-  implicit def convertInductanceToFractional        [A: Fractional](i: Inductance[A])         : A = i.H
-  implicit def convertTemperatureToFractional       [A: Fractional](t: Temperature[A])        : A = t.K
-  implicit def convertEntropyToFractional           [A: Fractional](e: Entropy[A])            : A = e.J/K
-  implicit def convertLuminousIntensityToFractional [A: Fractional](li: LuminousIntensity[A]) : A = li.cd
-  implicit def convertLuminanceToFractional         [A: Fractional](l: Luminance[A])          : A = l.cd/m2
-  implicit def convertLuminousFluxToFractional      [A: Fractional](lf: LuminousFlux[A])      : A = lf.lm
-  implicit def convertIlluminanceToFractional       [A: Fractional](i: Illuminance[A])        : A = i.lx
-  implicit def convertRadioactivityToFractional     [A: Fractional](ra: Radioactivity[A])     : A = ra.Bq
-  implicit def convertExposureToFractional          [A: Fractional](e: Exposure[A])           : A = e.C/kg
-  implicit def convertAbsorbedDoseToFractional      [A: Fractional](ad: AbsorbedDose[A])      : A = ad.Gy
-  implicit def convertEquivalentDoseToFractional    [A: Fractional](ed: EquivalentDose[A])    : A = ed.Sv
+  implicit def convertInductanceToFractional        [A: Fractional](q: Inductance[A])        : A = q.H
+  implicit def convertTemperatureToFractional       [A: Fractional](q: Temperature[A])       : A = q.K
+  implicit def convertEntropyToFractional           [A: Fractional](q: Entropy[A])           : A = q.J/K
+  implicit def convertLuminousIntensityToFractional [A: Fractional](q: LuminousIntensity[A]) : A = q.cd
+  implicit def convertLuminanceToFractional         [A: Fractional](q: Luminance[A])         : A = q.cd/m2
+  implicit def convertLuminousFluxToFractional      [A: Fractional](q: LuminousFlux[A])      : A = q.lm
+  implicit def convertIlluminanceToFractional       [A: Fractional](q: Illuminance[A])       : A = q.lx
+  implicit def convertRadioactivityToFractional     [A: Fractional](q: Radioactivity[A])     : A = q.Bq
+  implicit def convertExposureToFractional          [A: Fractional](q: Exposure[A])          : A = q.C/kg
+  implicit def convertAbsorbedDoseToFractional      [A: Fractional](q: AbsorbedDose[A])      : A = q.Gy
+
+  implicit def convertEquivalentDoseToFractional    [A: Fractional](q: EquivalentDose[A])    : A = q.Sv
+  implicit def convertEquivalentDoseRateToFractional[A: Fractional](q: EquivalentDoseRate[A]): A = q.Sv/s
 }
 
 object MKSUnitSystem extends MKSUnitSystem

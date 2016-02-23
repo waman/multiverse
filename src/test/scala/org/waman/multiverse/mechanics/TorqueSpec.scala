@@ -39,31 +39,33 @@ class TorqueSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to m/s like 3.0  => 3000.0 N*m" in {
+    __Exercise__
     val conversions =
       Table(
-        ("torque", "expected"),
+        ("torques", "expected"),
         (Seq(3.0.N*m, 3.0 N*m, 3.0 (N*m)), 3.0)
       )
-
-    forAll(conversions){ (ts: Seq[Torque[Double]], expected: Double) =>
-      ts.foreach{ t =>
-        (t N*m) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Torque[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut N*m) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a torque unit to other units like 3.0 N*m => 3e-3 " in {
-    val value = 3.0 N*m
-
+    __SetUp__
+    val value = 3.0 (N*m)
+    __Exercise__
     val conversions =
       Table(
-        ("torque", "expected"),
+        ("torques", "expected"),
         (Seq(value.N*m, value N*m, value (N*m)), 3.0)
       )
-
-    forAll(conversions){ (ts: Seq[Double], expected: Double) =>
-      ts.foreach{ t =>
-        t should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

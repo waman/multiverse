@@ -37,7 +37,8 @@ sealed trait DensityUnit extends PhysicalUnit[DensityUnit]{
 object DensityUnit{
 
   // Quotient (Mass / Volume)
-  private class QuotientDensityUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
+  private[DensityUnit]
+  class QuotientDensityUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
     extends DensityUnit with QuotientUnit[DensityUnit, MassUnit, VolumeUnit]{
 
     override lazy val unitInKiloGramPerCubicMetre: Real =

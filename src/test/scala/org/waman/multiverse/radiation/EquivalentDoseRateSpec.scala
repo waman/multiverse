@@ -41,7 +41,7 @@ class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
     __Exercise__
     val conversions =
       Table(
-        ("equivalent dose rate", "expected"),
+        ("equivalent dose rates", "expected"),
         (Seq(3.0.Sv/s, 3.0 Sv/s, 3.0 (Sv/s)), 3.0)
       )
     __Verify__
@@ -58,7 +58,7 @@ class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
     __Exercise__
     val conversions =
       Table(
-        ("equivalent dose rate", "expected"),
+        ("equivalent dose rates", "expected"),
         (Seq(value.Sv/s, value Sv/s, value (Sv/s)), 3.0)
       )
     __Verify__

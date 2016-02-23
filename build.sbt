@@ -17,7 +17,7 @@ encoding := "UTF-8"
 
 libraryDependencies ++= Seq(
   "org.spire-math" % "spire_2.11" % "0.8.2",
-  "org.waman" % "scalatest-util" % "0.1" % "test",
+  "org.waman" % "scalatest-util" % "0.2" % "test",
   "org.scalacheck" % "scalacheck_2.11" % "1.12.5" % "test"
 )
 

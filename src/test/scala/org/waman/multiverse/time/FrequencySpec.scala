@@ -43,23 +43,23 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Frequency object should be converted to a frequency by toFrequency method" in {
-
     val conversions =
       Table(
         ("frequency", "expected"),
         (3.0 Hz, 3.0 * 2.0 * Math.PI),
         (3.0 GHz, 3.0 * 1e9 * 2.0 * Math.PI)
       )
-
+    __Verify__
     forAll(conversions){ (f: Frequency[Double], expected: Double) =>
       f.toAngularVelocity.rad/s should equal (%(expected))
     }
   }
 
   "Tests where converting from some units to rad/s like 3.0 deg/s => 3.0 * 2 PI / 360 rad/s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("frequency", "expected"),
+        ("frequencies", "expected"),
         (Seq(3.0.yHz, 3.0 yHz, 3.0 (yHz)), 3e-24),
         (Seq(3.0.zHz, 3.0 zHz, 3.0 (zHz)), 3e-21),
         (Seq(3.0.aHz, 3.0 aHz, 3.0 (aHz)), 3e-18),
@@ -82,20 +82,21 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.ZHz, 3.0 ZHz, 3.0 (ZHz)), 3e21),
         (Seq(3.0.YHz, 3.0 YHz, 3.0 (YHz)), 3e24)
       )
-
-    forAll(conversions){ (fs: Seq[Frequency[Double]], expected: Double) =>
-      fs.foreach{ f =>
-        (f Hz) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Frequency[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut Hz) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting metre unit to other units like 3.0 rad/s => 3.0 * 180.0 / PI deg/s" in {
-    val value = 3.0 Hz
-
+    __SetUp__
+    val value = 3.0 (Hz)
+    __Exercise__
     val conversions =
       Table(
-        ("frequency", "expected"),
+        ("frequencies", "expected"),
         (Seq(value.yHz, value yHz, value(yHz)), 3e24),
         (Seq(value.zHz, value zHz, value(zHz)), 3e21),
         (Seq(value.aHz, value aHz, value(aHz)), 3e18),
@@ -118,10 +119,10 @@ class FrequencySpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.ZHz, value ZHz, value(ZHz)), 3e-21),
         (Seq(value.YHz, value YHz, value(YHz)), 3e-24)
       )
-
-    forAll(conversions) { (as: Seq[Double], expected: Double) =>
-      as.foreach { a =>
-        a should equal(%(expected))
+    __Verify__
+    forAll(conversions) { (suts: Seq[Double], expected: Double) =>
+      suts.foreach { sut =>
+        sut should equal(%%%%(expected))
       }
     }
   }

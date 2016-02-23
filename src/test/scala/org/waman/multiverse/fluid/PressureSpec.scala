@@ -38,31 +38,33 @@ class PressureSpec extends MultiverseCustomSpec with PropertyChecks{
 //  }
 
   "Tests where converting from some units to m3/s like 3.0 LPM (litre per minute) => 3.0 * 1e-3 / 60.0 m3/s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("pressure", "expected"),
+        ("pressures", "expected"),
         (Seq(3.0.Pa, 3.0 Pa, 3.0 (Pa)), 3.0)
       )
-
-    forAll(conversions){ (ps: Seq[Pressure[Double]], expected: Double) =>
-      ps.foreach{ p =>
-        (p Pa) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Pressure[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut Pa) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
-    val value = 3.0 Pa
-
+    __SetUp__
+    val value = 3.0 (Pa)
+    __Exercise__
     val conversions =
       Table(
-        ("pressure", "expected"),
+        ("pressures", "expected"),
         (Seq(value.Pa, value Pa, value (Pa)), 3.0)
       )
-
-    forAll(conversions){ (ps: Seq[Double], expected: Double) =>
-      ps.foreach{ p =>
-        p should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

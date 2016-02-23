@@ -16,10 +16,15 @@ object Context{
   case object Mo_KAlpha1 extends Context("MoKα1")
 
   lazy val values: Seq[Context] = Seq(
-    UnitedStates, UnitedStates_Fluid, UnitedStates_Dry, UnitedStates_Dry_Level,
-    Imperial, Admiralty,
+    UnitedStates,
+    UnitedStates_Fluid,
+    UnitedStates_Dry,
+    UnitedStates_Dry_Level,
+    Imperial,
+    Admiralty,
 
-    Cu_KAlpha1, Mo_KAlpha1
+    Cu_KAlpha1,
+    Mo_KAlpha1
   )
 }
 

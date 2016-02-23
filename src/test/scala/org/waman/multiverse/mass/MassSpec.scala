@@ -44,9 +44,10 @@ class MassSpec extends MultiverseCustomSpec with PropertyChecks{
     }
 
   "Tests where converting from some units to kg like 3.0 g => 3e-3 kg" in {
+    __Exercise__
     val conversions =
       Table(
-        ("mass", "expected"),
+        ("masses", "expected"),
         (Seq(3.0.yg, 3.0 yg, 3.0 (yg)), 3e-27),
         (Seq(3.0.zg, 3.0 zg, 3.0 (zg)), 3e-24),
         (Seq(3.0.ag, 3.0 ag, 3.0 (ag)), 3e-21),
@@ -69,20 +70,21 @@ class MassSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.Zg, 3.0 Zg, 3.0 (Zg)), 3e18),
         (Seq(3.0.Yg, 3.0 Yg, 3.0 (Yg)), 3e21)
       )
-
-    forAll(conversions){ (ds: Seq[Mass[Double]], expected: Double) =>
-      ds.foreach{ d =>
-        (d kg) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Mass[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut kg) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting a mass unit to other units like 3.0 kg => 3e3 g" in {
-    val value = 3.0 kg
-
+    __SetUp__
+    val value = 3.0 (kg)
+    __Exercise__
     val conversions =
       Table(
-        ("mass", "expected"),
+        ("masses", "expected"),
         (Seq(value.yg, value yg, value (yg)), 3e27),
         (Seq(value.zg, value zg, value (zg)), 3e24),
         (Seq(value.ag, value ag, value (ag)), 3e21),
@@ -105,10 +107,10 @@ class MassSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.Zg, value Zg, value (Zg)), 3e-18),
         (Seq(value.Yg, value Yg, value (Yg)), 3e-21)
       )
-
-    forAll(conversions){ (ms: Seq[Double], expected: Double) =>
-      ms.foreach{ m =>
-        m should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

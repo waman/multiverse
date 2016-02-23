@@ -38,33 +38,35 @@ class KinematicViscositySpec extends MultiverseCustomSpec with PropertyChecks{
 //  }
 
   "Tests where converting from some units to m2/s like 3.0 St => 3.0 * 10e-4 m2/s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("kinematicViscosity", "expected"),
+        ("kinematic viscosities", "expected"),
         (Seq(3.0.m2/s, 3.0 m2/s, 3.0 (m2/s)), 3.0),
         (Seq(3.0.St  , 3.0 St  , 3.0 (St))  , 3.0 * 1e-4)
       )
-
-    forAll(conversions){ (kvs: Seq[KinematicViscosity[Double]], expected: Double) =>
-      kvs.foreach{ kv =>
-        (kv m2/s) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[KinematicViscosity[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut m2/s) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting m2/s unit to other units like 3.0 m2/s => 3.0 / 1e-4 St" in {
-    val value = 3.0 m2/s
-
+    __SetUp__
+    val value = 3.0 (m2/s)
+    __Exercise__
     val conversions =
       Table(
-        ("kinematicViscosity", "expected"),
+        ("kinematic viscosities", "expected"),
         (Seq(value.m2/s, value m2/s, value (m2/s)), 3.0),
         (Seq(value.St  , value St  , value (St))  , 3.0 / 1e-4)
       )
-
-    forAll(conversions){ (kvs: Seq[Double], expected: Double) =>
-      kvs.foreach{ kv =>
-        kv should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

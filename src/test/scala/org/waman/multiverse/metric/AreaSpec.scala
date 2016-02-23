@@ -12,6 +12,8 @@ import scala.language.postfixOps
   */
 class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
 
+  val usFoot = 1200.0 / 3937.0
+
   "UnitSystem#getSupportedUnits method should return supported units of area" in {
     __SetUp__
     import AreaUnit._
@@ -87,10 +89,12 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to square metre like 3.0 km2 => 3e6 m2" in {
+    __SetUp__
     import UnitSystem.{a => are}
+    __Exercise__
     val conversions =
       Table(
-        ("area", "expected"),
+        ("areas", "expected"),
         (Seq(3.0.ym2, 3.0 ym2, 3.0 (ym2)), 3e-48),
         (Seq(3.0.zm2, 3.0 zm2, 3.0 (zm2)), 3e-42),
         (Seq(3.0.am2, 3.0 am2, 3.0 (am2)), 3e-36),
@@ -145,32 +149,33 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.ac, 3.0 ac, 3.0 (ac)), 3.0 * 4046.8564224),
         (Seq(3.0.ro, 3.0 ro, 3.0 (ro)), 3.0 * 1011.7141056),
 
-        (Seq(3.0.sq_lnk(US), 3.0 sq_lnk(US), 3.0 (sq_lnk(US))), 3.0 * 4.046872e-2),
-        (Seq(3.0.sq_ft(US) , 3.0 sq_ft(US) , 3.0 (sq_ft(US))) , 3.0 * 9.2903411613275e-2),
-        (Seq(3.0.sq_ch(US) , 3.0 sq_ch(US) , 3.0 (sq_ch(US))) , 3.0 * 404.6873),
-        (Seq(3.0.sq_mi(US) , 3.0 sq_mi(US) , 3.0 (sq_mi(US))) , 3.0 * 2.58999847e6),
-        (Seq(3.0.ac(US), 3.0 ac(US), 3.0 (ac(US))), 3.0 * 4046.873),
+        (Seq(3.0.sq_lnk(US), 3.0 sq_lnk(US), 3.0 (sq_lnk(US))), 3.0 * Math.pow(0.66 * usFoot, 2)),
+        (Seq(3.0.sq_ft(US) , 3.0 sq_ft(US) , 3.0 (sq_ft(US))) , 3.0 * Math.pow(usFoot, 2)),
+        (Seq(3.0.sq_ch(US) , 3.0 sq_ch(US) , 3.0 (sq_ch(US))) , 3.0 * Math.pow(66 * usFoot, 2)),
+        (Seq(3.0.sq_mi(US) , 3.0 sq_mi(US) , 3.0 (sq_mi(US))) , 3.0 * Math.pow(5280 * usFoot, 2)),
+        (Seq(3.0.ac(US), 3.0 ac(US), 3.0 (ac(US))), 3.0 * 10.0 * Math.pow(66 * usFoot, 2)),
 
-        (Seq(3.0.circ_mil, 3.0 circ_mil, 3.0 (circ_mil)), 3.0 * 5.067075e-10),
-        (Seq(3.0.circ_in , 3.0 circ_in , 3.0 (circ_in)) , 3.0 * 5.067075e-4),
+        (Seq(3.0.circ_mil, 3.0 circ_mil, 3.0 (circ_mil)), 3.0 * Math.PI * Math.pow(2.54e-5, 2) / 4.0),
+        (Seq(3.0.circ_in , 3.0 circ_in , 3.0 (circ_in)) , 3.0 * Math.PI * Math.pow(0.0254, 2) / 4.0),
 
         (Seq(3.0.bd, 3.0 bd, 3.0 (bd)), 3.0 * 7.74192e-3)
       )
-
-    forAll(conversions){ (ls: Seq[Area[Double]], expected: Double) =>
-      ls.foreach{ l =>
-        (l m2) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Area[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut m2) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting square metre unit to other units like 3.0 m2 => 3.0 * 1e-6 km2" in {
+    __SetUp__
     import UnitSystem.{a => are}
-    val value = 3.0 m2
-
+    val value = 3.0 (m2)
+    __Exercise__
     val conversions =
       Table(
-        ("area", "expected"),
+        ("areas", "expected"),
         (Seq(value.ym2, value ym2, value (ym2)), 3e48),
         (Seq(value.zm2, value zm2, value (zm2)), 3e42),
         (Seq(value.am2, value am2, value (am2)), 3e36),
@@ -225,21 +230,21 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.ac, value ac, value (ac)), 3.0 / 4046.8564224),
         (Seq(value.ro, value ro, value (ro)), 3.0 / 1011.7141056),
 
-        (Seq(value.sq_lnk(US), value sq_lnk(US), value (sq_lnk(US))), 3.0 / 4.046872e-2),
-        (Seq(value.sq_ft(US) , value sq_ft(US) , value (sq_ft(US))) , 3.0 / 9.2903411613275e-2),
-        (Seq(value.sq_ch(US) , value sq_ch(US) , value (sq_ch(US))) , 3.0 / 404.6873),
-        (Seq(value.sq_mi(US) , value sq_mi(US) , value (sq_mi(US))) , 3.0 / 2.58999847e6),
-        (Seq(value.ac(US), value ac(US), value (ac(US))), 3.0 / 4046.873),
+        (Seq(value.sq_lnk(US), value sq_lnk(US), value (sq_lnk(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
+        (Seq(value.sq_ft(US) , value sq_ft(US) , value (sq_ft(US))) , 3.0 / Math.pow(usFoot, 2)),
+        (Seq(value.sq_ch(US) , value sq_ch(US) , value (sq_ch(US))) , 3.0 / Math.pow(66 * usFoot, 2)),
+        (Seq(value.sq_mi(US) , value sq_mi(US) , value (sq_mi(US))) , 3.0 / Math.pow(5280 * usFoot, 2)),
+        (Seq(value.ac(US), value ac(US), value (ac(US))), 3.0 /(10.0 * Math.pow(66 * usFoot, 2))),
 
-        (Seq(value.circ_mil, value circ_mil, value (circ_mil)), 3.0 / 5.067075e-10),
-        (Seq(value.circ_in , value circ_in , value (circ_in)) , 3.0 / 5.067075e-4),
+        (Seq(value.circ_mil, value circ_mil, value (circ_mil)), 3.0 * 4.0 / (Math.PI * Math.pow(2.54e-5, 2))),
+        (Seq(value.circ_in , value circ_in , value (circ_in)) , 3.0 * 4.0 / (Math.PI * Math.pow(0.0254, 2))),
 
         (Seq(value.bd, value bd, value (bd)), 3.0 / 7.74192e-3)
       )
-
-    forAll(conversions){ (as: Seq[Double], expected: Double) =>
-      as.foreach{ a =>
-        a should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

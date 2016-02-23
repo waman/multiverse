@@ -38,33 +38,35 @@ class DynamicViscositySpec extends MultiverseCustomSpec with PropertyChecks{
 //  }
 
   "Tests where converting from some units to Pa*s like 3.0 P => 3.0 * 0.1 Pa*s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("dynamicViscosity", "expected"),
+        ("dynamic viscosities", "expected"),
         (Seq(3.0.Pa*s, 3.0 Pa*s, 3.0 (Pa*s)), 3.0),
         (Seq(3.0.P , 3.0 P , 3.0 (P)) , 3.0 * 0.1)
       )
-
-    forAll(conversions){ (dvs: Seq[DynamicViscosity[Double]], expected: Double) =>
-      dvs.foreach{ dv =>
-        (dv Pa*s) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[DynamicViscosity[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut Pa*s) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting Pa*s unit to other units like 3.0 Pa*s => 3.0 / 0.1 P" in {
-    val value = 3.0 Pa*s
-
+    __SetUp__
+    val value = 3.0 (Pa*s)
+    __Exercise__
     val conversions =
       Table(
-        ("dynamicViscosity", "expected"),
+        ("dynamic viscosities", "expected"),
         (Seq(value.Pa*s, value Pa*s, value (Pa*s)), 3.0),
         (Seq(value.P   , value P   , value (P))   , 3.0 / 0.1)
       )
-
-    forAll(conversions){ (dvs: Seq[Double], expected: Double) =>
-      dvs.foreach{ dv =>
-        dv should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

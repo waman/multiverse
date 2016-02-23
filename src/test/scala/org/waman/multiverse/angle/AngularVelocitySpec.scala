@@ -42,52 +42,55 @@ class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "AngularVelocity object should be converted to a frequency by toFrequency method" in {
+    __Exercise__
     val conversions =
       Table(
-        ("angularVelocity", "expected"),
+        ("angular velocities", "expected"),
         (3.0 rad/s, 3.0 / (2.0 * Math.PI)),
         (3.0 rpm, 3.0 / 60.0)
       )
-
+    __Verify__
     forAll(conversions){ (av: AngularVelocity[Double], expected: Double) =>
-      av.toFrequency.Hz should equal (%(expected))
+      av.toFrequency.Hz should equal (%%%%(expected))
     }
   }
 
   "Tests where converting from some units to rad/s like 3.0 deg/s => 3.0 * 2 PI / 360 rad/s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("angularVelocity", "expected"),
-        (Seq(3.0.rad/s  , 3.0 rad/s     , 3.0 (rad/s))  , 3.0),
-        (Seq(3.0.deg/s  , 3.0 deg/s     , 3.0 (deg/s))  , 3.0 * Math.PI / 180.0),
-        (Seq(3.0.rpm    , 3.0 rpm       , 3.0 (rpm))    , 3.0 * 2.0 * Math.PI / 60.0),
-        (Seq(3.0.cps    , 3.0 cps       , 3.0 (cps))    , 3.0 * 2.0 * Math.PI),
-        (Seq(3.0.deg/minute, 3.0 deg/minute, 3.0 (deg/minute)), 3.0 * Math.PI / 180.0 / 60.0)
+        ("angular velocities", "expected"),
+        (Seq(3.0.rad/s, 3.0 rad/s, 3.0 (rad/s)), 3.0),
+        (Seq(3.0.deg/s, 3.0 deg/s, 3.0 (deg/s)), 3.0 * Math.PI / 180.0),
+        (Seq(3.0.rpm  , 3.0 rpm  , 3.0 (rpm))  , 3.0 * 2.0 * Math.PI / 60.0),
+        (Seq(3.0.cps  , 3.0 cps  , 3.0 (cps))  , 3.0 * 2.0 * Math.PI),
+        (Seq(3.0.deg/minute, 3.0 deg/minute, 3.0 (deg/minute)), 3.0 * Math.PI / (180.0 * 60.0))
       )
-
-    forAll(conversions){ (avs: Seq[AngularVelocity[Double]], expected: Double) =>
-      avs.foreach{ av =>
-        (av rad/s) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[AngularVelocity[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut rad/s) should equal (%(expected))
       }
     }
   }
 
   "Tests where converting metre unit to other units like 3.0 rad/s => 3.0 * 180.0 / PI deg/s" in {
-    val value = 3.0 rad/s
-
+    __SetUp__
+    val value = 3.0 (rad/s)
+    __Exercise__
     val conversions =
       Table(
-        ("angularVelocity", "expected"),
-        (Seq(value.rad/s  , value rad/s     , value (rad/s))  , 3.0),
-        (Seq(value.deg/s  , value deg/s     , value (deg/s))  , 3.0 * 180.0 / Math.PI),
-        (Seq(value.rpm    , value rpm       , value (rpm))    , 3.0 * 60.0 / (2.0 * Math.PI) ),
-        (Seq(value.cps    , value cps       , value (cps))    , 3.0 / (2.0 * Math.PI)),
+        ("angular velocity", "expected"),
+        (Seq(value.rad/s, value rad/s, value (rad/s)), 3.0),
+        (Seq(value.deg/s, value deg/s, value (deg/s)), 3.0 * 180.0 / Math.PI),
+        (Seq(value.rpm  , value rpm  , value (rpm))  , 3.0 * 60.0 / (2.0 * Math.PI) ),
+        (Seq(value.cps  , value cps  , value (cps))  , 3.0 / (2.0 * Math.PI)),
         (Seq(value.deg/minute, value deg/minute, value (deg/minute)), 3.0 * 180.0 * 60.0 / Math.PI)
       )
-
-    forAll(conversions){ (as: Seq[Double], expected: Double) =>
-      as.foreach{ a =>
-        a should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

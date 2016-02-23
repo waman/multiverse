@@ -12,6 +12,8 @@ import scala.language.postfixOps
   */
 class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
 
+  val degree = Math.PI / 180.0
+
   "UnitSystem#getSupportedUnits method should return supported units of angle" in {
     __SetUp__
     import AngleUnit._
@@ -49,9 +51,10 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to radian like 3.0 deg => 3.0 * 2 PI / 360 rad" in {
+    __Exercise__
     val conversions =
       Table(
-        ("angle", "expected"),
+        ("angles", "expected"),
         (Seq(3.0.rad, 3.0 rad, 3.0 (rad)), 3.0),
         (Seq(3.0.drad, 3.0 drad, 3.0 (drad)), 3e-1),
         (Seq(3.0.crad, 3.0 crad, 3.0 (crad)), 3e-2),
@@ -64,38 +67,39 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.zrad, 3.0 zrad, 3.0 (zrad)), 3e-21),
         (Seq(3.0.yrad, 3.0 yrad, 3.0 (yrad)), 3e-24),
 
-        (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * Math.PI / 180.0),
-        (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * Math.PI / 180.0),
-        (Seq(3.0.arcmin, 3.0 arcmin, 3.0 (arcmin)), 3.0 * 0.290888e-3),
-        (Seq(3.0.MOA   , 3.0 MOA   , 3.0 (MOA))   , 3.0 * 0.290888e-3),
-        (Seq(3.0.arcsec, 3.0 arcsec, 3.0 (arcsec)), 3.0 * 4.848137e-6),
-        (Seq(3.0.mas, 3.0 mas, 3.0 (mas)), 3.0 * 4.848137e-9),
-        (Seq(3.0.μas, 3.0 μas, 3.0 (μas)), 3.0 * 4.848137e-12),
-        (Seq(3.0.nas, 3.0 nas, 3.0 (nas)), 3.0 * 4.848137e-15),
-        (Seq(3.0.pas, 3.0 pas, 3.0 (pas)), 3.0 * 4.848137e-18),
-        (Seq(3.0.fas, 3.0 fas, 3.0 (fas)), 3.0 * 4.848137e-21),
-        (Seq(3.0.aas, 3.0 aas, 3.0 (aas)), 3.0 * 4.848137e-24),
-        (Seq(3.0.zas, 3.0 zas, 3.0 (zas)), 3.0 * 4.848137e-27),
-        (Seq(3.0.yas, 3.0 yas, 3.0 (yas)), 3.0 * 4.848137e-30),
+        (Seq(3.0.deg, 3.0 deg, 3.0 (deg)), 3.0 * degree),
+        (Seq(3.0.°  , 3.0 °  , 3.0 (°))  , 3.0 * degree),
+        (Seq(3.0.arcmin, 3.0 arcmin, 3.0 (arcmin)), 3.0 * degree / 60.0),
+        (Seq(3.0.MOA   , 3.0 MOA   , 3.0 (MOA))   , 3.0 * degree / 60.0),
+        (Seq(3.0.arcsec, 3.0 arcsec, 3.0 (arcsec)), 3.0 * degree / 3600.0),
+        (Seq(3.0.mas, 3.0 mas, 3.0 (mas)), 3.0 * degree / 3600e3),
+        (Seq(3.0.μas, 3.0 μas, 3.0 (μas)), 3.0 * degree / 3600e6),
+        (Seq(3.0.nas, 3.0 nas, 3.0 (nas)), 3.0 * degree / 3600e9),
+        (Seq(3.0.pas, 3.0 pas, 3.0 (pas)), 3.0 * degree / 3600e12),
+        (Seq(3.0.fas, 3.0 fas, 3.0 (fas)), 3.0 * degree / 3600e15),
+        (Seq(3.0.aas, 3.0 aas, 3.0 (aas)), 3.0 * degree / 3600e18),
+        (Seq(3.0.zas, 3.0 zas, 3.0 (zas)), 3.0 * degree / 3600e21),
+        (Seq(3.0.yas, 3.0 yas, 3.0 (yas)), 3.0 * degree / 3600e24),
 
         (Seq(3.0.gon, 3.0 gon, 3.0 (gon)), 3.0 * 2.0 * Math.PI / 400.0),
         (Seq(3.0.ᵍ  , 3.0 ᵍ  , 3.0 (ᵍ))   , 3.0 * 2.0 * Math.PI / 400.0),
         (Seq(3.0.tr , 3.0 tr , 3.0 (tr)) , 3.0 * 2.0 * Math.PI)
       )
-
-    forAll(conversions){ (ls: Seq[Angle[Double]], expected: Double) =>
-      ls.foreach{ l =>
-        (l rad) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Angle[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut rad) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting radian unit to other units like 3.0 rad => 3.0 * 360 / 2 * PI deg" in {
-    val value = 3.0 rad
-
+    __SetUp__
+    val value = 3.0 (rad)
+    __Exercise__
     val conversions =
       Table(
-        ("angle", "expected"),
+        ("angles", "expected"),
         (Seq(value.rad, value rad, value (rad)), 3.0),
         (Seq(value.drad, value drad, value (drad)), 3e1),
         (Seq(value.crad, value crad, value (crad)), 3e2),
@@ -108,28 +112,28 @@ class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.zrad, value zrad, value (zrad)), 3e21),
         (Seq(value.yrad, value yrad, value (yrad)), 3e24),
 
-        (Seq(value.deg, value deg, value (deg)), 3.0 * 180.0 / Math.PI),
-        (Seq(value.°  , value °  , value (°))  , 3.0 * 180.0 / Math.PI),
-        (Seq(value.arcmin, value arcmin, value (arcmin)), 3.0 / 0.290888e-3),
-        (Seq(value.MOA   , value MOA   , value (MOA))   , 3.0 / 0.290888e-3),
-        (Seq(value.arcsec, value arcsec, value (arcsec)), 3.0 / 4.848137e-6),
-        (Seq(value.mas, value mas, value (mas)), 3.0 / 4.848137e-9),
-        (Seq(value.μas, value μas, value (μas)), 3.0 / 4.848137e-12),
-        (Seq(value.nas, value nas, value (nas)), 3.0 / 4.848137e-15),
-        (Seq(value.pas, value pas, value (pas)), 3.0 / 4.848137e-18),
-        (Seq(value.fas, value fas, value (fas)), 3.0 / 4.848137e-21),
-        (Seq(value.aas, value aas, value (aas)), 3.0 / 4.848137e-24),
-        (Seq(value.zas, value zas, value (zas)), 3.0 / 4.848137e-27),
-        (Seq(value.yas, value yas, value (yas)), 3.0 / 4.848137e-30),
+        (Seq(value.deg, value deg, value (deg)), 3.0 / degree),
+        (Seq(value.°  , value °  , value (°))  , 3.0 / degree),
+        (Seq(value.arcmin, value arcmin, value (arcmin)), 3.0 * 60.0 / degree),
+        (Seq(value.MOA   , value MOA   , value (MOA))   , 3.0 * 60.0 / degree),
+        (Seq(value.arcsec, value arcsec, value (arcsec)), 3.0 * 3600.0 / degree),
+        (Seq(value.mas, value mas, value (mas)), 3.0 * 3600e3 / degree),
+        (Seq(value.μas, value μas, value (μas)), 3.0 * 3600e6 / degree),
+        (Seq(value.nas, value nas, value (nas)), 3.0 * 3600e9 / degree),
+        (Seq(value.pas, value pas, value (pas)), 3.0 * 3600e12 / degree),
+        (Seq(value.fas, value fas, value (fas)), 3.0 * 3600e15 / degree),
+        (Seq(value.aas, value aas, value (aas)), 3.0 * 3600e18 / degree),
+        (Seq(value.zas, value zas, value (zas)), 3.0 * 3600e21 / degree),
+        (Seq(value.yas, value yas, value (yas)), 3.0 * 3600e24 / degree),
 
         (Seq(value.gon, value gon, value (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
         (Seq(value.ᵍ  , value ᵍ   , value (ᵍ))  , 3.0 * 400.0 / (2.0 * Math.PI)),
         (Seq(value.tr , value tr , value (tr)) , 3.0 / (2.0 * Math.PI))
       )
-
-    forAll(conversions){ (as: Seq[Double], expected: Double) =>
-      as.foreach{ a =>
-        a should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }

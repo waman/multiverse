@@ -79,6 +79,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
 
       Link_US_Survey,
       Foot_US_Survey,
+      Chain_US_Survey,
       Mile_US_Survey,
 
       MetricFoot,
@@ -91,9 +92,10 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to Metre like 3.0 mm => 0.003 m" in {
+    __Exercise__
     val conversions =
       Table(
-        ("length", "expected"),
+        ("lengths", "expected"),
         (Seq(3.0.ym, 3.0 ym, 3.0 (ym)), 3e-24),
         (Seq(3.0.zm, 3.0 zm, 3.0 (zm)), 3e-21),
         (Seq(3.0.am, 3.0 am, 3.0 (am)), 3e-18),
@@ -121,8 +123,8 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.Å , 3.0 Å , 3.0 (Å)) , 3.0 * 1e-10),
         (Seq(3.0.a0, 3.0 a0, 3.0 (a0)), 3.0 * 5.2917721092e-11),
         (Seq(3.0.xu, 3.0 xu, 3.0 (xu)), 3.0 * 1.0021e-13),
-        (Seq(3.0.xu(CuKα1), 3.0 xu(CuKα1), 3.0 (xu(CuKα1))), 3.0 * 1.0021e-13),
-        (Seq(3.0.xu(MoKα1), 3.0 xu(MoKα1), 3.0 (xu(MoKα1))), 3.0 * 1.0021e-13),
+        (Seq(3.0.xu(CuKα1), 3.0 xu(CuKα1), 3.0 (xu(CuKα1))), 3.0 * 1.0020769928e-13),
+        (Seq(3.0.xu(MoKα1), 3.0 xu(MoKα1), 3.0 (xu(MoKα1))), 3.0 * 1.0020995553e-13),
         (Seq(3.0.lp, 3.0 lp, 3.0 (lp)), 3.0 * 1.61624e-35),
 
         // astronomy
@@ -131,11 +133,11 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.pc, 3.0 pc, 3.0 (pc)), 3.0 * 3.08567782e16),
 
         // yard-pond
-        (Seq(3.0.mil , 3.0 mil , 3.0 (mil)) , 3.0 * 2.543e-5),
-        (Seq(3.0.thou, 3.0 thou, 3.0 (thou)), 3.0 * 2.543e-5),
-        (Seq(3.0.twp , 3.0 twp , 3.0 (twp)) , 3.0 * 1.7639e-5),
-        (Seq(3.0.pt  , 3.0 pt  , 3.0 (pt))  , 3.0 * 0.352778e-3),
-        (Seq(3.0.ln  , 3.0 ln  , 3.0 (ln))  , 3.0 * 0.002116),
+        (Seq(3.0.mil , 3.0 mil , 3.0 (mil)) , 3.0 * 2.54e-5),
+        (Seq(3.0.thou, 3.0 thou, 3.0 (thou)), 3.0 * 2.54e-5),
+        (Seq(3.0.twp , 3.0 twp , 3.0 (twp)) , 3.0 * 1.76388888889e-5),
+        (Seq(3.0.pt  , 3.0 pt  , 3.0 (pt))  , 3.0 * 0.35277777778e-3),
+        (Seq(3.0.ln  , 3.0 ln  , 3.0 (ln))  , 3.0 * 0.00211666667),
         (Seq(3.0.in  , 3.0 in  , 3.0 (in))  , 3.0 * 0.0254),
         (Seq(3.0.li  , 3.0 li  , 3.0 (li))  , 3.0 * 0.66 * 0.3048),
         (Seq(3.0.lnk , 3.0 lnk , 3.0 (lnk)) , 3.0 * 0.66 * 0.3048),
@@ -145,9 +147,9 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.ftm , 3.0 ftm , 3.0 (ftm)) , 3.0 * 1.8288),
         (Seq(3.0.rd  , 3.0 rd  , 3.0 (rd))  , 3.0 * 5.0292),
         (Seq(3.0.rope, 3.0 rope, 3.0 (rope)), 3.0 * 6.096),
-        (Seq(3.0.ch  , 3.0 ch  , 3.0 (ch))  , 3.0 * 20.11684),
+        (Seq(3.0.ch  , 3.0 ch  , 3.0 (ch))  , 3.0 * 20.1168),
         (Seq(3.0.mi  , 3.0 mi  , 3.0 (mi))  , 3.0 * 1609.344),
-        (Seq(3.0.lea , 3.0 lea , 3.0 (lea)) , 3.0 * 4828),
+        (Seq(3.0.lea , 3.0 lea , 3.0 (lea)) , 3.0 * 3.0 * 1609.344),
 
         (Seq(3.0.NM      , 3.0 NM      , 3.0 (NM))      , 3.0 * 1852),
         (Seq(3.0.nmi     , 3.0 nmi     , 3.0 (nmi))     , 3.0 * 1852),
@@ -159,32 +161,34 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(3.0.cb(US)  , 3.0 cb(US)  , 3.0 (cb(US)))  , 3.0 * 219.456),
         (Seq(3.0.cb(imp) , 3.0 cb(imp) , 3.0 (cb(imp))) , 3.0 * 185.3184),
 
-        (Seq(3.0.li(US) , 3.0 li(US) , 3.0 (li(US))) , 3.0 * 0.2011684),
-        (Seq(3.0.lnk(US), 3.0 lnk(US), 3.0 (lnk(US))), 3.0 * 0.2011684),
-        (Seq(3.0.ft(US) , 3.0 ft(US) , 3.0 (ft(US))) , 3.0 * 0.304800610),
-        (Seq(3.0.mi(US) , 3.0 mi(US) , 3.0 (mi(US))) , 3.0 * 1609.347219),
+        (Seq(3.0.li(US) , 3.0 li(US) , 3.0 (li(US))) , 3.0 * 0.66 * 1200 / 3937),
+        (Seq(3.0.lnk(US), 3.0 lnk(US), 3.0 (lnk(US))), 3.0 * 0.66 * 1200 / 3937),
+        (Seq(3.0.ft(US) , 3.0 ft(US) , 3.0 (ft(US))) , 3.0 * 1200 / 3937),
+        (Seq(3.0.ch(US) , 3.0 ch(US) , 3.0 (ch(US))) , 3.0 * 66 * 1200 / 3937),
+        (Seq(3.0.mi(US) , 3.0 mi(US) , 3.0 (mi(US))) , 3.0 * 5280 * 1200 / 3937),
 
         (Seq(3.0.mf, 3.0 mf, 3.0 (mf)), 3.0 * 0.31622776601),
         (Seq(3.0.smf, 3.0 smf, 3.0 (smf)), 3.0 * 0.3),
-        (Seq(3.0.lmf, 3.0 lmf, 3.0 (lmf)), 3.0 * 0.33333),
+        (Seq(3.0.lmf, 3.0 lmf, 3.0 (lmf)), 3.0 * 0.3333333333),
 
-        (Seq(3.0.Fr, 3.0 Fr, 3.0 (Fr)), 3.0 * 0.33333e-3),
+        (Seq(3.0.Fr, 3.0 Fr, 3.0 (Fr)), 3.0 * 0.3333333333e-3),
         (Seq(3.0.fur, 3.0 fur, 3.0 (fur)), 3.0 * 201.168)
       )
-
-    forAll(conversions){ (ls: Seq[Length[Double]], expected: Double) =>
-      ls.foreach{ l =>
-        (l m) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Length[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut m) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting Metre unit to other units like 3.0 m => 3000.0 mm" in {
-    val value = 3.0 m
-
+    __SetUp__
+    val value = 3.0 (m)
+    __Exercise__
     val conversions =
       Table(
-        ("length", "expected"),
+        ("lengths", "expected"),
         (Seq(value.ym, value ym, value (ym)), 3e24),
         (Seq(value.zm, value zm, value (zm)), 3e21),
         (Seq(value.am, value am, value (am)), 3e18),
@@ -212,8 +216,8 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.Å, value Å, value (Å)), 3e10),
         (Seq(value.a0, value a0, value (a0)), 3.0 / 5.2917721092e-11),
         (Seq(value.xu, value xu, value (xu)), 3.0 / 1.0021e-13),
-        (Seq(value.xu(CuKα1), value xu(CuKα1), value (xu(CuKα1))), 3.0 / 1.0021e-13),
-        (Seq(value.xu(MoKα1), value xu(MoKα1), value (xu(MoKα1))), 3.0 / 1.0021e-13),
+        (Seq(value.xu(CuKα1), value xu(CuKα1), value (xu(CuKα1))), 3.0 / 1.0020769928e-13),
+        (Seq(value.xu(MoKα1), value xu(MoKα1), value (xu(MoKα1))), 3.0 / 1.0020995553e-13),
         (Seq(value.lp, value lp, value (lp)), 3.0 / 1.61624e-35),
 
         // astronomy
@@ -222,11 +226,11 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.pc, value pc, value (pc)), 3.0 / 3.08567782e16),
 
         // yard-pond
-        (Seq(value.thou, value thou, value (thou)), 3.0 / 2.543e-5),
-        (Seq(value.mil , value mil , value (mil)) , 3.0 / 2.543e-5),
-        (Seq(value.twp , value twp , value (twp)) , 3.0 / 1.7639e-5),
-        (Seq(value.pt  , value pt  , value (pt))  , 3.0 / 0.352778e-3),
-        (Seq(value.ln  , value ln  , value (ln))  , 3.0 / 0.002116),
+        (Seq(value.thou, value thou, value (thou)), 3.0 / 2.54e-5),
+        (Seq(value.mil , value mil , value (mil)) , 3.0 / 2.54e-5),
+        (Seq(value.twp , value twp , value (twp)) , 3.0 / 1.76388888889e-5),
+        (Seq(value.pt  , value pt  , value (pt))  , 3.0 / 0.35277777778e-3),
+        (Seq(value.ln  , value ln  , value (ln))  , 3.0 / 0.00211666667),
         (Seq(value.in  , value in  , value (in))  , 3.0 / 0.0254),
         (Seq(value.li  , value li  , value (li))  , 3.0 / (0.66 * 0.3048)),
         (Seq(value.lnk , value lnk , value (lnk)) , 3.0 / (0.66 * 0.3048)),
@@ -236,9 +240,9 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.ftm , value ftm , value (ftm)) , 3.0 / 1.8288),
         (Seq(value.rd  , value rd  , value (rd))  , 3.0 / 5.0292),
         (Seq(value.rope, value rope, value (rope)), 3.0 / 6.096),
-        (Seq(value.ch  , value ch  , value (ch))  , 3.0 / 20.11684),
+        (Seq(value.ch  , value ch  , value (ch))  , 3.0 / 20.1168),
         (Seq(value.mi  , value mi  , value (mi))  , 3.0 / 1609.344),
-        (Seq(value.lea , value lea , value (lea)) , 3.0 / 4828),
+        (Seq(value.lea , value lea , value (lea)) , 3.0 / (3.0 * 1609.344)),
 
         (Seq(value.NM      , value NM      , value (NM))      , 3.0 / 1852.0),
         (Seq(value.nmi     , value nmi     , value (nmi))     , 3.0 / 1852.0),
@@ -250,24 +254,29 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
         (Seq(value.cb(US)  , value cb(US)  , value (cb(US)))  , 3.0 / 219.456),
         (Seq(value.cb(imp) , value cb(imp) , value (cb(imp))) , 3.0 / 185.3184),
 
-        (Seq(value.li(US) , value li(US) , value (li(US))) , 3.0 / 0.2011684),
-        (Seq(value.lnk(US), value lnk(US), value (lnk(US))), 3.0 / 0.2011684),
-        (Seq(value.ft(US) , value ft(US) , value (ft(US))) , 3.0 / 0.304800610),
-        (Seq(value.mi(US) , value mi(US) , value (mi(US))) , 3.0 / 1609.347219),
+        (Seq(value.li(US) , value li(US) , value (li(US))) , 3.0 * 3937 / (0.66 * 1200)),
+        (Seq(value.lnk(US), value lnk(US), value (lnk(US))), 3.0 * 3937 / (0.66 * 1200)),
+        (Seq(value.ft(US) , value ft(US) , value (ft(US))) , 3.0 * 3937 / 1200),
+        (Seq(value.ch(US) , value ch(US) , value (ch(US))) , 3.0 * 3937 / (66 * 1200)),
+        (Seq(value.mi(US) , value mi(US) , value (mi(US))) , 3.0 * 3937 / (5280 * 1200)),
 
         (Seq(value.mf , value mf , value (mf)) , 3.0 / 0.31622776601),
         (Seq(value.smf, value smf, value (smf)), 3.0 / 0.3),
-        (Seq(value.lmf, value lmf, value (lmf)), 3.0 / 0.33333)
-      )
+        (Seq(value.lmf, value lmf, value (lmf)), 3.0 / 0.3333333333),
 
-    forAll(conversions){ (ls: Seq[Double], expected: Double) =>
-      ls.foreach{ l =>
-        l should equal (%(expected))
+        (Seq(value.Fr , value Fr , value (Fr)) , 3.0 / 0.3333333333e-3),
+        (Seq(value.fur, value fur, value (fur)), 3.0 / 201.168)
+      )
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }
 
   "Unit with Context should" in {
+    __Exercise__
     val conversions =
       Table(
         "velocity",
@@ -275,7 +284,7 @@ class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
 //        3.0 nmi(Adm)/h,
         3.0 (nmi(Adm)/h)
       )
-
+    __Verify__
     forAll(conversions){ (v: Velocity[Double]) =>
       (v m/s) should equal (%(3.0.nmi(Adm).m / 3600.0))
     }

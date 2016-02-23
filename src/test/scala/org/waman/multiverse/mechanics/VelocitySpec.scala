@@ -39,39 +39,41 @@ class VelocitySpec extends MultiverseCustomSpec with PropertyChecks{
   }
 
   "Tests where converting from some units to m/s like 3.0 km/h => 3.0 * 1000.0/3600.0 m/s" in {
+    __Exercise__
     val conversions =
       Table(
-        ("velocity", "expected"),
+        ("velocities", "expected"),
         (Seq(3.0.m/s   , 3.0 m/s      , 3.0 (m/s))   , 3.0),
         (Seq(3.0.km/h  , 3.0 km/h     , 3.0 (km/h))  , 3.0 * 1000.0 / 3600.0),
         (Seq(3.0.c     , 3.0 c        , 3.0 (c))     , 3.0 * 299792458),
         (Seq(3.0.km/minute, 3.0 km/minute, 3.0 (km/minute)), 3.0 * 1000.0 / 60.0),
         (Seq(3.0.cm/minute, 3.0 cm/minute, 3.0 (cm/minute)), 3.0 * 0.01 / 60.0)
       )
-
-    forAll(conversions){ (vs: Seq[Velocity[Double]], expected: Double) =>
-      vs.foreach{ v =>
-        (v m/s) should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Velocity[Double]], expected: Double) =>
+      suts.foreach{ sut =>
+        (sut m/s) should equal (%%%%(expected))
       }
     }
   }
 
   "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
-    val value = 3.0 m/s
-
+    __SetUp__
+    val value = 3.0 (m/s)
+    __Exercise__
     val conversions =
       Table(
-        ("velocity", "expected"),
-        (Seq(value.m/s   , value m/s      , value (m/s))   , 3.0),
-        (Seq(value.km/h  , value km/h     , value (km/h))  , 3.0 * 3600.0 / 1000.0),
-        (Seq(value.c     , value c        , value (c))     , 3.0 / 299792458),
+        ("velocities", "expected"),
+        (Seq(value.m/s , value m/s , value (m/s)) , 3.0),
+        (Seq(value.km/h, value km/h, value (km/h)), 3.0 * 3600.0 / 1000.0),
+        (Seq(value.c   , value c   , value (c))   , 3.0 / 299792458),
         (Seq(value.km/minute, value km/minute, value (km/minute)), 3.0 * 60.0 / 1000.0),
         (Seq(value.cm/minute, value cm/minute, value (cm/minute)), 3.0 * 60.0 / 0.01)
       )
-
-    forAll(conversions){ (vs: Seq[Double], expected: Double) =>
-      vs.foreach{ v =>
-        v should equal (%(expected))
+    __Verify__
+    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
+      suts.foreach{ sut =>
+        sut should equal (%%%%(expected))
       }
     }
   }
