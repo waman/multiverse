@@ -12,7 +12,7 @@ import org.waman.multiverse.magnetic.{PredefinedFluxDensityUnit, PredefinedFluxU
 import org.waman.multiverse.mass.PredefinedMassUnit
 import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{PredefinedAreaUnit, PredefinedLengthUnit, PredefinedVolumeUnit}
-import org.waman.multiverse.radiation.{PredefinedAbsorbedDoseUnit, PredefinedEquivalentDoseUnit, PredefinedExposureUnit, PredefinedRadioactivityUnit}
+import org.waman.multiverse.radiation._
 import org.waman.multiverse.thermal.{PredefinedEntropyUnit, PredefinedTemperatureUnit}
 import org.waman.multiverse.time.{Frequency, PredefinedFrequencyUnit, PredefinedTimeSquaredUnit, PredefinedTimeUnit}
 import spire.math.Fractional
@@ -83,6 +83,7 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedAbsorbedDoseUnit
 
     with PredefinedEquivalentDoseUnit
+    with PredefinedEquivalentDoseRateUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
@@ -132,7 +133,8 @@ object UnitSystem extends UnitSystem{
     "Exposure"           -> "radiation",
     "AbsorbedDose"       -> "radiation",
 
-    "EquivalentDose"     -> "radiation"
+    "EquivalentDose"     -> "radiation",
+    "EquivalentDoseRate" -> "radiation"
   )
 
   val getSupportedQuantities: Set[String] = packageMap.keySet

@@ -57,9 +57,10 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   with IlluminanceUnitInterpreter[A]
   with RadioactivityUnitInterpreter[A]
   with ExposureUnitInterpreter[A]
-    with AbsorbedDoseUnitInterpreter[A]
+  with AbsorbedDoseUnitInterpreter[A]
 
   with EquivalentDoseUnitInterpreter[A]
+  with EquivalentDoseRateUnitInterpreter[A]
   with UnitConverter[A]{
 
   protected val algebra = implicitly[Fractional[A]]
@@ -109,4 +110,5 @@ class UnitInterpreter[A: Fractional](protected val value: A)
   override def apply(unit: AbsorbedDoseUnit)       = new AbsorbedDose(value, unit)
 
   override def apply(unit: EquivalentDoseUnit)     = new EquivalentDose(value, unit)
+  override def apply(unit: EquivalentDoseRateUnit) = new EquivalentDoseRate(value, unit)
 }
