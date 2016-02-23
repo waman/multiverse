@@ -249,10 +249,13 @@ trait VolumePer[A]{
   def bkt(per: Per): A = volumePer(Bucket)
 }
 
-class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity[A, VolumeUnit]
-  with VolumePostfixOps[A]
-  with DivisibleByTimeUnit[VolumeFlow[A]]
-  with UnitConverter[A]{
+class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
+    extends Quantity[A, VolumeUnit]
+    with VolumePostfixOps[A]
+    with AreaPostfixOps[MultiplicativeByLengthUnit[A]]
+    with AreaDot[LengthPostfixOps[A]]
+    with DivisibleByTimeUnit[VolumeFlow[A]]
+    with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
 
@@ -262,128 +265,154 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit) extends Quantity
 
   override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
 
+  override protected def areaPostfixOps(areaUnit: AreaUnit) = new MultiplicativeByLengthUnit[A] {
+    override def *(lengthUnit: LengthUnit) = apply(areaUnit * lengthUnit)
+  }
+
+  override protected def areaDot(areaUnit: AreaUnit) = new LengthPostfixOps[A]{
+    override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(areaUnit * lengthUnit)
+  }
+
   override def /(timeUnit: TimeUnit): VolumeFlow[A] =
     new VolumeFlow(value, unit / timeUnit)
 }
 
-sealed abstract class VolumeUnit(val symbol: String, val unitInCubicMetre: Real)
+sealed trait VolumeUnit
     extends PhysicalUnit[VolumeUnit]
     with DivisibleByTimeUnit[VolumeFlowUnit] {
-
-  def this(symbol: String, factor: Real, volumeUnit: VolumeUnit) =
-    this(symbol, factor * volumeUnit.unitInCubicMetre)
-
-  def this(symbol: String, lengthUnit: LengthUnit) =
-    this(symbol, lengthUnit.unitInMetre**3)
-
-  def this(symbol: String, areaUnit: AreaUnit, lengthUnit: LengthUnit) =
-    this(symbol, areaUnit.unitInSquareMetre * lengthUnit.unitInMetre)
+  
+  def unitInCubicMetre: Real
 
   override val baseUnit = VolumeUnit.CubicMetre
   override val inBaseUnitAccessor = () => unitInCubicMetre
 
-  override def /(timeUnit: TimeUnit): VolumeFlowUnit = VolumeFlowUnit(this, timeUnit)
+  override def /(timeUnit: TimeUnit) = VolumeFlowUnit(this, timeUnit)
 }
 
 object VolumeUnit{
 
-  case object CubicYoctoMetre extends VolumeUnit("ym3", LengthUnit.YoctoMetre)
-  case object CubicZeptoMetre extends VolumeUnit("zm3", LengthUnit.ZeptoMetre)
-  case object CubicAttoMetre  extends VolumeUnit("am3", LengthUnit.AttoMetre)
-  case object CubicFemtoMetre extends VolumeUnit("fm3", LengthUnit.FemtoMetre)
-  case object CubicPicoMetre  extends VolumeUnit("pm3", LengthUnit.PicoMetre)
-  case object CubicNanoMetre  extends VolumeUnit("nm3", LengthUnit.NanoMetre)
-  case object CubicMicroMetre extends VolumeUnit("μm3", LengthUnit.MicroMetre)
-  case object CubicMilliMetre extends VolumeUnit("mm3", LengthUnit.MilliMetre)
-  case object CubicCentiMetre extends VolumeUnit("cm3", LengthUnit.CentiMetre)
-  case object CubicDeciMetre  extends VolumeUnit("dm3", LengthUnit.DeciMetre)
-  case object CubicMetre      extends VolumeUnit("m3" , 1)
-  case object CubicDecaMetre  extends VolumeUnit("dam3", LengthUnit.DecaMetre)
-  case object CubicHectoMetre extends VolumeUnit("hm3", LengthUnit.HectoMetre)
-  case object CubicKiloMetre  extends VolumeUnit("km3", LengthUnit.KiloMetre)
-  case object CubicMegaMetre  extends VolumeUnit("Mm3", LengthUnit.MegaMetre)
-  case object CubicGigaMetre  extends VolumeUnit("Gm3", LengthUnit.GigaMetre)
-  case object CubicTeraMetre  extends VolumeUnit("Tm3", LengthUnit.TeraMetre)
-  case object CubicPetaMetre  extends VolumeUnit("Pm3", LengthUnit.PetaMetre)
-  case object CubicExaMetre   extends VolumeUnit("Em3", LengthUnit.ExaMetre)
-  case object CubicZettaMetre extends VolumeUnit("Zm3", LengthUnit.ZettaMetre)
-  case object CubicYottaMetre extends VolumeUnit("Ym3", LengthUnit.YottaMetre)
+  // custom
+  private[VolumeUnit]
+  class VolumeUnitImpl(val symbol: String, val unitInCubicMetre: Real)
+      extends VolumeUnit{
 
-  case object YoctoLitre extends VolumeUnit("yL", r"1e-24", Litre)
-  case object ZeptoLitre extends VolumeUnit("zL", r"1e-21", Litre)
-  case object AttoLitre  extends VolumeUnit("aL", r"1e-18", Litre)
-  case object FemtoLitre extends VolumeUnit("fL", r"1e-15", Litre)
-  case object PicoLitre  extends VolumeUnit("pL", r"1e-12", Litre)
-  case object NanoLitre  extends VolumeUnit("nL", r"1e-9" , Litre)
-  case object MicroLitre extends VolumeUnit("μL", r"1e-6" , Litre)
-  case object MilliLitre extends VolumeUnit("mL", r"1e-3" , Litre)
-  case object CentiLitre extends VolumeUnit("cL", r"1e-2" , Litre)
-  case object DeciLitre  extends VolumeUnit("dL", r"1e-1" , Litre)
-  case object Litre      extends VolumeUnit("L" , r"1e-3")
-  case object DecaLitre  extends VolumeUnit("daL", r"1e1", Litre)
-  case object HectoLitre extends VolumeUnit("hL", r"1e2" , Litre)
-  case object KiloLitre  extends VolumeUnit("kL", r"1e3" , Litre)
-  case object MegaLitre  extends VolumeUnit("ML", r"1e6" , Litre)
-  case object GigaLitre  extends VolumeUnit("GL", r"1e9" , Litre)
-  case object TeraLitre  extends VolumeUnit("TL", r"1e12", Litre)
-  case object PetaLitre  extends VolumeUnit("PL", r"1e15", Litre)
-  case object ExaLitre   extends VolumeUnit("EL", r"1e18", Litre)
-  case object ZettaLitre extends VolumeUnit("ZL", r"1e21", Litre)
-  case object YottaLitre extends VolumeUnit("YL", r"1e24", Litre)
+    def this(symbol: String, factor: Real, volumeUnit: VolumeUnit) =
+      this(symbol, factor * volumeUnit.unitInCubicMetre)
 
-  case object Lambda extends VolumeUnit("λ", r"1e-9")
+    def this(symbol: String, lengthUnit: LengthUnit) =
+      this(symbol, lengthUnit.unitInMetre**3)
 
-  case object CubicInch   extends VolumeUnit("in3;cu_in", LengthUnit.Inch)
-  case object CubicFoot   extends VolumeUnit("ft3;cu_ft", LengthUnit.Foot)
-  case object CubicYard   extends VolumeUnit("yd3;cu_yd", LengthUnit.Yard)
-  case object CubicFathom extends VolumeUnit("ftm3;cu_fm", LengthUnit.Fathom)
-  case object CubicMile   extends VolumeUnit("mi;cu_mi", LengthUnit.Mile)
+    def this(symbol: String, areaUnit: AreaUnit, lengthUnit: LengthUnit) =
+      this(symbol, areaUnit.unitInSquareMetre * lengthUnit.unitInMetre)
+  }
 
-  case object BoardFoot extends VolumeUnit("fbm", 144, CubicInch)
-  case object AcreFoot extends VolumeUnit("ac_ft", AreaUnit.Acre, LengthUnit.Foot)
+  case object CubicYoctoMetre extends VolumeUnitImpl("ym3", LengthUnit.YoctoMetre)
+  case object CubicZeptoMetre extends VolumeUnitImpl("zm3", LengthUnit.ZeptoMetre)
+  case object CubicAttoMetre  extends VolumeUnitImpl("am3", LengthUnit.AttoMetre)
+  case object CubicFemtoMetre extends VolumeUnitImpl("fm3", LengthUnit.FemtoMetre)
+  case object CubicPicoMetre  extends VolumeUnitImpl("pm3", LengthUnit.PicoMetre)
+  case object CubicNanoMetre  extends VolumeUnitImpl("nm3", LengthUnit.NanoMetre)
+  case object CubicMicroMetre extends VolumeUnitImpl("μm3", LengthUnit.MicroMetre)
+  case object CubicMilliMetre extends VolumeUnitImpl("mm3", LengthUnit.MilliMetre)
+  case object CubicCentiMetre extends VolumeUnitImpl("cm3", LengthUnit.CentiMetre)
+  case object CubicDeciMetre  extends VolumeUnitImpl("dm3", LengthUnit.DeciMetre)
+  case object CubicMetre      extends VolumeUnitImpl("m3" , 1)
+  case object CubicDecaMetre  extends VolumeUnitImpl("dam3", LengthUnit.DecaMetre)
+  case object CubicHectoMetre extends VolumeUnitImpl("hm3", LengthUnit.HectoMetre)
+  case object CubicKiloMetre  extends VolumeUnitImpl("km3", LengthUnit.KiloMetre)
+  case object CubicMegaMetre  extends VolumeUnitImpl("Mm3", LengthUnit.MegaMetre)
+  case object CubicGigaMetre  extends VolumeUnitImpl("Gm3", LengthUnit.GigaMetre)
+  case object CubicTeraMetre  extends VolumeUnitImpl("Tm3", LengthUnit.TeraMetre)
+  case object CubicPetaMetre  extends VolumeUnitImpl("Pm3", LengthUnit.PetaMetre)
+  case object CubicExaMetre   extends VolumeUnitImpl("Em3", LengthUnit.ExaMetre)
+  case object CubicZettaMetre extends VolumeUnitImpl("Zm3", LengthUnit.ZettaMetre)
+  case object CubicYottaMetre extends VolumeUnitImpl("Ym3", LengthUnit.YottaMetre)
 
-  case object Gallon_beer extends VolumeUnit("beer_gal", 282, CubicInch)
-  case object Perch extends VolumeUnit("per", r"33/2" * r"3/2", CubicFoot)
-  case object Barrel extends VolumeUnit("bl;bbl", 42, Gallon_US_fluid)
+  case object YoctoLitre extends VolumeUnitImpl("yL", r"1e-24", Litre)
+  case object ZeptoLitre extends VolumeUnitImpl("zL", r"1e-21", Litre)
+  case object AttoLitre  extends VolumeUnitImpl("aL", r"1e-18", Litre)
+  case object FemtoLitre extends VolumeUnitImpl("fL", r"1e-15", Litre)
+  case object PicoLitre  extends VolumeUnitImpl("pL", r"1e-12", Litre)
+  case object NanoLitre  extends VolumeUnitImpl("nL", r"1e-9" , Litre)
+  case object MicroLitre extends VolumeUnitImpl("μL", r"1e-6" , Litre)
+  case object MilliLitre extends VolumeUnitImpl("mL", r"1e-3" , Litre)
+  case object CentiLitre extends VolumeUnitImpl("cL", r"1e-2" , Litre)
+  case object DeciLitre  extends VolumeUnitImpl("dL", r"1e-1" , Litre)
+  case object Litre      extends VolumeUnitImpl("L" , r"1e-3")
+  case object DecaLitre  extends VolumeUnitImpl("daL", r"1e1", Litre)
+  case object HectoLitre extends VolumeUnitImpl("hL", r"1e2" , Litre)
+  case object KiloLitre  extends VolumeUnitImpl("kL", r"1e3" , Litre)
+  case object MegaLitre  extends VolumeUnitImpl("ML", r"1e6" , Litre)
+  case object GigaLitre  extends VolumeUnitImpl("GL", r"1e9" , Litre)
+  case object TeraLitre  extends VolumeUnitImpl("TL", r"1e12", Litre)
+  case object PetaLitre  extends VolumeUnitImpl("PL", r"1e15", Litre)
+  case object ExaLitre   extends VolumeUnitImpl("EL", r"1e18", Litre)
+  case object ZettaLitre extends VolumeUnitImpl("ZL", r"1e21", Litre)
+  case object YottaLitre extends VolumeUnitImpl("YL", r"1e24", Litre)
+
+  case object Lambda extends VolumeUnitImpl("λ", r"1e-9")
+
+  case object CubicInch   extends VolumeUnitImpl("in3;cu_in", LengthUnit.Inch)
+  case object CubicFoot   extends VolumeUnitImpl("ft3;cu_ft", LengthUnit.Foot)
+  case object CubicYard   extends VolumeUnitImpl("yd3;cu_yd", LengthUnit.Yard)
+  case object CubicFathom extends VolumeUnitImpl("ftm3;cu_fm", LengthUnit.Fathom)
+  case object CubicMile   extends VolumeUnitImpl("mi;cu_mi", LengthUnit.Mile)
+
+  case object BoardFoot extends VolumeUnitImpl("fbm", 144, CubicInch)
+  case object AcreFoot extends VolumeUnitImpl("ac_ft", AreaUnit.Acre, LengthUnit.Foot)
+
+  case object Gallon_beer extends VolumeUnitImpl("beer_gal", 282, CubicInch)
+  case object Perch extends VolumeUnitImpl("per", r"33/2" * r"3/2", CubicFoot)
+  case object Barrel extends VolumeUnitImpl("bl;bbl", 42, Gallon_US_fluid)
 
   // US
-  case object Minim_US       extends VolumeUnit("minim(US)", r"1/480", Fluid_Ounce_US)
-  case object Fluid_Ounce_US extends VolumeUnit("US_fl_oz;fl_oz(US)", r"1/128", Gallon_US_fluid)
-  case object Gill_US        extends VolumeUnit("gi(US)", 4, Fluid_Ounce_US)
-  case object Hogshead_US    extends VolumeUnit("hhd(US)", 2, Barrel_US_fluid)
-  case object FluidDram_US   extends VolumeUnit("fl_dr(US)", r"1/8", Fluid_Ounce_US)
+  case object Minim_US       extends VolumeUnitImpl("minim(US)", r"1/480", Fluid_Ounce_US)
+  case object Fluid_Ounce_US extends VolumeUnitImpl("US_fl_oz;fl_oz(US)", r"1/128", Gallon_US_fluid)
+  case object Gill_US        extends VolumeUnitImpl("gi(US)", 4, Fluid_Ounce_US)
+  case object Hogshead_US    extends VolumeUnitImpl("hhd(US)", 2, Barrel_US_fluid)
+  case object FluidDram_US   extends VolumeUnitImpl("fl_dr(US)", r"1/8", Fluid_Ounce_US)
 
   // US fluid
-  case object Pint_US_fluid        extends VolumeUnit("pt(US_fl)", r"1/8", Gallon_US_fluid)
-  case object Quart_US_fluid       extends VolumeUnit("qt(US_fl)", r"1/4", Gallon_US_fluid)
-  case object Gallon_US_fluid      extends VolumeUnit("gal;US_gal;gal(US);gal(US_fl)", 231, CubicInch)
-  case object Barrel_US_fluid      extends VolumeUnit("bl(US_fl);fl_bl;fl_bl(US)", r"31.5", Gallon_US_fluid)
+  case object Pint_US_fluid        extends VolumeUnitImpl("pt(US_fl)", r"1/8", Gallon_US_fluid)
+  case object Quart_US_fluid       extends VolumeUnitImpl("qt(US_fl)", r"1/4", Gallon_US_fluid)
+  case object Gallon_US_fluid      extends VolumeUnitImpl("gal;US_gal;gal(US);gal(US_fl)", 231, CubicInch)
+  case object Barrel_US_fluid      extends VolumeUnitImpl("bl(US_fl);fl_bl;fl_bl(US)", r"31.5", Gallon_US_fluid)
 
   // US dry
-  case object Pint_US_dry   extends VolumeUnit("pt(US_dry)", r"1/8", Gallon_US_dry)
-  case object Quart_US_dry  extends VolumeUnit("qt(US_dry)", r"1/4", Gallon_US_dry)
-  case object Gallon_US_dry extends VolumeUnit("gal(US_dry)", r"1/8", Bushel_US_dry_level)
-  case object Peck_US_dry   extends VolumeUnit("pk(US_dry)", r"1/4", Bushel_US_dry_level)
-  case object Bushel_US_dry extends VolumeUnit("bu(US_dry)", r"5/4", Bushel_US_dry_level)
-  case object Bushel_US_dry_level extends VolumeUnit("bu(US_lvl)", r"2150.42", CubicInch)
-  case object Barrel_US_dry extends VolumeUnit("bl(US);bl(US_dry)", 105, Quart_US_dry)
+  case object Pint_US_dry   extends VolumeUnitImpl("pt(US_dry)", r"1/8", Gallon_US_dry)
+  case object Quart_US_dry  extends VolumeUnitImpl("qt(US_dry)", r"1/4", Gallon_US_dry)
+  case object Gallon_US_dry extends VolumeUnitImpl("gal(US_dry)", r"1/8", Bushel_US_dry_level)
+  case object Peck_US_dry   extends VolumeUnitImpl("pk(US_dry)", r"1/4", Bushel_US_dry_level)
+  case object Bushel_US_dry extends VolumeUnitImpl("bu(US_dry)", r"5/4", Bushel_US_dry_level)
+  case object Bushel_US_dry_level extends VolumeUnitImpl("bu(US_lvl)", r"2150.42", CubicInch)
+  case object Barrel_US_dry extends VolumeUnitImpl("bl(US);bl(US_dry)", 105, Quart_US_dry)
 
   // imperial
-  case object Minim_imperial       extends VolumeUnit("minim(imp)", r"1/480", Fluid_Ounce_imperial)
-  case object Fluid_Ounce_imperial extends VolumeUnit("fl_oz(imp)", r"1/160", Gallon_imperial)
-  case object Gill_imperial        extends VolumeUnit("gi(imp);nog", 5, Fluid_Ounce_imperial)
-  case object Pint_imperial        extends VolumeUnit("pt(imp)", r"1/8", Gallon_imperial)
-  case object Quart_imperial       extends VolumeUnit("qt(imp)", r"1/4", Gallon_imperial)
-  case object Gallon_imperial      extends VolumeUnit("imp_gal;gal(imp)", r"4.54609", Litre)
-  case object Peck_imperial        extends VolumeUnit("pk(imp)", 2, Gallon_imperial)
-  case object Bushel_imperial      extends VolumeUnit("bu(imp)", 8, Gallon_imperial)
-  case object Barrel_imperial      extends VolumeUnit("bl(imp)", 36, Gallon_imperial)
-  case object Hogshead_imperial    extends VolumeUnit("hhd(imp)", 2, Barrel_imperial)
+  case object Minim_imperial       extends VolumeUnitImpl("minim(imp)", r"1/480", Fluid_Ounce_imperial)
+  case object Fluid_Ounce_imperial extends VolumeUnitImpl("fl_oz(imp)", r"1/160", Gallon_imperial)
+  case object Gill_imperial        extends VolumeUnitImpl("gi(imp);nog", 5, Fluid_Ounce_imperial)
+  case object Pint_imperial        extends VolumeUnitImpl("pt(imp)", r"1/8", Gallon_imperial)
+  case object Quart_imperial       extends VolumeUnitImpl("qt(imp)", r"1/4", Gallon_imperial)
+  case object Gallon_imperial      extends VolumeUnitImpl("imp_gal;gal(imp)", r"4.54609", Litre)
+  case object Peck_imperial        extends VolumeUnitImpl("pk(imp)", 2, Gallon_imperial)
+  case object Bushel_imperial      extends VolumeUnitImpl("bu(imp)", 8, Gallon_imperial)
+  case object Barrel_imperial      extends VolumeUnitImpl("bl(imp)", 36, Gallon_imperial)
+  case object Hogshead_imperial    extends VolumeUnitImpl("hhd(imp)", 2, Barrel_imperial)
 
-  case object FluidScruple extends VolumeUnit("fl_s", r"1/24", Fluid_Ounce_imperial)
-  case object FluidDrachm_imperial extends VolumeUnit("fl_dr(imp)", r"1/8", Fluid_Ounce_imperial)
+  case object FluidScruple extends VolumeUnitImpl("fl_s", r"1/24", Fluid_Ounce_imperial)
+  case object FluidDrachm_imperial extends VolumeUnitImpl("fl_dr(imp)", r"1/8", Fluid_Ounce_imperial)
 
-  case object Bucket extends VolumeUnit("bkt", 4, Gallon_imperial)
+  case object Bucket extends VolumeUnitImpl("bkt", 4, Gallon_imperial)
+
+  // Area * Length -> Volume
+  private[VolumeUnit]
+  class ProductVolumeUnit(val firstUnit: AreaUnit, val secondUnit: LengthUnit)
+    extends VolumeUnit with ProductUnit[VolumeUnit, AreaUnit, LengthUnit]{
+
+    override val unitInCubicMetre: Real = firstUnit.unitInSquareMetre * secondUnit.unitInMetre
+  }
+
+  def apply(aUnit: AreaUnit, lUnit: LengthUnit) = new ProductVolumeUnit(aUnit, lUnit)
 }
 
 trait PredefinedVolumeUnit extends VolumePostfixOps[VolumeUnit]{

@@ -146,6 +146,78 @@ object LengthPostfixOps{
   }
 }
 
+trait LengthDot[A]{
+  import LengthUnit._
+
+  protected def lengthDot(lengthUnit: LengthUnit): A
+
+  def ym(dot: Dot): A = lengthDot(YoctoMetre)
+  def zm(dot: Dot): A = lengthDot(ZeptoMetre)
+  def am(dot: Dot): A = lengthDot(AttoMetre)
+  def fm(dot: Dot): A = lengthDot(FemtoMetre)
+  def pm(dot: Dot): A = lengthDot(PicoMetre)
+  def nm(dot: Dot): A = lengthDot(NanoMetre)
+  def μm(dot: Dot): A = lengthDot(MicroMetre)
+  def mm(dot: Dot): A = lengthDot(MilliMetre)
+  def cm(dot: Dot): A = lengthDot(CentiMetre)
+  def dm(dot: Dot): A = lengthDot(DeciMetre)
+  def m (dot: Dot): A = lengthDot(Metre)
+  def dam(dot: Dot):A = lengthDot(DecaMetre)
+  def hm(dot: Dot): A = lengthDot(HectoMetre)
+  def km(dot: Dot): A = lengthDot(KiloMetre)
+  def Mm(dot: Dot): A = lengthDot(MegaMetre)
+  def Gm(dot: Dot): A = lengthDot(GigaMetre)
+  def Tm(dot: Dot): A = lengthDot(TeraMetre)
+  def Pm(dot: Dot): A = lengthDot(PetaMetre)
+  def Em(dot: Dot): A = lengthDot(ExaMetre)
+  def Zm(dot: Dot): A = lengthDot(ZettaMetre)
+  def Ym(dot: Dot): A = lengthDot(YottaMetre)
+
+  // microscopic
+  def μ(dot: Dot): A = lengthDot(Micron)
+  def Å(dot: Dot): A = lengthDot(Angstrom)
+  def a0(dot: Dot): A = lengthDot(AtomicUnitOfLength)
+  def xu(dot: Dot): A = lengthDot(XUnit)
+  def lp(dot: Dot): A = lengthDot(PlanckLength)
+
+  // astronomy
+  def au(dot: Dot): A = lengthDot(AstronomicalUnit)
+  def ly(dot: Dot): A = lengthDot(LightYear)
+  def pc(dot: Dot): A = lengthDot(Parsec)
+
+  // yard-pond
+  def mil (dot: Dot): A = lengthDot(Mil)
+  def thou(dot: Dot): A = mil(dot)
+  def twp (dot: Dot): A = lengthDot(Twip)
+  def pt  (dot: Dot): A = lengthDot(Point)
+  def ln  (dot: Dot): A = lengthDot(Line)
+  def in  (dot: Dot): A = lengthDot(Inch)
+  def li  (dot: Dot): A = lengthDot(Link)
+  def lnk (dot: Dot): A = li(dot)
+  def ft  (dot: Dot): A = lengthDot(Foot)
+  def yd  (dot: Dot): A = lengthDot(Yard)
+  def ell (dot: Dot): A = lengthDot(Ell)
+  def ftm (dot: Dot): A = lengthDot(Fathom)
+  def rd  (dot: Dot): A = lengthDot(Rod)
+  def rope(dot: Dot): A = lengthDot(Rope)
+  def ch  (dot: Dot): A = lengthDot(Chain)
+  def mi  (dot: Dot): A = lengthDot(Mile)
+  def lea (dot: Dot): A = lengthDot(League)
+
+  def nmi(dot: Dot): A = lengthDot(NauticalMile)
+  def NM(dot: Dot): A = nmi(dot)
+  def nl(dot: Dot): A = lengthDot(NauticalLeague)
+  def NL(dot: Dot): A = nl(dot)
+  def cb(dot: Dot): A = lengthDot(Cable)
+
+  def mf (dot: Dot): A = lengthDot(MetricFoot)
+  def smf(dot: Dot): A = lengthDot(ShortMetricFoot)
+  def lmf(dot: Dot): A = lengthDot(LongMetricFoot)
+
+  def Fr (dot: Dot): A = lengthDot(French)
+  def fur(dot: Dot): A = lengthDot(Furlong)
+}
+
 trait LengthPer[A]{
   import LengthUnit._
 
@@ -218,9 +290,11 @@ trait LengthPer[A]{
   def fur(per: Per): A = lengthPer(Furlong)
 }
 
+
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends Quantity[A, LengthUnit]
     with LengthPostfixOps[A]
+    with MultiplicativeByLengthUnit[Area[A]]
     with DivisibleByTimeUnit[Velocity[A]]
     with DivisibleByTimeSquaredUnit[Acceleration[A]]
     with UnitConverter[A]{
@@ -238,6 +312,8 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     if(unit == evalUnit) value
     else value * real(unit.unitInMetre) / real(evalUnit.unitInMetre)
 
+  override def *(lengthUnit: LengthUnit): Area[A] = new Area(value, unit * lengthUnit)
+
   /** For style like <code>1.0.m/s</code> */
   override def /(timeUnit: TimeUnit): Velocity[A] = new Velocity(value, unit / timeUnit)
 
@@ -247,7 +323,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 
 sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
     extends PhysicalUnit[LengthUnit]
-    with Ordered[LengthUnit]
+    with MultiplicativeByLengthUnit[AreaUnit]
     with DivisibleByTimeUnit[VelocityUnit] // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
     with DivisibleByTimeSquaredUnit[AccelerationUnit]{
 
@@ -256,6 +332,8 @@ sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
 
   override val baseUnit = LengthUnit.Metre
   override val inBaseUnitAccessor = () => unitInMetre
+
+  override def *(lengthUnit: LengthUnit) = AreaUnit(this, lengthUnit)
 
   override def /(timeUnit: TimeUnit) = VelocityUnit(this, timeUnit)
   override def /(timeSquaredUnit: TimeSquaredUnit) = AccelerationUnit(this, timeSquaredUnit)
@@ -347,6 +425,7 @@ object PredefinedLengthUnit extends PredefinedLengthUnit
 
 trait LengthUnitInterpreter[A]
     extends LengthPostfixOps[Length[A]]
+    with LengthDot[LengthPostfixOps[Area[A]]]
     with LengthPer[TimePostfixOps[Velocity[A]]  // for style like "1.0 m/s" ( = 1.0.m(/).s)
     with TimeSquaredPostfixOps[Acceleration[A]]]{
 
@@ -354,6 +433,13 @@ trait LengthUnitInterpreter[A]
   def apply(unit: LengthUnit): Length[A]
 
   override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(lengthUnit)
+
+  // Length * Length -> Area
+  def apply(areaUnit: AreaUnit): Area[A]
+
+  override protected def lengthDot(lengthUnit1: LengthUnit) = new LengthPostfixOps[Area[A]]{
+    override protected def lengthPostfixOps(lengthUnit2: LengthUnit) = apply(lengthUnit1 * lengthUnit2)
+  }
 
   // Length / Time -> Velocity
   // Length / TimeSquared -> Acceleration
