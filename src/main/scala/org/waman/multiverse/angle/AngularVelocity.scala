@@ -48,8 +48,8 @@ sealed abstract class AngularVelocityUnit extends PhysicalUnit[AngularVelocityUn
 
   def unitInRadianPerSecond: Real
 
-  override lazy val baseUnit = AngleUnit.Radian / TimeUnit.Second
-  override lazy val inBaseUnitAccessor = () => unitInRadianPerSecond
+  override def baseUnit = AngleUnit.Radian / TimeUnit.Second
+  override def valueInBaseUnit = unitInRadianPerSecond
 }
 
 object AngularVelocityUnit{

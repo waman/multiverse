@@ -30,8 +30,8 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
 sealed abstract class ResistanceUnit(val symbol: String, val unitInOhm: Real)
     extends PhysicalUnit[ResistanceUnit]{
 
-  override val baseUnit = ResistanceUnit.Ohm
-  override val inBaseUnitAccessor = () => unitInOhm
+  override def baseUnit = ResistanceUnit.Ohm
+  override def valueInBaseUnit = unitInOhm
 }
 
 object ResistanceUnit{

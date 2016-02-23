@@ -45,8 +45,8 @@ sealed abstract class VolumeFlowUnit extends PhysicalUnit[VolumeFlowUnit]{
 
   def unitInCubicMetrePerSecond: Real
 
-  override lazy val baseUnit = VolumeUnit.CubicMetre / TimeUnit.Second
-  override lazy val inBaseUnitAccessor = () => unitInCubicMetrePerSecond
+  override def baseUnit = VolumeUnit.CubicMetre / TimeUnit.Second
+  override def valueInBaseUnit = unitInCubicMetrePerSecond
 }
 
 object VolumeFlowUnit{

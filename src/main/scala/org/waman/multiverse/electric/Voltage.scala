@@ -39,8 +39,8 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
 sealed abstract class VoltageUnit(val symbol: String, val unitInCoulomb: Real)
     extends PhysicalUnit[VoltageUnit]{
 
-  override val baseUnit = VoltageUnit.Voltage
-  override val inBaseUnitAccessor = () => unitInCoulomb
+  override def baseUnit = VoltageUnit.Voltage
+  override def valueInBaseUnit = unitInCoulomb
 }
 
 object VoltageUnit{

@@ -43,8 +43,8 @@ sealed trait DynamicViscosityUnit extends PhysicalUnit[DynamicViscosityUnit]{
 
   def unitInPascalSecond: Real
 
-  override lazy val baseUnit = PressureUnit.Pascal * TimeUnit.Second
-  override lazy val inBaseUnitAccessor = () => unitInPascalSecond
+  override def baseUnit = PressureUnit.Pascal * TimeUnit.Second
+  override def valueInBaseUnit = unitInPascalSecond
 }
 
 object DynamicViscosityUnit{

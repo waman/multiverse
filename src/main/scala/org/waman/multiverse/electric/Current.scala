@@ -34,8 +34,8 @@ sealed abstract class CurrentUnit(val symbol: String, val unitInAmpere: Real)
   def this(symbol: String, factor: Real, currentUnit: CurrentUnit) =
     this(symbol, factor * currentUnit.unitInAmpere)
 
-  override val baseUnit = CurrentUnit.Ampere
-  override val inBaseUnitAccessor = () => unitInAmpere
+  override def baseUnit = CurrentUnit.Ampere
+  override def valueInBaseUnit = unitInAmpere
 }
 
 object CurrentUnit{

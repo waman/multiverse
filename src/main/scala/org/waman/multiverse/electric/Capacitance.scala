@@ -31,7 +31,7 @@ sealed abstract class CapacitanceUnit(val symbol: String, val unitInFarad: Real)
     extends PhysicalUnit[CapacitanceUnit]{
 
   override val baseUnit = CapacitanceUnit.Farad
-  override val inBaseUnitAccessor = () => unitInFarad
+  override val valueInBaseUnit = unitInFarad
 }
 
 object CapacitanceUnit{

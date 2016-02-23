@@ -30,8 +30,8 @@ class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
 sealed abstract class InductanceUnit(val symbol: String, val unitInHenry: Real)
     extends PhysicalUnit[InductanceUnit]{
 
-  override val baseUnit = InductanceUnit.Henry
-  override val inBaseUnitAccessor = () => unitInHenry
+  override def baseUnit = InductanceUnit.Henry
+  override def valueInBaseUnit = unitInHenry
 }
 
 object InductanceUnit{

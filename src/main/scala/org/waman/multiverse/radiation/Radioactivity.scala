@@ -30,8 +30,8 @@ class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
 sealed abstract class RadioactivityUnit(val symbol: String, val unitInBecquerel: Real)
     extends PhysicalUnit[RadioactivityUnit]{
 
-  override val baseUnit = RadioactivityUnit.Becquerel
-  override val inBaseUnitAccessor = () => unitInBecquerel
+  override def baseUnit = RadioactivityUnit.Becquerel
+  override def valueInBaseUnit = unitInBecquerel
 }
 
 object RadioactivityUnit{

@@ -43,8 +43,8 @@ sealed trait ExposureUnit extends PhysicalUnit[ExposureUnit]{
 
   def unitInCoulombPerKiloGram: Real
 
-  override lazy val baseUnit = ChargeUnit.Coulomb / MassUnit.KiloGram
-  override lazy val inBaseUnitAccessor = () => unitInCoulombPerKiloGram
+  override def baseUnit = ChargeUnit.Coulomb / MassUnit.KiloGram
+  override def valueInBaseUnit = unitInCoulombPerKiloGram
 }
 
 object ExposureUnit{

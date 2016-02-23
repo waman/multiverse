@@ -31,8 +31,8 @@ sealed trait EquivalentDoseRateUnit extends PhysicalUnit[EquivalentDoseRateUnit]
 
   def unitInSievertPerSecond: Real
 
-  override lazy val baseUnit = EquivalentDoseUnit.Sievert / TimeUnit.Second
-  override lazy val inBaseUnitAccessor = () => unitInSievertPerSecond
+  override def baseUnit = EquivalentDoseUnit.Sievert / TimeUnit.Second
+  override def valueInBaseUnit = unitInSievertPerSecond
 }
 
 object EquivalentDoseRateUnit{

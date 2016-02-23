@@ -11,13 +11,12 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
   val symbol: String
 
   def baseUnit: U
-  def inBaseUnitAccessor: () => Real
+  def valueInBaseUnit: Real
 
   override def toString: String = s"$name ($symbol)"
 
   def toDetailString: String = {
     val s = s"${name.padTo(30, ' ')} ($symbol)"
-    val valueInBaseUnit = inBaseUnitAccessor()
 
     if (valueInBaseUnit == Real.one) s
     else {
@@ -26,7 +25,7 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     }
   }
 
-  override def compare(that: U): Int = this.inBaseUnitAccessor().compare(that.inBaseUnitAccessor())
+  override def compare(that: U): Int = this.valueInBaseUnit.compare(that.valueInBaseUnit)
 }
 
 trait NotExact

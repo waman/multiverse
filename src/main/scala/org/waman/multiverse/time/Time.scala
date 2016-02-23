@@ -56,8 +56,8 @@ sealed abstract class TimeUnit(val symbol: String, val unitInSecond: Real)
   def this(symbol: String, factor: Real, timeUnit: TimeUnit) =
     this(symbol, factor * timeUnit.unitInSecond)
 
-  override val baseUnit = TimeUnit.Second
-  override val inBaseUnitAccessor = () => unitInSecond
+  override def baseUnit = TimeUnit.Second
+  override def valueInBaseUnit = unitInSecond
 }
 
 object TimeUnit{

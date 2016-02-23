@@ -80,8 +80,8 @@ sealed trait VelocityUnit extends PhysicalUnit[VelocityUnit]
 
   def unitInMetrePerSecond: Real
 
-  override  lazy val baseUnit = LengthUnit.Metre / TimeUnit.Second
-  override  lazy val inBaseUnitAccessor = () => unitInMetrePerSecond
+  override def baseUnit = LengthUnit.Metre / TimeUnit.Second
+  override def valueInBaseUnit = unitInMetrePerSecond
 
   override def /(timeUnit: TimeUnit) = AccelerationUnit(this, timeUnit)
 }

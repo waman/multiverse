@@ -43,8 +43,8 @@ sealed trait EntropyUnit extends PhysicalUnit[EntropyUnit]{
 
   def unitInJoulePerKelvin: Real
 
-  override lazy val baseUnit = EnergyUnit.Joule / TemperatureUnit.Kelvin
-  override lazy val inBaseUnitAccessor = () => unitInJoulePerKelvin
+  override def baseUnit = EnergyUnit.Joule / TemperatureUnit.Kelvin
+  override def valueInBaseUnit = unitInJoulePerKelvin
 }
 
 object EntropyUnit{

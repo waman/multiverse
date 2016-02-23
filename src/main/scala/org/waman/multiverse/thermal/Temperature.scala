@@ -30,8 +30,8 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
 sealed abstract class TemperatureUnit(val symbol: String, val unitInKelvin: Real)
     extends PhysicalUnit[TemperatureUnit]{
 
-  override val baseUnit = TemperatureUnit.Kelvin
-  override val inBaseUnitAccessor = () => unitInKelvin
+  override def baseUnit = TemperatureUnit.Kelvin
+  override def valueInBaseUnit = unitInKelvin
 }
 
 object TemperatureUnit{

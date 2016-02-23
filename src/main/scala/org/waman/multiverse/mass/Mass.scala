@@ -88,8 +88,8 @@ sealed abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
   def this(symbol: String, factor: Real, massUnit: MassUnit) =
     this(symbol, factor * massUnit.unitInKiloGram)
 
-  override val baseUnit = MassUnit.KiloGram
-  override val inBaseUnitAccessor = () => unitInKiloGram
+  override def baseUnit = MassUnit.KiloGram
+  override def valueInBaseUnit = unitInKiloGram
 
   override def /(volumeUnit: VolumeUnit): DensityUnit = DensityUnit(this, volumeUnit)
 }

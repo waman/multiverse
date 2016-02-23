@@ -30,8 +30,8 @@ class FluxDensity[A: Fractional](val value: A, val unit: FluxDensityUnit)
 sealed abstract class FluxDensityUnit(val symbol: String, val unitInTesla: Real)
     extends PhysicalUnit[FluxDensityUnit]{
 
-  override val baseUnit = FluxDensityUnit.Tesla
-  override val inBaseUnitAccessor = () => unitInTesla
+  override def baseUnit = FluxDensityUnit.Tesla
+  override def valueInBaseUnit = unitInTesla
 }
 
 object FluxDensityUnit{

@@ -42,8 +42,8 @@ sealed trait DipoleUnit extends PhysicalUnit[DipoleUnit]{
 
   def unitInCoulombMetre: Real
 
-  override lazy val baseUnit = ChargeUnit.Coulomb * LengthUnit.Metre
-  override lazy val inBaseUnitAccessor = () => unitInCoulombMetre
+  override def baseUnit = ChargeUnit.Coulomb * LengthUnit.Metre
+  override def valueInBaseUnit = unitInCoulombMetre
 }
 
 object DipoleUnit{

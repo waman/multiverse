@@ -44,7 +44,7 @@ sealed abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Re
   extends PhysicalUnit[SolidAngleUnit]{
 
   override val baseUnit = SolidAngleUnit.Steradian
-  override val inBaseUnitAccessor = () => unitInSteradian
+  override val valueInBaseUnit = unitInSteradian
 }
 
 object SolidAngleUnit{

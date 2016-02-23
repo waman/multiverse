@@ -74,7 +74,6 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
         CubicMile,
 
         BoardFoot,
-        AcreFoot,
 
         Gallon_beer,
         Perch,
@@ -181,7 +180,6 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
           (Seq(3.0.cu_mi, 3.0 cu_mi, 3.0 (cu_mi)), 3.0 * 4168181825.440579584),
 
           (Seq(3.0.fbm, 3.0 fbm, 3.0 (fbm)), 3.0 * 2.359737216e-3),
-          (Seq(3.0.ac_ft, 3.0 ac_ft, 3.0 (ac_ft)), 3.0 * 1233.48183754752),
 
           (Seq(3.0.beer_gal, 3.0 beer_gal, 3.0 (beer_gal)), 3.0 * 4.621152048e-3),
           (Seq(3.0.per, 3.0 per, 3.0 (per)), 3.0 * 0.700841953152),
@@ -308,7 +306,6 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
           (Seq(value.cu_mi, value cu_mi, value(cu_mi)), 3.0 / 4168181825.440579584),
 
           (Seq(value.fbm, value fbm, value(fbm)), 3.0 / 2.359737216e-3),
-          (Seq(value.ac_ft, value ac_ft, value(ac_ft)), 3.0 / 1233.48183754752),
 
           (Seq(value.beer_gal, value beer_gal, value(beer_gal)), 3.0 / 4.621152048e-3),
           (Seq(value.per, value per, value(per)), 3.0 / 0.700841953152),

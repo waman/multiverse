@@ -57,8 +57,8 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
 sealed abstract class AccelerationUnit extends PhysicalUnit[AccelerationUnit]{
   def unitInMetrePerSecondSquared: Real
 
-  override lazy val baseUnit = LengthUnit.Metre / TimeSquaredUnit.SecondSquared
-  override lazy val inBaseUnitAccessor = () => unitInMetrePerSecondSquared
+  override def baseUnit = LengthUnit.Metre / TimeSquaredUnit.SecondSquared
+  override def valueInBaseUnit = unitInMetrePerSecondSquared
 }
 
 object AccelerationUnit{

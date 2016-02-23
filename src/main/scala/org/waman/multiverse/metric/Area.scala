@@ -286,8 +286,8 @@ sealed trait AreaUnit extends PhysicalUnit[AreaUnit]
 
   def unitInSquareMetre: Real
 
-  override val baseUnit = AreaUnit.SquareMetre
-  override val inBaseUnitAccessor = () => unitInSquareMetre
+  override def baseUnit = AreaUnit.SquareMetre
+  override def valueInBaseUnit = unitInSquareMetre
 
   override def *(lengthUnit: LengthUnit) = VolumeUnit(this, lengthUnit)
 

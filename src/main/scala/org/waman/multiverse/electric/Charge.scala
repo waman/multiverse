@@ -59,8 +59,8 @@ sealed abstract class ChargeUnit(val symbol: String, val unitInCoulomb: Real)
     with MultiplicativeByLengthUnit[DipoleUnit]
     with DivisibleByMassUnit[ExposureUnit]{
 
-  override val baseUnit = ChargeUnit.Coulomb
-  override val inBaseUnitAccessor = () => unitInCoulomb
+  override def baseUnit = ChargeUnit.Coulomb
+  override def valueInBaseUnit = unitInCoulomb
 
   override def *(lengthUnit: LengthUnit) = DipoleUnit(this, lengthUnit)
 

@@ -45,8 +45,8 @@ sealed abstract class LuminousIntensityUnit(val symbol: String, val unitInCandel
     extends PhysicalUnit[LuminousIntensityUnit]
     with DivisibleByAreaUnit[LuminanceUnit]{
 
-  override val baseUnit = LuminousIntensityUnit.Candela
-  override val inBaseUnitAccessor = () => unitInCandela
+  override def baseUnit = LuminousIntensityUnit.Candela
+  override def valueInBaseUnit = unitInCandela
 
   override def /(areaUnit: AreaUnit) = LuminanceUnit(this, areaUnit)
 }

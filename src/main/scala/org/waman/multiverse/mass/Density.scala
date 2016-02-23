@@ -30,8 +30,8 @@ sealed trait DensityUnit extends PhysicalUnit[DensityUnit]{
 
   def unitInKiloGramPerCubicMetre: Real
 
-  override lazy val baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
-  override lazy val inBaseUnitAccessor = () => unitInKiloGramPerCubicMetre
+  override def baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
+  override def valueInBaseUnit = unitInKiloGramPerCubicMetre
 }
 
 object DensityUnit{

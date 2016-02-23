@@ -45,8 +45,8 @@ sealed trait LuminanceUnit extends PhysicalUnit[LuminanceUnit]{
 
   def unitInCandelaPerSquareMetre: Real
 
-  override lazy val baseUnit = LuminousIntensityUnit.Candela / AreaUnit.SquareMetre
-  override lazy val inBaseUnitAccessor = () => unitInCandelaPerSquareMetre
+  override def baseUnit = LuminousIntensityUnit.Candela / AreaUnit.SquareMetre
+  override def valueInBaseUnit = unitInCandelaPerSquareMetre
 }
 
 object LuminanceUnit{

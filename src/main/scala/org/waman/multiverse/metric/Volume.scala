@@ -73,7 +73,6 @@ trait VolumePostfixOps[A]{
   def cu_mi: A = mi3
 
   def fbm: A = volumePostfixOps(BoardFoot)
-  def ac_ft: A = volumePostfixOps(AcreFoot)
 
   def beer_gal: A = volumePostfixOps(Gallon_beer)
   def per: A = volumePostfixOps(Perch)
@@ -231,7 +230,6 @@ trait VolumePer[A]{
   def cu_mi(per: Per): A = volumePer(CubicMile)
 
   def fbm(per: Per): A = volumePer(BoardFoot)
-  def ac_ft(per: Per): A = volumePer(AcreFoot)
 
   def beer_gal(per: Per): A = volumePer(Gallon_beer)
   def per(per: Per): A = volumePer(Perch)
@@ -283,8 +281,8 @@ sealed trait VolumeUnit
   
   def unitInCubicMetre: Real
 
-  override val baseUnit = VolumeUnit.CubicMetre
-  override val inBaseUnitAccessor = () => unitInCubicMetre
+  override def baseUnit = VolumeUnit.CubicMetre
+  override def valueInBaseUnit = unitInCubicMetre
 
   override def /(timeUnit: TimeUnit) = VolumeFlowUnit(this, timeUnit)
 }
@@ -359,7 +357,6 @@ object VolumeUnit{
   case object CubicMile   extends VolumeUnitImpl("mi;cu_mi", LengthUnit.Mile)
 
   case object BoardFoot extends VolumeUnitImpl("fbm", 144, CubicInch)
-  case object AcreFoot extends VolumeUnitImpl("ac_ft", AreaUnit.Acre, LengthUnit.Foot)
 
   case object Gallon_beer extends VolumeUnitImpl("beer_gal", 282, CubicInch)
   case object Perch extends VolumeUnitImpl("per", r"33/2" * r"3/2", CubicFoot)

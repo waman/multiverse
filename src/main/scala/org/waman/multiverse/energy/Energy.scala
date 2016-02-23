@@ -62,8 +62,8 @@ sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
   def this(symbol: String, factor: Real, energyUnit: EnergyUnit) =
     this(symbol, factor * energyUnit.unitInJoule)
 
-  override val baseUnit = EnergyUnit.Joule
-  override val inBaseUnitAccessor = () => unitInJoule
+  override def baseUnit = EnergyUnit.Joule
+  override def valueInBaseUnit = unitInJoule
 
   override def *(timeUnit: TimeUnit) = ActionUnit(this, timeUnit)
 

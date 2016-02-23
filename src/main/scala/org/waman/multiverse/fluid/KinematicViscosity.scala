@@ -44,8 +44,8 @@ sealed trait KinematicViscosityUnit extends PhysicalUnit[KinematicViscosityUnit]
 
   def unitInSquareMetrePerSecond: Real
 
-  override lazy val baseUnit = AreaUnit.SquareMetre / TimeUnit.Second
-  override lazy val inBaseUnitAccessor = () => unitInSquareMetrePerSecond
+  override def baseUnit = AreaUnit.SquareMetre / TimeUnit.Second
+  override def valueInBaseUnit = unitInSquareMetrePerSecond
 }
 
 object KinematicViscosityUnit{

@@ -102,8 +102,8 @@ sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
   def this(symbol: String, factor: Real, angleUnit: AngleUnit) =
     this(symbol, factor * angleUnit.unitInRadian)
 
-  override val baseUnit = AngleUnit.Radian
-  override val inBaseUnitAccessor = () => unitInRadian
+  override def baseUnit = AngleUnit.Radian
+  override def valueInBaseUnit = unitInRadian
 
   override def /(timeUnit: TimeUnit): AngularVelocityUnit =
     AngularVelocityUnit(this, timeUnit)

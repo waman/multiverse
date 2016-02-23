@@ -47,8 +47,8 @@ sealed abstract class PressureUnit(val symbol: String, val unitInPascal: Real)
   def this(symbol: String, factor: Real, pressureUnit: PressureUnit) =
     this(symbol, factor * pressureUnit.unitInPascal)
 
-  override val baseUnit = PressureUnit.Pascal
-  override val inBaseUnitAccessor = () => unitInPascal
+  override def baseUnit = PressureUnit.Pascal
+  override def valueInBaseUnit = unitInPascal
 
   override def *(timeUnit: TimeUnit) = DynamicViscosityUnit(this, timeUnit)
 }

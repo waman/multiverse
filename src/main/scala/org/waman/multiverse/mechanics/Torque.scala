@@ -30,8 +30,8 @@ sealed trait TorqueUnit extends PhysicalUnit[TorqueUnit]{
 
   def unitInNewtonMetre: Real
 
-  override lazy val baseUnit = ForceUnit.Newton * LengthUnit.Metre
-  override lazy val inBaseUnitAccessor = () => unitInNewtonMetre
+  override def baseUnit = ForceUnit.Newton * LengthUnit.Metre
+  override def valueInBaseUnit = unitInNewtonMetre
 }
 
 object TorqueUnit{

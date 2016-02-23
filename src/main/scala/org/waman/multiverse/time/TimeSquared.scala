@@ -32,8 +32,8 @@ sealed abstract class TimeSquaredUnit(val symbol: String, val unitInSecondSquare
   def this(symbol: String, factor: Real, timeSquaredUnit: TimeSquaredUnit) =
     this(symbol, factor * timeSquaredUnit.unitInSecondSquared)
 
-  override val baseUnit = TimeSquaredUnit.SecondSquared
-  override val inBaseUnitAccessor = () => unitInSecondSquared
+  override def baseUnit = TimeSquaredUnit.SecondSquared
+  override def valueInBaseUnit = unitInSecondSquared
 }
 
 object TimeSquaredUnit{

@@ -30,8 +30,8 @@ class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
 sealed abstract class AbsorbedDoseUnit(val symbol: String, val unitInGray: Real)
     extends PhysicalUnit[AbsorbedDoseUnit]{
 
-  override val baseUnit = AbsorbedDoseUnit.Gray
-  override val inBaseUnitAccessor = () => unitInGray
+  override def baseUnit = AbsorbedDoseUnit.Gray
+  override def valueInBaseUnit = unitInGray
 }
 
 object AbsorbedDoseUnit{

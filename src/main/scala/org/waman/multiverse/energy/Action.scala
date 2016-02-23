@@ -43,8 +43,8 @@ sealed trait ActionUnit extends PhysicalUnit[ActionUnit]{
 
   def unitInJouleSecond: Real
 
-  override lazy val baseUnit = EnergyUnit.Joule * TimeUnit.Second
-  override lazy val inBaseUnitAccessor = () => unitInJouleSecond
+  override def baseUnit = EnergyUnit.Joule * TimeUnit.Second
+  override def valueInBaseUnit = unitInJouleSecond
 }
 
 object ActionUnit{

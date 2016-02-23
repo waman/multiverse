@@ -45,8 +45,8 @@ sealed abstract class EquivalentDoseUnit(val symbol: String, val unitInSievert: 
     extends PhysicalUnit[EquivalentDoseUnit]
     with DivisibleByTimeUnit[EquivalentDoseRateUnit]{
 
-  override val baseUnit = EquivalentDoseUnit.Sievert
-  override val inBaseUnitAccessor = () => unitInSievert
+  override def baseUnit = EquivalentDoseUnit.Sievert
+  override def valueInBaseUnit = unitInSievert
 
   override def /(timeUnit: TimeUnit) = EquivalentDoseRateUnit(this, timeUnit)
 }

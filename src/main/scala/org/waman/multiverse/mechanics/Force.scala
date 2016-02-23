@@ -48,8 +48,8 @@ sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
   extends PhysicalUnit[ForceUnit]
   with MultiplicativeByLengthUnit[TorqueUnit]{
 
-  override val baseUnit = ForceUnit.Newton
-  override val inBaseUnitAccessor = () => unitInNewton
+  override def baseUnit = ForceUnit.Newton
+  override def valueInBaseUnit = unitInNewton
 
   override def *(lengthUnit: LengthUnit): TorqueUnit = TorqueUnit(this, lengthUnit)
 }

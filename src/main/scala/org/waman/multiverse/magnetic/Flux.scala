@@ -30,8 +30,8 @@ class Flux[A: Fractional](val value: A, val unit: FluxUnit)
 sealed abstract class FluxUnit(val symbol: String, val unitInWeber: Real)
     extends PhysicalUnit[FluxUnit]{
 
-  override val baseUnit = FluxUnit.Weber
-  override val inBaseUnitAccessor = () => unitInWeber
+  override def baseUnit = FluxUnit.Weber
+  override def valueInBaseUnit = unitInWeber
 }
 
 object FluxUnit{

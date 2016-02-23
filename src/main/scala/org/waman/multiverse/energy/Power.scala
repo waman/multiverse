@@ -34,8 +34,8 @@ sealed abstract class PowerUnit(val symbol: String, val unitInWatt: Real)
   def this(symbol: String, factor: Real, powerUnit: PowerUnit) =
     this(symbol, factor * powerUnit.unitInWatt)
 
-  override val baseUnit = PowerUnit.Watt
-  override val inBaseUnitAccessor = () => unitInWatt
+  override def baseUnit = PowerUnit.Watt
+  override def valueInBaseUnit = unitInWatt
 }
 
 object PowerUnit{

@@ -330,8 +330,8 @@ sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
   def this(symbol: String, factor: Real, lengthUnit: LengthUnit) =
     this(symbol, factor * lengthUnit.unitInMetre)
 
-  override val baseUnit = LengthUnit.Metre
-  override val inBaseUnitAccessor = () => unitInMetre
+  override def baseUnit = LengthUnit.Metre
+  override def valueInBaseUnit = unitInMetre
 
   override def *(lengthUnit: LengthUnit) = AreaUnit(this, lengthUnit)
 

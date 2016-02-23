@@ -30,8 +30,8 @@ class Illuminance[A: Fractional](val value: A, val unit: IlluminanceUnit)
 sealed abstract class IlluminanceUnit(val symbol: String, val unitInLux: Real)
     extends PhysicalUnit[IlluminanceUnit]{
 
-  override val baseUnit = IlluminanceUnit.Lux
-  override val inBaseUnitAccessor = () => unitInLux
+  override def baseUnit = IlluminanceUnit.Lux
+  override def valueInBaseUnit = unitInLux
 }
 
 object IlluminanceUnit{
