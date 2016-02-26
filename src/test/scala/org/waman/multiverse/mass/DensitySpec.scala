@@ -11,16 +11,9 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class DensitySpec extends MultiverseCustomSpec with PropertyChecks{
-
-//  "UnitSystem#getSupportedUnits method should return supported units of density" in {
-//    __SetUp__
-//    import DensityUnit._
-//    __Exercise__
-//    val result = UnitSystem.getSupportedUnits(classOf[DensityUnit])
-//    __Verify__
-//    result should contain ()
-//  }
+class DensitySpec
+  extends MultiverseCustomSpec
+    with PropertyChecks{
 
   "DensityUnit should" - {
 

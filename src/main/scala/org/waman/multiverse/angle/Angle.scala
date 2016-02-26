@@ -109,7 +109,7 @@ sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
     AngularVelocityUnit(this, timeUnit)
 }
 
-object AngleUnit{
+object AngleUnit extends ConstantsDefined[AngleUnit]{
 
   case object Radian      extends AngleUnit("rad", 1)
   case object DeciRadian  extends AngleUnit("drad", r"1e-1")
@@ -137,6 +137,35 @@ object AngleUnit{
 
   case object Gradian extends AngleUnit("gon;ᵍ", twoPi / r"400")
   case object Turn    extends AngleUnit("tr" , twoPi)
+
+  override lazy val values = Seq(
+    Radian,
+    DeciRadian,
+    CentiRadian,
+    MilliRadian,
+    MicroRadian,
+    NanoRadian,
+    PicoRadian,
+    FemtoRadian,
+    AttoRadian,
+    ZeptoRadian,
+    YoctoRadian,
+
+    Degree,
+    ArcMinute,
+    ArcSecond,
+    MilliArcSecond,
+    MicroArcSecond,
+    NanoArcSecond,
+    PicoArcSecond,
+    FemtoArcSecond,
+    AttoArcSecond,
+    ZeptoArcSecond,
+    YoctoArcSecond,
+
+    Gradian,
+    Turn
+  )
 }
 
 trait PredefinedAngleUnit extends AnglePostfixOps[AngleUnit]{
@@ -145,7 +174,7 @@ trait PredefinedAngleUnit extends AnglePostfixOps[AngleUnit]{
 
 object PredefinedAngleUnit extends PredefinedAngleUnit
 
-trait AngleUnitInterpreter[A]
+trait AngleFactory[A]
     extends AnglePostfixOps[Angle[A]]
     with AnglePer[TimePostfixOps[AngularVelocity[A]]]{
 

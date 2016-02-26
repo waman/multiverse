@@ -1,8 +1,8 @@
 package org.waman.multiverse.electric
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class ResistanceSpec extends MultiverseCustomSpec with PropertyChecks{
+class ResistanceSpec
+  extends AbstractQuantityAndUnitSpec[ResistanceUnit]
+    with PropertyChecks{
 
-    "UnitSystem#getSupportedUnits method should return supported units of resistance" in {
-      __SetUp__
-      import ResistanceUnit._
-      __Exercise__
-      val result = UnitSystem.getSupportedUnits(classOf[ResistanceUnit])
-      __Verify__
-      result should contain (Ohm)
-    }
+  override protected val getUnitClass = classOf[ResistanceUnit]
 
   "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
     __Exercise__

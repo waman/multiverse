@@ -1,8 +1,8 @@
 package org.waman.multiverse.mechanics
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 import spire.implicits._
 
 import scala.language.postfixOps
@@ -11,16 +11,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class VelocitySpec extends MultiverseCustomSpec with PropertyChecks{
+class VelocitySpec
+  extends AbstractQuantityAndUnitSpec[VelocityUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of velocity" in {
-    __SetUp__
-    import VelocityUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[VelocityUnit])
-    __Verify__
-    result should contain (SpeedOfLight)
-  }
+  override protected val getUnitClass = classOf[VelocityUnit]
 
   "VelocityUnit should" - {
 

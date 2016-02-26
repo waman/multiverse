@@ -12,15 +12,6 @@ import scala.language.postfixOps
   */
 class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
 
-//  "UnitSystem#getSupportedUnits method should return supported units of equivalentDoseRate" in {
-//    __SetUp__
-//    import EquivalentDoseRateUnit._
-//    __Exercise__
-//    val result = UnitSystem.getSupportedUnits(classOf[EquivalentDoseRateUnit])
-//    __Verify__
-//    result should contain ()
-//  }
-
 //  "EquivalentDoseRateUnit should" - {
 //
 //    "return a equivalentDoseRate value of 1 g/cm3 in kilogram per cubic metre by 'inKilogramPerCubicMetre' property" in {

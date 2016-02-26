@@ -1,8 +1,8 @@
 package org.waman.multiverse.time
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,37 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class FrequencySpec extends MultiverseCustomSpec with PropertyChecks{
+class FrequencySpec
+  extends AbstractQuantityAndUnitSpec[FrequencyUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of frequency" in {
-    __SetUp__
-    import FrequencyUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[FrequencyUnit])
-    __Verify__
-    result should contain allOf (
-      YoctoHeltz,
-      ZeptoHeltz,
-      AttoHeltz ,
-      FemtoHeltz,
-      PicoHeltz ,
-      NanoHeltz ,
-      MicroHeltz,
-      MilliHeltz,
-      CentiHeltz,
-      DeciHeltz ,
-      Heltz     ,
-      DecaHeltz ,
-      HectoHeltz,
-      KiloHeltz ,
-      MegaHeltz ,
-      GigaHeltz ,
-      TeraHeltz ,
-      PetaHeltz ,
-      ExaHeltz  ,
-      ZettaHeltz,
-      YottaHeltz)
-  }
+  override protected val getUnitClass = classOf[FrequencyUnit]
 
   "Frequency object should be converted to a frequency by toFrequency method" in {
     val conversions =

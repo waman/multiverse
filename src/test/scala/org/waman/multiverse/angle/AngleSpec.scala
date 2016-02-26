@@ -1,8 +1,8 @@
 package org.waman.multiverse.angle
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,45 +10,13 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class AngleSpec extends MultiverseCustomSpec with PropertyChecks{
+class AngleSpec
+    extends AbstractQuantityAndUnitSpec[AngleUnit]
+    with PropertyChecks{
 
   val degree = Math.PI / 180.0
 
-  "UnitSystem#getSupportedUnits method should return supported units of angle" in {
-    __SetUp__
-    import AngleUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[AngleUnit])
-    __Verify__
-    result should contain theSameElementsAs Seq(
-      Radian,
-      DeciRadian,
-      CentiRadian,
-      MilliRadian,
-      MicroRadian,
-      NanoRadian,
-      PicoRadian,
-      FemtoRadian,
-      AttoRadian,
-      ZeptoRadian,
-      YoctoRadian,
-
-      Degree,
-      ArcMinute,
-      ArcSecond,
-      MilliArcSecond,
-      MicroArcSecond,
-      NanoArcSecond,
-      PicoArcSecond,
-      FemtoArcSecond,
-      AttoArcSecond,
-      ZeptoArcSecond,
-      YoctoArcSecond,
-
-      Gradian,
-      Turn
-    )
-  }
+  override protected val getUnitClass = classOf[AngleUnit]
 
   "Tests where converting from some units to radian like 3.0 deg => 3.0 * 2 PI / 360 rad" in {
     __Exercise__

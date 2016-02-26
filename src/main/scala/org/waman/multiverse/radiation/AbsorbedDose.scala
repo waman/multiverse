@@ -34,9 +34,13 @@ sealed abstract class AbsorbedDoseUnit(val symbol: String, val unitInGray: Real)
   override def valueInBaseUnit = unitInGray
 }
 
-object AbsorbedDoseUnit{
+object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
 
   case object Gray extends AbsorbedDoseUnit("Gy", 1)
+
+  override lazy val values = Seq(
+    Gray
+  )
 }
 
 trait PredefinedAbsorbedDoseUnit extends AbsorbedDosePostfixOps[AbsorbedDoseUnit]{
@@ -46,7 +50,7 @@ trait PredefinedAbsorbedDoseUnit extends AbsorbedDosePostfixOps[AbsorbedDoseUnit
 
 object PredefinedAbsorbedDoseUnit extends PredefinedAbsorbedDoseUnit
 
-trait AbsorbedDoseUnitInterpreter[A]
+trait AbsorbedDoseFactory[A]
     extends AbsorbedDosePostfixOps[AbsorbedDose[A]]{
 
   def apply(unit: AbsorbedDoseUnit): AbsorbedDose[A]

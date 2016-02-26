@@ -34,9 +34,13 @@ sealed abstract class CapacitanceUnit(val symbol: String, val unitInFarad: Real)
   override val valueInBaseUnit = unitInFarad
 }
 
-object CapacitanceUnit{
+object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
 
   case object Farad extends CapacitanceUnit("F", 1)
+
+  override lazy val values = Seq(
+    Farad
+  )
 }
 
 trait PredefinedCapacitanceUnit extends CapacitancePostfixOps[CapacitanceUnit]{
@@ -46,7 +50,7 @@ trait PredefinedCapacitanceUnit extends CapacitancePostfixOps[CapacitanceUnit]{
 
 object PredefinedCapacitanceUnit extends PredefinedCapacitanceUnit
 
-trait CapacitanceUnitInterpreter[A]
+trait CapacitanceFactory[A]
     extends CapacitancePostfixOps[Capacitance[A]]{
 
   def apply(unit: CapacitanceUnit): Capacitance[A]

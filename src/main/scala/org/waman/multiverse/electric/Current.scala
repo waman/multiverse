@@ -38,9 +38,13 @@ sealed abstract class CurrentUnit(val symbol: String, val unitInAmpere: Real)
   override def valueInBaseUnit = unitInAmpere
 }
 
-object CurrentUnit{
+object CurrentUnit extends ConstantsDefined[CurrentUnit]{
 
   case object Ampere extends CurrentUnit("A", 1)
+
+  override lazy val values = Seq(
+    Ampere
+  )
 }
 
 trait PredefinedCurrentUnit extends CurrentPostfixOps[CurrentUnit]{
@@ -50,7 +54,7 @@ trait PredefinedCurrentUnit extends CurrentPostfixOps[CurrentUnit]{
 
 object PredefinedCurrentUnit extends PredefinedCurrentUnit
 
-trait CurrentUnitInterpreter[A]
+trait CurrentFactory[A]
     extends CurrentPostfixOps[Current[A]]{
 
   def apply(unit: CurrentUnit): Current[A]

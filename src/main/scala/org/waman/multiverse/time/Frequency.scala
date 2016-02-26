@@ -1,7 +1,7 @@
 package org.waman.multiverse.time
 
 import org.waman.multiverse.angle.{AngleUnit, AngularVelocity}
-import org.waman.multiverse.{PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse.{ConstantsDefined, PhysicalUnit, Quantity, UnitConverter}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -59,12 +59,12 @@ sealed abstract class FrequencyUnit(val symbol: String, val unitInHeltz: Real)
   override def valueInBaseUnit = unitInHeltz
 }
 
-object FrequencyUnit{
+object FrequencyUnit extends ConstantsDefined[FrequencyUnit]{
 
   case object YoctoHeltz extends FrequencyUnit("yHz", r"1e-24")
   case object ZeptoHeltz extends FrequencyUnit("zHz", r"1e-21")
   case object AttoHeltz  extends FrequencyUnit("aHz", r"1e-18")
-  case object FemtoHeltz extends FrequencyUnit("aHz", r"1e-15")
+  case object FemtoHeltz extends FrequencyUnit("fHz", r"1e-15")
   case object PicoHeltz  extends FrequencyUnit("pHz", r"1e-12")
   case object NanoHeltz  extends FrequencyUnit("nHz", r"1e-9")
   case object MicroHeltz extends FrequencyUnit("μHz", r"1e-6")
@@ -82,6 +82,30 @@ object FrequencyUnit{
   case object ExaHeltz   extends FrequencyUnit("EHz", r"1e18")
   case object ZettaHeltz extends FrequencyUnit("ZHz", r"1e21")
   case object YottaHeltz extends FrequencyUnit("YHz", r"1e24")
+
+  override lazy val values = Seq(
+    YoctoHeltz,
+    ZeptoHeltz,
+    AttoHeltz ,
+    FemtoHeltz,
+    PicoHeltz ,
+    NanoHeltz ,
+    MicroHeltz,
+    MilliHeltz,
+    CentiHeltz,
+    DeciHeltz ,
+    Heltz     ,
+    DecaHeltz ,
+    HectoHeltz,
+    KiloHeltz ,
+    MegaHeltz ,
+    GigaHeltz ,
+    TeraHeltz ,
+    PetaHeltz ,
+    ExaHeltz  ,
+    ZettaHeltz,
+    YottaHeltz
+  )
 }
 
 trait PredefinedFrequencyUnit extends FrequencyPostfixOps[FrequencyUnit]{
@@ -91,7 +115,7 @@ trait PredefinedFrequencyUnit extends FrequencyPostfixOps[FrequencyUnit]{
 
 object PredefinedFrequencyUnit extends PredefinedFrequencyUnit
 
-trait FrequencyUnitInterpreter[A] extends FrequencyPostfixOps[Frequency[A]]{
+trait FrequencyFactory[A] extends FrequencyPostfixOps[Frequency[A]]{
 
   def apply(unit: FrequencyUnit): Frequency[A]
 

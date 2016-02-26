@@ -34,9 +34,13 @@ sealed abstract class FluxUnit(val symbol: String, val unitInWeber: Real)
   override def valueInBaseUnit = unitInWeber
 }
 
-object FluxUnit{
+object FluxUnit extends ConstantsDefined[FluxUnit]{
 
   case object Weber extends FluxUnit("Wb", 1)
+
+  override lazy val values = Seq(
+    Weber
+  )
 }
 
 trait PredefinedFluxUnit extends FluxPostfixOps[FluxUnit]{
@@ -46,7 +50,7 @@ trait PredefinedFluxUnit extends FluxPostfixOps[FluxUnit]{
 
 object PredefinedFluxUnit extends PredefinedFluxUnit
 
-trait FluxUnitInterpreter[A]
+trait FluxFactory[A]
     extends FluxPostfixOps[Flux[A]]{
 
   def apply(unit: FluxUnit): Flux[A]

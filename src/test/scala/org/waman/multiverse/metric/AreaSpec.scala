@@ -2,7 +2,7 @@ package org.waman.multiverse.metric
 
 import org.scalatest.prop.PropertyChecks
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
+import org.waman.multiverse.{AbstractQuantityAndUnitSpec, UnitSystem}
 import spire.implicits._
 
 import scala.language.postfixOps
@@ -11,85 +11,15 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
+class AreaSpec
+  extends AbstractQuantityAndUnitSpec[AreaUnit]
+    with PropertyChecks{
+
+  override protected val getUnitClass = classOf[AreaUnit]
+
+  val usFoot = 1200.0 / 3937.0
 
   "Predefined area units" - {
-
-    "UnitSystem#getSupportedUnits method should return supported units of area" in {
-      __SetUp__
-      import AreaUnit._
-      __Exercise__
-      val result = UnitSystem.getSupportedUnits(classOf[AreaUnit])
-      __Verify__
-      result should contain theSameElementsAs Seq(
-        SquareYoctoMetre,
-        SquareZeptoMetre,
-        SquareAttoMetre,
-        SquareFemtoMetre,
-        SquarePicoMetre,
-        SquareNanoMetre,
-        SquareMicroMetre,
-        SquareMilliMetre,
-        SquareCentiMetre,
-        SquareDeciMetre,
-        SquareMetre,
-        SquareDecaMetre,
-        SquareHectoMetre,
-        SquareKiloMetre,
-        SquareMegaMetre,
-        SquareGigaMetre,
-        SquareTeraMetre,
-        SquarePetaMetre,
-        SquareExaMetre,
-        SquareZettaMetre,
-        SquareYottaMetre,
-
-        Are,
-        Hectare,
-
-        YoctoBarn,
-        ZeptoBarn,
-        AttoBarn,
-        FemtoBarn,
-        PicoBarn,
-        NanoBarn,
-        MicroBarn,
-        MilliBarn,
-        Barn,
-        KiloBarn,
-        MegaBarn,
-        GigaBarn,
-        TeraBarn,
-        PetaBarn,
-        ExaBarn,
-        ZettaBarn,
-        YottaBarn,
-
-        SquareMil,
-        SquareInch,
-        SquareLink,
-        SquareFoot,
-        SquareChain,
-        SquareYard,
-        SquareRod,
-        SquareMile,
-        Acre,
-        Rood,
-
-        SquareLink_US_Survey,
-        SquareFoot_US_Survey,
-        SquareChain_US_Survey,
-        SquareMile_US_Survey,
-        Acre_US_Survey,
-
-        CircularMil,
-        CircularInch,
-
-        Board
-      )
-    }
-
-    val usFoot = 1200.0 / 3937.0
 
     "Tests where converting from some units to square metre like 3.0 km2 => 3e6 m2" in {
       __SetUp__
@@ -253,7 +183,7 @@ class AreaSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  "product area unit" - {
+  "Product area unit" - {
 
     "Area unit of m*cm should equal 0.01 m2" in {
       __Exercise__

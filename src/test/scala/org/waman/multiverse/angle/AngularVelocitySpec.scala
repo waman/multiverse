@@ -1,8 +1,8 @@
 package org.waman.multiverse.angle
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 import spire.implicits._
 import spire.math.Real
 
@@ -12,18 +12,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class AngularVelocitySpec extends MultiverseCustomSpec with PropertyChecks{
+class AngularVelocitySpec
+  extends AbstractQuantityAndUnitSpec[AngularVelocityUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of angular velocity" in {
-    __SetUp__
-    import AngularVelocityUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[AngularVelocityUnit])
-    __Verify__
-    result should contain allOf (
-      RevolutionPerMinute,
-      CyclePerSecond)
-  }
+  override protected val getUnitClass = classOf[AngularVelocityUnit]
 
   "AngularVelocityUnit should" - {
 

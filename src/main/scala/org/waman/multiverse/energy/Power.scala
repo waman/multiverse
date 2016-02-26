@@ -38,9 +38,13 @@ sealed abstract class PowerUnit(val symbol: String, val unitInWatt: Real)
   override def valueInBaseUnit = unitInWatt
 }
 
-object PowerUnit{
+object PowerUnit extends ConstantsDefined[PowerUnit]{
 
   case object Watt extends PowerUnit("W", 1)
+
+  override lazy val values = Seq(
+    Watt
+  )
 }
 
 trait PredefinedPowerUnit extends PowerPostfixOps[PowerUnit]{
@@ -50,7 +54,7 @@ trait PredefinedPowerUnit extends PowerPostfixOps[PowerUnit]{
 
 object PredefinedPowerUnit extends PredefinedPowerUnit
 
-trait PowerUnitInterpreter[A]
+trait PowerFactory[A]
   extends PowerPostfixOps[Power[A]]{
 
   def apply(unit: PowerUnit): Power[A]

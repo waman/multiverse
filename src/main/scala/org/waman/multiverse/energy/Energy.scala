@@ -70,11 +70,16 @@ sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
   override def /(temperatureUnit: TemperatureUnit) = EntropyUnit(this, temperatureUnit)
 }
 
-object EnergyUnit{
+object EnergyUnit extends ConstantsDefined[EnergyUnit]{
 
   case object Joule extends EnergyUnit("J", 1)
 
   case object ElectronVolt extends EnergyUnit("eV", r"1.60217656535e-19") with NotExact
+
+  override lazy val values = Seq(
+    Joule,
+    ElectronVolt
+  )
 }
 
 trait PredefinedEnergyUnit extends EnergyPostfixOps[EnergyUnit]{
@@ -84,7 +89,7 @@ trait PredefinedEnergyUnit extends EnergyPostfixOps[EnergyUnit]{
 
 object PredefinedEnergyUnit extends PredefinedEnergyUnit
 
-trait EnergyUnitInterpreter[A]
+trait EnergyFactory[A]
     extends EnergyPostfixOps[Energy[A]]
     with EnergyDot[TimePostfixOps[Action[A]]]
     with EnergyPer[TemperaturePostfixOps[Entropy[A]]]{

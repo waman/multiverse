@@ -1,20 +1,27 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.Context._
-
 import scala.language.postfixOps
 
 class ContextSpec extends MultiverseCustomSpec{
 
-  "UnitSystem#getSupportedContext method should return all values of Context" in {
+  "'values' property should return all values of Context" in {
+    __SetUp__
+    val expected = classOf[Context].getClasses
+                     .map(_.getSimpleName)
+                     .map(s => s.substring(0, s.length - 1))
     __Exercise__
-    val sut = Context.values
+    val sut = Context.values.map(_.name)
     __Verify__
-    sut should contain theSameElementsAs Seq(
-      UnitedStates, UnitedStates_Fluid, UnitedStates_Dry, UnitedStates_Dry_Level,
-      Imperial, Admiralty,
+    sut should containTheSameElementsAs (expected)
+  }
 
-      Cu_KAlpha1, Mo_KAlpha1
-    )
+  "HasContext trait should have all Context objects as property" in {
+    __SetUp__
+    val sut:Seq[String] = classOf[HasContext].getMethods
+                .filter(m => classOf[Context].isAssignableFrom(m.getReturnType))
+                .map(_.getName)
+    val expected = Context.values.map(_.symbol)
+    __Verify__
+    sut should containTheSameElementsAs (expected)
   }
 }

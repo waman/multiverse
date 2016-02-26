@@ -1,8 +1,8 @@
 package org.waman.multiverse.fluid
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 import spire.implicits._
 
 import scala.language.postfixOps
@@ -11,16 +11,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class VolumeFlowSpec extends MultiverseCustomSpec with PropertyChecks{
+class VolumeFlowSpec
+  extends AbstractQuantityAndUnitSpec[VolumeFlowUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of volume flow" in {
-    __SetUp__
-    import VolumeFlowUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[VolumeFlowUnit])
-    __Verify__
-    result should contain (LitrePerMinute)
-  }
+  override protected val getUnitClass = classOf[VolumeFlowUnit]
 
   "VolumeFlowUnit should" - {
 

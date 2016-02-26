@@ -49,11 +49,7 @@ object DensityUnit{
     new QuotientDensityUnit(mUnit, vUnit)
 }
 
-trait PredefinedDensityUnit
-
-object PredefinedDensityUnit extends PredefinedDensityUnit
-
-trait DensityUnitInterpreter[A]
+trait DensityFactory[A]
     extends UnitConverter[A]{
 
   def apply(unit: DensityUnit): Density[A]

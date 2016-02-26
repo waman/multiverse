@@ -46,18 +46,22 @@ sealed trait DipoleUnit extends PhysicalUnit[DipoleUnit]{
   override def valueInBaseUnit = unitInCoulombMetre
 }
 
-object DipoleUnit{
+object DipoleUnit extends ConstantsDefined[DipoleUnit]{
 
   // Custom
   private[DipoleUnit]
-  class DipoleUnitImpl(val symbol: String, val unitInCoulombMetre: Real)
+  class IntrinsicDipoleUnit(val symbol: String, val unitInCoulombMetre: Real)
     extends DipoleUnit{
 
     def this(symbol: String, chargeUnit: ChargeUnit, lengthUnit: LengthUnit) =
       this(symbol, chargeUnit.unitInCoulomb * lengthUnit.unitInMetre)
   }
 
-  case object Debye extends DipoleUnitImpl("D", r"340")
+  case object Debye extends IntrinsicDipoleUnit("D", r"340")
+
+  override lazy val values = Seq(
+    Debye
+  )
 
   // Product (Charge * Length)
   private[DipoleUnit]
@@ -78,7 +82,7 @@ trait PredefinedDipoleUnit extends DipolePostfixOps[DipoleUnit]{
 
 object PredefinedDipoleUnit extends PredefinedDipoleUnit
 
-trait DipoleUnitInterpreter[A]
+trait DipoleFactory[A]
     extends DipolePostfixOps[Dipole[A]]{
 
   def apply(unit: DipoleUnit): Dipole[A]

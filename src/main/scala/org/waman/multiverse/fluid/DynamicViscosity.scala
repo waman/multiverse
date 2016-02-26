@@ -47,14 +47,18 @@ sealed trait DynamicViscosityUnit extends PhysicalUnit[DynamicViscosityUnit]{
   override def valueInBaseUnit = unitInPascalSecond
 }
 
-object DynamicViscosityUnit{
+object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
 
   // Custom
   private[DynamicViscosityUnit]
-  class DynamicViscosityUnitImpl(val symbol: String, val unitInPascalSecond: Real)
+  class IntrinsicDynamicViscosityUnit(val symbol: String, val unitInPascalSecond: Real)
     extends DynamicViscosityUnit
 
-  case object Poise extends DynamicViscosityUnitImpl("P", r"0.1")
+  case object Poise extends IntrinsicDynamicViscosityUnit("P", r"0.1")
+
+  override lazy val values = Seq(
+    Poise
+  )
 
   // Product (Pressure * Time)
   private[DynamicViscosityUnit]
@@ -77,7 +81,7 @@ trait PredefinedDynamicViscosityUnit extends DynamicViscosityPostfixOps[DynamicV
 
 object PredefinedDynamicViscosityUnit extends PredefinedDynamicViscosityUnit
 
-trait DynamicViscosityUnitInterpreter[A]
+trait DynamicViscosityFactory[A]
   extends DynamicViscosityPostfixOps[DynamicViscosity[A]]{
 
   def apply(unit: DynamicViscosityUnit): DynamicViscosity[A]

@@ -34,9 +34,13 @@ sealed abstract class TemperatureUnit(val symbol: String, val unitInKelvin: Real
   override def valueInBaseUnit = unitInKelvin
 }
 
-object TemperatureUnit{
+object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
 
   case object Kelvin extends TemperatureUnit("K", 1)
+
+  override lazy val values = Seq(
+    Kelvin
+  )
 }
 
 trait PredefinedTemperatureUnit extends TemperaturePostfixOps[TemperatureUnit]{
@@ -46,7 +50,7 @@ trait PredefinedTemperatureUnit extends TemperaturePostfixOps[TemperatureUnit]{
 
 object PredefinedTemperatureUnit extends PredefinedTemperatureUnit
 
-trait TemperatureUnitInterpreter[A]
+trait TemperatureFactory[A]
     extends TemperaturePostfixOps[Temperature[A]]{
 
   def apply(unit: TemperatureUnit): Temperature[A]

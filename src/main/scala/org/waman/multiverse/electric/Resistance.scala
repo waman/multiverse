@@ -34,9 +34,13 @@ sealed abstract class ResistanceUnit(val symbol: String, val unitInOhm: Real)
   override def valueInBaseUnit = unitInOhm
 }
 
-object ResistanceUnit{
+object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
 
   case object Ohm extends ResistanceUnit("Ω", 1)
+
+  override lazy val values = Seq(
+    Ohm
+  )
 }
 
 trait PredefinedResistanceUnit extends ResistancePostfixOps[ResistanceUnit]{
@@ -46,7 +50,7 @@ trait PredefinedResistanceUnit extends ResistancePostfixOps[ResistanceUnit]{
 
 object PredefinedResistanceUnit extends PredefinedResistanceUnit
 
-trait ResistanceUnitInterpreter[A]
+trait ResistanceFactory[A]
     extends ResistancePostfixOps[Resistance[A]]{
 
   def apply(unit: ResistanceUnit): Resistance[A]

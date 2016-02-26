@@ -1,8 +1,8 @@
 package org.waman.multiverse.magnetic
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class FluxDensitySpec extends MultiverseCustomSpec with PropertyChecks{
+class FluxDensitySpec
+  extends AbstractQuantityAndUnitSpec[FluxDensityUnit]
+    with PropertyChecks{
 
-    "UnitSystem#getSupportedUnits method should return supported units of flux density" in {
-      __SetUp__
-      import FluxDensityUnit._
-      __Exercise__
-      val result = UnitSystem.getSupportedUnits(classOf[FluxDensityUnit])
-      __Verify__
-      result should contain (Tesla)
-    }
+  override protected val getUnitClass = classOf[FluxDensityUnit]
 
   "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
     __Exercise__

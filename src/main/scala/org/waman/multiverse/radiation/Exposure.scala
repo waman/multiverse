@@ -47,14 +47,18 @@ sealed trait ExposureUnit extends PhysicalUnit[ExposureUnit]{
   override def valueInBaseUnit = unitInCoulombPerKiloGram
 }
 
-object ExposureUnit{
+object ExposureUnit extends ConstantsDefined[ExposureUnit]{
 
   // Custom
   private[ExposureUnit]
-  class ExposureUnitImpl(val symbol: String, val unitInCoulombPerKiloGram: Real)
+  class IntrinsicExposureUnit(val symbol: String, val unitInCoulombPerKiloGram: Real)
     extends ExposureUnit
 
-  case object Roentgen extends ExposureUnitImpl("R", r"2.58e-4")
+  case object Roentgen extends IntrinsicExposureUnit("R", r"2.58e-4")
+
+  override lazy val values = Seq(
+    Roentgen
+  )
 
   // Quotient (Charge / KiloGram)
   private[ExposureUnit]
@@ -76,7 +80,7 @@ trait PredefinedExposureUnit extends ExposurePostfixOps[ExposureUnit]{
 
 object PredefinedExposureUnit extends PredefinedExposureUnit
 
-trait ExposureUnitInterpreter[A]
+trait ExposureFactory[A]
     extends ExposurePostfixOps[Exposure[A]]{
 
   def apply(unit: ExposureUnit): Exposure[A]

@@ -341,12 +341,12 @@ sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
   override def compare(that: LengthUnit): Int = unitInMetre.compare(that.unitInMetre)
 }
 
-object LengthUnit{
+object LengthUnit extends ConstantsDefined[LengthUnit]{
 
   case object YoctoMetre extends LengthUnit("ym", r"1e-24")
   case object ZeptoMetre extends LengthUnit("zm", r"1e-21")
   case object AttoMetre  extends LengthUnit("am", r"1e-18")
-  case object FemtoMetre extends LengthUnit("am", r"1e-15")
+  case object FemtoMetre extends LengthUnit("fm", r"1e-15")
   case object PicoMetre  extends LengthUnit("pm", r"1e-12")
   case object NanoMetre  extends LengthUnit("nm", r"1e-9")
   case object MicroMetre extends LengthUnit("μm", r"1e-6")
@@ -414,6 +414,77 @@ object LengthUnit{
 
   case object French  extends LengthUnit("Fr", r"1/3", MilliMetre)
   case object Furlong extends LengthUnit("fur", 660, Foot)
+
+  override lazy val values = Seq(
+    YoctoMetre,
+    ZeptoMetre,
+    AttoMetre,
+    FemtoMetre,
+    PicoMetre,
+    NanoMetre,
+    MicroMetre,
+    MilliMetre,
+    CentiMetre,
+    DeciMetre,
+    Metre,
+    DecaMetre,
+    HectoMetre,
+    KiloMetre,
+    MegaMetre,
+    GigaMetre,
+    TeraMetre,
+    PetaMetre,
+    ExaMetre,
+    ZettaMetre,
+    YottaMetre,
+
+    Micron,
+    Angstrom,
+    AtomicUnitOfLength,
+    XUnit,
+    XUnit_CuKAlpha1,
+    XUnit_MoKAlpha1,
+    PlanckLength,
+
+    AstronomicalUnit,
+    LightYear,
+    Parsec,
+
+    Mil,
+    Twip,
+    Point,
+    Line,
+    Inch,
+    Link,
+    Foot,
+    Yard,
+    Ell,
+    Fathom,
+    Rod,
+    Rope,
+    Chain,
+    Mile,
+    League,
+
+    NauticalMile,
+    NauticalMile_Admiralty,
+    NauticalLeague,
+    Cable,
+    Cable_US,
+    Cable_imperial,
+
+    Link_US_Survey,
+    Foot_US_Survey,
+    Chain_US_Survey,
+    Mile_US_Survey,
+
+    MetricFoot,
+    ShortMetricFoot,
+    LongMetricFoot,
+
+    French,
+    Furlong
+  )
 }
 
 trait PredefinedLengthUnit extends LengthPostfixOps[LengthUnit]{
@@ -423,7 +494,7 @@ trait PredefinedLengthUnit extends LengthPostfixOps[LengthUnit]{
 
 object PredefinedLengthUnit extends PredefinedLengthUnit
 
-trait LengthUnitInterpreter[A]
+trait LengthFactory[A]
     extends LengthPostfixOps[Length[A]]
     with LengthDot[LengthPostfixOps[Area[A]]]
     with LengthPer[TimePostfixOps[Velocity[A]]  // for style like "1.0 m/s" ( = 1.0.m(/).s)

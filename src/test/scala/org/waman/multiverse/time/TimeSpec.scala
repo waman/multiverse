@@ -1,8 +1,8 @@
 package org.waman.multiverse.time
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,42 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class TimeSpec extends MultiverseCustomSpec with PropertyChecks{
+class TimeSpec
+  extends AbstractQuantityAndUnitSpec[TimeUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of time" in {
-    __SetUp__
-    import TimeUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[TimeUnit])
-    __Verify__
-    result should contain theSameElementsAs Seq(
-      YoctoSecond,
-      ZeptoSecond,
-      AttoSecond,
-      FemtoSecond,
-      PicoSecond,
-      NanoSecond,
-      MicroSecond,
-      MilliSecond,
-      CentiSecond,
-      DeciSecond,
-      Second,
-      DecaSecond,
-      HectoSecond,
-      KiloSecond,
-      MegaSecond,
-      GigaSecond,
-      TeraSecond,
-      PetaSecond,
-      ExaSecond,
-      ZettaSecond,
-      YottaSecond,
-
-      Minute,
-      Hour,
-      Day
-    )
-  }
+  override protected val getUnitClass = classOf[TimeUnit]
 
   "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
     __Exercise__

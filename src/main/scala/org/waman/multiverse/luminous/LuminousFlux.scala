@@ -34,9 +34,13 @@ sealed abstract class LuminousFluxUnit(val symbol: String, val unitInLumen: Real
   override def valueInBaseUnit = unitInLumen
 }
 
-object LuminousFluxUnit{
+object LuminousFluxUnit extends ConstantsDefined[LuminousFluxUnit]{
 
   case object Lumen extends LuminousFluxUnit("lm", 1)
+
+  override lazy val values = Seq(
+    Lumen
+  )
 }
 
 trait PredefinedLuminousFluxUnit extends LuminousFluxPostfixOps[LuminousFluxUnit]{
@@ -46,7 +50,7 @@ trait PredefinedLuminousFluxUnit extends LuminousFluxPostfixOps[LuminousFluxUnit
 
 object PredefinedLuminousFluxUnit extends PredefinedLuminousFluxUnit
 
-trait LuminousFluxUnitInterpreter[A]
+trait LuminousFluxFactory[A]
     extends LuminousFluxPostfixOps[LuminousFlux[A]]{
 
   def apply(unit: LuminousFluxUnit): LuminousFlux[A]

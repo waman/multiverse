@@ -1,8 +1,8 @@
 package org.waman.multiverse.energy
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class PowerSpec extends MultiverseCustomSpec with PropertyChecks{
+class PowerSpec
+  extends AbstractQuantityAndUnitSpec[PowerUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of power" in {
-    __SetUp__
-    import PowerUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[PowerUnit])
-    __Verify__
-    result should contain (Watt)
-  }
+  override protected val getUnitClass = classOf[PowerUnit]
 
   "Tests where converting from some units to kg like 3.0 kW => 3e3 W" in {
     __Exercise__

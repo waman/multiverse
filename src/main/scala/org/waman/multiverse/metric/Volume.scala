@@ -223,6 +223,11 @@ trait VolumePer[A]{
 
   def λ(per: Per): A = volumePer(Lambda)
 
+  def in3  (per: Per): A = volumePer(CubicInch)
+  def ft3  (per: Per): A = volumePer(CubicFoot)
+  def yd3  (per: Per): A = volumePer(CubicYard)
+  def ftm3 (per: Per): A = volumePer(CubicFathom)
+  def mi3  (per: Per): A = volumePer(CubicMile)
   def cu_in(per: Per): A = volumePer(CubicInch)
   def cu_ft(per: Per): A = volumePer(CubicFoot)
   def cu_yd(per: Per): A = volumePer(CubicYard)
@@ -287,11 +292,11 @@ sealed trait VolumeUnit
   override def /(timeUnit: TimeUnit) = VolumeFlowUnit(this, timeUnit)
 }
 
-object VolumeUnit{
+object VolumeUnit extends ConstantsDefined[VolumeUnit]{
 
   // custom
   private[VolumeUnit]
-  class VolumeUnitImpl(val symbol: String, val unitInCubicMetre: Real)
+  class IntrinsicVolumeUnit(val symbol: String, val unitInCubicMetre: Real)
       extends VolumeUnit{
 
     def this(symbol: String, factor: Real, volumeUnit: VolumeUnit) =
@@ -304,102 +309,198 @@ object VolumeUnit{
       this(symbol, areaUnit.unitInSquareMetre * lengthUnit.unitInMetre)
   }
 
-  case object CubicYoctoMetre extends VolumeUnitImpl("ym3", LengthUnit.YoctoMetre)
-  case object CubicZeptoMetre extends VolumeUnitImpl("zm3", LengthUnit.ZeptoMetre)
-  case object CubicAttoMetre  extends VolumeUnitImpl("am3", LengthUnit.AttoMetre)
-  case object CubicFemtoMetre extends VolumeUnitImpl("fm3", LengthUnit.FemtoMetre)
-  case object CubicPicoMetre  extends VolumeUnitImpl("pm3", LengthUnit.PicoMetre)
-  case object CubicNanoMetre  extends VolumeUnitImpl("nm3", LengthUnit.NanoMetre)
-  case object CubicMicroMetre extends VolumeUnitImpl("μm3", LengthUnit.MicroMetre)
-  case object CubicMilliMetre extends VolumeUnitImpl("mm3", LengthUnit.MilliMetre)
-  case object CubicCentiMetre extends VolumeUnitImpl("cm3", LengthUnit.CentiMetre)
-  case object CubicDeciMetre  extends VolumeUnitImpl("dm3", LengthUnit.DeciMetre)
-  case object CubicMetre      extends VolumeUnitImpl("m3" , 1)
-  case object CubicDecaMetre  extends VolumeUnitImpl("dam3", LengthUnit.DecaMetre)
-  case object CubicHectoMetre extends VolumeUnitImpl("hm3", LengthUnit.HectoMetre)
-  case object CubicKiloMetre  extends VolumeUnitImpl("km3", LengthUnit.KiloMetre)
-  case object CubicMegaMetre  extends VolumeUnitImpl("Mm3", LengthUnit.MegaMetre)
-  case object CubicGigaMetre  extends VolumeUnitImpl("Gm3", LengthUnit.GigaMetre)
-  case object CubicTeraMetre  extends VolumeUnitImpl("Tm3", LengthUnit.TeraMetre)
-  case object CubicPetaMetre  extends VolumeUnitImpl("Pm3", LengthUnit.PetaMetre)
-  case object CubicExaMetre   extends VolumeUnitImpl("Em3", LengthUnit.ExaMetre)
-  case object CubicZettaMetre extends VolumeUnitImpl("Zm3", LengthUnit.ZettaMetre)
-  case object CubicYottaMetre extends VolumeUnitImpl("Ym3", LengthUnit.YottaMetre)
+  case object CubicYoctoMetre extends IntrinsicVolumeUnit("ym3", LengthUnit.YoctoMetre)
+  case object CubicZeptoMetre extends IntrinsicVolumeUnit("zm3", LengthUnit.ZeptoMetre)
+  case object CubicAttoMetre  extends IntrinsicVolumeUnit("am3", LengthUnit.AttoMetre)
+  case object CubicFemtoMetre extends IntrinsicVolumeUnit("fm3", LengthUnit.FemtoMetre)
+  case object CubicPicoMetre  extends IntrinsicVolumeUnit("pm3", LengthUnit.PicoMetre)
+  case object CubicNanoMetre  extends IntrinsicVolumeUnit("nm3", LengthUnit.NanoMetre)
+  case object CubicMicroMetre extends IntrinsicVolumeUnit("μm3", LengthUnit.MicroMetre)
+  case object CubicMilliMetre extends IntrinsicVolumeUnit("mm3", LengthUnit.MilliMetre)
+  case object CubicCentiMetre extends IntrinsicVolumeUnit("cm3", LengthUnit.CentiMetre)
+  case object CubicDeciMetre  extends IntrinsicVolumeUnit("dm3", LengthUnit.DeciMetre)
+  case object CubicMetre      extends IntrinsicVolumeUnit("m3" , 1)
+  case object CubicDecaMetre  extends IntrinsicVolumeUnit("dam3", LengthUnit.DecaMetre)
+  case object CubicHectoMetre extends IntrinsicVolumeUnit("hm3", LengthUnit.HectoMetre)
+  case object CubicKiloMetre  extends IntrinsicVolumeUnit("km3", LengthUnit.KiloMetre)
+  case object CubicMegaMetre  extends IntrinsicVolumeUnit("Mm3", LengthUnit.MegaMetre)
+  case object CubicGigaMetre  extends IntrinsicVolumeUnit("Gm3", LengthUnit.GigaMetre)
+  case object CubicTeraMetre  extends IntrinsicVolumeUnit("Tm3", LengthUnit.TeraMetre)
+  case object CubicPetaMetre  extends IntrinsicVolumeUnit("Pm3", LengthUnit.PetaMetre)
+  case object CubicExaMetre   extends IntrinsicVolumeUnit("Em3", LengthUnit.ExaMetre)
+  case object CubicZettaMetre extends IntrinsicVolumeUnit("Zm3", LengthUnit.ZettaMetre)
+  case object CubicYottaMetre extends IntrinsicVolumeUnit("Ym3", LengthUnit.YottaMetre)
 
-  case object YoctoLitre extends VolumeUnitImpl("yL", r"1e-24", Litre)
-  case object ZeptoLitre extends VolumeUnitImpl("zL", r"1e-21", Litre)
-  case object AttoLitre  extends VolumeUnitImpl("aL", r"1e-18", Litre)
-  case object FemtoLitre extends VolumeUnitImpl("fL", r"1e-15", Litre)
-  case object PicoLitre  extends VolumeUnitImpl("pL", r"1e-12", Litre)
-  case object NanoLitre  extends VolumeUnitImpl("nL", r"1e-9" , Litre)
-  case object MicroLitre extends VolumeUnitImpl("μL", r"1e-6" , Litre)
-  case object MilliLitre extends VolumeUnitImpl("mL", r"1e-3" , Litre)
-  case object CentiLitre extends VolumeUnitImpl("cL", r"1e-2" , Litre)
-  case object DeciLitre  extends VolumeUnitImpl("dL", r"1e-1" , Litre)
-  case object Litre      extends VolumeUnitImpl("L" , r"1e-3")
-  case object DecaLitre  extends VolumeUnitImpl("daL", r"1e1", Litre)
-  case object HectoLitre extends VolumeUnitImpl("hL", r"1e2" , Litre)
-  case object KiloLitre  extends VolumeUnitImpl("kL", r"1e3" , Litre)
-  case object MegaLitre  extends VolumeUnitImpl("ML", r"1e6" , Litre)
-  case object GigaLitre  extends VolumeUnitImpl("GL", r"1e9" , Litre)
-  case object TeraLitre  extends VolumeUnitImpl("TL", r"1e12", Litre)
-  case object PetaLitre  extends VolumeUnitImpl("PL", r"1e15", Litre)
-  case object ExaLitre   extends VolumeUnitImpl("EL", r"1e18", Litre)
-  case object ZettaLitre extends VolumeUnitImpl("ZL", r"1e21", Litre)
-  case object YottaLitre extends VolumeUnitImpl("YL", r"1e24", Litre)
+  case object YoctoLitre extends IntrinsicVolumeUnit("yL", r"1e-24", Litre)
+  case object ZeptoLitre extends IntrinsicVolumeUnit("zL", r"1e-21", Litre)
+  case object AttoLitre  extends IntrinsicVolumeUnit("aL", r"1e-18", Litre)
+  case object FemtoLitre extends IntrinsicVolumeUnit("fL", r"1e-15", Litre)
+  case object PicoLitre  extends IntrinsicVolumeUnit("pL", r"1e-12", Litre)
+  case object NanoLitre  extends IntrinsicVolumeUnit("nL", r"1e-9" , Litre)
+  case object MicroLitre extends IntrinsicVolumeUnit("μL", r"1e-6" , Litre)
+  case object MilliLitre extends IntrinsicVolumeUnit("mL", r"1e-3" , Litre)
+  case object CentiLitre extends IntrinsicVolumeUnit("cL", r"1e-2" , Litre)
+  case object DeciLitre  extends IntrinsicVolumeUnit("dL", r"1e-1" , Litre)
+  case object Litre      extends IntrinsicVolumeUnit("L" , r"1e-3")
+  case object DecaLitre  extends IntrinsicVolumeUnit("daL", r"1e1", Litre)
+  case object HectoLitre extends IntrinsicVolumeUnit("hL", r"1e2" , Litre)
+  case object KiloLitre  extends IntrinsicVolumeUnit("kL", r"1e3" , Litre)
+  case object MegaLitre  extends IntrinsicVolumeUnit("ML", r"1e6" , Litre)
+  case object GigaLitre  extends IntrinsicVolumeUnit("GL", r"1e9" , Litre)
+  case object TeraLitre  extends IntrinsicVolumeUnit("TL", r"1e12", Litre)
+  case object PetaLitre  extends IntrinsicVolumeUnit("PL", r"1e15", Litre)
+  case object ExaLitre   extends IntrinsicVolumeUnit("EL", r"1e18", Litre)
+  case object ZettaLitre extends IntrinsicVolumeUnit("ZL", r"1e21", Litre)
+  case object YottaLitre extends IntrinsicVolumeUnit("YL", r"1e24", Litre)
 
-  case object Lambda extends VolumeUnitImpl("λ", r"1e-9")
+  case object Lambda extends IntrinsicVolumeUnit("λ", r"1e-9")
 
-  case object CubicInch   extends VolumeUnitImpl("in3;cu_in", LengthUnit.Inch)
-  case object CubicFoot   extends VolumeUnitImpl("ft3;cu_ft", LengthUnit.Foot)
-  case object CubicYard   extends VolumeUnitImpl("yd3;cu_yd", LengthUnit.Yard)
-  case object CubicFathom extends VolumeUnitImpl("ftm3;cu_fm", LengthUnit.Fathom)
-  case object CubicMile   extends VolumeUnitImpl("mi;cu_mi", LengthUnit.Mile)
+  case object CubicInch   extends IntrinsicVolumeUnit("in3;cu_in", LengthUnit.Inch)
+  case object CubicFoot   extends IntrinsicVolumeUnit("ft3;cu_ft", LengthUnit.Foot)
+  case object CubicYard   extends IntrinsicVolumeUnit("yd3;cu_yd", LengthUnit.Yard)
+  case object CubicFathom extends IntrinsicVolumeUnit("ftm3;cu_fm", LengthUnit.Fathom)
+  case object CubicMile   extends IntrinsicVolumeUnit("mi3;cu_mi", LengthUnit.Mile)
 
-  case object BoardFoot extends VolumeUnitImpl("fbm", 144, CubicInch)
+  case object BoardFoot extends IntrinsicVolumeUnit("fbm", 144, CubicInch)
 
-  case object Gallon_beer extends VolumeUnitImpl("beer_gal", 282, CubicInch)
-  case object Perch extends VolumeUnitImpl("per", r"33/2" * r"3/2", CubicFoot)
-  case object Barrel extends VolumeUnitImpl("bl;bbl", 42, Gallon_US_fluid)
+  case object Gallon_beer extends IntrinsicVolumeUnit("beer_gal", 282, CubicInch)
+  case object Perch extends IntrinsicVolumeUnit("per", r"33/2" * r"3/2", CubicFoot)
+  case object Barrel extends IntrinsicVolumeUnit("bl;bbl", 42, Gallon_US_fluid)
 
   // US
-  case object Minim_US       extends VolumeUnitImpl("minim(US)", r"1/480", Fluid_Ounce_US)
-  case object Fluid_Ounce_US extends VolumeUnitImpl("US_fl_oz;fl_oz(US)", r"1/128", Gallon_US_fluid)
-  case object Gill_US        extends VolumeUnitImpl("gi(US)", 4, Fluid_Ounce_US)
-  case object Hogshead_US    extends VolumeUnitImpl("hhd(US)", 2, Barrel_US_fluid)
-  case object FluidDram_US   extends VolumeUnitImpl("fl_dr(US)", r"1/8", Fluid_Ounce_US)
+  case object Minim_US       extends IntrinsicVolumeUnit("minim(US)", r"1/480", Fluid_Ounce_US)
+  case object Fluid_Ounce_US extends IntrinsicVolumeUnit("US_fl_oz;fl_oz(US)", r"1/128", Gallon_US_fluid)
+  case object Gill_US        extends IntrinsicVolumeUnit("gi(US)", 4, Fluid_Ounce_US)
+  case object Hogshead_US    extends IntrinsicVolumeUnit("hhd(US)", 2, Barrel_US_fluid)
+  case object FluidDram_US   extends IntrinsicVolumeUnit("fl_dr(US)", r"1/8", Fluid_Ounce_US)
 
   // US fluid
-  case object Pint_US_fluid        extends VolumeUnitImpl("pt(US_fl)", r"1/8", Gallon_US_fluid)
-  case object Quart_US_fluid       extends VolumeUnitImpl("qt(US_fl)", r"1/4", Gallon_US_fluid)
-  case object Gallon_US_fluid      extends VolumeUnitImpl("gal;US_gal;gal(US);gal(US_fl)", 231, CubicInch)
-  case object Barrel_US_fluid      extends VolumeUnitImpl("bl(US_fl);fl_bl;fl_bl(US)", r"31.5", Gallon_US_fluid)
+  case object Pint_US_fluid        extends IntrinsicVolumeUnit("pt(US_fl)", r"1/8", Gallon_US_fluid)
+  case object Quart_US_fluid       extends IntrinsicVolumeUnit("qt(US_fl)", r"1/4", Gallon_US_fluid)
+  case object Gallon_US_fluid      extends IntrinsicVolumeUnit("gal;US_gal;gal(US);gal(US_fl)", 231, CubicInch)
+  case object Barrel_US_fluid      extends IntrinsicVolumeUnit("bl(US_fl);fl_bl;fl_bl(US)", r"31.5", Gallon_US_fluid)
 
   // US dry
-  case object Pint_US_dry   extends VolumeUnitImpl("pt(US_dry)", r"1/8", Gallon_US_dry)
-  case object Quart_US_dry  extends VolumeUnitImpl("qt(US_dry)", r"1/4", Gallon_US_dry)
-  case object Gallon_US_dry extends VolumeUnitImpl("gal(US_dry)", r"1/8", Bushel_US_dry_level)
-  case object Peck_US_dry   extends VolumeUnitImpl("pk(US_dry)", r"1/4", Bushel_US_dry_level)
-  case object Bushel_US_dry extends VolumeUnitImpl("bu(US_dry)", r"5/4", Bushel_US_dry_level)
-  case object Bushel_US_dry_level extends VolumeUnitImpl("bu(US_lvl)", r"2150.42", CubicInch)
-  case object Barrel_US_dry extends VolumeUnitImpl("bl(US);bl(US_dry)", 105, Quart_US_dry)
+  case object Pint_US_dry   extends IntrinsicVolumeUnit("pt(US_dry)", r"1/8", Gallon_US_dry)
+  case object Quart_US_dry  extends IntrinsicVolumeUnit("qt(US_dry)", r"1/4", Gallon_US_dry)
+  case object Gallon_US_dry extends IntrinsicVolumeUnit("gal(US_dry)", r"1/8", Bushel_US_dry_level)
+  case object Peck_US_dry   extends IntrinsicVolumeUnit("pk(US_dry)", r"1/4", Bushel_US_dry_level)
+  case object Bushel_US_dry extends IntrinsicVolumeUnit("bu(US_dry)", r"5/4", Bushel_US_dry_level)
+  case object Bushel_US_dry_level extends IntrinsicVolumeUnit("bu(US_lvl)", r"2150.42", CubicInch)
+  case object Barrel_US_dry extends IntrinsicVolumeUnit("bl(US);bl(US_dry)", 105, Quart_US_dry)
 
   // imperial
-  case object Minim_imperial       extends VolumeUnitImpl("minim(imp)", r"1/480", Fluid_Ounce_imperial)
-  case object Fluid_Ounce_imperial extends VolumeUnitImpl("fl_oz(imp)", r"1/160", Gallon_imperial)
-  case object Gill_imperial        extends VolumeUnitImpl("gi(imp);nog", 5, Fluid_Ounce_imperial)
-  case object Pint_imperial        extends VolumeUnitImpl("pt(imp)", r"1/8", Gallon_imperial)
-  case object Quart_imperial       extends VolumeUnitImpl("qt(imp)", r"1/4", Gallon_imperial)
-  case object Gallon_imperial      extends VolumeUnitImpl("imp_gal;gal(imp)", r"4.54609", Litre)
-  case object Peck_imperial        extends VolumeUnitImpl("pk(imp)", 2, Gallon_imperial)
-  case object Bushel_imperial      extends VolumeUnitImpl("bu(imp)", 8, Gallon_imperial)
-  case object Barrel_imperial      extends VolumeUnitImpl("bl(imp)", 36, Gallon_imperial)
-  case object Hogshead_imperial    extends VolumeUnitImpl("hhd(imp)", 2, Barrel_imperial)
+  case object Minim_imperial       extends IntrinsicVolumeUnit("minim(imp)", r"1/480", Fluid_Ounce_imperial)
+  case object Fluid_Ounce_imperial extends IntrinsicVolumeUnit("fl_oz(imp)", r"1/160", Gallon_imperial)
+  case object Gill_imperial        extends IntrinsicVolumeUnit("gi(imp);nog", 5, Fluid_Ounce_imperial)
+  case object Pint_imperial        extends IntrinsicVolumeUnit("pt(imp)", r"1/8", Gallon_imperial)
+  case object Quart_imperial       extends IntrinsicVolumeUnit("qt(imp)", r"1/4", Gallon_imperial)
+  case object Gallon_imperial      extends IntrinsicVolumeUnit("imp_gal;gal(imp)", r"4.54609", Litre)
+  case object Peck_imperial        extends IntrinsicVolumeUnit("pk(imp)", 2, Gallon_imperial)
+  case object Bushel_imperial      extends IntrinsicVolumeUnit("bu(imp)", 8, Gallon_imperial)
+  case object Barrel_imperial      extends IntrinsicVolumeUnit("bl(imp)", 36, Gallon_imperial)
+  case object Hogshead_imperial    extends IntrinsicVolumeUnit("hhd(imp)", 2, Barrel_imperial)
 
-  case object FluidScruple extends VolumeUnitImpl("fl_s", r"1/24", Fluid_Ounce_imperial)
-  case object FluidDrachm_imperial extends VolumeUnitImpl("fl_dr(imp)", r"1/8", Fluid_Ounce_imperial)
+  case object FluidScruple extends IntrinsicVolumeUnit("fl_s", r"1/24", Fluid_Ounce_imperial)
+  case object FluidDrachm_imperial extends IntrinsicVolumeUnit("fl_dr(imp)", r"1/8", Fluid_Ounce_imperial)
 
-  case object Bucket extends VolumeUnitImpl("bkt", 4, Gallon_imperial)
+  case object Bucket extends IntrinsicVolumeUnit("bkt", 4, Gallon_imperial)
+
+  override lazy val values = Seq(
+    CubicYoctoMetre,
+    CubicZeptoMetre,
+    CubicAttoMetre,
+    CubicFemtoMetre,
+    CubicPicoMetre,
+    CubicNanoMetre,
+    CubicMicroMetre,
+    CubicMilliMetre,
+    CubicCentiMetre,
+    CubicDeciMetre,
+    CubicMetre,
+    CubicDecaMetre,
+    CubicHectoMetre,
+    CubicKiloMetre,
+    CubicMegaMetre,
+    CubicGigaMetre,
+    CubicTeraMetre,
+    CubicPetaMetre,
+    CubicExaMetre,
+    CubicZettaMetre,
+    CubicYottaMetre,
+
+    YoctoLitre,
+    ZeptoLitre,
+    AttoLitre,
+    FemtoLitre,
+    PicoLitre,
+    NanoLitre,
+    MicroLitre,
+    MilliLitre,
+    CentiLitre,
+    DeciLitre,
+    Litre,
+    DecaLitre,
+    HectoLitre,
+    KiloLitre,
+    MegaLitre,
+    GigaLitre,
+    TeraLitre,
+    PetaLitre,
+    ExaLitre,
+    ZettaLitre,
+    YottaLitre,
+
+    Lambda,
+
+    CubicInch,
+    CubicFathom,
+    CubicFoot,
+    CubicYard,
+    CubicMile,
+
+    BoardFoot,
+
+    Gallon_beer,
+    Perch,
+    Barrel,
+
+    Minim_US,
+    Fluid_Ounce_US,
+    Gill_US,
+    Pint_US_fluid,
+    Quart_US_fluid,
+    Gallon_US_fluid,
+    Barrel_US_fluid,
+    Hogshead_US,
+
+    FluidDram_US,
+
+    Pint_US_dry,
+    Quart_US_dry,
+    Gallon_US_dry,
+    Peck_US_dry,
+    Bushel_US_dry,
+    Barrel_US_dry,
+
+    Bushel_US_dry_level,
+
+    Minim_imperial,
+    Fluid_Ounce_imperial,
+    Gill_imperial,
+    Pint_imperial,
+    Quart_imperial,
+    Gallon_imperial,
+    Peck_imperial,
+    Bushel_imperial,
+    Barrel_imperial,
+    Hogshead_imperial,
+
+    FluidScruple,
+    FluidDrachm_imperial,
+
+    Bucket
+  )
 
   // Area * Length -> Volume
   private[VolumeUnit]
@@ -418,7 +519,7 @@ trait PredefinedVolumeUnit extends VolumePostfixOps[VolumeUnit]{
 
 object PredefinedVolumeUnit extends PredefinedVolumeUnit
 
-trait VolumeUnitInterpreter[A] extends VolumePostfixOps[Volume[A]]
+trait VolumeFactory[A] extends VolumePostfixOps[Volume[A]]
   with VolumePer[TimePostfixOps[VolumeFlow[A]]]{
 
   def apply(unit: VolumeUnit): Volume[A]

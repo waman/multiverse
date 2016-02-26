@@ -51,9 +51,13 @@ sealed abstract class LuminousIntensityUnit(val symbol: String, val unitInCandel
   override def /(areaUnit: AreaUnit) = LuminanceUnit(this, areaUnit)
 }
 
-object LuminousIntensityUnit{
+object LuminousIntensityUnit extends ConstantsDefined[LuminousIntensityUnit]{
 
   case object Candela extends LuminousIntensityUnit("cd", 1)
+
+  override lazy val values = Seq(
+    Candela
+  )
 }
 
 trait PredefinedLuminousIntensityUnit extends LuminousIntensityPostfixOps[LuminousIntensityUnit]{
@@ -64,7 +68,7 @@ trait PredefinedLuminousIntensityUnit extends LuminousIntensityPostfixOps[Lumino
 
 object PredefinedLuminousIntensityUnit extends PredefinedLuminousIntensityUnit
 
-trait LuminousIntensityUnitInterpreter[A]
+trait LuminousIntensityFactory[A]
     extends LuminousIntensityPostfixOps[LuminousIntensity[A]]
     with LuminousIntensityPer[AreaPostfixOps[Luminance[A]]]{
 

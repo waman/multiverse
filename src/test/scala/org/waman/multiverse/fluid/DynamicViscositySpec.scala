@@ -1,8 +1,8 @@
 package org.waman.multiverse.fluid
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class DynamicViscositySpec extends MultiverseCustomSpec with PropertyChecks{
+class DynamicViscositySpec
+  extends AbstractQuantityAndUnitSpec[DynamicViscosityUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of dynamic viscosity" in {
-    __SetUp__
-    import DynamicViscosityUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[DynamicViscosityUnit])
-    __Verify__
-    result should contain (Poise)
-  }
+  override protected val getUnitClass = classOf[DynamicViscosityUnit]
 
 //  "DynamicViscosityUnit should" - {
 //

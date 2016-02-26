@@ -12,6 +12,7 @@ trait EntropyPostfixOps[A]{
   protected def entropyPostfixOps(entropyUnit: EntropyUnit): A
 
   def bit: A = entropyPostfixOps(Bit)
+  def Sh : A = bit
 }
 
 class Entropy[A: Fractional](val value: A, val unit: EntropyUnit)
@@ -47,14 +48,18 @@ sealed trait EntropyUnit extends PhysicalUnit[EntropyUnit]{
   override def valueInBaseUnit = unitInJoulePerKelvin
 }
 
-object EntropyUnit{
+object EntropyUnit extends ConstantsDefined[EntropyUnit]{
 
   // Custom
   private[EntropyUnit]
-  class EntropyUnitImpl(val symbol: String, val unitInJoulePerKelvin: Real)
+  class IntrinsicEntropyUnit(val symbol: String, val unitInJoulePerKelvin: Real)
     extends EntropyUnit
 
-  case object Bit extends EntropyUnitImpl("bit;b;Sh", r"9.56994016e-24") with NotExact
+  case object Bit extends IntrinsicEntropyUnit("bit;Sh", r"9.56994016e-24") with NotExact
+
+  override lazy val values = Seq(
+    Bit
+  )
 
   // Quotient (Energy / Temperature)
   private[EntropyUnit]
@@ -76,7 +81,7 @@ trait PredefinedEntropyUnit extends EntropyPostfixOps[EntropyUnit]{
 
 object PredefinedEntropyUnit extends PredefinedEntropyUnit
 
-trait EntropyUnitInterpreter[A]
+trait EntropyFactory[A]
     extends EntropyPostfixOps[Entropy[A]]{
 
   def apply(unit: EntropyUnit): Entropy[A]

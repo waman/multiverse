@@ -1,6 +1,7 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.MKSUnitSystem.{a => are, _}
+
 import scala.language.postfixOps
 
 class MKSUnitSystemSpec extends MultiverseCustomSpec{
@@ -16,7 +17,7 @@ class MKSUnitSystemSpec extends MultiverseCustomSpec{
           s.substring("convert".length, len - "ToFractional".length)
         }
     __Verify__
-    actual should contain theSameElementsAs UnitSystem.getSupportedQuantities
+    actual should contain theSameElementsAs UnitSystem.supportedQuantities
   }
 
   "m property called on a Double value should return a Length in metre" in {

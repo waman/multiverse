@@ -49,14 +49,18 @@ sealed trait LuminanceUnit extends PhysicalUnit[LuminanceUnit]{
   override def valueInBaseUnit = unitInCandelaPerSquareMetre
 }
 
-object LuminanceUnit{
+object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
 
   // Custom
   private[LuminanceUnit]
-  class LuminanceUnitImpl(val symbol: String, val unitInCandelaPerSquareMetre: Real)
+  class IntrinsicLuminanceUnit(val symbol: String, val unitInCandelaPerSquareMetre: Real)
     extends LuminanceUnit
 
-  case object Stilb extends LuminanceUnitImpl("sb", r"1e4")
+  case object Stilb extends IntrinsicLuminanceUnit("sb", r"1e4")
+
+  override lazy val values = Seq(
+    Stilb
+  )
 
   // Quotient (LuminousIntensity / SquareMetre)
   private[LuminanceUnit]
@@ -79,7 +83,7 @@ trait PredefinedLuminanceUnit extends LuminancePostfixOps[LuminanceUnit]{
 
 object PredefinedLuminanceUnit extends PredefinedLuminanceUnit
 
-trait LuminanceUnitInterpreter[A]
+trait LuminanceFactory[A]
     extends LuminancePostfixOps[Luminance[A]]{
 
   def apply(unit: LuminanceUnit): Luminance[A]

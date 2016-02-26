@@ -13,15 +13,6 @@ import scala.language.postfixOps
   */
 class TorqueSpec extends MultiverseCustomSpec with PropertyChecks{
 
-  //  "UnitSystem#getSupportedUnits method should return supported units of torque" in {
-  //    __SetUp__
-  //    import TorqueUnit._
-  //    __Exercise__
-  //    val result = UnitSystem.getSupportedUnits(classOf[TorqueUnit])
-  //    __Verify__
-  //    result should contain ()
-  //  }
-
   "TorqueUnit should" - {
 
     "return a torque value of 1  in Newton metre by 'inNewtonMetre' property" in {

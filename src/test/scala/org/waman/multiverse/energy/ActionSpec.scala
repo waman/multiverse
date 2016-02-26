@@ -1,8 +1,8 @@
 package org.waman.multiverse.energy
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class ActionSpec extends MultiverseCustomSpec with PropertyChecks{
+class ActionSpec
+  extends AbstractQuantityAndUnitSpec[ActionUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of action" in {
-    __SetUp__
-    import ActionUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[ActionUnit])
-    __Verify__
-    result should contain (AtomicUnitOfAction)
-  }
+  override protected val getUnitClass = classOf[ActionUnit]
 
   "Tests where converting from some units to kg like 3.0 kJ => 3e3 J" in {
     __Exercise__

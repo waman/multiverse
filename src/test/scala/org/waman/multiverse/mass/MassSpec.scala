@@ -1,8 +1,8 @@
 package org.waman.multiverse.mass
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,38 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class MassSpec extends MultiverseCustomSpec with PropertyChecks{
+class MassSpec
+  extends AbstractQuantityAndUnitSpec[MassUnit]
+    with PropertyChecks{
 
-    "UnitSystem#getSupportedUnits method should return supported units of mass" in {
-      __SetUp__
-      import MassUnit._
-      __Exercise__
-      val result = UnitSystem.getSupportedUnits(classOf[MassUnit])
-      __Verify__
-      result should contain allOf (
-        YoctoGram,
-        ZeptoGram,
-        AttoGram,
-        FemtoGram,
-        PicoGram,
-        NanoGram,
-        MicroGram,
-        MilliGram,
-        CentiGram,
-        DeciGram,
-        Gram,
-        DecaGram,
-        HectoGram,
-        KiloGram,
-        MegaGram,
-        GigaGram,
-        TeraGram,
-        PetaGram,
-        ExaGram,
-        ZettaGram,
-        YottaGram
-      )
-    }
+  override protected val getUnitClass = classOf[MassUnit]
 
   "Tests where converting from some units to kg like 3.0 g => 3e-3 kg" in {
     __Exercise__

@@ -48,11 +48,7 @@ object TorqueUnit{
     new ProductTorqueUnit(fUnit, lUnit)
 }
 
-trait PredefinedTorqueUnit
-
-object PredefinedTorqueUnit extends PredefinedTorqueUnit
-
-trait TorqueUnitInterpreter[A]
+trait TorqueFactory[A]
   extends UnitConverter[A]{
 
   def apply(unit: TorqueUnit): Torque[A]

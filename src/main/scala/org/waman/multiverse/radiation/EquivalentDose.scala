@@ -51,9 +51,13 @@ sealed abstract class EquivalentDoseUnit(val symbol: String, val unitInSievert: 
   override def /(timeUnit: TimeUnit) = EquivalentDoseRateUnit(this, timeUnit)
 }
 
-object EquivalentDoseUnit{
+object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
 
   case object Sievert extends EquivalentDoseUnit("Sv", 1)
+
+  override lazy val values = Seq(
+    Sievert
+  )
 }
 
 trait PredefinedEquivalentDoseUnit extends EquivalentDosePostfixOps[EquivalentDoseUnit]{
@@ -63,7 +67,7 @@ trait PredefinedEquivalentDoseUnit extends EquivalentDosePostfixOps[EquivalentDo
 
 object PredefinedEquivalentDoseUnit extends PredefinedEquivalentDoseUnit
 
-trait EquivalentDoseUnitInterpreter[A]
+trait EquivalentDoseFactory[A]
     extends EquivalentDosePostfixOps[EquivalentDose[A]]
     with EquivalentDosePer[TimePostfixOps[EquivalentDoseRate[A]]]{
 

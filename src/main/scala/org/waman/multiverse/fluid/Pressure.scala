@@ -53,10 +53,14 @@ sealed abstract class PressureUnit(val symbol: String, val unitInPascal: Real)
   override def *(timeUnit: TimeUnit) = DynamicViscosityUnit(this, timeUnit)
 }
 
-object PressureUnit{
+object PressureUnit extends ConstantsDefined[PressureUnit]{
 
   // Custom
   case object Pascal extends PressureUnit("Pa", 1)
+
+  override lazy val values = Seq(
+    Pascal
+  )
 }
 
 trait PredefinedPressureUnit extends PressurePostfixOps[PressureUnit]{
@@ -66,7 +70,7 @@ trait PredefinedPressureUnit extends PressurePostfixOps[PressureUnit]{
 
 object PredefinedPressureUnit extends PredefinedPressureUnit
 
-trait PressureUnitInterpreter[A]
+trait PressureFactory[A]
     extends PressurePostfixOps[Pressure[A]]
     with PressureDot[TimePostfixOps[DynamicViscosity[A]]]{
 

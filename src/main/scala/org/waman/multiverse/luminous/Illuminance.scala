@@ -34,9 +34,13 @@ sealed abstract class IlluminanceUnit(val symbol: String, val unitInLux: Real)
   override def valueInBaseUnit = unitInLux
 }
 
-object IlluminanceUnit{
+object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
 
   case object Lux extends IlluminanceUnit("lx", 1)
+
+  override lazy val values = Seq(
+    Lux
+  )
 }
 
 trait PredefinedIlluminanceUnit extends IlluminancePostfixOps[IlluminanceUnit]{
@@ -46,7 +50,7 @@ trait PredefinedIlluminanceUnit extends IlluminancePostfixOps[IlluminanceUnit]{
 
 object PredefinedIlluminanceUnit extends PredefinedIlluminanceUnit
 
-trait IlluminanceUnitInterpreter[A]
+trait IlluminanceFactory[A]
     extends IlluminancePostfixOps[Illuminance[A]]{
 
   def apply(unit: IlluminanceUnit): Illuminance[A]

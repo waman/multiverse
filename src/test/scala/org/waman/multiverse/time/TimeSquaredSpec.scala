@@ -1,8 +1,8 @@
 package org.waman.multiverse.time
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class TimeSquaredSpec extends MultiverseCustomSpec with PropertyChecks{
+class TimeSquaredSpec
+  extends AbstractQuantityAndUnitSpec[TimeSquaredUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of time squared" in {
-    __SetUp__
-    import TimeSquaredUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[TimeSquaredUnit])
-    __Verify__
-    result should contain (SecondSquared)
-  }
+  override protected val getUnitClass = classOf[TimeSquaredUnit]
 
   "Tests where converting from some units to kg like 3.0 g => 3e-3 kg" in {
     __Exercise__

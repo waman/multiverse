@@ -294,11 +294,11 @@ sealed trait AreaUnit extends PhysicalUnit[AreaUnit]
   override def /(timeUnit: TimeUnit) = KinematicViscosityUnit(this, timeUnit)
 }
 
-object AreaUnit{
+object AreaUnit extends ConstantsDefined[AreaUnit]{
 
   // custom
   private[AreaUnit]
-  class AreaUnitImpl(val symbol: String, val unitInSquareMetre: Real)
+  class IntrinsicAreaUnit(val symbol: String, val unitInSquareMetre: Real)
     extends AreaUnit{
 
     def this(symbol: String, factor: Real, areaUnit: AreaUnit) =
@@ -314,72 +314,139 @@ object AreaUnit{
       this(symbol, lengthUnit1.unitInMetre * lengthUnit2.unitInMetre)
   }
 
-  case object SquareYoctoMetre extends AreaUnitImpl("ym2", r"1e-48")
-  case object SquareZeptoMetre extends AreaUnitImpl("zm2", r"1e-42")
-  case object SquareAttoMetre  extends AreaUnitImpl("am2", r"1e-36")
-  case object SquareFemtoMetre extends AreaUnitImpl("fm2", r"1e-30")
-  case object SquarePicoMetre  extends AreaUnitImpl("pm2", r"1e-24")
-  case object SquareNanoMetre  extends AreaUnitImpl("nm2", r"1e-18")
-  case object SquareMicroMetre extends AreaUnitImpl("μm2", r"1e-12")
-  case object SquareMilliMetre extends AreaUnitImpl("mm2", r"1e-6")
-  case object SquareCentiMetre extends AreaUnitImpl("cm2", r"1e-4")
-  case object SquareDeciMetre  extends AreaUnitImpl("dm2", r"1e-2")
-  case object SquareMetre      extends AreaUnitImpl("m2" , r"1")
-  case object SquareDecaMetre  extends AreaUnitImpl("dam2", r"1e2")
-  case object SquareHectoMetre extends AreaUnitImpl("hm2", r"1e4")
-  case object SquareKiloMetre  extends AreaUnitImpl("km2", r"1e6")
-  case object SquareMegaMetre  extends AreaUnitImpl("Mm2", r"1e12")
-  case object SquareGigaMetre  extends AreaUnitImpl("Gm2", r"1e18")
-  case object SquareTeraMetre  extends AreaUnitImpl("Tm2", r"1e24")
-  case object SquarePetaMetre  extends AreaUnitImpl("Pm2", r"1e30")
-  case object SquareExaMetre   extends AreaUnitImpl("Em2", r"1e36")
-  case object SquareZettaMetre extends AreaUnitImpl("Zm2", r"1e42")
-  case object SquareYottaMetre extends AreaUnitImpl("Ym2", r"1e48")
+  case object SquareYoctoMetre extends IntrinsicAreaUnit("ym2", r"1e-48")
+  case object SquareZeptoMetre extends IntrinsicAreaUnit("zm2", r"1e-42")
+  case object SquareAttoMetre  extends IntrinsicAreaUnit("am2", r"1e-36")
+  case object SquareFemtoMetre extends IntrinsicAreaUnit("fm2", r"1e-30")
+  case object SquarePicoMetre  extends IntrinsicAreaUnit("pm2", r"1e-24")
+  case object SquareNanoMetre  extends IntrinsicAreaUnit("nm2", r"1e-18")
+  case object SquareMicroMetre extends IntrinsicAreaUnit("μm2", r"1e-12")
+  case object SquareMilliMetre extends IntrinsicAreaUnit("mm2", r"1e-6")
+  case object SquareCentiMetre extends IntrinsicAreaUnit("cm2", r"1e-4")
+  case object SquareDeciMetre  extends IntrinsicAreaUnit("dm2", r"1e-2")
+  case object SquareMetre      extends IntrinsicAreaUnit("m2" , r"1")
+  case object SquareDecaMetre  extends IntrinsicAreaUnit("dam2", r"1e2")
+  case object SquareHectoMetre extends IntrinsicAreaUnit("hm2", r"1e4")
+  case object SquareKiloMetre  extends IntrinsicAreaUnit("km2", r"1e6")
+  case object SquareMegaMetre  extends IntrinsicAreaUnit("Mm2", r"1e12")
+  case object SquareGigaMetre  extends IntrinsicAreaUnit("Gm2", r"1e18")
+  case object SquareTeraMetre  extends IntrinsicAreaUnit("Tm2", r"1e24")
+  case object SquarePetaMetre  extends IntrinsicAreaUnit("Pm2", r"1e30")
+  case object SquareExaMetre   extends IntrinsicAreaUnit("Em2", r"1e36")
+  case object SquareZettaMetre extends IntrinsicAreaUnit("Zm2", r"1e42")
+  case object SquareYottaMetre extends IntrinsicAreaUnit("Ym2", r"1e48")
 
-  case object Are     extends AreaUnitImpl("a"  , r"1e2")
-  case object Hectare extends AreaUnitImpl("ha" , r"1e4")
+  case object Are     extends IntrinsicAreaUnit("a"  , r"1e2")
+  case object Hectare extends IntrinsicAreaUnit("ha" , r"1e4")
 
   // microscopic
-  case object YoctoBarn extends AreaUnitImpl("yb", r"1e-24", Barn)
-  case object ZeptoBarn extends AreaUnitImpl("zb", r"1e-21", Barn)
-  case object AttoBarn  extends AreaUnitImpl("ab", r"1e-18", Barn)
-  case object FemtoBarn extends AreaUnitImpl("fb", r"1e-15", Barn)
-  case object PicoBarn  extends AreaUnitImpl("pb", r"1e-12", Barn)
-  case object NanoBarn  extends AreaUnitImpl("nb", r"1e-9", Barn)
-  case object MicroBarn extends AreaUnitImpl("μb", r"1e-6", Barn)
-  case object MilliBarn extends AreaUnitImpl("mb", r"1e-3", Barn)
-  case object Barn      extends AreaUnitImpl("b" , r"1e-28")
-  case object KiloBarn  extends AreaUnitImpl("kb", r"1e3", Barn)
-  case object MegaBarn  extends AreaUnitImpl("Mb", r"1e6", Barn)
-  case object GigaBarn  extends AreaUnitImpl("Mb", r"1e9", Barn)
-  case object TeraBarn  extends AreaUnitImpl("Mb", r"1e12", Barn)
-  case object PetaBarn  extends AreaUnitImpl("Pb", r"1e15", Barn)
-  case object ExaBarn   extends AreaUnitImpl("Eb", r"1e18", Barn)
-  case object ZettaBarn extends AreaUnitImpl("Zb", r"1e21", Barn)
-  case object YottaBarn extends AreaUnitImpl("Yb", r"1e24", Barn)
+  case object YoctoBarn extends IntrinsicAreaUnit("yb", r"1e-24", Barn)
+  case object ZeptoBarn extends IntrinsicAreaUnit("zb", r"1e-21", Barn)
+  case object AttoBarn  extends IntrinsicAreaUnit("ab", r"1e-18", Barn)
+  case object FemtoBarn extends IntrinsicAreaUnit("fb", r"1e-15", Barn)
+  case object PicoBarn  extends IntrinsicAreaUnit("pb", r"1e-12", Barn)
+  case object NanoBarn  extends IntrinsicAreaUnit("nb", r"1e-9", Barn)
+  case object MicroBarn extends IntrinsicAreaUnit("μb", r"1e-6", Barn)
+  case object MilliBarn extends IntrinsicAreaUnit("mb", r"1e-3", Barn)
+  case object Barn      extends IntrinsicAreaUnit("b" , r"1e-28")
+  case object KiloBarn  extends IntrinsicAreaUnit("kb", r"1e3", Barn)
+  case object MegaBarn  extends IntrinsicAreaUnit("Mb", r"1e6", Barn)
+  case object GigaBarn  extends IntrinsicAreaUnit("Gb", r"1e9", Barn)
+  case object TeraBarn  extends IntrinsicAreaUnit("Tb", r"1e12", Barn)
+  case object PetaBarn  extends IntrinsicAreaUnit("Pb", r"1e15", Barn)
+  case object ExaBarn   extends IntrinsicAreaUnit("Eb", r"1e18", Barn)
+  case object ZettaBarn extends IntrinsicAreaUnit("Zb", r"1e21", Barn)
+  case object YottaBarn extends IntrinsicAreaUnit("Yb", r"1e24", Barn)
 
   // yard-pond
-  case object SquareMil   extends AreaUnitImpl("sq_mil", LengthUnit.Mil)
-  case object SquareInch  extends AreaUnitImpl("sq_in" , LengthUnit.Inch)
-  case object SquareLink  extends AreaUnitImpl("sq_lnk", LengthUnit.Link)
-  case object SquareFoot  extends AreaUnitImpl("sq_ft" , LengthUnit.Foot)
-  case object SquareChain extends AreaUnitImpl("sq_ch" , LengthUnit.Chain)
-  case object SquareYard  extends AreaUnitImpl("sq_yd" , LengthUnit.Yard)
-  case object SquareRod   extends AreaUnitImpl("sq_rd" , LengthUnit.Rod)
-  case object SquareMile  extends AreaUnitImpl("sq_mi" , LengthUnit.Mile)
-  case object Acre extends AreaUnitImpl("ac", 10, LengthUnit.Chain)
-  case object Rood extends AreaUnitImpl("ro", r"1/4", Acre)
+  case object SquareMil   extends IntrinsicAreaUnit("sq_mil", LengthUnit.Mil)
+  case object SquareInch  extends IntrinsicAreaUnit("sq_in" , LengthUnit.Inch)
+  case object SquareLink  extends IntrinsicAreaUnit("sq_lnk", LengthUnit.Link)
+  case object SquareFoot  extends IntrinsicAreaUnit("sq_ft" , LengthUnit.Foot)
+  case object SquareChain extends IntrinsicAreaUnit("sq_ch" , LengthUnit.Chain)
+  case object SquareYard  extends IntrinsicAreaUnit("sq_yd" , LengthUnit.Yard)
+  case object SquareRod   extends IntrinsicAreaUnit("sq_rd" , LengthUnit.Rod)
+  case object SquareMile  extends IntrinsicAreaUnit("sq_mi" , LengthUnit.Mile)
+  case object Acre extends IntrinsicAreaUnit("ac", 10, LengthUnit.Chain)
+  case object Rood extends IntrinsicAreaUnit("ro", r"1/4", Acre)
 
-  case object SquareLink_US_Survey  extends AreaUnitImpl("sq_lnk(US)", LengthUnit.Link_US_Survey)
-  case object SquareFoot_US_Survey  extends AreaUnitImpl("sq_ft(US)" , LengthUnit.Foot_US_Survey)
-  case object SquareChain_US_Survey extends AreaUnitImpl("sq_ch(US)" , LengthUnit.Chain_US_Survey)
-  case object SquareMile_US_Survey  extends AreaUnitImpl("sq_mi(US)" , LengthUnit.Mile_US_Survey)
-  case object Acre_US_Survey extends AreaUnitImpl("acre(US)", 10, LengthUnit.Chain_US_Survey)
+  case object SquareLink_US_Survey  extends IntrinsicAreaUnit("sq_lnk(US)", LengthUnit.Link_US_Survey)
+  case object SquareFoot_US_Survey  extends IntrinsicAreaUnit("sq_ft(US)" , LengthUnit.Foot_US_Survey)
+  case object SquareChain_US_Survey extends IntrinsicAreaUnit("sq_ch(US)" , LengthUnit.Chain_US_Survey)
+  case object SquareMile_US_Survey  extends IntrinsicAreaUnit("sq_mi(US)" , LengthUnit.Mile_US_Survey)
+  case object Acre_US_Survey extends IntrinsicAreaUnit("acre(US)", 10, LengthUnit.Chain_US_Survey)
 
-  case object CircularMil extends AreaUnitImpl("circ_mil", Real.pi/4.0, SquareMil)
-  case object CircularInch extends AreaUnitImpl("circ_in", Real.pi/4.0, SquareInch)
+  case object CircularMil extends IntrinsicAreaUnit("circ_mil", Real.pi/4.0, SquareMil)
+  case object CircularInch extends IntrinsicAreaUnit("circ_in", Real.pi/4.0, SquareInch)
 
-  case object Board extends AreaUnitImpl("bd", LengthUnit.Inch, LengthUnit.Foot)
+  case object Board extends IntrinsicAreaUnit("bd", LengthUnit.Inch, LengthUnit.Foot)
+
+  override lazy val values = Seq(
+    SquareYoctoMetre,
+    SquareZeptoMetre,
+    SquareAttoMetre,
+    SquareFemtoMetre,
+    SquarePicoMetre,
+    SquareNanoMetre,
+    SquareMicroMetre,
+    SquareMilliMetre,
+    SquareCentiMetre,
+    SquareDeciMetre,
+    SquareMetre,
+    SquareDecaMetre,
+    SquareHectoMetre,
+    SquareKiloMetre,
+    SquareMegaMetre,
+    SquareGigaMetre,
+    SquareTeraMetre,
+    SquarePetaMetre,
+    SquareExaMetre,
+    SquareZettaMetre,
+    SquareYottaMetre,
+
+    Are,
+    Hectare,
+
+    YoctoBarn,
+    ZeptoBarn,
+    AttoBarn,
+    FemtoBarn,
+    PicoBarn,
+    NanoBarn,
+    MicroBarn,
+    MilliBarn,
+    Barn,
+    KiloBarn,
+    MegaBarn,
+    GigaBarn,
+    TeraBarn,
+    PetaBarn,
+    ExaBarn,
+    ZettaBarn,
+    YottaBarn,
+
+    SquareMil,
+    SquareInch,
+    SquareLink,
+    SquareFoot,
+    SquareChain,
+    SquareYard,
+    SquareRod,
+    SquareMile,
+    Acre,
+    Rood,
+
+    SquareLink_US_Survey,
+    SquareFoot_US_Survey,
+    SquareChain_US_Survey,
+    SquareMile_US_Survey,
+    Acre_US_Survey,
+
+    CircularMil,
+    CircularInch,
+
+    Board
+  )
 
   // Length * Length -> Area
   private[AreaUnit]
@@ -399,7 +466,7 @@ trait PredefinedAreaUnit extends AreaPostfixOps[AreaUnit]{
 
 object PredefinedAreaUnit extends PredefinedAreaUnit
 
-trait AreaUnitInterpreter[A]
+trait AreaFactory[A]
     extends AreaPostfixOps[Area[A]]
     with AreaDot[LengthPostfixOps[Volume[A]]]
     with AreaPer[TimePostfixOps[KinematicViscosity[A]]]{

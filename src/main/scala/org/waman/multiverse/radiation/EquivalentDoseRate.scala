@@ -50,11 +50,7 @@ object EquivalentDoseRateUnit{
     new QuotientEquivalentDoseRateUnit(mUnit, vUnit)
 }
 
-trait PredefinedEquivalentDoseRateUnit
-
-object PredefinedEquivalentDoseRateUnit extends PredefinedEquivalentDoseRateUnit
-
-trait EquivalentDoseRateUnitInterpreter[A]
+trait EquivalentDoseRateFactory[A]
     extends UnitConverter[A]{
 
   def apply(unit: EquivalentDoseRateUnit): EquivalentDoseRate[A]

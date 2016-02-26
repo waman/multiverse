@@ -1,7 +1,7 @@
 package org.waman.multiverse.mechanics
 
 import org.scalatest.prop.PropertyChecks
-import org.waman.multiverse.MultiverseCustomSpec
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
 
 import scala.language.postfixOps
@@ -10,16 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class AccelerationSpec extends MultiverseCustomSpec with PropertyChecks{
+class AccelerationSpec
+  extends AbstractQuantityAndUnitSpec[AccelerationUnit]
+    with PropertyChecks{
 
-  //  "UnitSystem#getSupportedUnits method should return supported units of acceleration" in {
-  //    __SetUp__
-  //    import AccelerationUnit._
-  //    __Exercise__
-  //    val result = UnitSystem.getSupportedUnits(classOf[AccelerationUnit])
-  //    __Verify__
-  //    result should contain ()
-  //  }
+  override protected val getUnitClass = classOf[AccelerationUnit]
 
   "Tests where converting from some units to m/s2 like 3.0 g0 => 3.0 * 9.80665 m/s2" in {
     __Exercise__

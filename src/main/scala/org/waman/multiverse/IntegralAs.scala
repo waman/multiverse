@@ -9,8 +9,8 @@ trait IntegralAsFloat{
   implicit def convertIntegralToFloat[A: Integral](value: A): Float =
     implicitly[Integral[A]].toFloat(value)
 
-  implicit def convertIntegralToUnitInterpreterAsFloat[A: Integral](value: A): UnitInterpreter[Float] =
-    new UnitInterpreter(implicitly[Integral[A]].toFloat(value))
+  implicit def convertIntegralToUnitInterpreterAsFloat[A: Integral](value: A): QuantityFactory[Float] =
+    new QuantityFactory(implicitly[Integral[A]].toFloat(value))
 }
 
 object IntegralAsFloat extends IntegralAsFloat
@@ -20,8 +20,8 @@ trait IntegralAsDouble{
   implicit def convertIntegralToDouble[A: Integral](value: A): Double =
     implicitly[Integral[A]].toDouble(value)
 
-  implicit def convertIntegralToUnitInterpreterAsDouble[A: Integral](value: A): UnitInterpreter[Double] =
-    new UnitInterpreter(convertIntegralToDouble(value))
+  implicit def convertIntegralToUnitInterpreterAsDouble[A: Integral](value: A): QuantityFactory[Double] =
+    new QuantityFactory(convertIntegralToDouble(value))
 }
 
 object IntegralAsDouble extends IntegralAsDouble
@@ -31,8 +31,8 @@ trait IntegralAsBigDecimal{
   implicit def convertIntegralToBigDecimal[A: Integral](value: A): BigDecimal =
     implicitly[Integral[A]].toBigDecimal(value)
 
-  implicit def convertIntegralToUnitInterpreterAsBigDecimal[A: Integral](value: A): UnitInterpreter[BigDecimal] =
-    new UnitInterpreter(convertIntegralToBigDecimal(value))
+  implicit def convertIntegralToUnitInterpreterAsBigDecimal[A: Integral](value: A): QuantityFactory[BigDecimal] =
+    new QuantityFactory(convertIntegralToBigDecimal(value))
 }
 
 object IntegralAsBigDecimal extends IntegralAsBigDecimal
@@ -42,8 +42,8 @@ trait IntegralAsRational{
   implicit def convertIntegralToRational[A: Integral](value: A): Rational =
     implicitly[Integral[A]].toRational(value)
 
-  implicit def convertIntegralToUnitInterpreterAsRational[A: Integral](value: A): UnitInterpreter[Rational] =
-    new UnitInterpreter(convertIntegralToRational(value))
+  implicit def convertIntegralToUnitInterpreterAsRational[A: Integral](value: A): QuantityFactory[Rational] =
+    new QuantityFactory(convertIntegralToRational(value))
 }
 
 object IntegralAsRational extends IntegralAsRational
@@ -53,8 +53,8 @@ trait IntegralAsReal{
   implicit def convertIntegralToReal[A: Integral](value: A): Real =
     implicitly[Integral[A]].toReal(value)
 
-  implicit def convertIntegralToUnitInterpreterAsReal[A: Integral](value: A): UnitInterpreter[Real] =
-    new UnitInterpreter(convertIntegralToReal(value))
+  implicit def convertIntegralToUnitInterpreterAsReal[A: Integral](value: A): QuantityFactory[Real] =
+    new QuantityFactory(convertIntegralToReal(value))
 }
 
 object IntegralAsReal extends IntegralAsReal
@@ -64,8 +64,8 @@ trait IntegralAsAlgebraic{
   implicit def convertIntegralToAlgebraic[A: Integral](value: A): Algebraic =
     implicitly[Integral[A]].toAlgebraic(value)
 
-  implicit def convertIntegralToUnitInterpreterAsAlgebraic[A: Integral](value: A): UnitInterpreter[Algebraic] =
-    new UnitInterpreter(convertIntegralToAlgebraic(value))
+  implicit def convertIntegralToUnitInterpreterAsAlgebraic[A: Integral](value: A): QuantityFactory[Algebraic] =
+    new QuantityFactory(convertIntegralToAlgebraic(value))
 }
 
 object IntegralAsAlgebraic extends IntegralAsAlgebraic

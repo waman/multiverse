@@ -1,8 +1,8 @@
 package org.waman.multiverse.mechanics
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,20 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class ForceSpec extends MultiverseCustomSpec with PropertyChecks{
+class ForceSpec
+  extends AbstractQuantityAndUnitSpec[ForceUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of force" in {
-    __SetUp__
-    import ForceUnit._
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[ForceUnit])
-    __Verify__
-    result should contain theSameElementsAs Seq(
-      Newton,
-      KiloGramForce,
-      Dyne
-    )
-  }
+  override protected val getUnitClass = classOf[ForceUnit]
 
   "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
     __Exercise__

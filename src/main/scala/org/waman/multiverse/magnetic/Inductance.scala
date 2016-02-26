@@ -34,9 +34,13 @@ sealed abstract class InductanceUnit(val symbol: String, val unitInHenry: Real)
   override def valueInBaseUnit = unitInHenry
 }
 
-object InductanceUnit{
+object InductanceUnit extends ConstantsDefined[InductanceUnit]{
 
   case object Henry extends InductanceUnit("H", 1)
+
+  override lazy val values = Seq(
+    Henry
+  )
 }
 
 trait PredefinedInductanceUnit extends InductancePostfixOps[InductanceUnit]{
@@ -46,7 +50,7 @@ trait PredefinedInductanceUnit extends InductancePostfixOps[InductanceUnit]{
 
 object PredefinedInductanceUnit extends PredefinedInductanceUnit
 
-trait InductanceUnitInterpreter[A]
+trait InductanceFactory[A]
     extends InductancePostfixOps[Inductance[A]]{
 
   def apply(unit: InductanceUnit): Inductance[A]

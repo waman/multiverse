@@ -1,6 +1,6 @@
 package org.waman.multiverse.time
 
-import org.waman.multiverse.{PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse.{ConstantsDefined, PhysicalUnit, Quantity, UnitConverter}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -60,12 +60,12 @@ sealed abstract class TimeUnit(val symbol: String, val unitInSecond: Real)
   override def valueInBaseUnit = unitInSecond
 }
 
-object TimeUnit{
+object TimeUnit extends ConstantsDefined[TimeUnit]{
 
   case object YoctoSecond extends TimeUnit("ys", r"1e-24")
   case object ZeptoSecond extends TimeUnit("zs", r"1e-21")
   case object AttoSecond  extends TimeUnit("as", r"1e-18")
-  case object FemtoSecond extends TimeUnit("as", r"1e-15")
+  case object FemtoSecond extends TimeUnit("fs", r"1e-15")
   case object PicoSecond  extends TimeUnit("ps", r"1e-12")
   case object NanoSecond  extends TimeUnit("ns", r"1e-9")
   case object MicroSecond extends TimeUnit("μs", r"1e-6")
@@ -87,6 +87,34 @@ object TimeUnit{
   case object Minute      extends TimeUnit("minute", r"60")
   case object Hour        extends TimeUnit("h"     , r"60", Minute)
   case object Day         extends TimeUnit("d"     , r"24", Hour)
+
+  override lazy val values = Seq(
+    YoctoSecond,
+    ZeptoSecond,
+    AttoSecond,
+    FemtoSecond,
+    PicoSecond,
+    NanoSecond,
+    MicroSecond,
+    MilliSecond,
+    CentiSecond,
+    DeciSecond,
+    Second,
+    DecaSecond,
+    HectoSecond,
+    KiloSecond,
+    MegaSecond,
+    GigaSecond,
+    TeraSecond,
+    PetaSecond,
+    ExaSecond,
+    ZettaSecond,
+    YottaSecond,
+
+    Minute,
+    Hour,
+    Day
+  )
 }
 
 trait PredefinedTimeUnit extends TimePostfixOps[TimeUnit]{
@@ -95,7 +123,7 @@ trait PredefinedTimeUnit extends TimePostfixOps[TimeUnit]{
 
 object PredefinedTimeUnit extends PredefinedTimeUnit
 
-trait TimeUnitInterpreter[A] extends TimePostfixOps[Time[A]]{
+trait TimeFactory[A] extends TimePostfixOps[Time[A]]{
 
   def apply(unit: TimeUnit): Time[A]
 

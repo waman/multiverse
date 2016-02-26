@@ -1,7 +1,7 @@
 package org.waman.multiverse.angle
 
 import org.waman.multiverse.MultiverseUtil.twoPi
-import org.waman.multiverse.{PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse.{ConstantsDefined, PhysicalUnit, Quantity, UnitConverter}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -47,7 +47,7 @@ sealed abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Re
   override val valueInBaseUnit = unitInSteradian
 }
 
-object SolidAngleUnit{
+object SolidAngleUnit extends ConstantsDefined[SolidAngleUnit]{
 
   case object DecaSteradian  extends SolidAngleUnit("dasr", r"1e1")
   case object Steradian      extends SolidAngleUnit("sr", 1)
@@ -63,6 +63,23 @@ object SolidAngleUnit{
   case object YoctoSteradian extends SolidAngleUnit("ysr", r"1e-24")
   
   case object SquareDegree extends SolidAngleUnit("deg2", (twoPi / r"360")**2)
+
+  override lazy val values = Seq(
+    DecaSteradian,
+    Steradian,
+    DeciSteradian,
+    CentiSteradian,
+    MilliSteradian,
+    MicroSteradian,
+    NanoSteradian,
+    PicoSteradian,
+    FemtoSteradian,
+    AttoSteradian,
+    ZeptoSteradian,
+    YoctoSteradian,
+
+    SquareDegree
+  )
 }
 
 trait PredefinedSolidAngleUnit extends SolidAnglePostfixOps[SolidAngleUnit]{
@@ -71,7 +88,7 @@ trait PredefinedSolidAngleUnit extends SolidAnglePostfixOps[SolidAngleUnit]{
 
 object PredefinedSolidAngleUnit extends PredefinedSolidAngleUnit
 
-trait SolidAngleUnitInterpreter[A]
+trait SolidAngleFactory[A]
   extends SolidAnglePostfixOps[SolidAngle[A]]{
 
   def apply(unit: SolidAngleUnit): SolidAngle[A]

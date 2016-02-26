@@ -48,14 +48,18 @@ sealed trait KinematicViscosityUnit extends PhysicalUnit[KinematicViscosityUnit]
   override def valueInBaseUnit = unitInSquareMetrePerSecond
 }
 
-object KinematicViscosityUnit{
+object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
 
   // Custom
   private[KinematicViscosityUnit]
-  class KinematicViscosityUnitImpl(val symbol: String, val unitInSquareMetrePerSecond: Real)
+  class IntrinsicKinematicViscosityUnit(val symbol: String, val unitInSquareMetrePerSecond: Real)
     extends KinematicViscosityUnit
 
-  case object Stokes extends KinematicViscosityUnitImpl("St", r"1e-4")
+  case object Stokes extends IntrinsicKinematicViscosityUnit("St", r"1e-4")
+
+  override lazy val values = Seq(
+    Stokes
+  )
 
   // Quotient (Area / Time)
   private[KinematicViscosityUnit]
@@ -78,7 +82,7 @@ trait PredefinedKinematicViscosityUnit extends KinematicViscosityPostfixOps[Kine
 
 object PredefinedKinematicViscosityUnit extends PredefinedKinematicViscosityUnit
 
-trait KinematicViscosityUnitInterpreter[A]
+trait KinematicViscosityFactory[A]
     extends KinematicViscosityPostfixOps[KinematicViscosity[A]]{
 
   def apply(unit: KinematicViscosityUnit): KinematicViscosity[A]

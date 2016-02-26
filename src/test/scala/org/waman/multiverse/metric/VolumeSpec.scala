@@ -1,8 +1,8 @@
 package org.waman.multiverse.metric
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -10,112 +10,13 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
+class VolumeSpec
+  extends AbstractQuantityAndUnitSpec[VolumeUnit]
+    with PropertyChecks{
 
-  "Predefiend volume units" - {
+  override protected val getUnitClass = classOf[VolumeUnit]
 
-    "UnitSystem#getSupportedUnits method should return supported units of volume" in {
-      __SetUp__
-      import VolumeUnit._
-      __Exercise__
-      val result = UnitSystem.getSupportedUnits(classOf[VolumeUnit])
-      __Verify__
-      result should contain theSameElementsAs Seq(
-        CubicYoctoMetre,
-        CubicZeptoMetre,
-        CubicAttoMetre,
-        CubicFemtoMetre,
-        CubicPicoMetre,
-        CubicNanoMetre,
-        CubicMicroMetre,
-        CubicMilliMetre,
-        CubicCentiMetre,
-        CubicDeciMetre,
-        CubicMetre,
-        CubicDecaMetre,
-        CubicHectoMetre,
-        CubicKiloMetre,
-        CubicMegaMetre,
-        CubicGigaMetre,
-        CubicTeraMetre,
-        CubicPetaMetre,
-        CubicExaMetre,
-        CubicZettaMetre,
-        CubicYottaMetre,
-
-        YoctoLitre,
-        ZeptoLitre,
-        AttoLitre,
-        FemtoLitre,
-        PicoLitre,
-        NanoLitre,
-        MicroLitre,
-        MilliLitre,
-        CentiLitre,
-        DeciLitre,
-        Litre,
-        DecaLitre,
-        HectoLitre,
-        KiloLitre,
-        MegaLitre,
-        GigaLitre,
-        TeraLitre,
-        PetaLitre,
-        ExaLitre,
-        ZettaLitre,
-        YottaLitre,
-
-        Lambda,
-
-        CubicInch,
-        CubicFathom,
-        CubicFoot,
-        CubicYard,
-        CubicMile,
-
-        BoardFoot,
-
-        Gallon_beer,
-        Perch,
-        Barrel,
-
-        Minim_US,
-        Fluid_Ounce_US,
-        Gill_US,
-        Pint_US_fluid,
-        Quart_US_fluid,
-        Gallon_US_fluid,
-        Barrel_US_fluid,
-        Hogshead_US,
-
-        FluidDram_US,
-
-        Pint_US_dry,
-        Quart_US_dry,
-        Gallon_US_dry,
-        Peck_US_dry,
-        Bushel_US_dry,
-        Barrel_US_dry,
-
-        Bushel_US_dry_level,
-
-        Minim_imperial,
-        Fluid_Ounce_imperial,
-        Gill_imperial,
-        Pint_imperial,
-        Quart_imperial,
-        Gallon_imperial,
-        Peck_imperial,
-        Bushel_imperial,
-        Barrel_imperial,
-        Hogshead_imperial,
-
-        FluidScruple,
-        FluidDrachm_imperial,
-
-        Bucket
-      )
-    }
+  "Predefined volume unit" - {
 
     "Tests where converting from some units to cubic metre like 3.0 km3 => 3e9 m3" in {
       __Exercise__
@@ -368,7 +269,7 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  "product volume unit" - {
+  "Product volume unit" - {
 
     "Area unit of ac*ft should equal 1233.48183754752 m3" in {
       __Exercise__
@@ -382,9 +283,9 @@ class VolumeSpec extends MultiverseCustomSpec with PropertyChecks{
       val conversions =
         Table(
           ("area", "expected"),
-          (3.0.ac*ft, 0.03 * 43560.0),
-          (3.0 ac*ft, 0.03 * 43560.0),
-          (3.0 (ac*ft), 0.03 * 43560.0)
+          (3.0.ac*ft, 3.0 * 43560.0),
+          (3.0 ac*ft, 3.0 * 43560.0),
+          (3.0 (ac*ft), 3.0 * 43560.0)
         )
       __Verify__
       forAll(conversions){ (sut: Volume[Double], expected: Double) =>

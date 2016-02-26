@@ -61,23 +61,32 @@ sealed abstract class AccelerationUnit extends PhysicalUnit[AccelerationUnit]{
   override def valueInBaseUnit = unitInMetrePerSecondSquared
 }
 
-object AccelerationUnit{
+object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
 
   // Custom
   private[AccelerationUnit]
-  class AccelerationUnitImpl(val symbol: String, val unitInMetrePerSecondSquared: Real)
+  class IntrinsicAccelerationUnit(val symbol: String, val unitInMetrePerSecondSquared: Real)
     extends AccelerationUnit{
 
     def this(symbol: String, lengthUnit: LengthUnit) =
       this(symbol, lengthUnit.unitInMetre / TimeSquaredUnit.SecondSquared.unitInSecondSquared)
   }
 
-  case object StandardGravity extends AccelerationUnitImpl("g0", r"9.80665")
-  case object Galileo extends AccelerationUnitImpl("Gal", LengthUnit.CentiMetre)
+  case object StandardGravity extends IntrinsicAccelerationUnit("g0", r"9.80665")
+  case object Galileo extends IntrinsicAccelerationUnit("Gal", LengthUnit.CentiMetre)
 
-  case object InchPerSecondSquared extends AccelerationUnitImpl("ips2", LengthUnit.Inch)
-  case object FootPerSecondSquared extends AccelerationUnitImpl("fps2", LengthUnit.Foot)
-  case object MilePerSecondSquared extends AccelerationUnitImpl("mps2", LengthUnit.Mile)
+  case object InchPerSecondSquared extends IntrinsicAccelerationUnit("ips2", LengthUnit.Inch)
+  case object FootPerSecondSquared extends IntrinsicAccelerationUnit("fps2", LengthUnit.Foot)
+  case object MilePerSecondSquared extends IntrinsicAccelerationUnit("mps2", LengthUnit.Mile)
+
+  override lazy val values = Seq(
+    StandardGravity,
+    Galileo,
+
+    InchPerSecondSquared,
+    FootPerSecondSquared,
+    MilePerSecondSquared
+  )
 
   // Quotient (Length/Time2)
   private[AccelerationUnit]
@@ -110,7 +119,7 @@ trait PredefinedAccelerationUnit extends AccelerationPostfixOps[AccelerationUnit
 
 object PredefinedAccelerationUnit extends PredefinedAccelerationUnit
 
-trait AccelerationUnitInterpreter[A]
+trait AccelerationFactory[A]
   extends AccelerationPostfixOps[Acceleration[A]]
     with UnitConverter[A]{
 

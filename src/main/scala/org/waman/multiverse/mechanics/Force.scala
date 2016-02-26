@@ -54,11 +54,17 @@ sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
   override def *(lengthUnit: LengthUnit): TorqueUnit = TorqueUnit(this, lengthUnit)
 }
 
-object ForceUnit{
+object ForceUnit extends ConstantsDefined[ForceUnit]{
 
   case object Newton        extends ForceUnit("N"  , 1)
   case object Dyne          extends ForceUnit("dyn", r"1e-5")
   case object KiloGramForce extends ForceUnit("kgf;kp", r"9.80665")
+
+  override lazy val values = Seq(
+    Newton,
+    Dyne,
+    KiloGramForce
+  )
 }
 
 trait PredefinedForceUnit extends ForcePostfixOps[ForceUnit]{
@@ -68,7 +74,7 @@ trait PredefinedForceUnit extends ForcePostfixOps[ForceUnit]{
 
 object PredefinedForceUnit extends PredefinedForceUnit
 
-trait ForceUnitInterpreter[A]
+trait ForceFactory[A]
     extends ForcePostfixOps[Force[A]]
     with ForceDot[LengthPostfixOps[Torque[A]]]{
 

@@ -67,9 +67,13 @@ sealed abstract class ChargeUnit(val symbol: String, val unitInCoulomb: Real)
   override def /(massUnit: MassUnit) = ExposureUnit(this, massUnit)
 }
 
-object ChargeUnit{
+object ChargeUnit extends ConstantsDefined[ChargeUnit]{
 
   case object Coulomb extends ChargeUnit("C", 1)
+
+  override lazy val values = Seq(
+    Coulomb
+  )
 }
 
 trait PredefinedChargeUnit extends ChargePostfixOps[ChargeUnit]{
@@ -79,7 +83,7 @@ trait PredefinedChargeUnit extends ChargePostfixOps[ChargeUnit]{
 
 object PredefinedChargeUnit extends PredefinedChargeUnit
 
-trait ChargeUnitInterpreter[A]
+trait ChargeFactory[A]
     extends ChargePostfixOps[Charge[A]]
     with ChargeDot[LengthPostfixOps[Dipole[A]]]
     with ChargePer[MassPostfixOps[Exposure[A]]]{

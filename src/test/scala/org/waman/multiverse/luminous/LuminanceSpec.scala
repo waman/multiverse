@@ -1,7 +1,7 @@
 package org.waman.multiverse.luminous
 
 import org.scalatest.prop.PropertyChecks
-import org.waman.multiverse.MultiverseCustomSpec
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
 
 import scala.language.postfixOps
@@ -10,7 +10,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class LuminanceSpec extends MultiverseCustomSpec with PropertyChecks{
+class LuminanceSpec
+  extends AbstractQuantityAndUnitSpec[LuminanceUnit]
+    with PropertyChecks{
+
+  override protected val getUnitClass = classOf[LuminanceUnit]
 
 //  "UnitSystem#getSupportedUnits method should return supported units of kinematic viscosity" in {
 //    __SetUp__

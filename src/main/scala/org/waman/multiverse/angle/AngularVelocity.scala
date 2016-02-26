@@ -52,15 +52,21 @@ sealed abstract class AngularVelocityUnit extends PhysicalUnit[AngularVelocityUn
   override def valueInBaseUnit = unitInRadianPerSecond
 }
 
-object AngularVelocityUnit{
+object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
 
   // Custom
   private[AngularVelocityUnit]
-  class AngularVelocityUnitImpl(val symbol: String, val unitInRadianPerSecond: Real)
+  class IntrinsicAngularVelocityUnit(val symbol: String, val unitInRadianPerSecond: Real)
     extends AngularVelocityUnit
 
-  case object CyclePerSecond      extends AngularVelocityUnitImpl("cps", twoPi)
-  case object RevolutionPerMinute extends AngularVelocityUnitImpl("rpm", twoPi / r"60")
+  case object CyclePerSecond      extends IntrinsicAngularVelocityUnit("cps", twoPi)
+  case object RevolutionPerMinute extends IntrinsicAngularVelocityUnit("rpm", twoPi / r"60")
+
+
+  override lazy val values = Seq(
+    CyclePerSecond,
+    RevolutionPerMinute
+  )
 
   // Quotient
   private class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
@@ -80,7 +86,7 @@ trait PredefinedAngularVelocityUnit extends AngularVelocityPostfixOps[AngularVel
 
 object PredefinedAngularVelocityUnit extends PredefinedAngularVelocityUnit
 
-trait AngularVelocityUnitInterpreter[A]
+trait AngularVelocityFactory[A]
     extends AngularVelocityPostfixOps[AngularVelocity[A]]{
 
   def apply(unit: AngularVelocityUnit): AngularVelocity[A]

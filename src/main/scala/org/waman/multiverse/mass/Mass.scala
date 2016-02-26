@@ -33,7 +33,7 @@ trait MassPostfixOps[A]{
   def Zg: A = massPostfixOps(ZettaGram)
   def Yg: A = massPostfixOps(YottaGram)
 
-  def grain: A = massPostfixOps(Grain)
+  def gr: A = massPostfixOps(Grain)
 }
 
 trait MassPer[A]{
@@ -62,6 +62,8 @@ trait MassPer[A]{
   def Eg(per: Per): A = massPer(ExaGram)
   def Zg(per: Per): A = massPer(ZettaGram)
   def Yg(per: Per): A = massPer(YottaGram)
+
+  def gr(per: Per): A = massPer(Grain)
 }
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
@@ -94,7 +96,7 @@ sealed abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
   override def /(volumeUnit: VolumeUnit): DensityUnit = DensityUnit(this, volumeUnit)
 }
 
-object MassUnit{
+object MassUnit extends ConstantsDefined[MassUnit]{
 
   case object YoctoGram extends MassUnit("yg", r"1e-24", Gram)
   case object ZeptoGram extends MassUnit("zg", r"1e-21", Gram)
@@ -119,6 +121,8 @@ object MassUnit{
   case object YottaGram extends MassUnit("Yg", r"1e24", Gram)
 
   // microscopic
+  case object ElectronVolt extends MassUnit("eV", r"1.78266184e-36") with NotExact
+
   case object AtomicMassUnit extends MassUnit("u;AMU;Da", r"1.66053892173e-27") with NotExact
   case object ElectronMass extends MassUnit("m_e", r"9.1093829140e-31") with NotExact
 
@@ -131,7 +135,42 @@ object MassUnit{
   case object Carat extends MassUnit("kt", r"3" + r"1/6", Grain)
   case object MetricCarat extends MassUnit("ct", r"200", MilliGram)
 
-  case object ElectronVolt extends MassUnit("eV", r"1.78266184e-36") with NotExact
+  override lazy val values = Seq(
+    YoctoGram,
+    ZeptoGram,
+    AttoGram,
+    FemtoGram,
+    PicoGram,
+    NanoGram,
+    MicroGram,
+    MilliGram,
+    CentiGram,
+    DeciGram,
+    Gram,
+    DecaGram,
+    HectoGram,
+    KiloGram,
+    MegaGram,
+    GigaGram,
+    TeraGram,
+    PetaGram,
+    ExaGram,
+    ZettaGram,
+    YottaGram,
+
+    ElectronVolt,
+
+    AtomicMassUnit,
+    ElectronMass,
+
+    Grain,
+    Ounce,
+    Pound,
+    Tonne,
+
+    Carat,
+    MetricCarat
+  )
 }
 
 trait PredefinedMassUnit extends MassPostfixOps[MassUnit]{
@@ -141,7 +180,7 @@ trait PredefinedMassUnit extends MassPostfixOps[MassUnit]{
 
 object PredefinedMassUnit extends PredefinedMassUnit
 
-trait MassUnitInterpreter[A]
+trait MassFactory[A]
   extends MassPostfixOps[Mass[A]]
     with MassPer[VolumePostfixOps[Density[A]]]{
 

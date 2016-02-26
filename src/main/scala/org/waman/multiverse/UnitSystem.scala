@@ -24,8 +24,8 @@ class Per
 
 trait UnitSystemImplicits{
 
-  implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): UnitInterpreter[A] =
-    new UnitInterpreter(value)
+  implicit def convertFractionalToUnitInterpreter[A: Fractional](value: A): QuantityFactory[A] =
+    new QuantityFactory(value)
 
   implicit def convertAngularVelocityToFrequency[A: Fractional](av: AngularVelocity[A]): Frequency[A] =
     av.toFrequency
@@ -83,81 +83,59 @@ trait UnitSystem extends UnitSystemImplicits
     with PredefinedAbsorbedDoseUnit
 
     with PredefinedEquivalentDoseUnit
-    with PredefinedEquivalentDoseRateUnit
+//    with PredefinedEquivalentDoseRateUnit
     with HasContext
 
 object UnitSystem extends UnitSystem{
 
-  private val packageMap = Map(
-    "Length"             -> "metric",
-    "Area"               -> "metric",
-    "Volume"             -> "metric",
-    "Angle"              -> "angle",
-    "SolidAngle"         -> "angle",
-    "Mass"               -> "mass",
-    "Density"            -> "mass",
-    "Time"               -> "time",
-    "TimeSquared"        -> "time",
-    "Frequency"          -> "time",
+  lazy val supportedQuantities: Set[Class[_]] = Set(
+    classOf[metric.Length[_]],
+    classOf[metric.Area[_]],
+    classOf[metric.Volume[_]],
+    classOf[angle.Angle[_]],
+    classOf[angle.SolidAngle[_]],
+    classOf[mass.Mass[_]],
+    classOf[mass.Density[_]],
+    classOf[time.Time[_]],
+    classOf[time.TimeSquared[_]],
+    classOf[time.Frequency[_]],
 
-    "Velocity"           -> "mechanics",
-    "AngularVelocity"    -> "angle",
-    "VolumeFlow"         -> "fluid",
-    "Acceleration"       -> "mechanics",
-    "Force"              -> "mechanics",
-    "Pressure"           -> "fluid",
-    "Torque"             -> "mechanics",
-    "Energy"             -> "energy",
-    "Power"              -> "energy",
-    "Action"             -> "energy",
+    classOf[mechanics.Velocity[_]],
+    classOf[angle.AngularVelocity[_]],
+    classOf[fluid.VolumeFlow[_]],
+    classOf[mechanics.Acceleration[_]],
+    classOf[mechanics.Force[_]],
+    classOf[fluid.Pressure[_]],
+    classOf[mechanics.Torque[_]],
+    classOf[energy.Energy[_]],
+    classOf[energy.Power[_]],
+    classOf[energy.Action[_]],
 
-    "DynamicViscosity"   -> "fluid",
-    "KinematicViscosity" -> "fluid",
-    "Current"            -> "electric",
-    "Charge"             -> "electric",
-    "Dipole"             -> "electric",
-    "Voltage"            -> "electric",
-    "Resistance"         -> "electric",
-    "Capacitance"        -> "electric",
-    "Flux"               -> "magnetic",
-    "FluxDensity"        -> "magnetic",
+    classOf[fluid.DynamicViscosity[_]],
+    classOf[fluid.KinematicViscosity[_]],
+    classOf[electric.Current[_]],
+    classOf[electric.Charge[_]],
+    classOf[electric.Dipole[_]],
+    classOf[electric.Voltage[_]],
+    classOf[electric.Resistance[_]],
+    classOf[electric.Capacitance[_]],
+    classOf[magnetic.Flux[_]],
+    classOf[magnetic.FluxDensity[_]],
 
-    "Inductance"         -> "magnetic",
-    "Temperature"        -> "thermal",
-    "Entropy"            -> "thermal",
-    "LuminousIntensity"  -> "luminous",
-    "Luminance"          -> "luminous",
-    "LuminousFlux"       -> "luminous",
-    "Illuminance"        -> "luminous",
-    "Radioactivity"      -> "radiation",
-    "Exposure"           -> "radiation",
-    "AbsorbedDose"       -> "radiation",
+    classOf[magnetic.Inductance[_]],
+    classOf[thermal.Temperature[_]],
+    classOf[thermal.Entropy[_]],
+    classOf[luminous.LuminousIntensity[_]],
+    classOf[luminous.Luminance[_]],
+    classOf[luminous.LuminousFlux[_]],
+    classOf[luminous.Illuminance[_]],
+    classOf[radiation.Radioactivity[_]],
+    classOf[radiation.Exposure[_]],
+    classOf[radiation.AbsorbedDose[_]],
 
-    "EquivalentDose"     -> "radiation",
-    "EquivalentDoseRate" -> "radiation"
+    classOf[radiation.EquivalentDose[_]],
+    classOf[radiation.EquivalentDoseRate[_]]
   )
-
-  val getSupportedQuantities: Set[String] = packageMap.keySet
-
-  def getSupportedUnits[U <: PhysicalUnit[U]](quantityName: String): Seq[U] = {
-    val className = s"org.waman.multiverse.${packageMap(quantityName)}.${quantityName}Unit"
-    val unitType = Class.forName(className).asInstanceOf[Class[U]]
-    getSupportedUnits(unitType)
-  }
-
-  def getSupportedUnits[U <: PhysicalUnit[U]](unitType: Class[U]): Seq[U]  = {
-    getPostfixOpsClass(unitType, isClass=true) match{
-      case None => Nil
-      case Some(c) =>
-        c.getMethods
-        .filterNot(_.getName.endsWith("PostfixOps"))
-        .flatMap(m => getUnits(m, unitType))
-        .distinct
-    }
-  }
-
-  def getSupportedUnits[U <: PhysicalUnit[U]](unitType: Class[U], ord: U => String): Seq[U] =
-    getSupportedUnits(unitType).sortBy(ord)
 
   private def getUnits[U <: PhysicalUnit[U]](m: Method, unitType: Class[U]): Seq[U] =
     m.getParameterCount match{

@@ -19,7 +19,7 @@ trait VoltageDot[A]{
 
   protected def voltageDot(voltageUnit: VoltageUnit): A
 
-  def C(dot: Dot): A = voltageDot(Voltage)
+  def V(dot: Dot): A = voltageDot(Voltage)
 }
 
 class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
@@ -43,9 +43,13 @@ sealed abstract class VoltageUnit(val symbol: String, val unitInCoulomb: Real)
   override def valueInBaseUnit = unitInCoulomb
 }
 
-object VoltageUnit{
+object VoltageUnit extends ConstantsDefined[VoltageUnit]{
 
   case object Voltage extends VoltageUnit("V", 1)
+
+  override lazy val values = Seq(
+    Voltage
+  )
 }
 
 trait PredefinedVoltageUnit extends VoltagePostfixOps[VoltageUnit]{
@@ -55,7 +59,7 @@ trait PredefinedVoltageUnit extends VoltagePostfixOps[VoltageUnit]{
 
 object PredefinedVoltageUnit extends PredefinedVoltageUnit
 
-trait VoltageUnitInterpreter[A]
+trait VoltageFactory[A]
     extends VoltagePostfixOps[Voltage[A]]{
 
   def apply(unit: VoltageUnit): Voltage[A]

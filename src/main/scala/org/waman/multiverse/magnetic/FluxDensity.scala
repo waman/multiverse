@@ -34,9 +34,13 @@ sealed abstract class FluxDensityUnit(val symbol: String, val unitInTesla: Real)
   override def valueInBaseUnit = unitInTesla
 }
 
-object FluxDensityUnit{
+object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
 
   case object Tesla extends FluxDensityUnit("T", 1)
+
+  override lazy val values = Seq(
+    Tesla
+  )
 }
 
 trait PredefinedFluxDensityUnit extends FluxDensityPostfixOps[FluxDensityUnit]{
@@ -46,7 +50,7 @@ trait PredefinedFluxDensityUnit extends FluxDensityPostfixOps[FluxDensityUnit]{
 
 object PredefinedFluxDensityUnit extends PredefinedFluxDensityUnit
 
-trait FluxDensityUnitInterpreter[A]
+trait FluxDensityFactory[A]
     extends FluxDensityPostfixOps[FluxDensity[A]]{
 
   def apply(unit: FluxDensityUnit): FluxDensity[A]

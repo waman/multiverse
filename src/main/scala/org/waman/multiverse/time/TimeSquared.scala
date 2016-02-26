@@ -1,6 +1,6 @@
 package org.waman.multiverse.time
 
-import org.waman.multiverse.{PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse.{ConstantsDefined, PhysicalUnit, Quantity, UnitConverter}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
@@ -36,9 +36,13 @@ sealed abstract class TimeSquaredUnit(val symbol: String, val unitInSecondSquare
   override def valueInBaseUnit = unitInSecondSquared
 }
 
-object TimeSquaredUnit{
+object TimeSquaredUnit extends ConstantsDefined[TimeSquaredUnit]{
 
   case object SecondSquared extends TimeSquaredUnit("s2" , 1)
+
+  override lazy val values = Seq(
+    SecondSquared
+  )
 }
 
 trait PredefinedTimeSquaredUnit extends TimeSquaredPostfixOps[TimeSquaredUnit]{
@@ -47,7 +51,7 @@ trait PredefinedTimeSquaredUnit extends TimeSquaredPostfixOps[TimeSquaredUnit]{
 
 object PredefinedTimeSquaredUnit extends PredefinedTimeSquaredUnit
 
-trait TimeSquaredUnitInterpreter[A] extends TimeSquaredPostfixOps[TimeSquared[A]]{
+trait TimeSquaredFactory[A] extends TimeSquaredPostfixOps[TimeSquared[A]]{
 
   def apply(unit: TimeSquaredUnit): TimeSquared[A]
 

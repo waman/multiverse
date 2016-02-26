@@ -49,19 +49,23 @@ sealed abstract class VolumeFlowUnit extends PhysicalUnit[VolumeFlowUnit]{
   override def valueInBaseUnit = unitInCubicMetrePerSecond
 }
 
-object VolumeFlowUnit{
+object VolumeFlowUnit extends ConstantsDefined[VolumeFlowUnit]{
   import TimeUnit._
   import VolumeUnit._
 
-  abstract class VolumeFlowUnitImpl(val symbol: String, val unitInCubicMetrePerSecond: Real)
+  private[VolumeFlowUnit]
+  abstract class IntrinsicVolumeFlowUnit(val symbol: String, val unitInCubicMetrePerSecond: Real)
     extends VolumeFlowUnit
 
-//  case object CubicFootPerMinute extends VolumeFlowUnitImpl("CFM", CubicFeet)  // TODO
-//  case object GallonPerDay       extends VolumeFlowUnitImpl("GPD", Real.pi / r"180")
-//  case object GallonPerHour      extends VolumeFlowUnitImpl("GPH", Real.pi / r"180")
-//  case object GallonPerMinute    extends VolumeFlowUnitImpl("GPM", Real.pi / r"200")
-  case object LitrePerMinute     extends VolumeFlowUnitImpl("LPM", Litre.unitInCubicMetre / Minute.unitInSecond)
+//  case object CubicFootPerMinute extends IntrinsicVolumeFlowUnit("CFM", CubicFeet)  // TODO
+//  case object GallonPerDay       extends IntrinsicVolumeFlowUnit("GPD", Real.pi / r"180")
+//  case object GallonPerHour      extends IntrinsicVolumeFlowUnit("GPH", Real.pi / r"180")
+//  case object GallonPerMinute    extends IntrinsicVolumeFlowUnit("GPM", Real.pi / r"200")
+  case object LitrePerMinute     extends IntrinsicVolumeFlowUnit("LPM", Litre.unitInCubicMetre / Minute.unitInSecond)
 
+  override lazy val values = Seq(
+    LitrePerMinute
+  )
 
   private[VolumeFlowUnit]
   class QuotientVolumeFlowUnit(val numeratorUnit: VolumeUnit, val denominatorUnit: TimeUnit)
@@ -81,7 +85,7 @@ trait PredefinedVolumeFlowUnit extends VolumeFlowPostfixOps[VolumeFlowUnit]{
 
 object PredefinedVolumeFlowUnit extends PredefinedVolumeFlowUnit
 
-trait VolumeFlowUnitInterpreter[A]
+trait VolumeFlowFactory[A]
   extends VolumeFlowPostfixOps[VolumeFlow[A]]{
 
   def apply(unit: VolumeFlowUnit): VolumeFlow[A]

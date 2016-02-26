@@ -34,9 +34,13 @@ sealed abstract class RadioactivityUnit(val symbol: String, val unitInBecquerel:
   override def valueInBaseUnit = unitInBecquerel
 }
 
-object RadioactivityUnit{
+object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
 
   case object Becquerel extends RadioactivityUnit("Bq", 1)
+
+  override lazy val values = Seq(
+    Becquerel
+  )
 }
 
 trait PredefinedRadioactivityUnit extends RadioactivityPostfixOps[RadioactivityUnit]{
@@ -46,7 +50,7 @@ trait PredefinedRadioactivityUnit extends RadioactivityPostfixOps[RadioactivityU
 
 object PredefinedRadioactivityUnit extends PredefinedRadioactivityUnit
 
-trait RadioactivityUnitInterpreter[A]
+trait RadioactivityFactory[A]
     extends RadioactivityPostfixOps[Radioactivity[A]]{
 
   def apply(unit: RadioactivityUnit): Radioactivity[A]

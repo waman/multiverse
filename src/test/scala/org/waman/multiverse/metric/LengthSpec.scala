@@ -1,10 +1,9 @@
 package org.waman.multiverse.metric
 
 import org.scalatest.prop.PropertyChecks
+import org.waman.multiverse.AbstractQuantityAndUnitSpec
 import org.waman.multiverse.UnitSystem._
 import org.waman.multiverse.mechanics.Velocity
-import org.waman.multiverse.metric.LengthUnit._
-import org.waman.multiverse.{MultiverseCustomSpec, UnitSystem}
 
 import scala.language.postfixOps
 
@@ -12,84 +11,11 @@ import scala.language.postfixOps
   * Expected values are from
   * <a href="https://en.wikipedia.org/wiki/Conversion_of_units">Conversion of units</a>.
   */
-class LengthSpec extends MultiverseCustomSpec with PropertyChecks{
+class LengthSpec
+  extends AbstractQuantityAndUnitSpec[LengthUnit]
+    with PropertyChecks{
 
-  "UnitSystem#getSupportedUnits method should return supported units of length" in {
-    __SetUp__
-    __Exercise__
-    val result = UnitSystem.getSupportedUnits(classOf[LengthUnit])
-    __Verify__
-    result should contain theSameElementsAs Seq(
-      YoctoMetre,
-      ZeptoMetre,
-      AttoMetre,
-      FemtoMetre,
-      PicoMetre,
-      NanoMetre,
-      MicroMetre,
-      MilliMetre,
-      CentiMetre,
-      DeciMetre,
-      Metre,
-      DecaMetre,
-      HectoMetre,
-      KiloMetre,
-      MegaMetre,
-      GigaMetre,
-      TeraMetre,
-      PetaMetre,
-      ExaMetre,
-      ZettaMetre,
-      YottaMetre,
-
-      Micron,
-      Angstrom,
-      AtomicUnitOfLength,
-      XUnit,
-      XUnit_CuKAlpha1,
-      XUnit_MoKAlpha1,
-      PlanckLength,
-
-      AstronomicalUnit,
-      LightYear,
-      Parsec,
-
-      Mil,
-      Twip,
-      Point,
-      Line,
-      Inch,
-      Link,
-      Foot,
-      Yard,
-      Ell,
-      Fathom,
-      Rod,
-      Rope,
-      Chain,
-      Mile,
-      League,
-
-      NauticalMile,
-      NauticalMile_Admiralty,
-      NauticalLeague,
-      Cable,
-      Cable_US,
-      Cable_imperial,
-
-      Link_US_Survey,
-      Foot_US_Survey,
-      Chain_US_Survey,
-      Mile_US_Survey,
-
-      MetricFoot,
-      ShortMetricFoot,
-      LongMetricFoot,
-
-      French,
-      Furlong
-    )
-  }
+  override protected val getUnitClass = classOf[LengthUnit]
 
   "Tests where converting from some units to Metre like 3.0 mm => 0.003 m" in {
     __Exercise__
