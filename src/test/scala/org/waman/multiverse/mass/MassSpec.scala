@@ -16,7 +16,7 @@ class MassSpec
 
   override protected val getUnitClass = classOf[MassUnit]
 
-  "Tests where converting from some units to kg like 3.0 g => 3e-3 kg" in {
+  "3.0 <<mass unit>> should be converted to the equivalent value in kilogram" in {
     __Exercise__
     val conversions =
       Table(
@@ -51,34 +51,34 @@ class MassSpec
     }
   }
 
-  "Tests where converting a mass unit to other units like 3.0 kg => 3e3 g" in {
+  "3.0 kg should be converted to the equivalent value in other mass units" in {
     __SetUp__
-    val value = 3.0 (kg)
+    val q = 3.0 (kg)
     __Exercise__
     val conversions =
       Table(
         ("masses", "expected"),
-        (Seq(value.yg, value yg, value (yg)), 3e27),
-        (Seq(value.zg, value zg, value (zg)), 3e24),
-        (Seq(value.ag, value ag, value (ag)), 3e21),
-        (Seq(value.fg, value fg, value (fg)), 3e18),
-        (Seq(value.pg, value pg, value (pg)), 3e15),
-        (Seq(value.ng, value ng, value (ng)), 3e12),
-        (Seq(value.μg, value μg, value (μg)), 3e9),
-        (Seq(value.mg, value mg, value (mg)), 3e6),
-        (Seq(value.cg, value cg, value (cg)), 3e5),
-        (Seq(value.dg, value dg, value (dg)), 3e4),
-        (Seq(value.g , value g , value (g)) , 3e3),
-        (Seq(value.dag, value dag, value (dag)), 3e2),
-        (Seq(value.hg, value hg, value (hg)), 3e1),
-        (Seq(value.kg, value kg, value (kg)), 3.0),
-        (Seq(value.Mg, value Mg, value (Mg)), 3e-3),
-        (Seq(value.Gg, value Gg, value (Gg)), 3e-6),
-        (Seq(value.Tg, value Tg, value (Tg)), 3e-9),
-        (Seq(value.Pg, value Pg, value (Pg)), 3e-12),
-        (Seq(value.Eg, value Eg, value (Eg)), 3e-15),
-        (Seq(value.Zg, value Zg, value (Zg)), 3e-18),
-        (Seq(value.Yg, value Yg, value (Yg)), 3e-21)
+        (Seq(q.yg, q yg, q (yg)), 3e27),
+        (Seq(q.zg, q zg, q (zg)), 3e24),
+        (Seq(q.ag, q ag, q (ag)), 3e21),
+        (Seq(q.fg, q fg, q (fg)), 3e18),
+        (Seq(q.pg, q pg, q (pg)), 3e15),
+        (Seq(q.ng, q ng, q (ng)), 3e12),
+        (Seq(q.μg, q μg, q (μg)), 3e9),
+        (Seq(q.mg, q mg, q (mg)), 3e6),
+        (Seq(q.cg, q cg, q (cg)), 3e5),
+        (Seq(q.dg, q dg, q (dg)), 3e4),
+        (Seq(q.g , q g , q (g)) , 3e3),
+        (Seq(q.dag, q dag, q (dag)), 3e2),
+        (Seq(q.hg, q hg, q (hg)), 3e1),
+        (Seq(q.kg, q kg, q (kg)), 3.0),
+        (Seq(q.Mg, q Mg, q (Mg)), 3e-3),
+        (Seq(q.Gg, q Gg, q (Gg)), 3e-6),
+        (Seq(q.Tg, q Tg, q (Tg)), 3e-9),
+        (Seq(q.Pg, q Pg, q (Pg)), 3e-12),
+        (Seq(q.Eg, q Eg, q (Eg)), 3e-15),
+        (Seq(q.Zg, q Zg, q (Zg)), 3e-18),
+        (Seq(q.Yg, q Yg, q (Yg)), 3e-21)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

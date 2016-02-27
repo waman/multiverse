@@ -33,36 +33,39 @@ class VolumeFlowSpec
     }
   }
 
-  "Tests where converting from some units to m3/s like 3.0 LPM (litre per minute) => 3.0 * 1e-3 / 60.0 m3/s" in {
-    __Exercise__
-    val conversions =
-      Table(
-        ("volume flows", "expected"),
-        (Seq(3.0.m3/s, 3.0 m3/s, 3.0 (m3/s)), 3.0),
-        (Seq(3.0.LPM , 3.0 LPM , 3.0 (LPM)) , 3.0 * 1e-3 / 60.0)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[VolumeFlow[Double]], expected: Double) =>
-      suts.foreach{ sut =>
-        (sut m3/s) should equal (%%%%(expected))
+  "Predefined volume flow units" - {
+
+    "3.0 <<volume flow unit>> should be converted to the equivalent value in cubic metre per second" in {
+      __Exercise__
+      val conversions =
+        Table(
+          ("volume flows", "expected"),
+          (Seq(3.0.m3 / s, 3.0 m3 / s, 3.0 (m3 / s)), 3.0),
+          (Seq(3.0.LPM, 3.0 LPM, 3.0 (LPM)), 3.0 * 1e-3 / 60.0)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[VolumeFlow[Double]], expected: Double) =>
+        suts.foreach { sut =>
+          (sut m3 / s) should equal(%%%%(expected))
+        }
       }
     }
-  }
 
-  "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
-    __SetUp__
-    val value = 3.0 (m3/s)
-    __Exercise__
-    val conversions =
-      Table(
-        ("volume flows", "expected"),
-        (Seq(value.m3/s, value m3/s, value (m3/s)), 3.0),
-        (Seq(value.LPM , value LPM , value (LPM)) , 3.0 * 60.0 / 1e-3)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
-      suts.foreach{ sut =>
-        sut should equal (%%%%(expected))
+    "3.0 m3/s should be converted to the equivalent value in other volume flow units" in {
+      __SetUp__
+      val q = 3.0 (m3 / s)
+      __Exercise__
+      val conversions =
+        Table(
+          ("volume flows", "expected"),
+          (Seq(q.m3 / s, q m3 / s, q(m3 / s)), 3.0),
+          (Seq(q.LPM, q LPM, q(LPM)), 3.0 * 60.0 / 1e-3)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[Double], expected: Double) =>
+        suts.foreach { sut =>
+          sut should equal(%%%%(expected))
+        }
       }
     }
   }

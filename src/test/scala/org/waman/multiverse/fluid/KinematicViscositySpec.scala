@@ -32,7 +32,7 @@ class KinematicViscositySpec
 //    }
 //  }
 
-  "Tests where converting from some units to m2/s like 3.0 St => 3.0 * 10e-4 m2/s" in {
+  "3.0 <<kinematic viscosity unit>> should be converted to the equivalent value in square metre per second" in {
     __Exercise__
     val conversions =
       Table(
@@ -48,15 +48,15 @@ class KinematicViscositySpec
     }
   }
 
-  "Tests where converting m2/s unit to other units like 3.0 m2/s => 3.0 / 1e-4 St" in {
+  "3.0 m2/s should be converted to the equivalent value in other kinematic viscosity units" in {
     __SetUp__
-    val value = 3.0 (m2/s)
+    val q = 3.0 (m2/s)
     __Exercise__
     val conversions =
       Table(
         ("kinematic viscosities", "expected"),
-        (Seq(value.m2/s, value m2/s, value (m2/s)), 3.0),
-        (Seq(value.St  , value St  , value (St))  , 3.0 / 1e-4)
+        (Seq(q.m2/s, q m2/s, q (m2/s)), 3.0),
+        (Seq(q.St  , q St  , q (St))  , 3.0 / 1e-4)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

@@ -16,7 +16,7 @@ class TemperatureSpec
 
   override protected val getUnitClass = classOf[TemperatureUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<temperature unit>> should be converted to the equivalent value in Kelvin" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class TemperatureSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 K should be converted to the equivalent value in other temperature units" in {
     __SetUp__
-    val value = 3.0 (K)
+    val q = 3.0 (K)
     __Exercise__
     val conversions =
       Table(
         ("temperatures", "expected"),
-        (Seq(value.K, value K, value (K)), 3.0)
+        (Seq(q.K, q K, q (K)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

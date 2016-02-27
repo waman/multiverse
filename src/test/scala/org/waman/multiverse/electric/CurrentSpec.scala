@@ -16,7 +16,7 @@ class CurrentSpec
 
   override protected val getUnitClass = classOf[CurrentUnit]
 
-  "Tests where converting from some units to A like 3.0 mA => 3e-3 A" in {
+  "3.0 <<current unit>> should be converted to the equivalent value in Ampere" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class CurrentSpec
     }
   }
 
-  "Tests where converting an Ampere to other units like 3.0 A => 3e3 mA" in {
+  "3.0 m should be converted to the equivalent value in other current units" in {
     __SetUp__
-    val value = 3.0 (A)
+    val q = 3.0 (A)
     __Exercise__
     val conversions =
       Table(
         ("currents", "expected"),
-        (Seq(value.A, value A, value (A)), 3.0)
+        (Seq(q.A, q A, q (A)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

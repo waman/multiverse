@@ -21,7 +21,7 @@ class AreaSpec
 
   "Predefined area units" - {
 
-    "Tests where converting from some units to square metre like 3.0 km2 => 3e6 m2" in {
+    "3.0 <<area unit>> should be converted to the equivalent value in square metre" in {
       __SetUp__
       import UnitSystem.{a => are}
       __Exercise__
@@ -101,78 +101,78 @@ class AreaSpec
       }
     }
 
-    "Tests where converting square metre unit to other units like 3.0 m2 => 3.0 * 1e-6 km2" in {
+    "3.0 m2 should be converted to the equivalent value in other area units" in {
       __SetUp__
       import UnitSystem.{a => are}
-      val value = 3.0 (m2)
+      val q = 3.0 (m2)
       __Exercise__
       val conversions =
         Table(
           ("areas", "expected"),
-          (Seq(value.ym2, value ym2, value(ym2)), 3e48),
-          (Seq(value.zm2, value zm2, value(zm2)), 3e42),
-          (Seq(value.am2, value am2, value(am2)), 3e36),
-          (Seq(value.fm2, value fm2, value(fm2)), 3e30),
-          (Seq(value.pm2, value pm2, value(pm2)), 3e24),
-          (Seq(value.nm2, value nm2, value(nm2)), 3e18),
-          (Seq(value.μm2, value μm2, value(μm2)), 3e12),
-          (Seq(value.mm2, value mm2, value(mm2)), 3e6),
-          (Seq(value.cm2, value cm2, value(cm2)), 3e4),
-          (Seq(value.dm2, value dm2, value(dm2)), 3e2),
-          (Seq(value.m2, value m2, value(m2)), 3.0),
-          (Seq(value.dam2, value dam2, value(dam2)), 3e-2),
-          (Seq(value.hm2, value hm2, value(hm2)), 3e-4),
-          (Seq(value.km2, value km2, value(km2)), 3e-6),
-          (Seq(value.Mm2, value Mm2, value(Mm2)), 3e-12),
-          (Seq(value.Gm2, value Gm2, value(Gm2)), 3e-18),
-          (Seq(value.Tm2, value Tm2, value(Tm2)), 3e-24),
-          (Seq(value.Pm2, value Pm2, value(Pm2)), 3e-30),
-          (Seq(value.Em2, value Em2, value(Em2)), 3e-36),
-          (Seq(value.Zm2, value Zm2, value(Zm2)), 3e-42),
-          (Seq(value.Ym2, value Ym2, value(Ym2)), 3e-48),
+          (Seq(q.ym2, q ym2, q(ym2)), 3e48),
+          (Seq(q.zm2, q zm2, q(zm2)), 3e42),
+          (Seq(q.am2, q am2, q(am2)), 3e36),
+          (Seq(q.fm2, q fm2, q(fm2)), 3e30),
+          (Seq(q.pm2, q pm2, q(pm2)), 3e24),
+          (Seq(q.nm2, q nm2, q(nm2)), 3e18),
+          (Seq(q.μm2, q μm2, q(μm2)), 3e12),
+          (Seq(q.mm2, q mm2, q(mm2)), 3e6),
+          (Seq(q.cm2, q cm2, q(cm2)), 3e4),
+          (Seq(q.dm2, q dm2, q(dm2)), 3e2),
+          (Seq(q.m2, q m2, q(m2)), 3.0),
+          (Seq(q.dam2, q dam2, q(dam2)), 3e-2),
+          (Seq(q.hm2, q hm2, q(hm2)), 3e-4),
+          (Seq(q.km2, q km2, q(km2)), 3e-6),
+          (Seq(q.Mm2, q Mm2, q(Mm2)), 3e-12),
+          (Seq(q.Gm2, q Gm2, q(Gm2)), 3e-18),
+          (Seq(q.Tm2, q Tm2, q(Tm2)), 3e-24),
+          (Seq(q.Pm2, q Pm2, q(Pm2)), 3e-30),
+          (Seq(q.Em2, q Em2, q(Em2)), 3e-36),
+          (Seq(q.Zm2, q Zm2, q(Zm2)), 3e-42),
+          (Seq(q.Ym2, q Ym2, q(Ym2)), 3e-48),
 
-          (Seq(value.a, value a, value(are)), 3e-2),
-          (Seq(value.ha, value ha, value(ha)), 3e-4),
+          (Seq(q.a, q a, q(are)), 3e-2),
+          (Seq(q.ha, q ha, q(ha)), 3e-4),
 
-          (Seq(value.yb, value yb, value(yb)), 3e52),
-          (Seq(value.zb, value zb, value(zb)), 3e49),
-          (Seq(value.ab, value ab, value(ab)), 3e46),
-          (Seq(value.fb, value fb, value(fb)), 3e43),
-          (Seq(value.pb, value pb, value(pb)), 3e40),
-          (Seq(value.nb, value nb, value(nb)), 3e37),
-          (Seq(value.μb, value μb, value(μb)), 3e34),
-          (Seq(value.mb, value mb, value(mb)), 3e31),
-          (Seq(value.b, value b, value(b)), 3e28),
-          (Seq(value.kb, value kb, value(kb)), 3e25),
-          (Seq(value.Mb, value Mb, value(Mb)), 3e22),
-          (Seq(value.Gb, value Gb, value(Gb)), 3e19),
-          (Seq(value.Tb, value Tb, value(Tb)), 3e16),
-          (Seq(value.Pb, value Pb, value(Pb)), 3e13),
-          (Seq(value.Eb, value Eb, value(Eb)), 3e10),
-          (Seq(value.Zb, value Zb, value(Zb)), 3e7),
-          (Seq(value.Yb, value Yb, value(Yb)), 3e4),
+          (Seq(q.yb, q yb, q(yb)), 3e52),
+          (Seq(q.zb, q zb, q(zb)), 3e49),
+          (Seq(q.ab, q ab, q(ab)), 3e46),
+          (Seq(q.fb, q fb, q(fb)), 3e43),
+          (Seq(q.pb, q pb, q(pb)), 3e40),
+          (Seq(q.nb, q nb, q(nb)), 3e37),
+          (Seq(q.μb, q μb, q(μb)), 3e34),
+          (Seq(q.mb, q mb, q(mb)), 3e31),
+          (Seq(q.b, q b, q(b)), 3e28),
+          (Seq(q.kb, q kb, q(kb)), 3e25),
+          (Seq(q.Mb, q Mb, q(Mb)), 3e22),
+          (Seq(q.Gb, q Gb, q(Gb)), 3e19),
+          (Seq(q.Tb, q Tb, q(Tb)), 3e16),
+          (Seq(q.Pb, q Pb, q(Pb)), 3e13),
+          (Seq(q.Eb, q Eb, q(Eb)), 3e10),
+          (Seq(q.Zb, q Zb, q(Zb)), 3e7),
+          (Seq(q.Yb, q Yb, q(Yb)), 3e4),
 
-          (Seq(value.sq_mil, value sq_mil, value(sq_mil)), 3.0 / 6.4516e-10),
-          (Seq(value.sq_in, value sq_in, value(sq_in)), 3.0 / 6.4516e-4),
-          (Seq(value.sq_lnk, value sq_lnk, value(sq_lnk)), 3.0 / 4.0468564224e-2),
-          (Seq(value.sq_ft, value sq_ft, value(sq_ft)), 3.0 / 9.290304e-2),
-          (Seq(value.sq_ch, value sq_ch, value(sq_ch)), 3.0 / 404.68564224),
-          (Seq(value.sq_yd, value sq_yd, value(sq_yd)), 3.0 / 0.83612736),
-          (Seq(value.sq_rd, value sq_rd, value(sq_rd)), 3.0 / 25.29285264),
-          (Seq(value.sq_mi, value sq_mi, value(sq_mi)), 3.0 / 2.589988110336e6),
-          (Seq(value.ac, value ac, value(ac)), 3.0 / 4046.8564224),
-          (Seq(value.ro, value ro, value(ro)), 3.0 / 1011.7141056),
+          (Seq(q.sq_mil, q sq_mil, q(sq_mil)), 3.0 / 6.4516e-10),
+          (Seq(q.sq_in, q sq_in, q(sq_in)), 3.0 / 6.4516e-4),
+          (Seq(q.sq_lnk, q sq_lnk, q(sq_lnk)), 3.0 / 4.0468564224e-2),
+          (Seq(q.sq_ft, q sq_ft, q(sq_ft)), 3.0 / 9.290304e-2),
+          (Seq(q.sq_ch, q sq_ch, q(sq_ch)), 3.0 / 404.68564224),
+          (Seq(q.sq_yd, q sq_yd, q(sq_yd)), 3.0 / 0.83612736),
+          (Seq(q.sq_rd, q sq_rd, q(sq_rd)), 3.0 / 25.29285264),
+          (Seq(q.sq_mi, q sq_mi, q(sq_mi)), 3.0 / 2.589988110336e6),
+          (Seq(q.ac, q ac, q(ac)), 3.0 / 4046.8564224),
+          (Seq(q.ro, q ro, q(ro)), 3.0 / 1011.7141056),
 
-          (Seq(value.sq_lnk(US), value sq_lnk (US), value(sq_lnk(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
-          (Seq(value.sq_ft(US), value sq_ft (US), value(sq_ft(US))), 3.0 / Math.pow(usFoot, 2)),
-          (Seq(value.sq_ch(US), value sq_ch (US), value(sq_ch(US))), 3.0 / Math.pow(66 * usFoot, 2)),
-          (Seq(value.sq_mi(US), value sq_mi (US), value(sq_mi(US))), 3.0 / Math.pow(5280 * usFoot, 2)),
-          (Seq(value.ac(US), value ac (US), value(ac(US))), 3.0 / (10.0 * Math.pow(66 * usFoot, 2))),
+          (Seq(q.sq_lnk(US), q sq_lnk (US), q(sq_lnk(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
+          (Seq(q.sq_ft(US), q sq_ft (US), q(sq_ft(US))), 3.0 / Math.pow(usFoot, 2)),
+          (Seq(q.sq_ch(US), q sq_ch (US), q(sq_ch(US))), 3.0 / Math.pow(66 * usFoot, 2)),
+          (Seq(q.sq_mi(US), q sq_mi (US), q(sq_mi(US))), 3.0 / Math.pow(5280 * usFoot, 2)),
+          (Seq(q.ac(US), q ac (US), q(ac(US))), 3.0 / (10.0 * Math.pow(66 * usFoot, 2))),
 
-          (Seq(value.circ_mil, value circ_mil, value(circ_mil)), 3.0 * 4.0 / (Math.PI * Math.pow(2.54e-5, 2))),
-          (Seq(value.circ_in, value circ_in, value(circ_in)), 3.0 * 4.0 / (Math.PI * Math.pow(0.0254, 2))),
+          (Seq(q.circ_mil, q circ_mil, q(circ_mil)), 3.0 * 4.0 / (Math.PI * Math.pow(2.54e-5, 2))),
+          (Seq(q.circ_in, q circ_in, q(circ_in)), 3.0 * 4.0 / (Math.PI * Math.pow(0.0254, 2))),
 
-          (Seq(value.bd, value bd, value(bd)), 3.0 / 7.74192e-3)
+          (Seq(q.bd, q bd, q(bd)), 3.0 / 7.74192e-3)
         )
       __Verify__
       forAll(conversions) { (suts: Seq[Double], expected: Double) =>

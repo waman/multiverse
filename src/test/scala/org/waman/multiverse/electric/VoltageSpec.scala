@@ -16,7 +16,7 @@ class VoltageSpec
 
   override protected val getUnitClass = classOf[VoltageUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<voltage unit>> should be converted to the equivalent value in Volt" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class VoltageSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 Volt should be converted to the equivalent value in other voltage units" in {
     __SetUp__
-    val value = 3.0 (V)
+    val q = 3.0 (V)
     __Exercise__
     val conversions =
       Table(
         ("voltages", "expected"),
-        (Seq(value.V, value V, value (V)), 3.0)
+        (Seq(q.V, q V, q (V)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

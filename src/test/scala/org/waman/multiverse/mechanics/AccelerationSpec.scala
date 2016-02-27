@@ -16,7 +16,7 @@ class AccelerationSpec
 
   override protected val getUnitClass = classOf[AccelerationUnit]
 
-  "Tests where converting from some units to m/s2 like 3.0 g0 => 3.0 * 9.80665 m/s2" in {
+  "3.0 <<acceleration unit>> should be converted to the equivalent value in metre per second squared" in {
     __Exercise__
     val conversions =
       Table(
@@ -32,15 +32,15 @@ class AccelerationSpec
     }
   }
 
-  "Tests where converting a acceleration unit to other units like 3.0 m/s2 => 3.0 / 9.80665 g0" in {
+  "3.0 m/s2 should be converted to the equivalent value in other acceleration units" in {
     __SetUp__
-    val value = 3.0 (m/s2)
+    val q = 3.0 (m/s2)
     __Exercise__
     val conversions =
       Table(
         ("accelerations", "expected"),
-        (Seq(value.m/s2, value m/s2, value (m/s2)), 3.0),
-        (Seq(value.g0 , value g0 , value (g0)) , 3.0 / 9.80665)
+        (Seq(q.m/s2, q m/s2, q (m/s2)), 3.0),
+        (Seq(q.g0 , q g0 , q (g0)) , 3.0 / 9.80665)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

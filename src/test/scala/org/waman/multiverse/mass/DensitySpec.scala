@@ -31,40 +31,43 @@ class DensitySpec
     }
   }
 
-  "Tests where converting from some units to m/s like 3.0 g/cm3 => 3000.0 kg/m3" in {
-    __Exercise__
-    val conversions =
-      Table(
-        ("densities", "expected"),
-        (Seq(3.0.g/cm3, 3.0 g/cm3, 3.0 (g/cm3)), 3e3),
-        (Seq(3.0.g/mL , 3.0 g/mL , 3.0 (g/mL)) , 3e3),
-        (Seq(3.0.kg/m3, 3.0 kg/m3, 3.0 (kg/m3)), 3.0),
-        (Seq(3.0.kg/L , 3.0 kg/L , 3.0 (kg/L)) , 3e3)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Density[Double]], expected: Double) =>
-      suts.foreach{ sut =>
-        (sut kg/m3) should equal (%%%%(expected))
+  "Predefined density units" - {
+
+    "3.0 <<density unit>> should be converted to the equivalent value in kilogram per cubic metre" in {
+      __Exercise__
+      val conversions =
+        Table(
+          ("densities", "expected"),
+          (Seq(3.0.g / cm3, 3.0 g / cm3, 3.0 (g / cm3)), 3e3),
+          (Seq(3.0.g / mL, 3.0 g / mL, 3.0 (g / mL)), 3e3),
+          (Seq(3.0.kg / m3, 3.0 kg / m3, 3.0 (kg / m3)), 3.0),
+          (Seq(3.0.kg / L, 3.0 kg / L, 3.0 (kg / L)), 3e3)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[Density[Double]], expected: Double) =>
+        suts.foreach { sut =>
+          (sut kg / m3) should equal(%%%%(expected))
+        }
       }
     }
-  }
 
-  "Tests where converting a density unit to other units like 3.0 kg/m3 => 3e-3 g/cm3" in {
-    __SetUp__
-    val value = 3.0 (kg/m3)
-    __Exercise__
-    val conversions =
-      Table(
-        ("densities", "expected"),
-        (Seq(value.g/cm3, value g/cm3, value (g/cm3)), 3e-3),
-        (Seq(value.g/mL , value g/mL , value (g/mL)) , 3e-3),
-        (Seq(value.kg/m3, value kg/m3, value (kg/m3)), 3.0),
-        (Seq(value.kg/L , value kg/L , value (kg/L)) , 3e-3)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
-      suts.foreach{ sut =>
-        sut should equal (%%%%(expected))
+    "3.0 kg/m3 should be converted to the equivalent value in other density units" in {
+      __SetUp__
+      val q = 3.0 (kg / m3)
+      __Exercise__
+      val conversions =
+        Table(
+          ("densities", "expected"),
+          (Seq(q.g / cm3, q g / cm3, q(g / cm3)), 3e-3),
+          (Seq(q.g / mL, q g / mL, q(g / mL)), 3e-3),
+          (Seq(q.kg / m3, q kg / m3, q(kg / m3)), 3.0),
+          (Seq(q.kg / L, q kg / L, q(kg / L)), 3e-3)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[Double], expected: Double) =>
+        suts.foreach { sut =>
+          sut should equal(%%%%(expected))
+        }
       }
     }
   }

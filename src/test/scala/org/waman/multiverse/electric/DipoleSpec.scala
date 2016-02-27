@@ -16,7 +16,7 @@ class DipoleSpec
 
   override protected val getUnitClass = classOf[DipoleUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<dipole unit>> should be converted to the equivalent value in Coulomb metre" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class DipoleSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 m should be converted to the equivalent value in other dipole units" in {
     __SetUp__
-    val value = 3.0 (C*m)
+    val q = 3.0 (C*m)
     __Exercise__
     val conversions =
       Table(
         ("dipoles", "expected"),
-        (Seq(value.C*m, value C*m, value (C*m)), 3.0)
+        (Seq(q.C*m, q C*m, q (C*m)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

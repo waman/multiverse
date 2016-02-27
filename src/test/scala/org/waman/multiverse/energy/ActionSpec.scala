@@ -16,7 +16,7 @@ class ActionSpec
 
   override protected val getUnitClass = classOf[ActionUnit]
 
-  "Tests where converting from some units to kg like 3.0 kJ => 3e3 J" in {
+  "3.0 <<action unit>> should be converted to the equivalent value in Joule second" in {
     __Exercise__
     val conversions =
       Table(
@@ -33,16 +33,16 @@ class ActionSpec
     }
   }
 
-  "Tests where converting a action unit to other units like 3.0 J => 3e-3 kJ" in {
+  "3.0 J*s should be converted to the equivalent value in other action units" in {
     __SetUp__
-    val value = 3.0 (J*s)
+    val q = 3.0 (J*s)
     __Exercise__
     val conversions =
       Table(
         ("actions", "expected"),
-        (Seq(value.J*s , value J*s , value (J*s)) , 3.0),
-        (Seq(value.hbar, value hbar, value (hbar)), 3.0 / 1.05457168e-34),
-        (Seq(value.ħ   , value ħ   , value (ħ))   , 3.0 / 1.05457168e-34)
+        (Seq(q.J*s , q J*s , q (J*s)) , 3.0),
+        (Seq(q.hbar, q hbar, q (hbar)), 3.0 / 1.05457168e-34),
+        (Seq(q.ħ   , q ħ   , q (ħ))   , 3.0 / 1.05457168e-34)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

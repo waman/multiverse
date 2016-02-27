@@ -18,7 +18,7 @@ class AngleSpec
 
   override protected val getUnitClass = classOf[AngleUnit]
 
-  "Tests where converting from some units to radian like 3.0 deg => 3.0 * 2 PI / 360 rad" in {
+  "3.0 <<angle unit>> should be converted to the equivalent value in radian" in {
     __Exercise__
     val conversions =
       Table(
@@ -61,42 +61,42 @@ class AngleSpec
     }
   }
 
-  "Tests where converting radian unit to other units like 3.0 rad => 3.0 * 360 / 2 * PI deg" in {
+  "3.0 rad should be converted to the equivalent value in other angle units" in {
     __SetUp__
-    val value = 3.0 (rad)
+    val q = 3.0 (rad)
     __Exercise__
     val conversions =
       Table(
         ("angles", "expected"),
-        (Seq(value.rad, value rad, value (rad)), 3.0),
-        (Seq(value.drad, value drad, value (drad)), 3e1),
-        (Seq(value.crad, value crad, value (crad)), 3e2),
-        (Seq(value.mrad, value mrad, value (mrad)), 3e3),
-        (Seq(value.μrad, value μrad, value (μrad)), 3e6),
-        (Seq(value.nrad, value nrad, value (nrad)), 3e9),
-        (Seq(value.prad, value prad, value (prad)), 3e12),
-        (Seq(value.frad, value frad, value (frad)), 3e15),
-        (Seq(value.arad, value arad, value (arad)), 3e18),
-        (Seq(value.zrad, value zrad, value (zrad)), 3e21),
-        (Seq(value.yrad, value yrad, value (yrad)), 3e24),
+        (Seq(q.rad, q rad, q (rad)), 3.0),
+        (Seq(q.drad, q drad, q (drad)), 3e1),
+        (Seq(q.crad, q crad, q (crad)), 3e2),
+        (Seq(q.mrad, q mrad, q (mrad)), 3e3),
+        (Seq(q.μrad, q μrad, q (μrad)), 3e6),
+        (Seq(q.nrad, q nrad, q (nrad)), 3e9),
+        (Seq(q.prad, q prad, q (prad)), 3e12),
+        (Seq(q.frad, q frad, q (frad)), 3e15),
+        (Seq(q.arad, q arad, q (arad)), 3e18),
+        (Seq(q.zrad, q zrad, q (zrad)), 3e21),
+        (Seq(q.yrad, q yrad, q (yrad)), 3e24),
 
-        (Seq(value.deg, value deg, value (deg)), 3.0 / degree),
-        (Seq(value.°  , value °  , value (°))  , 3.0 / degree),
-        (Seq(value.arcmin, value arcmin, value (arcmin)), 3.0 * 60.0 / degree),
-        (Seq(value.MOA   , value MOA   , value (MOA))   , 3.0 * 60.0 / degree),
-        (Seq(value.arcsec, value arcsec, value (arcsec)), 3.0 * 3600.0 / degree),
-        (Seq(value.mas, value mas, value (mas)), 3.0 * 3600e3 / degree),
-        (Seq(value.μas, value μas, value (μas)), 3.0 * 3600e6 / degree),
-        (Seq(value.nas, value nas, value (nas)), 3.0 * 3600e9 / degree),
-        (Seq(value.pas, value pas, value (pas)), 3.0 * 3600e12 / degree),
-        (Seq(value.fas, value fas, value (fas)), 3.0 * 3600e15 / degree),
-        (Seq(value.aas, value aas, value (aas)), 3.0 * 3600e18 / degree),
-        (Seq(value.zas, value zas, value (zas)), 3.0 * 3600e21 / degree),
-        (Seq(value.yas, value yas, value (yas)), 3.0 * 3600e24 / degree),
+        (Seq(q.deg, q deg, q (deg)), 3.0 / degree),
+        (Seq(q.°  , q °  , q (°))  , 3.0 / degree),
+        (Seq(q.arcmin, q arcmin, q (arcmin)), 3.0 * 60.0 / degree),
+        (Seq(q.MOA   , q MOA   , q (MOA))   , 3.0 * 60.0 / degree),
+        (Seq(q.arcsec, q arcsec, q (arcsec)), 3.0 * 3600.0 / degree),
+        (Seq(q.mas, q mas, q (mas)), 3.0 * 3600e3 / degree),
+        (Seq(q.μas, q μas, q (μas)), 3.0 * 3600e6 / degree),
+        (Seq(q.nas, q nas, q (nas)), 3.0 * 3600e9 / degree),
+        (Seq(q.pas, q pas, q (pas)), 3.0 * 3600e12 / degree),
+        (Seq(q.fas, q fas, q (fas)), 3.0 * 3600e15 / degree),
+        (Seq(q.aas, q aas, q (aas)), 3.0 * 3600e18 / degree),
+        (Seq(q.zas, q zas, q (zas)), 3.0 * 3600e21 / degree),
+        (Seq(q.yas, q yas, q (yas)), 3.0 * 3600e24 / degree),
 
-        (Seq(value.gon, value gon, value (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
-        (Seq(value.ᵍ  , value ᵍ   , value (ᵍ))  , 3.0 * 400.0 / (2.0 * Math.PI)),
-        (Seq(value.tr , value tr , value (tr)) , 3.0 / (2.0 * Math.PI))
+        (Seq(q.gon, q gon, q (gon)), 3.0 * 400.0 / (2.0 * Math.PI)),
+        (Seq(q.ᵍ  , q ᵍ   , q (ᵍ))  , 3.0 * 400.0 / (2.0 * Math.PI)),
+        (Seq(q.tr , q tr , q (tr)) , 3.0 / (2.0 * Math.PI))
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

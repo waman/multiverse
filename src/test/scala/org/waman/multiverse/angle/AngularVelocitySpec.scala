@@ -48,42 +48,45 @@ class AngularVelocitySpec
     }
   }
 
-  "Tests where converting from some units to rad/s like 3.0 deg/s => 3.0 * 2 PI / 360 rad/s" in {
-    __Exercise__
-    val conversions =
-      Table(
-        ("angular velocities", "expected"),
-        (Seq(3.0.rad/s, 3.0 rad/s, 3.0 (rad/s)), 3.0),
-        (Seq(3.0.deg/s, 3.0 deg/s, 3.0 (deg/s)), 3.0 * Math.PI / 180.0),
-        (Seq(3.0.rpm  , 3.0 rpm  , 3.0 (rpm))  , 3.0 * 2.0 * Math.PI / 60.0),
-        (Seq(3.0.cps  , 3.0 cps  , 3.0 (cps))  , 3.0 * 2.0 * Math.PI),
-        (Seq(3.0.deg/minute, 3.0 deg/minute, 3.0 (deg/minute)), 3.0 * Math.PI / (180.0 * 60.0))
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[AngularVelocity[Double]], expected: Double) =>
-      suts.foreach{ sut =>
-        (sut rad/s) should equal (%(expected))
+  "Predefined angular velocity units" - {
+
+    "3.0 <<angular velocity unit>> should be converted to the equivalent value in metre per second" in {
+      __Exercise__
+      val conversions =
+        Table(
+          ("angular velocities", "expected"),
+          (Seq(3.0.rad / s, 3.0 rad / s, 3.0 (rad / s)), 3.0),
+          (Seq(3.0.deg / s, 3.0 deg / s, 3.0 (deg / s)), 3.0 * Math.PI / 180.0),
+          (Seq(3.0.rpm, 3.0 rpm, 3.0 (rpm)), 3.0 * 2.0 * Math.PI / 60.0),
+          (Seq(3.0.cps, 3.0 cps, 3.0 (cps)), 3.0 * 2.0 * Math.PI),
+          (Seq(3.0.deg / minute, 3.0 deg / minute, 3.0 (deg / minute)), 3.0 * Math.PI / (180.0 * 60.0))
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[AngularVelocity[Double]], expected: Double) =>
+        suts.foreach { sut =>
+          (sut rad / s) should equal(%(expected))
+        }
       }
     }
-  }
 
-  "Tests where converting metre unit to other units like 3.0 rad/s => 3.0 * 180.0 / PI deg/s" in {
-    __SetUp__
-    val value = 3.0 (rad/s)
-    __Exercise__
-    val conversions =
-      Table(
-        ("angular velocity", "expected"),
-        (Seq(value.rad/s, value rad/s, value (rad/s)), 3.0),
-        (Seq(value.deg/s, value deg/s, value (deg/s)), 3.0 * 180.0 / Math.PI),
-        (Seq(value.rpm  , value rpm  , value (rpm))  , 3.0 * 60.0 / (2.0 * Math.PI) ),
-        (Seq(value.cps  , value cps  , value (cps))  , 3.0 / (2.0 * Math.PI)),
-        (Seq(value.deg/minute, value deg/minute, value (deg/minute)), 3.0 * 180.0 * 60.0 / Math.PI)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
-      suts.foreach{ sut =>
-        sut should equal (%%%%(expected))
+    "3.0 m/s should be converted to the equivalent value in other velocity units" in {
+      __SetUp__
+      val q = 3.0 (rad / s)
+      __Exercise__
+      val conversions =
+        Table(
+          ("angular velocity", "expected"),
+          (Seq(q.rad / s, q rad / s, q(rad / s)), 3.0),
+          (Seq(q.deg / s, q deg / s, q(deg / s)), 3.0 * 180.0 / Math.PI),
+          (Seq(q.rpm, q rpm, q(rpm)), 3.0 * 60.0 / (2.0 * Math.PI)),
+          (Seq(q.cps, q cps, q(cps)), 3.0 / (2.0 * Math.PI)),
+          (Seq(q.deg / minute, q deg / minute, q(deg / minute)), 3.0 * 180.0 * 60.0 / Math.PI)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[Double], expected: Double) =>
+        suts.foreach { sut =>
+          sut should equal(%%%%(expected))
+        }
       }
     }
   }

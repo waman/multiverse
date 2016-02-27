@@ -16,7 +16,7 @@ class IlluminanceSpec
 
   override protected val getUnitClass = classOf[IlluminanceUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<illuminance unit>> should be converted to the equivalent value in Lux" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class IlluminanceSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 lx should be converted to the equivalent value in other illuminance units" in {
     __SetUp__
-    val value = 3.0 (lx)
+    val q = 3.0 (lx)
     __Exercise__
     val conversions =
       Table(
         ("illuminances", "expected"),
-        (Seq(value.lx, value lx, value (lx)), 3.0)
+        (Seq(q.lx, q lx, q (lx)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

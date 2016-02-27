@@ -16,7 +16,7 @@ class EnergySpec
 
   override protected val getUnitClass = classOf[EnergyUnit]
 
-  "Tests where converting from some units to kg like 3.0 kJ => 3e3 J" in {
+  "3.0 <<energy unit>> should be converted to the equivalent value in Joule" in {
     __Exercise__
     val conversions =
       Table(
@@ -33,15 +33,15 @@ class EnergySpec
     }
   }
 
-  "Tests where converting a energy unit to other units like 3.0 J => 3e-3 kJ" in {
+  "3.0 J should be converted to the equivalent value in other energy units" in {
     __SetUp__
-    val value = 3.0 (J)
+    val q = 3.0 (J)
     __Exercise__
     val conversions =
       Table(
         ("energies", "expected"),
-        (Seq(value.J, value J, value (J)), 3.0),
-        (Seq(value.eV, value eV, value (eV)), 3.0 / 1.602176565e-19)
+        (Seq(q.J, q J, q (J)), 3.0),
+        (Seq(q.eV, q eV, q (eV)), 3.0 / 1.602176565e-19)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

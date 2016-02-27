@@ -16,7 +16,7 @@ class ForceSpec
 
   override protected val getUnitClass = classOf[ForceUnit]
 
-  "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
+  "3.0 <<force unit>> should be converted to the equivalent value in Newton" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class ForceSpec
     }
   }
 
-  "Tests where converting second unit to other units like 1.0 s => 1000.0 ms" in {
+  "3.0 N should be converted to the equivalent value in other force units" in {
     __SetUp__
-    val value = 3.0 (N)
+    val q = 3.0 (N)
     __Exercise__
     val conversions =
       Table(
         ("forces", "expected"),
-        (Seq(value.N, value N, value (N)), 3.0)
+        (Seq(q.N, q N, q (N)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

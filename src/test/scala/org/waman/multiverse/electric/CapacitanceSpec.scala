@@ -16,7 +16,7 @@ class CapacitanceSpec
 
   override protected val getUnitClass = classOf[CapacitanceUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<capacitance unit>> should be converted to the equivalent value in Frad" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class CapacitanceSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 F should be converted to the equivalent value in other capacitance units" in {
     __SetUp__
-    val value = 3.0 (F)
+    val q = 3.0 (F)
     __Exercise__
     val conversions =
       Table(
         ("capacitances", "expected"),
-        (Seq(value.F, value F, value (F)), 3.0)
+        (Seq(q.F, q F, q (F)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

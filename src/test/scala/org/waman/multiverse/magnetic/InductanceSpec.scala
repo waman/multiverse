@@ -16,7 +16,7 @@ class InductanceSpec
 
   override protected val getUnitClass = classOf[InductanceUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<inductance unit>> should be converted to the equivalent value in Henry" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class InductanceSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 H should be converted to the equivalent value in other inductance units" in {
     __SetUp__
-    val value = 3.0 (H)
+    val q = 3.0 (H)
     __Exercise__
     val conversions =
       Table(
         ("inductances", "expected"),
-        (Seq(value.H, value H, value (H)), 3.0)
+        (Seq(q.H, q H, q (H)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

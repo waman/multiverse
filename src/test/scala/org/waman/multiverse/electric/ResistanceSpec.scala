@@ -16,7 +16,7 @@ class ResistanceSpec
 
   override protected val getUnitClass = classOf[ResistanceUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<resistance unit>> should be converted to the equivalent value in Ω" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class ResistanceSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 Ω should be converted to the equivalent value in other resistance units" in {
     __SetUp__
-    val value = 3.0 (Ω)
+    val q = 3.0 (Ω)
     __Exercise__
     val conversions =
       Table(
         ("resistances", "expected"),
-        (Seq(value.Ω, value Ω, value (Ω)), 3.0)
+        (Seq(q.Ω, q Ω, q (Ω)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

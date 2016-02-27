@@ -16,7 +16,7 @@ class PowerSpec
 
   override protected val getUnitClass = classOf[PowerUnit]
 
-  "Tests where converting from some units to kg like 3.0 kW => 3e3 W" in {
+  "3.0 <<power unit>> should be converted to the equivalent value in Watt" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class PowerSpec
     }
   }
 
-  "Tests where converting a power unit to other units like 3.0 W => 3e-3 kW" in {
+  "3.0 W should be converted to the equivalent value in other power units" in {
     __SetUp__
-    val value = 3.0 (W)
+    val q = 3.0 (W)
     __Exercise__
     val conversions =
       Table(
         ("powers", "expected"),
-        (Seq(value.W, value W, value (W)), 3.0)
+        (Seq(q.W, q W, q (W)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

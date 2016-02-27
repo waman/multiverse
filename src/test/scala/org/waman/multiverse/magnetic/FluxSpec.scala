@@ -16,7 +16,7 @@ class FluxSpec
 
   override protected val getUnitClass = classOf[FluxUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<flux unit>> should be converted to the equivalent value in Weber" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class FluxSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 Wb should be converted to the equivalent value in other flux units" in {
     __SetUp__
-    val value = 3.0 (Wb)
+    val q = 3.0 (Wb)
     __Exercise__
     val conversions =
       Table(
         ("fluxes", "expected"),
-        (Seq(value.Wb, value Wb, value (Wb)), 3.0)
+        (Seq(q.Wb, q Wb, q (Wb)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

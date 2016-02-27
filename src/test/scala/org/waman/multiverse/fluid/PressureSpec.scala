@@ -32,7 +32,7 @@ class PressureSpec
 //    }
 //  }
 
-  "Tests where converting from some units to m3/s like 3.0 LPM (litre per minute) => 3.0 * 1e-3 / 60.0 m3/s" in {
+  "3.0 <<pressure unit>> should be converted to the equivalent value in Pascal" in {
     __Exercise__
     val conversions =
       Table(
@@ -47,14 +47,14 @@ class PressureSpec
     }
   }
 
-  "Tests where converting metre unit to other units like 3.0 m => 3000.0 mm" in {
+  "3.0 Pa should be converted to the equivalent value in other pressure units" in {
     __SetUp__
-    val value = 3.0 (Pa)
+    val q = 3.0 (Pa)
     __Exercise__
     val conversions =
       Table(
         ("pressures", "expected"),
-        (Seq(value.Pa, value Pa, value (Pa)), 3.0)
+        (Seq(q.Pa, q Pa, q (Pa)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

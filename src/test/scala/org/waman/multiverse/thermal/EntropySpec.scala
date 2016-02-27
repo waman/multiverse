@@ -16,7 +16,7 @@ class EntropySpec
 
   override protected val getUnitClass = classOf[EntropyUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<entropy unit>> should be converted to the equivalent value in Joule per Kelvin" in {
     __Exercise__
     val conversions =
       Table(
@@ -32,15 +32,15 @@ class EntropySpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 J/K should be converted to the equivalent value in other entropy units" in {
     __SetUp__
-    val value = 3.0 (J/K)
+    val q = 3.0 (J/K)
     __Exercise__
     val conversions =
       Table(
         ("entropies", "expected"),
-        (Seq(value.J/K, value J/K, value (J/K)), 3.0),
-        (Seq(value.bit, value bit, value (bit)), 3.0 / 9.56994016e-24)
+        (Seq(q.J/K, q J/K, q (J/K)), 3.0),
+        (Seq(q.bit, q bit, q (bit)), 3.0 / 9.56994016e-24)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

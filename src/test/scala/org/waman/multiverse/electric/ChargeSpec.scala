@@ -16,7 +16,7 @@ class ChargeSpec
 
   override protected val getUnitClass = classOf[ChargeUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<charge unit>> should be converted to the equivalent value in Coulomb" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class ChargeSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 m should be converted to the equivalent value in other charge units" in {
     __SetUp__
-    val value = 3.0 (C)
+    val q = 3.0 (C)
     __Exercise__
     val conversions =
       Table(
         ("charges", "expected"),
-        (Seq(value.C, value C, value (C)), 3.0)
+        (Seq(q.C, q C, q (C)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

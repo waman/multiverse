@@ -16,7 +16,7 @@ class AbsorbedDoseSpec
 
   override protected val getUnitClass = classOf[AbsorbedDoseUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<absorbed dose unit>> should be converted to the equivalent value in Gray" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class AbsorbedDoseSpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 Gy should be converted to the equivalent value in other absorbed dose units" in {
     __SetUp__
-    val value = 3.0 (Gy)
+    val q = 3.0 (Gy)
     __Exercise__
     val conversions =
       Table(
         ("absorbedDoses", "expected"),
-        (Seq(value.Gy, value Gy, value (Gy)), 3.0)
+        (Seq(q.Gy, q Gy, q (Gy)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

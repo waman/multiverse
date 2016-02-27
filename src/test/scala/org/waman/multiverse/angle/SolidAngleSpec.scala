@@ -16,7 +16,7 @@ class SolidAngleSpec
 
   override protected val getUnitClass = classOf[SolidAngleUnit]
 
-  "Tests where converting from some units to radian like 3.0 deg2 => 3.0 * (2 PI / 360)**2 sr" in {
+  "3.0 <<solid angle unit>> should be converted to the equivalent value in steradian" in {
     __Exercise__
     val conversions =
       Table(
@@ -44,27 +44,27 @@ class SolidAngleSpec
     }
   }
 
-  "Tests where converting radian unit to other units like 3.0 rad => 3.0 * (360 / 2 * PI)**2 deg" in {
+  "3.0 sr should be converted to the equivalent value in other solid angle units" in {
     __SetUp__
-    val value = 3.0 (sr)
+    val q = 3.0 (sr)
     __Exercise__
     val conversions =
       Table(
         ("solid angles", "expected"),
-        (Seq(value.dasr, value dasr, value (dasr)), 3e-1),
-        (Seq(value.sr, value sr, value (sr)), 3.0),
-        (Seq(value.dsr, value dsr, value (dsr)), 3e1),
-        (Seq(value.csr, value csr, value (csr)), 3e2),
-        (Seq(value.msr, value msr, value (msr)), 3e3),
-        (Seq(value.μsr, value μsr, value (μsr)), 3e6),
-        (Seq(value.nsr, value nsr, value (nsr)), 3e9),
-        (Seq(value.psr, value psr, value (psr)), 3e12),
-        (Seq(value.fsr, value fsr, value (fsr)), 3e15),
-        (Seq(value.asr, value asr, value (asr)), 3e18),
-        (Seq(value.zsr, value zsr, value (zsr)), 3e21),
-        (Seq(value.ysr, value ysr, value (ysr)), 3e24),
+        (Seq(q.dasr, q dasr, q (dasr)), 3e-1),
+        (Seq(q.sr, q sr, q (sr)), 3.0),
+        (Seq(q.dsr, q dsr, q (dsr)), 3e1),
+        (Seq(q.csr, q csr, q (csr)), 3e2),
+        (Seq(q.msr, q msr, q (msr)), 3e3),
+        (Seq(q.μsr, q μsr, q (μsr)), 3e6),
+        (Seq(q.nsr, q nsr, q (nsr)), 3e9),
+        (Seq(q.psr, q psr, q (psr)), 3e12),
+        (Seq(q.fsr, q fsr, q (fsr)), 3e15),
+        (Seq(q.asr, q asr, q (asr)), 3e18),
+        (Seq(q.zsr, q zsr, q (zsr)), 3e21),
+        (Seq(q.ysr, q ysr, q (ysr)), 3e24),
 
-        (Seq(value.deg2, value deg2, value (deg2)), 3.0 * Math.pow(180.0 / Math.PI, 2))
+        (Seq(q.deg2, q deg2, q (deg2)), 3.0 * Math.pow(180.0 / Math.PI, 2))
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

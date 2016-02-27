@@ -32,7 +32,7 @@ class DynamicViscositySpec
 //    }
 //  }
 
-  "Tests where converting from some units to Pa*s like 3.0 P => 3.0 * 0.1 Pa*s" in {
+  "3.0 <<dynamic viscosity unit>> should be converted to the equivalent value in Pascal second" in {
     __Exercise__
     val conversions =
       Table(
@@ -48,15 +48,15 @@ class DynamicViscositySpec
     }
   }
 
-  "Tests where converting Pa*s unit to other units like 3.0 Pa*s => 3.0 / 0.1 P" in {
+  "3.0 Pa*s should be converted to the equivalent value in other dynamic viscosity units" in {
     __SetUp__
-    val value = 3.0 (Pa*s)
+    val q = 3.0 (Pa*s)
     __Exercise__
     val conversions =
       Table(
         ("dynamic viscosities", "expected"),
-        (Seq(value.Pa*s, value Pa*s, value (Pa*s)), 3.0),
-        (Seq(value.P   , value P   , value (P))   , 3.0 / 0.1)
+        (Seq(q.Pa*s, q Pa*s, q (Pa*s)), 3.0),
+        (Seq(q.P   , q P   , q (P))   , 3.0 / 0.1)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

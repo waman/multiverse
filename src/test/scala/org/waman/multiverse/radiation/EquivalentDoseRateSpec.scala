@@ -28,7 +28,7 @@ class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
 //    }
 //  }
 
-  "Tests where converting from some units to m/s like 3.0 g/cm3 => 3000.0 kg/m3" in {
+  "3.0 <<equivalent dose rate unit>> should be converted to the equivalent value in Sievert per second" in {
     __Exercise__
     val conversions =
       Table(
@@ -43,14 +43,14 @@ class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
     }
   }
 
-  "Tests where converting a equivalentDoseRate unit to other units like 3.0 kg/m3 => 3e-3 g/cm3" in {
+  "3.0 Sv/s should be converted to the equivalent value in other equivalent dose rate units" in {
     __SetUp__
-    val value = 3.0 (Sv/s)
+    val q = 3.0 (Sv/s)
     __Exercise__
     val conversions =
       Table(
         ("equivalent dose rates", "expected"),
-        (Seq(value.Sv/s, value Sv/s, value (Sv/s)), 3.0)
+        (Seq(q.Sv/s, q Sv/s, q (Sv/s)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

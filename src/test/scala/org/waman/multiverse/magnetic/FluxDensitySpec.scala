@@ -16,7 +16,7 @@ class FluxDensitySpec
 
   override protected val getUnitClass = classOf[FluxDensityUnit]
 
-  "Tests where converting from some units to C like 3.0 mC => 3e-3 C" in {
+  "3.0 <<flux density unit>> should be converted to the equivalent value in Tesla" in {
     __Exercise__
     val conversions =
       Table(
@@ -31,14 +31,14 @@ class FluxDensitySpec
     }
   }
 
-  "Tests where converting a Coulomb to other units like 3.0 C => 3e3 mC" in {
+  "3.0 T should be converted to the equivalent value in other flux density units" in {
     __SetUp__
-    val value = 3.0 (T)
+    val q = 3.0 (T)
     __Exercise__
     val conversions =
       Table(
         ("flux densities", "expected"),
-        (Seq(value.T, value T, value (T)), 3.0)
+        (Seq(q.T, q T, q (T)), 3.0)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

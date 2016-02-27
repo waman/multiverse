@@ -16,7 +16,7 @@ class TimeSpec
 
   override protected val getUnitClass = classOf[TimeUnit]
 
-  "Tests where converting from some units to second like 1.0 ms => 0.001 s" in {
+  "3.0 <<time unit>> should be converted to the equivalent value in second" in {
     __Exercise__
     val conversions =
       Table(
@@ -55,38 +55,38 @@ class TimeSpec
     }
   }
 
-  "Tests where converting second unit to other units like 1.0 s => 1000.0 ms" in {
+  "3.0 s should be converted to the equivalent value in other time units" in {
     __SetUp__
-    val value = 3.0 (s)
+    val q = 3.0 (s)
     __Exercise__
     val conversions =
       Table(
         ("times", "expected"),
-        (Seq(value.ys, value ys, value (ys)), 3e24),
-        (Seq(value.zs, value zs, value (zs)), 3e21),
-        (Seq(value.as, value as, value (as)), 3e18),
-        (Seq(value.fs, value fs, value (fs)), 3e15),
-        (Seq(value.ps, value ps, value (ps)), 3e12),
-        (Seq(value.ns, value ns, value (ns)), 3e9),
-        (Seq(value.μs, value μs, value (μs)), 3e6),
-        (Seq(value.ms, value ms, value (ms)), 3e3),
-        (Seq(value.cs, value cs, value (cs)), 3e2),
-        (Seq(value.ds, value ds, value (ds)), 3e1),
-        (Seq(value.s , value s , value (s)) , 3.0),
-        (Seq(value.das, value das, value (das)), 3e-1),
-        (Seq(value.hs, value hs, value (hs)), 3e-2),
-        (Seq(value.ks, value ks, value (ks)), 3e-3),
-        (Seq(value.Ms, value Ms, value (Ms)), 3e-6),
-        (Seq(value.Gs, value Gs, value (Gs)), 3e-9),
-        (Seq(value.Ts, value Ts, value (Ts)), 3e-12),
-        (Seq(value.Ps, value Ps, value (Ps)), 3e-15),
-        (Seq(value.Es, value Es, value (Es)), 3e-18),
-        (Seq(value.Zs, value Zs, value (Zs)), 3e-21),
-        (Seq(value.Ys, value Ys, value (Ys)), 3e-24),
+        (Seq(q.ys, q ys, q (ys)), 3e24),
+        (Seq(q.zs, q zs, q (zs)), 3e21),
+        (Seq(q.as, q as, q (as)), 3e18),
+        (Seq(q.fs, q fs, q (fs)), 3e15),
+        (Seq(q.ps, q ps, q (ps)), 3e12),
+        (Seq(q.ns, q ns, q (ns)), 3e9),
+        (Seq(q.μs, q μs, q (μs)), 3e6),
+        (Seq(q.ms, q ms, q (ms)), 3e3),
+        (Seq(q.cs, q cs, q (cs)), 3e2),
+        (Seq(q.ds, q ds, q (ds)), 3e1),
+        (Seq(q.s , q s , q (s)) , 3.0),
+        (Seq(q.das, q das, q (das)), 3e-1),
+        (Seq(q.hs, q hs, q (hs)), 3e-2),
+        (Seq(q.ks, q ks, q (ks)), 3e-3),
+        (Seq(q.Ms, q Ms, q (Ms)), 3e-6),
+        (Seq(q.Gs, q Gs, q (Gs)), 3e-9),
+        (Seq(q.Ts, q Ts, q (Ts)), 3e-12),
+        (Seq(q.Ps, q Ps, q (Ps)), 3e-15),
+        (Seq(q.Es, q Es, q (Es)), 3e-18),
+        (Seq(q.Zs, q Zs, q (Zs)), 3e-21),
+        (Seq(q.Ys, q Ys, q (Ys)), 3e-24),
 
-        (Seq(value.minute, value minute, value (minute)), 3.0/60.0),
-        (Seq(value.h     , value h     , value (h))  , 3.0/(60.0 * 60.0)),
-        (Seq(value.d     , value d     , value (d))  , 3.0/(60.0 * 60.0 * 24.0))
+        (Seq(q.minute, q minute, q (minute)), 3.0/60.0),
+        (Seq(q.h     , q h     , q (h))  , 3.0/(60.0 * 60.0)),
+        (Seq(q.d     , q d     , q (d))  , 3.0/(60.0 * 60.0 * 24.0))
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

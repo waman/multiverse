@@ -40,7 +40,7 @@ class LuminanceSpec
 //    }
 //  }
 
-  "Tests where converting from some units to m2/s like 3.0 St => 3.0 * 10e-4 m2/s" in {
+  "3.0 <<luminance unit>> should be converted to the equivalent value in candera per square metre" in {
     __Exercise__
     val conversions =
       Table(
@@ -56,15 +56,15 @@ class LuminanceSpec
     }
   }
 
-  "Tests where converting m2/s unit to other units like 3.0 m2/s => 3.0 / 1e-4 St" in {
+  "3.0 cd/m2 should be converted to the equivalent value in other luminance units" in {
     __SetUp__
-    val value = 3.0 (cd/m2)
+    val q = 3.0 (cd/m2)
     __Exercise__
     val conversions =
       Table(
         ("luminances", "expected"),
-        (Seq(value.cd/m2, value cd/m2, value (cd/m2)), 3.0),
-        (Seq(value.sb   , value sb   , value (sb))   , 3.0 / 1e4)
+        (Seq(q.cd/m2, q cd/m2, q (cd/m2)), 3.0),
+        (Seq(q.sb   , q sb   , q (sb))   , 3.0 / 1e4)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>
