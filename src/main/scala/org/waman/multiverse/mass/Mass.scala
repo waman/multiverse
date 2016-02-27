@@ -33,7 +33,20 @@ trait MassPostfixOps[A]{
   def Zg: A = massPostfixOps(ZettaGram)
   def Yg: A = massPostfixOps(YottaGram)
 
+  // microscopic
+  def u  : A = massPostfixOps(AtomicMassUnit)
+  def AMU: A = u
+  def Da : A = u
+  def m_e: A = massPostfixOps(ElectronMass)
+
+  // yard-pond
   def gr: A = massPostfixOps(Grain)
+  def oz: A = massPostfixOps(Ounce)
+  def lb: A = massPostfixOps(Pound)
+  def t : A = massPostfixOps(Tonne)
+
+  def kt: A = massPostfixOps(Carat)
+  def ct: A = massPostfixOps(MetricCarat)
 }
 
 trait MassPer[A]{
@@ -63,7 +76,20 @@ trait MassPer[A]{
   def Zg(per: Per): A = massPer(ZettaGram)
   def Yg(per: Per): A = massPer(YottaGram)
 
+  // microscopic
+  def u  (per: Per): A = massPer(AtomicMassUnit)
+  def AMU(per: Per): A = u(per)
+  def Da (per: Per): A = u(per)
+  def m_e(per: Per): A = massPer(ElectronMass)
+
+  // yard-pond
   def gr(per: Per): A = massPer(Grain)
+  def oz(per: Per): A = massPer(Ounce)
+  def lb(per: Per): A = massPer(Pound)
+  def t (per: Per): A = massPer(Tonne)
+
+  def kt(per: Per): A = massPer(Carat)
+  def ct(per: Per): A = massPer(MetricCarat)
 }
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
@@ -121,8 +147,6 @@ object MassUnit extends ConstantsDefined[MassUnit]{
   case object YottaGram extends MassUnit("Yg", r"1e24", Gram)
 
   // microscopic
-  case object ElectronVolt extends MassUnit("eV", r"1.78266184e-36") with NotExact
-
   case object AtomicMassUnit extends MassUnit("u;AMU;Da", r"1.66053892173e-27") with NotExact
   case object ElectronMass extends MassUnit("m_e", r"9.1093829140e-31") with NotExact
 
@@ -157,8 +181,6 @@ object MassUnit extends ConstantsDefined[MassUnit]{
     ExaGram,
     ZettaGram,
     YottaGram,
-
-    ElectronVolt,
 
     AtomicMassUnit,
     ElectronMass,

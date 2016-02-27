@@ -387,7 +387,7 @@ object VolumeUnit extends ConstantsDefined[VolumeUnit]{
   case object Peck_US_dry   extends IntrinsicVolumeUnit("pk(US_dry)", r"1/4", Bushel_US_dry_level)
   case object Bushel_US_dry extends IntrinsicVolumeUnit("bu(US_dry)", r"5/4", Bushel_US_dry_level)
   case object Bushel_US_dry_level extends IntrinsicVolumeUnit("bu(US_lvl)", r"2150.42", CubicInch)
-  case object Barrel_US_dry extends IntrinsicVolumeUnit("bl(US);bl(US_dry)", 105, Quart_US_dry)
+  case object Barrel_US_dry extends IntrinsicVolumeUnit("bl(US_dry)", 105, Quart_US_dry)
 
   // imperial
   case object Minim_imperial       extends IntrinsicVolumeUnit("minim(imp)", r"1/480", Fluid_Ounce_imperial)

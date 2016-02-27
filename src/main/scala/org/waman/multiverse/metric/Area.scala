@@ -374,7 +374,7 @@ object AreaUnit extends ConstantsDefined[AreaUnit]{
   case object SquareFoot_US_Survey  extends IntrinsicAreaUnit("sq_ft(US)" , LengthUnit.Foot_US_Survey)
   case object SquareChain_US_Survey extends IntrinsicAreaUnit("sq_ch(US)" , LengthUnit.Chain_US_Survey)
   case object SquareMile_US_Survey  extends IntrinsicAreaUnit("sq_mi(US)" , LengthUnit.Mile_US_Survey)
-  case object Acre_US_Survey extends IntrinsicAreaUnit("acre(US)", 10, LengthUnit.Chain_US_Survey)
+  case object Acre_US_Survey extends IntrinsicAreaUnit("ac(US)", 10, LengthUnit.Chain_US_Survey)
 
   case object CircularMil extends IntrinsicAreaUnit("circ_mil", Real.pi/4.0, SquareMil)
   case object CircularInch extends IntrinsicAreaUnit("circ_in", Real.pi/4.0, SquareInch)
