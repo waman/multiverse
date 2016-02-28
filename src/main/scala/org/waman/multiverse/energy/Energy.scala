@@ -1,6 +1,8 @@
 package org.waman.multiverse.energy
 
 import org.waman.multiverse._
+import org.waman.multiverse.mass.{MassPostfixOps, MassUnit}
+import org.waman.multiverse.radiation.{AbsorbedDose, AbsorbedDoseUnit}
 import org.waman.multiverse.thermal.{Entropy, EntropyUnit, TemperaturePostfixOps, TemperatureUnit}
 import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
 import spire.implicits._
@@ -39,6 +41,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     with EnergyPostfixOps[A]
     with MultiplicativeByTimeUnit[Action[A]]
     with DivisibleByTemperatureUnit[Entropy[A]]
+    with DivisibleByMassUnit[AbsorbedDose[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -52,12 +55,15 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   override def *(timeUnit: TimeUnit) = new Action(value, unit * timeUnit)
 
   override def /(temperatureUnit: TemperatureUnit) = new Entropy(value, unit / temperatureUnit)
+
+  override def /(massUnit: MassUnit) = new AbsorbedDose(value, unit / massUnit)
 }
 
 sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
     extends PhysicalUnit[EnergyUnit]
     with MultiplicativeByTimeUnit[ActionUnit]
-    with DivisibleByTemperatureUnit[EntropyUnit]{
+    with DivisibleByTemperatureUnit[EntropyUnit]
+    with DivisibleByMassUnit[AbsorbedDoseUnit]{
 
   def this(symbol: String, factor: Real, energyUnit: EnergyUnit) =
     this(symbol, factor * energyUnit.unitInJoule)
@@ -68,6 +74,8 @@ sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
   override def *(timeUnit: TimeUnit) = ActionUnit(this, timeUnit)
 
   override def /(temperatureUnit: TemperatureUnit) = EntropyUnit(this, temperatureUnit)
+
+  override def /(massUnit: MassUnit) = AbsorbedDoseUnit(this, massUnit)
 }
 
 object EnergyUnit extends ConstantsDefined[EnergyUnit]{
@@ -92,7 +100,7 @@ object PredefinedEnergyUnit extends PredefinedEnergyUnit
 trait EnergyFactory[A]
     extends EnergyPostfixOps[Energy[A]]
     with EnergyDot[TimePostfixOps[Action[A]]]
-    with EnergyPer[TemperaturePostfixOps[Entropy[A]]]{
+    with EnergyPer[TemperaturePostfixOps[Entropy[A]] with MassPostfixOps[AbsorbedDose[A]]]{
 
   def apply(unit: EnergyUnit): Energy[A]
 
@@ -106,10 +114,16 @@ trait EnergyFactory[A]
   }
 
   // Energy / Temperature -> Entropy
+  // Energy / Mass -> AbsorbedDose
   def apply(unit: EntropyUnit): Entropy[A]
+  def apply(unit: AbsorbedDoseUnit): AbsorbedDose[A]
 
-  override protected def energyPer(energyUnit: EnergyUnit) = new TemperaturePostfixOps[Entropy[A]]{
-    override protected def temperaturePostfixOps(temperatureUnit: TemperatureUnit) =
-      apply(energyUnit / temperatureUnit)
-  }
+  override protected def energyPer(energyUnit: EnergyUnit) =
+    new TemperaturePostfixOps[Entropy[A]] with MassPostfixOps[AbsorbedDose[A]]{
+      override protected def temperaturePostfixOps(temperatureUnit: TemperatureUnit) =
+        apply(energyUnit / temperatureUnit)
+
+      override protected def massPostfixOps(massUnit: MassUnit) =
+        apply(energyUnit / massUnit)
+    }
 }

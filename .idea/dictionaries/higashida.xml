@@ -1,15 +1,35 @@
 <component name="ProjectDictionaryState">
   <dictionary name="higashida">
     <words>
+      <w>Erad</w>
+      <w>Erem</w>
+      <w>Grad</w>
+      <w>Grem</w>
+      <w>Mrad</w>
+      <w>Mrem</w>
+      <w>Prad</w>
+      <w>Prem</w>
+      <w>Trad</w>
+      <w>Trem</w>
+      <w>Yrad</w>
+      <w>Yrem</w>
+      <w>Zrad</w>
+      <w>Zrem</w>
       <w>accel</w>
       <w>accels</w>
       <w>arad</w>
       <w>arcmin</w>
       <w>arcsec</w>
+      <w>arem</w>
+      <w>bril</w>
       <w>candela</w>
       <w>centi</w>
       <w>circ</w>
       <w>crad</w>
+      <w>crem</w>
+      <w>dalm</w>
+      <w>darad</w>
+      <w>darem</w>
       <w>dasr</w>
       <w>debye</w>
       <w>deca</w>
@@ -18,33 +38,50 @@
       <w>deunitizer</w>
       <w>drachm</w>
       <w>drad</w>
+      <w>drem</w>
+      <w>erem</w>
       <w>femtometre</w>
       <w>frad</w>
-      <w>g/cm</w>
+      <w>frem</w>
       <w>giga</w>
       <w>gradian</w>
+      <w>grem</w>
       <w>hbar</w>
       <w>hecto</w>
       <w>heltz</w>
+      <w>hrad</w>
+      <w>hrem</w>
       <w>illuminance</w>
       <w>kg/m</w>
       <w>km/h</w>
+      <w>krad</w>
+      <w>krem</w>
       <w>mrad</w>
+      <w>mrem</w>
       <w>multiverse</w>
       <w>nrad</w>
+      <w>nrem</w>
+      <w>phot</w>
       <w>picometre</w>
       <w>prad</w>
+      <w>prem</w>
+      <w>rad</w>
       <w>rad/s</w>
+      <w>rem</w>
       <w>sievert</w>
+      <w>skot</w>
       <w>steradian</w>
       <w>stilb</w>
       <w>suts</w>
+      <w>trem</w>
       <w>twip</w>
       <w>unitizer</w>
       <w>yrad</w>
       <w>yrem</w>
       <w>zrad</w>
+      <w>zrem</w>
       <w>μrad</w>
+      <w>μrem</w>
     </words>
   </dictionary>
 </component>

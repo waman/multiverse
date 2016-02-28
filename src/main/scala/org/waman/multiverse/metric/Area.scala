@@ -58,17 +58,30 @@ trait AreaPostfixOps[A]{
   def Yb: A = areaPostfixOps(YottaBarn)
 
   // yard-pond
-  def sq_mil: A = areaPostfixOps(SquareMil)
-  def sq_in : A = areaPostfixOps(SquareInch)
-  def sq_lnk: A = areaPostfixOps(SquareLink)
-  def sq_ft : A = areaPostfixOps(SquareFoot)
-  def sq_ch : A = areaPostfixOps(SquareChain)
-  def sq_yd : A = areaPostfixOps(SquareYard)
-  def sq_rd : A = areaPostfixOps(SquareRod)
-  def sq_mi : A = areaPostfixOps(SquareMile)
+  def mil2: A = areaPostfixOps(SquareMil)
+  def in2 : A = areaPostfixOps(SquareInch)
+  def li2 : A = areaPostfixOps(SquareLink)
+  def lnk2: A = li2
+  def ft2 : A = areaPostfixOps(SquareFoot)
+  def ch2 : A = areaPostfixOps(SquareChain)
+  def yd2 : A = areaPostfixOps(SquareYard)
+  def rd2 : A = areaPostfixOps(SquareRod)
+  def mi2 : A = areaPostfixOps(SquareMile)
+
+  def sq_mil: A = mil2
+  def sq_in : A = in2
+  def sq_li : A = li2
+  def sq_lnk: A = lnk2
+  def sq_ft : A = ft2
+  def sq_ch : A = ch2
+  def sq_yd : A = yd2
+  def sq_rd : A = rd2
+  def sq_mi : A = mi2
+
   def ac: A = areaPostfixOps(Acre)
   def ro: A = areaPostfixOps(Rood)
 
+  def sq_li(c: Context): A = areaPostfixOps(_sq_li(c))
   def sq_lnk(c: Context): A = areaPostfixOps(_sq_lnk(c))
   def sq_ft (c: Context): A = areaPostfixOps(_sq_ft(c))
   def sq_ch (c: Context): A = areaPostfixOps(_sq_ch(c))
@@ -83,9 +96,11 @@ trait AreaPostfixOps[A]{
 
 object AreaPostfixOps{
 
-  lazy val _sq_lnk: PartialFunction[Context, AreaUnit] = {
+  lazy val _sq_li: PartialFunction[Context, AreaUnit] = {
     case UnitedStates => AreaUnit.SquareLink_US_Survey
   }
+
+  lazy val _sq_lnk: PartialFunction[Context, AreaUnit] = _sq_li
 
   lazy val _sq_ft: PartialFunction[Context, AreaUnit] = {
     case UnitedStates => AreaUnit.SquareFoot_US_Survey
@@ -154,22 +169,34 @@ trait AreaDot[A]{
   def Yb(dot: Dot): A = areaDot(YottaBarn)
 
   // yard-pond
-  def sq_mil(dot: Dot): A = areaDot(SquareMil)
-  def sq_in (dot: Dot): A = areaDot(SquareInch)
-  def sq_lnk(dot: Dot): A = areaDot(SquareLink)
-  def sq_ft (dot: Dot): A = areaDot(SquareFoot)
-  def sq_ch (dot: Dot): A = areaDot(SquareChain)
-  def sq_yd (dot: Dot): A = areaDot(SquareYard)
-  def sq_rd (dot: Dot): A = areaDot(SquareRod)
-  def sq_mi (dot: Dot): A = areaDot(SquareMile)
+  def mil2(dot: Dot): A = areaDot(SquareMil)
+  def in2 (dot: Dot): A = areaDot(SquareInch)
+  def li2 (dot: Dot): A = areaDot(SquareLink)
+  def lnk2(dot: Dot): A = li2(dot)
+  def ft2 (dot: Dot): A = areaDot(SquareFoot)
+  def ch2 (dot: Dot): A = areaDot(SquareChain)
+  def yd2 (dot: Dot): A = areaDot(SquareYard)
+  def rd2 (dot: Dot): A = areaDot(SquareRod)
+  def mi2 (dot: Dot): A = areaDot(SquareMile)
+
+  def sq_mil(dot: Dot): A = mil2(dot)
+  def sq_in (dot: Dot): A = in2(dot)
+  def sq_li (dot: Dot): A = li2(dot)
+  def sq_lnk(dot: Dot): A = li2(dot)
+  def sq_ft (dot: Dot): A = ft2(dot)
+  def sq_ch (dot: Dot): A = ch2(dot)
+  def sq_yd (dot: Dot): A = yd2(dot)
+  def sq_rd (dot: Dot): A = rd2(dot)
+  def sq_mi (dot: Dot): A = mi2(dot)
+
   def ac(dot: Dot): A = areaDot(Acre)
   def ro(dot: Dot): A = areaDot(Rood)
 
-//  def sq_lnk(c: Context)(dot: Dot): A = areaPer(_sq_lnk(c))
-//  def sq_ft (c: Context)(dot: Dot): A = areaPer(_sq_ft(c))
-//  def sq_ch (c: Context)(dot: Dot): A = areaPer(_sq_ch(c))
-//  def sq_mi (c: Context)(dot: Dot): A = areaPer(_sq_mi(c))
-//  def ac(c: Context)(dot: Dot): A = areaPer(_ac(c))
+//  def sq_lnk(c: Context)(dot: Dot): A = areaDot(_sq_lnk(c))
+//  def sq_ft (c: Context)(dot: Dot): A = areaDot(_sq_ft(c))
+//  def sq_ch (c: Context)(dot: Dot): A = areaDot(_sq_ch(c))
+//  def sq_mi (c: Context)(dot: Dot): A = areaDot(_sq_mi(c))
+//  def ac(c: Context)(dot: Dot): A = areaDot(_ac(c))
 
   def circ_mil(dot: Dot): A = areaDot(CircularMil)
   def circ_in (dot: Dot): A = areaDot(CircularInch)
@@ -227,14 +254,26 @@ trait AreaPer[A]{
   def Yb(per: Per): A = areaPer(YottaBarn)
 
   // yard-pond
-  def sq_mil(per: Per): A = areaPer(SquareMil)
-  def sq_in (per: Per): A = areaPer(SquareInch)
-  def sq_lnk(per: Per): A = areaPer(SquareLink)
-  def sq_ft (per: Per): A = areaPer(SquareFoot)
-  def sq_ch (per: Per): A = areaPer(SquareChain)
-  def sq_yd (per: Per): A = areaPer(SquareYard)
-  def sq_rd (per: Per): A = areaPer(SquareRod)
-  def sq_mi (per: Per): A = areaPer(SquareMile)
+  def mil2(per: Per): A = areaPer(SquareMil)
+  def in2 (per: Per): A = areaPer(SquareInch)
+  def li2 (per: Per): A = areaPer(SquareLink)
+  def lnk2(per: Per): A = li2(per)
+  def ft2 (per: Per): A = areaPer(SquareFoot)
+  def ch2 (per: Per): A = areaPer(SquareChain)
+  def yd2 (per: Per): A = areaPer(SquareYard)
+  def rd2 (per: Per): A = areaPer(SquareRod)
+  def mi2 (per: Per): A = areaPer(SquareMile)
+
+  def sq_mil(per: Per): A = mil2(per)
+  def sq_in (per: Per): A = in2(per)
+  def sq_li (per: Per): A = li2(per)
+  def sq_lnk(per: Per): A = li2(per)
+  def sq_ft (per: Per): A = ft2(per)
+  def sq_ch (per: Per): A = ch2(per)
+  def sq_yd (per: Per): A = yd2(per)
+  def sq_rd (per: Per): A = rd2(per)
+  def sq_mi (per: Per): A = mi2(per)
+
   def ac(per: Per): A = areaPer(Acre)
   def ro(per: Per): A = areaPer(Rood)
 
@@ -359,18 +398,18 @@ object AreaUnit extends ConstantsDefined[AreaUnit]{
   case object YottaBarn extends IntrinsicAreaUnit("Yb", r"1e24", Barn)
 
   // yard-pond
-  case object SquareMil   extends IntrinsicAreaUnit("sq_mil", LengthUnit.Mil)
-  case object SquareInch  extends IntrinsicAreaUnit("sq_in" , LengthUnit.Inch)
-  case object SquareLink  extends IntrinsicAreaUnit("sq_lnk", LengthUnit.Link)
-  case object SquareFoot  extends IntrinsicAreaUnit("sq_ft" , LengthUnit.Foot)
-  case object SquareChain extends IntrinsicAreaUnit("sq_ch" , LengthUnit.Chain)
-  case object SquareYard  extends IntrinsicAreaUnit("sq_yd" , LengthUnit.Yard)
-  case object SquareRod   extends IntrinsicAreaUnit("sq_rd" , LengthUnit.Rod)
-  case object SquareMile  extends IntrinsicAreaUnit("sq_mi" , LengthUnit.Mile)
+  case object SquareMil   extends IntrinsicAreaUnit("mil2;sq_mil", LengthUnit.Mil)
+  case object SquareInch  extends IntrinsicAreaUnit("in2;sq_in" , LengthUnit.Inch)
+  case object SquareLink  extends IntrinsicAreaUnit("li2;lnk2;sq_li;sq_lnk", LengthUnit.Link)
+  case object SquareFoot  extends IntrinsicAreaUnit("ft2;sq_ft" , LengthUnit.Foot)
+  case object SquareChain extends IntrinsicAreaUnit("ch2;sq_ch" , LengthUnit.Chain)
+  case object SquareYard  extends IntrinsicAreaUnit("yd2;sq_yd" , LengthUnit.Yard)
+  case object SquareRod   extends IntrinsicAreaUnit("rd2;sq_rd" , LengthUnit.Rod)
+  case object SquareMile  extends IntrinsicAreaUnit("mi2;sq_mi" , LengthUnit.Mile)
   case object Acre extends IntrinsicAreaUnit("ac", 10, LengthUnit.Chain)
   case object Rood extends IntrinsicAreaUnit("ro", r"1/4", Acre)
 
-  case object SquareLink_US_Survey  extends IntrinsicAreaUnit("sq_lnk(US)", LengthUnit.Link_US_Survey)
+  case object SquareLink_US_Survey  extends IntrinsicAreaUnit("sq_li(US);sq_lnk(US)", LengthUnit.Link_US_Survey)
   case object SquareFoot_US_Survey  extends IntrinsicAreaUnit("sq_ft(US)" , LengthUnit.Foot_US_Survey)
   case object SquareChain_US_Survey extends IntrinsicAreaUnit("sq_ch(US)" , LengthUnit.Chain_US_Survey)
   case object SquareMile_US_Survey  extends IntrinsicAreaUnit("sq_mi(US)" , LengthUnit.Mile_US_Survey)

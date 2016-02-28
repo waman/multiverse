@@ -16,59 +16,90 @@ class LuminanceSpec
 
   override protected val getUnitClass = classOf[LuminanceUnit]
 
-//  "UnitSystem#getSupportedUnits method should return supported units of kinematic viscosity" in {
-//    __SetUp__
-//    __Exercise__
-//    val result = UnitSystem.getSupportedUnits(classOf[LuminanceUnit])
-//    __Verify__
-//    result should contain (Stokes)
-//  }
+  "Predefined luminance units" - {
+    "3.0 <<luminance unit>> should be converted to the equivalent value in candera per square metre" in {
+      __Exercise__
+      val conversions =
+        Table(
+          ("luminances", "expected"),
+          (Seq(3.0.cd/m2, 3.0 cd/m2, 3.0 (cd/m2)), 3.0),
+          (Seq(3.0.sb , 3.0 sb , 3.0 (sb)) , 3.0 * 1e4),
+          (Seq(3.0.Lb , 3.0 Lb , 3.0 (Lb)) , 3.0 * 3183.0988628),
+          (Seq(3.0.asb, 3.0 asb, 3.0 (asb)), 3.0 / Math.PI),
+          (Seq(3.0.sk , 3.0 sk , 3.0 (sk)) , 3.0 * 1e-3 / Math.PI),
+          (Seq(3.0.bril , 3.0 bril , 3.0 (bril)) , 3.0 * 1e-7 / Math.PI),
+          (Seq(3.0.fLb, 3.0 fLb, 3.0 (fLb)), 3.0 * 3.4262590996)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[Luminance[Double]], expected: Double) =>
+        suts.foreach { sut =>
+          (sut cd / m2) should equal(%%%%(expected))
+        }
+      }
+    }
 
-//  "LuminanceUnit should" - {
-//
-//    "return a luminance value of 1 km/h in metre per second by 'inMetrePerSecond' property" in {
-//      __SetUp__
-//      val vf = L/minute
-//      __Verify__
-//      vf.unitInCubicMetrePerSecond should equal (r"1e-3" / r"60")
-//    }
-//
-//    "be evaluated as equal even if a different object" in {
-//      __Verify__
-//      (m3/s) should equal (m3/s)
-//      (m3/s).hashCode should equal ((m3/s).hashCode)
-//    }
-//  }
-
-  "3.0 <<luminance unit>> should be converted to the equivalent value in candera per square metre" in {
-    __Exercise__
-    val conversions =
-      Table(
-        ("luminances", "expected"),
-        (Seq(3.0.cd/m2, 3.0 cd/m2, 3.0 (cd/m2)), 3.0),
-        (Seq(3.0.sb   , 3.0 sb   , 3.0 (sb))   , 3.0 * 1e4)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Luminance[Double]], expected: Double) =>
-      suts.foreach{ sut =>
-        (sut cd/m2) should equal (%%%%(expected))
+    "3.0 cd/m2 should be converted to the equivalent value in other luminance units" in {
+      __SetUp__
+      val q = 3.0 (cd / m2)
+      __Exercise__
+      val conversions =
+        Table(
+          ("luminances", "expected"),
+          (Seq(q.cd/m2, q cd/m2, q (cd/m2)), 3.0),
+          (Seq(q.sb  , q sb  , q (sb))  , 3.0 / 1e4),
+          (Seq(q.Lb  , q Lb  , q (Lb))  , 3.0 / 3183.0988628),
+          (Seq(q.asb, q asb  , q (asb)) , 3.0 * Math.PI),
+          (Seq(q.sk  , q sk  , q (sk))  , 3.0 * 1e3 * Math.PI),
+          (Seq(q.bril, q bril, q (bril)), 3.0 * 1e7* Math.PI),
+          (Seq(q.fLb , q fLb , q (fLb)) , 3.0 / 3.4262590996)
+        )
+      __Verify__
+      forAll(conversions) { (suts: Seq[Double], expected: Double) =>
+        suts.foreach { sut =>
+          sut should equal(%%%%(expected))
+        }
       }
     }
   }
 
-  "3.0 cd/m2 should be converted to the equivalent value in other luminance units" in {
-    __SetUp__
-    val q = 3.0 (cd/m2)
-    __Exercise__
-    val conversions =
-      Table(
-        ("luminances", "expected"),
-        (Seq(q.cd/m2, q cd/m2, q (cd/m2)), 3.0),
-        (Seq(q.sb   , q sb   , q (sb))   , 3.0 / 1e4)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
-      suts.foreach{ sut =>
+  "Quotient luminance unit" - {
+
+    "Luminance unit of cd/in2 should equal 1550.0031 cd/m2" in {
+      __Exercise__
+      val sut = cd/in2
+      __Verify__
+      sut.unitInCandelaPerSquareMetre.toDouble should equal (%%%%(1550.0031))
+    }
+
+    "3.0 lm/in2 should equal 3.0 * 1550.0031 lx" in {
+      __Exercise__
+      val conversions =
+        Table(
+          ("illuminance", "expected"),
+          (3.0.cd/in2, 3.0 * 1550.0031),
+          (3.0 cd/in2, 3.0 * 1550.0031),
+          (3.0 (cd/in2), 3.0 * 1550.0031)
+        )
+      __Verify__
+      forAll(conversions){ (sut: Luminance[Double], expected: Double) =>
+        sut.cd/m2 should equal (%%%%(expected))
+      }
+    }
+
+    "3.0 cd/m2 should equal 3.0 / 1550.0031 cd/in2" in {
+      __SetUp__
+      val q = 3.0 (cd/m2)
+      val expected = 3.0 / 1550.0031
+      __Exercise__
+      val conversions =
+        Table(
+          ("Luminance", "expected"),
+          (q.cd/in2, expected),
+          (q cd/in2, expected),
+          (q (cd/in2), expected)
+        )
+      __Verify__
+      forAll(conversions){ (sut: Double, expected: Double) =>
         sut should equal (%%%%(expected))
       }
     }

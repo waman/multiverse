@@ -11,7 +11,12 @@ trait LuminancePostfixOps[A]{
 
   protected def luminancePostfixOps(luminanceUnit: LuminanceUnit): A
 
-  def sb: A = luminancePostfixOps(Stilb)
+  def sb  : A = luminancePostfixOps(Stilb)
+  def Lb  : A = luminancePostfixOps(Lambert)
+  def asb : A = luminancePostfixOps(ApoStilb)
+  def sk  : A = luminancePostfixOps(Skot)
+  def bril: A = luminancePostfixOps(Bril)
+  def fLb  : A = luminancePostfixOps(FootLambert)
 }
 
 class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
@@ -54,12 +59,29 @@ object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
   // Custom
   private[LuminanceUnit]
   class IntrinsicLuminanceUnit(val symbol: String, val unitInCandelaPerSquareMetre: Real)
-    extends LuminanceUnit
+      extends LuminanceUnit{
+
+    def this(symbol: String, factor: Real, lUnit: LuminanceUnit) =
+      this(symbol, factor * lUnit.unitInCandelaPerSquareMetre)
+  }
 
   case object Stilb extends IntrinsicLuminanceUnit("sb", r"1e4")
 
+  case object Lambert  extends IntrinsicLuminanceUnit("Lb"  , r"1e4" / Real.pi)
+  case object ApoStilb extends IntrinsicLuminanceUnit("asb" , r"1"   / Real.pi)
+  case object Skot     extends IntrinsicLuminanceUnit("sk"  , r"1e-3" / Real.pi)
+  case object Bril     extends IntrinsicLuminanceUnit("bril", r"1e-7" / Real.pi)
+
+  case object FootLambert extends IntrinsicLuminanceUnit("fLb", r"1" / Real.pi,
+    LuminousIntensityUnit.Candela / AreaUnit.SquareFoot)
+
   override lazy val values = Seq(
-    Stilb
+    Stilb,
+    Lambert,
+    ApoStilb,
+    Skot,
+    Bril,
+    FootLambert
   )
 
   // Quotient (LuminousIntensity / SquareMetre)

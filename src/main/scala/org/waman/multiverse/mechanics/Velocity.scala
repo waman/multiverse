@@ -149,7 +149,7 @@ object VelocityUnit extends ConstantsDefined[VelocityUnit]{
     MilePerHour
   )
 
-  // Quotient (Length/Time)
+  // Length / Time -> Velocity
   private[VelocityUnit]
   class QuotientVelocityUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
     extends VelocityUnit with QuotientUnit[VelocityUnit, LengthUnit, TimeUnit]{

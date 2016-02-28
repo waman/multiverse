@@ -295,15 +295,15 @@ class VolumeSpec
 
     "3.0 m3 should equal 3.0 / 1233.48183754752 ac*ft" in {
       __SetUp__
-      val value = 3.0 (m3)
+      val q = 3.0 (m3)
       val expected = 3.0 / 1233.48183754752
       __Exercise__
       val conversions =
         Table(
           ("area", "expected"),
-          (value.ac*ft, expected),
-          (value ac*ft, expected),
-          (value (ac*ft), expected)
+          (q.ac*ft, expected),
+          (q ac*ft, expected),
+          (q (ac*ft), expected)
         )
       __Verify__
       forAll(conversions){ (sut: Double, expected: Double) =>

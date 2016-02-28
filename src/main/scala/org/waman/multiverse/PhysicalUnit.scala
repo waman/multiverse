@@ -37,7 +37,7 @@ trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[
   def secondUnit: B
 
   override lazy val name: String = s"${firstUnit.name}${secondUnit.name}"
-  override lazy val symbol: String = s"${firstUnit.symbol}${secondUnit.symbol}"
+  override lazy val symbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
 
   override def equals(other: Any): Boolean = other match {
     case that: ProductUnit[_, _, _] =>

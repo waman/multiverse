@@ -40,26 +40,32 @@ class VolumeFlowSpec
       val conversions =
         Table(
           ("volume flows", "expected"),
-          (Seq(3.0.m3 / s, 3.0 m3 / s, 3.0 (m3 / s)), 3.0),
-          (Seq(3.0.LPM, 3.0 LPM, 3.0 (LPM)), 3.0 * 1e-3 / 60.0)
+          (Seq(3.0.LPM, 3.0 LPM, 3.0 (LPM)), 3.0 * 1.66666666666e-5),
+          (Seq(3.0.CFM, 3.0 CFM, 3.0 (CFM)), 3.0 * 4.719474432e-4),
+          (Seq(3.0.GPM, 3.0 GPM, 3.0 (GPM)), 3.0 * 6.30901964e-5),
+          (Seq(3.0.GPH, 3.0 GPH, 3.0 (GPH)), 3.0 * 1.05150327333e-6),
+          (Seq(3.0.GPD, 3.0 GPD, 3.0 (GPD)), 3.0 * 4.38126363888e-8)
         )
       __Verify__
       forAll(conversions) { (suts: Seq[VolumeFlow[Double]], expected: Double) =>
         suts.foreach { sut =>
-          (sut m3 / s) should equal(%%%%(expected))
+          (sut m3/s) should equal(%%%%(expected))
         }
       }
     }
 
     "3.0 m3/s should be converted to the equivalent value in other volume flow units" in {
       __SetUp__
-      val q = 3.0 (m3 / s)
+      val q = 3.0 (m3/s)
       __Exercise__
       val conversions =
         Table(
           ("volume flows", "expected"),
-          (Seq(q.m3 / s, q m3 / s, q(m3 / s)), 3.0),
-          (Seq(q.LPM, q LPM, q(LPM)), 3.0 * 60.0 / 1e-3)
+          (Seq(q.LPM, q LPM, q (LPM)), 3.0 / 1.66666666666e-5),
+          (Seq(q.CFM, q CFM, q (CFM)), 3.0 / 4.719474432e-4),
+          (Seq(q.GPM, q GPM, q (GPM)), 3.0 / 6.30901964e-5),
+          (Seq(q.GPH, q GPH, q (GPH)), 3.0 / 1.05150327333e-6),
+          (Seq(q.GPD, q GPD, q (GPD)), 3.0 / 4.38126363888e-8)
         )
       __Verify__
       forAll(conversions) { (suts: Seq[Double], expected: Double) =>

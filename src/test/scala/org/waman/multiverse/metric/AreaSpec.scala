@@ -71,17 +71,30 @@ class AreaSpec
           (Seq(3.0.Zb, 3.0 Zb, 3.0 (Zb)), 3e-7),
           (Seq(3.0.Yb, 3.0 Yb, 3.0 (Yb)), 3e-4),
 
+          (Seq(3.0.mil2, 3.0 mil2, 3.0 (mil2)), 3.0 * 6.4516e-10),
+          (Seq(3.0.in2 , 3.0 in2 , 3.0 (in2)) , 3.0 * 6.4516e-4),
+          (Seq(3.0.li2 , 3.0 li2 , 3.0 (li2)) , 3.0 * 4.0468564224e-2),
+          (Seq(3.0.lnk2, 3.0 lnk2, 3.0 (lnk2)), 3.0 * 4.0468564224e-2),
+          (Seq(3.0.ft2 , 3.0 ft2 , 3.0 (ft2)) , 3.0 * 9.290304e-2),
+          (Seq(3.0.ch2 , 3.0 ch2 , 3.0 (ch2)) , 3.0 * 404.68564224),
+          (Seq(3.0.yd2 , 3.0 yd2 , 3.0 (yd2)) , 3.0 * 0.83612736),
+          (Seq(3.0.rd2 , 3.0 rd2 , 3.0 (rd2)) , 3.0 * 25.29285264),
+          (Seq(3.0.mi2 , 3.0 mi2 , 3.0 (mi2)) , 3.0 * 2.589988110336e6),
+
           (Seq(3.0.sq_mil, 3.0 sq_mil, 3.0 (sq_mil)), 3.0 * 6.4516e-10),
-          (Seq(3.0.sq_in, 3.0 sq_in, 3.0 (sq_in)), 3.0 * 6.4516e-4),
+          (Seq(3.0.sq_in , 3.0 sq_in , 3.0 (sq_in)) , 3.0 * 6.4516e-4),
+          (Seq(3.0.sq_li , 3.0 sq_li , 3.0 (sq_li)) , 3.0 * 4.0468564224e-2),
           (Seq(3.0.sq_lnk, 3.0 sq_lnk, 3.0 (sq_lnk)), 3.0 * 4.0468564224e-2),
-          (Seq(3.0.sq_ft, 3.0 sq_ft, 3.0 (sq_ft)), 3.0 * 9.290304e-2),
-          (Seq(3.0.sq_ch, 3.0 sq_ch, 3.0 (sq_ch)), 3.0 * 404.68564224),
-          (Seq(3.0.sq_yd, 3.0 sq_yd, 3.0 (sq_yd)), 3.0 * 0.83612736),
-          (Seq(3.0.sq_rd, 3.0 sq_rd, 3.0 (sq_rd)), 3.0 * 25.29285264),
-          (Seq(3.0.sq_mi, 3.0 sq_mi, 3.0 (sq_mi)), 3.0 * 2.589988110336e6),
+          (Seq(3.0.sq_ft , 3.0 sq_ft , 3.0 (sq_ft)) , 3.0 * 9.290304e-2),
+          (Seq(3.0.sq_ch , 3.0 sq_ch , 3.0 (sq_ch)) , 3.0 * 404.68564224),
+          (Seq(3.0.sq_yd , 3.0 sq_yd , 3.0 (sq_yd)) , 3.0 * 0.83612736),
+          (Seq(3.0.sq_rd , 3.0 sq_rd , 3.0 (sq_rd)) , 3.0 * 25.29285264),
+          (Seq(3.0.sq_mi , 3.0 sq_mi , 3.0 (sq_mi)) , 3.0 * 2.589988110336e6),
+
           (Seq(3.0.ac, 3.0 ac, 3.0 (ac)), 3.0 * 4046.8564224),
           (Seq(3.0.ro, 3.0 ro, 3.0 (ro)), 3.0 * 1011.7141056),
 
+          (Seq(3.0.sq_li(US), 3.0 sq_li(US), 3.0 (sq_li(US))), 3.0 * Math.pow(0.66 * usFoot, 2)),
           (Seq(3.0.sq_lnk(US), 3.0 sq_lnk (US), 3.0 (sq_lnk(US))), 3.0 * Math.pow(0.66 * usFoot, 2)),
           (Seq(3.0.sq_ft(US), 3.0 sq_ft (US), 3.0 (sq_ft(US))), 3.0 * Math.pow(usFoot, 2)),
           (Seq(3.0.sq_ch(US), 3.0 sq_ch (US), 3.0 (sq_ch(US))), 3.0 * Math.pow(66 * usFoot, 2)),
@@ -152,17 +165,30 @@ class AreaSpec
           (Seq(q.Zb, q Zb, q(Zb)), 3e7),
           (Seq(q.Yb, q Yb, q(Yb)), 3e4),
 
-          (Seq(q.sq_mil, q sq_mil, q(sq_mil)), 3.0 / 6.4516e-10),
-          (Seq(q.sq_in, q sq_in, q(sq_in)), 3.0 / 6.4516e-4),
-          (Seq(q.sq_lnk, q sq_lnk, q(sq_lnk)), 3.0 / 4.0468564224e-2),
-          (Seq(q.sq_ft, q sq_ft, q(sq_ft)), 3.0 / 9.290304e-2),
-          (Seq(q.sq_ch, q sq_ch, q(sq_ch)), 3.0 / 404.68564224),
-          (Seq(q.sq_yd, q sq_yd, q(sq_yd)), 3.0 / 0.83612736),
-          (Seq(q.sq_rd, q sq_rd, q(sq_rd)), 3.0 / 25.29285264),
-          (Seq(q.sq_mi, q sq_mi, q(sq_mi)), 3.0 / 2.589988110336e6),
+          (Seq(q.mil2, q mil2, q (mil2)), 3.0 / 6.4516e-10),
+          (Seq(q.in2 , q in2 , q (in2)) , 3.0 / 6.4516e-4),
+          (Seq(q.li2 , q li2 , q (li2)) , 3.0 / 4.0468564224e-2),
+          (Seq(q.lnk2, q lnk2, q (lnk2)), 3.0 / 4.0468564224e-2),
+          (Seq(q.ft2 , q ft2 , q (ft2)) , 3.0 / 9.290304e-2),
+          (Seq(q.ch2 , q ch2 , q (ch2)) , 3.0 / 404.68564224),
+          (Seq(q.yd2 , q yd2 , q (yd2)) , 3.0 / 0.83612736),
+          (Seq(q.rd2 , q rd2 , q (rd2)) , 3.0 / 25.29285264),
+          (Seq(q.mi2 , q mi2 , q (mi2)) , 3.0 / 2.589988110336e6),
+
+          (Seq(q.sq_mil, q sq_mil, q (sq_mil)), 3.0 / 6.4516e-10),
+          (Seq(q.sq_in , q sq_in , q (sq_in)) , 3.0 / 6.4516e-4),
+          (Seq(q.sq_li , q sq_li , q (sq_li)) , 3.0 / 4.0468564224e-2),
+          (Seq(q.sq_lnk, q sq_lnk, q (sq_lnk)), 3.0 / 4.0468564224e-2),
+          (Seq(q.sq_ft , q sq_ft , q (sq_ft)) , 3.0 / 9.290304e-2),
+          (Seq(q.sq_ch , q sq_ch , q (sq_ch)) , 3.0 / 404.68564224),
+          (Seq(q.sq_yd , q sq_yd , q (sq_yd)) , 3.0 / 0.83612736),
+          (Seq(q.sq_rd , q sq_rd , q (sq_rd)) , 3.0 / 25.29285264),
+          (Seq(q.sq_mi , q sq_mi , q (sq_mi)) , 3.0 / 2.589988110336e6),
+
           (Seq(q.ac, q ac, q(ac)), 3.0 / 4046.8564224),
           (Seq(q.ro, q ro, q(ro)), 3.0 / 1011.7141056),
 
+          (Seq(q.sq_li(US), q sq_li (US), q(sq_li(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
           (Seq(q.sq_lnk(US), q sq_lnk (US), q(sq_lnk(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
           (Seq(q.sq_ft(US), q sq_ft (US), q(sq_ft(US))), 3.0 / Math.pow(usFoot, 2)),
           (Seq(q.sq_ch(US), q sq_ch (US), q(sq_ch(US))), 3.0 / Math.pow(66 * usFoot, 2)),
@@ -209,14 +235,14 @@ class AreaSpec
 
     "3.0 m2 should equal 300.0 m*cm" in {
       __SetUp__
-      val value = 3.0 (m2)
+      val q = 3.0 (m2)
       __Exercise__
       val conversions =
         Table(
           ("area", "expected"),
-          (value.m*cm, 300.0),
-          (value m*cm, 300.0),
-          (value (m*cm), 300.0)
+          (q.m*cm, 300.0),
+          (q m*cm, 300.0),
+          (q (m*cm), 300.0)
         )
       __Verify__
       forAll(conversions){ (sut: Double, expected: Double) =>

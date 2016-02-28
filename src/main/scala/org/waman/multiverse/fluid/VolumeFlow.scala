@@ -11,11 +11,13 @@ trait VolumeFlowPostfixOps[A]{
 
   protected def volumeFlowPostfixOps(volumeFlowUnit: VolumeFlowUnit): A
 
-//  def CFM: A = volumeFlowPostfixOps(CubicFootPerMinute)
-//  def GPD: A = volumeFlowPostfixOps(GallonPerDay)
-//  def GPH: A = volumeFlowPostfixOps(GallonPerHour)
-//  def GPM: A = volumeFlowPostfixOps(GallonPerMinute)
   def LPM: A = volumeFlowPostfixOps(LitrePerMinute)
+
+  def CFM: A = volumeFlowPostfixOps(CubicFootPerMinute)
+
+  def GPM: A = volumeFlowPostfixOps(GallonPerMinute)
+  def GPH: A = volumeFlowPostfixOps(GallonPerHour)
+  def GPD: A = volumeFlowPostfixOps(GallonPerDay)
 }
 
 class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit) extends Quantity[A, VolumeFlowUnit]
@@ -55,16 +57,26 @@ object VolumeFlowUnit extends ConstantsDefined[VolumeFlowUnit]{
 
   private[VolumeFlowUnit]
   abstract class IntrinsicVolumeFlowUnit(val symbol: String, val unitInCubicMetrePerSecond: Real)
-    extends VolumeFlowUnit
+      extends VolumeFlowUnit{
 
-//  case object CubicFootPerMinute extends IntrinsicVolumeFlowUnit("CFM", CubicFeet)  // TODO
-//  case object GallonPerDay       extends IntrinsicVolumeFlowUnit("GPD", Real.pi / r"180")
-//  case object GallonPerHour      extends IntrinsicVolumeFlowUnit("GPH", Real.pi / r"180")
-//  case object GallonPerMinute    extends IntrinsicVolumeFlowUnit("GPM", Real.pi / r"200")
-  case object LitrePerMinute     extends IntrinsicVolumeFlowUnit("LPM", Litre.unitInCubicMetre / Minute.unitInSecond)
+    def this(symbol: String, vUnit: VolumeUnit, tUnit: TimeUnit) =
+      this(symbol, vUnit.unitInCubicMetre / tUnit.unitInSecond)
+  }
+
+  case object LitrePerMinute extends IntrinsicVolumeFlowUnit("LPM", Litre, Minute)
+
+  case object CubicFootPerMinute extends IntrinsicVolumeFlowUnit("CFM", CubicFoot, Minute)
+
+  case object GallonPerMinute extends IntrinsicVolumeFlowUnit("GPM", Gallon_US_fluid, Minute)
+  case object GallonPerHour   extends IntrinsicVolumeFlowUnit("GPH", Gallon_US_fluid, Hour)
+  case object GallonPerDay    extends IntrinsicVolumeFlowUnit("GPD", Gallon_US_fluid, Day)
 
   override lazy val values = Seq(
-    LitrePerMinute
+    LitrePerMinute,
+    CubicFootPerMinute,
+    GallonPerMinute,
+    GallonPerHour,
+    GallonPerDay
   )
 
   private[VolumeFlowUnit]
