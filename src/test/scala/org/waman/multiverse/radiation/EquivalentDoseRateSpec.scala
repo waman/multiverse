@@ -12,49 +12,45 @@ import scala.language.postfixOps
   */
 class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
 
-//  "EquivalentDoseRateUnit should" - {
-//
-//    "return a equivalentDoseRate value of 1 g/cm3 in kilogram per cubic metre by 'inKilogramPerCubicMetre' property" in {
-//      __SetUp__
-//      val du = g/cm3
-//      __Verify__
-//      du.unitInKiloGramPerCubicMetre should equal (r"1e3")
-//    }
-//
-//    "be evaluated as equal even if different objects" in {
-//      __Verify__
-//      (kg/m3) should equal (kg/m3)
-//      (kg/m3).hashCode should equal ((kg/m3).hashCode)
-//    }
-//  }
 
-  "3.0 <<equivalent dose rate unit>> should be converted to the equivalent value in Sievert per second" in {
-    __Exercise__
-    val conversions =
-      Table(
-        ("equivalent dose rates", "expected"),
-        (Seq(3.0.Sv/s, 3.0 Sv/s, 3.0 (Sv/s)), 3.0)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[EquivalentDoseRate[Double]], expected: Double) =>
-      suts.foreach{ sut =>
-        (sut Sv/s) should equal (%%%%(expected))
+  "Quotient equivalent dose rate unit" - {
+
+    "Equivalent dose rate unit of kSv/h should equal 1.0 / 3600.0 Sv/s" in {
+      __Exercise__
+      val sut = kSv/h
+      __Verify__
+      sut.unitInSievertPerSecond.toDouble should equal (%%%%(1000.0 / 3600.0))
+    }
+
+    "3.0 kSv/h should equal 3.0 * 1000.0 / 3600.0 Sv/s" in {
+      __Exercise__
+      val conversions =
+        Table(
+          ("equivalent dose rate", "expected"),
+          (3.0.kSv/h, 3.0 * 1000.0 / 3600.0),
+          (3.0 kSv/h, 3.0 * 1000.0 / 3600.0),
+          (3.0 (kSv/h), 3.0 * 1000.0 / 3600.0)
+        )
+      __Verify__
+      forAll(conversions){ (sut: EquivalentDoseRate[Double], expected: Double) =>
+        sut.Sv/s should equal (%%%%(expected))
       }
     }
-  }
 
-  "3.0 Sv/s should be converted to the equivalent value in other equivalent dose rate units" in {
-    __SetUp__
-    val q = 3.0 (Sv/s)
-    __Exercise__
-    val conversions =
-      Table(
-        ("equivalent dose rates", "expected"),
-        (Seq(q.Sv/s, q Sv/s, q (Sv/s)), 3.0)
-      )
-    __Verify__
-    forAll(conversions){ (suts: Seq[Double], expected: Double) =>
-      suts.foreach{ sut =>
+    "3.0 Sv/s should equal 3.0 * 3600.0 / 1000.0 kSv/h" in {
+      __SetUp__
+      val q = 3.0 (Sv/s)
+      val expected = 3.0 * 3600.0 / 1000.0
+      __Exercise__
+      val conversions =
+        Table(
+          ("equivalent dose rate", "expected"),
+          (q.kSv/h, expected),
+          (q kSv/h, expected),
+          (q (kSv/h), expected)
+        )
+      __Verify__
+      forAll(conversions){ (sut: Double, expected: Double) =>
         sut should equal (%%%%(expected))
       }
     }

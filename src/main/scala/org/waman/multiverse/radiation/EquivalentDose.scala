@@ -173,7 +173,7 @@ object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
   case object MilliREM extends EquivalentDoseUnit("mrem", r"1e-3", REM)
   case object CentiREM extends EquivalentDoseUnit("crem", r"1e-2", REM)
   case object DeciREM  extends EquivalentDoseUnit("drem", r"1e-1", REM)
-  case object REM extends EquivalentDoseUnit("rem", r"0.01")
+  case object REM      extends EquivalentDoseUnit("rem", r"1e-2")
   case object DecaREM  extends EquivalentDoseUnit("darem", r"1e1", REM)
   case object HectoREM extends EquivalentDoseUnit("hrem", r"1e2", REM)
   case object KiloREM  extends EquivalentDoseUnit("krem", r"1e3", REM)

@@ -5,6 +5,8 @@ import org.waman.scalatest_util.WamanCustomSpec
 
 class MultiverseCustomSpec extends WamanCustomSpec{
 
+  def truncateLast(s: String): String = s.substring(0, s.length-1)
+
   class ContainTheSameElementAsMatcherWithDetailErrorMessage[E](expected: Set[E])
     extends Matcher[Traversable[E]]{
 

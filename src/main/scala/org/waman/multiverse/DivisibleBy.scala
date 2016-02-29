@@ -1,5 +1,6 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.electric.CurrentUnit
 import org.waman.multiverse.mass.MassUnit
 import org.waman.multiverse.metric.{AreaUnit, VolumeUnit}
 import org.waman.multiverse.thermal.TemperatureUnit
@@ -27,4 +28,8 @@ trait DivisibleByMassUnit[R]{
 
 trait DivisibleByTemperatureUnit[R]{
   def /(temperatureUnit: TemperatureUnit): R
+}
+
+trait DivisibleByCurrentUnit[R]{
+  def /(currentUnit: CurrentUnit): R
 }

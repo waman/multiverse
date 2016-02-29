@@ -37,7 +37,7 @@ sealed trait EquivalentDoseRateUnit extends PhysicalUnit[EquivalentDoseRateUnit]
 
 object EquivalentDoseRateUnit{
 
-  // Quotient (EquivalentDose / Time)
+  // EquivalentDose / Time -> EquivalentDoseRate
   private[EquivalentDoseRateUnit]
   class QuotientEquivalentDoseRateUnit(val numeratorUnit: EquivalentDoseUnit, val denominatorUnit: TimeUnit)
     extends EquivalentDoseRateUnit with QuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit]{

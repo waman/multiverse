@@ -59,6 +59,21 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
       case None => cancel("No constant is defined") }
     }
 
+    "Unit object's 'name' property should have the same value as its name " in {
+      getConstantsDefined match { case Some(constDef) =>
+        __SetUp__
+        val expected = getConstantNames
+        __Exercise__
+        val suts = constDef.values
+        __Verify__
+        suts.foreach{ sut =>
+          val expected = truncateLast(sut.getClass.getSimpleName)
+          sut.name should equal (expected)
+        }
+
+      case None => cancel("No constant is defined") }
+    }
+
     "XxxPostfixOps trait should have properties whose names are 'symbol' properties of unit objects" in {
 
       getPostfixOpsTrait match { case Some(postfixOps) =>
