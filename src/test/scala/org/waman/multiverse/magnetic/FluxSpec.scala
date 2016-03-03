@@ -149,9 +149,9 @@ class FluxSpec
       val conversions =
         Table(
           ("flux", "expected"),
-          (3.0.kV*h, 3600e3),
-          (3.0 kV*h, 3600e3),
-          (3.0 (kV*h), 3600e3)
+          (3.0.kV*h, 3.0 * 3600e3),
+          (3.0 kV*h, 3.0 * 3600e3),
+          (3.0 (kV*h), 3.0 * 3600e3)
         )
       __Verify__
       forAll(conversions){ (sut: Flux[Double], expected: Double) =>

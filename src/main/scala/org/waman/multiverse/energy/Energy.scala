@@ -59,14 +59,14 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   override def /(massUnit: MassUnit) = new AbsorbedDose(value, unit / massUnit)
 }
 
-sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
+sealed abstract class EnergyUnit(val symbols: Seq[String], val unitInJoule: Real)
     extends PhysicalUnit[EnergyUnit]
     with MultiplicativeByTimeUnit[ActionUnit]
     with DivisibleByTemperatureUnit[EntropyUnit]
     with DivisibleByMassUnit[AbsorbedDoseUnit]{
 
-  def this(symbol: String, factor: Real, energyUnit: EnergyUnit) =
-    this(symbol, factor * energyUnit.unitInJoule)
+  def this(symbols: Seq[String], factor: Real, energyUnit: EnergyUnit) =
+    this(symbols, factor * energyUnit.unitInJoule)
 
   override def baseUnit = EnergyUnit.Joule
   override def valueInBaseUnit = unitInJoule
@@ -79,6 +79,9 @@ sealed abstract class EnergyUnit(val symbol: String, val unitInJoule: Real)
 }
 
 object EnergyUnit extends ConstantsDefined[EnergyUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
 
   case object Joule extends EnergyUnit("J", 1)
 

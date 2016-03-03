@@ -8,20 +8,22 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     val cName = getClass.getSimpleName
     cName.substring(0, cName.length - 1)  // drop the end char "$"
   }
-  val symbol: String
+  val symbols: Seq[String]
 
   def baseUnit: U
   def valueInBaseUnit: Real
 
-  override def toString: String = s"$name ($symbol)"
+  private lazy val symbolStr = symbols.mkString("|")
+
+  override def toString: String = s"$name ($symbolStr)"
 
   def toDetailString: String = {
-    val s = s"${name.padTo(30, ' ')} ($symbol)"
+    val s = s"${name.padTo(30, ' ')} ($symbolStr)"
 
     if (valueInBaseUnit == Real.one) s
     else {
       val eqSymbol = if(this.isInstanceOf[NotExact]) "~" else "="
-      s.padTo(45, ' ') + s": 1 ${symbol.padTo(8, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbol}"
+      s.padTo(45, ' ') + s": 1 ${symbolStr.padTo(8, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbols.head}"
     }
   }
 
@@ -37,7 +39,8 @@ trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[
   def secondUnit: B
 
   override lazy val name: String = s"${firstUnit.name}${secondUnit.name}"
-  override lazy val symbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
+  override lazy val symbols: Seq[String] =
+    for(x <- firstUnit.symbols; y <- secondUnit.symbols)yield s"$x*$y"
 
   override def equals(other: Any): Boolean = other match {
     case that: ProductUnit[_, _, _] =>
@@ -62,7 +65,8 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
   def denominatorUnit: B
 
   override lazy val name: String = s"${numeratorUnit.name}Per${denominatorUnit.name}"
-  override lazy val symbol: String = s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
+  override lazy val symbols: Seq[String] =
+    for(x <- numeratorUnit.symbols; y <- denominatorUnit.symbols) yield s"$x/$y"
 
   override def equals(other: Any): Boolean = other match {
     case that: QuotientUnit[_, _, _] =>

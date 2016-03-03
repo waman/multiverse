@@ -52,7 +52,10 @@ object ExposureUnit extends ConstantsDefined[ExposureUnit]{
   // Custom
   private[ExposureUnit]
   class IntrinsicExposureUnit(val symbol: String, val unitInCoulombPerKiloGram: Real)
-    extends ExposureUnit
+      extends ExposureUnit{
+
+    override lazy val symbols = Seq(symbol)
+  }
 
   case object Roentgen extends IntrinsicExposureUnit("R", r"2.58e-4")
 

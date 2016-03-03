@@ -15,7 +15,9 @@ trait SolidAnglePostfixOps[A]{
   def dsr : A = solidAnglePostfixOps(DeciSteradian)
   def csr : A = solidAnglePostfixOps(CentiSteradian)
   def msr : A = solidAnglePostfixOps(MilliSteradian)
-  def μsr : A = solidAnglePostfixOps(MicroSteradian)
+  def microSteradian : A = solidAnglePostfixOps(MicroSteradian)
+  def microSr        : A = microSteradian
+  def μsr : A = microSteradian
   def nsr : A = solidAnglePostfixOps(NanoSteradian)
   def psr : A = solidAnglePostfixOps(PicoSteradian)
   def fsr : A = solidAnglePostfixOps(FemtoSteradian)
@@ -40,8 +42,8 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
   override protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit) = apply(solidAngleUnit)
 }
 
-sealed abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Real)
-  extends PhysicalUnit[SolidAngleUnit]{
+sealed abstract class SolidAngleUnit(val symbols: Seq[String], val unitInSteradian: Real)
+    extends PhysicalUnit[SolidAngleUnit]{
 
   override val baseUnit = SolidAngleUnit.Steradian
   override val valueInBaseUnit = unitInSteradian
@@ -49,12 +51,15 @@ sealed abstract class SolidAngleUnit(val symbol: String, val unitInSteradian: Re
 
 object SolidAngleUnit extends ConstantsDefined[SolidAngleUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object DecaSteradian  extends SolidAngleUnit("dasr", r"1e1")
   case object Steradian      extends SolidAngleUnit("sr", 1)
   case object DeciSteradian  extends SolidAngleUnit("dsr", r"1e-1")
   case object CentiSteradian extends SolidAngleUnit("csr", r"1e-2")
   case object MilliSteradian extends SolidAngleUnit("msr", r"1e-3")
-  case object MicroSteradian extends SolidAngleUnit("μsr", r"1e-6")
+  case object MicroSteradian extends SolidAngleUnit(Seq("μsr", "microSteradian", "microSr"), r"1e-6")
   case object NanoSteradian  extends SolidAngleUnit("nsr", r"1e-9")
   case object PicoSteradian  extends SolidAngleUnit("psr", r"1e-12")
   case object FemtoSteradian extends SolidAngleUnit("fsr", r"1e-15")

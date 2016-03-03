@@ -9,7 +9,7 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
   val unit: U
   def apply(unit: U): A
 
-  override def toString = s"$value (${unit.symbol})"
+  override def toString = s"$value (${unit.symbols.mkString("|")})"
 
   override def equals(other: Any): Boolean = other match {
     case that: Quantity[A, U] =>

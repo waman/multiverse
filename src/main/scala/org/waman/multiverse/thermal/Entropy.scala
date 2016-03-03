@@ -74,18 +74,21 @@ sealed trait EntropyUnit extends PhysicalUnit[EntropyUnit]{
 
 object EntropyUnit extends ConstantsDefined[EntropyUnit]{
 
-  // Custom
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
+  // intrinsic
   private[EntropyUnit]
-  class IntrinsicEntropyUnit(val symbol: String, val unitInJoulePerKelvin: Real)
+  class IntrinsicEntropyUnit(val symbols: Seq[String], val unitInJoulePerKelvin: Real)
       extends EntropyUnit{
     
-    def this(symbol: String, factor: Real, unit: EntropyUnit) = 
-      this(symbol, factor * unit.unitInJoulePerKelvin)
+    def this(symbols: Seq[String], factor: Real, unit: EntropyUnit) =
+      this(symbols, factor * unit.unitInJoulePerKelvin)
   }
 
-  case object Nat  extends IntrinsicEntropyUnit("nat;k_B", r"1.380650523e-23") with NotExact
-  case object Bit  extends IntrinsicEntropyUnit("bit;Sh", Real(2).log, Nat) with NotExact
-  case object Ban  extends IntrinsicEntropyUnit("ban;Hart", Real(10).log, Nat) with NotExact
+  case object Nat  extends IntrinsicEntropyUnit(Seq("nat", "k_B"), r"1.380650523e-23") with NotExact
+  case object Bit  extends IntrinsicEntropyUnit(Seq("bit", "Sh"), Real(2).log, Nat) with NotExact
+  case object Ban  extends IntrinsicEntropyUnit(Seq("ban", "Hart"), Real(10).log, Nat) with NotExact
   case object Byte extends IntrinsicEntropyUnit("B", 8, Bit) with NotExact
 
   case object KiloByte  extends IntrinsicEntropyUnit("kB", r"1e3", Byte)
@@ -97,7 +100,7 @@ object EntropyUnit extends ConstantsDefined[EntropyUnit]{
   case object ZettaByte extends IntrinsicEntropyUnit("ZB", r"1e21", Byte)
   case object YottaByte extends IntrinsicEntropyUnit("YB", r"1e24", Byte)
 
-  case object KibiByte extends IntrinsicEntropyUnit("KiB;KB", r"1024", Byte)
+  case object KibiByte extends IntrinsicEntropyUnit(Seq("KiB", "KB"), r"1024", Byte)
   case object MebiByte extends IntrinsicEntropyUnit("MiB", r"1024"**2, Byte)
   case object GibiByte extends IntrinsicEntropyUnit("GiB", r"1024"**3, Byte)
   case object TebiByte extends IntrinsicEntropyUnit("TiB", r"1024"**4, Byte)

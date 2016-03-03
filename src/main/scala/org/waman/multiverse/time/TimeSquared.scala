@@ -26,11 +26,13 @@ class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
   override protected def timeSquaredPostfixOps(timeSquaredUnit: TimeSquaredUnit) = apply(timeSquaredUnit)
 }
 
-sealed abstract class TimeSquaredUnit(val symbol: String, val unitInSecondSquared: Real)
+sealed abstract class TimeSquaredUnit(symbol: String, val unitInSecondSquared: Real)
   extends PhysicalUnit[TimeSquaredUnit]{
 
   def this(symbol: String, factor: Real, timeSquaredUnit: TimeSquaredUnit) =
     this(symbol, factor * timeSquaredUnit.unitInSecondSquared)
+
+  override lazy val symbols = Seq(symbol)
 
   override def baseUnit = TimeSquaredUnit.SecondSquared
   override def valueInBaseUnit = unitInSecondSquared

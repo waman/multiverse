@@ -16,7 +16,9 @@ trait RadioactivityPostfixOps[A]{
   def fBq: A = radioactivityPostfixOps(FemtoBecquerel)
   def pBq: A = radioactivityPostfixOps(PicoBecquerel)
   def nBq: A = radioactivityPostfixOps(NanoBecquerel)
-  def μBq: A = radioactivityPostfixOps(MicroBecquerel)
+  def microBecquerel: A = radioactivityPostfixOps(MicroBecquerel)
+  def microBq       : A = microBecquerel
+  def μBq: A = microBecquerel
   def mBq: A = radioactivityPostfixOps(MilliBecquerel)
   def cBq: A = radioactivityPostfixOps(CentiBecquerel)
   def dBq: A = radioactivityPostfixOps(DeciBecquerel)
@@ -38,7 +40,9 @@ trait RadioactivityPostfixOps[A]{
   def fCi: A = radioactivityPostfixOps(FemtoCurie)
   def pCi: A = radioactivityPostfixOps(PicoCurie)
   def nCi: A = radioactivityPostfixOps(NanoCurie)
-  def μCi: A = radioactivityPostfixOps(MicroCurie)
+  def microCurie: A = radioactivityPostfixOps(MicroCurie)
+  def microCi   : A = microCurie
+  def μCi: A = microCurie
   def mCi: A = radioactivityPostfixOps(MilliCurie)
   def cCi: A = radioactivityPostfixOps(CentiCurie)
   def dCi: A = radioactivityPostfixOps(DeciCurie)
@@ -71,17 +75,20 @@ class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
   override protected def radioactivityPostfixOps(radioactivityUnit: RadioactivityUnit) = apply(radioactivityUnit)
 }
 
-sealed abstract class RadioactivityUnit(val symbol: String, val unitInBecquerel: Real)
+sealed abstract class RadioactivityUnit(val symbols: Seq[String], val unitInBecquerel: Real)
     extends PhysicalUnit[RadioactivityUnit]{
 
-  def this(symbol: String, factor: Real, unit: RadioactivityUnit) =
-    this(symbol, factor * unit.unitInBecquerel)
+  def this(symbols: Seq[String], factor: Real, unit: RadioactivityUnit) =
+    this(symbols, factor * unit.unitInBecquerel)
 
   override def baseUnit = RadioactivityUnit.Becquerel
   override def valueInBaseUnit = unitInBecquerel
 }
 
 object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
   
   // intrinsic
   case object YoctoBecquerel extends RadioactivityUnit("yBq", r"1e-24")
@@ -90,7 +97,7 @@ object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
   case object FemtoBecquerel extends RadioactivityUnit("fBq", r"1e-15")
   case object PicoBecquerel  extends RadioactivityUnit("pBq", r"1e-12")
   case object NanoBecquerel  extends RadioactivityUnit("nBq", r"1e-9")
-  case object MicroBecquerel extends RadioactivityUnit("μBq", r"1e-6")
+  case object MicroBecquerel extends RadioactivityUnit(Seq("μBq", "microBecquerel", "microBq"), r"1e-6")
   case object MilliBecquerel extends RadioactivityUnit("mBq", r"1e-3")
   case object CentiBecquerel extends RadioactivityUnit("cBq", r"1e-2")
   case object DeciBecquerel  extends RadioactivityUnit("dBq", r"1e-1")
@@ -112,7 +119,7 @@ object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
   case object FemtoCurie extends RadioactivityUnit("fCi", r"1e-15", Curie)
   case object PicoCurie  extends RadioactivityUnit("pCi", r"1e-12", Curie)
   case object NanoCurie  extends RadioactivityUnit("nCi", r"1e-9", Curie)
-  case object MicroCurie extends RadioactivityUnit("μCi", r"1e-6", Curie)
+  case object MicroCurie extends RadioactivityUnit(Seq("μCi", "microCurie", "microCi"), r"1e-6", Curie)
   case object MilliCurie extends RadioactivityUnit("mCi", r"1e-3", Curie)
   case object CentiCurie extends RadioactivityUnit("cCi", r"1e-2", Curie)
   case object DeciCurie  extends RadioactivityUnit("dCi", r"1e-1", Curie)

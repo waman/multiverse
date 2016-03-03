@@ -56,8 +56,11 @@ object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
 
   // Custom
   private[AngularVelocityUnit]
-  class IntrinsicAngularVelocityUnit(val symbol: String, val unitInRadianPerSecond: Real)
-    extends AngularVelocityUnit
+  class IntrinsicAngularVelocityUnit(symbol: String, val unitInRadianPerSecond: Real)
+      extends AngularVelocityUnit{
+
+    override lazy val symbols = Seq(symbol)
+  }
 
   case object CyclePerSecond      extends IntrinsicAngularVelocityUnit("cps", twoPi)
   case object RevolutionPerMinute extends IntrinsicAngularVelocityUnit("rpm", twoPi / r"60")

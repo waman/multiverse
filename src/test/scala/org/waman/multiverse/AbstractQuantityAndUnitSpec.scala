@@ -88,12 +88,9 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
           def methodToSymbols(m: Method): Seq[String] = m.getParameterCount match {
             case 0 => Seq(decodePropertyName(m.getName))
             case 1 =>
-              val name = m.getName match {
-                case s if s.startsWith("$") => s+s
-                case s => "_" + s
-              }
+              val name = m.getName
               val pf = getPostfixOpsObjectClass
-                         .getMethod(name).invoke(getPostfixOpsObject)
+                         .getMethod("_" + name).invoke(getPostfixOpsObject)
                          .asInstanceOf[PartialFunction[Context, _]]
               Context.values
                 .filter(pf.isDefinedAt)
@@ -103,7 +100,7 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
           __SetUp__
           val sut = getPostfixOpsPropertyNames
           val expected = constDef.values
-                           .flatMap(_.symbol.split(";"))
+                           .flatMap(_.symbols)
                            .filterNot(s => s.startsWith("°") && s.length > 1)
                              // remove degree temperature like °C (test in another testcase)
           __Verify__
@@ -120,7 +117,7 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
           val sut = getPropertyNames(dot, "Dot")
           val expected =
             constDef.values
-              .flatMap(_.symbol.split(";"))
+              .flatMap(_.symbols)
               .filterNot(_.contains("("))
           __Verify__
           sut should containTheSameElementsAs(expected)
@@ -136,7 +133,7 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
           val sut = getPropertyNames(per, "Per")
           val expected =
             constDef.values
-              .flatMap(_.symbol.split(";"))
+              .flatMap(_.symbols)
               .filterNot(_.contains("("))
           __Verify__
           sut should containTheSameElementsAs(expected)

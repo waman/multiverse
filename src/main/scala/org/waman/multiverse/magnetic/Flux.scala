@@ -19,7 +19,9 @@ trait FluxPostfixOps[A]{
   def fWb: A = fluxPostfixOps(FemtoWeber)
   def pWb: A = fluxPostfixOps(PicoWeber)
   def nWb: A = fluxPostfixOps(NanoWeber)
-  def μWb: A = fluxPostfixOps(MicroWeber)
+  def microWeber: A = fluxPostfixOps(MicroWeber)
+  def microWb   : A = microWeber
+  def μWb: A = microWeber
   def mWb: A = fluxPostfixOps(MilliWeber)
   def cWb: A = fluxPostfixOps(CentiWeber)
   def dWb: A = fluxPostfixOps(DeciWeber)
@@ -41,7 +43,9 @@ trait FluxPostfixOps[A]{
   def fMx: A = fluxPostfixOps(FemtoMaxwell)
   def pMx: A = fluxPostfixOps(PicoMaxwell)
   def nMx: A = fluxPostfixOps(NanoMaxwell)
-  def μMx: A = fluxPostfixOps(MicroMaxwell)
+  def microMaxwell: A = fluxPostfixOps(MicroMaxwell)
+  def microMx: A = microMaxwell
+  def μMx: A = microMaxwell
   def mMx: A = fluxPostfixOps(MilliMaxwell)
   def cMx: A = fluxPostfixOps(CentiMaxwell)
   def dMx: A = fluxPostfixOps(DeciMaxwell)
@@ -70,7 +74,9 @@ trait FluxPer[A]{
   def fWb(per: Per): A = fluxPer(FemtoWeber)
   def pWb(per: Per): A = fluxPer(PicoWeber)
   def nWb(per: Per): A = fluxPer(NanoWeber)
-  def μWb(per: Per): A = fluxPer(MicroWeber)
+  def microWeber(per: Per): A = fluxPer(MicroWeber)
+  def microWb(per: Per): A = microWeber(per)
+  def μWb(per: Per): A = microWeber(per)
   def mWb(per: Per): A = fluxPer(MilliWeber)
   def cWb(per: Per): A = fluxPer(CentiWeber)
   def dWb(per: Per): A = fluxPer(DeciWeber)
@@ -92,7 +98,9 @@ trait FluxPer[A]{
   def fMx(per: Per): A = fluxPer(FemtoMaxwell)
   def pMx(per: Per): A = fluxPer(PicoMaxwell)
   def nMx(per: Per): A = fluxPer(NanoMaxwell)
-  def μMx(per: Per): A = fluxPer(MicroMaxwell)
+  def microMaxwell(per: Per): A = fluxPer(MicroMaxwell)
+  def microMx(per: Per): A = microMaxwell(per)
+  def μMx(per: Per): A = microMaxwell(per)
   def mMx(per: Per): A = fluxPer(MilliMaxwell)
   def cMx(per: Per): A = fluxPer(CentiMaxwell)
   def dMx(per: Per): A = fluxPer(DeciMaxwell)
@@ -155,14 +163,17 @@ sealed trait FluxUnit
 }
 
 object FluxUnit extends ConstantsDefined[FluxUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
   
   // intrinsic
   private[FluxUnit]
-  class IntrinsicFluxUnit(val symbol: String, val unitInWeber: Real)
+  class IntrinsicFluxUnit(val symbols: Seq[String], val unitInWeber: Real)
     extends FluxUnit{
 
-    def this(symbol: String, factor: Real, unit: FluxUnit) =
-      this(symbol, factor * unit.unitInWeber)
+    def this(symbols: Seq[String], factor: Real, unit: FluxUnit) =
+      this(symbols, factor * unit.unitInWeber)
   }
   
   case object YoctoWeber extends IntrinsicFluxUnit("yWb", r"1e-24")
@@ -171,7 +182,7 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
   case object FemtoWeber extends IntrinsicFluxUnit("fWb", r"1e-15")
   case object PicoWeber  extends IntrinsicFluxUnit("pWb", r"1e-12")
   case object NanoWeber  extends IntrinsicFluxUnit("nWb", r"1e-9")
-  case object MicroWeber extends IntrinsicFluxUnit("μWb", r"1e-6")
+  case object MicroWeber extends IntrinsicFluxUnit(Seq("μWb", "microWeber", "microWb"), r"1e-6")
   case object MilliWeber extends IntrinsicFluxUnit("mWb", r"1e-3")
   case object CentiWeber extends IntrinsicFluxUnit("cWb", r"1e-2")
   case object DeciWeber  extends IntrinsicFluxUnit("dWb", r"1e-1")
@@ -193,7 +204,7 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
   case object FemtoMaxwell extends IntrinsicFluxUnit("fMx", r"1e-15", Maxwell)
   case object PicoMaxwell  extends IntrinsicFluxUnit("pMx", r"1e-12", Maxwell)
   case object NanoMaxwell  extends IntrinsicFluxUnit("nMx", r"1e-9", Maxwell)
-  case object MicroMaxwell extends IntrinsicFluxUnit("μMx", r"1e-6", Maxwell)
+  case object MicroMaxwell extends IntrinsicFluxUnit(Seq("μMx", "microMaxwell", "microMx"), r"1e-6", Maxwell)
   case object MilliMaxwell extends IntrinsicFluxUnit("mMx", r"1e-3", Maxwell)
   case object CentiMaxwell extends IntrinsicFluxUnit("cMx", r"1e-2", Maxwell)
   case object DeciMaxwell  extends IntrinsicFluxUnit("dMx", r"1e-1", Maxwell)

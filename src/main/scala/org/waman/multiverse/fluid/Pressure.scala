@@ -40,12 +40,17 @@ class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
   override def *(timeUnit: TimeUnit) = new DynamicViscosity(value, unit * timeUnit)
 }
 
-sealed abstract class PressureUnit(val symbol: String, val unitInPascal: Real)
+sealed abstract class PressureUnit(val symbols: Seq[String], val unitInPascal: Real)
     extends PhysicalUnit[PressureUnit]
     with MultiplicativeByTimeUnit[DynamicViscosityUnit]{
 
+  def this(symbol: String, unitInPascal: Real) = this(Seq(symbol), unitInPascal)
+
+  def this(symbols: Seq[String], factor: Real, pressureUnit: PressureUnit) =
+    this(symbols, factor * pressureUnit.unitInPascal)
+
   def this(symbol: String, factor: Real, pressureUnit: PressureUnit) =
-    this(symbol, factor * pressureUnit.unitInPascal)
+    this(Seq(symbol), factor, pressureUnit)
 
   override def baseUnit = PressureUnit.Pascal
   override def valueInBaseUnit = unitInPascal
@@ -55,7 +60,7 @@ sealed abstract class PressureUnit(val symbol: String, val unitInPascal: Real)
 
 object PressureUnit extends ConstantsDefined[PressureUnit]{
 
-  // Custom
+  // intrinsic
   case object Pascal extends PressureUnit("Pa", 1)
 
   override lazy val values = Seq(

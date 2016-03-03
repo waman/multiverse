@@ -12,7 +12,7 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
 
   "'symbol' property should return the symbol(s) of the unit" in {
     __Verify__
-    AngleUnit.Degree.symbol should equal ("deg;°")
+    AngleUnit.Degree.symbols should contain theSameElementsAs Set("deg", "°")
   }
 
   "toString method should return the String expression of the unit" in {

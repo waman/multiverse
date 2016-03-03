@@ -16,7 +16,9 @@ trait CurrentPostfixOps[A]{
   def fA: A = currentPostfixOps(FemtoAmpere)
   def pA: A = currentPostfixOps(PicoAmpere)
   def nA: A = currentPostfixOps(NanoAmpere)
-  def μA: A = currentPostfixOps(MicroAmpere)
+  def microAmpere: A = currentPostfixOps(MicroAmpere)
+  def microA     : A = microAmpere
+  def μA: A = microAmpere
   def mA: A = currentPostfixOps(MilliAmpere)
   def cA: A = currentPostfixOps(CentiAmpere)
   def dA: A = currentPostfixOps(DeciAmpere)
@@ -48,18 +50,18 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
   override protected def currentPostfixOps(currentUnit: CurrentUnit) = apply(currentUnit)
 }
 
-sealed abstract class CurrentUnit(val symbol: String, val unitInAmpere: Real)
+sealed abstract class CurrentUnit(val symbols: Seq[String], val unitInAmpere: Real)
   extends PhysicalUnit[CurrentUnit]{
-
-  def this(symbol: String, factor: Real, currentUnit: CurrentUnit) =
-    this(symbol, factor * currentUnit.unitInAmpere)
 
   override def baseUnit = CurrentUnit.Ampere
   override def valueInBaseUnit = unitInAmpere
 }
 
 object CurrentUnit extends ConstantsDefined[CurrentUnit]{
-  
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   // intrinsic
   case object YoctoAmpere extends CurrentUnit("yA", r"1e-24")
   case object ZeptoAmpere extends CurrentUnit("zA", r"1e-21")
@@ -67,7 +69,7 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
   case object FemtoAmpere extends CurrentUnit("fA", r"1e-15")
   case object PicoAmpere  extends CurrentUnit("pA", r"1e-12")
   case object NanoAmpere  extends CurrentUnit("nA", r"1e-9")
-  case object MicroAmpere extends CurrentUnit("μA", r"1e-6")
+  case object MicroAmpere extends CurrentUnit(Seq("μA", "microAmpere", "microA"), r"1e-6")
   case object MilliAmpere extends CurrentUnit("mA", r"1e-3")
   case object CentiAmpere extends CurrentUnit("cA", r"1e-2")
   case object DeciAmpere  extends CurrentUnit("dA", r"1e-1")

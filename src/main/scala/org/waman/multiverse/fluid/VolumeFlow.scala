@@ -56,11 +56,13 @@ object VolumeFlowUnit extends ConstantsDefined[VolumeFlowUnit]{
   import VolumeUnit._
 
   private[VolumeFlowUnit]
-  abstract class IntrinsicVolumeFlowUnit(val symbol: String, val unitInCubicMetrePerSecond: Real)
+  abstract class IntrinsicVolumeFlowUnit(symbol: String, val unitInCubicMetrePerSecond: Real)
       extends VolumeFlowUnit{
 
-    def this(symbol: String, vUnit: VolumeUnit, tUnit: TimeUnit) =
-      this(symbol, vUnit.unitInCubicMetre / tUnit.unitInSecond)
+    def this(symbols: String, vUnit: VolumeUnit, tUnit: TimeUnit) =
+      this(symbols, vUnit.unitInCubicMetre / tUnit.unitInSecond)
+
+    override lazy val symbols = Seq(symbol)
   }
 
   case object LitrePerMinute extends IntrinsicVolumeFlowUnit("LPM", Litre, Minute)

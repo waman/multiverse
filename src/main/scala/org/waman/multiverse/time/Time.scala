@@ -15,7 +15,8 @@ trait TimePostfixOps[A]{
   def fs: A = timePostfixOps(FemtoSecond)
   def ps: A = timePostfixOps(PicoSecond)
   def ns: A = timePostfixOps(NanoSecond)
-  def μs: A = timePostfixOps(MicroSecond)
+  def microSecond: A = timePostfixOps(MicroSecond)
+  def μs: A = microSecond
   def ms: A = timePostfixOps(MilliSecond)
   def cs: A = timePostfixOps(CentiSecond)
   def ds: A = timePostfixOps(DeciSecond)
@@ -50,17 +51,22 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   override protected def timePostfixOps(timeUnit: TimeUnit) = apply(timeUnit)
 }
 
-sealed abstract class TimeUnit(val symbol: String, val unitInSecond: Real)
+sealed abstract class TimeUnit(val symbols: Seq[String], val unitInSecond: Real)
   extends PhysicalUnit[TimeUnit]{
 
-  def this(symbol: String, factor: Real, timeUnit: TimeUnit) =
-    this(symbol, factor * timeUnit.unitInSecond)
+  def this(symbols: Seq[String], factor: Real, timeUnit: TimeUnit) =
+    this(symbols, factor * timeUnit.unitInSecond)
 
   override def baseUnit = TimeUnit.Second
   override def valueInBaseUnit = unitInSecond
+
+//  def square: TimeSquaredUnit = this * this  // TODO
 }
 
 object TimeUnit extends ConstantsDefined[TimeUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
 
   case object YoctoSecond extends TimeUnit("ys", r"1e-24")
   case object ZeptoSecond extends TimeUnit("zs", r"1e-21")
@@ -68,7 +74,7 @@ object TimeUnit extends ConstantsDefined[TimeUnit]{
   case object FemtoSecond extends TimeUnit("fs", r"1e-15")
   case object PicoSecond  extends TimeUnit("ps", r"1e-12")
   case object NanoSecond  extends TimeUnit("ns", r"1e-9")
-  case object MicroSecond extends TimeUnit("μs", r"1e-6")
+  case object MicroSecond extends TimeUnit(Seq("μs", "microSecond"), r"1e-6")
   case object MilliSecond extends TimeUnit("ms", r"1e-3")
   case object CentiSecond extends TimeUnit("cs", r"1e-2")
   case object DeciSecond  extends TimeUnit("ds", r"1e-1")

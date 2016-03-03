@@ -49,22 +49,18 @@ sealed trait ActionUnit extends PhysicalUnit[ActionUnit]{
 
 object ActionUnit extends ConstantsDefined[ActionUnit]{
 
-  // Custom
+  // intrinsic
   private[ActionUnit]
-  class IntrinsicActionUnit(val symbol: String, val unitInJouleSecond: Real)
-      extends ActionUnit{
+  class IntrinsicActionUnit(val symbols: Seq[String], val unitInJouleSecond: Real)
+      extends ActionUnit
 
-    def this(symbol: String, energyUnit: EnergyUnit, timeUnit: TimeUnit) =
-      this(symbol, energyUnit.unitInJoule * timeUnit.unitInSecond)
-  }
-
-  case object AtomicUnitOfAction extends IntrinsicActionUnit("hbar;ħ", r"1.05457168e-34") with NotExact
+  case object AtomicUnitOfAction extends IntrinsicActionUnit(Seq("ħ", "hbar"), r"1.05457168e-34") with NotExact
 
   override lazy val values = Seq(
     AtomicUnitOfAction
   )
 
-  // Quotient (Energy * Time)
+  // Energy * Time -> Action
   private[ActionUnit]
   class ProductActionUnit(val firstUnit: EnergyUnit, val secondUnit: TimeUnit)
       extends ActionUnit

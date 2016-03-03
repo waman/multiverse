@@ -19,7 +19,9 @@ trait AbsorbedDosePostfixOps[A]{
   def fGy: A = absorbedDosePostfixOps(FemtoGray)
   def pGy: A = absorbedDosePostfixOps(PicoGray)
   def nGy: A = absorbedDosePostfixOps(NanoGray)
-  def μGy: A = absorbedDosePostfixOps(MicroGray)
+  def microGray: A = absorbedDosePostfixOps(MicroGray)
+  def microGy  : A = microGray
+  def μGy: A = microGray
   def mGy: A = absorbedDosePostfixOps(MilliGray)
   def cGy: A = absorbedDosePostfixOps(CentiGray)
   def dGy: A = absorbedDosePostfixOps(DeciGray)
@@ -70,9 +72,12 @@ sealed trait AbsorbedDoseUnit extends PhysicalUnit[AbsorbedDoseUnit]{
 
 object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   // intrinsic
   private[AbsorbedDoseUnit]
-  class IntrinsicAbsorbedDoseUnit(val symbol: String, val unitInGray: Real)
+  class IntrinsicAbsorbedDoseUnit(val symbols: Seq[String], val unitInGray: Real)
     extends AbsorbedDoseUnit
 
   case object YoctoGray extends IntrinsicAbsorbedDoseUnit("yGy", r"1e-24")
@@ -81,7 +86,7 @@ object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
   case object FemtoGray extends IntrinsicAbsorbedDoseUnit("fGy", r"1e-15")
   case object PicoGray  extends IntrinsicAbsorbedDoseUnit("pGy", r"1e-12")
   case object NanoGray  extends IntrinsicAbsorbedDoseUnit("nGy", r"1e-9")
-  case object MicroGray extends IntrinsicAbsorbedDoseUnit("μGy", r"1e-6")
+  case object MicroGray extends IntrinsicAbsorbedDoseUnit(Seq("μGy", "microGray", "microGy"), r"1e-6")
   case object MilliGray extends IntrinsicAbsorbedDoseUnit("mGy", r"1e-3")
   case object CentiGray extends IntrinsicAbsorbedDoseUnit("cGy", r"1e-2")
   case object DeciGray  extends IntrinsicAbsorbedDoseUnit("dGy", r"1e-1")

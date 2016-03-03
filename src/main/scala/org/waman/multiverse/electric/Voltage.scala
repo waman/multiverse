@@ -18,7 +18,9 @@ trait VoltagePostfixOps[A]{
   def fV: A = voltagePostfixOps(FemtoVoltage)
   def pV: A = voltagePostfixOps(PicoVoltage)
   def nV: A = voltagePostfixOps(NanoVoltage)
-  def μV: A = voltagePostfixOps(MicroVoltage)
+  def microVolt: A = voltagePostfixOps(MicroVoltage)
+  def microV   : A = microVolt
+  def μV: A = microVolt
   def mV: A = voltagePostfixOps(MilliVoltage)
   def cV: A = voltagePostfixOps(CentiVoltage)
   def dV: A = voltagePostfixOps(DeciVoltage)
@@ -47,7 +49,9 @@ trait VoltageDot[A]{
   def fV(dot: Dot): A = voltageDot(FemtoVoltage)
   def pV(dot: Dot): A = voltageDot(PicoVoltage)
   def nV(dot: Dot): A = voltageDot(NanoVoltage)
-  def μV(dot: Dot): A = voltageDot(MicroVoltage)
+  def microVolt(dot: Dot): A = voltageDot(MicroVoltage)
+  def microV   (dot: Dot): A = microVolt(dot)
+  def μV(dot: Dot): A = microVolt(dot)
   def mV(dot: Dot): A = voltageDot(MilliVoltage)
   def cV(dot: Dot): A = voltageDot(CentiVoltage)
   def dV(dot: Dot): A = voltageDot(DeciVoltage)
@@ -76,7 +80,9 @@ trait VoltagePer[A]{
   def fV(per: Per): A = voltagePer(FemtoVoltage)
   def pV(per: Per): A = voltagePer(PicoVoltage)
   def nV(per: Per): A = voltagePer(NanoVoltage)
-  def μV(per: Per): A = voltagePer(MicroVoltage)
+  def microVolt(per: Per): A = voltagePer(MicroVoltage)
+  def microV   (per: Per): A = microVolt(per)
+  def μV(per: Per): A = microVolt(per)
   def mV(per: Per): A = voltagePer(MilliVoltage)
   def cV(per: Per): A = voltagePer(CentiVoltage)
   def dV(per: Per): A = voltagePer(DeciVoltage)
@@ -110,7 +116,7 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
   override def *(timeUnit: TimeUnit) = new Flux(value, unit * timeUnit)
 }
 
-sealed abstract class VoltageUnit(val symbol: String, val unitInVolt: Real)
+sealed abstract class VoltageUnit(val symbols: Seq[String], val unitInVolt: Real)
     extends PhysicalUnit[VoltageUnit]
     with MultiplicativeByTimeUnit[FluxUnit]{
 
@@ -121,6 +127,9 @@ sealed abstract class VoltageUnit(val symbol: String, val unitInVolt: Real)
 }
 
 object VoltageUnit extends ConstantsDefined[VoltageUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
   
   // intrinsic
   case object YoctoVoltage extends VoltageUnit("yV", r"1e-24")
@@ -129,7 +138,7 @@ object VoltageUnit extends ConstantsDefined[VoltageUnit]{
   case object FemtoVoltage extends VoltageUnit("fV", r"1e-15")
   case object PicoVoltage  extends VoltageUnit("pV", r"1e-12")
   case object NanoVoltage  extends VoltageUnit("nV", r"1e-9")
-  case object MicroVoltage extends VoltageUnit("μV", r"1e-6")
+  case object MicroVoltage extends VoltageUnit(Seq("μV", "microVolt", "microV"), r"1e-6")
   case object MilliVoltage extends VoltageUnit("mV", r"1e-3")
   case object CentiVoltage extends VoltageUnit("cV", r"1e-2")
   case object DeciVoltage  extends VoltageUnit("dV", r"1e-1")

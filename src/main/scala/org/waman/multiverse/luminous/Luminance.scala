@@ -58,11 +58,13 @@ object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
 
   // Custom
   private[LuminanceUnit]
-  class IntrinsicLuminanceUnit(val symbol: String, val unitInCandelaPerSquareMetre: Real)
+  class IntrinsicLuminanceUnit(symbol: String, val unitInCandelaPerSquareMetre: Real)
       extends LuminanceUnit{
 
     def this(symbol: String, factor: Real, lUnit: LuminanceUnit) =
       this(symbol, factor * lUnit.unitInCandelaPerSquareMetre)
+
+    override lazy val symbols = Seq(symbol)
   }
 
   case object Stilb extends IntrinsicLuminanceUnit("sb", r"1e4")

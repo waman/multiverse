@@ -17,7 +17,9 @@ trait TemperaturePostfixOps[A]{
   def fK: A = temperaturePostfixOps(FemtoKelvin)
   def pK: A = temperaturePostfixOps(PicoKelvin)
   def nK: A = temperaturePostfixOps(NanoKelvin)
-  def μK: A = temperaturePostfixOps(MicroKelvin)
+  def microKelvin: A = temperaturePostfixOps(MicroKelvin)
+  def microK: A = microKelvin
+  def μK: A = microKelvin
   def mK: A = temperaturePostfixOps(MilliKelvin)
   def cK: A = temperaturePostfixOps(CentiKelvin)
   def dK: A = temperaturePostfixOps(DeciKelvin)
@@ -87,7 +89,7 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
   *   <li>zeroInKelvin = 273.15</li>
   * </ul>
   */
-sealed abstract class TemperatureUnit(val symbol: String, val unitInKelvin: Real, val zeroInKelvin: Real)
+sealed abstract class TemperatureUnit(val symbols: Seq[String], val unitInKelvin: Real, val zeroInKelvin: Real)
     extends PhysicalUnit[TemperatureUnit]{
 
   override def baseUnit = TemperatureUnit.Kelvin
@@ -95,6 +97,9 @@ sealed abstract class TemperatureUnit(val symbol: String, val unitInKelvin: Real
 }
 
 object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
   
   // intrinsic
   case object YoctoKelvin extends TemperatureUnit("yK", r"1e-24", 0)
@@ -103,7 +108,7 @@ object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
   case object FemtoKelvin extends TemperatureUnit("fK", r"1e-15", 0)
   case object PicoKelvin  extends TemperatureUnit("pK", r"1e-12", 0)
   case object NanoKelvin  extends TemperatureUnit("nK", r"1e-9", 0)
-  case object MicroKelvin extends TemperatureUnit("μK", r"1e-6", 0)
+  case object MicroKelvin extends TemperatureUnit(Seq("μK", "microKelvin", "microK"), r"1e-6", 0)
   case object MilliKelvin extends TemperatureUnit("mK", r"1e-3", 0)
   case object CentiKelvin extends TemperatureUnit("cK", r"1e-2", 0)
   case object DeciKelvin  extends TemperatureUnit("dK", r"1e-1", 0)
@@ -119,13 +124,13 @@ object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
   case object ZettaKelvin extends TemperatureUnit("ZK", r"1e21", 0)
   case object YottaKelvin extends TemperatureUnit("YK", r"1e24", 0)
 
-  case object DegreeCelsius    extends TemperatureUnit("degC;℃;°C", 1, r"273.15")
-  case object DegreeFahrenheit extends TemperatureUnit("degF;℉;°F", r"5/9", r"273.15" - r"5/9" * 32)
-  case object DegreeDelisle    extends TemperatureUnit("degDe;°De", r"-2/3", r"373.15")
-  case object DegreeNewton     extends TemperatureUnit("degN;°N", r"100/33", r"273.15")
-  case object DegreeRankine    extends TemperatureUnit("degR;°R", r"5/9", 0)
-  case object DegreeReaumur    extends TemperatureUnit("degRe;°Re", r"5/4", r"273.15")
-  case object DegreeRomer      extends TemperatureUnit("degRo;°Ro", r"40/21", r"273.15" - r"7.5" * r"40/21")
+  case object DegreeCelsius    extends TemperatureUnit(Seq("degC", "℃", "°C"), 1, r"273.15")
+  case object DegreeFahrenheit extends TemperatureUnit(Seq("degF", "℉", "°F"), r"5/9", r"273.15" - r"5/9" * 32)
+  case object DegreeDelisle    extends TemperatureUnit(Seq("degDe", "°De"), r"-2/3", r"373.15")
+  case object DegreeNewton     extends TemperatureUnit(Seq("degN", "°N"), r"100/33", r"273.15")
+  case object DegreeRankine    extends TemperatureUnit(Seq("degR", "°R"), r"5/9", 0)
+  case object DegreeReaumur    extends TemperatureUnit(Seq("degRe", "°Re"), r"5/4", r"273.15")
+  case object DegreeRomer      extends TemperatureUnit(Seq("degRo", "°Ro"), r"40/21", r"273.15" - r"7.5" * r"40/21")
   case object ReguloGasMark    extends TemperatureUnit("GM", r"125/9", r"422.038")
 
   override lazy val values = Seq(

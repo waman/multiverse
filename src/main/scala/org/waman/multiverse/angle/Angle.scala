@@ -21,7 +21,9 @@ trait AnglePostfixOps[A] extends DegreePostfixOps[A]{
   def drad: A = anglePostfixOps(DeciRadian)
   def crad: A = anglePostfixOps(CentiRadian)
   def mrad: A = anglePostfixOps(MilliRadian)
-  def μrad: A = anglePostfixOps(MicroRadian)
+  def microRadian: A = anglePostfixOps(MicroRadian)
+  def microRad   : A = microRadian
+  def μrad: A = microRadian
   def nrad: A = anglePostfixOps(NanoRadian)
   def prad: A = anglePostfixOps(PicoRadian)
   def frad: A = anglePostfixOps(FemtoRadian)
@@ -35,7 +37,9 @@ trait AnglePostfixOps[A] extends DegreePostfixOps[A]{
   def MOA: A = arcmin
   def arcsec: A = anglePostfixOps(ArcSecond)
   def mas: A = anglePostfixOps(MilliArcSecond)
-  def μas: A = anglePostfixOps(MicroArcSecond)
+  def microArcSecond: A = anglePostfixOps(MicroArcSecond)
+  def microArcsec   : A = microArcSecond
+  def μas: A = microArcSecond
   def nas: A = anglePostfixOps(NanoArcSecond)
   def pas: A = anglePostfixOps(PicoArcSecond)
   def fas: A = anglePostfixOps(FemtoArcSecond)
@@ -44,7 +48,7 @@ trait AnglePostfixOps[A] extends DegreePostfixOps[A]{
   def yas: A = anglePostfixOps(YoctoArcSecond)
 
   def gon: A = anglePostfixOps(Gradian)
-  def ᵍ  : A = anglePostfixOps(Gradian)
+  def ᵍ  : A = gon
   def tr : A = anglePostfixOps(Turn)
 }
 
@@ -57,7 +61,9 @@ trait AnglePer[A]{
   def drad(per: Per): A = anglePer(DeciRadian)
   def crad(per: Per): A = anglePer(CentiRadian)
   def mrad(per: Per): A = anglePer(MilliRadian)
-  def μrad(per: Per): A = anglePer(MicroRadian)
+  def microRadian(per: Per): A = anglePer(MicroRadian)
+  def microRad   (per: Per): A = microRadian(per)
+  def μrad(per: Per): A = microRadian(per)
   def nrad(per: Per): A = anglePer(NanoRadian)
   def prad(per: Per): A = anglePer(PicoRadian)
   def frad(per: Per): A = anglePer(FemtoRadian)
@@ -71,7 +77,9 @@ trait AnglePer[A]{
   def MOA(per: Per): A = arcmin(per)
   def arcsec(per: Per): A = anglePer(ArcSecond)
   def mas(per: Per): A = anglePer(MilliArcSecond)
-  def μas(per: Per): A = anglePer(MicroArcSecond)
+  def microArcSecond(per: Per): A = anglePer(MicroArcSecond)
+  def microArcsec   (per: Per): A = microArcSecond(per)
+  def μas(per: Per): A = microArcSecond(per)
   def nas(per: Per): A = anglePer(NanoArcSecond)
   def pas(per: Per): A = anglePer(PicoArcSecond)
   def fas(per: Per): A = anglePer(FemtoArcSecond)
@@ -80,7 +88,7 @@ trait AnglePer[A]{
   def yas(per: Per): A = anglePer(YoctoArcSecond)
 
   def gon(per: Per): A = anglePer(Gradian)
-  def ᵍ  (per: Per): A = anglePer(Gradian)
+  def ᵍ  (per: Per): A = gon(per)
   def tr (per: Per): A = anglePer(Turn)
 }
 
@@ -104,12 +112,12 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
   override protected def degreeTemperaturePostfixOps(unit: TemperatureUnit) = new Temperature(value, unit)
 }
 
-sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
+sealed abstract class AngleUnit(val symbols: Seq[String], val unitInRadian: Real)
     extends PhysicalUnit[AngleUnit]
     with DivisibleByTimeUnit[AngularVelocityUnit]{
 
-  def this(symbol: String, factor: Real, angleUnit: AngleUnit) =
-    this(symbol, factor * angleUnit.unitInRadian)
+  def this(symbols: Seq[String], factor: Real, angleUnit: AngleUnit) =
+    this(symbols, factor * angleUnit.unitInRadian)
 
   override def baseUnit = AngleUnit.Radian
   override def valueInBaseUnit = unitInRadian
@@ -121,11 +129,14 @@ sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
 
 object AngleUnit extends ConstantsDefined[AngleUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object Radian      extends AngleUnit("rad", 1)
   case object DeciRadian  extends AngleUnit("drad", r"1e-1")
   case object CentiRadian extends AngleUnit("crad", r"1e-2")
   case object MilliRadian extends AngleUnit("mrad", r"1e-3")
-  case object MicroRadian extends AngleUnit("μrad", r"1e-6")
+  case object MicroRadian extends AngleUnit(Seq("μrad", "microRadian", "microRad"), r"1e-6")
   case object NanoRadian  extends AngleUnit("nrad", r"1e-9")
   case object PicoRadian  extends AngleUnit("prad", r"1e-12")
   case object FemtoRadian extends AngleUnit("frad", r"1e-15")
@@ -133,16 +144,16 @@ object AngleUnit extends ConstantsDefined[AngleUnit]{
   case object ZeptoRadian extends AngleUnit("zrad", r"1e-21")
   case object YoctoRadian extends AngleUnit("yrad", r"1e-24")
 
-  case object Degree extends AngleUnit("deg;°", twoPi / r"360")
+  case object Degree extends AngleUnit(Seq("deg", "°"), twoPi / r"360")
       with DegreeTemperaturePostfixOps[TemperatureUnit]{
 
     override protected def degreeTemperaturePostfixOps(unit: TemperatureUnit) = unit
   }
 
-  case object ArcMinute extends AngleUnit("arcmin;MOA", r"1/60", Degree)
+  case object ArcMinute extends AngleUnit(Seq("arcmin", "MOA"), r"1/60", Degree)
   case object ArcSecond extends AngleUnit("arcsec", r"1/60", ArcMinute)
   case object MilliArcSecond extends AngleUnit("mas", r"1e-3", ArcSecond)
-  case object MicroArcSecond extends AngleUnit("μas", r"1e-6", ArcSecond)
+  case object MicroArcSecond extends AngleUnit(Seq("μas", "microArcsec", "microArcSecond"), r"1e-6", ArcSecond)
   case object NanoArcSecond  extends AngleUnit("nas", r"1e-9", ArcSecond)
   case object PicoArcSecond  extends AngleUnit("pas", r"1e-12", ArcSecond)
   case object FemtoArcSecond extends AngleUnit("fas", r"1e-15", ArcSecond)
@@ -150,7 +161,7 @@ object AngleUnit extends ConstantsDefined[AngleUnit]{
   case object ZeptoArcSecond extends AngleUnit("zas", r"1e-21", ArcSecond)
   case object YoctoArcSecond extends AngleUnit("yas", r"1e-24", ArcSecond)
 
-  case object Gradian extends AngleUnit("gon;ᵍ", twoPi / r"400")
+  case object Gradian extends AngleUnit(Seq("gon", "ᵍ"), twoPi / r"400")
   case object Turn    extends AngleUnit("tr" , twoPi)
 
   override lazy val values = Seq(

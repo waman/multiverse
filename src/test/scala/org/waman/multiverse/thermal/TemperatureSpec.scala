@@ -29,7 +29,7 @@ class TemperatureSpec
       __SetUp__
       val sut = getPostfixOpsPropertyNames
       val expected = TemperatureUnit.values
-        .flatMap(_.symbol.split(";"))
+        .flatMap(_.symbols)
         .filter(s => s.startsWith("°") && s.length > 1)
         .map(_.substring(1))
       __Verify__

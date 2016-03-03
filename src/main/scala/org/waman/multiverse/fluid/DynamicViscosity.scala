@@ -49,10 +49,13 @@ sealed trait DynamicViscosityUnit extends PhysicalUnit[DynamicViscosityUnit]{
 
 object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
 
-  // Custom
+  // intrinsic
   private[DynamicViscosityUnit]
-  class IntrinsicDynamicViscosityUnit(val symbol: String, val unitInPascalSecond: Real)
-    extends DynamicViscosityUnit
+  class IntrinsicDynamicViscosityUnit(symbol: String, val unitInPascalSecond: Real)
+      extends DynamicViscosityUnit{
+
+    override lazy val symbols: Seq[String] = Seq(symbol)
+  }
 
   case object Poise extends IntrinsicDynamicViscosityUnit("P", r"0.1")
 

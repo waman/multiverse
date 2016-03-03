@@ -39,7 +39,9 @@ trait LengthPostfixOps[A]{
   def fm: A = lengthPostfixOps(FemtoMetre)
   def pm: A = lengthPostfixOps(PicoMetre)
   def nm: A = lengthPostfixOps(NanoMetre)
-  def μm: A = lengthPostfixOps(MicroMetre)
+  def microMetre: A = lengthPostfixOps(MicroMetre)
+  def micrometre: A = microMetre
+  def μm: A = microMetre
   def mm: A = lengthPostfixOps(MilliMetre)
   def cm: A = lengthPostfixOps(CentiMetre)
   def dm: A = lengthPostfixOps(DeciMetre)
@@ -56,12 +58,15 @@ trait LengthPostfixOps[A]{
   def Ym: A = lengthPostfixOps(YottaMetre)
 
   // microscopic
-  def μ: A = lengthPostfixOps(Micron)
-  def Å: A = lengthPostfixOps(Angstrom)
+  def micron: A = lengthPostfixOps(Micron)
+  def μ: A = micron
+  def angstrom: A = lengthPostfixOps(Angstrom)
+  def Å: A = angstrom
   def a0: A = lengthPostfixOps(AtomicUnitOfLength)
   def xu: A = lengthPostfixOps(XUnit)
   def xu(c: Context): A = lengthPostfixOps(_xu(c))
-  def lp: A = lengthPostfixOps(PlanckLength)
+  def l_p: A = lengthPostfixOps(PlanckLength)
+  def lp : A = l_p
 
   // astronomy
   def au: A = lengthPostfixOps(AstronomicalUnit)
@@ -157,7 +162,9 @@ trait LengthDot[A]{
   def fm(dot: Dot): A = lengthDot(FemtoMetre)
   def pm(dot: Dot): A = lengthDot(PicoMetre)
   def nm(dot: Dot): A = lengthDot(NanoMetre)
-  def μm(dot: Dot): A = lengthDot(MicroMetre)
+  def microMetre(dot: Dot): A = lengthDot(MicroMetre)
+  def micrometre(dot: Dot): A = microMetre(dot)
+  def μm(dot: Dot): A = microMetre(dot)
   def mm(dot: Dot): A = lengthDot(MilliMetre)
   def cm(dot: Dot): A = lengthDot(CentiMetre)
   def dm(dot: Dot): A = lengthDot(DeciMetre)
@@ -174,11 +181,14 @@ trait LengthDot[A]{
   def Ym(dot: Dot): A = lengthDot(YottaMetre)
 
   // microscopic
-  def μ(dot: Dot): A = lengthDot(Micron)
-  def Å(dot: Dot): A = lengthDot(Angstrom)
+  def micron(dot: Dot): A = lengthDot(Micron)
+  def μ(dot: Dot): A = micron(dot)
+  def angstrom(dot: Dot): A = lengthDot(Angstrom)
+  def Å(dot: Dot): A = angstrom(dot)
   def a0(dot: Dot): A = lengthDot(AtomicUnitOfLength)
   def xu(dot: Dot): A = lengthDot(XUnit)
-  def lp(dot: Dot): A = lengthDot(PlanckLength)
+  def l_p(dot: Dot): A = lengthDot(PlanckLength)
+  def lp(dot: Dot): A = l_p(dot)
 
   // astronomy
   def au(dot: Dot): A = lengthDot(AstronomicalUnit)
@@ -229,7 +239,9 @@ trait LengthPer[A]{
   def fm(per: Per): A = lengthPer(FemtoMetre)
   def pm(per: Per): A = lengthPer(PicoMetre)
   def nm(per: Per): A = lengthPer(NanoMetre)
-  def μm(per: Per): A = lengthPer(MicroMetre)
+  def microMetre(per: Per): A = lengthPer(MicroMetre)
+  def micrometre(per: Per): A = microMetre(per)
+  def μm(per: Per): A = microMetre(per)
   def mm(per: Per): A = lengthPer(MilliMetre)
   def cm(per: Per): A = lengthPer(CentiMetre)
   def dm(per: Per): A = lengthPer(DeciMetre)
@@ -246,11 +258,14 @@ trait LengthPer[A]{
   def Ym(per: Per): A = lengthPer(YottaMetre)
 
   // microscopic
-  def μ(per: Per): A = lengthPer(Micron)
-  def Å(per: Per): A = lengthPer(Angstrom)
+  def micron(per: Per): A = lengthPer(Micron)
+  def μ(per: Per): A = micron(per)
+  def angstrom(per: Per): A = lengthPer(Angstrom)
+  def Å(per: Per): A = angstrom(per)
   def a0(per: Per): A = lengthPer(AtomicUnitOfLength)
   def xu(per: Per): A = lengthPer(XUnit)
-  def lp(per: Per): A = lengthPer(PlanckLength)
+  def l_p(per: Per): A = lengthPer(PlanckLength)
+  def lp(per: Per): A = l_p(per)
 
   // astronomy
   def au(per: Per): A = lengthPer(AstronomicalUnit)
@@ -321,19 +336,21 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     new Acceleration[A](value, unit / timeSquaredUnit)
 }
 
-sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
+sealed abstract class LengthUnit(val symbols: Seq[String], val unitInMetre: Real)
     extends PhysicalUnit[LengthUnit]
     with MultiplicativeByLengthUnit[AreaUnit]
     with DivisibleByTimeUnit[VelocityUnit] // for style like "1.0 (m/s)" ( = "1.0.apply(m./(s))")
     with DivisibleByTimeSquaredUnit[AccelerationUnit]{
 
-  def this(symbol: String, factor: Real, lengthUnit: LengthUnit) =
-    this(symbol, factor * lengthUnit.unitInMetre)
+  def this(symbols: Seq[String], factor: Real, lengthUnit: LengthUnit) =
+    this(symbols, factor * lengthUnit.unitInMetre)
 
   override def baseUnit = LengthUnit.Metre
   override def valueInBaseUnit = unitInMetre
 
   override def *(lengthUnit: LengthUnit) = AreaUnit(this, lengthUnit)
+  def square: AreaUnit = this * this
+  def cubic : VolumeUnit = this * this * this
 
   override def /(timeUnit: TimeUnit) = VelocityUnit(this, timeUnit)
   override def /(timeSquaredUnit: TimeSquaredUnit) = AccelerationUnit(this, timeSquaredUnit)
@@ -343,13 +360,16 @@ sealed abstract class LengthUnit(val symbol: String, val unitInMetre: Real)
 
 object LengthUnit extends ConstantsDefined[LengthUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object YoctoMetre extends LengthUnit("ym", r"1e-24")
   case object ZeptoMetre extends LengthUnit("zm", r"1e-21")
   case object AttoMetre  extends LengthUnit("am", r"1e-18")
   case object FemtoMetre extends LengthUnit("fm", r"1e-15")
   case object PicoMetre  extends LengthUnit("pm", r"1e-12")
   case object NanoMetre  extends LengthUnit("nm", r"1e-9")
-  case object MicroMetre extends LengthUnit("μm", r"1e-6")
+  case object MicroMetre extends LengthUnit(Seq("μm", "microMetre", "micrometre"), r"1e-6")
   case object MilliMetre extends LengthUnit("mm", r"1e-3")
   case object CentiMetre extends LengthUnit("cm", r"1e-2")
   case object DeciMetre  extends LengthUnit("dm", r"1e-1")
@@ -366,13 +386,13 @@ object LengthUnit extends ConstantsDefined[LengthUnit]{
   case object YottaMetre extends LengthUnit("Ym", r"1e24")
 
   // microscopic
-  case object Micron             extends LengthUnit("μ" , r"1e-6")
-  case object Angstrom           extends LengthUnit("Å" , r"1e-10")
+  case object Micron             extends LengthUnit(Seq("μ", "micron") , r"1e-6")
+  case object Angstrom           extends LengthUnit(Seq("Å", "angstrom") , r"1e-10")
   case object AtomicUnitOfLength extends LengthUnit("a0", r"5.291772109217e-11") with NotExact
   case object XUnit              extends LengthUnit("xu", r"1.0021e-13") with NotExact
   case object XUnit_CuKAlpha1    extends LengthUnit("xu(CuKα1)", r"1.0020769928e-13") with NotExact
   case object XUnit_MoKAlpha1    extends LengthUnit("xu(MoKα1)", r"1.0020995553e-13") with NotExact
-  case object PlanckLength       extends LengthUnit("lp", r"1.61624e-35") with NotExact
+  case object PlanckLength       extends LengthUnit(Seq("lp", "l_p"), r"1.61624e-35") with NotExact
 
   // astronomy
   case object AstronomicalUnit extends LengthUnit("au", r"149597870700")
@@ -380,13 +400,13 @@ object LengthUnit extends ConstantsDefined[LengthUnit]{
   case object Parsec           extends LengthUnit("pc", r"3.08567782e16") with NotExact
 
   // yard-pond
-  case object Mil    extends LengthUnit("mil;thou", r"1/1000", Inch)
+  case object Mil    extends LengthUnit(Seq("mil", "thou"), r"1/1000", Inch)
   case object Twip   extends LengthUnit("twp", r"1/20", Point)
   case object Point  extends LengthUnit("pt", r"1/72", Inch)
   case object Line   extends LengthUnit("ln", r"1/12", Inch)
   case object Inch   extends LengthUnit("in", r"2.54", CentiMetre)
   case object Foot   extends LengthUnit("ft", 12, Inch)
-  case object Link   extends LengthUnit("li;lnk", r"0.66", Foot)
+  case object Link   extends LengthUnit(Seq("li", "lnk"), r"0.66", Foot)
   case object Yard   extends LengthUnit("yd", 3, Foot)
   case object Ell    extends LengthUnit("ell", 45, Inch)
   case object Fathom extends LengthUnit("ftm", 6, Foot)
@@ -396,14 +416,14 @@ object LengthUnit extends ConstantsDefined[LengthUnit]{
   case object Mile   extends LengthUnit("mi", 1760, Yard)
   case object League extends LengthUnit("lea", 3, Mile)
 
-  case object NauticalMile           extends LengthUnit("NM;nmi", 1852)
-  case object NauticalMile_Admiralty extends LengthUnit("NM(Adm);nmi(Adm)", 6080, Foot)
-  case object NauticalLeague         extends LengthUnit("NL;nl", 3, NauticalMile)
+  case object NauticalMile           extends LengthUnit(Seq("NM", "nmi"), 1852)
+  case object NauticalMile_Admiralty extends LengthUnit(Seq("NM(Adm)", "nmi(Adm)"), 6080, Foot)
+  case object NauticalLeague         extends LengthUnit(Seq("NL", "nl"), 3, NauticalMile)
   case object Cable          extends LengthUnit("cb"     , r"1/10", NauticalMile)
   case object Cable_US       extends LengthUnit("cb(US)" , 720, Foot)
   case object Cable_imperial extends LengthUnit("cb(imp)", 608, Foot)
 
-  case object Link_US_Survey  extends LengthUnit("li(US);lnk(US)", r"0.66", Foot_US_Survey)
+  case object Link_US_Survey  extends LengthUnit(Seq("li(US)", "lnk(US)"), r"0.66", Foot_US_Survey)
   case object Foot_US_Survey  extends LengthUnit("ft(US)", r"1200/3937")
   case object Chain_US_Survey extends LengthUnit("ch(US)", 66, Foot_US_Survey)
   case object Mile_US_Survey  extends LengthUnit("mi(US)", 5280, Foot_US_Survey)

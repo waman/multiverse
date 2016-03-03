@@ -17,7 +17,9 @@ trait LuminousFluxPostfixOps[A]{
   def flm: A = luminousFluxPostfixOps(FemtoLumen)
   def plm: A = luminousFluxPostfixOps(PicoLumen)
   def nlm: A = luminousFluxPostfixOps(NanoLumen)
-  def μlm: A = luminousFluxPostfixOps(MicroLumen)
+  def microLumen: A = luminousFluxPostfixOps(MicroLumen)
+  def microLm   : A = microLumen
+  def μlm: A = microLumen
   def mlm: A = luminousFluxPostfixOps(MilliLumen)
   def clm: A = luminousFluxPostfixOps(CentiLumen)
   def dlm: A = luminousFluxPostfixOps(DeciLumen)
@@ -46,7 +48,9 @@ trait LuminousFluxPer[A]{
   def flm(per: Per): A = luminousFluxPer(FemtoLumen)
   def plm(per: Per): A = luminousFluxPer(PicoLumen)
   def nlm(per: Per): A = luminousFluxPer(NanoLumen)
-  def μlm(per: Per): A = luminousFluxPer(MicroLumen)
+  def microLumen(per: Per): A = luminousFluxPer(MicroLumen)
+  def microLm   (per: Per): A = microLumen(per)
+  def μlm(per: Per): A = microLumen(per)
   def mlm(per: Per): A = luminousFluxPer(MilliLumen)
   def clm(per: Per): A = luminousFluxPer(CentiLumen)
   def dlm(per: Per): A = luminousFluxPer(DeciLumen)
@@ -80,7 +84,7 @@ class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
   override def /(areaUnit: AreaUnit) = new Illuminance[A](value, unit / areaUnit)
 }
 
-sealed abstract class LuminousFluxUnit(val symbol: String, val unitInLumen: Real)
+sealed abstract class LuminousFluxUnit(val symbols: Seq[String], val unitInLumen: Real)
     extends PhysicalUnit[LuminousFluxUnit]
     with DivisibleByAreaUnit[IlluminanceUnit]{
 
@@ -92,6 +96,9 @@ sealed abstract class LuminousFluxUnit(val symbol: String, val unitInLumen: Real
 
 object LuminousFluxUnit extends ConstantsDefined[LuminousFluxUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   // intrinsic
   case object YoctoLumen extends LuminousFluxUnit("ylm", r"1e-24")
   case object ZeptoLumen extends LuminousFluxUnit("zlm", r"1e-21")
@@ -99,7 +106,7 @@ object LuminousFluxUnit extends ConstantsDefined[LuminousFluxUnit]{
   case object FemtoLumen extends LuminousFluxUnit("flm", r"1e-15")
   case object PicoLumen  extends LuminousFluxUnit("plm", r"1e-12")
   case object NanoLumen  extends LuminousFluxUnit("nlm", r"1e-9")
-  case object MicroLumen extends LuminousFluxUnit("μlm", r"1e-6")
+  case object MicroLumen extends LuminousFluxUnit(Seq("μlm", "microLumen", "microLm"), r"1e-6")
   case object MilliLumen extends LuminousFluxUnit("mlm", r"1e-3")
   case object CentiLumen extends LuminousFluxUnit("clm", r"1e-2")
   case object DeciLumen  extends LuminousFluxUnit("dlm", r"1e-1")

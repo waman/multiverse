@@ -17,7 +17,9 @@ trait LuminousIntensityPostfixOps[A]{
   def fcd: A = luminousIntensityPostfixOps(FemtoCandela)
   def pcd: A = luminousIntensityPostfixOps(PicoCandela)
   def ncd: A = luminousIntensityPostfixOps(NanoCandela)
-  def μcd: A = luminousIntensityPostfixOps(MicroCandela)
+  def microCandela: A = luminousIntensityPostfixOps(MicroCandela)
+  def microCd     : A = microCandela
+  def μcd: A = microCandela
   def mcd: A = luminousIntensityPostfixOps(MilliCandela)
   def ccd: A = luminousIntensityPostfixOps(CentiCandela)
   def dcd: A = luminousIntensityPostfixOps(DeciCandela)
@@ -46,7 +48,9 @@ trait LuminousIntensityPer[A]{
   def fcd(per: Per): A = luminousIntensityPer(FemtoCandela)
   def pcd(per: Per): A = luminousIntensityPer(PicoCandela)
   def ncd(per: Per): A = luminousIntensityPer(NanoCandela)
-  def μcd(per: Per): A = luminousIntensityPer(MicroCandela)
+  def microCandela(per: Per): A = luminousIntensityPer(MicroCandela)
+  def microCd     (per: Per): A = microCandela(per)
+  def μcd(per: Per): A = microCandela(per)
   def mcd(per: Per): A = luminousIntensityPer(MilliCandela)
   def ccd(per: Per): A = luminousIntensityPer(CentiCandela)
   def dcd(per: Per): A = luminousIntensityPer(DeciCandela)
@@ -81,7 +85,7 @@ class LuminousIntensity[A: Fractional](val value: A, val unit: LuminousIntensity
   override def /(areaUnit: AreaUnit) = new Luminance[A](value, unit / areaUnit)
 }
 
-sealed abstract class LuminousIntensityUnit(val symbol: String, val unitInCandela: Real)
+sealed abstract class LuminousIntensityUnit(val symbols: Seq[String], val unitInCandela: Real)
     extends PhysicalUnit[LuminousIntensityUnit]
     with DivisibleByAreaUnit[LuminanceUnit]{
 
@@ -93,13 +97,16 @@ sealed abstract class LuminousIntensityUnit(val symbol: String, val unitInCandel
 
 object LuminousIntensityUnit extends ConstantsDefined[LuminousIntensityUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object YoctoCandela extends LuminousIntensityUnit("ycd", r"1e-24")
   case object ZeptoCandela extends LuminousIntensityUnit("zcd", r"1e-21")
   case object AttoCandela  extends LuminousIntensityUnit("acd", r"1e-18")
   case object FemtoCandela extends LuminousIntensityUnit("fcd", r"1e-15")
   case object PicoCandela  extends LuminousIntensityUnit("pcd", r"1e-12")
   case object NanoCandela  extends LuminousIntensityUnit("ncd", r"1e-9")
-  case object MicroCandela extends LuminousIntensityUnit("μcd", r"1e-6")
+  case object MicroCandela extends LuminousIntensityUnit(Seq("μcd", "microCandela", "microCd"), r"1e-6")
   case object MilliCandela extends LuminousIntensityUnit("mcd", r"1e-3")
   case object CentiCandela extends LuminousIntensityUnit("ccd", r"1e-2")
   case object DeciCandela  extends LuminousIntensityUnit("dcd", r"1e-1")

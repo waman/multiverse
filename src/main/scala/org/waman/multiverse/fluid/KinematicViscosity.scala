@@ -52,8 +52,11 @@ object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
 
   // Custom
   private[KinematicViscosityUnit]
-  class IntrinsicKinematicViscosityUnit(val symbol: String, val unitInSquareMetrePerSecond: Real)
-    extends KinematicViscosityUnit
+  class IntrinsicKinematicViscosityUnit(symbol: String, val unitInSquareMetrePerSecond: Real)
+      extends KinematicViscosityUnit{
+
+    override lazy val symbols: Seq[String] = Seq(symbol)
+  }
 
   case object Stokes extends IntrinsicKinematicViscosityUnit("St", r"1e-4")
 

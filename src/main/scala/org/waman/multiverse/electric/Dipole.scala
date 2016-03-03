@@ -50,11 +50,13 @@ object DipoleUnit extends ConstantsDefined[DipoleUnit]{
 
   // Custom
   private[DipoleUnit]
-  class IntrinsicDipoleUnit(val symbol: String, val unitInCoulombMetre: Real)
-    extends DipoleUnit{
+  class IntrinsicDipoleUnit(symbol: String, val unitInCoulombMetre: Real)
+      extends DipoleUnit{
 
     def this(symbol: String, chargeUnit: ChargeUnit, lengthUnit: LengthUnit) =
       this(symbol, chargeUnit.unitInCoulomb * lengthUnit.unitInMetre)
+
+    override val symbols = Seq(symbol)
   }
 
   case object Debye extends IntrinsicDipoleUnit("D", r"340")

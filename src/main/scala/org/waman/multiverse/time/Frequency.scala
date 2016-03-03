@@ -16,7 +16,9 @@ trait FrequencyPostfixOps[A]{
   def fHz: A = frequencyPostfixOps(FemtoHeltz)
   def pHz: A = frequencyPostfixOps(PicoHeltz)
   def nHz: A = frequencyPostfixOps(NanoHeltz)
-  def μHz: A = frequencyPostfixOps(MicroHeltz)
+  def microHeltz: A = frequencyPostfixOps(MicroHeltz)
+  def microHz: A = microHeltz
+  def μHz: A = microHeltz
   def mHz: A = frequencyPostfixOps(MilliHeltz)
   def cHz: A = frequencyPostfixOps(CentiHeltz)
   def dHz: A = frequencyPostfixOps(DeciHeltz)
@@ -52,7 +54,7 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
   )
 }
 
-sealed abstract class FrequencyUnit(val symbol: String, val unitInHeltz: Real)
+sealed abstract class FrequencyUnit(val symbols: Seq[String], val unitInHeltz: Real)
   extends PhysicalUnit[FrequencyUnit]{
 
   override def baseUnit = FrequencyUnit.Heltz
@@ -61,13 +63,16 @@ sealed abstract class FrequencyUnit(val symbol: String, val unitInHeltz: Real)
 
 object FrequencyUnit extends ConstantsDefined[FrequencyUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object YoctoHeltz extends FrequencyUnit("yHz", r"1e-24")
   case object ZeptoHeltz extends FrequencyUnit("zHz", r"1e-21")
   case object AttoHeltz  extends FrequencyUnit("aHz", r"1e-18")
   case object FemtoHeltz extends FrequencyUnit("fHz", r"1e-15")
   case object PicoHeltz  extends FrequencyUnit("pHz", r"1e-12")
   case object NanoHeltz  extends FrequencyUnit("nHz", r"1e-9")
-  case object MicroHeltz extends FrequencyUnit("μHz", r"1e-6")
+  case object MicroHeltz extends FrequencyUnit(Seq("μHz", "microHeltz", "microHz"), r"1e-6")
   case object MilliHeltz extends FrequencyUnit("mHz", r"1e-3")
   case object CentiHeltz extends FrequencyUnit("cHz", r"1e-2")
   case object DeciHeltz  extends FrequencyUnit("dHz", r"1e-1")

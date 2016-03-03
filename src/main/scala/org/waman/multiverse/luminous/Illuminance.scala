@@ -17,7 +17,9 @@ trait IlluminancePostfixOps[A]{
   def flx: A = illuminancePostfixOps(FemtoLux)
   def plx: A = illuminancePostfixOps(PicoLux)
   def nlx: A = illuminancePostfixOps(NanoLux)
-  def μlx: A = illuminancePostfixOps(MicroLux)
+  def microLux: A = illuminancePostfixOps(MicroLux)
+  def microLx : A = microLux
+  def μlx: A = microLux
   def mlx: A = illuminancePostfixOps(MilliLux)
   def clx: A = illuminancePostfixOps(CentiLux)
   def dlx: A = illuminancePostfixOps(DeciLux)
@@ -71,13 +73,15 @@ sealed trait IlluminanceUnit extends PhysicalUnit[IlluminanceUnit]{
 
 object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   // intrinsic
   private[IlluminanceUnit]
-  class IntrinsicIlluminanceUnit(val symbol: String, val unitInLux: Real)
+  class IntrinsicIlluminanceUnit(val symbols: Seq[String], val unitInLux: Real)
       extends IlluminanceUnit{
-    
-    def this(symbol: String, lUnit: LuminousFluxUnit, aUnit: AreaUnit) =
-      this(symbol, lUnit.unitInLumen / aUnit.unitInSquareMetre)
+
+    def this(symbols: Seq[String], unit: IlluminanceUnit) = this(symbols, unit.unitInLux)
   }
 
   case object YoctoLux extends IntrinsicIlluminanceUnit("ylx", r"1e-24")
@@ -86,7 +90,7 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
   case object FemtoLux extends IntrinsicIlluminanceUnit("flx", r"1e-15")
   case object PicoLux  extends IntrinsicIlluminanceUnit("plx", r"1e-12")
   case object NanoLux  extends IntrinsicIlluminanceUnit("nlx", r"1e-9")
-  case object MicroLux extends IntrinsicIlluminanceUnit("μlx", r"1e-6")
+  case object MicroLux extends IntrinsicIlluminanceUnit(Seq("μlx", "microLux", "microLx"), r"1e-6")
   case object MilliLux extends IntrinsicIlluminanceUnit("mlx", r"1e-3")
   case object CentiLux extends IntrinsicIlluminanceUnit("clx", r"1e-2")
   case object DeciLux  extends IntrinsicIlluminanceUnit("dlx", r"1e-1")
@@ -103,7 +107,7 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
   case object YottaLux extends IntrinsicIlluminanceUnit("Ylx", r"1e24")
   
   case object Phot extends IntrinsicIlluminanceUnit("ph", r"1e4")
-  case object FootCandle extends IntrinsicIlluminanceUnit("fc", LuminousFluxUnit.Lumen, AreaUnit.SquareFoot)
+  case object FootCandle extends IntrinsicIlluminanceUnit("fc", LuminousFluxUnit.Lumen / AreaUnit.SquareFoot)
 
   override lazy val values = Seq(
     YoctoLux,

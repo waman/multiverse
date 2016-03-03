@@ -44,7 +44,7 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
   override def *(lengthUnit: LengthUnit): Torque[A] = new Torque(value, unit * lengthUnit)
 }
 
-sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
+sealed abstract class ForceUnit(val symbols: Seq[String], val unitInNewton: Real)
   extends PhysicalUnit[ForceUnit]
   with MultiplicativeByLengthUnit[TorqueUnit]{
 
@@ -56,9 +56,12 @@ sealed abstract class ForceUnit(val symbol: String, val unitInNewton: Real)
 
 object ForceUnit extends ConstantsDefined[ForceUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object Newton        extends ForceUnit("N"  , 1)
   case object Dyne          extends ForceUnit("dyn", r"1e-5")
-  case object KiloGramForce extends ForceUnit("kgf;kp", r"9.80665")
+  case object KiloGramForce extends ForceUnit(Seq("kgf", "kp"), r"9.80665")
 
   override lazy val values = Seq(
     Newton,

@@ -17,7 +17,9 @@ trait InductancePostfixOps[A]{
   def fH: A = inductancePostfixOps(FemtoHenry)
   def pH: A = inductancePostfixOps(PicoHenry)
   def nH: A = inductancePostfixOps(NanoHenry)
-  def μH: A = inductancePostfixOps(MicroHenry)
+  def microHenry: A = inductancePostfixOps(MicroHenry)
+  def microH: A = microHenry
+  def μH: A = microHenry
   def mH: A = inductancePostfixOps(MilliHenry)
   def cH: A = inductancePostfixOps(CentiHenry)
   def dH: A = inductancePostfixOps(DeciHenry)
@@ -67,11 +69,15 @@ sealed trait InductanceUnit extends PhysicalUnit[InductanceUnit]{
 }
 
 object InductanceUnit extends ConstantsDefined[InductanceUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
   
   // intrinsic
   private[InductanceUnit]
-  class IntrinsicInductanceUnit(val symbol: String, val unitInHenry: Real)
-      extends InductanceUnit
+  class IntrinsicInductanceUnit(val symbols: Seq[String], val unitInHenry: Real)
+      extends InductanceUnit{
+  }
 
   case object YoctoHenry extends IntrinsicInductanceUnit("yH", r"1e-24")
   case object ZeptoHenry extends IntrinsicInductanceUnit("zH", r"1e-21")
@@ -79,7 +85,7 @@ object InductanceUnit extends ConstantsDefined[InductanceUnit]{
   case object FemtoHenry extends IntrinsicInductanceUnit("fH", r"1e-15")
   case object PicoHenry  extends IntrinsicInductanceUnit("pH", r"1e-12")
   case object NanoHenry  extends IntrinsicInductanceUnit("nH", r"1e-9")
-  case object MicroHenry extends IntrinsicInductanceUnit("μH", r"1e-6")
+  case object MicroHenry extends IntrinsicInductanceUnit(Seq("μH", "microHenry", "microH"), r"1e-6")
   case object MilliHenry extends IntrinsicInductanceUnit("mH", r"1e-3")
   case object CentiHenry extends IntrinsicInductanceUnit("cH", r"1e-2")
   case object DeciHenry  extends IntrinsicInductanceUnit("dH", r"1e-1")

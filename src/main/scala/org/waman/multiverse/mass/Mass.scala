@@ -17,7 +17,10 @@ trait MassPostfixOps[A]{
   def fg: A = massPostfixOps(FemtoGram)
   def pg: A = massPostfixOps(PicoGram)
   def ng: A = massPostfixOps(NanoGram)
-  def μg: A = massPostfixOps(MicroGram)
+  def microGram: A = massPostfixOps(MicroGram)
+  def microgram: A = microGram
+  def mcg: A = microGram
+  def μg: A = microGram
   def mg: A = massPostfixOps(MilliGram)
   def cg: A = massPostfixOps(CentiGram)
   def dg: A = massPostfixOps(DeciGram)
@@ -60,7 +63,10 @@ trait MassPer[A]{
   def fg(per: Per): A = massPer(FemtoGram)
   def pg(per: Per): A = massPer(PicoGram)
   def ng(per: Per): A = massPer(NanoGram)
-  def μg(per: Per): A = massPer(MicroGram)
+  def microGram(per: Per): A = massPer(MicroGram)
+  def microgram(per: Per): A = microGram(per)
+  def mcg(per: Per): A = microGram(per)
+  def μg(per: Per): A = microGram(per)
   def mg(per: Per): A = massPer(MilliGram)
   def cg(per: Per): A = massPer(CentiGram)
   def dg(per: Per): A = massPer(DeciGram)
@@ -110,11 +116,11 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
   override def /(volumeUnit: VolumeUnit): Density[A] = new Density(value, unit / volumeUnit)
 }
 
-sealed abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
+sealed abstract class MassUnit(val symbols: Seq[String], val unitInKiloGram: Real)
   extends PhysicalUnit[MassUnit] with DivisibleByVolumeUnit[DensityUnit]{
 
-  def this(symbol: String, factor: Real, massUnit: MassUnit) =
-    this(symbol, factor * massUnit.unitInKiloGram)
+  def this(symbols: Seq[String], factor: Real, massUnit: MassUnit) =
+    this(symbols, factor * massUnit.unitInKiloGram)
 
   override def baseUnit = MassUnit.KiloGram
   override def valueInBaseUnit = unitInKiloGram
@@ -124,13 +130,16 @@ sealed abstract class MassUnit(val symbol: String, val unitInKiloGram: Real)
 
 object MassUnit extends ConstantsDefined[MassUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   case object YoctoGram extends MassUnit("yg", r"1e-24", Gram)
   case object ZeptoGram extends MassUnit("zg", r"1e-21", Gram)
   case object AttoGram  extends MassUnit("ag", r"1e-18", Gram)
   case object FemtoGram extends MassUnit("fg", r"1e-15", Gram)
   case object PicoGram  extends MassUnit("pg", r"1e-12", Gram)
   case object NanoGram  extends MassUnit("ng", r"1e-9", Gram)
-  case object MicroGram extends MassUnit("μg", r"1e-6", Gram)
+  case object MicroGram extends MassUnit(Seq("μg", "microGram", "microgram", "mcg"), r"1e-6", Gram)
   case object MilliGram extends MassUnit("mg", r"1e-3", Gram)
   case object CentiGram extends MassUnit("cg", r"1e-2", Gram)
   case object DeciGram  extends MassUnit("dg", r"1e-1", Gram)
@@ -147,7 +156,7 @@ object MassUnit extends ConstantsDefined[MassUnit]{
   case object YottaGram extends MassUnit("Yg", r"1e24", Gram)
 
   // microscopic
-  case object AtomicMassUnit extends MassUnit("u;AMU;Da", r"1.66053892173e-27") with NotExact
+  case object AtomicMassUnit extends MassUnit(Seq("u", "AMU", "Da"), r"1.66053892173e-27") with NotExact
   case object ElectronMass extends MassUnit("m_e", r"9.1093829140e-31") with NotExact
 
   // yard-pond

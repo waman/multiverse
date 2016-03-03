@@ -17,7 +17,9 @@ trait EquivalentDosePostfixOps[A]{
   def fSv: A = equivalentDosePostfixOps(FemtoSievert)
   def pSv: A = equivalentDosePostfixOps(PicoSievert)
   def nSv: A = equivalentDosePostfixOps(NanoSievert)
-  def μSv: A = equivalentDosePostfixOps(MicroSievert)
+  def microSievert: A = equivalentDosePostfixOps(MicroSievert)
+  def microSv     : A = microSievert
+  def μSv: A = microSievert
   def mSv: A = equivalentDosePostfixOps(MilliSievert)
   def cSv: A = equivalentDosePostfixOps(CentiSievert)
   def dSv: A = equivalentDosePostfixOps(DeciSievert)
@@ -39,7 +41,8 @@ trait EquivalentDosePostfixOps[A]{
   def frem: A = equivalentDosePostfixOps(FemtoREM)
   def prem: A = equivalentDosePostfixOps(PicoREM)
   def nrem: A = equivalentDosePostfixOps(NanoREM)
-  def μrem: A = equivalentDosePostfixOps(MicroREM)
+  def microRem: A = equivalentDosePostfixOps(MicroREM)
+  def μrem: A = microRem
   def mrem: A = equivalentDosePostfixOps(MilliREM)
   def crem: A = equivalentDosePostfixOps(CentiREM)
   def drem: A = equivalentDosePostfixOps(DeciREM)
@@ -68,7 +71,9 @@ trait EquivalentDosePer[A]{
   def fSv(per: Per): A = equivalentDosePer(FemtoSievert)
   def pSv(per: Per): A = equivalentDosePer(PicoSievert)
   def nSv(per: Per): A = equivalentDosePer(NanoSievert)
-  def μSv(per: Per): A = equivalentDosePer(MicroSievert)
+  def microSievert(per: Per): A = equivalentDosePer(MicroSievert)
+  def microSv     (per: Per): A = microSievert(per)
+  def μSv(per: Per): A = microSievert(per)
   def mSv(per: Per): A = equivalentDosePer(MilliSievert)
   def cSv(per: Per): A = equivalentDosePer(CentiSievert)
   def dSv(per: Per): A = equivalentDosePer(DeciSievert)
@@ -90,7 +95,8 @@ trait EquivalentDosePer[A]{
   def frem(per: Per): A = equivalentDosePer(FemtoREM)
   def prem(per: Per): A = equivalentDosePer(PicoREM)
   def nrem(per: Per): A = equivalentDosePer(NanoREM)
-  def μrem(per: Per): A = equivalentDosePer(MicroREM)
+  def microRem(per: Per): A = equivalentDosePer(MicroREM)
+  def μrem    (per: Per): A = microRem(per)
   def mrem(per: Per): A = equivalentDosePer(MilliREM)
   def crem(per: Per): A = equivalentDosePer(CentiREM)
   def drem(per: Per): A = equivalentDosePer(DeciREM)
@@ -125,12 +131,12 @@ class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
   override def /(timeUnit: TimeUnit) = new EquivalentDoseRate(value, unit / timeUnit)
 }
 
-sealed abstract class EquivalentDoseUnit(val symbol: String, val unitInSievert: Real)
+sealed abstract class EquivalentDoseUnit(val symbols: Seq[String], val unitInSievert: Real)
     extends PhysicalUnit[EquivalentDoseUnit]
     with DivisibleByTimeUnit[EquivalentDoseRateUnit]{
 
-  def this(symbol: String, factor: Real, unit: EquivalentDoseUnit) =
-    this(symbol, factor * unit.unitInSievert)
+  def this(symbols: Seq[String], factor: Real, unit: EquivalentDoseUnit) =
+    this(symbols, factor * unit.unitInSievert)
 
   override def baseUnit = EquivalentDoseUnit.Sievert
   override def valueInBaseUnit = unitInSievert
@@ -140,6 +146,9 @@ sealed abstract class EquivalentDoseUnit(val symbol: String, val unitInSievert: 
 
 object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
 
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
+
   // intrinsic
   case object YoctoSievert extends EquivalentDoseUnit("ySv", r"1e-24")
   case object ZeptoSievert extends EquivalentDoseUnit("zSv", r"1e-21")
@@ -147,7 +156,7 @@ object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
   case object FemtoSievert extends EquivalentDoseUnit("fSv", r"1e-15")
   case object PicoSievert  extends EquivalentDoseUnit("pSv", r"1e-12")
   case object NanoSievert  extends EquivalentDoseUnit("nSv", r"1e-9")
-  case object MicroSievert extends EquivalentDoseUnit("μSv", r"1e-6")
+  case object MicroSievert extends EquivalentDoseUnit(Seq("μSv", "microSievert", "microSv"), r"1e-6")
   case object MilliSievert extends EquivalentDoseUnit("mSv", r"1e-3")
   case object CentiSievert extends EquivalentDoseUnit("cSv", r"1e-2")
   case object DeciSievert  extends EquivalentDoseUnit("dSv", r"1e-1")
@@ -169,7 +178,7 @@ object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
   case object FemtoREM extends EquivalentDoseUnit("frem", r"1e-15", REM)
   case object PicoREM  extends EquivalentDoseUnit("prem", r"1e-12", REM)
   case object NanoREM  extends EquivalentDoseUnit("nrem", r"1e-9", REM)
-  case object MicroREM extends EquivalentDoseUnit("μrem", r"1e-6", REM)
+  case object MicroREM extends EquivalentDoseUnit(Seq("μrem", "microRem"), r"1e-6", REM)
   case object MilliREM extends EquivalentDoseUnit("mrem", r"1e-3", REM)
   case object CentiREM extends EquivalentDoseUnit("crem", r"1e-2", REM)
   case object DeciREM  extends EquivalentDoseUnit("drem", r"1e-1", REM)

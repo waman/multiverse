@@ -10,7 +10,8 @@ trait ResistancePostfixOps[A]{
 
   protected def resistancePostfixOps(resistanceUnit: ResistanceUnit): A
 
-  def Ω: A = resistancePostfixOps(Ohm)
+  def ohm: A = resistancePostfixOps(Ohm)
+  def Ω: A = ohm
 }
 
 class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
@@ -27,7 +28,7 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
   override protected def resistancePostfixOps(resistanceUnit: ResistanceUnit) = apply(resistanceUnit)
 }
 
-sealed abstract class ResistanceUnit(val symbol: String, val unitInOhm: Real)
+sealed abstract class ResistanceUnit(val symbols: Seq[String], val unitInOhm: Real)
     extends PhysicalUnit[ResistanceUnit]{
 
   override def baseUnit = ResistanceUnit.Ohm
@@ -36,7 +37,7 @@ sealed abstract class ResistanceUnit(val symbol: String, val unitInOhm: Real)
 
 object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
 
-  case object Ohm extends ResistanceUnit("Ω", 1)
+  case object Ohm extends ResistanceUnit(Seq("Ω", "ohm"), 1)
 
   override lazy val values = Seq(
     Ohm

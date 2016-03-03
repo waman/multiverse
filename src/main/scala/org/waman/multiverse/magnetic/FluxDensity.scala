@@ -11,14 +11,15 @@ trait FluxDensityPostfixOps[A]{
 
   protected def fluxDensityPostfixOps(fluxDensityUnit: FluxDensityUnit): A
 
-
   def yT: A = fluxDensityPostfixOps(YoctoTesla)
   def zT: A = fluxDensityPostfixOps(ZeptoTesla)
   def aT: A = fluxDensityPostfixOps(AttoTesla)
   def fT: A = fluxDensityPostfixOps(FemtoTesla)
   def pT: A = fluxDensityPostfixOps(PicoTesla)
   def nT: A = fluxDensityPostfixOps(NanoTesla)
-  def μT: A = fluxDensityPostfixOps(MicroTesla)
+  def microTesla: A = fluxDensityPostfixOps(MicroTesla)
+  def microT    : A = microTesla
+  def μT: A = microTesla
   def mT: A = fluxDensityPostfixOps(MilliTesla)
   def cT: A = fluxDensityPostfixOps(CentiTesla)
   def dT: A = fluxDensityPostfixOps(DeciTesla)
@@ -40,7 +41,9 @@ trait FluxDensityPostfixOps[A]{
   def fG: A = fluxDensityPostfixOps(FemtoGauss)
   def pG: A = fluxDensityPostfixOps(PicoGauss)
   def nG: A = fluxDensityPostfixOps(NanoGauss)
-  def μG: A = fluxDensityPostfixOps(MicroGauss)
+  def microGauss: A = fluxDensityPostfixOps(MicroGauss)
+  def microG    : A = microGauss
+  def μG: A = microGauss
   def mG: A = fluxDensityPostfixOps(MilliGauss)
   def cG: A = fluxDensityPostfixOps(CentiGauss)
   def dG: A = fluxDensityPostfixOps(DeciGauss)
@@ -91,14 +94,17 @@ sealed trait FluxDensityUnit
 }
 
 object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
   
   // intrinsic
   private[FluxDensityUnit]
-  class IntrinsicFluxDensityUnit(val symbol: String, val unitInTesla: Real)
+  class IntrinsicFluxDensityUnit(val symbols: Seq[String], val unitInTesla: Real)
       extends FluxDensityUnit{
 
-    def this(symbol: String, factor: Real, unit: FluxDensityUnit) =
-      this(symbol, factor * unit.unitInTesla)
+    def this(symbols: Seq[String], factor: Real, unit: FluxDensityUnit) =
+      this(symbols, factor * unit.unitInTesla)
   }
 
   case object YoctoTesla extends IntrinsicFluxDensityUnit("yT", r"1e-24")
@@ -107,7 +113,7 @@ object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
   case object FemtoTesla extends IntrinsicFluxDensityUnit("fT", r"1e-15")
   case object PicoTesla  extends IntrinsicFluxDensityUnit("pT", r"1e-12")
   case object NanoTesla  extends IntrinsicFluxDensityUnit("nT", r"1e-9")
-  case object MicroTesla extends IntrinsicFluxDensityUnit("μT", r"1e-6")
+  case object MicroTesla extends IntrinsicFluxDensityUnit(Seq("μT", "microTesla", "microT"), r"1e-6")
   case object MilliTesla extends IntrinsicFluxDensityUnit("mT", r"1e-3")
   case object CentiTesla extends IntrinsicFluxDensityUnit("cT", r"1e-2")
   case object DeciTesla  extends IntrinsicFluxDensityUnit("dT", r"1e-1")
@@ -129,7 +135,7 @@ object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
   case object FemtoGauss extends IntrinsicFluxDensityUnit("fG", r"1e-15", Gauss)
   case object PicoGauss  extends IntrinsicFluxDensityUnit("pG", r"1e-12", Gauss)
   case object NanoGauss  extends IntrinsicFluxDensityUnit("nG", r"1e-9", Gauss)
-  case object MicroGauss extends IntrinsicFluxDensityUnit("μG", r"1e-6", Gauss)
+  case object MicroGauss extends IntrinsicFluxDensityUnit(Seq("μG", "microGauss", "microG"), r"1e-6", Gauss)
   case object MilliGauss extends IntrinsicFluxDensityUnit("mG", r"1e-3", Gauss)
   case object CentiGauss extends IntrinsicFluxDensityUnit("cG", r"1e-2", Gauss)
   case object DeciGauss  extends IntrinsicFluxDensityUnit("dG", r"1e-1", Gauss)

@@ -68,6 +68,8 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
   class IntrinsicAccelerationUnit(val symbol: String, val unitInMetrePerSecondSquared: Real)
     extends AccelerationUnit{
 
+    override lazy val symbols = Seq(symbol)
+
     def this(symbol: String, lengthUnit: LengthUnit) =
       this(symbol, lengthUnit.unitInMetre / TimeSquaredUnit.SecondSquared.unitInSecondSquared)
   }

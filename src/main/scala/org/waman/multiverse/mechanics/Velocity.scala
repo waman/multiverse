@@ -108,27 +108,28 @@ object VelocityUnit extends ConstantsDefined[VelocityUnit]{
   class IntrinsicVelocityUnit(val symbol: String, val unitInMetrePerSecond: Real)
     extends VelocityUnit{
 
-    def this(symbol: String, lengthUnit: LengthUnit, timeUnit: TimeUnit) =
-      this(symbol, lengthUnit.unitInMetre / timeUnit.unitInSecond)
+    def this(symbol: String, unit: VelocityUnit) = this(symbol, unit.unitInMetrePerSecond)
+
+    override lazy val symbols = Seq(symbol)
   }
 
   case object MachNumber extends IntrinsicVelocityUnit("M", r"340") with NotExact
   case object SpeedOfLight extends IntrinsicVelocityUnit("c", r"299792458")
 
-  case object Knot extends IntrinsicVelocityUnit("kn", LengthUnit.NauticalMile, TimeUnit.Hour)
-  case object Knot_Admiralty extends IntrinsicVelocityUnit("kn(Adm)", LengthUnit.NauticalMile_Admiralty, TimeUnit.Hour)
+  case object Knot extends IntrinsicVelocityUnit("kn", LengthUnit.NauticalMile / TimeUnit.Hour)
+  case object Knot_Admiralty extends IntrinsicVelocityUnit("kn(Adm)", LengthUnit.NauticalMile_Admiralty / TimeUnit.Hour)
 
-  case object InchPerSecond extends IntrinsicVelocityUnit("ips", LengthUnit.Inch, TimeUnit.Second)
-  case object InchPerMinute extends IntrinsicVelocityUnit("ipm", LengthUnit.Inch, TimeUnit.Minute)
-  case object InchPerHour   extends IntrinsicVelocityUnit("iph", LengthUnit.Inch, TimeUnit.Hour)
+  case object InchPerSecond extends IntrinsicVelocityUnit("ips", LengthUnit.Inch / TimeUnit.Second)
+  case object InchPerMinute extends IntrinsicVelocityUnit("ipm", LengthUnit.Inch / TimeUnit.Minute)
+  case object InchPerHour   extends IntrinsicVelocityUnit("iph", LengthUnit.Inch / TimeUnit.Hour)
 
-  case object FootPerSecond extends IntrinsicVelocityUnit("fps", LengthUnit.Foot, TimeUnit.Second)
-  case object FootPerMinute extends IntrinsicVelocityUnit("fpm", LengthUnit.Foot, TimeUnit.Minute)
-  case object FootPerHour   extends IntrinsicVelocityUnit("fph", LengthUnit.Foot, TimeUnit.Hour)
+  case object FootPerSecond extends IntrinsicVelocityUnit("fps", LengthUnit.Foot / TimeUnit.Second)
+  case object FootPerMinute extends IntrinsicVelocityUnit("fpm", LengthUnit.Foot / TimeUnit.Minute)
+  case object FootPerHour   extends IntrinsicVelocityUnit("fph", LengthUnit.Foot / TimeUnit.Hour)
 
-  case object MilePerSecond extends IntrinsicVelocityUnit("mps", LengthUnit.Mile, TimeUnit.Second)
-  case object MilePerMinute extends IntrinsicVelocityUnit("mpm", LengthUnit.Mile, TimeUnit.Minute)
-  case object MilePerHour   extends IntrinsicVelocityUnit("mph", LengthUnit.Mile, TimeUnit.Hour)
+  case object MilePerSecond extends IntrinsicVelocityUnit("mps", LengthUnit.Mile / TimeUnit.Second)
+  case object MilePerMinute extends IntrinsicVelocityUnit("mpm", LengthUnit.Mile / TimeUnit.Minute)
+  case object MilePerHour   extends IntrinsicVelocityUnit("mph", LengthUnit.Mile / TimeUnit.Hour)
 
   override lazy val values = Seq(
     MachNumber,

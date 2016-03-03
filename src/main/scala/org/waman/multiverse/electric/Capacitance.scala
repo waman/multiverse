@@ -27,7 +27,7 @@ class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
   override protected def capacitancePostfixOps(capacitanceUnit: CapacitanceUnit) = apply(capacitanceUnit)
 }
 
-sealed abstract class CapacitanceUnit(val symbol: String, val unitInFarad: Real)
+sealed abstract class CapacitanceUnit(val symbols: Seq[String], val unitInFarad: Real)
     extends PhysicalUnit[CapacitanceUnit]{
 
   override val baseUnit = CapacitanceUnit.Farad
@@ -35,6 +35,9 @@ sealed abstract class CapacitanceUnit(val symbol: String, val unitInFarad: Real)
 }
 
 object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
 
   case object Farad extends CapacitanceUnit("F", 1)
 

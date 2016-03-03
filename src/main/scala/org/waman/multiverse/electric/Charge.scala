@@ -54,7 +54,7 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
   override def /(massUnit: MassUnit) = new Exposure(value, unit / massUnit)
 }
 
-sealed abstract class ChargeUnit(val symbol: String, val unitInCoulomb: Real)
+sealed abstract class ChargeUnit(val symbols: Seq[String], val unitInCoulomb: Real)
     extends PhysicalUnit[ChargeUnit]
     with MultiplicativeByLengthUnit[DipoleUnit]
     with DivisibleByMassUnit[ExposureUnit]{
@@ -68,6 +68,9 @@ sealed abstract class ChargeUnit(val symbol: String, val unitInCoulomb: Real)
 }
 
 object ChargeUnit extends ConstantsDefined[ChargeUnit]{
+
+  import scala.language.implicitConversions
+  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
 
   case object Coulomb extends ChargeUnit("C", 1)
 
