@@ -74,7 +74,8 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
       case None => cancel("No constant is defined") }
     }
 
-    "XxxPostfixOps trait should have properties whose names are 'symbol' properties of unit objects" in {
+    """XxxPostfixOps trait should have properties
+      | whose names are the same as 'symbol' properties of unit objects""".stripMargin in {
 
       getPostfixOpsTrait match { case Some(postfixOps) =>
         getConstantsDefined match { case Some(constDef) =>
@@ -87,11 +88,13 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
           def methodToSymbols(m: Method): Seq[String] = m.getParameterCount match {
             case 0 => Seq(decodePropertyName(m.getName))
             case 1 =>
-              val name = m.getName
-              val pf =
-                getPostfixOpsObjectClass
-                  .getMethod("_" + name).invoke(getPostfixOpsObject)
-                  .asInstanceOf[PartialFunction[Context, _]]
+              val name = m.getName match {
+                case s if s.startsWith("$") => s+s
+                case s => "_" + s
+              }
+              val pf = getPostfixOpsObjectClass
+                         .getMethod(name).invoke(getPostfixOpsObject)
+                         .asInstanceOf[PartialFunction[Context, _]]
               Context.values
                 .filter(pf.isDefinedAt)
                 .map(decodePropertyName(name) + "(" + _.symbol + ")")
@@ -99,7 +102,10 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
 
           __SetUp__
           val sut = getPostfixOpsPropertyNames
-          val expected = constDef.values.flatMap(_.symbol.split(";"))
+          val expected = constDef.values
+                           .flatMap(_.symbol.split(";"))
+                           .filterNot(s => s.startsWith("°") && s.length > 1)
+                             // remove degree temperature like °C (test in another testcase)
           __Verify__
           sut should containTheSameElementsAs(expected)
 

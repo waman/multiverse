@@ -7,8 +7,9 @@ sealed abstract class Context(val symbol: String){
   }
 }
 
+/** The "US" context contains the "US Survey" one for Length and Area (i.e. ft(US) and mi(US)) */
 object Context extends ConstantsDefined[Context]{
-  /** The "US" context contains the "US Survey" one for Length and Area (i.e. ft(US) and mi(US)) */
+
   case object UnitedStates           extends Context("US")
   case object UnitedStates_Fluid     extends Context("US_fl")
   case object UnitedStates_Dry       extends Context("US_dry")

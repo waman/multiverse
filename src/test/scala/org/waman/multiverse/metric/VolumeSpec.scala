@@ -271,7 +271,7 @@ class VolumeSpec
 
   "Product volume unit" - {
 
-    "Area unit of ac*ft should equal 1233.48183754752 m3" in {
+    "Volume unit of ac*ft should equal 1233.48183754752 m3" in {
       __Exercise__
       val sut = ac*ft
       __Verify__

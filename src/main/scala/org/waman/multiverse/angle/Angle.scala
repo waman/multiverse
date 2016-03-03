@@ -2,11 +2,17 @@ package org.waman.multiverse.angle
 
 import org.waman.multiverse.MultiverseUtil.twoPi
 import org.waman.multiverse._
+import org.waman.multiverse.thermal.{DegreeTemperaturePostfixOps, Temperature, TemperatureUnit}
 import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
-trait AnglePostfixOps[A]{
+
+trait DegreePostfixOps[A]{
+  def ° : A
+}
+
+trait AnglePostfixOps[A] extends DegreePostfixOps[A]{
   import AngleUnit._
 
   protected def anglePostfixOps(angleUnit: AngleUnit): A
@@ -24,7 +30,7 @@ trait AnglePostfixOps[A]{
   def yrad: A = anglePostfixOps(YoctoRadian)
 
   def deg: A = anglePostfixOps(Degree)
-  def °  : A = anglePostfixOps(Degree)
+  def °  : A = deg
   def arcmin: A = anglePostfixOps(ArcMinute)
   def MOA: A = arcmin
   def arcsec: A = anglePostfixOps(ArcSecond)
@@ -82,6 +88,7 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     extends Quantity[A, AngleUnit]
     with AnglePostfixOps[A]
     with DivisibleByTimeUnit[AngularVelocity[A]]
+    with DegreeTemperaturePostfixOps[Temperature[A]]
     with UnitConverter[A]{
 
   override protected lazy val algebra = implicitly[Fractional[A]]
@@ -93,6 +100,8 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
   override protected def anglePostfixOps(angleUnit: AngleUnit) = apply(angleUnit)
 
   override def /(timeUnit: TimeUnit): AngularVelocity[A] = new AngularVelocity(value, unit / timeUnit)
+
+  override protected def degreeTemperaturePostfixOps(unit: TemperatureUnit) = new Temperature(value, unit)
 }
 
 sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
@@ -109,6 +118,7 @@ sealed abstract class AngleUnit(val symbol: String, val unitInRadian: Real)
     AngularVelocityUnit(this, timeUnit)
 }
 
+
 object AngleUnit extends ConstantsDefined[AngleUnit]{
 
   case object Radian      extends AngleUnit("rad", 1)
@@ -123,7 +133,12 @@ object AngleUnit extends ConstantsDefined[AngleUnit]{
   case object ZeptoRadian extends AngleUnit("zrad", r"1e-21")
   case object YoctoRadian extends AngleUnit("yrad", r"1e-24")
 
-  case object Degree  extends AngleUnit("deg;°", twoPi / r"360")
+  case object Degree extends AngleUnit("deg;°", twoPi / r"360")
+      with DegreeTemperaturePostfixOps[TemperatureUnit]{
+
+    override protected def degreeTemperaturePostfixOps(unit: TemperatureUnit) = unit
+  }
+
   case object ArcMinute extends AngleUnit("arcmin;MOA", r"1/60", Degree)
   case object ArcSecond extends AngleUnit("arcsec", r"1/60", ArcMinute)
   case object MilliArcSecond extends AngleUnit("mas", r"1e-3", ArcSecond)
@@ -170,6 +185,8 @@ object AngleUnit extends ConstantsDefined[AngleUnit]{
 
 trait PredefinedAngleUnit extends AnglePostfixOps[AngleUnit]{
   override protected def anglePostfixOps(angleUnit: AngleUnit) = angleUnit
+
+  override def ° = AngleUnit.Degree
 }
 
 object PredefinedAngleUnit extends PredefinedAngleUnit
