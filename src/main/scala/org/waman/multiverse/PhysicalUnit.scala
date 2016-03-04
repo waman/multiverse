@@ -8,12 +8,13 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     val cName = getClass.getSimpleName
     cName.substring(0, cName.length - 1)  // drop the end char "$"
   }
+
   val symbols: Seq[String]
 
   def baseUnit: U
   def valueInBaseUnit: Real
 
-  private lazy val symbolStr = symbols.mkString("|")
+  protected lazy val symbolStr = symbols.mkString(";")
 
   override def toString: String = s"$name ($symbolStr)"
 
@@ -23,7 +24,7 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     if (valueInBaseUnit == Real.one) s
     else {
       val eqSymbol = if(this.isInstanceOf[NotExact]) "~" else "="
-      s.padTo(45, ' ') + s": 1 ${symbolStr.padTo(8, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbols.head}"
+      s.padTo(50, ' ') + s": 1 ${symbols.head.padTo(10, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbols.head}"
     }
   }
 

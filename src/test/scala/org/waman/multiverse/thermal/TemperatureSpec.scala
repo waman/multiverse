@@ -37,6 +37,16 @@ class TemperatureSpec
     }
   }
 
+  "TemperatureUnit objects should compare with each other" in {
+    __SetUp__
+    import TemperatureUnit._
+    __Verify__
+    (MilliKelvin < Kelvin) should be (true)
+    (DegreeFahrenheit < Kelvin) should be (true)
+    (DegreeFahrenheit < Kelvin) should be (true)
+    (Kelvin < DegreeCelsius) should be (true)
+  }
+
   "Predefined temperature units" - {
 
     "3.0 <<temperature unit>> should be converted to the equivalent value in Kelvin" in {
