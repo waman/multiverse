@@ -25,6 +25,8 @@
       <w>candela</w>
       <w>centi</w>
       <w>circ</w>
+      <w>contextful</w>
+      <w>contextless</w>
       <w>crad</w>
       <w>crem</w>
       <w>dalm</w>
@@ -50,6 +52,7 @@
       <w>giga</w>
       <w>gradian</w>
       <w>grem</w>
+      <w>gson</w>
       <w>hbar</w>
       <w>hecto</w>
       <w>heltz</w>
@@ -69,6 +72,7 @@
       <w>multiverse</w>
       <w>nrad</w>
       <w>nrem</w>
+      <w>objs</w>
       <w>pebi</w>
       <w>phot</w>
       <w>picometre</w>
@@ -80,6 +84,8 @@
       <w>regulo</w>
       <w>rem</w>
       <w>romer</w>
+      <w>rsrc</w>
+      <w>scalacheck</w>
       <w>sievert</w>
       <w>skot</w>
       <w>steradian</w>
@@ -87,6 +93,7 @@
       <w>suts</w>
       <w>tebi</w>
       <w>trem</w>
+      <w>tuples</w>
       <w>twip</w>
       <w>unitizer</w>
       <w>viscosities</w>

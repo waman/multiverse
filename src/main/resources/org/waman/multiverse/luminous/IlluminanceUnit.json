@@ -1,0 +1,16 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.AreaUnit"
+  ],
+
+  "baseUnit":"Lux",
+  "baseUnitAccessor":"unitInLux",
+
+  "quotient":["LuminousFlux", "Area"],
+
+  "constants":[
+    {"name":"Lux", "scalePrefixes":true, "symbol":"lx", "args":""},
+    {"name":"Phot", "symbols":["ph"], "args":"r\"1e4\""},
+    {"name":"FootCandle", "symbols":["fc"], "args":"LuminousFluxUnit.Lumen / AreaUnit.SquareFoot"}
+  ]
+}

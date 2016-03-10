@@ -36,6 +36,15 @@ scalacOptions ++= Seq(
   "-encoding", encoding.value
 )
 
+//***** Source Generation *****
+sourceManaged in Compile := new File((sourceDirectory in Compile).value.toString + "/src_managed")
+
+sourceGenerators in Compile += Def.task {
+  val rsrc = (resourceDirectory in Compile).value
+  val srcM = (sourceManaged in Compile).value
+  MultiverseSourceGenerator.generate(rsrc, srcM)
+}.taskValue
+
 //***** Running *****
 fork := true
 
