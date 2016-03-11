@@ -1,0 +1,15 @@
+{
+  "imports":[
+    "org.waman.multiverse.energy.EnergyUnit",
+    "org.waman.multiverse.mass.MassUnit"
+  ],
+
+  "baseUnit":"Gray",
+  "baseUnitAccessor":"unitInGray",
+
+  "quotient":["Energy", "Mass"],
+
+  "constants":[
+    {"name":"Gray", "scalePrefixes":true, "symbol":"Gy", "args":""}
+  ]
+}

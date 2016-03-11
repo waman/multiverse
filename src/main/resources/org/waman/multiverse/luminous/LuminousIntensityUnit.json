@@ -1,0 +1,14 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.AreaUnit"
+  ],
+
+  "baseUnit":"Candela",
+  "baseUnitAccessor":"unitInCandela",
+
+  "divisible":[["Area", "Luminance"]],
+
+  "constants":[
+    {"name":"Candela", "scalePrefixes":true, "symbol":"cd", "args":""}
+  ]
+}

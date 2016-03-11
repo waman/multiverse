@@ -1,0 +1,14 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.AreaUnit"
+  ],
+
+  "baseUnit":"Lumen",
+  "baseUnitAccessor":"unitInLumen",
+
+  "divisible":[["Area", "Illuminance"]],
+
+  "constants":[
+    {"name":"Lumen", "scalePrefixes":true, "symbol":"lm", "args":""}
+  ]
+}

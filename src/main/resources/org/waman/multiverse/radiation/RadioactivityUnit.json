@@ -1,0 +1,10 @@
+{
+  "baseUnit":"Becquerel",
+  "baseUnitAccessor":"unitInBecquerel",
+
+  "constants":[
+    {"name":"Becquerel", "scalePrefixes":true, "symbol":"Bq", "args":""},
+    {"name":"Curie", "scalePrefixes":true, "symbol":"Ci", "args":" * r\"3.7e10\""},
+    {"name":"Rutherford", "symbols":["Rd"], "args":"1, MegaBecquerel"}
+  ]
+}

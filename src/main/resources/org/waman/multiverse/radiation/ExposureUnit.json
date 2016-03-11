@@ -1,0 +1,15 @@
+{
+  "imports":[
+    "org.waman.multiverse.electric.ChargeUnit",
+    "org.waman.multiverse.mass.MassUnit"
+  ],
+
+  "baseUnit":"ChargeUnit.Coulomb / MassUnit.KiloGram",
+  "baseUnitAccessor":"unitInCoulombPerKiloGram",
+
+  "quotient":["Charge", "Mass"],
+
+  "constants":[
+    {"name":"Roentgen", "symbols":["R"], "args":"r\"2.58e-4\""}
+  ]
+}

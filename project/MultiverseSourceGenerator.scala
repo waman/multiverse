@@ -142,10 +142,6 @@ object MultiverseSourceGenerator extends GluinoPath{
                         json: JsonObject, contextList: List[NameSymbol]): Unit = {
     val id = headToLower(className)  // length
     val imports = getChildren(json, "imports").map(_.getAsString)
-    val units: List[UnitConstant] = getUnitConstants(json)
-    val (contextful, contextless) = getUnitNameSymbolTuples(units)
-        // contextful: List(NameSymbol("Foot", "ft(US)"), ...)
-        // contextless: List(NameSymbol("Metre", "m"), NameSymbol("Foot", "ft"), ...)
 
     dest.withWriter { writer =>
 
@@ -162,121 +158,6 @@ object MultiverseSourceGenerator extends GluinoPath{
           s"""
              |import $i""".stripMargin
       }
-
-      //***** PostfixOps trait *****
-      writer <<
-        s"""
-           |
-           |trait ${className}PostfixOps[A]{
-           |  import ${className}Unit._
-           |
-           |  protected def ${id}PostfixOps(unit: ${className}Unit): A
-           |""".stripMargin
-
-      contextless.foreach{ ns =>
-        writer <<
-          // def m: A = lengthPostfixOps(LengthUnit.Metre)
-          s"""
-             |  def ${ns.symbol}: A = ${id}PostfixOps(${ns.name})""".stripMargin
-      }
-
-      if(contextful.nonEmpty){
-        writer <<
-          s"""
-             |  import ${className}PostfixOps._
-             |""".stripMargin
-
-        contextful.foreach{ ns =>
-          val sym = ns.symbol.split("\\(")(0)
-          writer <<
-            // def ft(c: Context): A = lengthPostfixOps(_ft(c))
-            s"""
-               |  def $sym(c: Context): A = ${id}PostfixOps(_$sym(c))""".stripMargin
-        }
-      }
-
-      writer <<
-        s"""
-           |}""".stripMargin
-
-      //***** PostfixOps object *****
-      if(contextful.nonEmpty){
-        writer <<
-          s"""
-             |
-             |object ${className}PostfixOps{
-             |  import ${className}Unit._
-             |  import org.waman.multiverse.Context._
-             |""".stripMargin
-
-        groupingContextList(contextful, contextList).foreach{ case (symbol, cs) =>
-          // (
-          //   "ft",
-          //   List(("UnitedStates", "Foot_US_Survey"), ...)
-          // )
-
-          writer <<
-            s"""
-               |  lazy val _$symbol: PartialFunction[Context, ${className}Unit] = {
-               |""".stripMargin
-
-          cs.foreach{ c =>
-            writer <<
-              // case US => Foot_US_Survey
-              s"""
-                 |    case ${c._1} => ${c._2}""".stripMargin
-          }
-
-          writer <<
-            s"""
-               |  }""".stripMargin
-        }
-        writer <<
-          s"""
-             |}""".stripMargin
-      }
-
-      //***** Dot trait *****
-      writer <<
-        s"""
-           |
-           |trait ${className}Dot[A]{
-           |  import ${className}Unit._
-           |
-           |  protected def ${id}Dot(unit: ${className}Unit): A
-           |""".stripMargin
-
-      contextless.foreach{ ns =>
-        writer <<
-          // def m(dot: Dot): A = lengthDot(Length.Metre)
-          s"""
-             |  def ${ns.symbol}(dot: Dot): A = ${id}Dot(${ns.name})""".stripMargin
-      }
-
-      writer <<
-        s"""
-           |}""".stripMargin
-
-      //***** Per trait *****
-      writer <<
-        s"""
-           |
-           |trait ${className}Per[A]{
-           |  import ${className}Unit._
-           |
-           |  protected def ${id}Per(unit: ${className}Unit): A
-           |""".stripMargin
-
-      contextless.foreach{ ns =>
-        writer <<
-          // def m(per: Per): A = lengthPer(LengthUnit.Metre)
-          s"""
-             |  def ${ns.symbol}(per: Per): A = ${id}Per(${ns.name})""".stripMargin
-      }
-
-      writer <<
-        s"""
-           |}""".stripMargin
 
       //***** Unit trait  *****
       val baseUnitAccessor = getString(json, "baseUnitAccessor")
@@ -333,6 +214,11 @@ object MultiverseSourceGenerator extends GluinoPath{
            |}""".stripMargin
 
       //***** Unit object *****
+      val units: List[UnitConstant] = getUnitConstants(json)
+      val (contextful, contextless) = getUnitNameSymbolTuples(units)
+      // contextful: List(NameSymbol("Foot", "ft(US)"), ...)
+      // contextless: List(NameSymbol("Metre", "m"), NameSymbol("Foot", "ft"), ...)
+
       writer <<
         s"""
            |
@@ -407,16 +293,133 @@ object MultiverseSourceGenerator extends GluinoPath{
         s"""
            |}""".stripMargin
 
-      //***** Predefined unit trait and object *****
-      writer <<
-        s"""
-           |
-           |trait Predefined${className}Unit extends ${className}PostfixOps[${className}Unit]{
-           |  override protected def ${id}PostfixOps(unit: ${className}Unit) = unit
-           |}
-           |
-           |object Predefined${className}Unit extends Predefined${className}Unit
-           |""".stripMargin
+      if(units.nonEmpty) {
+        //***** PostfixOps trait *****
+        writer <<
+          s"""
+             |
+             |trait ${className}PostfixOps[A]{
+             |  import ${className}Unit._
+             |
+             |  protected def ${id}PostfixOps(unit: ${className}Unit): A
+             |""".stripMargin
+
+        contextless.foreach { ns =>
+          writer <<
+            // def m: A = lengthPostfixOps(LengthUnit.Metre)
+            s"""
+               |  def ${ns.symbol}: A = ${id}PostfixOps(${ns.name})""".stripMargin
+        }
+
+        if (contextful.nonEmpty) {
+          writer <<
+            s"""
+               |  import ${className}PostfixOps._
+               |""".stripMargin
+
+          contextful.foreach { ns =>
+            val sym = ns.symbol.split("\\(")(0)
+            writer <<
+              // def ft(c: Context): A = lengthPostfixOps(_ft(c))
+              s"""
+                 |  def $sym(c: Context): A = ${id}PostfixOps(_$sym(c))""".stripMargin
+          }
+        }
+
+        writer <<
+          s"""
+             |}""".stripMargin
+
+        //***** PostfixOps object *****
+        if (contextful.nonEmpty) {
+          writer <<
+            s"""
+               |
+               |object ${className}PostfixOps{
+               |  import ${className}Unit._
+               |  import org.waman.multiverse.Context._
+               |""".stripMargin
+
+          groupingContextList(contextful, contextList).foreach { case (symbol, cs) =>
+            // (
+            //   "ft",
+            //   List(("UnitedStates", "Foot_US_Survey"), ...)
+            // )
+
+            writer <<
+              s"""
+                 |  lazy val _$symbol: PartialFunction[Context, ${className}Unit] = {
+                 |""".stripMargin
+
+            cs.foreach { c =>
+              writer <<
+                // case US => Foot_US_Survey
+                s"""
+                   |    case ${c._1} => ${c._2}""".stripMargin
+            }
+
+            writer <<
+              s"""
+                 |  }""".stripMargin
+          }
+          writer <<
+            s"""
+               |}""".stripMargin
+        }
+
+        //***** Dot trait *****
+        writer <<
+          s"""
+             |
+             |trait ${className}Dot[A]{
+             |  import ${className}Unit._
+             |
+             |  protected def ${id}Dot(unit: ${className}Unit): A
+             |""".stripMargin
+
+        contextless.foreach { ns =>
+          writer <<
+            // def m(dot: Dot): A = lengthDot(Length.Metre)
+            s"""
+               |  def ${ns.symbol}(dot: Dot): A = ${id}Dot(${ns.name})""".stripMargin
+        }
+
+        writer <<
+          s"""
+             |}""".stripMargin
+
+        //***** Per trait *****
+        writer <<
+          s"""
+             |
+             |trait ${className}Per[A]{
+             |  import ${className}Unit._
+             |
+             |  protected def ${id}Per(unit: ${className}Unit): A
+             |""".stripMargin
+
+        contextless.foreach { ns =>
+          writer <<
+            // def m(per: Per): A = lengthPer(LengthUnit.Metre)
+            s"""
+               |  def ${ns.symbol}(per: Per): A = ${id}Per(${ns.name})""".stripMargin
+        }
+
+        writer <<
+          s"""
+             |}""".stripMargin
+
+        //***** Predefined unit trait and object *****
+        writer <<
+          s"""
+             |
+             |trait Predefined${className}Unit extends ${className}PostfixOps[${className}Unit]{
+             |  override protected def ${id}PostfixOps(unit: ${className}Unit) = unit
+             |}
+             |
+             |object Predefined${className}Unit extends Predefined${className}Unit
+             |""".stripMargin
+      }
     }
   }
 

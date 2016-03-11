@@ -1,0 +1,15 @@
+{
+  "imports":[
+    "org.waman.multiverse.time.TimeUnit"
+  ],
+
+  "baseUnit":"Sievert",
+  "baseUnitAccessor":"unitInSievert",
+
+  "divisible":[["Time", "EquivalentDoseRate"]],
+
+  "constants":[
+    {"name":"Sievert", "scalePrefixes":true, "symbol":"Sv", "args":""},
+    {"name":"REM", "scalePrefixes":true, "symbol":"rem", "args":" * r\"1e-2\""}
+  ]
+}

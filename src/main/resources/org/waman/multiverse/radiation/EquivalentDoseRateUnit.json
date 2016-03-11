@@ -1,0 +1,10 @@
+{
+  "imports":[
+    "org.waman.multiverse.time.TimeUnit"
+  ],
+
+  "quotient":["EquivalentDose", "Time"],
+
+  "baseUnit":"EquivalentDoseUnit.Sievert / TimeUnit.Second",
+  "baseUnitAccessor":"unitInSievertPerSecond"
+}

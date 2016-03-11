@@ -1,0 +1,22 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.AreaUnit"
+  ],
+
+  "baseUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareMetre",
+  "baseUnitAccessor":"unitInCandelaPerSquareMetre",
+
+  "quotient":["LuminousIntensity", "Area"],
+
+  "constants":[
+      {"name":"Stilb", "symbols":["sb"], "args":"r\"1e4\""},
+
+      {"name":"Lambert", "symbols":["Lb"], "args":"r\"1e4\" / Real.pi"},
+      {"name":"ApoStilb", "symbols":["asb"], "args":"r\"1\" / Real.pi"},
+      {"name":"Skot", "symbols":["sk"], "args":"r\"1e-3\" / Real.pi"},
+      {"name":"Bril", "symbols":["bril"], "args":"r\"1e-7\" / Real.pi"},
+
+      {"name":"FootLambert", "symbols":["fLb"],
+        "args": "r\"1\" / Real.pi, LuminousIntensityUnit.Candela / AreaUnit.SquareFoot"}
+    ]
+}
