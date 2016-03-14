@@ -1,0 +1,8 @@
+{
+  "baseUnit":"Ampere",
+  "baseUnitAccessor":"unitInAmpere",
+
+  "constants":[
+    {"name":"Ampere", "symbol":"A", "args":"", "scalePrefixes":true}
+  ]
+}

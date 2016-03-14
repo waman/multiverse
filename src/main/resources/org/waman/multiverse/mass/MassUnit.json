@@ -1,0 +1,26 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.VolumeUnit"
+  ],
+
+  "baseUnit":"KiloGram",
+  "baseUnitAccessor":"unitInKiloGram",
+
+  "divisible":[["VolumeUnit", "DensityUnit"]],
+
+  "constants":[
+    {"name":"Gram"          , "symbol":"g", "args":" * r\"1e-3\"", "scalePrefixes":true},
+
+    // microscopic
+    {"name":"AtomicMassUnit", "symbols":["u", "AMU", "Da"], "args":"r\"1.66053892173e-27\"", "NotExact":true},
+    {"name":"ElectronMass"  , "symbols":["m_e"], "args":"r\"9.1093829140e-31\"", "NotExact":true},
+
+    // yard-pond
+    {"name":"Grain"         , "symbols":["gr"] , "args":"6479891, MilliGram"},
+    {"name":"Ounce"         , "symbols":["oz"] , "args":"28, Gram"},
+    {"name":"Pound"         , "symbols":["lb"] , "args":"r\"0.45359237\""},
+    {"name":"Tonne"         , "symbols":["t"]  , "args":"1000"},
+    {"name":"Carat"         , "symbols":["kt"] , "args":"r\"19/6\", Grain"},
+    {"name":"MetricCarat"   , "symbols":["ct"] , "args":"200, MilliGram"}
+  ]
+}

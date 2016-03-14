@@ -1,0 +1,8 @@
+{
+  "baseUnit":"Heltz",
+  "baseUnitAccessor":"unitInHeltz",
+
+  "constants":[
+    {"name":"Heltz", "symbol":"Hz", "args":"", "scalePrefixes":true}
+  ]
+}

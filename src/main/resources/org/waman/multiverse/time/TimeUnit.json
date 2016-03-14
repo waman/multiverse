@@ -1,0 +1,15 @@
+{
+  "baseUnit":"Second",
+  "baseUnitAccessor":"unitInSecond",
+
+  "multiplicative":[["TimeUnit", "TimeSquaredUnit"]],
+
+  "square":"TimeSquaredUnit",
+
+  "constants":[
+    {"name":"Second", "symbol":"s"        , "args":"", "scalePrefixes":true},
+    {"name":"Minute", "symbols":["minute"], "args":"r\"60\""},
+    {"name":"Hour"  , "symbols":["h"]     , "args":"r\"60\", Minute"},
+    {"name":"Day"   , "symbols":["d"]     , "args":"r\"24\", Hour"}
+  ]
+}

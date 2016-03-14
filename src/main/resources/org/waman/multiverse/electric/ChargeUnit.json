@@ -1,0 +1,19 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.LengthUnit",
+    "org.waman.multiverse.mass.MassUnit",
+    "org.waman.multiverse.radiation.ExposureUnit"
+  ],
+
+  "baseUnit":"Coulomb",
+  "baseUnitAccessor":"unitInCoulomb",
+
+  "multiplicative":[["LengthUnit", "DipoleUnit"]],
+  "divisible":[["MassUnit", "ExposureUnit"]],
+
+  "constants":[
+    {"name":"Coulomb", "symbol":"C", "args":"", "scalePrefixes":true},
+
+    {"name":"ElementaryCharge", "symbol":"e", "args":"1.602176462e-19", "NotExact":true}
+  ]
+}

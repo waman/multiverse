@@ -1,0 +1,33 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.LengthUnit",
+    "org.waman.multiverse.time.TimeUnit"
+  ],
+
+  "baseUnit":"LengthUnit.Metre / TimeUnit.Second",
+  "baseUnitAccessor":"unitInMetrePerSecond",
+
+  "divisible":[["TimeUnit", "AccelerationUnit"]],
+
+  "quotient":[["LengthUnit", "TimeUnit"]],
+
+  "constants":[
+    {"name":"MachNumber"    , "symbols":["M"], "args":"r\"340\"", "NotExact":true},
+    {"name":"SpeedOfLight"  , "symbols":["c"], "args":"r\"299792458\""},
+
+    {"name":"Knot"          , "symbols":["kn"], "args":"LengthUnit.NauticalMile / TimeUnit.Hour"},
+    {"name":"Knot_Admiralty", "symbols":["kn(Adm)"], "args":"LengthUnit.NauticalMile_Admiralty / TimeUnit.Hour"},
+
+    {"name":"InchPerSecond" , "symbols":["ips"], "args":"LengthUnit.Inch / TimeUnit.Second"},
+    {"name":"InchPerMinute" , "symbols":["ipm"], "args":"LengthUnit.Inch / TimeUnit.Minute"},
+    {"name":"InchPerHour"   , "symbols":["iph"], "args":"LengthUnit.Inch / TimeUnit.Hour"},
+
+    {"name":"FootPerSecond" , "symbols":["fps"], "args":"LengthUnit.Foot / TimeUnit.Second"},
+    {"name":"FootPerMinute" , "symbols":["fpm"], "args":"LengthUnit.Foot / TimeUnit.Minute"},
+    {"name":"FootPerHour"   , "symbols":["fph"], "args":"LengthUnit.Foot / TimeUnit.Hour"},
+
+    {"name":"MilePerSecond" , "symbols":["mps"], "args":"LengthUnit.Mile / TimeUnit.Second"},
+    {"name":"MilePerMinute" , "symbols":["mpm"], "args":"LengthUnit.Mile / TimeUnit.Minute"},
+    {"name":"MilePerHour"   , "symbols":["mph"], "args":"LengthUnit.Mile / TimeUnit.Hour"}
+  ]
+}

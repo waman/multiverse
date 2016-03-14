@@ -1,0 +1,8 @@
+{
+  "baseUnit":"Ohm",
+  "baseUnitAccessor":"unitInOhm",
+
+  "constants":[
+    {"name":"Ohm", "symbol":"Ω", "args":"", "scalePrefixes":true}
+  ]
+}

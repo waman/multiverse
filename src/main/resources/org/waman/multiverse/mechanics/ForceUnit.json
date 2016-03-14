@@ -1,0 +1,18 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.LengthUnit",
+    "org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity"
+  ],
+
+  "baseUnit":"Newton",
+  "baseUnitAccessor":"unitInNewton",
+
+  "multiplicative":[["LengthUnit", "TorqueUnit"]],
+
+  "constants":[
+    {"name":"Newton", "symbol":"N", "args":"", "scalePrefixes":true},
+    {"name":"Dyne", "symbols":["dyn"], "args":"r\"1e-5\""},
+    {"name":"KiloGramForce", "symbols":["kgf", "kp"],
+      "args":"StandardGravity.unitInMetrePerSecondSquared", "NotExact":true}
+  ]
+}

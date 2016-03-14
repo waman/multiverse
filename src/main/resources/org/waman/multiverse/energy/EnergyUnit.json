@@ -1,0 +1,22 @@
+{
+  "imports":[
+    "org.waman.multiverse.mass.MassUnit",
+    "org.waman.multiverse.time.TimeUnit",
+    "org.waman.multiverse.electric.ChargeUnit",
+    "org.waman.multiverse.thermal.TemperatureUnit",
+    "org.waman.multiverse.thermal.EntropyUnit",
+    "org.waman.multiverse.radiation.AbsorbedDoseUnit"
+  ],
+
+  "baseUnit":"Joule",
+  "baseUnitAccessor":"unitInJoule",
+
+  "multiplicative":[["TimeUnit", "ActionUnit"]],
+  "divisible":[["TemperatureUnit", "EntropyUnit"], ["MassUnit", "AbsorbedDoseUnit"]],
+
+  "constants":[
+    {"name":"Joule", "symbol":"J", "args":"", "scalePrefixes":true},
+    {"name":"ElectronVolt", "symbol":"eV", "args":" * ChargeUnit.ElementaryCharge.unitInCoulomb",
+      "scalePrefixes":true, "NotExact":true}
+  ]
+}

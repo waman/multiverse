@@ -1,0 +1,10 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.VolumeUnit"
+  ],
+
+  "baseUnit":"MassUnit.KiloGram / VolumeUnit.CubicMetre",
+  "baseUnitAccessor":"unitInKiloGramPerCubicMetre",
+
+  "quotient":[["MassUnit", "VolumeUnit"]]
+}

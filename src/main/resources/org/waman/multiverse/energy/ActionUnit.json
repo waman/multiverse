@@ -1,0 +1,15 @@
+{
+  "imports":[
+    "org.waman.multiverse.time.TimeUnit"
+  ],
+
+  "baseUnit":"EnergyUnit.Joule * TimeUnit.Second",
+  "baseUnitAccessor":"unitInJouleSecond",
+
+
+  "product":[["EnergyUnit", "TimeUnit"]],
+
+  "constants":[
+    {"name":"AtomicUnitOfAction", "symbols":["ħ", "hbar"], "args":"r\"1.05457168e-34\"", "NotExact":true}
+  ]
+}

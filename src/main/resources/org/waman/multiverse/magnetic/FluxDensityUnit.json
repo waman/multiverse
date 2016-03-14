@@ -1,0 +1,15 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.AreaUnit"
+  ],
+
+  "baseUnit":"Tesla",
+  "baseUnitAccessor":"unitInTesla",
+
+  "quotient":[["FluxUnit", "AreaUnit"]],
+
+  "constants":[
+    {"name":"Tesla", "symbol":"T", "args":"", "scalePrefixes":true},
+    {"name":"Gauss", "symbol":"G", "args":" * r\"1e-4\"", "scalePrefixes":true}
+  ]
+}

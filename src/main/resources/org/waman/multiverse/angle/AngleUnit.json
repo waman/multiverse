@@ -1,0 +1,29 @@
+{
+  "imports":[
+    "org.waman.multiverse.MultiverseUtil.twoPi",
+    "org.waman.multiverse.time.TimeUnit",
+    "org.waman.multiverse.thermal.TemperatureUnit",
+    "org.waman.multiverse.thermal.DegreeTemperaturePostfixOps"
+  ],
+
+  "baseUnit":"Radian",
+  "baseUnitAccessor":"unitInRadian",
+
+  "divisible":[["TimeUnit", "AngularVelocityUnit"]],
+
+  "constants":[
+    {"name":"Radian", "symbol":"rad", "args":"", "scalePrefixes":true,
+      "excludePrefixes":["Y", "Z", "E", "P", "T", "G", "M", "k", "h", "da"]},
+
+    {"name":"Degree", "symbols":["deg", "°"], "args":"twoPi / r\"360\"",
+      "mixed":"with DegreeTemperaturePostfixOps[TemperatureUnit] { override protected def degreeTemperaturePostfixOps(unit: TemperatureUnit) = unit }"},
+    {"name":"ArcMinute", "symbols":["arcmin", "MOA"], "args":"r\"1/60\", Degree"},
+
+    {"name":"ArcSecond", "symbols":["arcsec"], "args":"r\"1/60\", ArcMinute"},
+    {"name":"ArcSecond", "symbol":"as", "args":", ArcSecond", "scalePrefixes":true,
+      "excludePrefixes":["Y", "Z", "E", "P", "T", "G", "M", "k", "h", "da", "", "d", "c"]},
+
+    {"name":"Gradian", "symbols":["gon", "ᵍ"], "args":"twoPi / r\"400\""},
+    {"name":"Turn"   , "symbols":["tr"]      , "args":"twoPi"}
+  ]
+}

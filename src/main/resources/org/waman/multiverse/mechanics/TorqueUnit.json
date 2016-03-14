@@ -1,0 +1,10 @@
+{
+  "imports": [
+    "org.waman.multiverse.metric.LengthUnit"
+  ],
+
+  "baseUnit":"ForceUnit.Newton * LengthUnit.Metre",
+  "baseUnitAccessor":"unitInNewtonMetre",
+
+  "product":[["ForceUnit", "LengthUnit"]]
+}

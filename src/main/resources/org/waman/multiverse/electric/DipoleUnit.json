@@ -1,0 +1,14 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.LengthUnit"
+  ],
+
+  "baseUnit":"ChargeUnit.Coulomb * LengthUnit.Metre",
+  "baseUnitAccessor":"unitInCoulombMetre",
+
+  "product":[["ChargeUnit", "LengthUnit"]],
+
+  "constants":[
+    {"name":"Debye", "symbols":["D"], "args":"r\"340\""}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.AreaUnit",
+    "org.waman.multiverse.time.TimeUnit",
+    "org.waman.multiverse.electric.CurrentUnit",
+    "org.waman.multiverse.electric.VoltageUnit"
+  ],
+
+  "baseUnit":"Weber",
+  "baseUnitAccessor":"unitInWeber",
+
+  "divisible":[["AreaUnit", "FluxDensityUnit"], ["CurrentUnit", "InductanceUnit"]],
+
+  "product":[["VoltageUnit", "TimeUnit"]],
+
+  "constants":[
+    {"name":"Weber", "symbol":"Wb", "args":"", "scalePrefixes":true},
+    {"name":"Maxwell", "symbol":"Mx", "args":" * r\"1e-8\"", "scalePrefixes":true}
+  ]
+}

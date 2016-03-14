@@ -1,0 +1,15 @@
+{
+  "imports":[
+    "org.waman.multiverse.time.TimeUnit",
+    "org.waman.multiverse.magnetic.FluxUnit"
+  ],
+
+  "baseUnit":"Volt",
+  "baseUnitAccessor":"unitInVolt",
+
+  "multiplicative":[["TimeUnit", "FluxUnit"]],
+
+  "constants":[
+    {"name":"Volt", "symbol":"V", "args":"", "scalePrefixes":true}
+  ]
+}

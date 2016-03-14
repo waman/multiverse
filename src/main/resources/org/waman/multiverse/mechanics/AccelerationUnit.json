@@ -1,0 +1,21 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.LengthUnit",
+    "org.waman.multiverse.time.TimeUnit",
+    "org.waman.multiverse.time.TimeSquaredUnit"
+  ],
+
+  "baseUnit":"LengthUnit.Metre / TimeSquaredUnit.SecondSquared",
+  "baseUnitAccessor":"unitInMetrePerSecondSquared",
+
+  "quotient":[["LengthUnit", "TimeSquaredUnit"], ["VelocityUnit", "TimeUnit"]],
+
+  "constants":[
+    {"name":"StandardGravity", "symbols":["g0"], "args":"r\"9.80665\""},
+    {"name":"Galileo", "symbols":["Gal"], "args":"LengthUnit.CentiMetre / TimeSquaredUnit.SecondSquared"},
+
+    {"name":"InchPerSecondSquared", "symbols":["ips2"], "args":"LengthUnit.Inch / TimeSquaredUnit.SecondSquared"},
+    {"name":"FootPerSecondSquared", "symbols":["fps2"], "args":"LengthUnit.Foot / TimeSquaredUnit.SecondSquared"},
+    {"name":"MilePerSecondSquared", "symbols":["mps2"], "args":"LengthUnit.Mile / TimeSquaredUnit.SecondSquared"}
+  ]
+}

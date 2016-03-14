@@ -1,0 +1,8 @@
+{
+  "baseUnit":"Watt",
+  "baseUnitAccessor":"unitInWatt",
+
+  "constants":[
+    {"name":"Watt", "symbol":"W", "args":"", "scalePrefixes":true}
+  ]
+}

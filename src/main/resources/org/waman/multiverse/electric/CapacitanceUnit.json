@@ -1,0 +1,8 @@
+{
+  "baseUnit":"Farad",
+  "baseUnitAccessor":"unitInFarad",
+
+  "constants":[
+    {"name":"Farad", "symbol":"F", "args":"", "scalePrefixes":true}
+  ]
+}

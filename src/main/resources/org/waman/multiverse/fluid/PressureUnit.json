@@ -1,0 +1,14 @@
+{
+  "imports":[
+    "org.waman.multiverse.time.TimeUnit"
+  ],
+
+  "baseUnit":"Pascal",
+  "baseUnitAccessor":"unitInPascal",
+
+  "multiplicative":[["TimeUnit", "DynamicViscosityUnit"]],
+
+  "constants":[
+    {"name":"Pascal", "symbol":"Pa", "args":"", "scalePrefixes":true}
+  ]
+}

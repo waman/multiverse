@@ -1,0 +1,19 @@
+{
+  "imports":[
+    "org.waman.multiverse.metric.VolumeUnit",
+    "org.waman.multiverse.time.TimeUnit"
+  ],
+
+  "baseUnit":"VolumeUnit.CubicMetre / TimeUnit.Second",
+  "baseUnitAccessor":"unitInCubicMetrePerSecond",
+
+  "quotient":[["VolumeUnit", "TimeUnit"]],
+
+  "constants":[
+    {"name":"LitrePerMinute"    , "symbols":["LPM"], "args":"VolumeUnit.Litre / TimeUnit.Minute"},
+    {"name":"CubicFootPerMinute", "symbols":["CFM"], "args":"VolumeUnit.CubicFoot / TimeUnit.Minute"},
+    {"name":"GallonPerMinute"   , "symbols":["GPM"], "args":"VolumeUnit.Gallon_US_fluid / TimeUnit.Minute"},
+    {"name":"GallonPerHour"     , "symbols":["GPH"], "args":"VolumeUnit.Gallon_US_fluid / TimeUnit.Hour"},
+    {"name":"GallonPerDay"      , "symbols":["GPD"], "args":"VolumeUnit.Gallon_US_fluid / TimeUnit.Day"}
+  ]
+}
