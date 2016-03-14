@@ -24,8 +24,8 @@ class TemperatureSpec
 
       def getPostfixOpsPropertyNames: Seq[String] =
         classOf[DegreeTemperaturePostfixOps[_]].getMethods
-            .map(_.getName)
-            .filterNot(_.endsWith("PostfixOps"))
+          .map(_.getName)
+          .filterNot(_.endsWith("PostfixOps"))
       __SetUp__
       val sut = getPostfixOpsPropertyNames
       val expected = TemperatureUnit.values

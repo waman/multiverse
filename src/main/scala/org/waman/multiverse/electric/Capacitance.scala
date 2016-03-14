@@ -2,16 +2,7 @@ package org.waman.multiverse.electric
 
 import org.waman.multiverse._
 import spire.implicits._
-import spire.math.{Fractional, Real}
-
-trait CapacitancePostfixOps[A]{
-
-  import CapacitanceUnit._
-
-  protected def capacitancePostfixOps(capacitanceUnit: CapacitanceUnit): A
-
-  def F: A = capacitancePostfixOps(Farad)
-}
+import spire.math.Fractional
 
 class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
   extends Quantity[A, CapacitanceUnit]
@@ -26,32 +17,6 @@ class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
 
   override protected def capacitancePostfixOps(capacitanceUnit: CapacitanceUnit) = apply(capacitanceUnit)
 }
-
-sealed abstract class CapacitanceUnit(val symbols: Seq[String], val unitInFarad: Real)
-    extends PhysicalUnit[CapacitanceUnit]{
-
-  override val baseUnit = CapacitanceUnit.Farad
-  override val valueInBaseUnit = unitInFarad
-}
-
-object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
-
-  import scala.language.implicitConversions
-  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
-
-  case object Farad extends CapacitanceUnit("F", 1)
-
-  override lazy val values = Seq(
-    Farad
-  )
-}
-
-trait PredefinedCapacitanceUnit extends CapacitancePostfixOps[CapacitanceUnit]{
-
-  override protected def capacitancePostfixOps(capacitanceUnit: CapacitanceUnit) = capacitanceUnit
-}
-
-object PredefinedCapacitanceUnit extends PredefinedCapacitanceUnit
 
 trait CapacitanceFactory[A]
     extends CapacitancePostfixOps[Capacitance[A]]{

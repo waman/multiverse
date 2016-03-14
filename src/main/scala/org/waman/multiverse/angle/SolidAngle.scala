@@ -1,32 +1,9 @@
 package org.waman.multiverse.angle
 
-import org.waman.multiverse.MultiverseUtil.twoPi
-import org.waman.multiverse.{ConstantsDefined, PhysicalUnit, Quantity, UnitConverter}
+import org.waman.multiverse.{Quantity, UnitConverter}
 import spire.implicits._
-import spire.math.{Fractional, Real}
+import spire.math.Fractional
 
-trait SolidAnglePostfixOps[A]{
-  import SolidAngleUnit._
-
-  protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit): A
-
-  def dasr: A = solidAnglePostfixOps(DecaSteradian)
-  def sr  : A = solidAnglePostfixOps(Steradian)
-  def dsr : A = solidAnglePostfixOps(DeciSteradian)
-  def csr : A = solidAnglePostfixOps(CentiSteradian)
-  def msr : A = solidAnglePostfixOps(MilliSteradian)
-  def microSteradian : A = solidAnglePostfixOps(MicroSteradian)
-  def microSr        : A = microSteradian
-  def μsr : A = microSteradian
-  def nsr : A = solidAnglePostfixOps(NanoSteradian)
-  def psr : A = solidAnglePostfixOps(PicoSteradian)
-  def fsr : A = solidAnglePostfixOps(FemtoSteradian)
-  def asr : A = solidAnglePostfixOps(AttoSteradian)
-  def zsr : A = solidAnglePostfixOps(ZeptoSteradian)
-  def ysr : A = solidAnglePostfixOps(YoctoSteradian)
-  
-  def deg2: A = solidAnglePostfixOps(SquareDegree)
-}
 
 class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
   extends Quantity[A, SolidAngleUnit]
@@ -41,57 +18,6 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
 
   override protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit) = apply(solidAngleUnit)
 }
-
-sealed abstract class SolidAngleUnit(val symbols: Seq[String], val unitInSteradian: Real)
-    extends PhysicalUnit[SolidAngleUnit]{
-
-  override val baseUnit = SolidAngleUnit.Steradian
-  override val valueInBaseUnit = unitInSteradian
-}
-
-object SolidAngleUnit extends ConstantsDefined[SolidAngleUnit]{
-
-  import scala.language.implicitConversions
-  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
-
-  case object DecaSteradian  extends SolidAngleUnit("dasr", r"1e1")
-  case object Steradian      extends SolidAngleUnit("sr", 1)
-  case object DeciSteradian  extends SolidAngleUnit("dsr", r"1e-1")
-  case object CentiSteradian extends SolidAngleUnit("csr", r"1e-2")
-  case object MilliSteradian extends SolidAngleUnit("msr", r"1e-3")
-  case object MicroSteradian extends SolidAngleUnit(Seq("μsr", "microSteradian", "microSr"), r"1e-6")
-  case object NanoSteradian  extends SolidAngleUnit("nsr", r"1e-9")
-  case object PicoSteradian  extends SolidAngleUnit("psr", r"1e-12")
-  case object FemtoSteradian extends SolidAngleUnit("fsr", r"1e-15")
-  case object AttoSteradian  extends SolidAngleUnit("asr", r"1e-18")
-  case object ZeptoSteradian extends SolidAngleUnit("zsr", r"1e-21")
-  case object YoctoSteradian extends SolidAngleUnit("ysr", r"1e-24")
-  
-  case object SquareDegree extends SolidAngleUnit("deg2", (twoPi / r"360")**2)
-
-  override lazy val values = Seq(
-    DecaSteradian,
-    Steradian,
-    DeciSteradian,
-    CentiSteradian,
-    MilliSteradian,
-    MicroSteradian,
-    NanoSteradian,
-    PicoSteradian,
-    FemtoSteradian,
-    AttoSteradian,
-    ZeptoSteradian,
-    YoctoSteradian,
-
-    SquareDegree
-  )
-}
-
-trait PredefinedSolidAngleUnit extends SolidAnglePostfixOps[SolidAngleUnit]{
-  override protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit) = solidAngleUnit
-}
-
-object PredefinedSolidAngleUnit extends PredefinedSolidAngleUnit
 
 trait SolidAngleFactory[A]
   extends SolidAnglePostfixOps[SolidAngle[A]]{

@@ -3,16 +3,7 @@ package org.waman.multiverse.electric
 import org.waman.multiverse._
 import org.waman.multiverse.metric.{LengthPostfixOps, LengthUnit}
 import spire.implicits._
-import spire.math.{Fractional, Real}
-
-trait DipolePostfixOps[A]{
-
-  import DipoleUnit._
-
-  protected def dipolePostfixOps(dipoleUnit: DipoleUnit): A
-
-  def D: A = dipolePostfixOps(Debye)
-}
+import spire.math.Fractional
 
 class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
   extends Quantity[A, DipoleUnit]
@@ -37,52 +28,6 @@ class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
     override protected def lengthPostfixOps(lengthUnit: LengthUnit) = apply(chargeUnit * lengthUnit)
   }
 }
-
-sealed trait DipoleUnit extends PhysicalUnit[DipoleUnit]{
-
-  def unitInCoulombMetre: Real
-
-  override def baseUnit = ChargeUnit.Coulomb * LengthUnit.Metre
-  override def valueInBaseUnit = unitInCoulombMetre
-}
-
-object DipoleUnit extends ConstantsDefined[DipoleUnit]{
-
-  // Custom
-  private[DipoleUnit]
-  class IntrinsicDipoleUnit(symbol: String, val unitInCoulombMetre: Real)
-      extends DipoleUnit{
-
-    def this(symbol: String, chargeUnit: ChargeUnit, lengthUnit: LengthUnit) =
-      this(symbol, chargeUnit.unitInCoulomb * lengthUnit.unitInMetre)
-
-    override val symbols = Seq(symbol)
-  }
-
-  case object Debye extends IntrinsicDipoleUnit("D", r"340")
-
-  override lazy val values = Seq(
-    Debye
-  )
-
-  // Product (Charge * Length)
-  private[DipoleUnit]
-  class ProductDipoleUnit(val firstUnit: ChargeUnit, val secondUnit: LengthUnit)
-    extends DipoleUnit with ProductUnit[DipoleUnit, ChargeUnit, LengthUnit]{
-
-    override lazy val unitInCoulombMetre: Real = firstUnit.unitInCoulomb * secondUnit.unitInMetre
-  }
-
-  def apply(cUnit: ChargeUnit, lUnit: LengthUnit): DipoleUnit =
-    new ProductDipoleUnit(cUnit, lUnit)
-}
-
-trait PredefinedDipoleUnit extends DipolePostfixOps[DipoleUnit]{
-
-  override protected def dipolePostfixOps(dipoleUnit: DipoleUnit) = dipoleUnit
-}
-
-object PredefinedDipoleUnit extends PredefinedDipoleUnit
 
 trait DipoleFactory[A]
     extends DipolePostfixOps[Dipole[A]]{

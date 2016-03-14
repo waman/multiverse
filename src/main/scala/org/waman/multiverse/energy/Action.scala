@@ -3,16 +3,7 @@ package org.waman.multiverse.energy
 import org.waman.multiverse._
 import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
 import spire.implicits._
-import spire.math.{Fractional, Real}
-
-trait ActionPostfixOps[A]{
-  import ActionUnit._
-
-  protected def actionPostfixOps(actionUnit: ActionUnit): A
-
-  def hbar: A = actionPostfixOps(AtomicUnitOfAction)
-  def ħ   : A = hbar
-}
+import spire.math.Fractional
 
 class Action[A: Fractional](val value: A, val unit: ActionUnit)
     extends Quantity[A, ActionUnit]
@@ -38,46 +29,6 @@ class Action[A: Fractional](val value: A, val unit: ActionUnit)
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(energyUnit * timeUnit)
   }
 }
-
-sealed trait ActionUnit extends PhysicalUnit[ActionUnit]{
-
-  def unitInJouleSecond: Real
-
-  override def baseUnit = EnergyUnit.Joule * TimeUnit.Second
-  override def valueInBaseUnit = unitInJouleSecond
-}
-
-object ActionUnit extends ConstantsDefined[ActionUnit]{
-
-  // intrinsic
-  private[ActionUnit]
-  class IntrinsicActionUnit(val symbols: Seq[String], val unitInJouleSecond: Real)
-      extends ActionUnit
-
-  case object AtomicUnitOfAction extends IntrinsicActionUnit(Seq("ħ", "hbar"), r"1.05457168e-34") with NotExact
-
-  override lazy val values = Seq(
-    AtomicUnitOfAction
-  )
-
-  // Energy * Time -> Action
-  private[ActionUnit]
-  class ProductActionUnit(val firstUnit: EnergyUnit, val secondUnit: TimeUnit)
-      extends ActionUnit
-      with ProductUnit[ActionUnit, EnergyUnit, TimeUnit]{
-
-    override lazy val unitInJouleSecond: Real = firstUnit.unitInJoule * secondUnit.unitInSecond
-  }
-
-  def apply(eUnit: EnergyUnit, tUnit: TimeUnit) = new ProductActionUnit(eUnit, tUnit)
-}
-
-trait PredefinedActionUnit extends ActionPostfixOps[ActionUnit]{
-
-  override protected def actionPostfixOps(actionUnit: ActionUnit) = actionUnit
-}
-
-object PredefinedActionUnit extends PredefinedActionUnit
 
 trait ActionFactory[A]
   extends ActionPostfixOps[Action[A]]{

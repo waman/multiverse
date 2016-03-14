@@ -6,11 +6,11 @@
   "baseUnit":"Lux",
   "baseUnitAccessor":"unitInLux",
 
-  "quotient":["LuminousFlux", "Area"],
+  "quotient":[["LuminousFluxUnit", "AreaUnit"]],
 
   "constants":[
-    {"name":"Lux", "scalePrefixes":true, "symbol":"lx", "args":""},
-    {"name":"Phot", "symbols":["ph"], "args":"r\"1e4\""},
+    {"name":"Lux"       , "symbol":"lx"   , "args":"", "scalePrefixes":true},
+    {"name":"Phot"      , "symbols":["ph"], "args":"r\"1e4\""},
     {"name":"FootCandle", "symbols":["fc"], "args":"LuminousFluxUnit.Lumen / AreaUnit.SquareFoot"}
   ]
 }

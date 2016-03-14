@@ -4,16 +4,7 @@ import org.waman.multiverse._
 import org.waman.multiverse.metric.{AreaPer, AreaPostfixOps, AreaUnit}
 import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
 import spire.implicits._
-import spire.math.{Fractional, Real}
-
-trait KinematicViscosityPostfixOps[A]{
-
-  import KinematicViscosityUnit._
-
-  protected def kinematicViscosityPostfixOps(kinematicViscosityUnit: KinematicViscosityUnit): A
-
-  def St: A = kinematicViscosityPostfixOps(Stokes)
-}
+import spire.math.Fractional
 
 class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosityUnit)
     extends Quantity[A, KinematicViscosityUnit]
@@ -39,51 +30,6 @@ class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosi
     override protected def timePostfixOps(timeUnit: TimeUnit) = apply(areaUnit / timeUnit)
   }
 }
-
-sealed trait KinematicViscosityUnit extends PhysicalUnit[KinematicViscosityUnit]{
-
-  def unitInSquareMetrePerSecond: Real
-
-  override def baseUnit = AreaUnit.SquareMetre / TimeUnit.Second
-  override def valueInBaseUnit = unitInSquareMetrePerSecond
-}
-
-object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
-
-  // Custom
-  private[KinematicViscosityUnit]
-  class IntrinsicKinematicViscosityUnit(symbol: String, val unitInSquareMetrePerSecond: Real)
-      extends KinematicViscosityUnit{
-
-    override lazy val symbols: Seq[String] = Seq(symbol)
-  }
-
-  case object Stokes extends IntrinsicKinematicViscosityUnit("St", r"1e-4")
-
-  override lazy val values = Seq(
-    Stokes
-  )
-
-  // Quotient (Area / Time)
-  private[KinematicViscosityUnit]
-  class QuotientKinematicViscosityUnit(val numeratorUnit: AreaUnit, val denominatorUnit: TimeUnit)
-    extends KinematicViscosityUnit with QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit]{
-
-    override lazy val unitInSquareMetrePerSecond: Real =
-      numeratorUnit.unitInSquareMetre / denominatorUnit.unitInSecond
-  }
-
-  def apply(aUnit: AreaUnit, tUnit: TimeUnit): KinematicViscosityUnit =
-    new QuotientKinematicViscosityUnit(aUnit, tUnit)
-}
-
-trait PredefinedKinematicViscosityUnit extends KinematicViscosityPostfixOps[KinematicViscosityUnit]{
-
-  override protected def kinematicViscosityPostfixOps(kinematicViscosityUnit: KinematicViscosityUnit) =
-    kinematicViscosityUnit
-}
-
-object PredefinedKinematicViscosityUnit extends PredefinedKinematicViscosityUnit
 
 trait KinematicViscosityFactory[A]
     extends KinematicViscosityPostfixOps[KinematicViscosity[A]]{

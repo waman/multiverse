@@ -29,7 +29,6 @@ class LengthSpec
         (Seq(3.0.pm, 3.0 pm, 3.0 (pm)), 3e-12),
         (Seq(3.0.nm, 3.0 nm, 3.0 (nm)), 3e-9),
         (Seq(3.0.microMetre, 3.0 microMetre, 3.0 (microMetre)), 3e-6),
-        (Seq(3.0.micrometre, 3.0 micrometre, 3.0 (micrometre)), 3e-6),
         (Seq(3.0.μm, 3.0 μm, 3.0 (μm)), 3e-6),
         (Seq(3.0.mm, 3.0 mm, 3.0 (mm)), 3e-3),
         (Seq(3.0.cm, 3.0 cm, 3.0 (cm)), 3e-2),
@@ -48,7 +47,7 @@ class LengthSpec
 
         // microscopic
         (Seq(3.0.micron , 3.0 micron , 3.0 (micron)) , 3.0 * 1e-6),
-        (Seq(3.0.μ , 3.0 μ , 3.0 (μ)) , 3.0 * 1e-6),
+        (Seq(3.0.µ , 3.0 µ , 3.0 (µ)) , 3.0 * 1e-6),
         (Seq(3.0.angstrom , 3.0 angstrom , 3.0 (angstrom)) , 3.0 * 1e-10),
         (Seq(3.0.Å , 3.0 Å , 3.0 (Å)) , 3.0 * 1e-10),
         (Seq(3.0.a0, 3.0 a0, 3.0 (a0)), 3.0 * 5.2917721092e-11),
@@ -127,7 +126,6 @@ class LengthSpec
         (Seq(q.pm, q pm, q (pm)), 3e12),
         (Seq(q.nm, q nm, q (nm)), 3e9),
         (Seq(q.microMetre, q microMetre, q (microMetre)), 3e6),
-        (Seq(q.micrometre, q micrometre, q (micrometre)), 3e6),
         (Seq(q.μm, q μm, q (μm)), 3e6),
         (Seq(q.mm, q mm, q (mm)), 3e3),
         (Seq(q.cm, q cm, q (cm)), 3e2),
@@ -146,7 +144,7 @@ class LengthSpec
 
         // microscopic
         (Seq(q.micron, q micron, q (micron)), 3e6),
-        (Seq(q.μ, q μ, q (μ)), 3e6),
+        (Seq(q.µ, q µ, q (µ)), 3e6),
         (Seq(q.angstrom, q angstrom, q (angstrom)), 3e10),
         (Seq(q.Å, q Å, q (Å)), 3e10),
         (Seq(q.a0, q a0, q (a0)), 3.0 / 5.2917721092e-11),

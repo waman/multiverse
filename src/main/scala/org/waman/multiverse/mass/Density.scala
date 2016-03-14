@@ -3,7 +3,7 @@ package org.waman.multiverse.mass
 import org.waman.multiverse._
 import org.waman.multiverse.metric.{VolumePostfixOps, VolumeUnit}
 import spire.implicits._
-import spire.math.{Fractional, Real}
+import spire.math.Fractional
 
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
   extends Quantity[A, DensityUnit]
@@ -24,29 +24,6 @@ class Density[A: Fractional](val value: A, val unit: DensityUnit)
   override protected def massPer(massUnit: MassUnit) = new VolumePostfixOps[A]{
     override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(massUnit / volumeUnit)
   }
-}
-
-sealed trait DensityUnit extends PhysicalUnit[DensityUnit]{
-
-  def unitInKiloGramPerCubicMetre: Real
-
-  override def baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
-  override def valueInBaseUnit = unitInKiloGramPerCubicMetre
-}
-
-object DensityUnit{
-
-  // Quotient (Mass / Volume)
-  private[DensityUnit]
-  class QuotientDensityUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
-    extends DensityUnit with QuotientUnit[DensityUnit, MassUnit, VolumeUnit]{
-
-    override lazy val unitInKiloGramPerCubicMetre: Real =
-      numeratorUnit.unitInKiloGram / denominatorUnit.unitInCubicMetre
-  }
-
-  def apply(mUnit: MassUnit, vUnit: VolumeUnit): DensityUnit =
-    new QuotientDensityUnit(mUnit, vUnit)
 }
 
 trait DensityFactory[A]

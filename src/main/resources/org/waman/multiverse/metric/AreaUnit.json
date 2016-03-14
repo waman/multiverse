@@ -7,40 +7,39 @@
   "baseUnit":"SquareMetre",
   "baseUnitAccessor":"unitInSquareMetre",
 
-  "multiplicative":[["Length", "Volume"]],
-  "divisible":[["Time", "KinematicViscosity"]],
+  "multiplicative":[["LengthUnit", "VolumeUnit"]],
+  "divisible":[["TimeUnit", "KinematicViscosityUnit"]],
 
-  "product":["Length", "Length"],
+  "product":[["LengthUnit", "LengthUnit"]],
 
   "constants":[
-    {"name":"SquareMetre", "scalePrefixes":true, "symbol":"m2", "args":""},
+    {"name":"SquareMetre", "symbol":"m2", "args":"**2", "scalePrefixes":true},
 
-    {"name":"Are", "symbols":["a"], "args":"r\"1e2\""},
+    {"name":"Are"    , "symbols":["a"] , "args":"r\"1e2\""},
     {"name":"Hectare", "symbols":["ha"], "args":"r\"1e4\""},
 
-    {"name":"Barn", "scalePrefixes":true, "excludePrefixes":["c", "d", "da", "h"], "symbol":"b", "args":" * r\"1e-28\""},
+    {"name":"Barn", "symbol":"b", "args":" * r\"1e-28\"", "scalePrefixes":true,
+      "excludePrefixes":["c", "d", "da", "h"]},
 
-    // yard-pond
-    {"name":"SquareMil", "symbols":["mil2", "sq_mil"], "args":"LengthUnit.Mil.square"},
-    {"name":"SquareInch", "symbols":["in2", "sq_in"], "args":"LengthUnit.Inch.square"},
-    {"name":"SquareLink", "symbols":["li2", "lnk2", "sq_li", "sq_lnk"], "args":"LengthUnit.Link.square"},
-    {"name":"SquareFoot", "symbols":["ft2", "sq_ft"], "args":"LengthUnit.Foot.square"},
-    {"name":"SquareChain", "symbols":["ch2", "sq_ch"], "args":"LengthUnit.Chain.square"},
-    {"name":"SquareYard", "symbols":["yd2", "sq_yd"], "args":"LengthUnit.Yard.square"},
-    {"name":"SquareRod", "symbols":["rd2", "sq_rd"], "args":"LengthUnit.Rod.square"},
-    {"name":"SquareMile", "symbols":["mi2", "sq_mi"], "args":"LengthUnit.Mile.square"},
+    {"name":"SquareMil"  , "symbols":["mil2", "sq_mil"], "args":"LengthUnit.Mil.square"},
+    {"name":"SquareInch" , "symbols":["in2" , "sq_in"] , "args":"LengthUnit.Mil.square"},
+    {"name":"SquareLink" , "symbols":["li2" , "lnk2", "sq_li", "sq_lnk"], "args":"LengthUnit.Link.square"},
+    {"name":"SquareFoot" , "symbols":["ft2" , "sq_ft"] , "args":"LengthUnit.Foot.square"},
+    {"name":"SquareChain", "symbols":["ch2" , "sq_ch"] , "args":"LengthUnit.Chain.square"},
+    {"name":"SquareYard" , "symbols":["yd2" , "sq_yd"] , "args":"LengthUnit.Yard.square"},
+    {"name":"SquareRod"  , "symbols":["rd2" , "sq_rd"] , "args":"LengthUnit.Rod.square"},
+    {"name":"SquareMile" , "symbols":["mi2" , "sq_mi"] , "args":"LengthUnit.Mile.square"},
+
     {"name":"Acre", "symbols":["ac"], "args":"10, LengthUnit.Chain.square"},
     {"name":"Rood", "symbols":["ro"], "args":"r\"1/4\", Acre"},
 
-    {"name":"SquareLink_US_Survey", "symbols":["sq_li(US)", "sq_lnk(US)"], "args":"LengthUnit.Link_US_Survey.square"},
-    {"name":"SquareFoot_US_Survey", "symbols":["sq_ft(US)"], "args":"LengthUnit.Foot_US_Survey.square"},
+    {"name":"SquareLink_US_Survey" , "symbols":["sq_li(US)", "sq_lnk(US)"], "args":"LengthUnit.Link_US_Survey.square"},
+    {"name":"SquareFoot_US_Survey" , "symbols":["sq_ft(US)"], "args":"LengthUnit.Foot_US_Survey.square"},
     {"name":"SquareChain_US_Survey", "symbols":["sq_ch(US)"], "args":"LengthUnit.Chain_US_Survey.square"},
-    {"name":"SquareMile_US_Survey", "symbols":["sq_mi(US)"], "args":"LengthUnit.Mile_US_Survey.square"},
-    {"name":"Acre_US_Survey", "symbols":["ac(US)"], "args":"10, LengthUnit.Chain_US_Survey.square"},
-
-    {"name":"CircularMil", "symbols":["circ_mil"], "args":"Real.pi/4.0, SquareMil"},
-    {"name":"CircularInch", "symbols":["circ_in"], "args":"Real.pi/4.0, SquareInch"},
-
-    {"name":"Board", "symbols":["bd"], "args":"LengthUnit.Inch * LengthUnit.Foot"}
+    {"name":"SquareMile_US_Survey" , "symbols":["sq_mi(US)"], "args":"LengthUnit.Mile_US_Survey.square"},
+    {"name":"Acre_US_Survey"       , "symbols":["ac(US)"]   , "args":"10, LengthUnit.Chain_US_Survey.square"},
+    {"name":"CircularMil"          , "symbols":["circ_mil"] , "args":"Real.pi/4.0, SquareMil"},
+    {"name":"CircularInch"         , "symbols":["circ_in"]  , "args":"Real.pi/4.0, SquareInch"},
+    {"name":"Board"                , "symbols":["bd"]       , "args":"LengthUnit.Inch * LengthUnit.Foot"}
   ]
 }

@@ -5,50 +5,6 @@ import org.waman.multiverse.angle.DegreePostfixOps
 import spire.implicits._
 import spire.math.{Fractional, Real}
 
-trait TemperaturePostfixOps[A]{
-
-  import TemperatureUnit._
-
-  protected def temperaturePostfixOps(temperatureUnit: TemperatureUnit): A
-  
-  def yK: A = temperaturePostfixOps(YoctoKelvin)
-  def zK: A = temperaturePostfixOps(ZeptoKelvin)
-  def aK: A = temperaturePostfixOps(AttoKelvin)
-  def fK: A = temperaturePostfixOps(FemtoKelvin)
-  def pK: A = temperaturePostfixOps(PicoKelvin)
-  def nK: A = temperaturePostfixOps(NanoKelvin)
-  def microKelvin: A = temperaturePostfixOps(MicroKelvin)
-  def microK: A = microKelvin
-  def μK: A = microKelvin
-  def mK: A = temperaturePostfixOps(MilliKelvin)
-  def cK: A = temperaturePostfixOps(CentiKelvin)
-  def dK: A = temperaturePostfixOps(DeciKelvin)
-  def K : A = temperaturePostfixOps(Kelvin)
-  def daK: A = temperaturePostfixOps(DecaKelvin)
-  def hK: A = temperaturePostfixOps(HectoKelvin)
-  def kK: A = temperaturePostfixOps(KiloKelvin)
-  def MK: A = temperaturePostfixOps(MegaKelvin)
-  def GK: A = temperaturePostfixOps(GigaKelvin)
-  def TK: A = temperaturePostfixOps(TeraKelvin)
-  def PK: A = temperaturePostfixOps(PetaKelvin)
-  def EK: A = temperaturePostfixOps(ExaKelvin)
-  def ZK: A = temperaturePostfixOps(ZettaKelvin)
-  def YK: A = temperaturePostfixOps(YottaKelvin)
-
-  def degC: A = temperaturePostfixOps(DegreeCelsius)
-  def ℃ : A = degC
-
-  def degF: A = temperaturePostfixOps(DegreeFahrenheit)
-  def ℉ : A = degF
-
-  def degDe: A = temperaturePostfixOps(DegreeDelisle)
-  def degN : A = temperaturePostfixOps(DegreeNewton)
-  def degR : A = temperaturePostfixOps(DegreeRankine)
-  def degRe: A = temperaturePostfixOps(DegreeReaumur)
-  def degRo: A = temperaturePostfixOps(DegreeRomer)
-  def GM   : A = temperaturePostfixOps(ReguloGasMark)
-}
-
 trait DegreeTemperaturePostfixOps[A]{
   import TemperatureUnit._
   protected def degreeTemperaturePostfixOps(unit: TemperatureUnit): A
@@ -127,7 +83,7 @@ object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
 
   import scala.language.implicitConversions
   implicit def convertToSeq(s: String): Seq[String] = Seq(s)
-  
+
   // intrinsic
   case object YoctoKelvin extends TemperatureUnit("yK", r"1e-24", 0)
   case object ZeptoKelvin extends TemperatureUnit("zK", r"1e-21", 0)
@@ -139,12 +95,12 @@ object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
   case object MilliKelvin extends TemperatureUnit("mK", r"1e-3", 0)
   case object CentiKelvin extends TemperatureUnit("cK", r"1e-2", 0)
   case object DeciKelvin  extends TemperatureUnit("dK", r"1e-1", 0)
-  case object Kelvin      extends TemperatureUnit("K", 1 , 0)
+  case object Kelvin      extends TemperatureUnit("K" , 1      , 0)
   case object DecaKelvin  extends TemperatureUnit("daK", r"1e1", 0)
-  case object HectoKelvin extends TemperatureUnit("hK", r"1e2", 0)
-  case object KiloKelvin  extends TemperatureUnit("kK", r"1e3", 0)
-  case object MegaKelvin  extends TemperatureUnit("MK", r"1e6", 0)
-  case object GigaKelvin  extends TemperatureUnit("GK", r"1e9", 0)
+  case object HectoKelvin extends TemperatureUnit("hK", r"1e2" , 0)
+  case object KiloKelvin  extends TemperatureUnit("kK", r"1e3" , 0)
+  case object MegaKelvin  extends TemperatureUnit("MK", r"1e6" , 0)
+  case object GigaKelvin  extends TemperatureUnit("GK", r"1e9" , 0)
   case object TeraKelvin  extends TemperatureUnit("TK", r"1e12", 0)
   case object PetaKelvin  extends TemperatureUnit("PK", r"1e15", 0)
   case object ExaKelvin   extends TemperatureUnit("EK", r"1e18", 0)
@@ -193,13 +149,6 @@ object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
     ReguloGasMark
   )
 }
-
-trait PredefinedTemperatureUnit extends TemperaturePostfixOps[TemperatureUnit]{
-
-  override protected def temperaturePostfixOps(temperatureUnit: TemperatureUnit) = temperatureUnit
-}
-
-object PredefinedTemperatureUnit extends PredefinedTemperatureUnit
 
 trait TemperatureFactory[A]
     extends TemperaturePostfixOps[Temperature[A]]{

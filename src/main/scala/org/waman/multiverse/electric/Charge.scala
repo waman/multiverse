@@ -5,34 +5,7 @@ import org.waman.multiverse.mass.{MassPostfixOps, MassUnit}
 import org.waman.multiverse.metric.{LengthPostfixOps, LengthUnit}
 import org.waman.multiverse.radiation.{Exposure, ExposureUnit}
 import spire.implicits._
-import spire.math.{Fractional, Real}
-
-trait ChargePostfixOps[A]{
-
-  import ChargeUnit._
-
-  protected def chargePostfixOps(chargeUnit: ChargeUnit): A
-
-  def C: A = chargePostfixOps(Coulomb)
-}
-
-trait ChargeDot[A]{
-
-  import ChargeUnit._
-
-  protected def chargeDot(chargeUnit: ChargeUnit): A
-
-  def C(dot: Dot): A = chargeDot(Coulomb)
-}
-
-trait ChargePer[A]{
-
-  import ChargeUnit._
-
-  protected def chargePer(chargeUnit: ChargeUnit): A
-
-  def C(per: Per): A = chargePer(Coulomb)
-}
+import spire.math.Fractional
 
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
   extends Quantity[A, ChargeUnit]
@@ -53,38 +26,6 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
 
   override def /(massUnit: MassUnit) = new Exposure(value, unit / massUnit)
 }
-
-sealed abstract class ChargeUnit(val symbols: Seq[String], val unitInCoulomb: Real)
-    extends PhysicalUnit[ChargeUnit]
-    with MultiplicativeByLengthUnit[DipoleUnit]
-    with DivisibleByMassUnit[ExposureUnit]{
-
-  override def baseUnit = ChargeUnit.Coulomb
-  override def valueInBaseUnit = unitInCoulomb
-
-  override def *(lengthUnit: LengthUnit) = DipoleUnit(this, lengthUnit)
-
-  override def /(massUnit: MassUnit) = ExposureUnit(this, massUnit)
-}
-
-object ChargeUnit extends ConstantsDefined[ChargeUnit]{
-
-  import scala.language.implicitConversions
-  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
-
-  case object Coulomb extends ChargeUnit("C", 1)
-
-  override lazy val values = Seq(
-    Coulomb
-  )
-}
-
-trait PredefinedChargeUnit extends ChargePostfixOps[ChargeUnit]{
-
-  override protected def chargePostfixOps(chargeUnit: ChargeUnit) = chargeUnit
-}
-
-object PredefinedChargeUnit extends PredefinedChargeUnit
 
 trait ChargeFactory[A]
     extends ChargePostfixOps[Charge[A]]

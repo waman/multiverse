@@ -6,15 +6,6 @@ import org.waman.multiverse.time.{Frequency, FrequencyUnit, TimePostfixOps, Time
 import spire.implicits._
 import spire.math._
 
-trait AngularVelocityPostfixOps[A]{
-  import AngularVelocityUnit._
-
-  protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit): A
-
-  def rpm: A = angularVelocityPostfixOps(RevolutionPerMinute)
-  def cps: A = angularVelocityPostfixOps(CyclePerSecond)
-}
-
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
     extends Quantity[A, AngularVelocityUnit]
     with AngularVelocityPostfixOps[A]
@@ -43,51 +34,6 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
     div(rad(UnitSystem./).s, twoPi),
     FrequencyUnit.Heltz)
 }
-
-sealed abstract class AngularVelocityUnit extends PhysicalUnit[AngularVelocityUnit]{
-
-  def unitInRadianPerSecond: Real
-
-  override def baseUnit = AngleUnit.Radian / TimeUnit.Second
-  override def valueInBaseUnit = unitInRadianPerSecond
-}
-
-object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
-
-  // Custom
-  private[AngularVelocityUnit]
-  class IntrinsicAngularVelocityUnit(symbol: String, val unitInRadianPerSecond: Real)
-      extends AngularVelocityUnit{
-
-    override lazy val symbols = Seq(symbol)
-  }
-
-  case object CyclePerSecond      extends IntrinsicAngularVelocityUnit("cps", twoPi)
-  case object RevolutionPerMinute extends IntrinsicAngularVelocityUnit("rpm", twoPi / r"60")
-
-
-  override lazy val values = Seq(
-    CyclePerSecond,
-    RevolutionPerMinute
-  )
-
-  // Quotient
-  private class QuotientAngularVelocityUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
-    extends AngularVelocityUnit with QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit]{
-
-    override lazy val unitInRadianPerSecond: Real =
-      numeratorUnit.unitInRadian / denominatorUnit.unitInSecond
-  }
-
-  def apply(aUnit: AngleUnit, tUnit: TimeUnit): AngularVelocityUnit =
-    new QuotientAngularVelocityUnit(aUnit, tUnit)
-}
-
-trait PredefinedAngularVelocityUnit extends AngularVelocityPostfixOps[AngularVelocityUnit]{
-  override protected def angularVelocityPostfixOps(avUnit: AngularVelocityUnit) = avUnit
-}
-
-object PredefinedAngularVelocityUnit extends PredefinedAngularVelocityUnit
 
 trait AngularVelocityFactory[A]
     extends AngularVelocityPostfixOps[AngularVelocity[A]]{

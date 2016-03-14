@@ -6,10 +6,10 @@
   "baseUnit":"Sievert",
   "baseUnitAccessor":"unitInSievert",
 
-  "divisible":[["Time", "EquivalentDoseRate"]],
+  "divisible":[["TimeUnit", "EquivalentDoseRateUnit"]],
 
   "constants":[
-    {"name":"Sievert", "scalePrefixes":true, "symbol":"Sv", "args":""},
-    {"name":"REM", "scalePrefixes":true, "symbol":"rem", "args":" * r\"1e-2\""}
+    {"name":"Sievert", "symbol":"Sv" , "args":""            , "scalePrefixes":true},
+    {"name":"REM"    , "symbol":"rem", "args":" * r\"1e-2\"", "scalePrefixes":true}
   ]
 }

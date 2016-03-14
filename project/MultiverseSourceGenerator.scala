@@ -121,7 +121,8 @@ object MultiverseSourceGenerator extends GluinoPath{
 
       val destDir = srcManaged / rel
       val className = json.getFileName.toString.replace("Unit.json", "")  // Length (not contain "Unit")
-      val fileName = className + "Unit.scala"
+      val fileName = if(className == "Temperature") "TemperaturePostfixOps.scala"
+                     else className + "Unit.scala"
       val generated = destDir / fileName
 
       if(!generated.exists || generated.isOlderThan(json)){
@@ -142,6 +143,10 @@ object MultiverseSourceGenerator extends GluinoPath{
                         json: JsonObject, contextList: List[NameSymbol]): Unit = {
     val id = headToLower(className)  // length
     val imports = getChildren(json, "imports").map(_.getAsString)
+    val units: List[UnitConstant] = getUnitConstants(json)
+    val (contextful, contextless) = getUnitNameSymbolTuples(units)
+    // contextful: List(NameSymbol("Foot", "ft(US)"), ...)
+    // contextless: List(NameSymbol("Metre", "m"), NameSymbol("Foot", "ft"), ...)
 
     dest.withWriter { writer =>
 
@@ -159,139 +164,180 @@ object MultiverseSourceGenerator extends GluinoPath{
              |import $i""".stripMargin
       }
 
-      //***** Unit trait  *****
-      val baseUnitAccessor = getString(json, "baseUnitAccessor")
-      val baseUnit = getString(json, "baseUnit") match {
-        case s if s.contains("*") || s. contains("/") => s
-        case s => packageName + "." + className + "Unit." + s
-      }
+      if(className != "Temperature"){
+        //***** Unit trait  *****
+        val baseUnitAccessor = getString(json, "baseUnitAccessor")
+        val baseUnit = getString(json, "baseUnit") match {
+          case s if s.contains("*") || s. contains("/") => s
+          case s => packageName + "." + className + "Unit." + s
+        }
 
-      val muls = getChildren(json, "multiplicative").map(_.getAsJsonArray.toList.map(_.getAsString))
-                   .map(p => (p.head, p(1)))
-      val divs  = getChildren(json, "divisible").map(_.getAsJsonArray.toList.map(_.getAsString))
-                   .map(q => (q.head, q(1)))
-      writer <<
-        s"""
-           |
-           |sealed trait ${className}Unit extends PhysicalUnit[${className}Unit]""".stripMargin
+        val muls = getChildren(json, "multiplicative").map(_.getAsJsonArray.toList.map(_.getAsString))
+          .map(p => (p.head, p(1)))
 
-      muls.foreach{ m =>
-        writer <<
-          s"""
-             |  with MultiplicativeBy${m._1}Unit[${m._2}Unit]""".stripMargin
-      }
+        val divs  = getChildren(json, "divisible").map(_.getAsJsonArray.toList.map(_.getAsString))
+          .map(q => (q.head, q(1)))
 
-      divs.foreach{ d =>
-        writer <<
-          s"""
-              |  with DivisibleBy${d._1}Unit[${d._2}Unit]""".stripMargin
-      }
-
-      writer <<
-        s"""{
-           |
-           |  def $baseUnitAccessor: Real
-           |
-           |  override def baseUnit = $baseUnit
-           |  override def valueInBaseUnit = $baseUnitAccessor""".stripMargin
-
-      muls.foreach{ m =>
         writer <<
           s"""
              |
-             |  override def *(unit: ${m._1}Unit) = ${m._2}Unit(this, unit)""".stripMargin
-      }
+             |sealed trait ${className}Unit extends PhysicalUnit[${className}Unit]""".stripMargin
 
-      divs.foreach{ d =>
+        muls.foreach{ case (by, result) =>
+          writer <<
+            s"""
+               |  with MultiplicativeBy$by[$result]""".stripMargin
+        }
+
+        divs.foreach{ case (by, result) =>
+          writer <<
+            s"""
+                |  with DivisibleBy$by[$result]""".stripMargin
+        }
+
+        if(json.has("square")){
+          val square = json.getAsJsonPrimitive("square").getAsString
+          writer <<
+            s"""
+               |  with CanSquare[$square]""".stripMargin
+        }
+
+        if(json.has("cubic")){
+          val cubic = json.getAsJsonPrimitive("cubic").getAsString
+          writer <<
+            s"""
+               |  with CanCubic[$cubic]""".stripMargin
+        }
+
+        writer <<
+          s"""{
+             |
+             |  def $baseUnitAccessor: Real
+             |
+             |  override def baseUnit = $baseUnit
+             |  override def valueInBaseUnit = $baseUnitAccessor""".stripMargin
+
+        muls.foreach{ case (arg, result) =>
+          writer <<
+            s"""
+               |
+               |  override def *(unit: $arg) = $result(this, unit)""".stripMargin
+        }
+
+        divs.foreach{ case (arg, result) =>
+          writer <<
+            s"""
+               |
+               |  override def /(unit: $arg) = $result(this, unit)""".stripMargin
+        }
+
+        if(json.has("square")){
+          val square = json.getAsJsonPrimitive("square").getAsString
+          writer <<
+            s"""
+               |
+               |  override def square: $square = this * this""".stripMargin
+        }
+
+        if(json.has("cubic")){
+          val cubic = json.getAsJsonPrimitive("cubic").getAsString
+          writer <<
+            s"""
+               |
+               |  override def cubic: $cubic = this * this * this""".stripMargin
+        }
+
+        writer <<
+          s"""
+             |}""".stripMargin
+
+        //***** Unit object *****
         writer <<
           s"""
              |
-             |  override def /(unit: ${d._1}Unit) = ${d._2}Unit(this, unit)""".stripMargin
-      }
-
-      writer <<
-        s"""
-           |}""".stripMargin
-
-      //***** Unit object *****
-      val units: List[UnitConstant] = getUnitConstants(json)
-      val (contextful, contextless) = getUnitNameSymbolTuples(units)
-      // contextful: List(NameSymbol("Foot", "ft(US)"), ...)
-      // contextless: List(NameSymbol("Metre", "m"), NameSymbol("Foot", "ft"), ...)
-
-      writer <<
-        s"""
-           |
-           |object ${className}Unit extends ConstantsDefined[${className}Unit]{
-           |
-           |  // intrinsic
-           |  private[${className}Unit]
-           |  class Intrinsic${className}Unit(name: String, val symbols: Seq[String], val $baseUnitAccessor: Real)
-           |      extends ${className}Unit{
-           |
-           |    def this(name: String, symbols: Seq[String], unit: ${className}Unit) =
-           |      this(name, symbols, unit.$baseUnitAccessor)
-           |
-           |    def this(name: String, symbols: Seq[String], factor: Real, unit: ${className}Unit) =
-           |      this(name, symbols, factor * unit.$baseUnitAccessor)
-           |  }
-           |""".stripMargin
-
-      units.foreach{ unit =>
-        //  case object Metre extends IntrinsicLengthUnit("Metre", Seq("m"), r"1")
-        writer << s"""
-                     |  case object ${unit.name} extends Intrinsic${className}Unit""".stripMargin
-        writer << s"""("${unit.name}", Seq(${unit.symbols.map(quote).mkString(", ")}), ${unit.args})"""
-        if(unit.isNotExact) writer << " extends NotExact"
-      }
-
-      writer <<
-        //  Seq(..., MilliMetre, CentiMetre, Metre, ...)
-        s"""
-           |
-           |  override lazy val values = Seq(${units.map(_.name).mkString(", ")})""".stripMargin
-
-      // product unit
-      if(json.has("product")) {
-        val List(first, second) = getChildren(json, "product").map(_.getAsString)
-        writer <<
-          s"""
+             |object ${className}Unit extends ConstantsDefined[${className}Unit]{
              |
-             |  // $first * $second -> $className
+             |  // intrinsic
              |  private[${className}Unit]
-             |  class Product${className}Unit(val firstUnit: ${first}Unit, val secondUnit: ${second}Unit)
-             |      extends ${className}Unit with ProductUnit[${className}Unit, ${first}Unit, ${second}Unit]{
+             |  class Intrinsic${className}Unit(name: String, val symbols: Seq[String], val $baseUnitAccessor: Real)
+             |      extends ${className}Unit{
              |
-             |    override lazy val $baseUnitAccessor: Real =
-             |      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+             |    def this(name: String, symbols: Seq[String], unit: ${className}Unit) =
+             |      this(name, symbols, unit.$baseUnitAccessor)
+             |
+             |    def this(name: String, symbols: Seq[String], factor: Real, unit: ${className}Unit) =
+             |      this(name, symbols, factor * unit.$baseUnitAccessor)
              |  }
-             |
-             |  def apply(unit1: ${first}Unit, unit2: ${second}Unit): ${className}Unit =
-             |    new Product${className}Unit(unit1, unit2)""".stripMargin
-      }
+             |""".stripMargin
 
-      // quotient unit
-      if(json.has("quotient")) {
-        val List(numerator, denominator) = getChildren(json, "quotient").map(_.getAsString)
+        units.foreach{ unit =>
+          //  case object Metre extends IntrinsicLengthUnit("Metre", Seq("m"), r"1")
+          writer << s"""
+                       |  case object ${unit.name} extends Intrinsic${className}Unit""".stripMargin
+          writer << s"""("${unit.name}", Seq(${unit.symbols.map(quote).mkString(", ")}), ${unit.args})"""
+          if(unit.isNotExact) writer << " with NotExact"
+          writer <<
+            s"""
+               |    ${unit.mixed}""".stripMargin  // for Degree
+        }
+
         writer <<
+          //  Seq(..., MilliMetre, CentiMetre, Metre, ...)
           s"""
              |
-             |  // $numerator / $denominator -> $className
-             |  private[${className}Unit]
-             |  class Quotient${className}Unit(val numeratorUnit: ${numerator}Unit, val denominatorUnit: ${denominator}Unit)
-             |      extends ${className}Unit with QuotientUnit[${className}Unit, ${numerator}Unit, ${denominator}Unit]{
-             |
-             |    override lazy val $baseUnitAccessor: Real =
-             |      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
-             |  }
-             |
-             |  def apply(nUnit: ${numerator}Unit, dUnit: ${denominator}Unit): ${className}Unit =
-             |    new Quotient${className}Unit(nUnit, dUnit)""".stripMargin
+             |  override lazy val values = Seq(${units.map(_.name).mkString(", ")})""".stripMargin
+
+        // product unit
+        if(json.has("product")) {
+          getChildren(json, "product").map(_.getAsJsonArray.toList.map(_.getAsJsonPrimitive.getAsString))
+            .foreach{ case first::second::_ =>
+              val productUnit = first.replaceAll("Unit", "") + "Dot" + second.replaceAll("Unit", "") + "Unit"
+            writer <<
+              s"""
+                 |
+                 |  // $first * $second -> $className
+                 |  private[${className}Unit]
+                 |  class $productUnit(val firstUnit: $first, val secondUnit: $second)
+                 |      extends ${className}Unit with ProductUnit[${className}Unit, $first, $second]{
+                 |
+                 |    override lazy val $baseUnitAccessor: Real =
+                 |      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+                 |  }
+                 |
+                 |  def apply(unit1: $first, unit2: $second): ${className}Unit =
+                 |    new $productUnit(unit1, unit2)""".stripMargin
+
+          }
+        }
+
+        // quotient unit
+        if(json.has("quotient")) {
+          getChildren(json, "quotient").map(_.getAsJsonArray.toList.map(_.getAsJsonPrimitive.getAsString))
+            .foreach { case numerator :: denominator :: _ =>
+              val quotientUnit = numerator.replaceAll("Unit", "") + "Per" +
+                               denominator.replaceAll("Unit", "") + "Unit"
+            writer <<
+              s"""
+                 |
+                 |  // $numerator / $denominator -> $className
+                 |  private[${className}Unit]
+                 |  class $quotientUnit(val numeratorUnit: $numerator, val denominatorUnit: $denominator)
+                 |      extends ${className}Unit with QuotientUnit[${className}Unit, $numerator, $denominator]{
+                 |
+                 |    override lazy val $baseUnitAccessor: Real =
+                 |      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+                 |  }
+                 |
+                 |  def apply(nUnit: $numerator, dUnit: $denominator): ${className}Unit =
+                 |    new $quotientUnit(nUnit, dUnit)""".stripMargin
+          }
+        }
+
+        writer <<
+          s"""
+             |}""".stripMargin
       }
 
-      writer <<
-        s"""
-           |}""".stripMargin
 
       if(units.nonEmpty) {
         //***** PostfixOps trait *****
@@ -308,7 +354,7 @@ object MultiverseSourceGenerator extends GluinoPath{
           writer <<
             // def m: A = lengthPostfixOps(LengthUnit.Metre)
             s"""
-               |  def ${ns.symbol}: A = ${id}PostfixOps(${ns.name})""".stripMargin
+               |  def ${ns.symbol} : A = ${id}PostfixOps(${ns.name})""".stripMargin
         }
 
         if (contextful.nonEmpty) {
@@ -317,8 +363,7 @@ object MultiverseSourceGenerator extends GluinoPath{
                |  import ${className}PostfixOps._
                |""".stripMargin
 
-          contextful.foreach { ns =>
-            val sym = ns.symbol.split("\\(")(0)
+          contextful.map(_.symbol.split("\\(")(0)).distinct.foreach { sym =>
             writer <<
               // def ft(c: Context): A = lengthPostfixOps(_ft(c))
               s"""
@@ -348,14 +393,14 @@ object MultiverseSourceGenerator extends GluinoPath{
 
             writer <<
               s"""
-                 |  lazy val _$symbol: PartialFunction[Context, ${className}Unit] = {
-                 |""".stripMargin
+                 |
+                 |  lazy val _$symbol : PartialFunction[Context, ${className}Unit] = {""".stripMargin
 
-            cs.foreach { c =>
+            cs.foreach { case (c, u) =>
               writer <<
                 // case US => Foot_US_Survey
                 s"""
-                   |    case ${c._1} => ${c._2}""".stripMargin
+                   |    case $c => $u""".stripMargin
             }
 
             writer <<
@@ -415,6 +460,7 @@ object MultiverseSourceGenerator extends GluinoPath{
              |
              |trait Predefined${className}Unit extends ${className}PostfixOps[${className}Unit]{
              |  override protected def ${id}PostfixOps(unit: ${className}Unit) = unit
+             |  ${if(className == "Angle")"override def ° = AngleUnit.Degree" else ""}
              |}
              |
              |object Predefined${className}Unit extends Predefined${className}Unit
@@ -423,7 +469,7 @@ object MultiverseSourceGenerator extends GluinoPath{
     }
   }
 
-  case class UnitConstant(name: String, symbols: Seq[String], args:String, isNotExact: Boolean)
+  case class UnitConstant(name: String, symbols: Seq[String], args:String, isNotExact: Boolean, mixed: String)
 
   def getUnitConstants(json: JsonObject): List[UnitConstant] =
     getChildren(json, "constants").map(_.getAsJsonObject).flatMap{ e =>
@@ -431,20 +477,28 @@ object MultiverseSourceGenerator extends GluinoPath{
       val args = getString(e, "args")
       val isNotExact = getBoolean(e, "NotExact")
       val excludePrefixes = getChildren(e, "excludePrefixes").map(_.getAsString)
+      val mixed = if(e.has("mixed"))getString(e, "mixed") else ""
 
       e match {
         case _ if getBoolean(e, "scalePrefixes") =>
           val symbol = getString(e, "symbol")
           scalePrefixes.filterNot(sp => excludePrefixes.contains(sp.prefix)).map { sp =>
             val symbols =
-              if (sp.name == "Micro") Seq("micro" + name, "micro" + headToUpper(symbol), sp.prefix + symbol)
-                // MicroMetre => Seq("microMetre", "microM", "μm")
-              else Seq(sp.prefix + symbol)
-            UnitConstant(sp.name + name, symbols, s"""r"${sp.scale}"$args""", isNotExact)
+              if (sp.name == "Micro"){
+                if(symbol.length == 1 && symbol.head.isLower)
+                  Seq("micro" + name, sp.prefix + symbol)
+                // MicroMetre => Seq("microMetre", "μm")
+                else
+                  Seq("micro" + name, "micro" + headToUpper(symbol), sp.prefix + symbol)
+                // MicroMetre => Seq("microGauss", "microG", "μG")
+              }else{
+                Seq(sp.prefix + symbol)
+              }
+            UnitConstant(sp.name + name, symbols, s"""r"${sp.scale}"$args""", isNotExact, mixed)
           }
 
         case _ =>
-          Seq(UnitConstant(name, getChildren(e, "symbols").map(_.getAsString), args, isNotExact))
+          Seq(UnitConstant(name, getChildren(e, "symbols").map(_.getAsString), args, isNotExact, mixed))
       }
     }
 

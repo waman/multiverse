@@ -10,3 +10,11 @@ trait MultiplicativeByLengthUnit[R]{
 trait MultiplicativeByTimeUnit[R]{
   def *(timeUnit: TimeUnit): R
 }
+
+trait CanSquare[R]{
+  def square: R
+}
+
+trait CanCubic[R]{
+  def cubic: R
+}
