@@ -17,11 +17,11 @@
 
     {"name":"Degree", "symbols":["deg", "°"], "args":"twoPi / r\"360\"",
       "mixed":"with DegreeTemperaturePostfixOps[TemperatureUnit] { override protected def degreeTemperaturePostfixOps(unit: TemperatureUnit) = unit }"},
-    {"name":"ArcMinute", "symbols":["arcmin", "MOA"], "args":"r\"1/60\", Degree"},
+    {"name":"Arcmin", "symbols":["arcmin", "MOA"], "args":"r\"1/60\", Degree"},
 
-    {"name":"ArcSecond", "symbols":["arcsec"], "args":"r\"1/60\", ArcMinute"},
-    {"name":"ArcSecond", "symbol":"as", "args":", ArcSecond", "scalePrefixes":true,
-      "excludePrefixes":["Y", "Z", "E", "P", "T", "G", "M", "k", "h", "da", "", "d", "c"]},
+    {"name":"Arcsec", "symbols":["arcsec"], "args":"r\"1/60\", Arcmin"},
+    {"name":"Arcsec", "symbol":"as", "args":", Arcsec", "scalePrefixes":true,
+      "excludePrefixes":["Y", "Z", "E", "P", "T", "G", "M", "k", "h", "da", "", "d", "c"]},  // remove 'Arcsec'
 
     {"name":"Gradian", "symbols":["gon", "ᵍ"], "args":"twoPi / r\"400\""},
     {"name":"Turn"   , "symbols":["tr"]      , "args":"twoPi"}

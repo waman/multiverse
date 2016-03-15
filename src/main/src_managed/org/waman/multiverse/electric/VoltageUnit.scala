@@ -31,48 +31,28 @@ object VoltageUnit extends ConstantsDefined[VoltageUnit]{
       this(name, symbols, factor * unit.unitInVolt)
   }
 
+
   case object YoctoVolt extends IntrinsicVoltageUnit("YoctoVolt", Seq("yV"), r"1e-24")
-    
   case object ZeptoVolt extends IntrinsicVoltageUnit("ZeptoVolt", Seq("zV"), r"1e-21")
-    
   case object AttoVolt extends IntrinsicVoltageUnit("AttoVolt", Seq("aV"), r"1e-18")
-    
   case object FemtoVolt extends IntrinsicVoltageUnit("FemtoVolt", Seq("fV"), r"1e-15")
-    
   case object PicoVolt extends IntrinsicVoltageUnit("PicoVolt", Seq("pV"), r"1e-12")
-    
   case object NanoVolt extends IntrinsicVoltageUnit("NanoVolt", Seq("nV"), r"1e-9")
-    
   case object MicroVolt extends IntrinsicVoltageUnit("MicroVolt", Seq("microVolt", "microV", "μV"), r"1e-6")
-    
   case object MilliVolt extends IntrinsicVoltageUnit("MilliVolt", Seq("mV"), r"1e-3")
-    
   case object CentiVolt extends IntrinsicVoltageUnit("CentiVolt", Seq("cV"), r"1e-2")
-    
   case object DeciVolt extends IntrinsicVoltageUnit("DeciVolt", Seq("dV"), r"1e-1")
-    
   case object Volt extends IntrinsicVoltageUnit("Volt", Seq("V"), r"1")
-    
-  case object DecaVolt extends IntrinsicVoltageUnit("DecaVolt", Seq("daV"), r"1e-1")
-    
-  case object HectoVolt extends IntrinsicVoltageUnit("HectoVolt", Seq("hV"), r"1e-2")
-    
-  case object KiloVolt extends IntrinsicVoltageUnit("KiloVolt", Seq("kV"), r"1e-3")
-    
-  case object MegaVolt extends IntrinsicVoltageUnit("MegaVolt", Seq("MV"), r"1e-6")
-    
-  case object GigaVolt extends IntrinsicVoltageUnit("GigaVolt", Seq("GV"), r"1e-9")
-    
-  case object TeraVolt extends IntrinsicVoltageUnit("TeraVolt", Seq("TV"), r"1e-12")
-    
-  case object PetaVolt extends IntrinsicVoltageUnit("PetaVolt", Seq("PV"), r"1e-15")
-    
-  case object ExaVolt extends IntrinsicVoltageUnit("ExaVolt", Seq("EV"), r"1e-18")
-    
-  case object ZettaVolt extends IntrinsicVoltageUnit("ZettaVolt", Seq("ZV"), r"1e-21")
-    
-  case object YottaVolt extends IntrinsicVoltageUnit("YottaVolt", Seq("YV"), r"1e-24")
-    
+  case object DecaVolt extends IntrinsicVoltageUnit("DecaVolt", Seq("daV"), r"1e1")
+  case object HectoVolt extends IntrinsicVoltageUnit("HectoVolt", Seq("hV"), r"1e2")
+  case object KiloVolt extends IntrinsicVoltageUnit("KiloVolt", Seq("kV"), r"1e3")
+  case object MegaVolt extends IntrinsicVoltageUnit("MegaVolt", Seq("MV"), r"1e6")
+  case object GigaVolt extends IntrinsicVoltageUnit("GigaVolt", Seq("GV"), r"1e9")
+  case object TeraVolt extends IntrinsicVoltageUnit("TeraVolt", Seq("TV"), r"1e12")
+  case object PetaVolt extends IntrinsicVoltageUnit("PetaVolt", Seq("PV"), r"1e15")
+  case object ExaVolt extends IntrinsicVoltageUnit("ExaVolt", Seq("EV"), r"1e18")
+  case object ZettaVolt extends IntrinsicVoltageUnit("ZettaVolt", Seq("ZV"), r"1e21")
+  case object YottaVolt extends IntrinsicVoltageUnit("YottaVolt", Seq("YV"), r"1e24")
 
   override lazy val values = Seq(YoctoVolt, ZeptoVolt, AttoVolt, FemtoVolt, PicoVolt, NanoVolt, MicroVolt, MilliVolt, CentiVolt, DeciVolt, Volt, DecaVolt, HectoVolt, KiloVolt, MegaVolt, GigaVolt, TeraVolt, PetaVolt, ExaVolt, ZettaVolt, YottaVolt)
 }

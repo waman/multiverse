@@ -27,92 +27,50 @@ object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
       this(name, symbols, factor * unit.unitInBecquerel)
   }
 
+
   case object YoctoBecquerel extends IntrinsicRadioactivityUnit("YoctoBecquerel", Seq("yBq"), r"1e-24")
-    
   case object ZeptoBecquerel extends IntrinsicRadioactivityUnit("ZeptoBecquerel", Seq("zBq"), r"1e-21")
-    
   case object AttoBecquerel extends IntrinsicRadioactivityUnit("AttoBecquerel", Seq("aBq"), r"1e-18")
-    
   case object FemtoBecquerel extends IntrinsicRadioactivityUnit("FemtoBecquerel", Seq("fBq"), r"1e-15")
-    
   case object PicoBecquerel extends IntrinsicRadioactivityUnit("PicoBecquerel", Seq("pBq"), r"1e-12")
-    
   case object NanoBecquerel extends IntrinsicRadioactivityUnit("NanoBecquerel", Seq("nBq"), r"1e-9")
-    
   case object MicroBecquerel extends IntrinsicRadioactivityUnit("MicroBecquerel", Seq("microBecquerel", "microBq", "μBq"), r"1e-6")
-    
   case object MilliBecquerel extends IntrinsicRadioactivityUnit("MilliBecquerel", Seq("mBq"), r"1e-3")
-    
   case object CentiBecquerel extends IntrinsicRadioactivityUnit("CentiBecquerel", Seq("cBq"), r"1e-2")
-    
   case object DeciBecquerel extends IntrinsicRadioactivityUnit("DeciBecquerel", Seq("dBq"), r"1e-1")
-    
   case object Becquerel extends IntrinsicRadioactivityUnit("Becquerel", Seq("Bq"), r"1")
-    
-  case object DecaBecquerel extends IntrinsicRadioactivityUnit("DecaBecquerel", Seq("daBq"), r"1e-1")
-    
-  case object HectoBecquerel extends IntrinsicRadioactivityUnit("HectoBecquerel", Seq("hBq"), r"1e-2")
-    
-  case object KiloBecquerel extends IntrinsicRadioactivityUnit("KiloBecquerel", Seq("kBq"), r"1e-3")
-    
-  case object MegaBecquerel extends IntrinsicRadioactivityUnit("MegaBecquerel", Seq("MBq"), r"1e-6")
-    
-  case object GigaBecquerel extends IntrinsicRadioactivityUnit("GigaBecquerel", Seq("GBq"), r"1e-9")
-    
-  case object TeraBecquerel extends IntrinsicRadioactivityUnit("TeraBecquerel", Seq("TBq"), r"1e-12")
-    
-  case object PetaBecquerel extends IntrinsicRadioactivityUnit("PetaBecquerel", Seq("PBq"), r"1e-15")
-    
-  case object ExaBecquerel extends IntrinsicRadioactivityUnit("ExaBecquerel", Seq("EBq"), r"1e-18")
-    
-  case object ZettaBecquerel extends IntrinsicRadioactivityUnit("ZettaBecquerel", Seq("ZBq"), r"1e-21")
-    
-  case object YottaBecquerel extends IntrinsicRadioactivityUnit("YottaBecquerel", Seq("YBq"), r"1e-24")
-    
+  case object DecaBecquerel extends IntrinsicRadioactivityUnit("DecaBecquerel", Seq("daBq"), r"1e1")
+  case object HectoBecquerel extends IntrinsicRadioactivityUnit("HectoBecquerel", Seq("hBq"), r"1e2")
+  case object KiloBecquerel extends IntrinsicRadioactivityUnit("KiloBecquerel", Seq("kBq"), r"1e3")
+  case object MegaBecquerel extends IntrinsicRadioactivityUnit("MegaBecquerel", Seq("MBq"), r"1e6")
+  case object GigaBecquerel extends IntrinsicRadioactivityUnit("GigaBecquerel", Seq("GBq"), r"1e9")
+  case object TeraBecquerel extends IntrinsicRadioactivityUnit("TeraBecquerel", Seq("TBq"), r"1e12")
+  case object PetaBecquerel extends IntrinsicRadioactivityUnit("PetaBecquerel", Seq("PBq"), r"1e15")
+  case object ExaBecquerel extends IntrinsicRadioactivityUnit("ExaBecquerel", Seq("EBq"), r"1e18")
+  case object ZettaBecquerel extends IntrinsicRadioactivityUnit("ZettaBecquerel", Seq("ZBq"), r"1e21")
+  case object YottaBecquerel extends IntrinsicRadioactivityUnit("YottaBecquerel", Seq("YBq"), r"1e24")
   case object YoctoCurie extends IntrinsicRadioactivityUnit("YoctoCurie", Seq("yCi"), r"1e-24" * r"3.7e10")
-    
   case object ZeptoCurie extends IntrinsicRadioactivityUnit("ZeptoCurie", Seq("zCi"), r"1e-21" * r"3.7e10")
-    
   case object AttoCurie extends IntrinsicRadioactivityUnit("AttoCurie", Seq("aCi"), r"1e-18" * r"3.7e10")
-    
   case object FemtoCurie extends IntrinsicRadioactivityUnit("FemtoCurie", Seq("fCi"), r"1e-15" * r"3.7e10")
-    
   case object PicoCurie extends IntrinsicRadioactivityUnit("PicoCurie", Seq("pCi"), r"1e-12" * r"3.7e10")
-    
   case object NanoCurie extends IntrinsicRadioactivityUnit("NanoCurie", Seq("nCi"), r"1e-9" * r"3.7e10")
-    
   case object MicroCurie extends IntrinsicRadioactivityUnit("MicroCurie", Seq("microCurie", "microCi", "μCi"), r"1e-6" * r"3.7e10")
-    
   case object MilliCurie extends IntrinsicRadioactivityUnit("MilliCurie", Seq("mCi"), r"1e-3" * r"3.7e10")
-    
   case object CentiCurie extends IntrinsicRadioactivityUnit("CentiCurie", Seq("cCi"), r"1e-2" * r"3.7e10")
-    
   case object DeciCurie extends IntrinsicRadioactivityUnit("DeciCurie", Seq("dCi"), r"1e-1" * r"3.7e10")
-    
   case object Curie extends IntrinsicRadioactivityUnit("Curie", Seq("Ci"), r"1" * r"3.7e10")
-    
-  case object DecaCurie extends IntrinsicRadioactivityUnit("DecaCurie", Seq("daCi"), r"1e-1" * r"3.7e10")
-    
-  case object HectoCurie extends IntrinsicRadioactivityUnit("HectoCurie", Seq("hCi"), r"1e-2" * r"3.7e10")
-    
-  case object KiloCurie extends IntrinsicRadioactivityUnit("KiloCurie", Seq("kCi"), r"1e-3" * r"3.7e10")
-    
-  case object MegaCurie extends IntrinsicRadioactivityUnit("MegaCurie", Seq("MCi"), r"1e-6" * r"3.7e10")
-    
-  case object GigaCurie extends IntrinsicRadioactivityUnit("GigaCurie", Seq("GCi"), r"1e-9" * r"3.7e10")
-    
-  case object TeraCurie extends IntrinsicRadioactivityUnit("TeraCurie", Seq("TCi"), r"1e-12" * r"3.7e10")
-    
-  case object PetaCurie extends IntrinsicRadioactivityUnit("PetaCurie", Seq("PCi"), r"1e-15" * r"3.7e10")
-    
-  case object ExaCurie extends IntrinsicRadioactivityUnit("ExaCurie", Seq("ECi"), r"1e-18" * r"3.7e10")
-    
-  case object ZettaCurie extends IntrinsicRadioactivityUnit("ZettaCurie", Seq("ZCi"), r"1e-21" * r"3.7e10")
-    
-  case object YottaCurie extends IntrinsicRadioactivityUnit("YottaCurie", Seq("YCi"), r"1e-24" * r"3.7e10")
-    
+  case object DecaCurie extends IntrinsicRadioactivityUnit("DecaCurie", Seq("daCi"), r"1e1" * r"3.7e10")
+  case object HectoCurie extends IntrinsicRadioactivityUnit("HectoCurie", Seq("hCi"), r"1e2" * r"3.7e10")
+  case object KiloCurie extends IntrinsicRadioactivityUnit("KiloCurie", Seq("kCi"), r"1e3" * r"3.7e10")
+  case object MegaCurie extends IntrinsicRadioactivityUnit("MegaCurie", Seq("MCi"), r"1e6" * r"3.7e10")
+  case object GigaCurie extends IntrinsicRadioactivityUnit("GigaCurie", Seq("GCi"), r"1e9" * r"3.7e10")
+  case object TeraCurie extends IntrinsicRadioactivityUnit("TeraCurie", Seq("TCi"), r"1e12" * r"3.7e10")
+  case object PetaCurie extends IntrinsicRadioactivityUnit("PetaCurie", Seq("PCi"), r"1e15" * r"3.7e10")
+  case object ExaCurie extends IntrinsicRadioactivityUnit("ExaCurie", Seq("ECi"), r"1e18" * r"3.7e10")
+  case object ZettaCurie extends IntrinsicRadioactivityUnit("ZettaCurie", Seq("ZCi"), r"1e21" * r"3.7e10")
+  case object YottaCurie extends IntrinsicRadioactivityUnit("YottaCurie", Seq("YCi"), r"1e24" * r"3.7e10")
   case object Rutherford extends IntrinsicRadioactivityUnit("Rutherford", Seq("Rd"), 1, MegaBecquerel)
-    
 
   override lazy val values = Seq(YoctoBecquerel, ZeptoBecquerel, AttoBecquerel, FemtoBecquerel, PicoBecquerel, NanoBecquerel, MicroBecquerel, MilliBecquerel, CentiBecquerel, DeciBecquerel, Becquerel, DecaBecquerel, HectoBecquerel, KiloBecquerel, MegaBecquerel, GigaBecquerel, TeraBecquerel, PetaBecquerel, ExaBecquerel, ZettaBecquerel, YottaBecquerel, YoctoCurie, ZeptoCurie, AttoCurie, FemtoCurie, PicoCurie, NanoCurie, MicroCurie, MilliCurie, CentiCurie, DeciCurie, Curie, DecaCurie, HectoCurie, KiloCurie, MegaCurie, GigaCurie, TeraCurie, PetaCurie, ExaCurie, ZettaCurie, YottaCurie, Rutherford)
 }

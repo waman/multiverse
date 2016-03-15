@@ -22,7 +22,7 @@
       "excludePrefixes":["c", "d", "da", "h"]},
 
     {"name":"SquareMil"  , "symbols":["mil2", "sq_mil"], "args":"LengthUnit.Mil.square"},
-    {"name":"SquareInch" , "symbols":["in2" , "sq_in"] , "args":"LengthUnit.Mil.square"},
+    {"name":"SquareInch" , "symbols":["in2" , "sq_in"] , "args":"LengthUnit.Inch.square"},
     {"name":"SquareLink" , "symbols":["li2" , "lnk2", "sq_li", "sq_lnk"], "args":"LengthUnit.Link.square"},
     {"name":"SquareFoot" , "symbols":["ft2" , "sq_ft"] , "args":"LengthUnit.Foot.square"},
     {"name":"SquareChain", "symbols":["ch2" , "sq_ch"] , "args":"LengthUnit.Chain.square"},

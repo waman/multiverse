@@ -40,90 +40,49 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
       this(name, symbols, factor * unit.unitInJoule)
   }
 
+
   case object YoctoJoule extends IntrinsicEnergyUnit("YoctoJoule", Seq("yJ"), r"1e-24")
-    
   case object ZeptoJoule extends IntrinsicEnergyUnit("ZeptoJoule", Seq("zJ"), r"1e-21")
-    
   case object AttoJoule extends IntrinsicEnergyUnit("AttoJoule", Seq("aJ"), r"1e-18")
-    
   case object FemtoJoule extends IntrinsicEnergyUnit("FemtoJoule", Seq("fJ"), r"1e-15")
-    
   case object PicoJoule extends IntrinsicEnergyUnit("PicoJoule", Seq("pJ"), r"1e-12")
-    
   case object NanoJoule extends IntrinsicEnergyUnit("NanoJoule", Seq("nJ"), r"1e-9")
-    
   case object MicroJoule extends IntrinsicEnergyUnit("MicroJoule", Seq("microJoule", "microJ", "μJ"), r"1e-6")
-    
   case object MilliJoule extends IntrinsicEnergyUnit("MilliJoule", Seq("mJ"), r"1e-3")
-    
   case object CentiJoule extends IntrinsicEnergyUnit("CentiJoule", Seq("cJ"), r"1e-2")
-    
   case object DeciJoule extends IntrinsicEnergyUnit("DeciJoule", Seq("dJ"), r"1e-1")
-    
   case object Joule extends IntrinsicEnergyUnit("Joule", Seq("J"), r"1")
-    
-  case object DecaJoule extends IntrinsicEnergyUnit("DecaJoule", Seq("daJ"), r"1e-1")
-    
-  case object HectoJoule extends IntrinsicEnergyUnit("HectoJoule", Seq("hJ"), r"1e-2")
-    
-  case object KiloJoule extends IntrinsicEnergyUnit("KiloJoule", Seq("kJ"), r"1e-3")
-    
-  case object MegaJoule extends IntrinsicEnergyUnit("MegaJoule", Seq("MJ"), r"1e-6")
-    
-  case object GigaJoule extends IntrinsicEnergyUnit("GigaJoule", Seq("GJ"), r"1e-9")
-    
-  case object TeraJoule extends IntrinsicEnergyUnit("TeraJoule", Seq("TJ"), r"1e-12")
-    
-  case object PetaJoule extends IntrinsicEnergyUnit("PetaJoule", Seq("PJ"), r"1e-15")
-    
-  case object ExaJoule extends IntrinsicEnergyUnit("ExaJoule", Seq("EJ"), r"1e-18")
-    
-  case object ZettaJoule extends IntrinsicEnergyUnit("ZettaJoule", Seq("ZJ"), r"1e-21")
-    
-  case object YottaJoule extends IntrinsicEnergyUnit("YottaJoule", Seq("YJ"), r"1e-24")
-    
+  case object DecaJoule extends IntrinsicEnergyUnit("DecaJoule", Seq("daJ"), r"1e1")
+  case object HectoJoule extends IntrinsicEnergyUnit("HectoJoule", Seq("hJ"), r"1e2")
+  case object KiloJoule extends IntrinsicEnergyUnit("KiloJoule", Seq("kJ"), r"1e3")
+  case object MegaJoule extends IntrinsicEnergyUnit("MegaJoule", Seq("MJ"), r"1e6")
+  case object GigaJoule extends IntrinsicEnergyUnit("GigaJoule", Seq("GJ"), r"1e9")
+  case object TeraJoule extends IntrinsicEnergyUnit("TeraJoule", Seq("TJ"), r"1e12")
+  case object PetaJoule extends IntrinsicEnergyUnit("PetaJoule", Seq("PJ"), r"1e15")
+  case object ExaJoule extends IntrinsicEnergyUnit("ExaJoule", Seq("EJ"), r"1e18")
+  case object ZettaJoule extends IntrinsicEnergyUnit("ZettaJoule", Seq("ZJ"), r"1e21")
+  case object YottaJoule extends IntrinsicEnergyUnit("YottaJoule", Seq("YJ"), r"1e24")
   case object YoctoElectronVolt extends IntrinsicEnergyUnit("YoctoElectronVolt", Seq("yeV"), r"1e-24" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object ZeptoElectronVolt extends IntrinsicEnergyUnit("ZeptoElectronVolt", Seq("zeV"), r"1e-21" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object AttoElectronVolt extends IntrinsicEnergyUnit("AttoElectronVolt", Seq("aeV"), r"1e-18" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object FemtoElectronVolt extends IntrinsicEnergyUnit("FemtoElectronVolt", Seq("feV"), r"1e-15" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object PicoElectronVolt extends IntrinsicEnergyUnit("PicoElectronVolt", Seq("peV"), r"1e-12" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object NanoElectronVolt extends IntrinsicEnergyUnit("NanoElectronVolt", Seq("neV"), r"1e-9" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object MicroElectronVolt extends IntrinsicEnergyUnit("MicroElectronVolt", Seq("microElectronVolt", "microEV", "μeV"), r"1e-6" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object MilliElectronVolt extends IntrinsicEnergyUnit("MilliElectronVolt", Seq("meV"), r"1e-3" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object CentiElectronVolt extends IntrinsicEnergyUnit("CentiElectronVolt", Seq("ceV"), r"1e-2" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object DeciElectronVolt extends IntrinsicEnergyUnit("DeciElectronVolt", Seq("deV"), r"1e-1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
   case object ElectronVolt extends IntrinsicEnergyUnit("ElectronVolt", Seq("eV"), r"1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object DecaElectronVolt extends IntrinsicEnergyUnit("DecaElectronVolt", Seq("daeV"), r"1e-1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object HectoElectronVolt extends IntrinsicEnergyUnit("HectoElectronVolt", Seq("heV"), r"1e-2" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object KiloElectronVolt extends IntrinsicEnergyUnit("KiloElectronVolt", Seq("keV"), r"1e-3" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object MegaElectronVolt extends IntrinsicEnergyUnit("MegaElectronVolt", Seq("MeV"), r"1e-6" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object GigaElectronVolt extends IntrinsicEnergyUnit("GigaElectronVolt", Seq("GeV"), r"1e-9" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object TeraElectronVolt extends IntrinsicEnergyUnit("TeraElectronVolt", Seq("TeV"), r"1e-12" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object PetaElectronVolt extends IntrinsicEnergyUnit("PetaElectronVolt", Seq("PeV"), r"1e-15" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object ExaElectronVolt extends IntrinsicEnergyUnit("ExaElectronVolt", Seq("EeV"), r"1e-18" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object ZettaElectronVolt extends IntrinsicEnergyUnit("ZettaElectronVolt", Seq("ZeV"), r"1e-21" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
-  case object YottaElectronVolt extends IntrinsicEnergyUnit("YottaElectronVolt", Seq("YeV"), r"1e-24" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-    
+  case object DecaElectronVolt extends IntrinsicEnergyUnit("DecaElectronVolt", Seq("daeV"), r"1e1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object HectoElectronVolt extends IntrinsicEnergyUnit("HectoElectronVolt", Seq("heV"), r"1e2" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object KiloElectronVolt extends IntrinsicEnergyUnit("KiloElectronVolt", Seq("keV"), r"1e3" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object MegaElectronVolt extends IntrinsicEnergyUnit("MegaElectronVolt", Seq("MeV"), r"1e6" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object GigaElectronVolt extends IntrinsicEnergyUnit("GigaElectronVolt", Seq("GeV"), r"1e9" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object TeraElectronVolt extends IntrinsicEnergyUnit("TeraElectronVolt", Seq("TeV"), r"1e12" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object PetaElectronVolt extends IntrinsicEnergyUnit("PetaElectronVolt", Seq("PeV"), r"1e15" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object ExaElectronVolt extends IntrinsicEnergyUnit("ExaElectronVolt", Seq("EeV"), r"1e18" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object ZettaElectronVolt extends IntrinsicEnergyUnit("ZettaElectronVolt", Seq("ZeV"), r"1e21" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object YottaElectronVolt extends IntrinsicEnergyUnit("YottaElectronVolt", Seq("YeV"), r"1e24" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
 
   override lazy val values = Seq(YoctoJoule, ZeptoJoule, AttoJoule, FemtoJoule, PicoJoule, NanoJoule, MicroJoule, MilliJoule, CentiJoule, DeciJoule, Joule, DecaJoule, HectoJoule, KiloJoule, MegaJoule, GigaJoule, TeraJoule, PetaJoule, ExaJoule, ZettaJoule, YottaJoule, YoctoElectronVolt, ZeptoElectronVolt, AttoElectronVolt, FemtoElectronVolt, PicoElectronVolt, NanoElectronVolt, MicroElectronVolt, MilliElectronVolt, CentiElectronVolt, DeciElectronVolt, ElectronVolt, DecaElectronVolt, HectoElectronVolt, KiloElectronVolt, MegaElectronVolt, GigaElectronVolt, TeraElectronVolt, PetaElectronVolt, ExaElectronVolt, ZettaElectronVolt, YottaElectronVolt)
 }

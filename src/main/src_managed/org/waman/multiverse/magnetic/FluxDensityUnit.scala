@@ -27,96 +27,55 @@ object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
       this(name, symbols, factor * unit.unitInTesla)
   }
 
+
   case object YoctoTesla extends IntrinsicFluxDensityUnit("YoctoTesla", Seq("yT"), r"1e-24")
-    
   case object ZeptoTesla extends IntrinsicFluxDensityUnit("ZeptoTesla", Seq("zT"), r"1e-21")
-    
   case object AttoTesla extends IntrinsicFluxDensityUnit("AttoTesla", Seq("aT"), r"1e-18")
-    
   case object FemtoTesla extends IntrinsicFluxDensityUnit("FemtoTesla", Seq("fT"), r"1e-15")
-    
   case object PicoTesla extends IntrinsicFluxDensityUnit("PicoTesla", Seq("pT"), r"1e-12")
-    
   case object NanoTesla extends IntrinsicFluxDensityUnit("NanoTesla", Seq("nT"), r"1e-9")
-    
   case object MicroTesla extends IntrinsicFluxDensityUnit("MicroTesla", Seq("microTesla", "microT", "μT"), r"1e-6")
-    
   case object MilliTesla extends IntrinsicFluxDensityUnit("MilliTesla", Seq("mT"), r"1e-3")
-    
   case object CentiTesla extends IntrinsicFluxDensityUnit("CentiTesla", Seq("cT"), r"1e-2")
-    
   case object DeciTesla extends IntrinsicFluxDensityUnit("DeciTesla", Seq("dT"), r"1e-1")
-    
   case object Tesla extends IntrinsicFluxDensityUnit("Tesla", Seq("T"), r"1")
-    
-  case object DecaTesla extends IntrinsicFluxDensityUnit("DecaTesla", Seq("daT"), r"1e-1")
-    
-  case object HectoTesla extends IntrinsicFluxDensityUnit("HectoTesla", Seq("hT"), r"1e-2")
-    
-  case object KiloTesla extends IntrinsicFluxDensityUnit("KiloTesla", Seq("kT"), r"1e-3")
-    
-  case object MegaTesla extends IntrinsicFluxDensityUnit("MegaTesla", Seq("MT"), r"1e-6")
-    
-  case object GigaTesla extends IntrinsicFluxDensityUnit("GigaTesla", Seq("GT"), r"1e-9")
-    
-  case object TeraTesla extends IntrinsicFluxDensityUnit("TeraTesla", Seq("TT"), r"1e-12")
-    
-  case object PetaTesla extends IntrinsicFluxDensityUnit("PetaTesla", Seq("PT"), r"1e-15")
-    
-  case object ExaTesla extends IntrinsicFluxDensityUnit("ExaTesla", Seq("ET"), r"1e-18")
-    
-  case object ZettaTesla extends IntrinsicFluxDensityUnit("ZettaTesla", Seq("ZT"), r"1e-21")
-    
-  case object YottaTesla extends IntrinsicFluxDensityUnit("YottaTesla", Seq("YT"), r"1e-24")
-    
+  case object DecaTesla extends IntrinsicFluxDensityUnit("DecaTesla", Seq("daT"), r"1e1")
+  case object HectoTesla extends IntrinsicFluxDensityUnit("HectoTesla", Seq("hT"), r"1e2")
+  case object KiloTesla extends IntrinsicFluxDensityUnit("KiloTesla", Seq("kT"), r"1e3")
+  case object MegaTesla extends IntrinsicFluxDensityUnit("MegaTesla", Seq("MT"), r"1e6")
+  case object GigaTesla extends IntrinsicFluxDensityUnit("GigaTesla", Seq("GT"), r"1e9")
+  case object TeraTesla extends IntrinsicFluxDensityUnit("TeraTesla", Seq("TT"), r"1e12")
+  case object PetaTesla extends IntrinsicFluxDensityUnit("PetaTesla", Seq("PT"), r"1e15")
+  case object ExaTesla extends IntrinsicFluxDensityUnit("ExaTesla", Seq("ET"), r"1e18")
+  case object ZettaTesla extends IntrinsicFluxDensityUnit("ZettaTesla", Seq("ZT"), r"1e21")
+  case object YottaTesla extends IntrinsicFluxDensityUnit("YottaTesla", Seq("YT"), r"1e24")
   case object YoctoGauss extends IntrinsicFluxDensityUnit("YoctoGauss", Seq("yG"), r"1e-24" * r"1e-4")
-    
   case object ZeptoGauss extends IntrinsicFluxDensityUnit("ZeptoGauss", Seq("zG"), r"1e-21" * r"1e-4")
-    
   case object AttoGauss extends IntrinsicFluxDensityUnit("AttoGauss", Seq("aG"), r"1e-18" * r"1e-4")
-    
   case object FemtoGauss extends IntrinsicFluxDensityUnit("FemtoGauss", Seq("fG"), r"1e-15" * r"1e-4")
-    
   case object PicoGauss extends IntrinsicFluxDensityUnit("PicoGauss", Seq("pG"), r"1e-12" * r"1e-4")
-    
   case object NanoGauss extends IntrinsicFluxDensityUnit("NanoGauss", Seq("nG"), r"1e-9" * r"1e-4")
-    
   case object MicroGauss extends IntrinsicFluxDensityUnit("MicroGauss", Seq("microGauss", "microG", "μG"), r"1e-6" * r"1e-4")
-    
   case object MilliGauss extends IntrinsicFluxDensityUnit("MilliGauss", Seq("mG"), r"1e-3" * r"1e-4")
-    
   case object CentiGauss extends IntrinsicFluxDensityUnit("CentiGauss", Seq("cG"), r"1e-2" * r"1e-4")
-    
   case object DeciGauss extends IntrinsicFluxDensityUnit("DeciGauss", Seq("dG"), r"1e-1" * r"1e-4")
-    
   case object Gauss extends IntrinsicFluxDensityUnit("Gauss", Seq("G"), r"1" * r"1e-4")
-    
-  case object DecaGauss extends IntrinsicFluxDensityUnit("DecaGauss", Seq("daG"), r"1e-1" * r"1e-4")
-    
-  case object HectoGauss extends IntrinsicFluxDensityUnit("HectoGauss", Seq("hG"), r"1e-2" * r"1e-4")
-    
-  case object KiloGauss extends IntrinsicFluxDensityUnit("KiloGauss", Seq("kG"), r"1e-3" * r"1e-4")
-    
-  case object MegaGauss extends IntrinsicFluxDensityUnit("MegaGauss", Seq("MG"), r"1e-6" * r"1e-4")
-    
-  case object GigaGauss extends IntrinsicFluxDensityUnit("GigaGauss", Seq("GG"), r"1e-9" * r"1e-4")
-    
-  case object TeraGauss extends IntrinsicFluxDensityUnit("TeraGauss", Seq("TG"), r"1e-12" * r"1e-4")
-    
-  case object PetaGauss extends IntrinsicFluxDensityUnit("PetaGauss", Seq("PG"), r"1e-15" * r"1e-4")
-    
-  case object ExaGauss extends IntrinsicFluxDensityUnit("ExaGauss", Seq("EG"), r"1e-18" * r"1e-4")
-    
-  case object ZettaGauss extends IntrinsicFluxDensityUnit("ZettaGauss", Seq("ZG"), r"1e-21" * r"1e-4")
-    
-  case object YottaGauss extends IntrinsicFluxDensityUnit("YottaGauss", Seq("YG"), r"1e-24" * r"1e-4")
-    
+  case object DecaGauss extends IntrinsicFluxDensityUnit("DecaGauss", Seq("daG"), r"1e1" * r"1e-4")
+  case object HectoGauss extends IntrinsicFluxDensityUnit("HectoGauss", Seq("hG"), r"1e2" * r"1e-4")
+  case object KiloGauss extends IntrinsicFluxDensityUnit("KiloGauss", Seq("kG"), r"1e3" * r"1e-4")
+  case object MegaGauss extends IntrinsicFluxDensityUnit("MegaGauss", Seq("MG"), r"1e6" * r"1e-4")
+  case object GigaGauss extends IntrinsicFluxDensityUnit("GigaGauss", Seq("GG"), r"1e9" * r"1e-4")
+  case object TeraGauss extends IntrinsicFluxDensityUnit("TeraGauss", Seq("TG"), r"1e12" * r"1e-4")
+  case object PetaGauss extends IntrinsicFluxDensityUnit("PetaGauss", Seq("PG"), r"1e15" * r"1e-4")
+  case object ExaGauss extends IntrinsicFluxDensityUnit("ExaGauss", Seq("EG"), r"1e18" * r"1e-4")
+  case object ZettaGauss extends IntrinsicFluxDensityUnit("ZettaGauss", Seq("ZG"), r"1e21" * r"1e-4")
+  case object YottaGauss extends IntrinsicFluxDensityUnit("YottaGauss", Seq("YG"), r"1e24" * r"1e-4")
 
   override lazy val values = Seq(YoctoTesla, ZeptoTesla, AttoTesla, FemtoTesla, PicoTesla, NanoTesla, MicroTesla, MilliTesla, CentiTesla, DeciTesla, Tesla, DecaTesla, HectoTesla, KiloTesla, MegaTesla, GigaTesla, TeraTesla, PetaTesla, ExaTesla, ZettaTesla, YottaTesla, YoctoGauss, ZeptoGauss, AttoGauss, FemtoGauss, PicoGauss, NanoGauss, MicroGauss, MilliGauss, CentiGauss, DeciGauss, Gauss, DecaGauss, HectoGauss, KiloGauss, MegaGauss, GigaGauss, TeraGauss, PetaGauss, ExaGauss, ZettaGauss, YottaGauss)
 
   // FluxUnit / AreaUnit -> FluxDensity
   private[FluxDensityUnit]
-  class FluxPerAreaUnit(val numeratorUnit: FluxUnit, val denominatorUnit: AreaUnit)
+  class QuotientFluxPerAreaUnit(val numeratorUnit: FluxUnit, val denominatorUnit: AreaUnit)
       extends FluxDensityUnit with QuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit]{
 
     override lazy val unitInTesla: Real =
@@ -124,7 +83,7 @@ object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
   }
 
   def apply(nUnit: FluxUnit, dUnit: AreaUnit): FluxDensityUnit =
-    new FluxPerAreaUnit(nUnit, dUnit)
+    new QuotientFluxPerAreaUnit(nUnit, dUnit)
 }
 
 trait FluxDensityPostfixOps[A]{

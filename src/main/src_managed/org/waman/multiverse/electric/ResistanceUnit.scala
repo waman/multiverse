@@ -27,48 +27,28 @@ object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
       this(name, symbols, factor * unit.unitInOhm)
   }
 
+
   case object YoctoOhm extends IntrinsicResistanceUnit("YoctoOhm", Seq("yΩ"), r"1e-24")
-    
   case object ZeptoOhm extends IntrinsicResistanceUnit("ZeptoOhm", Seq("zΩ"), r"1e-21")
-    
   case object AttoOhm extends IntrinsicResistanceUnit("AttoOhm", Seq("aΩ"), r"1e-18")
-    
   case object FemtoOhm extends IntrinsicResistanceUnit("FemtoOhm", Seq("fΩ"), r"1e-15")
-    
   case object PicoOhm extends IntrinsicResistanceUnit("PicoOhm", Seq("pΩ"), r"1e-12")
-    
   case object NanoOhm extends IntrinsicResistanceUnit("NanoOhm", Seq("nΩ"), r"1e-9")
-    
   case object MicroOhm extends IntrinsicResistanceUnit("MicroOhm", Seq("microOhm", "microΩ", "μΩ"), r"1e-6")
-    
   case object MilliOhm extends IntrinsicResistanceUnit("MilliOhm", Seq("mΩ"), r"1e-3")
-    
   case object CentiOhm extends IntrinsicResistanceUnit("CentiOhm", Seq("cΩ"), r"1e-2")
-    
   case object DeciOhm extends IntrinsicResistanceUnit("DeciOhm", Seq("dΩ"), r"1e-1")
-    
   case object Ohm extends IntrinsicResistanceUnit("Ohm", Seq("Ω"), r"1")
-    
-  case object DecaOhm extends IntrinsicResistanceUnit("DecaOhm", Seq("daΩ"), r"1e-1")
-    
-  case object HectoOhm extends IntrinsicResistanceUnit("HectoOhm", Seq("hΩ"), r"1e-2")
-    
-  case object KiloOhm extends IntrinsicResistanceUnit("KiloOhm", Seq("kΩ"), r"1e-3")
-    
-  case object MegaOhm extends IntrinsicResistanceUnit("MegaOhm", Seq("MΩ"), r"1e-6")
-    
-  case object GigaOhm extends IntrinsicResistanceUnit("GigaOhm", Seq("GΩ"), r"1e-9")
-    
-  case object TeraOhm extends IntrinsicResistanceUnit("TeraOhm", Seq("TΩ"), r"1e-12")
-    
-  case object PetaOhm extends IntrinsicResistanceUnit("PetaOhm", Seq("PΩ"), r"1e-15")
-    
-  case object ExaOhm extends IntrinsicResistanceUnit("ExaOhm", Seq("EΩ"), r"1e-18")
-    
-  case object ZettaOhm extends IntrinsicResistanceUnit("ZettaOhm", Seq("ZΩ"), r"1e-21")
-    
-  case object YottaOhm extends IntrinsicResistanceUnit("YottaOhm", Seq("YΩ"), r"1e-24")
-    
+  case object DecaOhm extends IntrinsicResistanceUnit("DecaOhm", Seq("daΩ"), r"1e1")
+  case object HectoOhm extends IntrinsicResistanceUnit("HectoOhm", Seq("hΩ"), r"1e2")
+  case object KiloOhm extends IntrinsicResistanceUnit("KiloOhm", Seq("kΩ"), r"1e3")
+  case object MegaOhm extends IntrinsicResistanceUnit("MegaOhm", Seq("MΩ"), r"1e6")
+  case object GigaOhm extends IntrinsicResistanceUnit("GigaOhm", Seq("GΩ"), r"1e9")
+  case object TeraOhm extends IntrinsicResistanceUnit("TeraOhm", Seq("TΩ"), r"1e12")
+  case object PetaOhm extends IntrinsicResistanceUnit("PetaOhm", Seq("PΩ"), r"1e15")
+  case object ExaOhm extends IntrinsicResistanceUnit("ExaOhm", Seq("EΩ"), r"1e18")
+  case object ZettaOhm extends IntrinsicResistanceUnit("ZettaOhm", Seq("ZΩ"), r"1e21")
+  case object YottaOhm extends IntrinsicResistanceUnit("YottaOhm", Seq("YΩ"), r"1e24")
 
   override lazy val values = Seq(YoctoOhm, ZeptoOhm, AttoOhm, FemtoOhm, PicoOhm, NanoOhm, MicroOhm, MilliOhm, CentiOhm, DeciOhm, Ohm, DecaOhm, HectoOhm, KiloOhm, MegaOhm, GigaOhm, TeraOhm, PetaOhm, ExaOhm, ZettaOhm, YottaOhm)
 }

@@ -28,54 +28,34 @@ object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
       this(name, symbols, factor * unit.unitInGray)
   }
 
+
   case object YoctoGray extends IntrinsicAbsorbedDoseUnit("YoctoGray", Seq("yGy"), r"1e-24")
-    
   case object ZeptoGray extends IntrinsicAbsorbedDoseUnit("ZeptoGray", Seq("zGy"), r"1e-21")
-    
   case object AttoGray extends IntrinsicAbsorbedDoseUnit("AttoGray", Seq("aGy"), r"1e-18")
-    
   case object FemtoGray extends IntrinsicAbsorbedDoseUnit("FemtoGray", Seq("fGy"), r"1e-15")
-    
   case object PicoGray extends IntrinsicAbsorbedDoseUnit("PicoGray", Seq("pGy"), r"1e-12")
-    
   case object NanoGray extends IntrinsicAbsorbedDoseUnit("NanoGray", Seq("nGy"), r"1e-9")
-    
   case object MicroGray extends IntrinsicAbsorbedDoseUnit("MicroGray", Seq("microGray", "microGy", "μGy"), r"1e-6")
-    
   case object MilliGray extends IntrinsicAbsorbedDoseUnit("MilliGray", Seq("mGy"), r"1e-3")
-    
   case object CentiGray extends IntrinsicAbsorbedDoseUnit("CentiGray", Seq("cGy"), r"1e-2")
-    
   case object DeciGray extends IntrinsicAbsorbedDoseUnit("DeciGray", Seq("dGy"), r"1e-1")
-    
   case object Gray extends IntrinsicAbsorbedDoseUnit("Gray", Seq("Gy"), r"1")
-    
-  case object DecaGray extends IntrinsicAbsorbedDoseUnit("DecaGray", Seq("daGy"), r"1e-1")
-    
-  case object HectoGray extends IntrinsicAbsorbedDoseUnit("HectoGray", Seq("hGy"), r"1e-2")
-    
-  case object KiloGray extends IntrinsicAbsorbedDoseUnit("KiloGray", Seq("kGy"), r"1e-3")
-    
-  case object MegaGray extends IntrinsicAbsorbedDoseUnit("MegaGray", Seq("MGy"), r"1e-6")
-    
-  case object GigaGray extends IntrinsicAbsorbedDoseUnit("GigaGray", Seq("GGy"), r"1e-9")
-    
-  case object TeraGray extends IntrinsicAbsorbedDoseUnit("TeraGray", Seq("TGy"), r"1e-12")
-    
-  case object PetaGray extends IntrinsicAbsorbedDoseUnit("PetaGray", Seq("PGy"), r"1e-15")
-    
-  case object ExaGray extends IntrinsicAbsorbedDoseUnit("ExaGray", Seq("EGy"), r"1e-18")
-    
-  case object ZettaGray extends IntrinsicAbsorbedDoseUnit("ZettaGray", Seq("ZGy"), r"1e-21")
-    
-  case object YottaGray extends IntrinsicAbsorbedDoseUnit("YottaGray", Seq("YGy"), r"1e-24")
-    
+  case object DecaGray extends IntrinsicAbsorbedDoseUnit("DecaGray", Seq("daGy"), r"1e1")
+  case object HectoGray extends IntrinsicAbsorbedDoseUnit("HectoGray", Seq("hGy"), r"1e2")
+  case object KiloGray extends IntrinsicAbsorbedDoseUnit("KiloGray", Seq("kGy"), r"1e3")
+  case object MegaGray extends IntrinsicAbsorbedDoseUnit("MegaGray", Seq("MGy"), r"1e6")
+  case object GigaGray extends IntrinsicAbsorbedDoseUnit("GigaGray", Seq("GGy"), r"1e9")
+  case object TeraGray extends IntrinsicAbsorbedDoseUnit("TeraGray", Seq("TGy"), r"1e12")
+  case object PetaGray extends IntrinsicAbsorbedDoseUnit("PetaGray", Seq("PGy"), r"1e15")
+  case object ExaGray extends IntrinsicAbsorbedDoseUnit("ExaGray", Seq("EGy"), r"1e18")
+  case object ZettaGray extends IntrinsicAbsorbedDoseUnit("ZettaGray", Seq("ZGy"), r"1e21")
+  case object YottaGray extends IntrinsicAbsorbedDoseUnit("YottaGray", Seq("YGy"), r"1e24")
 
   override lazy val values = Seq(YoctoGray, ZeptoGray, AttoGray, FemtoGray, PicoGray, NanoGray, MicroGray, MilliGray, CentiGray, DeciGray, Gray, DecaGray, HectoGray, KiloGray, MegaGray, GigaGray, TeraGray, PetaGray, ExaGray, ZettaGray, YottaGray)
 
   // EnergyUnit / MassUnit -> AbsorbedDose
   private[AbsorbedDoseUnit]
-  class EnergyPerMassUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: MassUnit)
+  class QuotientEnergyPerMassUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: MassUnit)
       extends AbsorbedDoseUnit with QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit]{
 
     override lazy val unitInGray: Real =
@@ -83,7 +63,7 @@ object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
   }
 
   def apply(nUnit: EnergyUnit, dUnit: MassUnit): AbsorbedDoseUnit =
-    new EnergyPerMassUnit(nUnit, dUnit)
+    new QuotientEnergyPerMassUnit(nUnit, dUnit)
 }
 
 trait AbsorbedDosePostfixOps[A]{

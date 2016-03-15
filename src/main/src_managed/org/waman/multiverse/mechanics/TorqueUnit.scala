@@ -27,11 +27,12 @@ object TorqueUnit extends ConstantsDefined[TorqueUnit]{
   }
 
 
+
   override lazy val values = Seq()
 
   // ForceUnit * LengthUnit -> Torque
   private[TorqueUnit]
-  class ForceDotLengthUnit(val firstUnit: ForceUnit, val secondUnit: LengthUnit)
+  class ProductForceDotLengthUnit(val firstUnit: ForceUnit, val secondUnit: LengthUnit)
       extends TorqueUnit with ProductUnit[TorqueUnit, ForceUnit, LengthUnit]{
 
     override lazy val unitInNewtonMetre: Real =
@@ -39,5 +40,5 @@ object TorqueUnit extends ConstantsDefined[TorqueUnit]{
   }
 
   def apply(unit1: ForceUnit, unit2: LengthUnit): TorqueUnit =
-    new ForceDotLengthUnit(unit1, unit2)
+    new ProductForceDotLengthUnit(unit1, unit2)
 }

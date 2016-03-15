@@ -27,56 +27,35 @@ object EntropyUnit extends ConstantsDefined[EntropyUnit]{
       this(name, symbols, factor * unit.unitInJoulePerKelvin)
   }
 
+
   case object Nat extends IntrinsicEntropyUnit("Nat", Seq("nat", "k_B"), r"1.380650523e-23") with NotExact
-    
   case object Bit extends IntrinsicEntropyUnit("Bit", Seq("bit", "Sh"), Real(2).log, Nat) with NotExact
-    
   case object Ban extends IntrinsicEntropyUnit("Ban", Seq("ban", "Hart"), Real(10).log, Nat) with NotExact
-    
   case object Byte extends IntrinsicEntropyUnit("Byte", Seq("B"), r"1" * 8, Bit) with NotExact
-    
-  case object DecaByte extends IntrinsicEntropyUnit("DecaByte", Seq("daB"), r"1e-1" * 8, Bit) with NotExact
-    
-  case object HectoByte extends IntrinsicEntropyUnit("HectoByte", Seq("hB"), r"1e-2" * 8, Bit) with NotExact
-    
-  case object KiloByte extends IntrinsicEntropyUnit("KiloByte", Seq("kB"), r"1e-3" * 8, Bit) with NotExact
-    
-  case object MegaByte extends IntrinsicEntropyUnit("MegaByte", Seq("MB"), r"1e-6" * 8, Bit) with NotExact
-    
-  case object GigaByte extends IntrinsicEntropyUnit("GigaByte", Seq("GB"), r"1e-9" * 8, Bit) with NotExact
-    
-  case object TeraByte extends IntrinsicEntropyUnit("TeraByte", Seq("TB"), r"1e-12" * 8, Bit) with NotExact
-    
-  case object PetaByte extends IntrinsicEntropyUnit("PetaByte", Seq("PB"), r"1e-15" * 8, Bit) with NotExact
-    
-  case object ExaByte extends IntrinsicEntropyUnit("ExaByte", Seq("EB"), r"1e-18" * 8, Bit) with NotExact
-    
-  case object ZettaByte extends IntrinsicEntropyUnit("ZettaByte", Seq("ZB"), r"1e-21" * 8, Bit) with NotExact
-    
-  case object YottaByte extends IntrinsicEntropyUnit("YottaByte", Seq("YB"), r"1e-24" * 8, Bit) with NotExact
-    
+  case object DecaByte extends IntrinsicEntropyUnit("DecaByte", Seq("daB"), r"1e1" * 8, Bit) with NotExact
+  case object HectoByte extends IntrinsicEntropyUnit("HectoByte", Seq("hB"), r"1e2" * 8, Bit) with NotExact
+  case object KiloByte extends IntrinsicEntropyUnit("KiloByte", Seq("kB"), r"1e3" * 8, Bit) with NotExact
+  case object MegaByte extends IntrinsicEntropyUnit("MegaByte", Seq("MB"), r"1e6" * 8, Bit) with NotExact
+  case object GigaByte extends IntrinsicEntropyUnit("GigaByte", Seq("GB"), r"1e9" * 8, Bit) with NotExact
+  case object TeraByte extends IntrinsicEntropyUnit("TeraByte", Seq("TB"), r"1e12" * 8, Bit) with NotExact
+  case object PetaByte extends IntrinsicEntropyUnit("PetaByte", Seq("PB"), r"1e15" * 8, Bit) with NotExact
+  case object ExaByte extends IntrinsicEntropyUnit("ExaByte", Seq("EB"), r"1e18" * 8, Bit) with NotExact
+  case object ZettaByte extends IntrinsicEntropyUnit("ZettaByte", Seq("ZB"), r"1e21" * 8, Bit) with NotExact
+  case object YottaByte extends IntrinsicEntropyUnit("YottaByte", Seq("YB"), r"1e24" * 8, Bit) with NotExact
   case object KibiByte extends IntrinsicEntropyUnit("KibiByte", Seq("KiB", "KB"), r"1024", Byte) with NotExact
-    
   case object MebiByte extends IntrinsicEntropyUnit("MebiByte", Seq("MiB"), r"1024"**2, Byte) with NotExact
-    
   case object GibiByte extends IntrinsicEntropyUnit("GibiByte", Seq("GiB"), r"1024"**3, Byte) with NotExact
-    
   case object TebiByte extends IntrinsicEntropyUnit("TebiByte", Seq("TiB"), r"1024"**4, Byte) with NotExact
-    
   case object PebiByte extends IntrinsicEntropyUnit("PebiByte", Seq("PiB"), r"1024"**5, Byte) with NotExact
-    
   case object ExbiByte extends IntrinsicEntropyUnit("ExbiByte", Seq("EiB"), r"1024"**6, Byte) with NotExact
-    
   case object ZebiByte extends IntrinsicEntropyUnit("ZebiByte", Seq("ZiB"), r"1024"**7, Byte) with NotExact
-    
   case object YobiByte extends IntrinsicEntropyUnit("YobiByte", Seq("YiB"), r"1024"**8, Byte) with NotExact
-    
 
   override lazy val values = Seq(Nat, Bit, Ban, Byte, DecaByte, HectoByte, KiloByte, MegaByte, GigaByte, TeraByte, PetaByte, ExaByte, ZettaByte, YottaByte, KibiByte, MebiByte, GibiByte, TebiByte, PebiByte, ExbiByte, ZebiByte, YobiByte)
 
   // EnergyUnit / TemperatureUnit -> Entropy
   private[EntropyUnit]
-  class EnergyPerTemperatureUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: TemperatureUnit)
+  class QuotientEnergyPerTemperatureUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: TemperatureUnit)
       extends EntropyUnit with QuotientUnit[EntropyUnit, EnergyUnit, TemperatureUnit]{
 
     override lazy val unitInJoulePerKelvin: Real =
@@ -84,7 +63,7 @@ object EntropyUnit extends ConstantsDefined[EntropyUnit]{
   }
 
   def apply(nUnit: EnergyUnit, dUnit: TemperatureUnit): EntropyUnit =
-    new EnergyPerTemperatureUnit(nUnit, dUnit)
+    new QuotientEnergyPerTemperatureUnit(nUnit, dUnit)
 }
 
 trait EntropyPostfixOps[A]{

@@ -108,12 +108,12 @@ object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
   case object YottaKelvin extends TemperatureUnit("YK", r"1e24", 0)
 
   case object DegreeCelsius    extends TemperatureUnit(Seq("degC", "℃", "°C"), 1        , r"273.15")
-  case object DegreeFahrenheit extends TemperatureUnit(Seq("degF", "℉", "°F") , r"5/9"   , r"273.15" - r"5/9" * 32)
-  case object DegreeDelisle    extends TemperatureUnit(Seq("degDe", "°De")    , r"-2/3"  , r"373.15")
-  case object DegreeNewton     extends TemperatureUnit(Seq("degN", "°N")      , r"100/33", r"273.15")
-  case object DegreeRankine    extends TemperatureUnit(Seq("degR", "°R")      , r"5/9"   , 0)
-  case object DegreeReaumur    extends TemperatureUnit(Seq("degRe", "°Re")    , r"5/4"   , r"273.15")
-  case object DegreeRomer      extends TemperatureUnit(Seq("degRo", "°Ro")    , r"40/21" , r"273.15" - r"7.5" * r"40/21")
+  case object DegreeFahrenheit extends TemperatureUnit(Seq("degF", "℉", "°F" ), r"5/9"   , r"273.15" - r"5/9" * 32)
+  case object DegreeDelisle    extends TemperatureUnit(Seq("degDe", "°De"    ), r"-2/3"  , r"373.15")
+  case object DegreeNewton     extends TemperatureUnit(Seq("degN", "°N"      ), r"100/33", r"273.15")
+  case object DegreeRankine    extends TemperatureUnit(Seq("degR", "°R"      ), r"5/9"   , 0)
+  case object DegreeReaumur    extends TemperatureUnit(Seq("degRe", "°Re"    ), r"5/4"   , r"273.15")
+  case object DegreeRomer      extends TemperatureUnit(Seq("degRo", "°Ro"    ), r"40/21" , r"273.15" - r"7.5" * r"40/21")
   case object ReguloGasMark    extends TemperatureUnit("GM"                   , r"125/9" , r"422.038")
 
   override lazy val values = Seq(

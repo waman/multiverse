@@ -27,11 +27,12 @@ object EquivalentDoseRateUnit extends ConstantsDefined[EquivalentDoseRateUnit]{
   }
 
 
+
   override lazy val values = Seq()
 
   // EquivalentDoseUnit / TimeUnit -> EquivalentDoseRate
   private[EquivalentDoseRateUnit]
-  class EquivalentDosePerTimeUnit(val numeratorUnit: EquivalentDoseUnit, val denominatorUnit: TimeUnit)
+  class QuotientEquivalentDosePerTimeUnit(val numeratorUnit: EquivalentDoseUnit, val denominatorUnit: TimeUnit)
       extends EquivalentDoseRateUnit with QuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit]{
 
     override lazy val unitInSievertPerSecond: Real =
@@ -39,5 +40,5 @@ object EquivalentDoseRateUnit extends ConstantsDefined[EquivalentDoseRateUnit]{
   }
 
   def apply(nUnit: EquivalentDoseUnit, dUnit: TimeUnit): EquivalentDoseRateUnit =
-    new EquivalentDosePerTimeUnit(nUnit, dUnit)
+    new QuotientEquivalentDosePerTimeUnit(nUnit, dUnit)
 }

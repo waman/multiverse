@@ -30,48 +30,28 @@ object LuminousFluxUnit extends ConstantsDefined[LuminousFluxUnit]{
       this(name, symbols, factor * unit.unitInLumen)
   }
 
+
   case object YoctoLumen extends IntrinsicLuminousFluxUnit("YoctoLumen", Seq("ylm"), r"1e-24")
-    
   case object ZeptoLumen extends IntrinsicLuminousFluxUnit("ZeptoLumen", Seq("zlm"), r"1e-21")
-    
   case object AttoLumen extends IntrinsicLuminousFluxUnit("AttoLumen", Seq("alm"), r"1e-18")
-    
   case object FemtoLumen extends IntrinsicLuminousFluxUnit("FemtoLumen", Seq("flm"), r"1e-15")
-    
   case object PicoLumen extends IntrinsicLuminousFluxUnit("PicoLumen", Seq("plm"), r"1e-12")
-    
   case object NanoLumen extends IntrinsicLuminousFluxUnit("NanoLumen", Seq("nlm"), r"1e-9")
-    
   case object MicroLumen extends IntrinsicLuminousFluxUnit("MicroLumen", Seq("microLumen", "microLm", "μlm"), r"1e-6")
-    
   case object MilliLumen extends IntrinsicLuminousFluxUnit("MilliLumen", Seq("mlm"), r"1e-3")
-    
   case object CentiLumen extends IntrinsicLuminousFluxUnit("CentiLumen", Seq("clm"), r"1e-2")
-    
   case object DeciLumen extends IntrinsicLuminousFluxUnit("DeciLumen", Seq("dlm"), r"1e-1")
-    
   case object Lumen extends IntrinsicLuminousFluxUnit("Lumen", Seq("lm"), r"1")
-    
-  case object DecaLumen extends IntrinsicLuminousFluxUnit("DecaLumen", Seq("dalm"), r"1e-1")
-    
-  case object HectoLumen extends IntrinsicLuminousFluxUnit("HectoLumen", Seq("hlm"), r"1e-2")
-    
-  case object KiloLumen extends IntrinsicLuminousFluxUnit("KiloLumen", Seq("klm"), r"1e-3")
-    
-  case object MegaLumen extends IntrinsicLuminousFluxUnit("MegaLumen", Seq("Mlm"), r"1e-6")
-    
-  case object GigaLumen extends IntrinsicLuminousFluxUnit("GigaLumen", Seq("Glm"), r"1e-9")
-    
-  case object TeraLumen extends IntrinsicLuminousFluxUnit("TeraLumen", Seq("Tlm"), r"1e-12")
-    
-  case object PetaLumen extends IntrinsicLuminousFluxUnit("PetaLumen", Seq("Plm"), r"1e-15")
-    
-  case object ExaLumen extends IntrinsicLuminousFluxUnit("ExaLumen", Seq("Elm"), r"1e-18")
-    
-  case object ZettaLumen extends IntrinsicLuminousFluxUnit("ZettaLumen", Seq("Zlm"), r"1e-21")
-    
-  case object YottaLumen extends IntrinsicLuminousFluxUnit("YottaLumen", Seq("Ylm"), r"1e-24")
-    
+  case object DecaLumen extends IntrinsicLuminousFluxUnit("DecaLumen", Seq("dalm"), r"1e1")
+  case object HectoLumen extends IntrinsicLuminousFluxUnit("HectoLumen", Seq("hlm"), r"1e2")
+  case object KiloLumen extends IntrinsicLuminousFluxUnit("KiloLumen", Seq("klm"), r"1e3")
+  case object MegaLumen extends IntrinsicLuminousFluxUnit("MegaLumen", Seq("Mlm"), r"1e6")
+  case object GigaLumen extends IntrinsicLuminousFluxUnit("GigaLumen", Seq("Glm"), r"1e9")
+  case object TeraLumen extends IntrinsicLuminousFluxUnit("TeraLumen", Seq("Tlm"), r"1e12")
+  case object PetaLumen extends IntrinsicLuminousFluxUnit("PetaLumen", Seq("Plm"), r"1e15")
+  case object ExaLumen extends IntrinsicLuminousFluxUnit("ExaLumen", Seq("Elm"), r"1e18")
+  case object ZettaLumen extends IntrinsicLuminousFluxUnit("ZettaLumen", Seq("Zlm"), r"1e21")
+  case object YottaLumen extends IntrinsicLuminousFluxUnit("YottaLumen", Seq("Ylm"), r"1e24")
 
   override lazy val values = Seq(YoctoLumen, ZeptoLumen, AttoLumen, FemtoLumen, PicoLumen, NanoLumen, MicroLumen, MilliLumen, CentiLumen, DeciLumen, Lumen, DecaLumen, HectoLumen, KiloLumen, MegaLumen, GigaLumen, TeraLumen, PetaLumen, ExaLumen, ZettaLumen, YottaLumen)
 }

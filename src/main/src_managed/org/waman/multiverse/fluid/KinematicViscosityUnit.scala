@@ -28,14 +28,14 @@ object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
       this(name, symbols, factor * unit.unitInSquareMetrePerSecond)
   }
 
+
   case object Stokes extends IntrinsicKinematicViscosityUnit("Stokes", Seq("St"), r"1e-4")
-    
 
   override lazy val values = Seq(Stokes)
 
   // AreaUnit / TimeUnit -> KinematicViscosity
   private[KinematicViscosityUnit]
-  class AreaPerTimeUnit(val numeratorUnit: AreaUnit, val denominatorUnit: TimeUnit)
+  class QuotientAreaPerTimeUnit(val numeratorUnit: AreaUnit, val denominatorUnit: TimeUnit)
       extends KinematicViscosityUnit with QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit]{
 
     override lazy val unitInSquareMetrePerSecond: Real =
@@ -43,7 +43,7 @@ object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
   }
 
   def apply(nUnit: AreaUnit, dUnit: TimeUnit): KinematicViscosityUnit =
-    new AreaPerTimeUnit(nUnit, dUnit)
+    new QuotientAreaPerTimeUnit(nUnit, dUnit)
 }
 
 trait KinematicViscosityPostfixOps[A]{

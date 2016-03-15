@@ -23,7 +23,7 @@ class EnergySpec
         ("energies", "expected"),
         (Seq(3.0.J, 3.0 J, 3.0 (J)), 3.0),
 
-        (Seq(3.0.eV, 3.0 eV, 3.0 (eV)), 3.0 * 1.602176565e-19)
+        (Seq(3.0.eV, 3.0 eV, 3.0 (eV)), 3.0 * 1.602176620898e-19)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Energy[Double]], expected: Double) =>
@@ -41,7 +41,7 @@ class EnergySpec
       Table(
         ("energies", "expected"),
         (Seq(q.J, q J, q (J)), 3.0),
-        (Seq(q.eV, q eV, q (eV)), 3.0 / 1.602176565e-19)
+        (Seq(q.eV, q eV, q (eV)), 3.0 / 1.602176620898e-19)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

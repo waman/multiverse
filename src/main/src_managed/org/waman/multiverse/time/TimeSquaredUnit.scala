@@ -27,14 +27,14 @@ object TimeSquaredUnit extends ConstantsDefined[TimeSquaredUnit]{
       this(name, symbols, factor * unit.unitInSecondSquared)
   }
 
+
   case object SecondSquared extends IntrinsicTimeSquaredUnit("SecondSquared", Seq("s2"), 1)
-    
 
   override lazy val values = Seq(SecondSquared)
 
   // TimeUnit * TimeUnit -> TimeSquared
   private[TimeSquaredUnit]
-  class TimeDotTimeUnit(val firstUnit: TimeUnit, val secondUnit: TimeUnit)
+  class ProductTimeDotTimeUnit(val firstUnit: TimeUnit, val secondUnit: TimeUnit)
       extends TimeSquaredUnit with ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit]{
 
     override lazy val unitInSecondSquared: Real =
@@ -42,7 +42,7 @@ object TimeSquaredUnit extends ConstantsDefined[TimeSquaredUnit]{
   }
 
   def apply(unit1: TimeUnit, unit2: TimeUnit): TimeSquaredUnit =
-    new TimeDotTimeUnit(unit1, unit2)
+    new ProductTimeDotTimeUnit(unit1, unit2)
 }
 
 trait TimeSquaredPostfixOps[A]{

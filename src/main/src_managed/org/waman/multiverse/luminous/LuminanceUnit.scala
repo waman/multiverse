@@ -27,24 +27,19 @@ object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
       this(name, symbols, factor * unit.unitInCandelaPerSquareMetre)
   }
 
+
   case object Stilb extends IntrinsicLuminanceUnit("Stilb", Seq("sb"), r"1e4")
-    
   case object Lambert extends IntrinsicLuminanceUnit("Lambert", Seq("Lb"), r"1e4" / Real.pi)
-    
   case object ApoStilb extends IntrinsicLuminanceUnit("ApoStilb", Seq("asb"), r"1" / Real.pi)
-    
   case object Skot extends IntrinsicLuminanceUnit("Skot", Seq("sk"), r"1e-3" / Real.pi)
-    
   case object Bril extends IntrinsicLuminanceUnit("Bril", Seq("bril"), r"1e-7" / Real.pi)
-    
   case object FootLambert extends IntrinsicLuminanceUnit("FootLambert", Seq("fLb"), r"1" / Real.pi, LuminousIntensityUnit.Candela / AreaUnit.SquareFoot)
-    
 
   override lazy val values = Seq(Stilb, Lambert, ApoStilb, Skot, Bril, FootLambert)
 
   // LuminousIntensityUnit / AreaUnit -> Luminance
   private[LuminanceUnit]
-  class LuminousIntensityPerAreaUnit(val numeratorUnit: LuminousIntensityUnit, val denominatorUnit: AreaUnit)
+  class QuotientLuminousIntensityPerAreaUnit(val numeratorUnit: LuminousIntensityUnit, val denominatorUnit: AreaUnit)
       extends LuminanceUnit with QuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit]{
 
     override lazy val unitInCandelaPerSquareMetre: Real =
@@ -52,7 +47,7 @@ object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
   }
 
   def apply(nUnit: LuminousIntensityUnit, dUnit: AreaUnit): LuminanceUnit =
-    new LuminousIntensityPerAreaUnit(nUnit, dUnit)
+    new QuotientLuminousIntensityPerAreaUnit(nUnit, dUnit)
 }
 
 trait LuminancePostfixOps[A]{

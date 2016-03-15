@@ -31,52 +31,30 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
       this(name, symbols, factor * unit.unitInNewton)
   }
 
+
   case object YoctoNewton extends IntrinsicForceUnit("YoctoNewton", Seq("yN"), r"1e-24")
-    
   case object ZeptoNewton extends IntrinsicForceUnit("ZeptoNewton", Seq("zN"), r"1e-21")
-    
   case object AttoNewton extends IntrinsicForceUnit("AttoNewton", Seq("aN"), r"1e-18")
-    
   case object FemtoNewton extends IntrinsicForceUnit("FemtoNewton", Seq("fN"), r"1e-15")
-    
   case object PicoNewton extends IntrinsicForceUnit("PicoNewton", Seq("pN"), r"1e-12")
-    
   case object NanoNewton extends IntrinsicForceUnit("NanoNewton", Seq("nN"), r"1e-9")
-    
   case object MicroNewton extends IntrinsicForceUnit("MicroNewton", Seq("microNewton", "microN", "μN"), r"1e-6")
-    
   case object MilliNewton extends IntrinsicForceUnit("MilliNewton", Seq("mN"), r"1e-3")
-    
   case object CentiNewton extends IntrinsicForceUnit("CentiNewton", Seq("cN"), r"1e-2")
-    
   case object DeciNewton extends IntrinsicForceUnit("DeciNewton", Seq("dN"), r"1e-1")
-    
   case object Newton extends IntrinsicForceUnit("Newton", Seq("N"), r"1")
-    
-  case object DecaNewton extends IntrinsicForceUnit("DecaNewton", Seq("daN"), r"1e-1")
-    
-  case object HectoNewton extends IntrinsicForceUnit("HectoNewton", Seq("hN"), r"1e-2")
-    
-  case object KiloNewton extends IntrinsicForceUnit("KiloNewton", Seq("kN"), r"1e-3")
-    
-  case object MegaNewton extends IntrinsicForceUnit("MegaNewton", Seq("MN"), r"1e-6")
-    
-  case object GigaNewton extends IntrinsicForceUnit("GigaNewton", Seq("GN"), r"1e-9")
-    
-  case object TeraNewton extends IntrinsicForceUnit("TeraNewton", Seq("TN"), r"1e-12")
-    
-  case object PetaNewton extends IntrinsicForceUnit("PetaNewton", Seq("PN"), r"1e-15")
-    
-  case object ExaNewton extends IntrinsicForceUnit("ExaNewton", Seq("EN"), r"1e-18")
-    
-  case object ZettaNewton extends IntrinsicForceUnit("ZettaNewton", Seq("ZN"), r"1e-21")
-    
-  case object YottaNewton extends IntrinsicForceUnit("YottaNewton", Seq("YN"), r"1e-24")
-    
+  case object DecaNewton extends IntrinsicForceUnit("DecaNewton", Seq("daN"), r"1e1")
+  case object HectoNewton extends IntrinsicForceUnit("HectoNewton", Seq("hN"), r"1e2")
+  case object KiloNewton extends IntrinsicForceUnit("KiloNewton", Seq("kN"), r"1e3")
+  case object MegaNewton extends IntrinsicForceUnit("MegaNewton", Seq("MN"), r"1e6")
+  case object GigaNewton extends IntrinsicForceUnit("GigaNewton", Seq("GN"), r"1e9")
+  case object TeraNewton extends IntrinsicForceUnit("TeraNewton", Seq("TN"), r"1e12")
+  case object PetaNewton extends IntrinsicForceUnit("PetaNewton", Seq("PN"), r"1e15")
+  case object ExaNewton extends IntrinsicForceUnit("ExaNewton", Seq("EN"), r"1e18")
+  case object ZettaNewton extends IntrinsicForceUnit("ZettaNewton", Seq("ZN"), r"1e21")
+  case object YottaNewton extends IntrinsicForceUnit("YottaNewton", Seq("YN"), r"1e24")
   case object Dyne extends IntrinsicForceUnit("Dyne", Seq("dyn"), r"1e-5")
-    
   case object KiloGramForce extends IntrinsicForceUnit("KiloGramForce", Seq("kgf", "kp"), StandardGravity.unitInMetrePerSecondSquared) with NotExact
-    
 
   override lazy val values = Seq(YoctoNewton, ZeptoNewton, AttoNewton, FemtoNewton, PicoNewton, NanoNewton, MicroNewton, MilliNewton, CentiNewton, DeciNewton, Newton, DecaNewton, HectoNewton, KiloNewton, MegaNewton, GigaNewton, TeraNewton, PetaNewton, ExaNewton, ZettaNewton, YottaNewton, Dyne, KiloGramForce)
 }

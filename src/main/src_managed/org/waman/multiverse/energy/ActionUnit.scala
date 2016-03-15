@@ -27,14 +27,14 @@ object ActionUnit extends ConstantsDefined[ActionUnit]{
       this(name, symbols, factor * unit.unitInJouleSecond)
   }
 
+
   case object AtomicUnitOfAction extends IntrinsicActionUnit("AtomicUnitOfAction", Seq("ħ", "hbar"), r"1.05457168e-34") with NotExact
-    
 
   override lazy val values = Seq(AtomicUnitOfAction)
 
   // EnergyUnit * TimeUnit -> Action
   private[ActionUnit]
-  class EnergyDotTimeUnit(val firstUnit: EnergyUnit, val secondUnit: TimeUnit)
+  class ProductEnergyDotTimeUnit(val firstUnit: EnergyUnit, val secondUnit: TimeUnit)
       extends ActionUnit with ProductUnit[ActionUnit, EnergyUnit, TimeUnit]{
 
     override lazy val unitInJouleSecond: Real =
@@ -42,7 +42,7 @@ object ActionUnit extends ConstantsDefined[ActionUnit]{
   }
 
   def apply(unit1: EnergyUnit, unit2: TimeUnit): ActionUnit =
-    new EnergyDotTimeUnit(unit1, unit2)
+    new ProductEnergyDotTimeUnit(unit1, unit2)
 }
 
 trait ActionPostfixOps[A]{

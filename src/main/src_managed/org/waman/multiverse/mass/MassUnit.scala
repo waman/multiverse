@@ -30,64 +30,36 @@ object MassUnit extends ConstantsDefined[MassUnit]{
       this(name, symbols, factor * unit.unitInKiloGram)
   }
 
+
   case object YoctoGram extends IntrinsicMassUnit("YoctoGram", Seq("yg"), r"1e-24" * r"1e-3")
-    
   case object ZeptoGram extends IntrinsicMassUnit("ZeptoGram", Seq("zg"), r"1e-21" * r"1e-3")
-    
   case object AttoGram extends IntrinsicMassUnit("AttoGram", Seq("ag"), r"1e-18" * r"1e-3")
-    
   case object FemtoGram extends IntrinsicMassUnit("FemtoGram", Seq("fg"), r"1e-15" * r"1e-3")
-    
   case object PicoGram extends IntrinsicMassUnit("PicoGram", Seq("pg"), r"1e-12" * r"1e-3")
-    
   case object NanoGram extends IntrinsicMassUnit("NanoGram", Seq("ng"), r"1e-9" * r"1e-3")
-    
   case object MicroGram extends IntrinsicMassUnit("MicroGram", Seq("microGram", "μg"), r"1e-6" * r"1e-3")
-    
   case object MilliGram extends IntrinsicMassUnit("MilliGram", Seq("mg"), r"1e-3" * r"1e-3")
-    
   case object CentiGram extends IntrinsicMassUnit("CentiGram", Seq("cg"), r"1e-2" * r"1e-3")
-    
   case object DeciGram extends IntrinsicMassUnit("DeciGram", Seq("dg"), r"1e-1" * r"1e-3")
-    
   case object Gram extends IntrinsicMassUnit("Gram", Seq("g"), r"1" * r"1e-3")
-    
-  case object DecaGram extends IntrinsicMassUnit("DecaGram", Seq("dag"), r"1e-1" * r"1e-3")
-    
-  case object HectoGram extends IntrinsicMassUnit("HectoGram", Seq("hg"), r"1e-2" * r"1e-3")
-    
-  case object KiloGram extends IntrinsicMassUnit("KiloGram", Seq("kg"), r"1e-3" * r"1e-3")
-    
-  case object MegaGram extends IntrinsicMassUnit("MegaGram", Seq("Mg"), r"1e-6" * r"1e-3")
-    
-  case object GigaGram extends IntrinsicMassUnit("GigaGram", Seq("Gg"), r"1e-9" * r"1e-3")
-    
-  case object TeraGram extends IntrinsicMassUnit("TeraGram", Seq("Tg"), r"1e-12" * r"1e-3")
-    
-  case object PetaGram extends IntrinsicMassUnit("PetaGram", Seq("Pg"), r"1e-15" * r"1e-3")
-    
-  case object ExaGram extends IntrinsicMassUnit("ExaGram", Seq("Eg"), r"1e-18" * r"1e-3")
-    
-  case object ZettaGram extends IntrinsicMassUnit("ZettaGram", Seq("Zg"), r"1e-21" * r"1e-3")
-    
-  case object YottaGram extends IntrinsicMassUnit("YottaGram", Seq("Yg"), r"1e-24" * r"1e-3")
-    
+  case object DecaGram extends IntrinsicMassUnit("DecaGram", Seq("dag"), r"1e1" * r"1e-3")
+  case object HectoGram extends IntrinsicMassUnit("HectoGram", Seq("hg"), r"1e2" * r"1e-3")
+  case object KiloGram extends IntrinsicMassUnit("KiloGram", Seq("kg"), r"1e3" * r"1e-3")
+  case object MegaGram extends IntrinsicMassUnit("MegaGram", Seq("Mg"), r"1e6" * r"1e-3")
+  case object GigaGram extends IntrinsicMassUnit("GigaGram", Seq("Gg"), r"1e9" * r"1e-3")
+  case object TeraGram extends IntrinsicMassUnit("TeraGram", Seq("Tg"), r"1e12" * r"1e-3")
+  case object PetaGram extends IntrinsicMassUnit("PetaGram", Seq("Pg"), r"1e15" * r"1e-3")
+  case object ExaGram extends IntrinsicMassUnit("ExaGram", Seq("Eg"), r"1e18" * r"1e-3")
+  case object ZettaGram extends IntrinsicMassUnit("ZettaGram", Seq("Zg"), r"1e21" * r"1e-3")
+  case object YottaGram extends IntrinsicMassUnit("YottaGram", Seq("Yg"), r"1e24" * r"1e-3")
   case object AtomicMassUnit extends IntrinsicMassUnit("AtomicMassUnit", Seq("u", "AMU", "Da"), r"1.66053892173e-27") with NotExact
-    
   case object ElectronMass extends IntrinsicMassUnit("ElectronMass", Seq("m_e"), r"9.1093829140e-31") with NotExact
-    
   case object Grain extends IntrinsicMassUnit("Grain", Seq("gr"), 6479891, MilliGram)
-    
   case object Ounce extends IntrinsicMassUnit("Ounce", Seq("oz"), 28, Gram)
-    
   case object Pound extends IntrinsicMassUnit("Pound", Seq("lb"), r"0.45359237")
-    
   case object Tonne extends IntrinsicMassUnit("Tonne", Seq("t"), 1000)
-    
   case object Carat extends IntrinsicMassUnit("Carat", Seq("kt"), r"19/6", Grain)
-    
   case object MetricCarat extends IntrinsicMassUnit("MetricCarat", Seq("ct"), 200, MilliGram)
-    
 
   override lazy val values = Seq(YoctoGram, ZeptoGram, AttoGram, FemtoGram, PicoGram, NanoGram, MicroGram, MilliGram, CentiGram, DeciGram, Gram, DecaGram, HectoGram, KiloGram, MegaGram, GigaGram, TeraGram, PetaGram, ExaGram, ZettaGram, YottaGram, AtomicMassUnit, ElectronMass, Grain, Ounce, Pound, Tonne, Carat, MetricCarat)
 }

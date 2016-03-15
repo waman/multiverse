@@ -27,48 +27,28 @@ object FrequencyUnit extends ConstantsDefined[FrequencyUnit]{
       this(name, symbols, factor * unit.unitInHeltz)
   }
 
+
   case object YoctoHeltz extends IntrinsicFrequencyUnit("YoctoHeltz", Seq("yHz"), r"1e-24")
-    
   case object ZeptoHeltz extends IntrinsicFrequencyUnit("ZeptoHeltz", Seq("zHz"), r"1e-21")
-    
   case object AttoHeltz extends IntrinsicFrequencyUnit("AttoHeltz", Seq("aHz"), r"1e-18")
-    
   case object FemtoHeltz extends IntrinsicFrequencyUnit("FemtoHeltz", Seq("fHz"), r"1e-15")
-    
   case object PicoHeltz extends IntrinsicFrequencyUnit("PicoHeltz", Seq("pHz"), r"1e-12")
-    
   case object NanoHeltz extends IntrinsicFrequencyUnit("NanoHeltz", Seq("nHz"), r"1e-9")
-    
   case object MicroHeltz extends IntrinsicFrequencyUnit("MicroHeltz", Seq("microHeltz", "microHz", "μHz"), r"1e-6")
-    
   case object MilliHeltz extends IntrinsicFrequencyUnit("MilliHeltz", Seq("mHz"), r"1e-3")
-    
   case object CentiHeltz extends IntrinsicFrequencyUnit("CentiHeltz", Seq("cHz"), r"1e-2")
-    
   case object DeciHeltz extends IntrinsicFrequencyUnit("DeciHeltz", Seq("dHz"), r"1e-1")
-    
   case object Heltz extends IntrinsicFrequencyUnit("Heltz", Seq("Hz"), r"1")
-    
-  case object DecaHeltz extends IntrinsicFrequencyUnit("DecaHeltz", Seq("daHz"), r"1e-1")
-    
-  case object HectoHeltz extends IntrinsicFrequencyUnit("HectoHeltz", Seq("hHz"), r"1e-2")
-    
-  case object KiloHeltz extends IntrinsicFrequencyUnit("KiloHeltz", Seq("kHz"), r"1e-3")
-    
-  case object MegaHeltz extends IntrinsicFrequencyUnit("MegaHeltz", Seq("MHz"), r"1e-6")
-    
-  case object GigaHeltz extends IntrinsicFrequencyUnit("GigaHeltz", Seq("GHz"), r"1e-9")
-    
-  case object TeraHeltz extends IntrinsicFrequencyUnit("TeraHeltz", Seq("THz"), r"1e-12")
-    
-  case object PetaHeltz extends IntrinsicFrequencyUnit("PetaHeltz", Seq("PHz"), r"1e-15")
-    
-  case object ExaHeltz extends IntrinsicFrequencyUnit("ExaHeltz", Seq("EHz"), r"1e-18")
-    
-  case object ZettaHeltz extends IntrinsicFrequencyUnit("ZettaHeltz", Seq("ZHz"), r"1e-21")
-    
-  case object YottaHeltz extends IntrinsicFrequencyUnit("YottaHeltz", Seq("YHz"), r"1e-24")
-    
+  case object DecaHeltz extends IntrinsicFrequencyUnit("DecaHeltz", Seq("daHz"), r"1e1")
+  case object HectoHeltz extends IntrinsicFrequencyUnit("HectoHeltz", Seq("hHz"), r"1e2")
+  case object KiloHeltz extends IntrinsicFrequencyUnit("KiloHeltz", Seq("kHz"), r"1e3")
+  case object MegaHeltz extends IntrinsicFrequencyUnit("MegaHeltz", Seq("MHz"), r"1e6")
+  case object GigaHeltz extends IntrinsicFrequencyUnit("GigaHeltz", Seq("GHz"), r"1e9")
+  case object TeraHeltz extends IntrinsicFrequencyUnit("TeraHeltz", Seq("THz"), r"1e12")
+  case object PetaHeltz extends IntrinsicFrequencyUnit("PetaHeltz", Seq("PHz"), r"1e15")
+  case object ExaHeltz extends IntrinsicFrequencyUnit("ExaHeltz", Seq("EHz"), r"1e18")
+  case object ZettaHeltz extends IntrinsicFrequencyUnit("ZettaHeltz", Seq("ZHz"), r"1e21")
+  case object YottaHeltz extends IntrinsicFrequencyUnit("YottaHeltz", Seq("YHz"), r"1e24")
 
   override lazy val values = Seq(YoctoHeltz, ZeptoHeltz, AttoHeltz, FemtoHeltz, PicoHeltz, NanoHeltz, MicroHeltz, MilliHeltz, CentiHeltz, DeciHeltz, Heltz, DecaHeltz, HectoHeltz, KiloHeltz, MegaHeltz, GigaHeltz, TeraHeltz, PetaHeltz, ExaHeltz, ZettaHeltz, YottaHeltz)
 }

@@ -35,96 +35,55 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
       this(name, symbols, factor * unit.unitInWeber)
   }
 
+
   case object YoctoWeber extends IntrinsicFluxUnit("YoctoWeber", Seq("yWb"), r"1e-24")
-    
   case object ZeptoWeber extends IntrinsicFluxUnit("ZeptoWeber", Seq("zWb"), r"1e-21")
-    
   case object AttoWeber extends IntrinsicFluxUnit("AttoWeber", Seq("aWb"), r"1e-18")
-    
   case object FemtoWeber extends IntrinsicFluxUnit("FemtoWeber", Seq("fWb"), r"1e-15")
-    
   case object PicoWeber extends IntrinsicFluxUnit("PicoWeber", Seq("pWb"), r"1e-12")
-    
   case object NanoWeber extends IntrinsicFluxUnit("NanoWeber", Seq("nWb"), r"1e-9")
-    
   case object MicroWeber extends IntrinsicFluxUnit("MicroWeber", Seq("microWeber", "microWb", "μWb"), r"1e-6")
-    
   case object MilliWeber extends IntrinsicFluxUnit("MilliWeber", Seq("mWb"), r"1e-3")
-    
   case object CentiWeber extends IntrinsicFluxUnit("CentiWeber", Seq("cWb"), r"1e-2")
-    
   case object DeciWeber extends IntrinsicFluxUnit("DeciWeber", Seq("dWb"), r"1e-1")
-    
   case object Weber extends IntrinsicFluxUnit("Weber", Seq("Wb"), r"1")
-    
-  case object DecaWeber extends IntrinsicFluxUnit("DecaWeber", Seq("daWb"), r"1e-1")
-    
-  case object HectoWeber extends IntrinsicFluxUnit("HectoWeber", Seq("hWb"), r"1e-2")
-    
-  case object KiloWeber extends IntrinsicFluxUnit("KiloWeber", Seq("kWb"), r"1e-3")
-    
-  case object MegaWeber extends IntrinsicFluxUnit("MegaWeber", Seq("MWb"), r"1e-6")
-    
-  case object GigaWeber extends IntrinsicFluxUnit("GigaWeber", Seq("GWb"), r"1e-9")
-    
-  case object TeraWeber extends IntrinsicFluxUnit("TeraWeber", Seq("TWb"), r"1e-12")
-    
-  case object PetaWeber extends IntrinsicFluxUnit("PetaWeber", Seq("PWb"), r"1e-15")
-    
-  case object ExaWeber extends IntrinsicFluxUnit("ExaWeber", Seq("EWb"), r"1e-18")
-    
-  case object ZettaWeber extends IntrinsicFluxUnit("ZettaWeber", Seq("ZWb"), r"1e-21")
-    
-  case object YottaWeber extends IntrinsicFluxUnit("YottaWeber", Seq("YWb"), r"1e-24")
-    
+  case object DecaWeber extends IntrinsicFluxUnit("DecaWeber", Seq("daWb"), r"1e1")
+  case object HectoWeber extends IntrinsicFluxUnit("HectoWeber", Seq("hWb"), r"1e2")
+  case object KiloWeber extends IntrinsicFluxUnit("KiloWeber", Seq("kWb"), r"1e3")
+  case object MegaWeber extends IntrinsicFluxUnit("MegaWeber", Seq("MWb"), r"1e6")
+  case object GigaWeber extends IntrinsicFluxUnit("GigaWeber", Seq("GWb"), r"1e9")
+  case object TeraWeber extends IntrinsicFluxUnit("TeraWeber", Seq("TWb"), r"1e12")
+  case object PetaWeber extends IntrinsicFluxUnit("PetaWeber", Seq("PWb"), r"1e15")
+  case object ExaWeber extends IntrinsicFluxUnit("ExaWeber", Seq("EWb"), r"1e18")
+  case object ZettaWeber extends IntrinsicFluxUnit("ZettaWeber", Seq("ZWb"), r"1e21")
+  case object YottaWeber extends IntrinsicFluxUnit("YottaWeber", Seq("YWb"), r"1e24")
   case object YoctoMaxwell extends IntrinsicFluxUnit("YoctoMaxwell", Seq("yMx"), r"1e-24" * r"1e-8")
-    
   case object ZeptoMaxwell extends IntrinsicFluxUnit("ZeptoMaxwell", Seq("zMx"), r"1e-21" * r"1e-8")
-    
   case object AttoMaxwell extends IntrinsicFluxUnit("AttoMaxwell", Seq("aMx"), r"1e-18" * r"1e-8")
-    
   case object FemtoMaxwell extends IntrinsicFluxUnit("FemtoMaxwell", Seq("fMx"), r"1e-15" * r"1e-8")
-    
   case object PicoMaxwell extends IntrinsicFluxUnit("PicoMaxwell", Seq("pMx"), r"1e-12" * r"1e-8")
-    
   case object NanoMaxwell extends IntrinsicFluxUnit("NanoMaxwell", Seq("nMx"), r"1e-9" * r"1e-8")
-    
   case object MicroMaxwell extends IntrinsicFluxUnit("MicroMaxwell", Seq("microMaxwell", "microMx", "μMx"), r"1e-6" * r"1e-8")
-    
   case object MilliMaxwell extends IntrinsicFluxUnit("MilliMaxwell", Seq("mMx"), r"1e-3" * r"1e-8")
-    
   case object CentiMaxwell extends IntrinsicFluxUnit("CentiMaxwell", Seq("cMx"), r"1e-2" * r"1e-8")
-    
   case object DeciMaxwell extends IntrinsicFluxUnit("DeciMaxwell", Seq("dMx"), r"1e-1" * r"1e-8")
-    
   case object Maxwell extends IntrinsicFluxUnit("Maxwell", Seq("Mx"), r"1" * r"1e-8")
-    
-  case object DecaMaxwell extends IntrinsicFluxUnit("DecaMaxwell", Seq("daMx"), r"1e-1" * r"1e-8")
-    
-  case object HectoMaxwell extends IntrinsicFluxUnit("HectoMaxwell", Seq("hMx"), r"1e-2" * r"1e-8")
-    
-  case object KiloMaxwell extends IntrinsicFluxUnit("KiloMaxwell", Seq("kMx"), r"1e-3" * r"1e-8")
-    
-  case object MegaMaxwell extends IntrinsicFluxUnit("MegaMaxwell", Seq("MMx"), r"1e-6" * r"1e-8")
-    
-  case object GigaMaxwell extends IntrinsicFluxUnit("GigaMaxwell", Seq("GMx"), r"1e-9" * r"1e-8")
-    
-  case object TeraMaxwell extends IntrinsicFluxUnit("TeraMaxwell", Seq("TMx"), r"1e-12" * r"1e-8")
-    
-  case object PetaMaxwell extends IntrinsicFluxUnit("PetaMaxwell", Seq("PMx"), r"1e-15" * r"1e-8")
-    
-  case object ExaMaxwell extends IntrinsicFluxUnit("ExaMaxwell", Seq("EMx"), r"1e-18" * r"1e-8")
-    
-  case object ZettaMaxwell extends IntrinsicFluxUnit("ZettaMaxwell", Seq("ZMx"), r"1e-21" * r"1e-8")
-    
-  case object YottaMaxwell extends IntrinsicFluxUnit("YottaMaxwell", Seq("YMx"), r"1e-24" * r"1e-8")
-    
+  case object DecaMaxwell extends IntrinsicFluxUnit("DecaMaxwell", Seq("daMx"), r"1e1" * r"1e-8")
+  case object HectoMaxwell extends IntrinsicFluxUnit("HectoMaxwell", Seq("hMx"), r"1e2" * r"1e-8")
+  case object KiloMaxwell extends IntrinsicFluxUnit("KiloMaxwell", Seq("kMx"), r"1e3" * r"1e-8")
+  case object MegaMaxwell extends IntrinsicFluxUnit("MegaMaxwell", Seq("MMx"), r"1e6" * r"1e-8")
+  case object GigaMaxwell extends IntrinsicFluxUnit("GigaMaxwell", Seq("GMx"), r"1e9" * r"1e-8")
+  case object TeraMaxwell extends IntrinsicFluxUnit("TeraMaxwell", Seq("TMx"), r"1e12" * r"1e-8")
+  case object PetaMaxwell extends IntrinsicFluxUnit("PetaMaxwell", Seq("PMx"), r"1e15" * r"1e-8")
+  case object ExaMaxwell extends IntrinsicFluxUnit("ExaMaxwell", Seq("EMx"), r"1e18" * r"1e-8")
+  case object ZettaMaxwell extends IntrinsicFluxUnit("ZettaMaxwell", Seq("ZMx"), r"1e21" * r"1e-8")
+  case object YottaMaxwell extends IntrinsicFluxUnit("YottaMaxwell", Seq("YMx"), r"1e24" * r"1e-8")
 
   override lazy val values = Seq(YoctoWeber, ZeptoWeber, AttoWeber, FemtoWeber, PicoWeber, NanoWeber, MicroWeber, MilliWeber, CentiWeber, DeciWeber, Weber, DecaWeber, HectoWeber, KiloWeber, MegaWeber, GigaWeber, TeraWeber, PetaWeber, ExaWeber, ZettaWeber, YottaWeber, YoctoMaxwell, ZeptoMaxwell, AttoMaxwell, FemtoMaxwell, PicoMaxwell, NanoMaxwell, MicroMaxwell, MilliMaxwell, CentiMaxwell, DeciMaxwell, Maxwell, DecaMaxwell, HectoMaxwell, KiloMaxwell, MegaMaxwell, GigaMaxwell, TeraMaxwell, PetaMaxwell, ExaMaxwell, ZettaMaxwell, YottaMaxwell)
 
   // VoltageUnit * TimeUnit -> Flux
   private[FluxUnit]
-  class VoltageDotTimeUnit(val firstUnit: VoltageUnit, val secondUnit: TimeUnit)
+  class ProductVoltageDotTimeUnit(val firstUnit: VoltageUnit, val secondUnit: TimeUnit)
       extends FluxUnit with ProductUnit[FluxUnit, VoltageUnit, TimeUnit]{
 
     override lazy val unitInWeber: Real =
@@ -132,7 +91,7 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
   }
 
   def apply(unit1: VoltageUnit, unit2: TimeUnit): FluxUnit =
-    new VoltageDotTimeUnit(unit1, unit2)
+    new ProductVoltageDotTimeUnit(unit1, unit2)
 }
 
 trait FluxPostfixOps[A]{

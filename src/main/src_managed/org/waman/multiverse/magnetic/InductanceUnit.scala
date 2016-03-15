@@ -27,54 +27,34 @@ object InductanceUnit extends ConstantsDefined[InductanceUnit]{
       this(name, symbols, factor * unit.unitInHenry)
   }
 
+
   case object YoctoHenry extends IntrinsicInductanceUnit("YoctoHenry", Seq("yH"), r"1e-24")
-    
   case object ZeptoHenry extends IntrinsicInductanceUnit("ZeptoHenry", Seq("zH"), r"1e-21")
-    
   case object AttoHenry extends IntrinsicInductanceUnit("AttoHenry", Seq("aH"), r"1e-18")
-    
   case object FemtoHenry extends IntrinsicInductanceUnit("FemtoHenry", Seq("fH"), r"1e-15")
-    
   case object PicoHenry extends IntrinsicInductanceUnit("PicoHenry", Seq("pH"), r"1e-12")
-    
   case object NanoHenry extends IntrinsicInductanceUnit("NanoHenry", Seq("nH"), r"1e-9")
-    
   case object MicroHenry extends IntrinsicInductanceUnit("MicroHenry", Seq("microHenry", "microH", "μH"), r"1e-6")
-    
   case object MilliHenry extends IntrinsicInductanceUnit("MilliHenry", Seq("mH"), r"1e-3")
-    
   case object CentiHenry extends IntrinsicInductanceUnit("CentiHenry", Seq("cH"), r"1e-2")
-    
   case object DeciHenry extends IntrinsicInductanceUnit("DeciHenry", Seq("dH"), r"1e-1")
-    
   case object Henry extends IntrinsicInductanceUnit("Henry", Seq("H"), r"1")
-    
-  case object DecaHenry extends IntrinsicInductanceUnit("DecaHenry", Seq("daH"), r"1e-1")
-    
-  case object HectoHenry extends IntrinsicInductanceUnit("HectoHenry", Seq("hH"), r"1e-2")
-    
-  case object KiloHenry extends IntrinsicInductanceUnit("KiloHenry", Seq("kH"), r"1e-3")
-    
-  case object MegaHenry extends IntrinsicInductanceUnit("MegaHenry", Seq("MH"), r"1e-6")
-    
-  case object GigaHenry extends IntrinsicInductanceUnit("GigaHenry", Seq("GH"), r"1e-9")
-    
-  case object TeraHenry extends IntrinsicInductanceUnit("TeraHenry", Seq("TH"), r"1e-12")
-    
-  case object PetaHenry extends IntrinsicInductanceUnit("PetaHenry", Seq("PH"), r"1e-15")
-    
-  case object ExaHenry extends IntrinsicInductanceUnit("ExaHenry", Seq("EH"), r"1e-18")
-    
-  case object ZettaHenry extends IntrinsicInductanceUnit("ZettaHenry", Seq("ZH"), r"1e-21")
-    
-  case object YottaHenry extends IntrinsicInductanceUnit("YottaHenry", Seq("YH"), r"1e-24")
-    
+  case object DecaHenry extends IntrinsicInductanceUnit("DecaHenry", Seq("daH"), r"1e1")
+  case object HectoHenry extends IntrinsicInductanceUnit("HectoHenry", Seq("hH"), r"1e2")
+  case object KiloHenry extends IntrinsicInductanceUnit("KiloHenry", Seq("kH"), r"1e3")
+  case object MegaHenry extends IntrinsicInductanceUnit("MegaHenry", Seq("MH"), r"1e6")
+  case object GigaHenry extends IntrinsicInductanceUnit("GigaHenry", Seq("GH"), r"1e9")
+  case object TeraHenry extends IntrinsicInductanceUnit("TeraHenry", Seq("TH"), r"1e12")
+  case object PetaHenry extends IntrinsicInductanceUnit("PetaHenry", Seq("PH"), r"1e15")
+  case object ExaHenry extends IntrinsicInductanceUnit("ExaHenry", Seq("EH"), r"1e18")
+  case object ZettaHenry extends IntrinsicInductanceUnit("ZettaHenry", Seq("ZH"), r"1e21")
+  case object YottaHenry extends IntrinsicInductanceUnit("YottaHenry", Seq("YH"), r"1e24")
 
   override lazy val values = Seq(YoctoHenry, ZeptoHenry, AttoHenry, FemtoHenry, PicoHenry, NanoHenry, MicroHenry, MilliHenry, CentiHenry, DeciHenry, Henry, DecaHenry, HectoHenry, KiloHenry, MegaHenry, GigaHenry, TeraHenry, PetaHenry, ExaHenry, ZettaHenry, YottaHenry)
 
   // FluxUnit / CurrentUnit -> Inductance
   private[InductanceUnit]
-  class FluxPerCurrentUnit(val numeratorUnit: FluxUnit, val denominatorUnit: CurrentUnit)
+  class QuotientFluxPerCurrentUnit(val numeratorUnit: FluxUnit, val denominatorUnit: CurrentUnit)
       extends InductanceUnit with QuotientUnit[InductanceUnit, FluxUnit, CurrentUnit]{
 
     override lazy val unitInHenry: Real =
@@ -82,7 +62,7 @@ object InductanceUnit extends ConstantsDefined[InductanceUnit]{
   }
 
   def apply(nUnit: FluxUnit, dUnit: CurrentUnit): InductanceUnit =
-    new FluxPerCurrentUnit(nUnit, dUnit)
+    new QuotientFluxPerCurrentUnit(nUnit, dUnit)
 }
 
 trait InductancePostfixOps[A]{

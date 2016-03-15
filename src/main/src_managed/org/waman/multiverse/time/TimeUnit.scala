@@ -33,54 +33,31 @@ object TimeUnit extends ConstantsDefined[TimeUnit]{
       this(name, symbols, factor * unit.unitInSecond)
   }
 
+
   case object YoctoSecond extends IntrinsicTimeUnit("YoctoSecond", Seq("ys"), r"1e-24")
-    
   case object ZeptoSecond extends IntrinsicTimeUnit("ZeptoSecond", Seq("zs"), r"1e-21")
-    
   case object AttoSecond extends IntrinsicTimeUnit("AttoSecond", Seq("as"), r"1e-18")
-    
   case object FemtoSecond extends IntrinsicTimeUnit("FemtoSecond", Seq("fs"), r"1e-15")
-    
   case object PicoSecond extends IntrinsicTimeUnit("PicoSecond", Seq("ps"), r"1e-12")
-    
   case object NanoSecond extends IntrinsicTimeUnit("NanoSecond", Seq("ns"), r"1e-9")
-    
   case object MicroSecond extends IntrinsicTimeUnit("MicroSecond", Seq("microSecond", "μs"), r"1e-6")
-    
   case object MilliSecond extends IntrinsicTimeUnit("MilliSecond", Seq("ms"), r"1e-3")
-    
   case object CentiSecond extends IntrinsicTimeUnit("CentiSecond", Seq("cs"), r"1e-2")
-    
   case object DeciSecond extends IntrinsicTimeUnit("DeciSecond", Seq("ds"), r"1e-1")
-    
   case object Second extends IntrinsicTimeUnit("Second", Seq("s"), r"1")
-    
-  case object DecaSecond extends IntrinsicTimeUnit("DecaSecond", Seq("das"), r"1e-1")
-    
-  case object HectoSecond extends IntrinsicTimeUnit("HectoSecond", Seq("hs"), r"1e-2")
-    
-  case object KiloSecond extends IntrinsicTimeUnit("KiloSecond", Seq("ks"), r"1e-3")
-    
-  case object MegaSecond extends IntrinsicTimeUnit("MegaSecond", Seq("Ms"), r"1e-6")
-    
-  case object GigaSecond extends IntrinsicTimeUnit("GigaSecond", Seq("Gs"), r"1e-9")
-    
-  case object TeraSecond extends IntrinsicTimeUnit("TeraSecond", Seq("Ts"), r"1e-12")
-    
-  case object PetaSecond extends IntrinsicTimeUnit("PetaSecond", Seq("Ps"), r"1e-15")
-    
-  case object ExaSecond extends IntrinsicTimeUnit("ExaSecond", Seq("Es"), r"1e-18")
-    
-  case object ZettaSecond extends IntrinsicTimeUnit("ZettaSecond", Seq("Zs"), r"1e-21")
-    
-  case object YottaSecond extends IntrinsicTimeUnit("YottaSecond", Seq("Ys"), r"1e-24")
-    
+  case object DecaSecond extends IntrinsicTimeUnit("DecaSecond", Seq("das"), r"1e1")
+  case object HectoSecond extends IntrinsicTimeUnit("HectoSecond", Seq("hs"), r"1e2")
+  case object KiloSecond extends IntrinsicTimeUnit("KiloSecond", Seq("ks"), r"1e3")
+  case object MegaSecond extends IntrinsicTimeUnit("MegaSecond", Seq("Ms"), r"1e6")
+  case object GigaSecond extends IntrinsicTimeUnit("GigaSecond", Seq("Gs"), r"1e9")
+  case object TeraSecond extends IntrinsicTimeUnit("TeraSecond", Seq("Ts"), r"1e12")
+  case object PetaSecond extends IntrinsicTimeUnit("PetaSecond", Seq("Ps"), r"1e15")
+  case object ExaSecond extends IntrinsicTimeUnit("ExaSecond", Seq("Es"), r"1e18")
+  case object ZettaSecond extends IntrinsicTimeUnit("ZettaSecond", Seq("Zs"), r"1e21")
+  case object YottaSecond extends IntrinsicTimeUnit("YottaSecond", Seq("Ys"), r"1e24")
   case object Minute extends IntrinsicTimeUnit("Minute", Seq("minute"), r"60")
-    
   case object Hour extends IntrinsicTimeUnit("Hour", Seq("h"), r"60", Minute)
-    
   case object Day extends IntrinsicTimeUnit("Day", Seq("d"), r"24", Hour)
-    
 
   override lazy val values = Seq(YoctoSecond, ZeptoSecond, AttoSecond, FemtoSecond, PicoSecond, NanoSecond, MicroSecond, MilliSecond, CentiSecond, DeciSecond, Second, DecaSecond, HectoSecond, KiloSecond, MegaSecond, GigaSecond, TeraSecond, PetaSecond, ExaSecond, ZettaSecond, YottaSecond, Minute, Hour, Day)
 }

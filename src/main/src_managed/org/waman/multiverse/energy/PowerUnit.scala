@@ -27,48 +27,28 @@ object PowerUnit extends ConstantsDefined[PowerUnit]{
       this(name, symbols, factor * unit.unitInWatt)
   }
 
+
   case object YoctoWatt extends IntrinsicPowerUnit("YoctoWatt", Seq("yW"), r"1e-24")
-    
   case object ZeptoWatt extends IntrinsicPowerUnit("ZeptoWatt", Seq("zW"), r"1e-21")
-    
   case object AttoWatt extends IntrinsicPowerUnit("AttoWatt", Seq("aW"), r"1e-18")
-    
   case object FemtoWatt extends IntrinsicPowerUnit("FemtoWatt", Seq("fW"), r"1e-15")
-    
   case object PicoWatt extends IntrinsicPowerUnit("PicoWatt", Seq("pW"), r"1e-12")
-    
   case object NanoWatt extends IntrinsicPowerUnit("NanoWatt", Seq("nW"), r"1e-9")
-    
   case object MicroWatt extends IntrinsicPowerUnit("MicroWatt", Seq("microWatt", "microW", "μW"), r"1e-6")
-    
   case object MilliWatt extends IntrinsicPowerUnit("MilliWatt", Seq("mW"), r"1e-3")
-    
   case object CentiWatt extends IntrinsicPowerUnit("CentiWatt", Seq("cW"), r"1e-2")
-    
   case object DeciWatt extends IntrinsicPowerUnit("DeciWatt", Seq("dW"), r"1e-1")
-    
   case object Watt extends IntrinsicPowerUnit("Watt", Seq("W"), r"1")
-    
-  case object DecaWatt extends IntrinsicPowerUnit("DecaWatt", Seq("daW"), r"1e-1")
-    
-  case object HectoWatt extends IntrinsicPowerUnit("HectoWatt", Seq("hW"), r"1e-2")
-    
-  case object KiloWatt extends IntrinsicPowerUnit("KiloWatt", Seq("kW"), r"1e-3")
-    
-  case object MegaWatt extends IntrinsicPowerUnit("MegaWatt", Seq("MW"), r"1e-6")
-    
-  case object GigaWatt extends IntrinsicPowerUnit("GigaWatt", Seq("GW"), r"1e-9")
-    
-  case object TeraWatt extends IntrinsicPowerUnit("TeraWatt", Seq("TW"), r"1e-12")
-    
-  case object PetaWatt extends IntrinsicPowerUnit("PetaWatt", Seq("PW"), r"1e-15")
-    
-  case object ExaWatt extends IntrinsicPowerUnit("ExaWatt", Seq("EW"), r"1e-18")
-    
-  case object ZettaWatt extends IntrinsicPowerUnit("ZettaWatt", Seq("ZW"), r"1e-21")
-    
-  case object YottaWatt extends IntrinsicPowerUnit("YottaWatt", Seq("YW"), r"1e-24")
-    
+  case object DecaWatt extends IntrinsicPowerUnit("DecaWatt", Seq("daW"), r"1e1")
+  case object HectoWatt extends IntrinsicPowerUnit("HectoWatt", Seq("hW"), r"1e2")
+  case object KiloWatt extends IntrinsicPowerUnit("KiloWatt", Seq("kW"), r"1e3")
+  case object MegaWatt extends IntrinsicPowerUnit("MegaWatt", Seq("MW"), r"1e6")
+  case object GigaWatt extends IntrinsicPowerUnit("GigaWatt", Seq("GW"), r"1e9")
+  case object TeraWatt extends IntrinsicPowerUnit("TeraWatt", Seq("TW"), r"1e12")
+  case object PetaWatt extends IntrinsicPowerUnit("PetaWatt", Seq("PW"), r"1e15")
+  case object ExaWatt extends IntrinsicPowerUnit("ExaWatt", Seq("EW"), r"1e18")
+  case object ZettaWatt extends IntrinsicPowerUnit("ZettaWatt", Seq("ZW"), r"1e21")
+  case object YottaWatt extends IntrinsicPowerUnit("YottaWatt", Seq("YW"), r"1e24")
 
   override lazy val values = Seq(YoctoWatt, ZeptoWatt, AttoWatt, FemtoWatt, PicoWatt, NanoWatt, MicroWatt, MilliWatt, CentiWatt, DeciWatt, Watt, DecaWatt, HectoWatt, KiloWatt, MegaWatt, GigaWatt, TeraWatt, PetaWatt, ExaWatt, ZettaWatt, YottaWatt)
 }

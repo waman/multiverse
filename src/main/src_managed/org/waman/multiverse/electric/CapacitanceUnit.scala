@@ -27,48 +27,28 @@ object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
       this(name, symbols, factor * unit.unitInFarad)
   }
 
+
   case object YoctoFarad extends IntrinsicCapacitanceUnit("YoctoFarad", Seq("yF"), r"1e-24")
-    
   case object ZeptoFarad extends IntrinsicCapacitanceUnit("ZeptoFarad", Seq("zF"), r"1e-21")
-    
   case object AttoFarad extends IntrinsicCapacitanceUnit("AttoFarad", Seq("aF"), r"1e-18")
-    
   case object FemtoFarad extends IntrinsicCapacitanceUnit("FemtoFarad", Seq("fF"), r"1e-15")
-    
   case object PicoFarad extends IntrinsicCapacitanceUnit("PicoFarad", Seq("pF"), r"1e-12")
-    
   case object NanoFarad extends IntrinsicCapacitanceUnit("NanoFarad", Seq("nF"), r"1e-9")
-    
   case object MicroFarad extends IntrinsicCapacitanceUnit("MicroFarad", Seq("microFarad", "microF", "μF"), r"1e-6")
-    
   case object MilliFarad extends IntrinsicCapacitanceUnit("MilliFarad", Seq("mF"), r"1e-3")
-    
   case object CentiFarad extends IntrinsicCapacitanceUnit("CentiFarad", Seq("cF"), r"1e-2")
-    
   case object DeciFarad extends IntrinsicCapacitanceUnit("DeciFarad", Seq("dF"), r"1e-1")
-    
   case object Farad extends IntrinsicCapacitanceUnit("Farad", Seq("F"), r"1")
-    
-  case object DecaFarad extends IntrinsicCapacitanceUnit("DecaFarad", Seq("daF"), r"1e-1")
-    
-  case object HectoFarad extends IntrinsicCapacitanceUnit("HectoFarad", Seq("hF"), r"1e-2")
-    
-  case object KiloFarad extends IntrinsicCapacitanceUnit("KiloFarad", Seq("kF"), r"1e-3")
-    
-  case object MegaFarad extends IntrinsicCapacitanceUnit("MegaFarad", Seq("MF"), r"1e-6")
-    
-  case object GigaFarad extends IntrinsicCapacitanceUnit("GigaFarad", Seq("GF"), r"1e-9")
-    
-  case object TeraFarad extends IntrinsicCapacitanceUnit("TeraFarad", Seq("TF"), r"1e-12")
-    
-  case object PetaFarad extends IntrinsicCapacitanceUnit("PetaFarad", Seq("PF"), r"1e-15")
-    
-  case object ExaFarad extends IntrinsicCapacitanceUnit("ExaFarad", Seq("EF"), r"1e-18")
-    
-  case object ZettaFarad extends IntrinsicCapacitanceUnit("ZettaFarad", Seq("ZF"), r"1e-21")
-    
-  case object YottaFarad extends IntrinsicCapacitanceUnit("YottaFarad", Seq("YF"), r"1e-24")
-    
+  case object DecaFarad extends IntrinsicCapacitanceUnit("DecaFarad", Seq("daF"), r"1e1")
+  case object HectoFarad extends IntrinsicCapacitanceUnit("HectoFarad", Seq("hF"), r"1e2")
+  case object KiloFarad extends IntrinsicCapacitanceUnit("KiloFarad", Seq("kF"), r"1e3")
+  case object MegaFarad extends IntrinsicCapacitanceUnit("MegaFarad", Seq("MF"), r"1e6")
+  case object GigaFarad extends IntrinsicCapacitanceUnit("GigaFarad", Seq("GF"), r"1e9")
+  case object TeraFarad extends IntrinsicCapacitanceUnit("TeraFarad", Seq("TF"), r"1e12")
+  case object PetaFarad extends IntrinsicCapacitanceUnit("PetaFarad", Seq("PF"), r"1e15")
+  case object ExaFarad extends IntrinsicCapacitanceUnit("ExaFarad", Seq("EF"), r"1e18")
+  case object ZettaFarad extends IntrinsicCapacitanceUnit("ZettaFarad", Seq("ZF"), r"1e21")
+  case object YottaFarad extends IntrinsicCapacitanceUnit("YottaFarad", Seq("YF"), r"1e24")
 
   override lazy val values = Seq(YoctoFarad, ZeptoFarad, AttoFarad, FemtoFarad, PicoFarad, NanoFarad, MicroFarad, MilliFarad, CentiFarad, DeciFarad, Farad, DecaFarad, HectoFarad, KiloFarad, MegaFarad, GigaFarad, TeraFarad, PetaFarad, ExaFarad, ZettaFarad, YottaFarad)
 }

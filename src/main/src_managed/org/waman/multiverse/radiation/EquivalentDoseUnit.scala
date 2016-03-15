@@ -30,90 +30,49 @@ object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
       this(name, symbols, factor * unit.unitInSievert)
   }
 
+
   case object YoctoSievert extends IntrinsicEquivalentDoseUnit("YoctoSievert", Seq("ySv"), r"1e-24")
-    
   case object ZeptoSievert extends IntrinsicEquivalentDoseUnit("ZeptoSievert", Seq("zSv"), r"1e-21")
-    
   case object AttoSievert extends IntrinsicEquivalentDoseUnit("AttoSievert", Seq("aSv"), r"1e-18")
-    
   case object FemtoSievert extends IntrinsicEquivalentDoseUnit("FemtoSievert", Seq("fSv"), r"1e-15")
-    
   case object PicoSievert extends IntrinsicEquivalentDoseUnit("PicoSievert", Seq("pSv"), r"1e-12")
-    
   case object NanoSievert extends IntrinsicEquivalentDoseUnit("NanoSievert", Seq("nSv"), r"1e-9")
-    
   case object MicroSievert extends IntrinsicEquivalentDoseUnit("MicroSievert", Seq("microSievert", "microSv", "μSv"), r"1e-6")
-    
   case object MilliSievert extends IntrinsicEquivalentDoseUnit("MilliSievert", Seq("mSv"), r"1e-3")
-    
   case object CentiSievert extends IntrinsicEquivalentDoseUnit("CentiSievert", Seq("cSv"), r"1e-2")
-    
   case object DeciSievert extends IntrinsicEquivalentDoseUnit("DeciSievert", Seq("dSv"), r"1e-1")
-    
   case object Sievert extends IntrinsicEquivalentDoseUnit("Sievert", Seq("Sv"), r"1")
-    
-  case object DecaSievert extends IntrinsicEquivalentDoseUnit("DecaSievert", Seq("daSv"), r"1e-1")
-    
-  case object HectoSievert extends IntrinsicEquivalentDoseUnit("HectoSievert", Seq("hSv"), r"1e-2")
-    
-  case object KiloSievert extends IntrinsicEquivalentDoseUnit("KiloSievert", Seq("kSv"), r"1e-3")
-    
-  case object MegaSievert extends IntrinsicEquivalentDoseUnit("MegaSievert", Seq("MSv"), r"1e-6")
-    
-  case object GigaSievert extends IntrinsicEquivalentDoseUnit("GigaSievert", Seq("GSv"), r"1e-9")
-    
-  case object TeraSievert extends IntrinsicEquivalentDoseUnit("TeraSievert", Seq("TSv"), r"1e-12")
-    
-  case object PetaSievert extends IntrinsicEquivalentDoseUnit("PetaSievert", Seq("PSv"), r"1e-15")
-    
-  case object ExaSievert extends IntrinsicEquivalentDoseUnit("ExaSievert", Seq("ESv"), r"1e-18")
-    
-  case object ZettaSievert extends IntrinsicEquivalentDoseUnit("ZettaSievert", Seq("ZSv"), r"1e-21")
-    
-  case object YottaSievert extends IntrinsicEquivalentDoseUnit("YottaSievert", Seq("YSv"), r"1e-24")
-    
+  case object DecaSievert extends IntrinsicEquivalentDoseUnit("DecaSievert", Seq("daSv"), r"1e1")
+  case object HectoSievert extends IntrinsicEquivalentDoseUnit("HectoSievert", Seq("hSv"), r"1e2")
+  case object KiloSievert extends IntrinsicEquivalentDoseUnit("KiloSievert", Seq("kSv"), r"1e3")
+  case object MegaSievert extends IntrinsicEquivalentDoseUnit("MegaSievert", Seq("MSv"), r"1e6")
+  case object GigaSievert extends IntrinsicEquivalentDoseUnit("GigaSievert", Seq("GSv"), r"1e9")
+  case object TeraSievert extends IntrinsicEquivalentDoseUnit("TeraSievert", Seq("TSv"), r"1e12")
+  case object PetaSievert extends IntrinsicEquivalentDoseUnit("PetaSievert", Seq("PSv"), r"1e15")
+  case object ExaSievert extends IntrinsicEquivalentDoseUnit("ExaSievert", Seq("ESv"), r"1e18")
+  case object ZettaSievert extends IntrinsicEquivalentDoseUnit("ZettaSievert", Seq("ZSv"), r"1e21")
+  case object YottaSievert extends IntrinsicEquivalentDoseUnit("YottaSievert", Seq("YSv"), r"1e24")
   case object YoctoREM extends IntrinsicEquivalentDoseUnit("YoctoREM", Seq("yrem"), r"1e-24" * r"1e-2")
-    
   case object ZeptoREM extends IntrinsicEquivalentDoseUnit("ZeptoREM", Seq("zrem"), r"1e-21" * r"1e-2")
-    
   case object AttoREM extends IntrinsicEquivalentDoseUnit("AttoREM", Seq("arem"), r"1e-18" * r"1e-2")
-    
   case object FemtoREM extends IntrinsicEquivalentDoseUnit("FemtoREM", Seq("frem"), r"1e-15" * r"1e-2")
-    
   case object PicoREM extends IntrinsicEquivalentDoseUnit("PicoREM", Seq("prem"), r"1e-12" * r"1e-2")
-    
   case object NanoREM extends IntrinsicEquivalentDoseUnit("NanoREM", Seq("nrem"), r"1e-9" * r"1e-2")
-    
   case object MicroREM extends IntrinsicEquivalentDoseUnit("MicroREM", Seq("microREM", "microRem", "μrem"), r"1e-6" * r"1e-2")
-    
   case object MilliREM extends IntrinsicEquivalentDoseUnit("MilliREM", Seq("mrem"), r"1e-3" * r"1e-2")
-    
   case object CentiREM extends IntrinsicEquivalentDoseUnit("CentiREM", Seq("crem"), r"1e-2" * r"1e-2")
-    
   case object DeciREM extends IntrinsicEquivalentDoseUnit("DeciREM", Seq("drem"), r"1e-1" * r"1e-2")
-    
   case object REM extends IntrinsicEquivalentDoseUnit("REM", Seq("rem"), r"1" * r"1e-2")
-    
-  case object DecaREM extends IntrinsicEquivalentDoseUnit("DecaREM", Seq("darem"), r"1e-1" * r"1e-2")
-    
-  case object HectoREM extends IntrinsicEquivalentDoseUnit("HectoREM", Seq("hrem"), r"1e-2" * r"1e-2")
-    
-  case object KiloREM extends IntrinsicEquivalentDoseUnit("KiloREM", Seq("krem"), r"1e-3" * r"1e-2")
-    
-  case object MegaREM extends IntrinsicEquivalentDoseUnit("MegaREM", Seq("Mrem"), r"1e-6" * r"1e-2")
-    
-  case object GigaREM extends IntrinsicEquivalentDoseUnit("GigaREM", Seq("Grem"), r"1e-9" * r"1e-2")
-    
-  case object TeraREM extends IntrinsicEquivalentDoseUnit("TeraREM", Seq("Trem"), r"1e-12" * r"1e-2")
-    
-  case object PetaREM extends IntrinsicEquivalentDoseUnit("PetaREM", Seq("Prem"), r"1e-15" * r"1e-2")
-    
-  case object ExaREM extends IntrinsicEquivalentDoseUnit("ExaREM", Seq("Erem"), r"1e-18" * r"1e-2")
-    
-  case object ZettaREM extends IntrinsicEquivalentDoseUnit("ZettaREM", Seq("Zrem"), r"1e-21" * r"1e-2")
-    
-  case object YottaREM extends IntrinsicEquivalentDoseUnit("YottaREM", Seq("Yrem"), r"1e-24" * r"1e-2")
-    
+  case object DecaREM extends IntrinsicEquivalentDoseUnit("DecaREM", Seq("darem"), r"1e1" * r"1e-2")
+  case object HectoREM extends IntrinsicEquivalentDoseUnit("HectoREM", Seq("hrem"), r"1e2" * r"1e-2")
+  case object KiloREM extends IntrinsicEquivalentDoseUnit("KiloREM", Seq("krem"), r"1e3" * r"1e-2")
+  case object MegaREM extends IntrinsicEquivalentDoseUnit("MegaREM", Seq("Mrem"), r"1e6" * r"1e-2")
+  case object GigaREM extends IntrinsicEquivalentDoseUnit("GigaREM", Seq("Grem"), r"1e9" * r"1e-2")
+  case object TeraREM extends IntrinsicEquivalentDoseUnit("TeraREM", Seq("Trem"), r"1e12" * r"1e-2")
+  case object PetaREM extends IntrinsicEquivalentDoseUnit("PetaREM", Seq("Prem"), r"1e15" * r"1e-2")
+  case object ExaREM extends IntrinsicEquivalentDoseUnit("ExaREM", Seq("Erem"), r"1e18" * r"1e-2")
+  case object ZettaREM extends IntrinsicEquivalentDoseUnit("ZettaREM", Seq("Zrem"), r"1e21" * r"1e-2")
+  case object YottaREM extends IntrinsicEquivalentDoseUnit("YottaREM", Seq("Yrem"), r"1e24" * r"1e-2")
 
   override lazy val values = Seq(YoctoSievert, ZeptoSievert, AttoSievert, FemtoSievert, PicoSievert, NanoSievert, MicroSievert, MilliSievert, CentiSievert, DeciSievert, Sievert, DecaSievert, HectoSievert, KiloSievert, MegaSievert, GigaSievert, TeraSievert, PetaSievert, ExaSievert, ZettaSievert, YottaSievert, YoctoREM, ZeptoREM, AttoREM, FemtoREM, PicoREM, NanoREM, MicroREM, MilliREM, CentiREM, DeciREM, REM, DecaREM, HectoREM, KiloREM, MegaREM, GigaREM, TeraREM, PetaREM, ExaREM, ZettaREM, YottaREM)
 }

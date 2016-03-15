@@ -30,48 +30,28 @@ object PressureUnit extends ConstantsDefined[PressureUnit]{
       this(name, symbols, factor * unit.unitInPascal)
   }
 
+
   case object YoctoPascal extends IntrinsicPressureUnit("YoctoPascal", Seq("yPa"), r"1e-24")
-    
   case object ZeptoPascal extends IntrinsicPressureUnit("ZeptoPascal", Seq("zPa"), r"1e-21")
-    
   case object AttoPascal extends IntrinsicPressureUnit("AttoPascal", Seq("aPa"), r"1e-18")
-    
   case object FemtoPascal extends IntrinsicPressureUnit("FemtoPascal", Seq("fPa"), r"1e-15")
-    
   case object PicoPascal extends IntrinsicPressureUnit("PicoPascal", Seq("pPa"), r"1e-12")
-    
   case object NanoPascal extends IntrinsicPressureUnit("NanoPascal", Seq("nPa"), r"1e-9")
-    
   case object MicroPascal extends IntrinsicPressureUnit("MicroPascal", Seq("microPascal", "microPa", "μPa"), r"1e-6")
-    
   case object MilliPascal extends IntrinsicPressureUnit("MilliPascal", Seq("mPa"), r"1e-3")
-    
   case object CentiPascal extends IntrinsicPressureUnit("CentiPascal", Seq("cPa"), r"1e-2")
-    
   case object DeciPascal extends IntrinsicPressureUnit("DeciPascal", Seq("dPa"), r"1e-1")
-    
   case object Pascal extends IntrinsicPressureUnit("Pascal", Seq("Pa"), r"1")
-    
-  case object DecaPascal extends IntrinsicPressureUnit("DecaPascal", Seq("daPa"), r"1e-1")
-    
-  case object HectoPascal extends IntrinsicPressureUnit("HectoPascal", Seq("hPa"), r"1e-2")
-    
-  case object KiloPascal extends IntrinsicPressureUnit("KiloPascal", Seq("kPa"), r"1e-3")
-    
-  case object MegaPascal extends IntrinsicPressureUnit("MegaPascal", Seq("MPa"), r"1e-6")
-    
-  case object GigaPascal extends IntrinsicPressureUnit("GigaPascal", Seq("GPa"), r"1e-9")
-    
-  case object TeraPascal extends IntrinsicPressureUnit("TeraPascal", Seq("TPa"), r"1e-12")
-    
-  case object PetaPascal extends IntrinsicPressureUnit("PetaPascal", Seq("PPa"), r"1e-15")
-    
-  case object ExaPascal extends IntrinsicPressureUnit("ExaPascal", Seq("EPa"), r"1e-18")
-    
-  case object ZettaPascal extends IntrinsicPressureUnit("ZettaPascal", Seq("ZPa"), r"1e-21")
-    
-  case object YottaPascal extends IntrinsicPressureUnit("YottaPascal", Seq("YPa"), r"1e-24")
-    
+  case object DecaPascal extends IntrinsicPressureUnit("DecaPascal", Seq("daPa"), r"1e1")
+  case object HectoPascal extends IntrinsicPressureUnit("HectoPascal", Seq("hPa"), r"1e2")
+  case object KiloPascal extends IntrinsicPressureUnit("KiloPascal", Seq("kPa"), r"1e3")
+  case object MegaPascal extends IntrinsicPressureUnit("MegaPascal", Seq("MPa"), r"1e6")
+  case object GigaPascal extends IntrinsicPressureUnit("GigaPascal", Seq("GPa"), r"1e9")
+  case object TeraPascal extends IntrinsicPressureUnit("TeraPascal", Seq("TPa"), r"1e12")
+  case object PetaPascal extends IntrinsicPressureUnit("PetaPascal", Seq("PPa"), r"1e15")
+  case object ExaPascal extends IntrinsicPressureUnit("ExaPascal", Seq("EPa"), r"1e18")
+  case object ZettaPascal extends IntrinsicPressureUnit("ZettaPascal", Seq("ZPa"), r"1e21")
+  case object YottaPascal extends IntrinsicPressureUnit("YottaPascal", Seq("YPa"), r"1e24")
 
   override lazy val values = Seq(YoctoPascal, ZeptoPascal, AttoPascal, FemtoPascal, PicoPascal, NanoPascal, MicroPascal, MilliPascal, CentiPascal, DeciPascal, Pascal, DecaPascal, HectoPascal, KiloPascal, MegaPascal, GigaPascal, TeraPascal, PetaPascal, ExaPascal, ZettaPascal, YottaPascal)
 }

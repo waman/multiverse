@@ -28,16 +28,15 @@ object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
       this(name, symbols, factor * unit.unitInRadianPerSecond)
   }
 
+
   case object CyclePerSecond extends IntrinsicAngularVelocityUnit("CyclePerSecond", Seq("cps"), twoPi)
-    
   case object RevolutionPerMinute extends IntrinsicAngularVelocityUnit("RevolutionPerMinute", Seq("rpm"), twoPi / r"60")
-    
 
   override lazy val values = Seq(CyclePerSecond, RevolutionPerMinute)
 
   // AngleUnit / TimeUnit -> AngularVelocity
   private[AngularVelocityUnit]
-  class AnglePerTimeUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
+  class QuotientAnglePerTimeUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
       extends AngularVelocityUnit with QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit]{
 
     override lazy val unitInRadianPerSecond: Real =
@@ -45,7 +44,7 @@ object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
   }
 
   def apply(nUnit: AngleUnit, dUnit: TimeUnit): AngularVelocityUnit =
-    new AnglePerTimeUnit(nUnit, dUnit)
+    new QuotientAnglePerTimeUnit(nUnit, dUnit)
 }
 
 trait AngularVelocityPostfixOps[A]{

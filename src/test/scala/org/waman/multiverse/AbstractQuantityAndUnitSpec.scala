@@ -41,11 +41,9 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
         .map(_.getSimpleName)
         .filterNot(name =>
           name.startsWith("Intrinsic")
-          || name.startsWith("Product")
-          || name.startsWith("Quotient")
-          || name.startsWith("LengthOver")
-          || name.startsWith("VelocityOver"))
-        .map(s => s.substring(0, s.length - 1))
+            || name.startsWith("Product")
+            || name.startsWith("Quotient"))
+        .map(s => s.replaceAll("\\$", ""))
 
     "XxxUnit.values property should return all predefined values of the unit" in {
       getConstantsDefined match { case Some(constDef) =>
@@ -119,6 +117,8 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
             constDef.values
               .flatMap(_.symbols)
               .filterNot(_.contains("("))
+              .filterNot(s => s.startsWith("°") && s.length > 1)
+                // remove degree temperature like °C (test in another testcase)
           __Verify__
           sut should containTheSameElementsAs(expected)
 
@@ -135,6 +135,8 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
             constDef.values
               .flatMap(_.symbols)
               .filterNot(_.contains("("))
+              .filterNot(s => s.startsWith("°") && s.length > 1)
+                // remove degree temperature like °C (test in another testcase)
           __Verify__
           sut should containTheSameElementsAs(expected)
 

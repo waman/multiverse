@@ -27,11 +27,12 @@ object DensityUnit extends ConstantsDefined[DensityUnit]{
   }
 
 
+
   override lazy val values = Seq()
 
   // MassUnit / VolumeUnit -> Density
   private[DensityUnit]
-  class MassPerVolumeUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
+  class QuotientMassPerVolumeUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
       extends DensityUnit with QuotientUnit[DensityUnit, MassUnit, VolumeUnit]{
 
     override lazy val unitInKiloGramPerCubicMetre: Real =
@@ -39,5 +40,5 @@ object DensityUnit extends ConstantsDefined[DensityUnit]{
   }
 
   def apply(nUnit: MassUnit, dUnit: VolumeUnit): DensityUnit =
-    new MassPerVolumeUnit(nUnit, dUnit)
+    new QuotientMassPerVolumeUnit(nUnit, dUnit)
 }

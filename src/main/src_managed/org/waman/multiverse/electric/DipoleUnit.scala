@@ -27,14 +27,14 @@ object DipoleUnit extends ConstantsDefined[DipoleUnit]{
       this(name, symbols, factor * unit.unitInCoulombMetre)
   }
 
+
   case object Debye extends IntrinsicDipoleUnit("Debye", Seq("D"), r"340")
-    
 
   override lazy val values = Seq(Debye)
 
   // ChargeUnit * LengthUnit -> Dipole
   private[DipoleUnit]
-  class ChargeDotLengthUnit(val firstUnit: ChargeUnit, val secondUnit: LengthUnit)
+  class ProductChargeDotLengthUnit(val firstUnit: ChargeUnit, val secondUnit: LengthUnit)
       extends DipoleUnit with ProductUnit[DipoleUnit, ChargeUnit, LengthUnit]{
 
     override lazy val unitInCoulombMetre: Real =
@@ -42,7 +42,7 @@ object DipoleUnit extends ConstantsDefined[DipoleUnit]{
   }
 
   def apply(unit1: ChargeUnit, unit2: LengthUnit): DipoleUnit =
-    new ChargeDotLengthUnit(unit1, unit2)
+    new ProductChargeDotLengthUnit(unit1, unit2)
 }
 
 trait DipolePostfixOps[A]{

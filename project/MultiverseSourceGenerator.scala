@@ -1,4 +1,3 @@
-import java.io.File
 import java.nio.file.Path
 
 import com.google.gson._
@@ -26,28 +25,27 @@ object MultiverseSourceGenerator extends GluinoPath{
     Scale("Centi", "c", "1e-2"),
     Scale("Deci" , "d", "1e-1"),
     Scale(""     , "" , "1"),
-    Scale("Deca" , "da", "1e-1"),
-    Scale("Hecto", "h", "1e-2"),
-    Scale("Kilo" , "k", "1e-3"),
-    Scale("Mega" , "M", "1e-6"),
-    Scale("Giga" , "G", "1e-9"),
-    Scale("Tera" , "T", "1e-12"),
-    Scale("Peta" , "P", "1e-15"),
-    Scale("Exa"  , "E", "1e-18"),
-    Scale("Zetta", "Z", "1e-21"),
-    Scale("Yotta", "Y", "1e-24")
+    Scale("Deca" , "da", "1e1"),
+    Scale("Hecto", "h", "1e2"),
+    Scale("Kilo" , "k", "1e3"),
+    Scale("Mega" , "M", "1e6"),
+    Scale("Giga" , "G", "1e9"),
+    Scale("Tera" , "T", "1e12"),
+    Scale("Peta" , "P", "1e15"),
+    Scale("Exa"  , "E", "1e18"),
+    Scale("Zetta", "Z", "1e21"),
+    Scale("Yotta", "Y", "1e24")
   )
 
-  def generate(rsrc: File, srcManaged: File): Seq[File] = {
-    val rsrcPath = rsrc.toPath
-    val srcManagedPath = srcManaged.toPath
+  def generate(rsrc: Path, srcManaged: Path): Seq[Path] = {
+    val rsrcPath = rsrc
+    val srcManagedPath = srcManaged
     srcManagedPath.createDirectories()
 
     val (contextCodePath, contextList) = generateContext(rsrcPath, srcManagedPath)
           // Context.scala, List(NameSymbol("UnitedStates", "US"), NameSymbol("Imperial", "imp"), ...)
 
-    (contextCodePath :: generateUnitTraits(rsrcPath, srcManagedPath, contextList))
-      .map(_.toFile)
+    contextCodePath :: generateUnitTraits(rsrcPath, srcManagedPath, contextList)
   }
 
   def generateContext(rsrc: Path, srcManaged: Path): (Path, List[NameSymbol]) = {
@@ -268,17 +266,21 @@ object MultiverseSourceGenerator extends GluinoPath{
              |    def this(name: String, symbols: Seq[String], factor: Real, unit: ${className}Unit) =
              |      this(name, symbols, factor * unit.$baseUnitAccessor)
              |  }
+             |
              |""".stripMargin
 
         units.foreach{ unit =>
           //  case object Metre extends IntrinsicLengthUnit("Metre", Seq("m"), r"1")
-          writer << s"""
-                       |  case object ${unit.name} extends Intrinsic${className}Unit""".stripMargin
-          writer << s"""("${unit.name}", Seq(${unit.symbols.map(quote).mkString(", ")}), ${unit.args})"""
-          if(unit.isNotExact) writer << " with NotExact"
           writer <<
             s"""
-               |    ${unit.mixed}""".stripMargin  // for Degree
+               |  case object ${unit.name} extends Intrinsic${className}Unit""".stripMargin
+          writer << s"""("${unit.name}", Seq(${unit.symbols.map(quote).mkString(", ")}), ${unit.args})"""
+          if(unit.isNotExact) writer << " with NotExact"
+          if(unit.mixed.length > 0){
+            writer <<
+              s"""
+                 |    ${unit.mixed}""".stripMargin  // for Degree
+          }
         }
 
         writer <<
@@ -290,8 +292,9 @@ object MultiverseSourceGenerator extends GluinoPath{
         // product unit
         if(json.has("product")) {
           getChildren(json, "product").map(_.getAsJsonArray.toList.map(_.getAsJsonPrimitive.getAsString))
-            .foreach{ case first::second::_ =>
-              val productUnit = first.replaceAll("Unit", "") + "Dot" + second.replaceAll("Unit", "") + "Unit"
+              .foreach{ case first::second::_ =>
+            val productUnit = "Product" + first.replaceAll("Unit", "") +
+                                "Dot" + second.replaceAll("Unit", "") + "Unit"
             writer <<
               s"""
                  |
@@ -313,9 +316,9 @@ object MultiverseSourceGenerator extends GluinoPath{
         // quotient unit
         if(json.has("quotient")) {
           getChildren(json, "quotient").map(_.getAsJsonArray.toList.map(_.getAsJsonPrimitive.getAsString))
-            .foreach { case numerator :: denominator :: _ =>
-              val quotientUnit = numerator.replaceAll("Unit", "") + "Per" +
-                               denominator.replaceAll("Unit", "") + "Unit"
+              .foreach { case numerator :: denominator :: _ =>
+            val quotientUnit = "Quotient" + numerator.replaceAll("Unit", "") +
+                               "Per" + denominator.replaceAll("Unit", "") + "Unit"
             writer <<
               s"""
                  |

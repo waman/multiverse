@@ -27,58 +27,36 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
       this(name, symbols, factor * unit.unitInLux)
   }
 
+
   case object YoctoLux extends IntrinsicIlluminanceUnit("YoctoLux", Seq("ylx"), r"1e-24")
-    
   case object ZeptoLux extends IntrinsicIlluminanceUnit("ZeptoLux", Seq("zlx"), r"1e-21")
-    
   case object AttoLux extends IntrinsicIlluminanceUnit("AttoLux", Seq("alx"), r"1e-18")
-    
   case object FemtoLux extends IntrinsicIlluminanceUnit("FemtoLux", Seq("flx"), r"1e-15")
-    
   case object PicoLux extends IntrinsicIlluminanceUnit("PicoLux", Seq("plx"), r"1e-12")
-    
   case object NanoLux extends IntrinsicIlluminanceUnit("NanoLux", Seq("nlx"), r"1e-9")
-    
   case object MicroLux extends IntrinsicIlluminanceUnit("MicroLux", Seq("microLux", "microLx", "μlx"), r"1e-6")
-    
   case object MilliLux extends IntrinsicIlluminanceUnit("MilliLux", Seq("mlx"), r"1e-3")
-    
   case object CentiLux extends IntrinsicIlluminanceUnit("CentiLux", Seq("clx"), r"1e-2")
-    
   case object DeciLux extends IntrinsicIlluminanceUnit("DeciLux", Seq("dlx"), r"1e-1")
-    
   case object Lux extends IntrinsicIlluminanceUnit("Lux", Seq("lx"), r"1")
-    
-  case object DecaLux extends IntrinsicIlluminanceUnit("DecaLux", Seq("dalx"), r"1e-1")
-    
-  case object HectoLux extends IntrinsicIlluminanceUnit("HectoLux", Seq("hlx"), r"1e-2")
-    
-  case object KiloLux extends IntrinsicIlluminanceUnit("KiloLux", Seq("klx"), r"1e-3")
-    
-  case object MegaLux extends IntrinsicIlluminanceUnit("MegaLux", Seq("Mlx"), r"1e-6")
-    
-  case object GigaLux extends IntrinsicIlluminanceUnit("GigaLux", Seq("Glx"), r"1e-9")
-    
-  case object TeraLux extends IntrinsicIlluminanceUnit("TeraLux", Seq("Tlx"), r"1e-12")
-    
-  case object PetaLux extends IntrinsicIlluminanceUnit("PetaLux", Seq("Plx"), r"1e-15")
-    
-  case object ExaLux extends IntrinsicIlluminanceUnit("ExaLux", Seq("Elx"), r"1e-18")
-    
-  case object ZettaLux extends IntrinsicIlluminanceUnit("ZettaLux", Seq("Zlx"), r"1e-21")
-    
-  case object YottaLux extends IntrinsicIlluminanceUnit("YottaLux", Seq("Ylx"), r"1e-24")
-    
+  case object DecaLux extends IntrinsicIlluminanceUnit("DecaLux", Seq("dalx"), r"1e1")
+  case object HectoLux extends IntrinsicIlluminanceUnit("HectoLux", Seq("hlx"), r"1e2")
+  case object KiloLux extends IntrinsicIlluminanceUnit("KiloLux", Seq("klx"), r"1e3")
+  case object MegaLux extends IntrinsicIlluminanceUnit("MegaLux", Seq("Mlx"), r"1e6")
+  case object GigaLux extends IntrinsicIlluminanceUnit("GigaLux", Seq("Glx"), r"1e9")
+  case object TeraLux extends IntrinsicIlluminanceUnit("TeraLux", Seq("Tlx"), r"1e12")
+  case object PetaLux extends IntrinsicIlluminanceUnit("PetaLux", Seq("Plx"), r"1e15")
+  case object ExaLux extends IntrinsicIlluminanceUnit("ExaLux", Seq("Elx"), r"1e18")
+  case object ZettaLux extends IntrinsicIlluminanceUnit("ZettaLux", Seq("Zlx"), r"1e21")
+  case object YottaLux extends IntrinsicIlluminanceUnit("YottaLux", Seq("Ylx"), r"1e24")
   case object Phot extends IntrinsicIlluminanceUnit("Phot", Seq("ph"), r"1e4")
-    
   case object FootCandle extends IntrinsicIlluminanceUnit("FootCandle", Seq("fc"), LuminousFluxUnit.Lumen / AreaUnit.SquareFoot)
-    
 
   override lazy val values = Seq(YoctoLux, ZeptoLux, AttoLux, FemtoLux, PicoLux, NanoLux, MicroLux, MilliLux, CentiLux, DeciLux, Lux, DecaLux, HectoLux, KiloLux, MegaLux, GigaLux, TeraLux, PetaLux, ExaLux, ZettaLux, YottaLux, Phot, FootCandle)
 
   // LuminousFluxUnit / AreaUnit -> Illuminance
   private[IlluminanceUnit]
-  class LuminousFluxPerAreaUnit(val numeratorUnit: LuminousFluxUnit, val denominatorUnit: AreaUnit)
+  class QuotientLuminousFluxPerAreaUnit(val numeratorUnit: LuminousFluxUnit, val denominatorUnit: AreaUnit)
       extends IlluminanceUnit with QuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit]{
 
     override lazy val unitInLux: Real =
@@ -86,7 +64,7 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
   }
 
   def apply(nUnit: LuminousFluxUnit, dUnit: AreaUnit): IlluminanceUnit =
-    new LuminousFluxPerAreaUnit(nUnit, dUnit)
+    new QuotientLuminousFluxPerAreaUnit(nUnit, dUnit)
 }
 
 trait IlluminancePostfixOps[A]{

@@ -27,32 +27,20 @@ object SolidAngleUnit extends ConstantsDefined[SolidAngleUnit]{
       this(name, symbols, factor * unit.unitInSteradian)
   }
 
+
   case object YoctoSteradian extends IntrinsicSolidAngleUnit("YoctoSteradian", Seq("ysr"), r"1e-24")
-    
   case object ZeptoSteradian extends IntrinsicSolidAngleUnit("ZeptoSteradian", Seq("zsr"), r"1e-21")
-    
   case object AttoSteradian extends IntrinsicSolidAngleUnit("AttoSteradian", Seq("asr"), r"1e-18")
-    
   case object FemtoSteradian extends IntrinsicSolidAngleUnit("FemtoSteradian", Seq("fsr"), r"1e-15")
-    
   case object PicoSteradian extends IntrinsicSolidAngleUnit("PicoSteradian", Seq("psr"), r"1e-12")
-    
   case object NanoSteradian extends IntrinsicSolidAngleUnit("NanoSteradian", Seq("nsr"), r"1e-9")
-    
   case object MicroSteradian extends IntrinsicSolidAngleUnit("MicroSteradian", Seq("microSteradian", "microSr", "μsr"), r"1e-6")
-    
   case object MilliSteradian extends IntrinsicSolidAngleUnit("MilliSteradian", Seq("msr"), r"1e-3")
-    
   case object CentiSteradian extends IntrinsicSolidAngleUnit("CentiSteradian", Seq("csr"), r"1e-2")
-    
   case object DeciSteradian extends IntrinsicSolidAngleUnit("DeciSteradian", Seq("dsr"), r"1e-1")
-    
   case object Steradian extends IntrinsicSolidAngleUnit("Steradian", Seq("sr"), r"1")
-    
-  case object DecaSteradian extends IntrinsicSolidAngleUnit("DecaSteradian", Seq("dasr"), r"1e-1")
-    
+  case object DecaSteradian extends IntrinsicSolidAngleUnit("DecaSteradian", Seq("dasr"), r"1e1")
   case object SquareDegree extends IntrinsicSolidAngleUnit("SquareDegree", Seq("deg2"), (twoPi / r"360")**2)
-    
 
   override lazy val values = Seq(YoctoSteradian, ZeptoSteradian, AttoSteradian, FemtoSteradian, PicoSteradian, NanoSteradian, MicroSteradian, MilliSteradian, CentiSteradian, DeciSteradian, Steradian, DecaSteradian, SquareDegree)
 }

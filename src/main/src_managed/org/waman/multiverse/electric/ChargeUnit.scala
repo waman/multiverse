@@ -35,50 +35,29 @@ object ChargeUnit extends ConstantsDefined[ChargeUnit]{
       this(name, symbols, factor * unit.unitInCoulomb)
   }
 
+
   case object YoctoCoulomb extends IntrinsicChargeUnit("YoctoCoulomb", Seq("yC"), r"1e-24")
-    
   case object ZeptoCoulomb extends IntrinsicChargeUnit("ZeptoCoulomb", Seq("zC"), r"1e-21")
-    
   case object AttoCoulomb extends IntrinsicChargeUnit("AttoCoulomb", Seq("aC"), r"1e-18")
-    
   case object FemtoCoulomb extends IntrinsicChargeUnit("FemtoCoulomb", Seq("fC"), r"1e-15")
-    
   case object PicoCoulomb extends IntrinsicChargeUnit("PicoCoulomb", Seq("pC"), r"1e-12")
-    
   case object NanoCoulomb extends IntrinsicChargeUnit("NanoCoulomb", Seq("nC"), r"1e-9")
-    
   case object MicroCoulomb extends IntrinsicChargeUnit("MicroCoulomb", Seq("microCoulomb", "microC", "μC"), r"1e-6")
-    
   case object MilliCoulomb extends IntrinsicChargeUnit("MilliCoulomb", Seq("mC"), r"1e-3")
-    
   case object CentiCoulomb extends IntrinsicChargeUnit("CentiCoulomb", Seq("cC"), r"1e-2")
-    
   case object DeciCoulomb extends IntrinsicChargeUnit("DeciCoulomb", Seq("dC"), r"1e-1")
-    
   case object Coulomb extends IntrinsicChargeUnit("Coulomb", Seq("C"), r"1")
-    
-  case object DecaCoulomb extends IntrinsicChargeUnit("DecaCoulomb", Seq("daC"), r"1e-1")
-    
-  case object HectoCoulomb extends IntrinsicChargeUnit("HectoCoulomb", Seq("hC"), r"1e-2")
-    
-  case object KiloCoulomb extends IntrinsicChargeUnit("KiloCoulomb", Seq("kC"), r"1e-3")
-    
-  case object MegaCoulomb extends IntrinsicChargeUnit("MegaCoulomb", Seq("MC"), r"1e-6")
-    
-  case object GigaCoulomb extends IntrinsicChargeUnit("GigaCoulomb", Seq("GC"), r"1e-9")
-    
-  case object TeraCoulomb extends IntrinsicChargeUnit("TeraCoulomb", Seq("TC"), r"1e-12")
-    
-  case object PetaCoulomb extends IntrinsicChargeUnit("PetaCoulomb", Seq("PC"), r"1e-15")
-    
-  case object ExaCoulomb extends IntrinsicChargeUnit("ExaCoulomb", Seq("EC"), r"1e-18")
-    
-  case object ZettaCoulomb extends IntrinsicChargeUnit("ZettaCoulomb", Seq("ZC"), r"1e-21")
-    
-  case object YottaCoulomb extends IntrinsicChargeUnit("YottaCoulomb", Seq("YC"), r"1e-24")
-    
-  case object ElementaryCharge extends IntrinsicChargeUnit("ElementaryCharge", Seq(), 1.602176462e-19) with NotExact
-    
+  case object DecaCoulomb extends IntrinsicChargeUnit("DecaCoulomb", Seq("daC"), r"1e1")
+  case object HectoCoulomb extends IntrinsicChargeUnit("HectoCoulomb", Seq("hC"), r"1e2")
+  case object KiloCoulomb extends IntrinsicChargeUnit("KiloCoulomb", Seq("kC"), r"1e3")
+  case object MegaCoulomb extends IntrinsicChargeUnit("MegaCoulomb", Seq("MC"), r"1e6")
+  case object GigaCoulomb extends IntrinsicChargeUnit("GigaCoulomb", Seq("GC"), r"1e9")
+  case object TeraCoulomb extends IntrinsicChargeUnit("TeraCoulomb", Seq("TC"), r"1e12")
+  case object PetaCoulomb extends IntrinsicChargeUnit("PetaCoulomb", Seq("PC"), r"1e15")
+  case object ExaCoulomb extends IntrinsicChargeUnit("ExaCoulomb", Seq("EC"), r"1e18")
+  case object ZettaCoulomb extends IntrinsicChargeUnit("ZettaCoulomb", Seq("ZC"), r"1e21")
+  case object YottaCoulomb extends IntrinsicChargeUnit("YottaCoulomb", Seq("YC"), r"1e24")
+  case object ElementaryCharge extends IntrinsicChargeUnit("ElementaryCharge", Seq(), 1.602176620898e-19) with NotExact
 
   override lazy val values = Seq(YoctoCoulomb, ZeptoCoulomb, AttoCoulomb, FemtoCoulomb, PicoCoulomb, NanoCoulomb, MicroCoulomb, MilliCoulomb, CentiCoulomb, DeciCoulomb, Coulomb, DecaCoulomb, HectoCoulomb, KiloCoulomb, MegaCoulomb, GigaCoulomb, TeraCoulomb, PetaCoulomb, ExaCoulomb, ZettaCoulomb, YottaCoulomb, ElementaryCharge)
 }

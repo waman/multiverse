@@ -43,8 +43,7 @@ class AngleSpec
         (Seq(3.0.MOA   , 3.0 MOA   , 3.0 (MOA))   , 3.0 * degree / 60.0),
         (Seq(3.0.arcsec, 3.0 arcsec, 3.0 (arcsec)), 3.0 * degree / 3600.0),
         (Seq(3.0.mas, 3.0 mas, 3.0 (mas)), 3.0 * degree / 3600e3),
-        (Seq(3.0.microArcSecond, 3.0 microArcSecond, 3.0 (microArcSecond)), 3.0 * degree / 3600e6),
-//        (Seq(3.0.microArcsec, 3.0 microArcsec, 3.0 (microArcsec)), 3.0 * degree / 3600e6),  // TODO
+        (Seq(3.0.microArcsec, 3.0 microArcsec, 3.0 (microArcsec)), 3.0 * degree / 3600e6),
         (Seq(3.0.microAs, 3.0 microAs, 3.0 (microAs)), 3.0 * degree / 3600e6),
         (Seq(3.0.μas, 3.0 μas, 3.0 (μas)), 3.0 * degree / 3600e6),
         (Seq(3.0.nas, 3.0 nas, 3.0 (nas)), 3.0 * degree / 3600e9),
@@ -93,8 +92,7 @@ class AngleSpec
         (Seq(q.MOA   , q MOA   , q (MOA))   , 3.0 * 60.0 / degree),
         (Seq(q.arcsec, q arcsec, q (arcsec)), 3.0 * 3600.0 / degree),
         (Seq(q.mas, q mas, q (mas)), 3.0 * 3600e3 / degree),
-        (Seq(q.microArcSecond, q microArcSecond, q (microArcSecond)), 3.0 * 3600e6 / degree),
-//        (Seq(q.microArcsec, q microArcsec, q (microArcsec)), 3.0 * 3600e6 / degree), // TODO
+        (Seq(q.microArcsec, q microArcsec, q (microArcsec)), 3.0 * 3600e6 / degree),
         (Seq(q.microAs, q microAs, q (microAs)), 3.0 * 3600e6 / degree),
         (Seq(q.μas, q μas, q (μas)), 3.0 * 3600e6 / degree),
         (Seq(q.nas, q nas, q (nas)), 3.0 * 3600e9 / degree),

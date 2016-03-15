@@ -27,14 +27,14 @@ object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
       this(name, symbols, factor * unit.unitInPascalSecond)
   }
 
+
   case object Poise extends IntrinsicDynamicViscosityUnit("Poise", Seq("P"), r"0.1")
-    
 
   override lazy val values = Seq(Poise)
 
   // PressureUnit * TimeUnit -> DynamicViscosity
   private[DynamicViscosityUnit]
-  class PressureDotTimeUnit(val firstUnit: PressureUnit, val secondUnit: TimeUnit)
+  class ProductPressureDotTimeUnit(val firstUnit: PressureUnit, val secondUnit: TimeUnit)
       extends DynamicViscosityUnit with ProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit]{
 
     override lazy val unitInPascalSecond: Real =
@@ -42,7 +42,7 @@ object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
   }
 
   def apply(unit1: PressureUnit, unit2: TimeUnit): DynamicViscosityUnit =
-    new PressureDotTimeUnit(unit1, unit2)
+    new ProductPressureDotTimeUnit(unit1, unit2)
 }
 
 trait DynamicViscosityPostfixOps[A]{

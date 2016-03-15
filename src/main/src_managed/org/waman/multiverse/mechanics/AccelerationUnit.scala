@@ -28,22 +28,18 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
       this(name, symbols, factor * unit.unitInMetrePerSecondSquared)
   }
 
+
   case object StandardGravity extends IntrinsicAccelerationUnit("StandardGravity", Seq("g0"), r"9.80665")
-    
   case object Galileo extends IntrinsicAccelerationUnit("Galileo", Seq("Gal"), LengthUnit.CentiMetre / TimeSquaredUnit.SecondSquared)
-    
   case object InchPerSecondSquared extends IntrinsicAccelerationUnit("InchPerSecondSquared", Seq("ips2"), LengthUnit.Inch / TimeSquaredUnit.SecondSquared)
-    
   case object FootPerSecondSquared extends IntrinsicAccelerationUnit("FootPerSecondSquared", Seq("fps2"), LengthUnit.Foot / TimeSquaredUnit.SecondSquared)
-    
   case object MilePerSecondSquared extends IntrinsicAccelerationUnit("MilePerSecondSquared", Seq("mps2"), LengthUnit.Mile / TimeSquaredUnit.SecondSquared)
-    
 
   override lazy val values = Seq(StandardGravity, Galileo, InchPerSecondSquared, FootPerSecondSquared, MilePerSecondSquared)
 
   // LengthUnit / TimeSquaredUnit -> Acceleration
   private[AccelerationUnit]
-  class LengthPerTimeSquaredUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeSquaredUnit)
+  class QuotientLengthPerTimeSquaredUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeSquaredUnit)
       extends AccelerationUnit with QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit]{
 
     override lazy val unitInMetrePerSecondSquared: Real =
@@ -51,11 +47,11 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
   }
 
   def apply(nUnit: LengthUnit, dUnit: TimeSquaredUnit): AccelerationUnit =
-    new LengthPerTimeSquaredUnit(nUnit, dUnit)
+    new QuotientLengthPerTimeSquaredUnit(nUnit, dUnit)
 
   // VelocityUnit / TimeUnit -> Acceleration
   private[AccelerationUnit]
-  class VelocityPerTimeUnit(val numeratorUnit: VelocityUnit, val denominatorUnit: TimeUnit)
+  class QuotientVelocityPerTimeUnit(val numeratorUnit: VelocityUnit, val denominatorUnit: TimeUnit)
       extends AccelerationUnit with QuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit]{
 
     override lazy val unitInMetrePerSecondSquared: Real =
@@ -63,7 +59,7 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
   }
 
   def apply(nUnit: VelocityUnit, dUnit: TimeUnit): AccelerationUnit =
-    new VelocityPerTimeUnit(nUnit, dUnit)
+    new QuotientVelocityPerTimeUnit(nUnit, dUnit)
 }
 
 trait AccelerationPostfixOps[A]{

@@ -28,14 +28,14 @@ object ExposureUnit extends ConstantsDefined[ExposureUnit]{
       this(name, symbols, factor * unit.unitInCoulombPerKiloGram)
   }
 
+
   case object Roentgen extends IntrinsicExposureUnit("Roentgen", Seq("R"), r"2.58e-4")
-    
 
   override lazy val values = Seq(Roentgen)
 
   // ChargeUnit / MassUnit -> Exposure
   private[ExposureUnit]
-  class ChargePerMassUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: MassUnit)
+  class QuotientChargePerMassUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: MassUnit)
       extends ExposureUnit with QuotientUnit[ExposureUnit, ChargeUnit, MassUnit]{
 
     override lazy val unitInCoulombPerKiloGram: Real =
@@ -43,7 +43,7 @@ object ExposureUnit extends ConstantsDefined[ExposureUnit]{
   }
 
   def apply(nUnit: ChargeUnit, dUnit: MassUnit): ExposureUnit =
-    new ChargePerMassUnit(nUnit, dUnit)
+    new QuotientChargePerMassUnit(nUnit, dUnit)
 }
 
 trait ExposurePostfixOps[A]{

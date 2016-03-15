@@ -49,8 +49,8 @@
     {"name":"Gallon_US_dry", "symbols":["gal(US_dry)"], "args":"r\"1/8\", Bushel_US_dry_level"},
     {"name":"Peck_US_dry", "symbols":["pk(US_dry)"], "args":"r\"1/4\", Bushel_US_dry_level"},
     {"name":"Bushel_US_dry", "symbols":["bu(US_dry)"], "args":"r\"5/4\", Bushel_US_dry_level"},
-    {"name":"Barrel_US_dry", "symbols":["bl(US_dry)"], "args":"r\"2150.42\", CubicInch"},
-    {"name":"Bushel_US_dry_level", "symbols":["bu(US_lvl)"], "args":"105, Quart_US_dry"},
+    {"name":"Barrel_US_dry", "symbols":["bl(US_dry)"], "args":"105, Quart_US_dry"},
+    {"name":"Bushel_US_dry_level", "symbols":["bu(US_lvl)"], "args":"r\"2150.42\", CubicInch"},
 
     // imperial
     {"name":"Minim_imperial", "symbols":["minim(imp)"], "args":"r\"1/480\", Fluid_Ounce_imperial"},

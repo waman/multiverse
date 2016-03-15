@@ -30,48 +30,28 @@ object LuminousIntensityUnit extends ConstantsDefined[LuminousIntensityUnit]{
       this(name, symbols, factor * unit.unitInCandela)
   }
 
+
   case object YoctoCandela extends IntrinsicLuminousIntensityUnit("YoctoCandela", Seq("ycd"), r"1e-24")
-    
   case object ZeptoCandela extends IntrinsicLuminousIntensityUnit("ZeptoCandela", Seq("zcd"), r"1e-21")
-    
   case object AttoCandela extends IntrinsicLuminousIntensityUnit("AttoCandela", Seq("acd"), r"1e-18")
-    
   case object FemtoCandela extends IntrinsicLuminousIntensityUnit("FemtoCandela", Seq("fcd"), r"1e-15")
-    
   case object PicoCandela extends IntrinsicLuminousIntensityUnit("PicoCandela", Seq("pcd"), r"1e-12")
-    
   case object NanoCandela extends IntrinsicLuminousIntensityUnit("NanoCandela", Seq("ncd"), r"1e-9")
-    
   case object MicroCandela extends IntrinsicLuminousIntensityUnit("MicroCandela", Seq("microCandela", "microCd", "μcd"), r"1e-6")
-    
   case object MilliCandela extends IntrinsicLuminousIntensityUnit("MilliCandela", Seq("mcd"), r"1e-3")
-    
   case object CentiCandela extends IntrinsicLuminousIntensityUnit("CentiCandela", Seq("ccd"), r"1e-2")
-    
   case object DeciCandela extends IntrinsicLuminousIntensityUnit("DeciCandela", Seq("dcd"), r"1e-1")
-    
   case object Candela extends IntrinsicLuminousIntensityUnit("Candela", Seq("cd"), r"1")
-    
-  case object DecaCandela extends IntrinsicLuminousIntensityUnit("DecaCandela", Seq("dacd"), r"1e-1")
-    
-  case object HectoCandela extends IntrinsicLuminousIntensityUnit("HectoCandela", Seq("hcd"), r"1e-2")
-    
-  case object KiloCandela extends IntrinsicLuminousIntensityUnit("KiloCandela", Seq("kcd"), r"1e-3")
-    
-  case object MegaCandela extends IntrinsicLuminousIntensityUnit("MegaCandela", Seq("Mcd"), r"1e-6")
-    
-  case object GigaCandela extends IntrinsicLuminousIntensityUnit("GigaCandela", Seq("Gcd"), r"1e-9")
-    
-  case object TeraCandela extends IntrinsicLuminousIntensityUnit("TeraCandela", Seq("Tcd"), r"1e-12")
-    
-  case object PetaCandela extends IntrinsicLuminousIntensityUnit("PetaCandela", Seq("Pcd"), r"1e-15")
-    
-  case object ExaCandela extends IntrinsicLuminousIntensityUnit("ExaCandela", Seq("Ecd"), r"1e-18")
-    
-  case object ZettaCandela extends IntrinsicLuminousIntensityUnit("ZettaCandela", Seq("Zcd"), r"1e-21")
-    
-  case object YottaCandela extends IntrinsicLuminousIntensityUnit("YottaCandela", Seq("Ycd"), r"1e-24")
-    
+  case object DecaCandela extends IntrinsicLuminousIntensityUnit("DecaCandela", Seq("dacd"), r"1e1")
+  case object HectoCandela extends IntrinsicLuminousIntensityUnit("HectoCandela", Seq("hcd"), r"1e2")
+  case object KiloCandela extends IntrinsicLuminousIntensityUnit("KiloCandela", Seq("kcd"), r"1e3")
+  case object MegaCandela extends IntrinsicLuminousIntensityUnit("MegaCandela", Seq("Mcd"), r"1e6")
+  case object GigaCandela extends IntrinsicLuminousIntensityUnit("GigaCandela", Seq("Gcd"), r"1e9")
+  case object TeraCandela extends IntrinsicLuminousIntensityUnit("TeraCandela", Seq("Tcd"), r"1e12")
+  case object PetaCandela extends IntrinsicLuminousIntensityUnit("PetaCandela", Seq("Pcd"), r"1e15")
+  case object ExaCandela extends IntrinsicLuminousIntensityUnit("ExaCandela", Seq("Ecd"), r"1e18")
+  case object ZettaCandela extends IntrinsicLuminousIntensityUnit("ZettaCandela", Seq("Zcd"), r"1e21")
+  case object YottaCandela extends IntrinsicLuminousIntensityUnit("YottaCandela", Seq("Ycd"), r"1e24")
 
   override lazy val values = Seq(YoctoCandela, ZeptoCandela, AttoCandela, FemtoCandela, PicoCandela, NanoCandela, MicroCandela, MilliCandela, CentiCandela, DeciCandela, Candela, DecaCandela, HectoCandela, KiloCandela, MegaCandela, GigaCandela, TeraCandela, PetaCandela, ExaCandela, ZettaCandela, YottaCandela)
 }

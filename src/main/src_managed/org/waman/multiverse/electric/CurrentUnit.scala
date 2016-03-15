@@ -27,48 +27,28 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
       this(name, symbols, factor * unit.unitInAmpere)
   }
 
+
   case object YoctoAmpere extends IntrinsicCurrentUnit("YoctoAmpere", Seq("yA"), r"1e-24")
-    
   case object ZeptoAmpere extends IntrinsicCurrentUnit("ZeptoAmpere", Seq("zA"), r"1e-21")
-    
   case object AttoAmpere extends IntrinsicCurrentUnit("AttoAmpere", Seq("aA"), r"1e-18")
-    
   case object FemtoAmpere extends IntrinsicCurrentUnit("FemtoAmpere", Seq("fA"), r"1e-15")
-    
   case object PicoAmpere extends IntrinsicCurrentUnit("PicoAmpere", Seq("pA"), r"1e-12")
-    
   case object NanoAmpere extends IntrinsicCurrentUnit("NanoAmpere", Seq("nA"), r"1e-9")
-    
   case object MicroAmpere extends IntrinsicCurrentUnit("MicroAmpere", Seq("microAmpere", "microA", "μA"), r"1e-6")
-    
   case object MilliAmpere extends IntrinsicCurrentUnit("MilliAmpere", Seq("mA"), r"1e-3")
-    
   case object CentiAmpere extends IntrinsicCurrentUnit("CentiAmpere", Seq("cA"), r"1e-2")
-    
   case object DeciAmpere extends IntrinsicCurrentUnit("DeciAmpere", Seq("dA"), r"1e-1")
-    
   case object Ampere extends IntrinsicCurrentUnit("Ampere", Seq("A"), r"1")
-    
-  case object DecaAmpere extends IntrinsicCurrentUnit("DecaAmpere", Seq("daA"), r"1e-1")
-    
-  case object HectoAmpere extends IntrinsicCurrentUnit("HectoAmpere", Seq("hA"), r"1e-2")
-    
-  case object KiloAmpere extends IntrinsicCurrentUnit("KiloAmpere", Seq("kA"), r"1e-3")
-    
-  case object MegaAmpere extends IntrinsicCurrentUnit("MegaAmpere", Seq("MA"), r"1e-6")
-    
-  case object GigaAmpere extends IntrinsicCurrentUnit("GigaAmpere", Seq("GA"), r"1e-9")
-    
-  case object TeraAmpere extends IntrinsicCurrentUnit("TeraAmpere", Seq("TA"), r"1e-12")
-    
-  case object PetaAmpere extends IntrinsicCurrentUnit("PetaAmpere", Seq("PA"), r"1e-15")
-    
-  case object ExaAmpere extends IntrinsicCurrentUnit("ExaAmpere", Seq("EA"), r"1e-18")
-    
-  case object ZettaAmpere extends IntrinsicCurrentUnit("ZettaAmpere", Seq("ZA"), r"1e-21")
-    
-  case object YottaAmpere extends IntrinsicCurrentUnit("YottaAmpere", Seq("YA"), r"1e-24")
-    
+  case object DecaAmpere extends IntrinsicCurrentUnit("DecaAmpere", Seq("daA"), r"1e1")
+  case object HectoAmpere extends IntrinsicCurrentUnit("HectoAmpere", Seq("hA"), r"1e2")
+  case object KiloAmpere extends IntrinsicCurrentUnit("KiloAmpere", Seq("kA"), r"1e3")
+  case object MegaAmpere extends IntrinsicCurrentUnit("MegaAmpere", Seq("MA"), r"1e6")
+  case object GigaAmpere extends IntrinsicCurrentUnit("GigaAmpere", Seq("GA"), r"1e9")
+  case object TeraAmpere extends IntrinsicCurrentUnit("TeraAmpere", Seq("TA"), r"1e12")
+  case object PetaAmpere extends IntrinsicCurrentUnit("PetaAmpere", Seq("PA"), r"1e15")
+  case object ExaAmpere extends IntrinsicCurrentUnit("ExaAmpere", Seq("EA"), r"1e18")
+  case object ZettaAmpere extends IntrinsicCurrentUnit("ZettaAmpere", Seq("ZA"), r"1e21")
+  case object YottaAmpere extends IntrinsicCurrentUnit("YottaAmpere", Seq("YA"), r"1e24")
 
   override lazy val values = Seq(YoctoAmpere, ZeptoAmpere, AttoAmpere, FemtoAmpere, PicoAmpere, NanoAmpere, MicroAmpere, MilliAmpere, CentiAmpere, DeciAmpere, Ampere, DecaAmpere, HectoAmpere, KiloAmpere, MegaAmpere, GigaAmpere, TeraAmpere, PetaAmpere, ExaAmpere, ZettaAmpere, YottaAmpere)
 }
