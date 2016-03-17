@@ -62,6 +62,14 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
     new QuotientVelocityPerTimeUnit(nUnit, dUnit)
 }
 
+trait MultiplicativeByAccelerationUnit[R]{
+  def *(unit: AccelerationUnit): R
+}
+
+trait DivisibleByAccelerationUnit[R]{
+  def /(unit: AccelerationUnit): R
+}
+
 trait AccelerationPostfixOps[A]{
   import AccelerationUnit._
 

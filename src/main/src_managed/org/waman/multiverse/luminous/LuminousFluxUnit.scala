@@ -1,9 +1,10 @@
 package org.waman.multiverse.luminous
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.AreaUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait LuminousFluxUnit extends PhysicalUnit[LuminousFluxUnit]
   with DivisibleByAreaUnit[IlluminanceUnit]{
@@ -54,6 +55,14 @@ object LuminousFluxUnit extends ConstantsDefined[LuminousFluxUnit]{
   case object YottaLumen extends IntrinsicLuminousFluxUnit("YottaLumen", Seq("Ylm"), r"1e24")
 
   override lazy val values = Seq(YoctoLumen, ZeptoLumen, AttoLumen, FemtoLumen, PicoLumen, NanoLumen, MicroLumen, MilliLumen, CentiLumen, DeciLumen, Lumen, DecaLumen, HectoLumen, KiloLumen, MegaLumen, GigaLumen, TeraLumen, PetaLumen, ExaLumen, ZettaLumen, YottaLumen)
+}
+
+trait MultiplicativeByLuminousFluxUnit[R]{
+  def *(unit: LuminousFluxUnit): R
+}
+
+trait DivisibleByLuminousFluxUnit[R]{
+  def /(unit: LuminousFluxUnit): R
 }
 
 trait LuminousFluxPostfixOps[A]{

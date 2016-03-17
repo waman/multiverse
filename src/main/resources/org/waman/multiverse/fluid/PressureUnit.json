@@ -1,12 +1,16 @@
 {
   "imports":[
-    "org.waman.multiverse.time.TimeUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.mechanics._"
   ],
 
   "baseUnit":"Pascal",
   "baseUnitAccessor":"unitInPascal",
 
   "multiplicative":[["TimeUnit", "DynamicViscosityUnit"]],
+
+  "quotient":[["ForceUnit", "AreaUnit"]],
 
   "constants":[
     {"name":"Pascal", "symbol":"Pa", "args":"", "scalePrefixes":true}

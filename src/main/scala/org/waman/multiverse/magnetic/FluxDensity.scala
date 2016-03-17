@@ -1,7 +1,7 @@
 package org.waman.multiverse.magnetic
 
 import org.waman.multiverse._
-import org.waman.multiverse.metric.{AreaPostfixOps, AreaUnit}
+import org.waman.multiverse.metric.{DivisibleByAreaUnit, AreaPostfixOps, AreaUnit}
 import spire.implicits._
 import spire.math.Fractional
 

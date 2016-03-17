@@ -2,7 +2,7 @@ package org.waman.multiverse.fluid
 
 import org.waman.multiverse._
 import org.waman.multiverse.metric.{AreaPer, AreaPostfixOps, AreaUnit}
-import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
+import org.waman.multiverse.time.{DivisibleByTimeUnit, TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

@@ -1,9 +1,8 @@
 {
   "imports":[
     "org.waman.multiverse.MultiverseUtil.twoPi",
-    "org.waman.multiverse.time.TimeUnit",
-    "org.waman.multiverse.thermal.TemperatureUnit",
-    "org.waman.multiverse.thermal.DegreeTemperaturePostfixOps"
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.thermal._"
   ],
 
   "baseUnit":"Radian",

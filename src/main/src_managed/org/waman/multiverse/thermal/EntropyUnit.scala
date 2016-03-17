@@ -29,8 +29,8 @@ object EntropyUnit extends ConstantsDefined[EntropyUnit]{
 
 
   case object Nat extends IntrinsicEntropyUnit("Nat", Seq("nat", "k_B"), r"1.380650523e-23") with NotExact
-  case object Bit extends IntrinsicEntropyUnit("Bit", Seq("bit", "Sh"), Real(2).log, Nat) with NotExact
-  case object Ban extends IntrinsicEntropyUnit("Ban", Seq("ban", "Hart"), Real(10).log, Nat) with NotExact
+  case object Bit extends IntrinsicEntropyUnit("Bit", Seq("bit", "Sh"), Real(2).log(), Nat) with NotExact
+  case object Ban extends IntrinsicEntropyUnit("Ban", Seq("ban", "Hart"), Real(10).log(), Nat) with NotExact
   case object Byte extends IntrinsicEntropyUnit("Byte", Seq("B"), r"1" * 8, Bit) with NotExact
   case object DecaByte extends IntrinsicEntropyUnit("DecaByte", Seq("daB"), r"1e1" * 8, Bit) with NotExact
   case object HectoByte extends IntrinsicEntropyUnit("HectoByte", Seq("hB"), r"1e2" * 8, Bit) with NotExact
@@ -64,6 +64,14 @@ object EntropyUnit extends ConstantsDefined[EntropyUnit]{
 
   def apply(nUnit: EnergyUnit, dUnit: TemperatureUnit): EntropyUnit =
     new QuotientEnergyPerTemperatureUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByEntropyUnit[R]{
+  def *(unit: EntropyUnit): R
+}
+
+trait DivisibleByEntropyUnit[R]{
+  def /(unit: EntropyUnit): R
 }
 
 trait EntropyPostfixOps[A]{

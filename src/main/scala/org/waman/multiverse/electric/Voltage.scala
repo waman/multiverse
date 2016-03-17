@@ -2,7 +2,7 @@ package org.waman.multiverse.electric
 
 import org.waman.multiverse._
 import org.waman.multiverse.magnetic.{Flux, FluxUnit}
-import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
+import org.waman.multiverse.time.{MultiplicativeByTimeUnit, TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

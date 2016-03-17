@@ -1,13 +1,19 @@
 package org.waman.multiverse.mechanics
 
-import org.waman.multiverse._
-import org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity
-import org.waman.multiverse.metric.LengthUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
+import org.waman.multiverse.mass._
+import org.waman.multiverse.fluid._
+import org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity
 
 sealed trait ForceUnit extends PhysicalUnit[ForceUnit]
-  with MultiplicativeByLengthUnit[TorqueUnit]{
+  with MultiplicativeByLengthUnit[TorqueUnit]
+  with MultiplicativeByTimeUnit[MomentumUnit]
+  with DivisibleByAreaUnit[PressureUnit]{
 
   def unitInNewton: Real
 
@@ -15,6 +21,10 @@ sealed trait ForceUnit extends PhysicalUnit[ForceUnit]
   override def valueInBaseUnit = unitInNewton
 
   override def *(unit: LengthUnit) = TorqueUnit(this, unit)
+
+  override def *(unit: TimeUnit) = MomentumUnit(this, unit)
+
+  override def /(unit: AreaUnit) = PressureUnit(this, unit)
 }
 
 object ForceUnit extends ConstantsDefined[ForceUnit]{
@@ -57,6 +67,26 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
   case object KiloGramForce extends IntrinsicForceUnit("KiloGramForce", Seq("kgf", "kp"), StandardGravity.unitInMetrePerSecondSquared) with NotExact
 
   override lazy val values = Seq(YoctoNewton, ZeptoNewton, AttoNewton, FemtoNewton, PicoNewton, NanoNewton, MicroNewton, MilliNewton, CentiNewton, DeciNewton, Newton, DecaNewton, HectoNewton, KiloNewton, MegaNewton, GigaNewton, TeraNewton, PetaNewton, ExaNewton, ZettaNewton, YottaNewton, Dyne, KiloGramForce)
+
+  // MassUnit * AccelerationUnit -> Force
+  private[ForceUnit]
+  class ProductMassDotAccelerationUnit(val firstUnit: MassUnit, val secondUnit: AccelerationUnit)
+      extends ForceUnit with ProductUnit[ForceUnit, MassUnit, AccelerationUnit]{
+
+    override lazy val unitInNewton: Real =
+      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+  }
+
+  def apply(unit1: MassUnit, unit2: AccelerationUnit): ForceUnit =
+    new ProductMassDotAccelerationUnit(unit1, unit2)
+}
+
+trait MultiplicativeByForceUnit[R]{
+  def *(unit: ForceUnit): R
+}
+
+trait DivisibleByForceUnit[R]{
+  def /(unit: ForceUnit): R
 }
 
 trait ForcePostfixOps[A]{

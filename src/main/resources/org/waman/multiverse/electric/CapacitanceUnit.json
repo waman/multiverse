@@ -2,6 +2,8 @@
   "baseUnit":"Farad",
   "baseUnitAccessor":"unitInFarad",
 
+  "quotient":[["ChargeUnit", "VoltageUnit"]],
+
   "constants":[
     {"name":"Farad", "symbol":"F", "args":"", "scalePrefixes":true}
   ]

@@ -1,9 +1,10 @@
 package org.waman.multiverse.energy
 
-import org.waman.multiverse._
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time.TimeUnit
 
 sealed trait ActionUnit extends PhysicalUnit[ActionUnit]{
 
@@ -43,6 +44,14 @@ object ActionUnit extends ConstantsDefined[ActionUnit]{
 
   def apply(unit1: EnergyUnit, unit2: TimeUnit): ActionUnit =
     new ProductEnergyDotTimeUnit(unit1, unit2)
+}
+
+trait MultiplicativeByActionUnit[R]{
+  def *(unit: ActionUnit): R
+}
+
+trait DivisibleByActionUnit[R]{
+  def /(unit: ActionUnit): R
 }
 
 trait ActionPostfixOps[A]{

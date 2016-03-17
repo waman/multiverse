@@ -1,7 +1,7 @@
 package org.waman.multiverse.mass
 
 import org.waman.multiverse._
-import org.waman.multiverse.metric.{VolumePostfixOps, VolumeUnit}
+import org.waman.multiverse.metric.{DivisibleByVolumeUnit, VolumePostfixOps, VolumeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

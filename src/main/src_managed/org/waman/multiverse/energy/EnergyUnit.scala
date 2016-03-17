@@ -1,16 +1,21 @@
 package org.waman.multiverse.energy
 
-import org.waman.multiverse._
-import org.waman.multiverse.electric.ChargeUnit
-import org.waman.multiverse.mass.MassUnit
-import org.waman.multiverse.radiation.AbsorbedDoseUnit
-import org.waman.multiverse.thermal.{EntropyUnit, TemperatureUnit}
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.mass._
+import org.waman.multiverse.time._
+import org.waman.multiverse.mechanics._
+import org.waman.multiverse.fluid._
+import org.waman.multiverse.electric._
+import org.waman.multiverse.thermal._
+import org.waman.multiverse.radiation._
 
 sealed trait EnergyUnit extends PhysicalUnit[EnergyUnit]
   with MultiplicativeByTimeUnit[ActionUnit]
+  with DivisibleByTimeUnit[PowerUnit]
   with DivisibleByTemperatureUnit[EntropyUnit]
   with DivisibleByMassUnit[AbsorbedDoseUnit]{
 
@@ -20,6 +25,8 @@ sealed trait EnergyUnit extends PhysicalUnit[EnergyUnit]
   override def valueInBaseUnit = unitInJoule
 
   override def *(unit: TimeUnit) = ActionUnit(this, unit)
+
+  override def /(unit: TimeUnit) = PowerUnit(this, unit)
 
   override def /(unit: TemperatureUnit) = EntropyUnit(this, unit)
 
@@ -85,6 +92,62 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
   case object YottaElectronVolt extends IntrinsicEnergyUnit("YottaElectronVolt", Seq("YeV"), r"1e24" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
 
   override lazy val values = Seq(YoctoJoule, ZeptoJoule, AttoJoule, FemtoJoule, PicoJoule, NanoJoule, MicroJoule, MilliJoule, CentiJoule, DeciJoule, Joule, DecaJoule, HectoJoule, KiloJoule, MegaJoule, GigaJoule, TeraJoule, PetaJoule, ExaJoule, ZettaJoule, YottaJoule, YoctoElectronVolt, ZeptoElectronVolt, AttoElectronVolt, FemtoElectronVolt, PicoElectronVolt, NanoElectronVolt, MicroElectronVolt, MilliElectronVolt, CentiElectronVolt, DeciElectronVolt, ElectronVolt, DecaElectronVolt, HectoElectronVolt, KiloElectronVolt, MegaElectronVolt, GigaElectronVolt, TeraElectronVolt, PetaElectronVolt, ExaElectronVolt, ZettaElectronVolt, YottaElectronVolt)
+
+  // LengthUnit * ForceUnit -> Energy
+  private[EnergyUnit]
+  class ProductLengthDotForceUnit(val firstUnit: LengthUnit, val secondUnit: ForceUnit)
+      extends EnergyUnit with ProductUnit[EnergyUnit, LengthUnit, ForceUnit]{
+
+    override lazy val unitInJoule: Real =
+      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+  }
+
+  def apply(unit1: LengthUnit, unit2: ForceUnit): EnergyUnit =
+    new ProductLengthDotForceUnit(unit1, unit2)
+
+  // ChargeUnit * VoltageUnit -> Energy
+  private[EnergyUnit]
+  class ProductChargeDotVoltageUnit(val firstUnit: ChargeUnit, val secondUnit: VoltageUnit)
+      extends EnergyUnit with ProductUnit[EnergyUnit, ChargeUnit, VoltageUnit]{
+
+    override lazy val unitInJoule: Real =
+      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+  }
+
+  def apply(unit1: ChargeUnit, unit2: VoltageUnit): EnergyUnit =
+    new ProductChargeDotVoltageUnit(unit1, unit2)
+
+  // PowerUnit * TimeUnit -> Energy
+  private[EnergyUnit]
+  class ProductPowerDotTimeUnit(val firstUnit: PowerUnit, val secondUnit: TimeUnit)
+      extends EnergyUnit with ProductUnit[EnergyUnit, PowerUnit, TimeUnit]{
+
+    override lazy val unitInJoule: Real =
+      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+  }
+
+  def apply(unit1: PowerUnit, unit2: TimeUnit): EnergyUnit =
+    new ProductPowerDotTimeUnit(unit1, unit2)
+
+  // VolumeUnit * PressureUnit -> Energy
+  private[EnergyUnit]
+  class ProductVolumeDotPressureUnit(val firstUnit: VolumeUnit, val secondUnit: PressureUnit)
+      extends EnergyUnit with ProductUnit[EnergyUnit, VolumeUnit, PressureUnit]{
+
+    override lazy val unitInJoule: Real =
+      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+  }
+
+  def apply(unit1: VolumeUnit, unit2: PressureUnit): EnergyUnit =
+    new ProductVolumeDotPressureUnit(unit1, unit2)
+}
+
+trait MultiplicativeByEnergyUnit[R]{
+  def *(unit: EnergyUnit): R
+}
+
+trait DivisibleByEnergyUnit[R]{
+  def /(unit: EnergyUnit): R
 }
 
 trait EnergyPostfixOps[A]{

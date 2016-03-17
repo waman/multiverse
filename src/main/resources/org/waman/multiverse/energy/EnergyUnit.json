@@ -1,18 +1,23 @@
 {
   "imports":[
-    "org.waman.multiverse.mass.MassUnit",
-    "org.waman.multiverse.time.TimeUnit",
-    "org.waman.multiverse.electric.ChargeUnit",
-    "org.waman.multiverse.thermal.TemperatureUnit",
-    "org.waman.multiverse.thermal.EntropyUnit",
-    "org.waman.multiverse.radiation.AbsorbedDoseUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.mass._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.mechanics._",
+    "org.waman.multiverse.fluid._",
+    "org.waman.multiverse.electric._",
+    "org.waman.multiverse.thermal._",
+    "org.waman.multiverse.radiation._"
   ],
 
   "baseUnit":"Joule",
   "baseUnitAccessor":"unitInJoule",
 
   "multiplicative":[["TimeUnit", "ActionUnit"]],
-  "divisible":[["TemperatureUnit", "EntropyUnit"], ["MassUnit", "AbsorbedDoseUnit"]],
+  "divisible":[["TimeUnit", "PowerUnit"], ["TemperatureUnit", "EntropyUnit"], ["MassUnit", "AbsorbedDoseUnit"]],
+
+  "product":[["LengthUnit", "ForceUnit"], ["ChargeUnit", "VoltageUnit"],
+             ["PowerUnit", "TimeUnit"], ["VolumeUnit", "PressureUnit"]],
 
   "constants":[
     {"name":"Joule", "symbol":"J", "args":"", "scalePrefixes":true},

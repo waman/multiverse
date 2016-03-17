@@ -2,7 +2,7 @@ package org.waman.multiverse.metric
 
 import org.waman.multiverse._
 import org.waman.multiverse.fluid.{KinematicViscosity, KinematicViscosityUnit}
-import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
+import org.waman.multiverse.time.{DivisibleByTimeUnit, TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

@@ -1,6 +1,6 @@
 {
   "imports":[
-    "org.waman.multiverse.time.TimeUnit"
+    "org.waman.multiverse.time._"
   ],
 
   "baseUnit":"Sievert",

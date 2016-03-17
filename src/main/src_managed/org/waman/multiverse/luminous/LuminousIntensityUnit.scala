@@ -1,9 +1,10 @@
 package org.waman.multiverse.luminous
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.AreaUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait LuminousIntensityUnit extends PhysicalUnit[LuminousIntensityUnit]
   with DivisibleByAreaUnit[LuminanceUnit]{
@@ -54,6 +55,14 @@ object LuminousIntensityUnit extends ConstantsDefined[LuminousIntensityUnit]{
   case object YottaCandela extends IntrinsicLuminousIntensityUnit("YottaCandela", Seq("Ycd"), r"1e24")
 
   override lazy val values = Seq(YoctoCandela, ZeptoCandela, AttoCandela, FemtoCandela, PicoCandela, NanoCandela, MicroCandela, MilliCandela, CentiCandela, DeciCandela, Candela, DecaCandela, HectoCandela, KiloCandela, MegaCandela, GigaCandela, TeraCandela, PetaCandela, ExaCandela, ZettaCandela, YottaCandela)
+}
+
+trait MultiplicativeByLuminousIntensityUnit[R]{
+  def *(unit: LuminousIntensityUnit): R
+}
+
+trait DivisibleByLuminousIntensityUnit[R]{
+  def /(unit: LuminousIntensityUnit): R
 }
 
 trait LuminousIntensityPostfixOps[A]{

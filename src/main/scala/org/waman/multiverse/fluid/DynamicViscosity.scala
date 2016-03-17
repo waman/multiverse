@@ -1,7 +1,7 @@
 package org.waman.multiverse.fluid
 
 import org.waman.multiverse._
-import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
+import org.waman.multiverse.time.{MultiplicativeByTimeUnit, TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

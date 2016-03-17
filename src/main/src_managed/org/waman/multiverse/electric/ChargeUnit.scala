@@ -1,14 +1,20 @@
 package org.waman.multiverse.electric
 
-import org.waman.multiverse._
-import org.waman.multiverse.mass.MassUnit
-import org.waman.multiverse.metric.LengthUnit
-import org.waman.multiverse.radiation.ExposureUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
+import org.waman.multiverse.mass._
+import org.waman.multiverse.energy._
+import org.waman.multiverse.radiation._
 
 sealed trait ChargeUnit extends PhysicalUnit[ChargeUnit]
   with MultiplicativeByLengthUnit[DipoleUnit]
+  with MultiplicativeByVoltageUnit[EnergyUnit]
+  with DivisibleByTimeUnit[CurrentUnit]
+  with DivisibleByVoltageUnit[CapacitanceUnit]
   with DivisibleByMassUnit[ExposureUnit]{
 
   def unitInCoulomb: Real
@@ -17,6 +23,12 @@ sealed trait ChargeUnit extends PhysicalUnit[ChargeUnit]
   override def valueInBaseUnit = unitInCoulomb
 
   override def *(unit: LengthUnit) = DipoleUnit(this, unit)
+
+  override def *(unit: VoltageUnit) = EnergyUnit(this, unit)
+
+  override def /(unit: TimeUnit) = CurrentUnit(this, unit)
+
+  override def /(unit: VoltageUnit) = CapacitanceUnit(this, unit)
 
   override def /(unit: MassUnit) = ExposureUnit(this, unit)
 }
@@ -60,6 +72,26 @@ object ChargeUnit extends ConstantsDefined[ChargeUnit]{
   case object ElementaryCharge extends IntrinsicChargeUnit("ElementaryCharge", Seq(), 1.602176620898e-19) with NotExact
 
   override lazy val values = Seq(YoctoCoulomb, ZeptoCoulomb, AttoCoulomb, FemtoCoulomb, PicoCoulomb, NanoCoulomb, MicroCoulomb, MilliCoulomb, CentiCoulomb, DeciCoulomb, Coulomb, DecaCoulomb, HectoCoulomb, KiloCoulomb, MegaCoulomb, GigaCoulomb, TeraCoulomb, PetaCoulomb, ExaCoulomb, ZettaCoulomb, YottaCoulomb, ElementaryCharge)
+
+  // CurrentUnit * TimeUnit -> Charge
+  private[ChargeUnit]
+  class ProductCurrentDotTimeUnit(val firstUnit: CurrentUnit, val secondUnit: TimeUnit)
+      extends ChargeUnit with ProductUnit[ChargeUnit, CurrentUnit, TimeUnit]{
+
+    override lazy val unitInCoulomb: Real =
+      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+  }
+
+  def apply(unit1: CurrentUnit, unit2: TimeUnit): ChargeUnit =
+    new ProductCurrentDotTimeUnit(unit1, unit2)
+}
+
+trait MultiplicativeByChargeUnit[R]{
+  def *(unit: ChargeUnit): R
+}
+
+trait DivisibleByChargeUnit[R]{
+  def /(unit: ChargeUnit): R
 }
 
 trait ChargePostfixOps[A]{

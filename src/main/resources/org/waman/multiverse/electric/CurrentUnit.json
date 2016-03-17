@@ -1,6 +1,14 @@
 {
+  "imports":[
+    "org.waman.multiverse.time._"
+  ],
+
   "baseUnit":"Ampere",
   "baseUnitAccessor":"unitInAmpere",
+
+  "multiplicative":[["TimeUnit", "ChargeUnit"]],
+
+  "quotient":[["ChargeUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Ampere", "symbol":"A", "args":"", "scalePrefixes":true}

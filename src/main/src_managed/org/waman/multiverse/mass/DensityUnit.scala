@@ -1,8 +1,10 @@
 package org.waman.multiverse.mass
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.VolumeUnit
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait DensityUnit extends PhysicalUnit[DensityUnit]{
 
@@ -41,4 +43,12 @@ object DensityUnit extends ConstantsDefined[DensityUnit]{
 
   def apply(nUnit: MassUnit, dUnit: VolumeUnit): DensityUnit =
     new QuotientMassPerVolumeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByDensityUnit[R]{
+  def *(unit: DensityUnit): R
+}
+
+trait DivisibleByDensityUnit[R]{
+  def /(unit: DensityUnit): R
 }

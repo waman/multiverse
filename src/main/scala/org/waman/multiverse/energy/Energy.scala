@@ -1,10 +1,10 @@
 package org.waman.multiverse.energy
 
 import org.waman.multiverse._
-import org.waman.multiverse.mass.{MassPostfixOps, MassUnit}
+import org.waman.multiverse.mass.{DivisibleByMassUnit, MassPostfixOps, MassUnit}
 import org.waman.multiverse.radiation.{AbsorbedDose, AbsorbedDoseUnit}
-import org.waman.multiverse.thermal.{Entropy, EntropyUnit, TemperaturePostfixOps, TemperatureUnit}
-import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
+import org.waman.multiverse.thermal._
+import org.waman.multiverse.time.{MultiplicativeByTimeUnit, TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

@@ -2,7 +2,7 @@ package org.waman.multiverse.radiation
 
 import org.waman.multiverse._
 import org.waman.multiverse.energy.{EnergyPer, EnergyPostfixOps, EnergyUnit}
-import org.waman.multiverse.mass.{MassPostfixOps, MassUnit}
+import org.waman.multiverse.mass.{DivisibleByMassUnit, MassPostfixOps, MassUnit}
 import spire.implicits._
 import spire.math.Fractional
 

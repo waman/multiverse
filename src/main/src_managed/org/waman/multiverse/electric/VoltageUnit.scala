@@ -1,13 +1,16 @@
 package org.waman.multiverse.electric
 
-import org.waman.multiverse._
-import org.waman.multiverse.magnetic.FluxUnit
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
+import org.waman.multiverse.energy._
+import org.waman.multiverse.magnetic._
 
 sealed trait VoltageUnit extends PhysicalUnit[VoltageUnit]
-  with MultiplicativeByTimeUnit[FluxUnit]{
+  with MultiplicativeByTimeUnit[FluxUnit]
+  with DivisibleByCurrentUnit[ResistanceUnit]{
 
   def unitInVolt: Real
 
@@ -15,6 +18,8 @@ sealed trait VoltageUnit extends PhysicalUnit[VoltageUnit]
   override def valueInBaseUnit = unitInVolt
 
   override def *(unit: TimeUnit) = FluxUnit(this, unit)
+
+  override def /(unit: CurrentUnit) = ResistanceUnit(this, unit)
 }
 
 object VoltageUnit extends ConstantsDefined[VoltageUnit]{
@@ -55,6 +60,26 @@ object VoltageUnit extends ConstantsDefined[VoltageUnit]{
   case object YottaVolt extends IntrinsicVoltageUnit("YottaVolt", Seq("YV"), r"1e24")
 
   override lazy val values = Seq(YoctoVolt, ZeptoVolt, AttoVolt, FemtoVolt, PicoVolt, NanoVolt, MicroVolt, MilliVolt, CentiVolt, DeciVolt, Volt, DecaVolt, HectoVolt, KiloVolt, MegaVolt, GigaVolt, TeraVolt, PetaVolt, ExaVolt, ZettaVolt, YottaVolt)
+
+  // PowerUnit / CurrentUnit -> Voltage
+  private[VoltageUnit]
+  class QuotientPowerPerCurrentUnit(val numeratorUnit: PowerUnit, val denominatorUnit: CurrentUnit)
+      extends VoltageUnit with QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit]{
+
+    override lazy val unitInVolt: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: PowerUnit, dUnit: CurrentUnit): VoltageUnit =
+    new QuotientPowerPerCurrentUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByVoltageUnit[R]{
+  def *(unit: VoltageUnit): R
+}
+
+trait DivisibleByVoltageUnit[R]{
+  def /(unit: VoltageUnit): R
 }
 
 trait VoltagePostfixOps[A]{

@@ -1,17 +1,21 @@
 package org.waman.multiverse.mass
 
 import org.waman.multiverse._
-import org.waman.multiverse.metric.VolumeUnit
+import org.waman.multiverse.mechanics._
+import org.waman.multiverse.metric._
 import spire.implicits._
 import spire.math.Real
 
 sealed trait MassUnit extends PhysicalUnit[MassUnit]
+  with MultiplicativeByAccelerationUnit[ForceUnit]
   with DivisibleByVolumeUnit[DensityUnit]{
 
   def unitInKiloGram: Real
 
   override def baseUnit = org.waman.multiverse.mass.MassUnit.KiloGram
   override def valueInBaseUnit = unitInKiloGram
+
+  override def *(unit: AccelerationUnit) = ForceUnit(this, unit)
 
   override def /(unit: VolumeUnit) = DensityUnit(this, unit)
 }
@@ -62,6 +66,14 @@ object MassUnit extends ConstantsDefined[MassUnit]{
   case object MetricCarat extends IntrinsicMassUnit("MetricCarat", Seq("ct"), 200, MilliGram)
 
   override lazy val values = Seq(YoctoGram, ZeptoGram, AttoGram, FemtoGram, PicoGram, NanoGram, MicroGram, MilliGram, CentiGram, DeciGram, Gram, DecaGram, HectoGram, KiloGram, MegaGram, GigaGram, TeraGram, PetaGram, ExaGram, ZettaGram, YottaGram, AtomicMassUnit, ElectronMass, Grain, Ounce, Pound, Tonne, Carat, MetricCarat)
+}
+
+trait MultiplicativeByMassUnit[R]{
+  def *(unit: MassUnit): R
+}
+
+trait DivisibleByMassUnit[R]{
+  def /(unit: MassUnit): R
 }
 
 trait MassPostfixOps[A]{

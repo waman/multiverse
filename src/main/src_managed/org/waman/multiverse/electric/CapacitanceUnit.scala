@@ -51,6 +51,26 @@ object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
   case object YottaFarad extends IntrinsicCapacitanceUnit("YottaFarad", Seq("YF"), r"1e24")
 
   override lazy val values = Seq(YoctoFarad, ZeptoFarad, AttoFarad, FemtoFarad, PicoFarad, NanoFarad, MicroFarad, MilliFarad, CentiFarad, DeciFarad, Farad, DecaFarad, HectoFarad, KiloFarad, MegaFarad, GigaFarad, TeraFarad, PetaFarad, ExaFarad, ZettaFarad, YottaFarad)
+
+  // ChargeUnit / VoltageUnit -> Capacitance
+  private[CapacitanceUnit]
+  class QuotientChargePerVoltageUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: VoltageUnit)
+      extends CapacitanceUnit with QuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit]{
+
+    override lazy val unitInFarad: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: ChargeUnit, dUnit: VoltageUnit): CapacitanceUnit =
+    new QuotientChargePerVoltageUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByCapacitanceUnit[R]{
+  def *(unit: CapacitanceUnit): R
+}
+
+trait DivisibleByCapacitanceUnit[R]{
+  def /(unit: CapacitanceUnit): R
 }
 
 trait CapacitancePostfixOps[A]{

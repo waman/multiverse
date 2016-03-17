@@ -1,15 +1,19 @@
 {
   "imports":[
-    "org.waman.multiverse.metric.LengthUnit",
-    "org.waman.multiverse.mass.MassUnit",
-    "org.waman.multiverse.radiation.ExposureUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.mass._",
+    "org.waman.multiverse.energy._",
+    "org.waman.multiverse.radiation._"
   ],
 
   "baseUnit":"Coulomb",
   "baseUnitAccessor":"unitInCoulomb",
 
-  "multiplicative":[["LengthUnit", "DipoleUnit"]],
-  "divisible":[["MassUnit", "ExposureUnit"]],
+  "multiplicative":[["LengthUnit", "DipoleUnit"], ["VoltageUnit", "EnergyUnit"]],
+  "divisible":[["TimeUnit", "CurrentUnit"], ["VoltageUnit", "CapacitanceUnit"], ["MassUnit", "ExposureUnit"]],
+
+  "product":[["CurrentUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Coulomb", "symbol":"C", "args":"", "scalePrefixes":true},

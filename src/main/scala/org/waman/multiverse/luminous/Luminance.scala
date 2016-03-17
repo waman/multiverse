@@ -1,7 +1,7 @@
 package org.waman.multiverse.luminous
 
 import org.waman.multiverse._
-import org.waman.multiverse.metric.{AreaPostfixOps, AreaUnit}
+import org.waman.multiverse.metric.{AreaPostfixOps, AreaUnit, DivisibleByAreaUnit}
 import spire.implicits._
 import spire.math.Fractional
 

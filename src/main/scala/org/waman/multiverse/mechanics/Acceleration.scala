@@ -2,7 +2,7 @@ package org.waman.multiverse.mechanics
 
 import org.waman.multiverse._
 import org.waman.multiverse.metric.{LengthPer, LengthPostfixOps, LengthUnit}
-import org.waman.multiverse.time.{TimePostfixOps, TimeSquaredPostfixOps, TimeSquaredUnit, TimeUnit}
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math.Fractional
 

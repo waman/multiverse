@@ -1,18 +1,22 @@
 package org.waman.multiverse.metric
 
 import org.waman.multiverse._
-import org.waman.multiverse.fluid.VolumeFlowUnit
-import org.waman.multiverse.time.TimeUnit
+import org.waman.multiverse.energy._
+import org.waman.multiverse.fluid._
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math.Real
 
 sealed trait VolumeUnit extends PhysicalUnit[VolumeUnit]
+  with MultiplicativeByPressureUnit[EnergyUnit]
   with DivisibleByTimeUnit[VolumeFlowUnit]{
 
   def unitInCubicMetre: Real
 
   override def baseUnit = org.waman.multiverse.metric.VolumeUnit.CubicMetre
   override def valueInBaseUnit = unitInCubicMetre
+
+  override def *(unit: PressureUnit) = EnergyUnit(this, unit)
 
   override def /(unit: TimeUnit) = VolumeFlowUnit(this, unit)
 }
@@ -127,6 +131,14 @@ object VolumeUnit extends ConstantsDefined[VolumeUnit]{
 
   def apply(unit1: AreaUnit, unit2: LengthUnit): VolumeUnit =
     new ProductAreaDotLengthUnit(unit1, unit2)
+}
+
+trait MultiplicativeByVolumeUnit[R]{
+  def *(unit: VolumeUnit): R
+}
+
+trait DivisibleByVolumeUnit[R]{
+  def /(unit: VolumeUnit): R
 }
 
 trait VolumePostfixOps[A]{

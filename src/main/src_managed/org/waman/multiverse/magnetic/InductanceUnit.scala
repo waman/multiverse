@@ -1,7 +1,7 @@
 package org.waman.multiverse.magnetic
 
 import org.waman.multiverse._
-import org.waman.multiverse.electric.CurrentUnit
+import org.waman.multiverse.electric._
 import spire.implicits._
 import spire.math.Real
 
@@ -63,6 +63,14 @@ object InductanceUnit extends ConstantsDefined[InductanceUnit]{
 
   def apply(nUnit: FluxUnit, dUnit: CurrentUnit): InductanceUnit =
     new QuotientFluxPerCurrentUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByInductanceUnit[R]{
+  def *(unit: InductanceUnit): R
+}
+
+trait DivisibleByInductanceUnit[R]{
+  def /(unit: InductanceUnit): R
 }
 
 trait InductancePostfixOps[A]{

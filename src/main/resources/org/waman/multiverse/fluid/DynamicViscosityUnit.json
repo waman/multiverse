@@ -1,12 +1,15 @@
 {
   "imports":[
-    "org.waman.multiverse.time.TimeUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.mechanics._"
   ],
 
   "baseUnit":"PressureUnit.Pascal * TimeUnit.Second",
   "baseUnitAccessor":"unitInPascalSecond",
 
   "product":[["PressureUnit", "TimeUnit"]],
+  "quotient":[["MomentumUnit", "AreaUnit"]],
 
   "constants":[
     {"name":"Poise", "symbols":["P"], "args":"r\"0.1\""}

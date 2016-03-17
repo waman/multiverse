@@ -1,9 +1,9 @@
 package org.waman.multiverse.magnetic
 
 import org.waman.multiverse._
-import org.waman.multiverse.electric.{CurrentUnit, VoltageUnit}
-import org.waman.multiverse.metric.AreaUnit
-import org.waman.multiverse.time.TimeUnit
+import org.waman.multiverse.electric._
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math.Real
 
@@ -92,6 +92,14 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
 
   def apply(unit1: VoltageUnit, unit2: TimeUnit): FluxUnit =
     new ProductVoltageDotTimeUnit(unit1, unit2)
+}
+
+trait MultiplicativeByFluxUnit[R]{
+  def *(unit: FluxUnit): R
+}
+
+trait DivisibleByFluxUnit[R]{
+  def /(unit: FluxUnit): R
 }
 
 trait FluxPostfixOps[A]{

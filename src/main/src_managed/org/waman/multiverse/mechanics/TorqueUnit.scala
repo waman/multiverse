@@ -1,7 +1,7 @@
 package org.waman.multiverse.mechanics
 
 import org.waman.multiverse._
-import org.waman.multiverse.metric.LengthUnit
+import org.waman.multiverse.metric._
 import spire.math.Real
 
 sealed trait TorqueUnit extends PhysicalUnit[TorqueUnit]{
@@ -41,4 +41,12 @@ object TorqueUnit extends ConstantsDefined[TorqueUnit]{
 
   def apply(unit1: ForceUnit, unit2: LengthUnit): TorqueUnit =
     new ProductForceDotLengthUnit(unit1, unit2)
+}
+
+trait MultiplicativeByTorqueUnit[R]{
+  def *(unit: TorqueUnit): R
+}
+
+trait DivisibleByTorqueUnit[R]{
+  def /(unit: TorqueUnit): R
 }

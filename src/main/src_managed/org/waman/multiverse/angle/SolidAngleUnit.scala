@@ -45,6 +45,14 @@ object SolidAngleUnit extends ConstantsDefined[SolidAngleUnit]{
   override lazy val values = Seq(YoctoSteradian, ZeptoSteradian, AttoSteradian, FemtoSteradian, PicoSteradian, NanoSteradian, MicroSteradian, MilliSteradian, CentiSteradian, DeciSteradian, Steradian, DecaSteradian, SquareDegree)
 }
 
+trait MultiplicativeBySolidAngleUnit[R]{
+  def *(unit: SolidAngleUnit): R
+}
+
+trait DivisibleBySolidAngleUnit[R]{
+  def /(unit: SolidAngleUnit): R
+}
+
 trait SolidAnglePostfixOps[A]{
   import SolidAngleUnit._
 

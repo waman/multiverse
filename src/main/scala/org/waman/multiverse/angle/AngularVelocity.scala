@@ -2,7 +2,7 @@ package org.waman.multiverse.angle
 
 import org.waman.multiverse.MultiverseUtil.twoPi
 import org.waman.multiverse._
-import org.waman.multiverse.time.{Frequency, FrequencyUnit, TimePostfixOps, TimeUnit}
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math._
 

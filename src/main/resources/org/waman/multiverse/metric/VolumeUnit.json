@@ -1,12 +1,14 @@
 {
   "imports":[
-    "org.waman.multiverse.time.TimeUnit",
-    "org.waman.multiverse.fluid.VolumeFlowUnit"
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.fluid._",
+    "org.waman.multiverse.energy._"
   ],
 
   "baseUnit":"CubicMetre",
   "baseUnitAccessor":"unitInCubicMetre",
 
+  "multiplicative":[["PressureUnit", "EnergyUnit"]],
   "divisible":[["TimeUnit", "VolumeFlowUnit"]],
 
   "product":[["AreaUnit", "LengthUnit"]],

@@ -1,9 +1,8 @@
 {
   "imports":[
-    "org.waman.multiverse.metric.AreaUnit",
-    "org.waman.multiverse.time.TimeUnit",
-    "org.waman.multiverse.electric.CurrentUnit",
-    "org.waman.multiverse.electric.VoltageUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.electric._"
   ],
 
   "baseUnit":"Weber",

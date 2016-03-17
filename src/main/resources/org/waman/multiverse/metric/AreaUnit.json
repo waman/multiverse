@@ -1,7 +1,7 @@
 {
   "imports":[
-    "org.waman.multiverse.time.TimeUnit",
-    "org.waman.multiverse.fluid.KinematicViscosityUnit"
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.fluid._"
   ],
 
   "baseUnit":"SquareMetre",

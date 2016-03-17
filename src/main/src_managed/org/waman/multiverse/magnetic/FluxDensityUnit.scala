@@ -1,9 +1,10 @@
 package org.waman.multiverse.magnetic
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.AreaUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait FluxDensityUnit extends PhysicalUnit[FluxDensityUnit]{
 
@@ -84,6 +85,14 @@ object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
 
   def apply(nUnit: FluxUnit, dUnit: AreaUnit): FluxDensityUnit =
     new QuotientFluxPerAreaUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByFluxDensityUnit[R]{
+  def *(unit: FluxDensityUnit): R
+}
+
+trait DivisibleByFluxDensityUnit[R]{
+  def /(unit: FluxDensityUnit): R
 }
 
 trait FluxDensityPostfixOps[A]{

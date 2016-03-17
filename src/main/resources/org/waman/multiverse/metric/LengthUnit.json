@@ -1,15 +1,14 @@
 {
   "imports":[
-    "org.waman.multiverse.time.TimeUnit",
-    "org.waman.multiverse.time.TimeSquaredUnit",
-    "org.waman.multiverse.mechanics.VelocityUnit",
-    "org.waman.multiverse.mechanics.AccelerationUnit"
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.mechanics._",
+    "org.waman.multiverse.energy._"
   ],
 
   "baseUnit":"Metre",
   "baseUnitAccessor":"unitInMetre",
 
-  "multiplicative":[["LengthUnit", "AreaUnit"]],
+  "multiplicative":[["LengthUnit", "AreaUnit"], ["ForceUnit", "EnergyUnit"]],
   "divisible":[["TimeUnit", "VelocityUnit"], ["TimeSquaredUnit", "AccelerationUnit"]],
 
   "square":"AreaUnit",

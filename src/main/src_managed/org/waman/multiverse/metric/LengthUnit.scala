@@ -1,13 +1,15 @@
 package org.waman.multiverse.metric
 
 import org.waman.multiverse._
-import org.waman.multiverse.mechanics.{AccelerationUnit, VelocityUnit}
-import org.waman.multiverse.time.{TimeSquaredUnit, TimeUnit}
+import org.waman.multiverse.energy._
+import org.waman.multiverse.mechanics._
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math.Real
 
 sealed trait LengthUnit extends PhysicalUnit[LengthUnit]
   with MultiplicativeByLengthUnit[AreaUnit]
+  with MultiplicativeByForceUnit[EnergyUnit]
   with DivisibleByTimeUnit[VelocityUnit]
   with DivisibleByTimeSquaredUnit[AccelerationUnit]
   with CanSquare[AreaUnit]
@@ -19,6 +21,8 @@ sealed trait LengthUnit extends PhysicalUnit[LengthUnit]
   override def valueInBaseUnit = unitInMetre
 
   override def *(unit: LengthUnit) = AreaUnit(this, unit)
+
+  override def *(unit: ForceUnit) = EnergyUnit(this, unit)
 
   override def /(unit: TimeUnit) = VelocityUnit(this, unit)
 
@@ -107,6 +111,14 @@ object LengthUnit extends ConstantsDefined[LengthUnit]{
   case object Furlong extends IntrinsicLengthUnit("Furlong", Seq("fur"), 660, Foot)
 
   override lazy val values = Seq(YoctoMetre, ZeptoMetre, AttoMetre, FemtoMetre, PicoMetre, NanoMetre, MicroMetre, MilliMetre, CentiMetre, DeciMetre, Metre, DecaMetre, HectoMetre, KiloMetre, MegaMetre, GigaMetre, TeraMetre, PetaMetre, ExaMetre, ZettaMetre, YottaMetre, Micron, Angstrom, AtomicUnitOfLength, XUnit, XUnit_CuKAlpha1, XUnit_MoKAlpha1, PlanckLength, AstronomicalUnit, LightYear, Parsec, Mil, Twip, Point, Line, Inch, Link, Foot, Yard, Ell, Fathom, Rod, Rope, Chain, Mile, League, NauticalMile, NauticalMile_Admiralty, NauticalLeague, Cable, Cable_US, Cable_imperial, Link_US_Survey, Foot_US_Survey, Chain_US_Survey, Mile_US_Survey, MetricFoot, ShortMetricFoot, LongMetricFoot, French, Furlong)
+}
+
+trait MultiplicativeByLengthUnit[R]{
+  def *(unit: LengthUnit): R
+}
+
+trait DivisibleByLengthUnit[R]{
+  def /(unit: LengthUnit): R
 }
 
 trait LengthPostfixOps[A]{

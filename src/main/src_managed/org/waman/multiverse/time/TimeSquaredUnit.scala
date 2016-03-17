@@ -45,6 +45,14 @@ object TimeSquaredUnit extends ConstantsDefined[TimeSquaredUnit]{
     new ProductTimeDotTimeUnit(unit1, unit2)
 }
 
+trait MultiplicativeByTimeSquaredUnit[R]{
+  def *(unit: TimeSquaredUnit): R
+}
+
+trait DivisibleByTimeSquaredUnit[R]{
+  def /(unit: TimeSquaredUnit): R
+}
+
 trait TimeSquaredPostfixOps[A]{
   import TimeSquaredUnit._
 

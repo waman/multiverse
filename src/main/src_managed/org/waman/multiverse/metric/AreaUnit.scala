@@ -1,10 +1,11 @@
 package org.waman.multiverse.metric
 
-import org.waman.multiverse._
-import org.waman.multiverse.fluid.KinematicViscosityUnit
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
+import org.waman.multiverse.fluid._
 
 sealed trait AreaUnit extends PhysicalUnit[AreaUnit]
   with MultiplicativeByLengthUnit[VolumeUnit]
@@ -107,6 +108,14 @@ object AreaUnit extends ConstantsDefined[AreaUnit]{
 
   def apply(unit1: LengthUnit, unit2: LengthUnit): AreaUnit =
     new ProductLengthDotLengthUnit(unit1, unit2)
+}
+
+trait MultiplicativeByAreaUnit[R]{
+  def *(unit: AreaUnit): R
+}
+
+trait DivisibleByAreaUnit[R]{
+  def /(unit: AreaUnit): R
 }
 
 trait AreaPostfixOps[A]{

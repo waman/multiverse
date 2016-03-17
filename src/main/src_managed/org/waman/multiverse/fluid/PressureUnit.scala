@@ -1,9 +1,12 @@
 package org.waman.multiverse.fluid
 
-import org.waman.multiverse._
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
+import org.waman.multiverse.mechanics._
 
 sealed trait PressureUnit extends PhysicalUnit[PressureUnit]
   with MultiplicativeByTimeUnit[DynamicViscosityUnit]{
@@ -54,6 +57,26 @@ object PressureUnit extends ConstantsDefined[PressureUnit]{
   case object YottaPascal extends IntrinsicPressureUnit("YottaPascal", Seq("YPa"), r"1e24")
 
   override lazy val values = Seq(YoctoPascal, ZeptoPascal, AttoPascal, FemtoPascal, PicoPascal, NanoPascal, MicroPascal, MilliPascal, CentiPascal, DeciPascal, Pascal, DecaPascal, HectoPascal, KiloPascal, MegaPascal, GigaPascal, TeraPascal, PetaPascal, ExaPascal, ZettaPascal, YottaPascal)
+
+  // ForceUnit / AreaUnit -> Pressure
+  private[PressureUnit]
+  class QuotientForcePerAreaUnit(val numeratorUnit: ForceUnit, val denominatorUnit: AreaUnit)
+      extends PressureUnit with QuotientUnit[PressureUnit, ForceUnit, AreaUnit]{
+
+    override lazy val unitInPascal: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: ForceUnit, dUnit: AreaUnit): PressureUnit =
+    new QuotientForcePerAreaUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByPressureUnit[R]{
+  def *(unit: PressureUnit): R
+}
+
+trait DivisibleByPressureUnit[R]{
+  def /(unit: PressureUnit): R
 }
 
 trait PressurePostfixOps[A]{

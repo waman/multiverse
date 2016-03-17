@@ -1,6 +1,18 @@
 package org.waman.multiverse.thermal
 
+import spire.math.Real
+import spire.implicits._
 import org.waman.multiverse._
+
+import org.waman.multiverse.angle.DegreePostfixOps
+
+trait MultiplicativeByTemperatureUnit[R]{
+  def *(unit: TemperatureUnit): R
+}
+
+trait DivisibleByTemperatureUnit[R]{
+  def /(unit: TemperatureUnit): R
+}
 
 trait TemperaturePostfixOps[A]{
   import TemperatureUnit._

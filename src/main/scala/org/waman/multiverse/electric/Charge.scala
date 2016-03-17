@@ -1,8 +1,8 @@
 package org.waman.multiverse.electric
 
 import org.waman.multiverse._
-import org.waman.multiverse.mass.{MassPostfixOps, MassUnit}
-import org.waman.multiverse.metric.{LengthPostfixOps, LengthUnit}
+import org.waman.multiverse.mass.{DivisibleByMassUnit, MassPostfixOps, MassUnit}
+import org.waman.multiverse.metric.{LengthPostfixOps, LengthUnit, MultiplicativeByLengthUnit}
 import org.waman.multiverse.radiation.{Exposure, ExposureUnit}
 import spire.implicits._
 import spire.math.Fractional

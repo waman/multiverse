@@ -1,10 +1,11 @@
 package org.waman.multiverse.mechanics
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.LengthUnit
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
 
 sealed trait VelocityUnit extends PhysicalUnit[VelocityUnit]
   with DivisibleByTimeUnit[AccelerationUnit]{
@@ -59,6 +60,14 @@ object VelocityUnit extends ConstantsDefined[VelocityUnit]{
 
   def apply(nUnit: LengthUnit, dUnit: TimeUnit): VelocityUnit =
     new QuotientLengthPerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByVelocityUnit[R]{
+  def *(unit: VelocityUnit): R
+}
+
+trait DivisibleByVelocityUnit[R]{
+  def /(unit: VelocityUnit): R
 }
 
 trait VelocityPostfixOps[A]{

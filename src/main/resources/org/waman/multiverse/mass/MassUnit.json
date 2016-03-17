@@ -1,11 +1,13 @@
 {
   "imports":[
-    "org.waman.multiverse.metric.VolumeUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.mechanics._"
   ],
 
   "baseUnit":"KiloGram",
   "baseUnitAccessor":"unitInKiloGram",
 
+  "multiplicative":[["AccelerationUnit", "ForceUnit"]],
   "divisible":[["VolumeUnit", "DensityUnit"]],
 
   "constants":[

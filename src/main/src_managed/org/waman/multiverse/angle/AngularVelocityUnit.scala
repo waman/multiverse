@@ -1,10 +1,11 @@
 package org.waman.multiverse.angle
 
-import org.waman.multiverse.MultiverseUtil.twoPi
-import org.waman.multiverse._
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time.TimeUnit
+import org.waman.multiverse.MultiverseUtil.twoPi
 
 sealed trait AngularVelocityUnit extends PhysicalUnit[AngularVelocityUnit]{
 
@@ -45,6 +46,14 @@ object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
 
   def apply(nUnit: AngleUnit, dUnit: TimeUnit): AngularVelocityUnit =
     new QuotientAnglePerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByAngularVelocityUnit[R]{
+  def *(unit: AngularVelocityUnit): R
+}
+
+trait DivisibleByAngularVelocityUnit[R]{
+  def /(unit: AngularVelocityUnit): R
 }
 
 trait AngularVelocityPostfixOps[A]{

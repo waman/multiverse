@@ -1,6 +1,6 @@
 {
   "imports":[
-    "org.waman.multiverse.electric.CurrentUnit"
+    "org.waman.multiverse.electric._"
   ],
 
   "baseUnit":"Henry",

@@ -1,9 +1,10 @@
 package org.waman.multiverse.luminous
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.AreaUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait IlluminanceUnit extends PhysicalUnit[IlluminanceUnit]{
 
@@ -65,6 +66,14 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
 
   def apply(nUnit: LuminousFluxUnit, dUnit: AreaUnit): IlluminanceUnit =
     new QuotientLuminousFluxPerAreaUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByIlluminanceUnit[R]{
+  def *(unit: IlluminanceUnit): R
+}
+
+trait DivisibleByIlluminanceUnit[R]{
+  def /(unit: IlluminanceUnit): R
 }
 
 trait IlluminancePostfixOps[A]{

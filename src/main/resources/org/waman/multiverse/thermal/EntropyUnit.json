@@ -11,8 +11,8 @@
 
   "constants":[
     {"name":"Nat", "symbols":["nat", "k_B"] , "args":"r\"1.380650523e-23\"", "NotExact":true},
-    {"name":"Bit", "symbols":["bit", "Sh"]  , "args":"Real(2).log, Nat", "NotExact":true},
-    {"name":"Ban", "symbols":["ban", "Hart"], "args":"Real(10).log, Nat", "NotExact":true},
+    {"name":"Bit", "symbols":["bit", "Sh"]  , "args":"Real(2).log(), Nat", "NotExact":true},
+    {"name":"Ban", "symbols":["ban", "Hart"], "args":"Real(10).log(), Nat", "NotExact":true},
 
     {"name":"Byte", "symbol":"B", "args":" * 8, Bit", "scalePrefixes":true,
       "excludePrefixes":["y", "z", "a", "f", "p", "n", "μ", "m", "c", "d"], "NotExact":true},

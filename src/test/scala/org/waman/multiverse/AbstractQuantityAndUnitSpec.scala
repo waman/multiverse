@@ -6,31 +6,28 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
 
   protected val getUnitClass: Class[U]
 
-  protected lazy val getUnitClassName = getUnitClass.getName
-  protected lazy val getQuantityClassName = getUnitClassName.substring(0, getUnitClassName.length - 4)
+  protected lazy val unitClassName = getUnitClass.getName
+  protected lazy val quantityClassName = unitClassName.replaceAll("Unit", "")
 
-  protected lazy val getPostfixOpsTrait: Option[Class[_]] =
-    try Some(Class.forName(getQuantityClassName + "PostfixOps"))
-    catch { case _: ClassNotFoundException => None }
+  protected lazy val postfixOpsTrait: Class[_] =
+    Class.forName(quantityClassName + "PostfixOps")
 
-  protected lazy val getPostfixOpsObjectClass: Class[_] =
-    Class.forName(getQuantityClassName + "PostfixOps$")
+  protected lazy val postfixOpsObjectClass: Class[_] =
+    Class.forName(quantityClassName + "PostfixOps$")
 
-  protected lazy val getPostfixOpsObject: Any =
-    getPostfixOpsObjectClass.getField("MODULE$").get(null)
+  protected lazy val postfixOpsObject: Any =
+    postfixOpsObjectClass.getField("MODULE$").get(null)
 
-  protected lazy val getDotTrait: Option[Class[_]] =
-    try Some(Class.forName(getQuantityClassName + "Dot"))
-    catch { case _: ClassNotFoundException => None }
+  protected lazy val dotTrait: Class[_] =
+    Class.forName(quantityClassName + "Dot")
 
-  protected lazy val getPerTrait: Option[Class[_]] =
-    try Some(Class.forName(getQuantityClassName + "Per"))
-    catch { case _: ClassNotFoundException => None }
+  protected lazy val perTrait: Class[_] =
+    Class.forName(quantityClassName + "Per")
 
   protected lazy val getConstantsDefined: Option[ConstantsDefined[U]] =
     try{
       Some(
-        Class.forName(getUnitClassName + "$").getField("MODULE$")
+        Class.forName(unitClassName + "$").getField("MODULE$")
           .get(null).asInstanceOf[ConstantsDefined[U]])
     }catch{ case _: Exception => None }
 
@@ -75,73 +72,67 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
     """XxxPostfixOps trait should have properties
       | whose names are the same as 'symbol' properties of unit objects""".stripMargin in {
 
-      getPostfixOpsTrait match { case Some(postfixOps) =>
-        getConstantsDefined match { case Some(constDef) =>
+      getConstantsDefined match { case Some(constDef) =>
 
-          def getPostfixOpsPropertyNames: Seq[String] =
-            postfixOps.getMethods
-              .filterNot(_.getName.endsWith("PostfixOps"))
-              .flatMap(methodToSymbols)
+        def getPostfixOpsPropertyNames: Seq[String] =
+          postfixOpsTrait.getMethods
+            .filterNot(_.getName.endsWith("PostfixOps"))
+            .flatMap(methodToSymbols)
 
-          def methodToSymbols(m: Method): Seq[String] = m.getParameterCount match {
-            case 0 => Seq(decodePropertyName(m.getName))
-            case 1 =>
-              val name = m.getName
-              val pf = getPostfixOpsObjectClass
-                         .getMethod("_" + name).invoke(getPostfixOpsObject)
-                         .asInstanceOf[PartialFunction[Context, _]]
-              Context.values
-                .filter(pf.isDefinedAt)
-                .map(decodePropertyName(name) + "(" + _.symbol + ")")
-          }
+        def methodToSymbols(m: Method): Seq[String] = m.getParameterCount match {
+          case 0 => Seq(decodePropertyName(m.getName))
+          case 1 =>
+            val name = m.getName
+            val pf = postfixOpsObjectClass
+                       .getMethod("_" + name).invoke(postfixOpsObject)
+                       .asInstanceOf[PartialFunction[Context, _]]
+            Context.values
+              .filter(pf.isDefinedAt)
+              .map(decodePropertyName(name) + "(" + _.symbol + ")")
+        }
 
-          __SetUp__
-          val sut = getPostfixOpsPropertyNames
-          val expected = constDef.values
-                           .flatMap(_.symbols)
-                           .filterNot(s => s.startsWith("°") && s.length > 1)
-                             // remove degree temperature like °C (test in another testcase)
-          __Verify__
-          sut should containTheSameElementsAs(expected)
+        __SetUp__
+        val sut = getPostfixOpsPropertyNames
+        val expected = constDef.values
+                         .flatMap(_.symbols)
+                         .filterNot(s => s.startsWith("°") && s.length > 1)
+                           // remove degree temperature like °C (test in another testcase)
+        __Verify__
+        sut should containTheSameElementsAs(expected)
 
-        case None => cancel("XxxUnit object is not defined") }
-      case None => cancel("XxxPostfixOps trait is not defined") }
+      case None => cancel("XxxUnit object is not defined") }
     }
 
     "XxxDot trait should have methods whose names are 'symbol' properties of unit objects" in {
-      getDotTrait match { case Some(dot) =>
-        getConstantsDefined match { case Some(constDef) =>
-          __SetUp__
-          val sut = getPropertyNames(dot, "Dot")
-          val expected =
-            constDef.values
-              .flatMap(_.symbols)
-              .filterNot(_.contains("("))
-              .filterNot(s => s.startsWith("°") && s.length > 1)
-                // remove degree temperature like °C (test in another testcase)
-          __Verify__
-          sut should containTheSameElementsAs(expected)
+      getConstantsDefined match { case Some(constDef) =>
+        __SetUp__
+        val sut = getPropertyNames(dotTrait, "Dot")
+        val expected =
+          constDef.values
+            .flatMap(_.symbols)
+            .filterNot(_.contains("("))
+            .filterNot(s => s.startsWith("°") && s.length > 1)
+              // remove degree temperature like °C (test in another testcase)
+        __Verify__
+        sut should containTheSameElementsAs(expected)
 
-        case None => cancel("XxxUnit object is not defined") }
-      case None => cancel("XxxDot trait is not defined") }
+      case None => cancel("XxxUnit object is not defined") }
     }
 
     "XxxPer trait should have methods whose names are 'symbol' properties of unit objects" in {
-      getPerTrait match { case Some(per) =>
-        getConstantsDefined match { case Some(constDef) =>
-          __SetUp__
-          val sut = getPropertyNames(per, "Per")
-          val expected =
-            constDef.values
-              .flatMap(_.symbols)
-              .filterNot(_.contains("("))
-              .filterNot(s => s.startsWith("°") && s.length > 1)
-                // remove degree temperature like °C (test in another testcase)
-          __Verify__
-          sut should containTheSameElementsAs(expected)
+      getConstantsDefined match { case Some(constDef) =>
+        __SetUp__
+        val sut = getPropertyNames(perTrait, "Per")
+        val expected =
+          constDef.values
+            .flatMap(_.symbols)
+            .filterNot(_.contains("("))
+            .filterNot(s => s.startsWith("°") && s.length > 1)
+              // remove degree temperature like °C (test in another testcase)
+        __Verify__
+        sut should containTheSameElementsAs(expected)
 
-        case None => cancel("XxxUnit object is not defined") }
-      case None => cancel("XxxPer trait is not defined") }
+      case None => cancel("XxxUnit object is not defined") }
     }
   }
 

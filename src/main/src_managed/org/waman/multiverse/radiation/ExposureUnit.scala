@@ -1,10 +1,11 @@
 package org.waman.multiverse.radiation
 
+import spire.math.Real
+import spire.implicits._
 import org.waman.multiverse._
+
 import org.waman.multiverse.electric.ChargeUnit
 import org.waman.multiverse.mass.MassUnit
-import spire.implicits._
-import spire.math.Real
 
 sealed trait ExposureUnit extends PhysicalUnit[ExposureUnit]{
 
@@ -44,6 +45,14 @@ object ExposureUnit extends ConstantsDefined[ExposureUnit]{
 
   def apply(nUnit: ChargeUnit, dUnit: MassUnit): ExposureUnit =
     new QuotientChargePerMassUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByExposureUnit[R]{
+  def *(unit: ExposureUnit): R
+}
+
+trait DivisibleByExposureUnit[R]{
+  def /(unit: ExposureUnit): R
 }
 
 trait ExposurePostfixOps[A]{

@@ -1,10 +1,11 @@
 package org.waman.multiverse.radiation
 
-import org.waman.multiverse._
-import org.waman.multiverse.energy.EnergyUnit
-import org.waman.multiverse.mass.MassUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.mass._
+import org.waman.multiverse.energy._
 
 sealed trait AbsorbedDoseUnit extends PhysicalUnit[AbsorbedDoseUnit]{
 
@@ -64,6 +65,14 @@ object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
 
   def apply(nUnit: EnergyUnit, dUnit: MassUnit): AbsorbedDoseUnit =
     new QuotientEnergyPerMassUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByAbsorbedDoseUnit[R]{
+  def *(unit: AbsorbedDoseUnit): R
+}
+
+trait DivisibleByAbsorbedDoseUnit[R]{
+  def /(unit: AbsorbedDoseUnit): R
 }
 
 trait AbsorbedDosePostfixOps[A]{

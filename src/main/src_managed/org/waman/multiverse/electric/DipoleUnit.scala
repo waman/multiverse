@@ -1,9 +1,10 @@
 package org.waman.multiverse.electric
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.LengthUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait DipoleUnit extends PhysicalUnit[DipoleUnit]{
 
@@ -43,6 +44,14 @@ object DipoleUnit extends ConstantsDefined[DipoleUnit]{
 
   def apply(unit1: ChargeUnit, unit2: LengthUnit): DipoleUnit =
     new ProductChargeDotLengthUnit(unit1, unit2)
+}
+
+trait MultiplicativeByDipoleUnit[R]{
+  def *(unit: DipoleUnit): R
+}
+
+trait DivisibleByDipoleUnit[R]{
+  def /(unit: DipoleUnit): R
 }
 
 trait DipolePostfixOps[A]{

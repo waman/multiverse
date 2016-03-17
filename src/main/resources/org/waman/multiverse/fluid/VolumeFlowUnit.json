@@ -1,7 +1,7 @@
 {
   "imports":[
-    "org.waman.multiverse.metric.VolumeUnit",
-    "org.waman.multiverse.time.TimeUnit"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._"
   ],
 
   "baseUnit":"VolumeUnit.CubicMetre / TimeUnit.Second",

@@ -1,8 +1,8 @@
 package org.waman.multiverse.electric
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
 
 sealed trait ResistanceUnit extends PhysicalUnit[ResistanceUnit]{
@@ -51,6 +51,26 @@ object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
   case object YottaOhm extends IntrinsicResistanceUnit("YottaOhm", Seq("YΩ"), r"1e24")
 
   override lazy val values = Seq(YoctoOhm, ZeptoOhm, AttoOhm, FemtoOhm, PicoOhm, NanoOhm, MicroOhm, MilliOhm, CentiOhm, DeciOhm, Ohm, DecaOhm, HectoOhm, KiloOhm, MegaOhm, GigaOhm, TeraOhm, PetaOhm, ExaOhm, ZettaOhm, YottaOhm)
+
+  // VoltageUnit / CurrentUnit -> Resistance
+  private[ResistanceUnit]
+  class QuotientVoltagePerCurrentUnit(val numeratorUnit: VoltageUnit, val denominatorUnit: CurrentUnit)
+      extends ResistanceUnit with QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit]{
+
+    override lazy val unitInOhm: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: VoltageUnit, dUnit: CurrentUnit): ResistanceUnit =
+    new QuotientVoltagePerCurrentUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByResistanceUnit[R]{
+  def *(unit: ResistanceUnit): R
+}
+
+trait DivisibleByResistanceUnit[R]{
+  def /(unit: ResistanceUnit): R
 }
 
 trait ResistancePostfixOps[A]{

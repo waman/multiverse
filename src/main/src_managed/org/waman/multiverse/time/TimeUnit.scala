@@ -1,8 +1,8 @@
 package org.waman.multiverse.time
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
 
 sealed trait TimeUnit extends PhysicalUnit[TimeUnit]
@@ -60,6 +60,14 @@ object TimeUnit extends ConstantsDefined[TimeUnit]{
   case object Day extends IntrinsicTimeUnit("Day", Seq("d"), r"24", Hour)
 
   override lazy val values = Seq(YoctoSecond, ZeptoSecond, AttoSecond, FemtoSecond, PicoSecond, NanoSecond, MicroSecond, MilliSecond, CentiSecond, DeciSecond, Second, DecaSecond, HectoSecond, KiloSecond, MegaSecond, GigaSecond, TeraSecond, PetaSecond, ExaSecond, ZettaSecond, YottaSecond, Minute, Hour, Day)
+}
+
+trait MultiplicativeByTimeUnit[R]{
+  def *(unit: TimeUnit): R
+}
+
+trait DivisibleByTimeUnit[R]{
+  def /(unit: TimeUnit): R
 }
 
 trait TimePostfixOps[A]{

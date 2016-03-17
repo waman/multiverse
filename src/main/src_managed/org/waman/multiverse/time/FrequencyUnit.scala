@@ -1,8 +1,8 @@
 package org.waman.multiverse.time
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
 
 sealed trait FrequencyUnit extends PhysicalUnit[FrequencyUnit]{
@@ -51,6 +51,14 @@ object FrequencyUnit extends ConstantsDefined[FrequencyUnit]{
   case object YottaHeltz extends IntrinsicFrequencyUnit("YottaHeltz", Seq("YHz"), r"1e24")
 
   override lazy val values = Seq(YoctoHeltz, ZeptoHeltz, AttoHeltz, FemtoHeltz, PicoHeltz, NanoHeltz, MicroHeltz, MilliHeltz, CentiHeltz, DeciHeltz, Heltz, DecaHeltz, HectoHeltz, KiloHeltz, MegaHeltz, GigaHeltz, TeraHeltz, PetaHeltz, ExaHeltz, ZettaHeltz, YottaHeltz)
+}
+
+trait MultiplicativeByFrequencyUnit[R]{
+  def *(unit: FrequencyUnit): R
+}
+
+trait DivisibleByFrequencyUnit[R]{
+  def /(unit: FrequencyUnit): R
 }
 
 trait FrequencyPostfixOps[A]{

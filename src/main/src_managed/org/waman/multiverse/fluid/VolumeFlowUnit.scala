@@ -1,9 +1,11 @@
 package org.waman.multiverse.fluid
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.VolumeUnit
-import org.waman.multiverse.time.TimeUnit
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
 
 sealed trait VolumeFlowUnit extends PhysicalUnit[VolumeFlowUnit]{
 
@@ -47,6 +49,14 @@ object VolumeFlowUnit extends ConstantsDefined[VolumeFlowUnit]{
 
   def apply(nUnit: VolumeUnit, dUnit: TimeUnit): VolumeFlowUnit =
     new QuotientVolumePerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByVolumeFlowUnit[R]{
+  def *(unit: VolumeFlowUnit): R
+}
+
+trait DivisibleByVolumeFlowUnit[R]{
+  def /(unit: VolumeFlowUnit): R
 }
 
 trait VolumeFlowPostfixOps[A]{

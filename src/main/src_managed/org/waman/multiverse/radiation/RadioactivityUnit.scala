@@ -75,6 +75,14 @@ object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
   override lazy val values = Seq(YoctoBecquerel, ZeptoBecquerel, AttoBecquerel, FemtoBecquerel, PicoBecquerel, NanoBecquerel, MicroBecquerel, MilliBecquerel, CentiBecquerel, DeciBecquerel, Becquerel, DecaBecquerel, HectoBecquerel, KiloBecquerel, MegaBecquerel, GigaBecquerel, TeraBecquerel, PetaBecquerel, ExaBecquerel, ZettaBecquerel, YottaBecquerel, YoctoCurie, ZeptoCurie, AttoCurie, FemtoCurie, PicoCurie, NanoCurie, MicroCurie, MilliCurie, CentiCurie, DeciCurie, Curie, DecaCurie, HectoCurie, KiloCurie, MegaCurie, GigaCurie, TeraCurie, PetaCurie, ExaCurie, ZettaCurie, YottaCurie, Rutherford)
 }
 
+trait MultiplicativeByRadioactivityUnit[R]{
+  def *(unit: RadioactivityUnit): R
+}
+
+trait DivisibleByRadioactivityUnit[R]{
+  def /(unit: RadioactivityUnit): R
+}
+
 trait RadioactivityPostfixOps[A]{
   import RadioactivityUnit._
 

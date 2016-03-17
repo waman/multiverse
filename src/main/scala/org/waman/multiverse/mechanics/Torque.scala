@@ -1,7 +1,7 @@
 package org.waman.multiverse.mechanics
 
 import org.waman.multiverse._
-import org.waman.multiverse.metric.{LengthPostfixOps, LengthUnit}
+import org.waman.multiverse.metric.{MultiplicativeByLengthUnit, LengthPostfixOps, LengthUnit}
 import spire.implicits._
 import spire.math.Fractional
 

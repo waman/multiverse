@@ -1,13 +1,19 @@
 {
   "imports":[
-    "org.waman.multiverse.metric.LengthUnit",
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.mass._",
+    "org.waman.multiverse.fluid._",
     "org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity"
   ],
 
   "baseUnit":"Newton",
   "baseUnitAccessor":"unitInNewton",
 
-  "multiplicative":[["LengthUnit", "TorqueUnit"]],
+  "multiplicative":[["LengthUnit", "TorqueUnit"], ["TimeUnit", "MomentumUnit"]],
+  "divisible":[["AreaUnit", "PressureUnit"]],
+
+  "product":[["MassUnit", "AccelerationUnit"]],
 
   "constants":[
     {"name":"Newton", "symbol":"N", "args":"", "scalePrefixes":true},

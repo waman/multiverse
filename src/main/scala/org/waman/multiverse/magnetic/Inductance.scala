@@ -1,7 +1,7 @@
 package org.waman.multiverse.magnetic
 
 import org.waman.multiverse._
-import org.waman.multiverse.electric.{CurrentPostfixOps, CurrentUnit}
+import org.waman.multiverse.electric.{DivisibleByCurrentUnit, CurrentPostfixOps, CurrentUnit}
 import spire.implicits._
 import spire.math.Fractional
 

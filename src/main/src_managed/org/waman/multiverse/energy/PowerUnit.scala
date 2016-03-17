@@ -1,16 +1,24 @@
 package org.waman.multiverse.energy
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
+import org.waman.multiverse.time._
+import org.waman.multiverse.electric._
 
-sealed trait PowerUnit extends PhysicalUnit[PowerUnit]{
+sealed trait PowerUnit extends PhysicalUnit[PowerUnit]
+  with MultiplicativeByTimeUnit[EnergyUnit]
+  with DivisibleByCurrentUnit[VoltageUnit]{
 
   def unitInWatt: Real
 
   override def baseUnit = org.waman.multiverse.energy.PowerUnit.Watt
   override def valueInBaseUnit = unitInWatt
+
+  override def *(unit: TimeUnit) = EnergyUnit(this, unit)
+
+  override def /(unit: CurrentUnit) = VoltageUnit(this, unit)
 }
 
 object PowerUnit extends ConstantsDefined[PowerUnit]{
@@ -51,6 +59,26 @@ object PowerUnit extends ConstantsDefined[PowerUnit]{
   case object YottaWatt extends IntrinsicPowerUnit("YottaWatt", Seq("YW"), r"1e24")
 
   override lazy val values = Seq(YoctoWatt, ZeptoWatt, AttoWatt, FemtoWatt, PicoWatt, NanoWatt, MicroWatt, MilliWatt, CentiWatt, DeciWatt, Watt, DecaWatt, HectoWatt, KiloWatt, MegaWatt, GigaWatt, TeraWatt, PetaWatt, ExaWatt, ZettaWatt, YottaWatt)
+
+  // EnergyUnit / TimeUnit -> Power
+  private[PowerUnit]
+  class QuotientEnergyPerTimeUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: TimeUnit)
+      extends PowerUnit with QuotientUnit[PowerUnit, EnergyUnit, TimeUnit]{
+
+    override lazy val unitInWatt: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: EnergyUnit, dUnit: TimeUnit): PowerUnit =
+    new QuotientEnergyPerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByPowerUnit[R]{
+  def *(unit: PowerUnit): R
+}
+
+trait DivisibleByPowerUnit[R]{
+  def /(unit: PowerUnit): R
 }
 
 trait PowerPostfixOps[A]{

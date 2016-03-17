@@ -1,6 +1,6 @@
 {
   "imports": [
-    "org.waman.multiverse.metric.LengthUnit"
+    "org.waman.multiverse.metric._"
   ],
 
   "baseUnit":"ForceUnit.Newton * LengthUnit.Metre",

@@ -1,0 +1,14 @@
+{
+  "imports": [
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.fluid._"
+  ],
+
+  "baseUnit":"ForceUnit.Newton * TimeUnit.Second",
+  "baseUnitAccessor":"unitInNewtonSecond",
+
+  "divisible":[["AreaUnit", "DynamicViscosityUnit"]],
+
+  "product":[["ForceUnit", "TimeUnit"]]
+}

@@ -1,10 +1,11 @@
 package org.waman.multiverse.fluid
 
+import spire.math.Real
+import spire.implicits._
 import org.waman.multiverse._
+
 import org.waman.multiverse.metric.AreaUnit
 import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
-import spire.math.Real
 
 sealed trait KinematicViscosityUnit extends PhysicalUnit[KinematicViscosityUnit]{
 
@@ -44,6 +45,14 @@ object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
 
   def apply(nUnit: AreaUnit, dUnit: TimeUnit): KinematicViscosityUnit =
     new QuotientAreaPerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByKinematicViscosityUnit[R]{
+  def *(unit: KinematicViscosityUnit): R
+}
+
+trait DivisibleByKinematicViscosityUnit[R]{
+  def /(unit: KinematicViscosityUnit): R
 }
 
 trait KinematicViscosityPostfixOps[A]{

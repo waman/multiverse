@@ -57,6 +57,7 @@ object MultiverseSourceGenerator extends GluinoPath{
 
     val generated = srcManaged / "org/waman/multiverse/Context.scala"
     if(!generated.exists || generated.isOlderThan(json) ){
+      if(generated.exists) generated.delete()
       generated.getParent.createDirectories()
       generated.createFile()
 
@@ -124,6 +125,7 @@ object MultiverseSourceGenerator extends GluinoPath{
       val generated = destDir / fileName
 
       if(!generated.exists || generated.isOlderThan(json)){
+        if(generated.exists) generated.delete()
         destDir.createDirectories()
         generated.createFile()
 
@@ -341,6 +343,17 @@ object MultiverseSourceGenerator extends GluinoPath{
              |}""".stripMargin
       }
 
+      //***** MultiplicativeBy and DivisibleBy trait *****
+      writer <<
+        s"""
+           |
+           |trait MultiplicativeBy${className}Unit[R]{
+           |  def *(unit: ${className}Unit): R
+           |}
+           |
+           |trait DivisibleBy${className}Unit[R]{
+           |  def /(unit: ${className}Unit): R
+           |}""".stripMargin
 
       if(units.nonEmpty) {
         //***** PostfixOps trait *****

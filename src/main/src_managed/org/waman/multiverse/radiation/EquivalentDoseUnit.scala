@@ -1,7 +1,7 @@
 package org.waman.multiverse.radiation
 
 import org.waman.multiverse._
-import org.waman.multiverse.time.TimeUnit
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math.Real
 
@@ -75,6 +75,14 @@ object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
   case object YottaREM extends IntrinsicEquivalentDoseUnit("YottaREM", Seq("Yrem"), r"1e24" * r"1e-2")
 
   override lazy val values = Seq(YoctoSievert, ZeptoSievert, AttoSievert, FemtoSievert, PicoSievert, NanoSievert, MicroSievert, MilliSievert, CentiSievert, DeciSievert, Sievert, DecaSievert, HectoSievert, KiloSievert, MegaSievert, GigaSievert, TeraSievert, PetaSievert, ExaSievert, ZettaSievert, YottaSievert, YoctoREM, ZeptoREM, AttoREM, FemtoREM, PicoREM, NanoREM, MicroREM, MilliREM, CentiREM, DeciREM, REM, DecaREM, HectoREM, KiloREM, MegaREM, GigaREM, TeraREM, PetaREM, ExaREM, ZettaREM, YottaREM)
+}
+
+trait MultiplicativeByEquivalentDoseUnit[R]{
+  def *(unit: EquivalentDoseUnit): R
+}
+
+trait DivisibleByEquivalentDoseUnit[R]{
+  def /(unit: EquivalentDoseUnit): R
 }
 
 trait EquivalentDosePostfixOps[A]{

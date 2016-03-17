@@ -1,16 +1,19 @@
 package org.waman.multiverse.electric
 
 import org.waman.multiverse._
+import org.waman.multiverse.time._
 import spire.implicits._
 import spire.math.Real
 
-
-sealed trait CurrentUnit extends PhysicalUnit[CurrentUnit]{
+sealed trait CurrentUnit extends PhysicalUnit[CurrentUnit]
+  with MultiplicativeByTimeUnit[ChargeUnit]{
 
   def unitInAmpere: Real
 
   override def baseUnit = org.waman.multiverse.electric.CurrentUnit.Ampere
   override def valueInBaseUnit = unitInAmpere
+
+  override def *(unit: TimeUnit) = ChargeUnit(this, unit)
 }
 
 object CurrentUnit extends ConstantsDefined[CurrentUnit]{
@@ -51,6 +54,26 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
   case object YottaAmpere extends IntrinsicCurrentUnit("YottaAmpere", Seq("YA"), r"1e24")
 
   override lazy val values = Seq(YoctoAmpere, ZeptoAmpere, AttoAmpere, FemtoAmpere, PicoAmpere, NanoAmpere, MicroAmpere, MilliAmpere, CentiAmpere, DeciAmpere, Ampere, DecaAmpere, HectoAmpere, KiloAmpere, MegaAmpere, GigaAmpere, TeraAmpere, PetaAmpere, ExaAmpere, ZettaAmpere, YottaAmpere)
+
+  // ChargeUnit / TimeUnit -> Current
+  private[CurrentUnit]
+  class QuotientChargePerTimeUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: TimeUnit)
+      extends CurrentUnit with QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit]{
+
+    override lazy val unitInAmpere: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: ChargeUnit, dUnit: TimeUnit): CurrentUnit =
+    new QuotientChargePerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByCurrentUnit[R]{
+  def *(unit: CurrentUnit): R
+}
+
+trait DivisibleByCurrentUnit[R]{
+  def /(unit: CurrentUnit): R
 }
 
 trait CurrentPostfixOps[A]{

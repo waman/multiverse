@@ -1,9 +1,12 @@
 package org.waman.multiverse.fluid
 
-import org.waman.multiverse._
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.time._
+import org.waman.multiverse.mechanics._
 
 sealed trait DynamicViscosityUnit extends PhysicalUnit[DynamicViscosityUnit]{
 
@@ -43,6 +46,26 @@ object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
 
   def apply(unit1: PressureUnit, unit2: TimeUnit): DynamicViscosityUnit =
     new ProductPressureDotTimeUnit(unit1, unit2)
+
+  // MomentumUnit / AreaUnit -> DynamicViscosity
+  private[DynamicViscosityUnit]
+  class QuotientMomentumPerAreaUnit(val numeratorUnit: MomentumUnit, val denominatorUnit: AreaUnit)
+      extends DynamicViscosityUnit with QuotientUnit[DynamicViscosityUnit, MomentumUnit, AreaUnit]{
+
+    override lazy val unitInPascalSecond: Real =
+      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+  }
+
+  def apply(nUnit: MomentumUnit, dUnit: AreaUnit): DynamicViscosityUnit =
+    new QuotientMomentumPerAreaUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByDynamicViscosityUnit[R]{
+  def *(unit: DynamicViscosityUnit): R
+}
+
+trait DivisibleByDynamicViscosityUnit[R]{
+  def /(unit: DynamicViscosityUnit): R
 }
 
 trait DynamicViscosityPostfixOps[A]{

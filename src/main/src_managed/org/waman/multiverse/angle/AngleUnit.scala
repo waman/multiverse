@@ -1,11 +1,12 @@
 package org.waman.multiverse.angle
 
-import org.waman.multiverse.MultiverseUtil.twoPi
-import org.waman.multiverse._
-import org.waman.multiverse.thermal.{DegreeTemperaturePostfixOps, TemperatureUnit}
-import org.waman.multiverse.time.TimeUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.MultiverseUtil.twoPi
+import org.waman.multiverse.time._
+import org.waman.multiverse.thermal._
 
 sealed trait AngleUnit extends PhysicalUnit[AngleUnit]
   with DivisibleByTimeUnit[AngularVelocityUnit]{
@@ -60,6 +61,14 @@ object AngleUnit extends ConstantsDefined[AngleUnit]{
   case object Turn extends IntrinsicAngleUnit("Turn", Seq("tr"), twoPi)
 
   override lazy val values = Seq(YoctoRadian, ZeptoRadian, AttoRadian, FemtoRadian, PicoRadian, NanoRadian, MicroRadian, MilliRadian, CentiRadian, DeciRadian, Radian, Degree, Arcmin, Arcsec, YoctoArcsec, ZeptoArcsec, AttoArcsec, FemtoArcsec, PicoArcsec, NanoArcsec, MicroArcsec, MilliArcsec, Gradian, Turn)
+}
+
+trait MultiplicativeByAngleUnit[R]{
+  def *(unit: AngleUnit): R
+}
+
+trait DivisibleByAngleUnit[R]{
+  def /(unit: AngleUnit): R
 }
 
 trait AnglePostfixOps[A]{

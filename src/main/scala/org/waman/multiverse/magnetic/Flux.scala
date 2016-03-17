@@ -2,8 +2,8 @@ package org.waman.multiverse.magnetic
 
 import org.waman.multiverse._
 import org.waman.multiverse.electric._
-import org.waman.multiverse.metric.{AreaPostfixOps, AreaUnit}
-import org.waman.multiverse.time.{TimePostfixOps, TimeUnit}
+import org.waman.multiverse.metric.{DivisibleByAreaUnit, AreaPostfixOps, AreaUnit}
+import org.waman.multiverse.time.{MultiplicativeByTimeUnit, TimePostfixOps, TimeUnit}
 import spire.implicits._
 import spire.math.Fractional
 

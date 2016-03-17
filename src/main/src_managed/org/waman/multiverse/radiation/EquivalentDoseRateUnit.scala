@@ -1,8 +1,10 @@
 package org.waman.multiverse.radiation
 
-import org.waman.multiverse._
-import org.waman.multiverse.time.TimeUnit
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
 
 sealed trait EquivalentDoseRateUnit extends PhysicalUnit[EquivalentDoseRateUnit]{
 
@@ -41,4 +43,12 @@ object EquivalentDoseRateUnit extends ConstantsDefined[EquivalentDoseRateUnit]{
 
   def apply(nUnit: EquivalentDoseUnit, dUnit: TimeUnit): EquivalentDoseRateUnit =
     new QuotientEquivalentDosePerTimeUnit(nUnit, dUnit)
+}
+
+trait MultiplicativeByEquivalentDoseRateUnit[R]{
+  def *(unit: EquivalentDoseRateUnit): R
+}
+
+trait DivisibleByEquivalentDoseRateUnit[R]{
+  def /(unit: EquivalentDoseRateUnit): R
 }

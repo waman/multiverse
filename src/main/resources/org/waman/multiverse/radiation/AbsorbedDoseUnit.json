@@ -1,7 +1,7 @@
 {
   "imports":[
-    "org.waman.multiverse.energy.EnergyUnit",
-    "org.waman.multiverse.mass.MassUnit"
+    "org.waman.multiverse.mass._",
+    "org.waman.multiverse.energy._"
   ],
 
   "baseUnit":"Gray",
