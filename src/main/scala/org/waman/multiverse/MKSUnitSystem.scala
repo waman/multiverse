@@ -7,7 +7,7 @@ import org.waman.multiverse.fluid.{DynamicViscosity, KinematicViscosity, Pressur
 import org.waman.multiverse.luminous.{Illuminance, Luminance, LuminousFlux, LuminousIntensity}
 import org.waman.multiverse.magnetic.{Flux, FluxDensity, Inductance}
 import org.waman.multiverse.mass.{Density, Mass}
-import org.waman.multiverse.mechanics.{Acceleration, Force, Torque, Velocity}
+import org.waman.multiverse.mechanics._
 import org.waman.multiverse.metric.{Area, Length, Volume}
 import org.waman.multiverse.radiation._
 import org.waman.multiverse.thermal.{Entropy, Temperature}
@@ -37,9 +37,10 @@ trait MKSUnitSystem extends UnitSystem{
   implicit def convertPressureToFractional          [A: Fractional](q: Pressure[A])          : A = q.Pa
   implicit def convertTorqueToFractional            [A: Fractional](q: Torque[A])            : A = q.N*m
   implicit def convertEnergyToFractional            [A: Fractional](q: Energy[A])            : A = q.J
+  implicit def convertMomentumToFractional          [A: Fractional](q: Momentum[A])          : A = q.N*s
   implicit def convertPowerToFractional             [A: Fractional](q: Power[A])             : A = q.W
-  implicit def convertActionToFractional            [A: Fractional](q: Action[A])            : A = q.ħ
 
+  implicit def convertActionToFractional            [A: Fractional](q: Action[A])            : A = q.ħ
   implicit def convertDynamicViscosityToFractional  [A: Fractional](q: DynamicViscosity[A])  : A = q.Pa*s
   implicit def convertKinematicViscosityToFractional[A: Fractional](q: KinematicViscosity[A]): A = q.m2/s
   implicit def convertCurrentToFractional           [A: Fractional](q: Current[A])           : A = q.A
@@ -49,8 +50,8 @@ trait MKSUnitSystem extends UnitSystem{
   implicit def convertResistanceToFractional        [A: Fractional](q: Resistance[A])        : A = q.Ω
   implicit def convertCapacitanceToFractional       [A: Fractional](q: Capacitance[A])       : A = q.F
   implicit def convertFluxToFractional              [A: Fractional](q: Flux[A])              : A = q.Wb
-  implicit def convertFluxDensityToFractional       [A: Fractional](q: FluxDensity[A])       : A = q.T
 
+  implicit def convertFluxDensityToFractional       [A: Fractional](q: FluxDensity[A])       : A = q.T
   implicit def convertInductanceToFractional        [A: Fractional](q: Inductance[A])        : A = q.H
   implicit def convertTemperatureToFractional       [A: Fractional](q: Temperature[A])       : A = q.K
   implicit def convertEntropyToFractional           [A: Fractional](q: Entropy[A])           : A = q.J/K
@@ -60,8 +61,8 @@ trait MKSUnitSystem extends UnitSystem{
   implicit def convertIlluminanceToFractional       [A: Fractional](q: Illuminance[A])       : A = q.lx
   implicit def convertRadioactivityToFractional     [A: Fractional](q: Radioactivity[A])     : A = q.Bq
   implicit def convertExposureToFractional          [A: Fractional](q: Exposure[A])          : A = q.C/kg
-  implicit def convertAbsorbedDoseToFractional      [A: Fractional](q: AbsorbedDose[A])      : A = q.Gy
 
+  implicit def convertAbsorbedDoseToFractional      [A: Fractional](q: AbsorbedDose[A])      : A = q.Gy
   implicit def convertEquivalentDoseToFractional    [A: Fractional](q: EquivalentDose[A])    : A = q.Sv
   implicit def convertEquivalentDoseRateToFractional[A: Fractional](q: EquivalentDoseRate[A]): A = q.Sv/s
 }
