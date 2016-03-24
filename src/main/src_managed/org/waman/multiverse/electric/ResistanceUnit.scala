@@ -78,6 +78,7 @@ trait ResistancePostfixOps[A]{
 
   protected def resistancePostfixOps(unit: ResistanceUnit): A
 
+
   def yΩ : A = resistancePostfixOps(YoctoOhm)
   def zΩ : A = resistancePostfixOps(ZeptoOhm)
   def aΩ : A = resistancePostfixOps(AttoOhm)

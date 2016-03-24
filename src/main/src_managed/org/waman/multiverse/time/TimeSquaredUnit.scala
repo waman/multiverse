@@ -1,8 +1,8 @@
 package org.waman.multiverse.time
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
 
 sealed trait TimeSquaredUnit extends PhysicalUnit[TimeSquaredUnit]{
@@ -57,6 +57,7 @@ trait TimeSquaredPostfixOps[A]{
   import TimeSquaredUnit._
 
   protected def timeSquaredPostfixOps(unit: TimeSquaredUnit): A
+
 
   def s2 : A = timeSquaredPostfixOps(SecondSquared)
 }

@@ -100,6 +100,7 @@ trait FluxDensityPostfixOps[A]{
 
   protected def fluxDensityPostfixOps(unit: FluxDensityUnit): A
 
+
   def yT : A = fluxDensityPostfixOps(YoctoTesla)
   def zT : A = fluxDensityPostfixOps(ZeptoTesla)
   def aT : A = fluxDensityPostfixOps(AttoTesla)

@@ -61,6 +61,7 @@ trait AngularVelocityPostfixOps[A]{
 
   protected def angularVelocityPostfixOps(unit: AngularVelocityUnit): A
 
+
   def cps : A = angularVelocityPostfixOps(CyclePerSecond)
   def rpm : A = angularVelocityPostfixOps(RevolutionPerMinute)
 }

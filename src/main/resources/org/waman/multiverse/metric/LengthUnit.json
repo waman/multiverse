@@ -14,6 +14,8 @@
   "square":"AreaUnit",
   "cubic" :"VolumeUnit",
 
+  "context":"org.waman.multiverse.metric.MetricContext",
+
   "constants":[
     {"name":"Metre", "symbol":"m", "args":"", "scalePrefixes":true},
 

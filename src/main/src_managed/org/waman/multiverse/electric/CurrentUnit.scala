@@ -1,9 +1,10 @@
 package org.waman.multiverse.electric
 
-import org.waman.multiverse._
-import org.waman.multiverse.time._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
 
 sealed trait CurrentUnit extends PhysicalUnit[CurrentUnit]
   with MultiplicativeByTimeUnit[ChargeUnit]{
@@ -80,6 +81,7 @@ trait CurrentPostfixOps[A]{
   import CurrentUnit._
 
   protected def currentPostfixOps(unit: CurrentUnit): A
+
 
   def yA : A = currentPostfixOps(YoctoAmpere)
   def zA : A = currentPostfixOps(ZeptoAmpere)

@@ -1,11 +1,12 @@
 package org.waman.multiverse.metric
 
-import org.waman.multiverse._
-import org.waman.multiverse.energy._
-import org.waman.multiverse.fluid._
-import org.waman.multiverse.time._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
+import org.waman.multiverse.fluid._
+import org.waman.multiverse.energy._
 
 sealed trait VolumeUnit extends PhysicalUnit[VolumeUnit]
   with MultiplicativeByPressureUnit[EnergyUnit]
@@ -146,6 +147,7 @@ trait VolumePostfixOps[A]{
 
   protected def volumePostfixOps(unit: VolumeUnit): A
 
+
   def ym3 : A = volumePostfixOps(YoctoCubicMetre)
   def zm3 : A = volumePostfixOps(ZeptoCubicMetre)
   def am3 : A = volumePostfixOps(AttoCubicMetre)
@@ -217,86 +219,90 @@ trait VolumePostfixOps[A]{
   def imp_gal : A = volumePostfixOps(Gallon_imperial)
   def fl_s : A = volumePostfixOps(FluidScruple)
   def bkt : A = volumePostfixOps(Bucket)
-  import VolumePostfixOps._
 
-  def minim(c: Context): A = volumePostfixOps(_minim(c))
-  def fl_oz(c: Context): A = volumePostfixOps(_fl_oz(c))
-  def gi(c: Context): A = volumePostfixOps(_gi(c))
-  def hhd(c: Context): A = volumePostfixOps(_hhd(c))
-  def fl_dr(c: Context): A = volumePostfixOps(_fl_dr(c))
-  def pt(c: Context): A = volumePostfixOps(_pt(c))
-  def qt(c: Context): A = volumePostfixOps(_qt(c))
-  def gal(c: Context): A = volumePostfixOps(_gal(c))
-  def bl(c: Context): A = volumePostfixOps(_bl(c))
-  def fl_bl(c: Context): A = volumePostfixOps(_fl_bl(c))
-  def pk(c: Context): A = volumePostfixOps(_pk(c))
-  def bu(c: Context): A = volumePostfixOps(_bu(c))
+  import VolumePostfixOps._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
+
+  def minim(c: MetricContext): A = volumePostfixOps(_minim(c))
+  def fl_oz(c: MetricContext): A = volumePostfixOps(_fl_oz(c))
+  def gi(c: MetricContext): A = volumePostfixOps(_gi(c))
+  def hhd(c: MetricContext): A = volumePostfixOps(_hhd(c))
+  def fl_dr(c: MetricContext): A = volumePostfixOps(_fl_dr(c))
+  def pt(c: MetricContext): A = volumePostfixOps(_pt(c))
+  def qt(c: MetricContext): A = volumePostfixOps(_qt(c))
+  def gal(c: MetricContext): A = volumePostfixOps(_gal(c))
+  def bl(c: MetricContext): A = volumePostfixOps(_bl(c))
+  def fl_bl(c: MetricContext): A = volumePostfixOps(_fl_bl(c))
+  def pk(c: MetricContext): A = volumePostfixOps(_pk(c))
+  def bu(c: MetricContext): A = volumePostfixOps(_bu(c))
 }
 
 object VolumePostfixOps{
   import VolumeUnit._
-  import org.waman.multiverse.Context._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
 
 
-  lazy val _fl_bl : PartialFunction[Context, VolumeUnit] = {
+  lazy val _fl_bl : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => Barrel_US_fluid
   }
 
-  lazy val _fl_oz : PartialFunction[Context, VolumeUnit] = {
+  lazy val _fl_oz : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => Fluid_Ounce_US
     case Imperial => Fluid_Ounce_imperial
   }
 
-  lazy val _minim : PartialFunction[Context, VolumeUnit] = {
+  lazy val _minim : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => Minim_US
     case Imperial => Minim_imperial
   }
 
-  lazy val _hhd : PartialFunction[Context, VolumeUnit] = {
+  lazy val _hhd : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => Hogshead_US
     case Imperial => Hogshead_imperial
   }
 
-  lazy val _pt : PartialFunction[Context, VolumeUnit] = {
+  lazy val _pt : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates_Fluid => Pint_US_fluid
     case UnitedStates_Dry => Pint_US_dry
     case Imperial => Pint_imperial
   }
 
-  lazy val _fl_dr : PartialFunction[Context, VolumeUnit] = {
+  lazy val _fl_dr : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => FluidDram_US
     case Imperial => FluidDrachm_imperial
   }
 
-  lazy val _qt : PartialFunction[Context, VolumeUnit] = {
+  lazy val _qt : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates_Fluid => Quart_US_fluid
     case UnitedStates_Dry => Quart_US_dry
     case Imperial => Quart_imperial
   }
 
-  lazy val _pk : PartialFunction[Context, VolumeUnit] = {
+  lazy val _pk : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates_Dry => Peck_US_dry
     case Imperial => Peck_imperial
   }
 
-  lazy val _bu : PartialFunction[Context, VolumeUnit] = {
+  lazy val _bu : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates_Dry => Bushel_US_dry
     case UnitedStates_Dry_Level => Bushel_US_dry_level
     case Imperial => Bushel_imperial
   }
 
-  lazy val _gi : PartialFunction[Context, VolumeUnit] = {
+  lazy val _gi : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => Gill_US
     case Imperial => Gill_imperial
   }
 
-  lazy val _bl : PartialFunction[Context, VolumeUnit] = {
+  lazy val _bl : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates_Fluid => Barrel_US_fluid
     case UnitedStates_Dry => Barrel_US_dry
     case Imperial => Barrel_imperial
   }
 
-  lazy val _gal : PartialFunction[Context, VolumeUnit] = {
+  lazy val _gal : PartialFunction[MetricContext, VolumeUnit] = {
     case UnitedStates => Gallon_US_fluid
     case UnitedStates_Fluid => Gallon_US_fluid
     case UnitedStates_Dry => Gallon_US_dry

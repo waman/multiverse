@@ -66,6 +66,7 @@ trait FrequencyPostfixOps[A]{
 
   protected def frequencyPostfixOps(unit: FrequencyUnit): A
 
+
   def yHz : A = frequencyPostfixOps(YoctoHeltz)
   def zHz : A = frequencyPostfixOps(ZeptoHeltz)
   def aHz : A = frequencyPostfixOps(AttoHeltz)

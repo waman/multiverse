@@ -1,11 +1,12 @@
 package org.waman.multiverse.metric
 
-import org.waman.multiverse._
-import org.waman.multiverse.energy._
-import org.waman.multiverse.mechanics._
-import org.waman.multiverse.time._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
+import org.waman.multiverse.mechanics._
+import org.waman.multiverse.energy._
 
 sealed trait LengthUnit extends PhysicalUnit[LengthUnit]
   with MultiplicativeByLengthUnit[AreaUnit]
@@ -126,6 +127,7 @@ trait LengthPostfixOps[A]{
 
   protected def lengthPostfixOps(unit: LengthUnit): A
 
+
   def ym : A = lengthPostfixOps(YoctoMetre)
   def zm : A = lengthPostfixOps(ZeptoMetre)
   def am : A = lengthPostfixOps(AttoMetre)
@@ -186,58 +188,62 @@ trait LengthPostfixOps[A]{
   def lmf : A = lengthPostfixOps(LongMetricFoot)
   def Fr : A = lengthPostfixOps(French)
   def fur : A = lengthPostfixOps(Furlong)
-  import LengthPostfixOps._
 
-  def xu(c: Context): A = lengthPostfixOps(_xu(c))
-  def NM(c: Context): A = lengthPostfixOps(_NM(c))
-  def nmi(c: Context): A = lengthPostfixOps(_nmi(c))
-  def cb(c: Context): A = lengthPostfixOps(_cb(c))
-  def li(c: Context): A = lengthPostfixOps(_li(c))
-  def lnk(c: Context): A = lengthPostfixOps(_lnk(c))
-  def ft(c: Context): A = lengthPostfixOps(_ft(c))
-  def ch(c: Context): A = lengthPostfixOps(_ch(c))
-  def mi(c: Context): A = lengthPostfixOps(_mi(c))
+  import LengthPostfixOps._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
+
+  def xu(c: MetricContext): A = lengthPostfixOps(_xu(c))
+  def NM(c: MetricContext): A = lengthPostfixOps(_NM(c))
+  def nmi(c: MetricContext): A = lengthPostfixOps(_nmi(c))
+  def cb(c: MetricContext): A = lengthPostfixOps(_cb(c))
+  def li(c: MetricContext): A = lengthPostfixOps(_li(c))
+  def lnk(c: MetricContext): A = lengthPostfixOps(_lnk(c))
+  def ft(c: MetricContext): A = lengthPostfixOps(_ft(c))
+  def ch(c: MetricContext): A = lengthPostfixOps(_ch(c))
+  def mi(c: MetricContext): A = lengthPostfixOps(_mi(c))
 }
 
 object LengthPostfixOps{
   import LengthUnit._
-  import org.waman.multiverse.Context._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
 
 
-  lazy val _cb : PartialFunction[Context, LengthUnit] = {
+  lazy val _cb : PartialFunction[MetricContext, LengthUnit] = {
     case UnitedStates => Cable_US
     case Imperial => Cable_imperial
   }
 
-  lazy val _NM : PartialFunction[Context, LengthUnit] = {
+  lazy val _NM : PartialFunction[MetricContext, LengthUnit] = {
     case Admiralty => NauticalMile_Admiralty
   }
 
-  lazy val _nmi : PartialFunction[Context, LengthUnit] = {
+  lazy val _nmi : PartialFunction[MetricContext, LengthUnit] = {
     case Admiralty => NauticalMile_Admiralty
   }
 
-  lazy val _li : PartialFunction[Context, LengthUnit] = {
+  lazy val _li : PartialFunction[MetricContext, LengthUnit] = {
     case UnitedStates => Link_US_Survey
   }
 
-  lazy val _lnk : PartialFunction[Context, LengthUnit] = {
+  lazy val _lnk : PartialFunction[MetricContext, LengthUnit] = {
     case UnitedStates => Link_US_Survey
   }
 
-  lazy val _ch : PartialFunction[Context, LengthUnit] = {
+  lazy val _ch : PartialFunction[MetricContext, LengthUnit] = {
     case UnitedStates => Chain_US_Survey
   }
 
-  lazy val _ft : PartialFunction[Context, LengthUnit] = {
+  lazy val _ft : PartialFunction[MetricContext, LengthUnit] = {
     case UnitedStates => Foot_US_Survey
   }
 
-  lazy val _mi : PartialFunction[Context, LengthUnit] = {
+  lazy val _mi : PartialFunction[MetricContext, LengthUnit] = {
     case UnitedStates => Mile_US_Survey
   }
 
-  lazy val _xu : PartialFunction[Context, LengthUnit] = {
+  lazy val _xu : PartialFunction[MetricContext, LengthUnit] = {
     case Cu_KAlpha1 => XUnit_CuKAlpha1
     case Mo_KAlpha1 => XUnit_MoKAlpha1
   }

@@ -64,6 +64,7 @@ trait VolumeFlowPostfixOps[A]{
 
   protected def volumeFlowPostfixOps(unit: VolumeFlowUnit): A
 
+
   def LPM : A = volumeFlowPostfixOps(LitrePerMinute)
   def CFM : A = volumeFlowPostfixOps(CubicFootPerMinute)
   def GPM : A = volumeFlowPostfixOps(GallonPerMinute)

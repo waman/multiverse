@@ -37,95 +37,103 @@ object MultiverseSourceGenerator extends GluinoPath{
     Scale("Yotta", "Y", "1e24")
   )
 
-  def generate(rsrc: Path, srcManaged: Path): Seq[Path] = {
+  def generate(rsrc: Path, srcManaged: Path): List[Path] = {
     srcManaged.createDirectories()
 
-    val contextList = extractContextList(rsrc)
+    val (contexts, contextLists) = generateContexts(rsrc, srcManaged)
+    // 2nd Map("org.waman.multiverse.metric.MetricContext" -> List(NameSymbol("UnitedStates", "US"), NameSymbol("Imperial", "imp"), ...)
 
-    val contextCodePath = generateContext(rsrc, srcManaged, contextList)
-      // Context.scala, List(NameSymbol("UnitedStates", "US"), NameSymbol("Imperial", "imp"), ...)
+    val unitSystem = generateUnitSystem(rsrc, srcManaged, contextLists)
 
-    val unitSystem = generateUnitSystem(rsrc, srcManaged)
+    val unitTraits = generateUnitTraits(rsrc, srcManaged, contextLists)
 
-    val unitTraits = generateUnitTraits(rsrc, srcManaged, contextList)
-
-    contextCodePath :: unitSystem :: unitTraits
+    contexts ::: unitSystem :: unitTraits
   }
 
-  def extractContextList(rsrc: Path): List[NameSymbol] = {
-    val json = rsrc / "org/waman/multiverse/Context.json"
-    json.withReader(parser.parse(_))
-      .getAsJsonArray.toList
-      .map(_.getAsJsonObject)
-      .map{ obj => NameSymbol(getString(obj, "name"), getString(obj, "symbol"))}
-  }
+  def generateContexts(rsrc: Path, srcManaged: Path): (List[Path], Map[String, List[NameSymbol]]) = {
 
-  def generateContext(rsrc: Path, srcManaged: Path, contextList: List[NameSymbol]): Path = {
+    val seq = rsrc.filesMatchRecurse(FileType.Files, fileExtensionFilter("Context.json")).map { json =>
+      val id = json.getFileName.toString.replaceAll("\\.json", "")
+      val rel = rsrc.relativize(json.getParent)
+      val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
+      val generated = srcManaged / rel / (id + ".scala")
 
-    val generated = srcManaged / "org/waman/multiverse/Context.scala"
-    if(!generated.exists || generated.isOlderThan(rsrc / "org/waman/multiverse/Context.json") ){
-      if(generated.exists) generated.delete()
-      generated.getParent.createDirectories()
-      generated.createFile()
+      val nsList: List[NameSymbol] = json.withReader(parser.parse(_))
+        .getAsJsonArray.toList
+        .map(_.getAsJsonObject)
+        .map{ obj => NameSymbol(getString(obj, "name"), getString(obj, "symbol"))}
 
-      generated.withWriter{ writer =>
+      if(!generated.exists || generated.isOlderThan(json) ) {
+        if (generated.exists) generated.delete()
+        generated.getParent.createDirectories()
 
-        // Context trait
-        writer <<
-          s"""package org.waman.multiverse
-             |
-             |sealed abstract class Context(val name: String, val symbol: String)""".stripMargin
-
-        // Context object
-        writer <<
-          s"""
-             |
-             |/** The "US" context contains the "US Survey" one for Length and Area (i.e. ft(US) and mi(US)) */
-             |object Context extends ConstantsDefined[Context]{
-             |""".stripMargin
-
-        contextList.foreach { ns =>
-          writer <<
-            // case object UnitedStates extends Context("UnitedStates", "US")
-            s"""
-               |  case object ${ns.name} extends Context("${ns.name}", "${ns.symbol}")""".stripMargin
-        }
-
-        writer <<
-          s"""
-             |
-             |  lazy val values = Seq(${contextList.map(_.name).mkString(", ")})
-             |}""".stripMargin
-
-        // HasContext trait
-        writer <<
-          s"""
-             |
-             |trait HasContext{
-             |  import Context._
-             |""".stripMargin
-
-        contextList.foreach{ ns =>
-          writer <<
-            // val US = Context.UnitedStates
-            s"""
-               |  val ${ns.symbol} = ${ns.name}""".stripMargin
-        }
-
-        writer <<
-          s"""
-             |}""".stripMargin
+        generateContext(id, packageName, generated, nsList)
+        println("[GENERATE] " + generated)
       }
-      println("[GENERATE] " + generated)
+
+      (generated, packageName + "." + id, nsList)
+      // (generated, "org.waman.multiverse.metric.MetricContext", List(NameSymbol("UnitedStates", "US"), ...))
     }
-    generated
+
+    (seq.map(_._1).toList, Map(seq.map(t => (t._2, t._3)):_*))
   }
 
-  def jsonPropertyFilesOfUnits(rsrc: Path): Seq[Path] =
-    rsrc.filesMatchRecurse(FileType.Files, fileExtensionFilter(_, "Unit.json"))
+  def generateContext(id: String, packageName: String, generated: Path, contextList: List[NameSymbol]): Unit = {
+    generated.withWriter{ writer =>
+      // Context trait
+      writer <<
+        s"""package $packageName
+           |
+           |import org.waman.multiverse.ConstantsDefined
+           |
+           |sealed abstract class $id(val name: String, val symbol: String)""".stripMargin
 
-  def generateUnitSystem(rsrc: Path, srcManaged: Path): Path = {
-    val generated = srcManaged / "multiverse/UnitSystem.scala"
+      // Context object
+      writer <<
+        s"""
+           |
+           |object $id extends ConstantsDefined[$id]{
+           |""".stripMargin
+
+      contextList.foreach { ns =>
+        writer <<
+          // case object UnitedStates extends Context("UnitedStates", "US")
+          s"""
+             |  case object ${ns.name} extends $id("${ns.name}", "${ns.symbol}")""".stripMargin
+      }
+
+      writer <<
+        s"""
+           |
+           |  lazy val values = Seq(${contextList.map(_.name).mkString(", ")})
+           |}""".stripMargin
+
+      // ContextDefined trait
+      writer <<
+        s"""
+           |
+           |trait ${id}Defined{
+           |  import $id._
+           |""".stripMargin
+
+      contextList.foreach{ ns =>
+        writer <<
+          // val US = Context.UnitedStates
+          s"""
+             |  val ${ns.symbol} = ${ns.name}""".stripMargin
+      }
+
+      writer <<
+        s"""
+           |}""".stripMargin
+    }
+  }
+
+  def jsonPropertyFilesOfUnits(rsrc: Path): List[Path] =
+    rsrc.filesMatchRecurse(FileType.Files, fileExtensionFilter("Unit.json")).toList
+
+  def generateUnitSystem(rsrc: Path, srcManaged: Path, contextLists: Map[String, List[NameSymbol]]): Path = {
+    val generated = srcManaged / "org/waman/multiverse/UnitSystem.scala"
 
     if(generated.exists && jsonPropertyFilesOfUnits(rsrc).forall(generated.isNewerThan))
       return generated
@@ -148,7 +156,13 @@ object MultiverseSourceGenerator extends GluinoPath{
       writer <<
         s"""package org.waman.multiverse
            |
-           |trait UnitSystem extends UnitSystemImplicits with HasContext""".stripMargin
+           |trait UnitSystem extends UnitSystemImplicits""".stripMargin
+
+      contextLists.foreach{ case (contextClass, _) =>
+        writer <<
+          s"""
+             |  with ${contextClass}Defined""".stripMargin
+      }
 
       unitSystemInfo.flatMap{
         case a::b::_ => List(b)
@@ -176,12 +190,11 @@ object MultiverseSourceGenerator extends GluinoPath{
            |  )
            |}""".stripMargin
     }
-
     println("[GENERATE] " + generated)
     generated
   }
 
-  def generateUnitTraits(rsrc: Path, srcManaged: Path, contextList: List[NameSymbol]): List[Path] = {
+  def generateUnitTraits(rsrc: Path, srcManaged: Path, contextLists: Map[String, List[NameSymbol]]): List[Path] = {
     jsonPropertyFilesOfUnits(rsrc).map{ json: Path =>
       val rel = rsrc.relativize(json.getParent)
       val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
@@ -198,19 +211,16 @@ object MultiverseSourceGenerator extends GluinoPath{
         generated.createFile()
 
         val jsonProp: JsonObject = json.withReader(parser.parse(_)).getAsJsonObject
-        generateUnitTrait(generated, packageName, className, jsonProp, contextList)
+        generateUnitTrait(generated, packageName, className, jsonProp, contextLists)
         println("[GENERATE] " + generated)
       }
       generated
-    }.toList
+    }
   }
 
-  def fileExtensionFilter(path: Path, ext: String): Boolean = path.getFileName.toString.endsWith(ext)
-
   def generateUnitTrait(dest: Path, packageName: String, className: String,
-                        json: JsonObject, contextList: List[NameSymbol]): Unit = {
+                        json: JsonObject, contextLists: Map[String, List[NameSymbol]]): Unit = {
     val id = headToLower(className)  // length
-    val imports = getChildren(json, "imports").map(_.getAsString)
     val units: List[UnitConstant] = getUnitConstants(json)
     val (contextful, contextless) = getUnitNameSymbolTuples(units)
     // contextful: List(NameSymbol("Foot", "ft(US)"), ...)
@@ -226,7 +236,7 @@ object MultiverseSourceGenerator extends GluinoPath{
            |import org.waman.multiverse._
            |""".stripMargin
 
-      imports.foreach{ i =>
+      getChildren(json, "imports").map(_.getAsString).foreach{ i =>
         writer <<
           s"""
              |import $i""".stripMargin
@@ -380,6 +390,7 @@ object MultiverseSourceGenerator extends GluinoPath{
                  |  def apply(unit1: $first, unit2: $second): ${className}Unit =
                  |    new $productUnit(unit1, unit2)""".stripMargin
 
+              case _ =>
           }
         }
 
@@ -403,6 +414,8 @@ object MultiverseSourceGenerator extends GluinoPath{
                  |
                  |  def apply(nUnit: $numerator, dUnit: $denominator): ${className}Unit =
                  |    new $quotientUnit(nUnit, dUnit)""".stripMargin
+
+              case _ =>
           }
         }
 
@@ -432,26 +445,36 @@ object MultiverseSourceGenerator extends GluinoPath{
              |  import ${className}Unit._
              |
              |  protected def ${id}PostfixOps(unit: ${className}Unit): A
+             |
              |""".stripMargin
 
         contextless.foreach { ns =>
           writer <<
             // def m: A = lengthPostfixOps(LengthUnit.Metre)
-            s"""
+            s"""               |
                |  def ${ns.symbol} : A = ${id}PostfixOps(${ns.name})""".stripMargin
         }
+
+        val contextFullClassName = if(json.has("context"))getString(json, "context") else ""
+        val contextClassName =
+          if(contextFullClassName.length > 0)
+            contextFullClassName.substring(contextFullClassName.lastIndexOf(".") + 1)
+          else ""
 
         if (contextful.nonEmpty) {
           writer <<
             s"""
+               |
                |  import ${className}PostfixOps._
+               |  import $contextFullClassName
+               |  import $contextClassName._
                |""".stripMargin
 
           contextful.map(_.symbol.split("\\(")(0)).distinct.foreach { sym =>
             writer <<
-              // def ft(c: Context): A = lengthPostfixOps(_ft(c))
+              // def ft(c: MetricContext): A = lengthPostfixOps(_ft(c))
               s"""
-                 |  def $sym(c: Context): A = ${id}PostfixOps(_$sym(c))""".stripMargin
+                 |  def $sym(c: $contextClassName): A = ${id}PostfixOps(_$sym(c))""".stripMargin
           }
         }
 
@@ -461,12 +484,14 @@ object MultiverseSourceGenerator extends GluinoPath{
 
         //***** PostfixOps object *****
         if (contextful.nonEmpty) {
+          val contextList = contextLists(contextFullClassName)
           writer <<
             s"""
                |
                |object ${className}PostfixOps{
                |  import ${className}Unit._
-               |  import org.waman.multiverse.Context._
+               |  import $contextFullClassName
+               |  import $contextClassName._
                |""".stripMargin
 
           groupingContextList(contextful, contextList).foreach { case (symbol, cs) =>
@@ -478,7 +503,7 @@ object MultiverseSourceGenerator extends GluinoPath{
             writer <<
               s"""
                  |
-                 |  lazy val _$symbol : PartialFunction[Context, ${className}Unit] = {""".stripMargin
+                 |  lazy val _$symbol : PartialFunction[$contextClassName, ${className}Unit] = {""".stripMargin
 
             cs.foreach { case (c, u) =>
               writer <<
@@ -552,6 +577,8 @@ object MultiverseSourceGenerator extends GluinoPath{
       }
     }
   }
+
+  def fileExtensionFilter(ext: String): Path => Boolean = _.getFileName.toString.endsWith(ext)
 
   case class UnitConstant(name: String, symbols: Seq[String], args:String, isNotExact: Boolean, mixed: String)
 

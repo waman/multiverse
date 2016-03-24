@@ -16,7 +16,7 @@ javaVersion := "1.8"
 encoding := "UTF-8"
 
 libraryDependencies ++= Seq(
-  "org.spire-math" % "spire_2.11" % "0.8.2",
+  "org.spire-math" % "spire_2.11" % "0.11.0",
   "org.waman" % "scalatest-util" % "0.3" % "test",
   "org.scalacheck" % "scalacheck_2.11" % "1.12.5" % "test",
   "org.waman" % "gluino" % "0.2" % "test",

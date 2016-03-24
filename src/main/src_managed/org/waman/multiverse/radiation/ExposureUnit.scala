@@ -60,6 +60,7 @@ trait ExposurePostfixOps[A]{
 
   protected def exposurePostfixOps(unit: ExposureUnit): A
 
+
   def R : A = exposurePostfixOps(Roentgen)
 }
 

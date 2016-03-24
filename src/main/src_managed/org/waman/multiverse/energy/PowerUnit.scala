@@ -86,6 +86,7 @@ trait PowerPostfixOps[A]{
 
   protected def powerPostfixOps(unit: PowerUnit): A
 
+
   def yW : A = powerPostfixOps(YoctoWatt)
   def zW : A = powerPostfixOps(ZeptoWatt)
   def aW : A = powerPostfixOps(AttoWatt)

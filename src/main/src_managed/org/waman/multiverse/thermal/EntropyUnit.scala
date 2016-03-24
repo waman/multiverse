@@ -1,9 +1,10 @@
 package org.waman.multiverse.thermal
 
-import org.waman.multiverse._
-import org.waman.multiverse.energy.EnergyUnit
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.energy.EnergyUnit
 
 sealed trait EntropyUnit extends PhysicalUnit[EntropyUnit]{
 
@@ -78,6 +79,7 @@ trait EntropyPostfixOps[A]{
   import EntropyUnit._
 
   protected def entropyPostfixOps(unit: EntropyUnit): A
+
 
   def nat : A = entropyPostfixOps(Nat)
   def k_B : A = entropyPostfixOps(Nat)

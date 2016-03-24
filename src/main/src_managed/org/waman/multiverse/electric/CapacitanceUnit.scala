@@ -1,8 +1,8 @@
 package org.waman.multiverse.electric
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
 
 sealed trait CapacitanceUnit extends PhysicalUnit[CapacitanceUnit]{
@@ -77,6 +77,7 @@ trait CapacitancePostfixOps[A]{
   import CapacitanceUnit._
 
   protected def capacitancePostfixOps(unit: CapacitanceUnit): A
+
 
   def yF : A = capacitancePostfixOps(YoctoFarad)
   def zF : A = capacitancePostfixOps(ZeptoFarad)

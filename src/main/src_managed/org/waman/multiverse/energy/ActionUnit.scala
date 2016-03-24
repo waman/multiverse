@@ -29,9 +29,9 @@ object ActionUnit extends ConstantsDefined[ActionUnit]{
   }
 
 
-  case object AtomicUnitOfAction extends IntrinsicActionUnit("AtomicUnitOfAction", Seq("ħ", "hbar"), r"1.05457168e-34") with NotExact
+  case object ReducedPlanckConstant extends IntrinsicActionUnit("ReducedPlanckConstant", Seq("ħ", "hbar"), r"1.05457172647e-34") with NotExact
 
-  override lazy val values = Seq(AtomicUnitOfAction)
+  override lazy val values = Seq(ReducedPlanckConstant)
 
   // EnergyUnit * TimeUnit -> Action
   private[ActionUnit]
@@ -59,8 +59,9 @@ trait ActionPostfixOps[A]{
 
   protected def actionPostfixOps(unit: ActionUnit): A
 
-  def ħ : A = actionPostfixOps(AtomicUnitOfAction)
-  def hbar : A = actionPostfixOps(AtomicUnitOfAction)
+
+  def ħ : A = actionPostfixOps(ReducedPlanckConstant)
+  def hbar : A = actionPostfixOps(ReducedPlanckConstant)
 }
 
 trait ActionDot[A]{
@@ -68,8 +69,8 @@ trait ActionDot[A]{
 
   protected def actionDot(unit: ActionUnit): A
 
-  def ħ(dot: Dot): A = actionDot(AtomicUnitOfAction)
-  def hbar(dot: Dot): A = actionDot(AtomicUnitOfAction)
+  def ħ(dot: Dot): A = actionDot(ReducedPlanckConstant)
+  def hbar(dot: Dot): A = actionDot(ReducedPlanckConstant)
 }
 
 trait ActionPer[A]{
@@ -77,8 +78,8 @@ trait ActionPer[A]{
 
   protected def actionPer(unit: ActionUnit): A
 
-  def ħ(per: Per): A = actionPer(AtomicUnitOfAction)
-  def hbar(per: Per): A = actionPer(AtomicUnitOfAction)
+  def ħ(per: Per): A = actionPer(ReducedPlanckConstant)
+  def hbar(per: Per): A = actionPer(ReducedPlanckConstant)
 }
 
 trait PredefinedActionUnit extends ActionPostfixOps[ActionUnit]{

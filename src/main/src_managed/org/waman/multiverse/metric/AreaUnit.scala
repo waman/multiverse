@@ -123,6 +123,7 @@ trait AreaPostfixOps[A]{
 
   protected def areaPostfixOps(unit: AreaUnit): A
 
+
   def ym2 : A = areaPostfixOps(YoctoSquareMetre)
   def zm2 : A = areaPostfixOps(ZeptoSquareMetre)
   def am2 : A = areaPostfixOps(AttoSquareMetre)
@@ -189,42 +190,46 @@ trait AreaPostfixOps[A]{
   def circ_mil : A = areaPostfixOps(CircularMil)
   def circ_in : A = areaPostfixOps(CircularInch)
   def bd : A = areaPostfixOps(Board)
-  import AreaPostfixOps._
 
-  def sq_li(c: Context): A = areaPostfixOps(_sq_li(c))
-  def sq_lnk(c: Context): A = areaPostfixOps(_sq_lnk(c))
-  def sq_ft(c: Context): A = areaPostfixOps(_sq_ft(c))
-  def sq_ch(c: Context): A = areaPostfixOps(_sq_ch(c))
-  def sq_mi(c: Context): A = areaPostfixOps(_sq_mi(c))
-  def ac(c: Context): A = areaPostfixOps(_ac(c))
+  import AreaPostfixOps._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
+
+  def sq_li(c: MetricContext): A = areaPostfixOps(_sq_li(c))
+  def sq_lnk(c: MetricContext): A = areaPostfixOps(_sq_lnk(c))
+  def sq_ft(c: MetricContext): A = areaPostfixOps(_sq_ft(c))
+  def sq_ch(c: MetricContext): A = areaPostfixOps(_sq_ch(c))
+  def sq_mi(c: MetricContext): A = areaPostfixOps(_sq_mi(c))
+  def ac(c: MetricContext): A = areaPostfixOps(_ac(c))
 }
 
 object AreaPostfixOps{
   import AreaUnit._
-  import org.waman.multiverse.Context._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
 
 
-  lazy val _sq_lnk : PartialFunction[Context, AreaUnit] = {
+  lazy val _sq_lnk : PartialFunction[MetricContext, AreaUnit] = {
     case UnitedStates => SquareLink_US_Survey
   }
 
-  lazy val _sq_ft : PartialFunction[Context, AreaUnit] = {
+  lazy val _sq_ft : PartialFunction[MetricContext, AreaUnit] = {
     case UnitedStates => SquareFoot_US_Survey
   }
 
-  lazy val _sq_ch : PartialFunction[Context, AreaUnit] = {
+  lazy val _sq_ch : PartialFunction[MetricContext, AreaUnit] = {
     case UnitedStates => SquareChain_US_Survey
   }
 
-  lazy val _sq_li : PartialFunction[Context, AreaUnit] = {
+  lazy val _sq_li : PartialFunction[MetricContext, AreaUnit] = {
     case UnitedStates => SquareLink_US_Survey
   }
 
-  lazy val _ac : PartialFunction[Context, AreaUnit] = {
+  lazy val _ac : PartialFunction[MetricContext, AreaUnit] = {
     case UnitedStates => Acre_US_Survey
   }
 
-  lazy val _sq_mi : PartialFunction[Context, AreaUnit] = {
+  lazy val _sq_mi : PartialFunction[MetricContext, AreaUnit] = {
     case UnitedStates => SquareMile_US_Survey
   }
 }

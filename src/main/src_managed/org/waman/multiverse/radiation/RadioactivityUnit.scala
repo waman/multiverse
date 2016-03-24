@@ -1,8 +1,8 @@
 package org.waman.multiverse.radiation
 
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
 
 
 sealed trait RadioactivityUnit extends PhysicalUnit[RadioactivityUnit]{
@@ -87,6 +87,7 @@ trait RadioactivityPostfixOps[A]{
   import RadioactivityUnit._
 
   protected def radioactivityPostfixOps(unit: RadioactivityUnit): A
+
 
   def yBq : A = radioactivityPostfixOps(YoctoBecquerel)
   def zBq : A = radioactivityPostfixOps(ZeptoBecquerel)

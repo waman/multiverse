@@ -11,6 +11,8 @@
 
   "quotient":[["LengthUnit", "TimeUnit"]],
 
+  "context":"org.waman.multiverse.metric.MetricContext",
+
   "constants":[
     {"name":"MachNumber"    , "symbols":["M"], "args":"r\"340\"", "NotExact":true},
     {"name":"SpeedOfLight"  , "symbols":["c"], "args":"r\"299792458\""},

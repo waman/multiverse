@@ -73,6 +73,7 @@ trait DynamicViscosityPostfixOps[A]{
 
   protected def dynamicViscosityPostfixOps(unit: DynamicViscosityUnit): A
 
+
   def P : A = dynamicViscosityPostfixOps(Poise)
 }
 

@@ -80,6 +80,7 @@ trait AbsorbedDosePostfixOps[A]{
 
   protected def absorbedDosePostfixOps(unit: AbsorbedDoseUnit): A
 
+
   def yGy : A = absorbedDosePostfixOps(YoctoGray)
   def zGy : A = absorbedDosePostfixOps(ZeptoGray)
   def aGy : A = absorbedDosePostfixOps(AttoGray)

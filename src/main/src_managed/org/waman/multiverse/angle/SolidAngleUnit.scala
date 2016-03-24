@@ -1,9 +1,10 @@
 package org.waman.multiverse.angle
 
-import org.waman.multiverse.MultiverseUtil.twoPi
-import org.waman.multiverse._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.MultiverseUtil.twoPi
 
 sealed trait SolidAngleUnit extends PhysicalUnit[SolidAngleUnit]{
 
@@ -57,6 +58,7 @@ trait SolidAnglePostfixOps[A]{
   import SolidAngleUnit._
 
   protected def solidAnglePostfixOps(unit: SolidAngleUnit): A
+
 
   def ysr : A = solidAnglePostfixOps(YoctoSteradian)
   def zsr : A = solidAnglePostfixOps(ZeptoSteradian)

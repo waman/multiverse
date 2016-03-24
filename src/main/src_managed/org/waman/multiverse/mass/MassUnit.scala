@@ -1,10 +1,11 @@
 package org.waman.multiverse.mass
 
-import org.waman.multiverse._
-import org.waman.multiverse.mechanics._
-import org.waman.multiverse.metric._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
+import org.waman.multiverse.mechanics._
 
 sealed trait MassUnit extends PhysicalUnit[MassUnit]
   with MultiplicativeByAccelerationUnit[ForceUnit]
@@ -56,16 +57,35 @@ object MassUnit extends ConstantsDefined[MassUnit]{
   case object ExaGram extends IntrinsicMassUnit("ExaGram", Seq("Eg"), r"1e18" * r"1e-3")
   case object ZettaGram extends IntrinsicMassUnit("ZettaGram", Seq("Zg"), r"1e21" * r"1e-3")
   case object YottaGram extends IntrinsicMassUnit("YottaGram", Seq("Yg"), r"1e24" * r"1e-3")
+  case object Grave extends IntrinsicMassUnit("Grave", Seq("gv"), 1, KiloGram)
+  case object Tonne extends IntrinsicMassUnit("Tonne", Seq("t"), 1000)
+  case object Gamma extends IntrinsicMassUnit("Gamma", Seq("γ", "gamma"), 1, MicroGram)
+  case object Quintal extends IntrinsicMassUnit("Quintal", Seq("q"), 100, KiloGram)
   case object AtomicMassUnit extends IntrinsicMassUnit("AtomicMassUnit", Seq("u", "AMU", "Da"), r"1.66053892173e-27") with NotExact
   case object ElectronMass extends IntrinsicMassUnit("ElectronMass", Seq("m_e"), r"9.1093829140e-31") with NotExact
-  case object Grain extends IntrinsicMassUnit("Grain", Seq("gr"), 6479891, MilliGram)
   case object Ounce extends IntrinsicMassUnit("Ounce", Seq("oz"), 28, Gram)
-  case object Pound extends IntrinsicMassUnit("Pound", Seq("lb"), r"0.45359237")
-  case object Tonne extends IntrinsicMassUnit("Tonne", Seq("t"), 1000)
+  case object Pound extends IntrinsicMassUnit("Pound", Seq("lb", "lb_av"), r"0.45359237")
+  case object LongTon extends IntrinsicMassUnit("LongTon", Seq("long_tn", "ton"), 2240, Pound)
+  case object ShortTon extends IntrinsicMassUnit("ShortTon", Seq("sh_tn"), 2000, Pound)
+  case object Scruple extends IntrinsicMassUnit("Scruple", Seq("s_ap"), 20, Grain)
   case object Carat extends IntrinsicMassUnit("Carat", Seq("kt"), r"19/6", Grain)
   case object MetricCarat extends IntrinsicMassUnit("MetricCarat", Seq("ct"), 200, MilliGram)
+  case object Stone extends IntrinsicMassUnit("Stone", Seq("st"), 14, Pound)
+  case object Dram_avoirdupois extends IntrinsicMassUnit("Dram_avoirdupois", Seq("dr_av"), 27 + r"11/32", Grain)
+  case object Grain extends IntrinsicMassUnit("Grain", Seq("gr"), r"1/7000", Pound)
+  case object LongHundredweight extends IntrinsicMassUnit("LongHundredweight", Seq("cwt", "long_cwt"), 112, Dram_avoirdupois)
+  case object ShortHundredweight extends IntrinsicMassUnit("ShortHundredweight", Seq("sh_cwt"), 100, Dram_avoirdupois)
+  case object Kip extends IntrinsicMassUnit("Kip", Seq("kip"), 1000, Dram_avoirdupois)
+  case object Ounce_avoirdupois extends IntrinsicMassUnit("Ounce_avoirdupois", Seq("oz_av"), r"1/16", Pound)
+  case object Dram_troy extends IntrinsicMassUnit("Dram_troy", Seq("dr_t"), 60, Grain)
+  case object Ounce_troy extends IntrinsicMassUnit("Ounce_troy", Seq("oz_t"), r"1/12", Pound_troy)
+  case object Pound_troy extends IntrinsicMassUnit("Pound_troy", Seq("lb_t"), 5760, Grain)
+  case object Pennyweight extends IntrinsicMassUnit("Pennyweight", Seq("dwt", "pwt"), r"1/20", Ounce_troy)
+  case object LongAssayTon extends IntrinsicMassUnit("LongAssayTon", Seq("long_AT", "AT"), r"98/3", Gram)
+  case object ShortAssayTon extends IntrinsicMassUnit("ShortAssayTon", Seq("sh_AT"), r"175/6", Gram)
+  case object Slug extends IntrinsicMassUnit("Slug", Seq("slug"), AccelerationUnit.StandardGravity.unitInMetrePerSecondSquared / LengthUnit.Foot.unitInMetre)
 
-  override lazy val values = Seq(YoctoGram, ZeptoGram, AttoGram, FemtoGram, PicoGram, NanoGram, MicroGram, MilliGram, CentiGram, DeciGram, Gram, DecaGram, HectoGram, KiloGram, MegaGram, GigaGram, TeraGram, PetaGram, ExaGram, ZettaGram, YottaGram, AtomicMassUnit, ElectronMass, Grain, Ounce, Pound, Tonne, Carat, MetricCarat)
+  override lazy val values = Seq(YoctoGram, ZeptoGram, AttoGram, FemtoGram, PicoGram, NanoGram, MicroGram, MilliGram, CentiGram, DeciGram, Gram, DecaGram, HectoGram, KiloGram, MegaGram, GigaGram, TeraGram, PetaGram, ExaGram, ZettaGram, YottaGram, Grave, Tonne, Gamma, Quintal, AtomicMassUnit, ElectronMass, Ounce, Pound, LongTon, ShortTon, Scruple, Carat, MetricCarat, Stone, Dram_avoirdupois, Grain, LongHundredweight, ShortHundredweight, Kip, Ounce_avoirdupois, Dram_troy, Ounce_troy, Pound_troy, Pennyweight, LongAssayTon, ShortAssayTon, Slug)
 }
 
 trait MultiplicativeByMassUnit[R]{
@@ -80,6 +100,7 @@ trait MassPostfixOps[A]{
   import MassUnit._
 
   protected def massPostfixOps(unit: MassUnit): A
+
 
   def yg : A = massPostfixOps(YoctoGram)
   def zg : A = massPostfixOps(ZeptoGram)
@@ -103,16 +124,41 @@ trait MassPostfixOps[A]{
   def Eg : A = massPostfixOps(ExaGram)
   def Zg : A = massPostfixOps(ZettaGram)
   def Yg : A = massPostfixOps(YottaGram)
+  def gv : A = massPostfixOps(Grave)
+  def t : A = massPostfixOps(Tonne)
+  def γ : A = massPostfixOps(Gamma)
+  def gamma : A = massPostfixOps(Gamma)
+  def q : A = massPostfixOps(Quintal)
   def u : A = massPostfixOps(AtomicMassUnit)
   def AMU : A = massPostfixOps(AtomicMassUnit)
   def Da : A = massPostfixOps(AtomicMassUnit)
   def m_e : A = massPostfixOps(ElectronMass)
-  def gr : A = massPostfixOps(Grain)
   def oz : A = massPostfixOps(Ounce)
   def lb : A = massPostfixOps(Pound)
-  def t : A = massPostfixOps(Tonne)
+  def lb_av : A = massPostfixOps(Pound)
+  def long_tn : A = massPostfixOps(LongTon)
+  def ton : A = massPostfixOps(LongTon)
+  def sh_tn : A = massPostfixOps(ShortTon)
+  def s_ap : A = massPostfixOps(Scruple)
   def kt : A = massPostfixOps(Carat)
   def ct : A = massPostfixOps(MetricCarat)
+  def st : A = massPostfixOps(Stone)
+  def dr_av : A = massPostfixOps(Dram_avoirdupois)
+  def gr : A = massPostfixOps(Grain)
+  def cwt : A = massPostfixOps(LongHundredweight)
+  def long_cwt : A = massPostfixOps(LongHundredweight)
+  def sh_cwt : A = massPostfixOps(ShortHundredweight)
+  def kip : A = massPostfixOps(Kip)
+  def oz_av : A = massPostfixOps(Ounce_avoirdupois)
+  def dr_t : A = massPostfixOps(Dram_troy)
+  def oz_t : A = massPostfixOps(Ounce_troy)
+  def lb_t : A = massPostfixOps(Pound_troy)
+  def dwt : A = massPostfixOps(Pennyweight)
+  def pwt : A = massPostfixOps(Pennyweight)
+  def long_AT : A = massPostfixOps(LongAssayTon)
+  def AT : A = massPostfixOps(LongAssayTon)
+  def sh_AT : A = massPostfixOps(ShortAssayTon)
+  def slug : A = massPostfixOps(Slug)
 }
 
 trait MassDot[A]{
@@ -142,16 +188,41 @@ trait MassDot[A]{
   def Eg(dot: Dot): A = massDot(ExaGram)
   def Zg(dot: Dot): A = massDot(ZettaGram)
   def Yg(dot: Dot): A = massDot(YottaGram)
+  def gv(dot: Dot): A = massDot(Grave)
+  def t(dot: Dot): A = massDot(Tonne)
+  def γ(dot: Dot): A = massDot(Gamma)
+  def gamma(dot: Dot): A = massDot(Gamma)
+  def q(dot: Dot): A = massDot(Quintal)
   def u(dot: Dot): A = massDot(AtomicMassUnit)
   def AMU(dot: Dot): A = massDot(AtomicMassUnit)
   def Da(dot: Dot): A = massDot(AtomicMassUnit)
   def m_e(dot: Dot): A = massDot(ElectronMass)
-  def gr(dot: Dot): A = massDot(Grain)
   def oz(dot: Dot): A = massDot(Ounce)
   def lb(dot: Dot): A = massDot(Pound)
-  def t(dot: Dot): A = massDot(Tonne)
+  def lb_av(dot: Dot): A = massDot(Pound)
+  def long_tn(dot: Dot): A = massDot(LongTon)
+  def ton(dot: Dot): A = massDot(LongTon)
+  def sh_tn(dot: Dot): A = massDot(ShortTon)
+  def s_ap(dot: Dot): A = massDot(Scruple)
   def kt(dot: Dot): A = massDot(Carat)
   def ct(dot: Dot): A = massDot(MetricCarat)
+  def st(dot: Dot): A = massDot(Stone)
+  def dr_av(dot: Dot): A = massDot(Dram_avoirdupois)
+  def gr(dot: Dot): A = massDot(Grain)
+  def cwt(dot: Dot): A = massDot(LongHundredweight)
+  def long_cwt(dot: Dot): A = massDot(LongHundredweight)
+  def sh_cwt(dot: Dot): A = massDot(ShortHundredweight)
+  def kip(dot: Dot): A = massDot(Kip)
+  def oz_av(dot: Dot): A = massDot(Ounce_avoirdupois)
+  def dr_t(dot: Dot): A = massDot(Dram_troy)
+  def oz_t(dot: Dot): A = massDot(Ounce_troy)
+  def lb_t(dot: Dot): A = massDot(Pound_troy)
+  def dwt(dot: Dot): A = massDot(Pennyweight)
+  def pwt(dot: Dot): A = massDot(Pennyweight)
+  def long_AT(dot: Dot): A = massDot(LongAssayTon)
+  def AT(dot: Dot): A = massDot(LongAssayTon)
+  def sh_AT(dot: Dot): A = massDot(ShortAssayTon)
+  def slug(dot: Dot): A = massDot(Slug)
 }
 
 trait MassPer[A]{
@@ -181,16 +252,41 @@ trait MassPer[A]{
   def Eg(per: Per): A = massPer(ExaGram)
   def Zg(per: Per): A = massPer(ZettaGram)
   def Yg(per: Per): A = massPer(YottaGram)
+  def gv(per: Per): A = massPer(Grave)
+  def t(per: Per): A = massPer(Tonne)
+  def γ(per: Per): A = massPer(Gamma)
+  def gamma(per: Per): A = massPer(Gamma)
+  def q(per: Per): A = massPer(Quintal)
   def u(per: Per): A = massPer(AtomicMassUnit)
   def AMU(per: Per): A = massPer(AtomicMassUnit)
   def Da(per: Per): A = massPer(AtomicMassUnit)
   def m_e(per: Per): A = massPer(ElectronMass)
-  def gr(per: Per): A = massPer(Grain)
   def oz(per: Per): A = massPer(Ounce)
   def lb(per: Per): A = massPer(Pound)
-  def t(per: Per): A = massPer(Tonne)
+  def lb_av(per: Per): A = massPer(Pound)
+  def long_tn(per: Per): A = massPer(LongTon)
+  def ton(per: Per): A = massPer(LongTon)
+  def sh_tn(per: Per): A = massPer(ShortTon)
+  def s_ap(per: Per): A = massPer(Scruple)
   def kt(per: Per): A = massPer(Carat)
   def ct(per: Per): A = massPer(MetricCarat)
+  def st(per: Per): A = massPer(Stone)
+  def dr_av(per: Per): A = massPer(Dram_avoirdupois)
+  def gr(per: Per): A = massPer(Grain)
+  def cwt(per: Per): A = massPer(LongHundredweight)
+  def long_cwt(per: Per): A = massPer(LongHundredweight)
+  def sh_cwt(per: Per): A = massPer(ShortHundredweight)
+  def kip(per: Per): A = massPer(Kip)
+  def oz_av(per: Per): A = massPer(Ounce_avoirdupois)
+  def dr_t(per: Per): A = massPer(Dram_troy)
+  def oz_t(per: Per): A = massPer(Ounce_troy)
+  def lb_t(per: Per): A = massPer(Pound_troy)
+  def dwt(per: Per): A = massPer(Pennyweight)
+  def pwt(per: Per): A = massPer(Pennyweight)
+  def long_AT(per: Per): A = massPer(LongAssayTon)
+  def AT(per: Per): A = massPer(LongAssayTon)
+  def sh_AT(per: Per): A = massPer(ShortAssayTon)
+  def slug(per: Per): A = massPer(Slug)
 }
 
 trait PredefinedMassUnit extends MassPostfixOps[MassUnit]{

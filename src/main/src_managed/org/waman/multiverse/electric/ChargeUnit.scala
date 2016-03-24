@@ -99,6 +99,7 @@ trait ChargePostfixOps[A]{
 
   protected def chargePostfixOps(unit: ChargeUnit): A
 
+
   def yC : A = chargePostfixOps(YoctoCoulomb)
   def zC : A = chargePostfixOps(ZeptoCoulomb)
   def aC : A = chargePostfixOps(AttoCoulomb)

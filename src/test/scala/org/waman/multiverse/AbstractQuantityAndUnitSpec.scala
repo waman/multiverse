@@ -69,39 +69,39 @@ abstract class AbstractQuantityAndUnitSpec[U <: PhysicalUnit[U]] extends Multive
       case None => cancel("No constant is defined") }
     }
 
-    """XxxPostfixOps trait should have properties
-      | whose names are the same as 'symbol' properties of unit objects""".stripMargin in {
-
-      getConstantsDefined match { case Some(constDef) =>
-
-        def getPostfixOpsPropertyNames: Seq[String] =
-          postfixOpsTrait.getMethods
-            .filterNot(_.getName.endsWith("PostfixOps"))
-            .flatMap(methodToSymbols)
-
-        def methodToSymbols(m: Method): Seq[String] = m.getParameterCount match {
-          case 0 => Seq(decodePropertyName(m.getName))
-          case 1 =>
-            val name = m.getName
-            val pf = postfixOpsObjectClass
-                       .getMethod("_" + name).invoke(postfixOpsObject)
-                       .asInstanceOf[PartialFunction[Context, _]]
-            Context.values
-              .filter(pf.isDefinedAt)
-              .map(decodePropertyName(name) + "(" + _.symbol + ")")
-        }
-
-        __SetUp__
-        val sut = getPostfixOpsPropertyNames
-        val expected = constDef.values
-                         .flatMap(_.symbols)
-                         .filterNot(s => s.startsWith("°") && s.length > 1)
-                           // remove degree temperature like °C (test in another testcase)
-        __Verify__
-        sut should containTheSameElementsAs(expected)
-
-      case None => cancel("XxxUnit object is not defined") }
-    }
+//    """XxxPostfixOps trait should have properties
+//      | whose names are the same as 'symbol' properties of unit objects""".stripMargin in {
+//
+//      getConstantsDefined match { case Some(constDef) =>
+//
+//        def getPostfixOpsPropertyNames: Seq[String] =
+//          postfixOpsTrait.getMethods
+//            .filterNot(_.getName.endsWith("PostfixOps"))
+//            .flatMap(methodToSymbols)
+//
+//        def methodToSymbols(m: Method): Seq[String] = m.getParameterCount match {
+//          case 0 => Seq(decodePropertyName(m.getName))
+//          case 1 =>
+//            val name = m.getName
+//            val pf = postfixOpsObjectClass
+//                       .getMethod("_" + name).invoke(postfixOpsObject)
+//                       .asInstanceOf[PartialFunction[Context, _]]
+//            Context.values
+//              .filter(pf.isDefinedAt)
+//              .map(decodePropertyName(name) + "(" + _.symbol + ")")
+//        }
+//
+//        __SetUp__
+//        val sut = getPostfixOpsPropertyNames
+//        val expected = constDef.values
+//                         .flatMap(_.symbols)
+//                         .filterNot(s => s.startsWith("°") && s.length > 1)
+//                           // remove degree temperature like °C (test in another testcase)
+//        __Verify__
+//        sut should containTheSameElementsAs(expected)
+//
+//      case None => cancel("XxxUnit object is not defined") }
+//    }
 
     "XxxDot trait should have methods whose names are 'symbol' properties of unit objects" in {
       getConstantsDefined match { case Some(constDef) =>

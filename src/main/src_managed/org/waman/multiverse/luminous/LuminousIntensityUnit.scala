@@ -70,6 +70,7 @@ trait LuminousIntensityPostfixOps[A]{
 
   protected def luminousIntensityPostfixOps(unit: LuminousIntensityUnit): A
 
+
   def ycd : A = luminousIntensityPostfixOps(YoctoCandela)
   def zcd : A = luminousIntensityPostfixOps(ZeptoCandela)
   def acd : A = luminousIntensityPostfixOps(AttoCandela)

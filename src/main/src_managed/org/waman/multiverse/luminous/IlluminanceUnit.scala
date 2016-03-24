@@ -81,6 +81,7 @@ trait IlluminancePostfixOps[A]{
 
   protected def illuminancePostfixOps(unit: IlluminanceUnit): A
 
+
   def ylx : A = illuminancePostfixOps(YoctoLux)
   def zlx : A = illuminancePostfixOps(ZeptoLux)
   def alx : A = illuminancePostfixOps(AttoLux)

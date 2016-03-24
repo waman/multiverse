@@ -6,10 +6,10 @@
   "baseUnit":"EnergyUnit.Joule * TimeUnit.Second",
   "baseUnitAccessor":"unitInJouleSecond",
 
-
   "product":[["EnergyUnit", "TimeUnit"]],
 
   "constants":[
-    {"name":"AtomicUnitOfAction", "symbols":["ħ", "hbar"], "args":"r\"1.05457168e-34\"", "NotExact":true}
+//    {"name":"PlanckConstant", "symbols":["h"], "args":"r\"6.62607004081e-34\"", "NotExact":true},
+    {"name":"ReducedPlanckConstant", "symbols":["ħ", "hbar"], "args":"r\"1.05457172647e-34\"", "NotExact":true}
   ]
 }

@@ -12,6 +12,8 @@
 
   "product":[["LengthUnit", "LengthUnit"]],
 
+  "context":"org.waman.multiverse.metric.MetricContext",
+
   "constants":[
     {"name":"SquareMetre", "symbol":"m2", "args":"**2", "scalePrefixes":true},
 

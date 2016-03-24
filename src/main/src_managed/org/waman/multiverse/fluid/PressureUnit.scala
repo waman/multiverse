@@ -84,6 +84,7 @@ trait PressurePostfixOps[A]{
 
   protected def pressurePostfixOps(unit: PressureUnit): A
 
+
   def yPa : A = pressurePostfixOps(YoctoPascal)
   def zPa : A = pressurePostfixOps(ZeptoPascal)
   def aPa : A = pressurePostfixOps(AttoPascal)

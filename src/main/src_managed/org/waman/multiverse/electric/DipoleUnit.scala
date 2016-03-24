@@ -59,6 +59,7 @@ trait DipolePostfixOps[A]{
 
   protected def dipolePostfixOps(unit: DipoleUnit): A
 
+
   def D : A = dipolePostfixOps(Debye)
 }
 

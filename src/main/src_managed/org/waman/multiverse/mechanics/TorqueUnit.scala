@@ -1,8 +1,10 @@
 package org.waman.multiverse.mechanics
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric._
 
 sealed trait TorqueUnit extends PhysicalUnit[TorqueUnit]{
 

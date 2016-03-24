@@ -94,6 +94,7 @@ trait ForcePostfixOps[A]{
 
   protected def forcePostfixOps(unit: ForceUnit): A
 
+
   def yN : A = forcePostfixOps(YoctoNewton)
   def zN : A = forcePostfixOps(ZeptoNewton)
   def aN : A = forcePostfixOps(AttoNewton)

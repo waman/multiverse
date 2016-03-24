@@ -70,6 +70,7 @@ trait LuminousFluxPostfixOps[A]{
 
   protected def luminousFluxPostfixOps(unit: LuminousFluxUnit): A
 
+
   def ylm : A = luminousFluxPostfixOps(YoctoLumen)
   def zlm : A = luminousFluxPostfixOps(ZeptoLumen)
   def alm : A = luminousFluxPostfixOps(AttoLumen)

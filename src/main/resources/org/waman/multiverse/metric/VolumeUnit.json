@@ -13,6 +13,8 @@
 
   "product":[["AreaUnit", "LengthUnit"]],
 
+  "context":"org.waman.multiverse.metric.MetricContext",
+
   "constants":[
     {"name":"CubicMetre", "symbol":"m3", "args":"**3", "scalePrefixes":true},
 

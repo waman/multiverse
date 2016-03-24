@@ -1,0 +1,23 @@
+[
+  {"name":"Sidereal", "symbol":"sidereal"},
+  {"name":"Tropical", "symbol":"tropical"},
+  {"name":"Anomalistic", "symbol":"anomalistic"},
+  {"name":"Draconic", "symbol":"draconic"},
+
+  {"name":"JulianCalendar", "symbol":"Julian"},
+  {"name":"GregorianCalendar", "symbol":"Gregorian"},
+
+  // day specific
+  {"name":"StellarDay", "symbol":"stellar"},
+  {"name":"MeanSolarDay" , "symbol":"solar"},
+
+  // month specific
+  {"name":"FullMonth", "symbol":"full"},
+  {"name":"HollowMonth", "symbol":"hollow"},
+  {"name":"Synodic", "symbol":"synodic"},
+
+  // year specific
+  {"name":"CommonYear", "symbol":"common"},
+  {"name":"LeapYear", "symbol":"leap"}//,
+//  {"name":"GaussianYear", "symbol":"Gaussian"}
+]

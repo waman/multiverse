@@ -1,9 +1,10 @@
 package org.waman.multiverse.radiation
 
-import org.waman.multiverse._
-import org.waman.multiverse.time._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.time._
 
 sealed trait EquivalentDoseUnit extends PhysicalUnit[EquivalentDoseUnit]
   with DivisibleByTimeUnit[EquivalentDoseRateUnit]{
@@ -89,6 +90,7 @@ trait EquivalentDosePostfixOps[A]{
   import EquivalentDoseUnit._
 
   protected def equivalentDosePostfixOps(unit: EquivalentDoseUnit): A
+
 
   def ySv : A = equivalentDosePostfixOps(YoctoSievert)
   def zSv : A = equivalentDosePostfixOps(ZeptoSievert)

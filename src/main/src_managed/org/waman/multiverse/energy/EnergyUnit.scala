@@ -155,6 +155,7 @@ trait EnergyPostfixOps[A]{
 
   protected def energyPostfixOps(unit: EnergyUnit): A
 
+
   def yJ : A = energyPostfixOps(YoctoJoule)
   def zJ : A = energyPostfixOps(ZeptoJoule)
   def aJ : A = energyPostfixOps(AttoJoule)

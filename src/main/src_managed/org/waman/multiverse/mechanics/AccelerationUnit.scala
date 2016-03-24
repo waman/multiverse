@@ -1,10 +1,12 @@
 package org.waman.multiverse.mechanics
 
-import org.waman.multiverse._
-import org.waman.multiverse.metric.LengthUnit
-import org.waman.multiverse.time.{TimeSquaredUnit, TimeUnit}
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.metric.LengthUnit
+import org.waman.multiverse.time.TimeUnit
+import org.waman.multiverse.time.TimeSquaredUnit
 
 sealed trait AccelerationUnit extends PhysicalUnit[AccelerationUnit]{
 
@@ -74,6 +76,7 @@ trait AccelerationPostfixOps[A]{
   import AccelerationUnit._
 
   protected def accelerationPostfixOps(unit: AccelerationUnit): A
+
 
   def g0 : A = accelerationPostfixOps(StandardGravity)
   def Gal : A = accelerationPostfixOps(Galileo)

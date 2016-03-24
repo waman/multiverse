@@ -1,11 +1,12 @@
 package org.waman.multiverse.magnetic
 
+import spire.math.Real
+import spire.implicits._
 import org.waman.multiverse._
-import org.waman.multiverse.electric._
+
 import org.waman.multiverse.metric._
 import org.waman.multiverse.time._
-import spire.implicits._
-import spire.math.Real
+import org.waman.multiverse.electric._
 
 sealed trait FluxUnit extends PhysicalUnit[FluxUnit]
   with DivisibleByAreaUnit[FluxDensityUnit]
@@ -106,6 +107,7 @@ trait FluxPostfixOps[A]{
   import FluxUnit._
 
   protected def fluxPostfixOps(unit: FluxUnit): A
+
 
   def yWb : A = fluxPostfixOps(YoctoWeber)
   def zWb : A = fluxPostfixOps(ZeptoWeber)

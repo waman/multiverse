@@ -6,10 +6,39 @@
 
   "square":"TimeSquaredUnit",
 
+  "context":"org.waman.multiverse.time.TimeContext",
+
   "constants":[
     {"name":"Second", "symbol":"s"        , "args":"", "scalePrefixes":true},
-    {"name":"Minute", "symbols":["minute"], "args":"r\"60\""},
-    {"name":"Hour"  , "symbols":["h"]     , "args":"r\"60\", Minute"},
-    {"name":"Day"   , "symbols":["d"]     , "args":"r\"24\", Hour"}
+    {"name":"Minute", "symbols":["minute"], "args":"60"},
+    {"name":"Hour"  , "symbols":["h"]     , "args":"60, Minute"},
+    {"name":"Day"   , "symbols":["d"]     , "args":"24, Hour"},
+    {"name":"Week"   , "symbols":["wk"]     , "args":"7, Day"},
+    {"name":"Year_Gregorian", "symbol":["a", "y", "yr", "a(Gregorian)", "y(Gregorian)", "yr(Gregorian)"],
+      "args":"r\"365.2425\", Day"},
+
+    {"name":"Svedberg", "symbols":["S"], "args":"r\"1e-13\""},
+    {"name":"MilliDay", "symbols":["md"], "args":"r\"24\", Hour"},
+
+    {"name":"Decade"   , "symbols":["dec"]     , "args":"10, Year_Gregorian"},
+    {"name":"Century", "symbols":["century"]     , "args":"100, Year_Gregorian"},
+
+    {"name":"JittyAlternative"   , "symbols":["ja"]     , "args":"1, CentiSecond"},
+    {"name":"Jitty"   , "symbols":["j"]     , "args":"r\"1/60\", Second"},
+    {"name":"Fortnight"   , "symbols":["fn"]     , "args":"2, Week"},
+
+    // sidereal
+    {"name":"Day_sidereal", "symbols":["d(sidereal)"],
+      "args":"23.9344699, Hour", "NotExact":true},
+    {"name":"Year_sidereal", "symbol":["y(sidereal)", "yr(sidereal)"],
+      "args":"r\"365.256363\", Day", "NotExact":true},
+
+    // other years
+    {"name":"Year_common", "symbol":["a(common)", "y(common)", "yr(common)"], "args":"365, Day"},
+    {"name":"Year_leap", "symbol":["a(leap)", "y(leap)", "yr(leap)"], "args":"366, Day"},
+    {"name":"Year_Julian", "symbol":["a(Julian)", "y(Julian)", "yr(Julian)"], "args":"r\"365.25\", Day"},
+    {"name":"Year_tropical", "symbol":["a(tropical)", "y(tropical)", "yr(tropical)"],
+      "args":"r\"365.256363\", Day", "NotExact":true}//,
+
   ]
 }

@@ -19,6 +19,7 @@ trait TemperaturePostfixOps[A]{
 
   protected def temperaturePostfixOps(unit: TemperatureUnit): A
 
+
   def yK : A = temperaturePostfixOps(YoctoKelvin)
   def zK : A = temperaturePostfixOps(ZeptoKelvin)
   def aK : A = temperaturePostfixOps(AttoKelvin)

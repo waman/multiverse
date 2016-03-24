@@ -60,6 +60,7 @@ trait KinematicViscosityPostfixOps[A]{
 
   protected def kinematicViscosityPostfixOps(unit: KinematicViscosityUnit): A
 
+
   def St : A = kinematicViscosityPostfixOps(Stokes)
 }
 

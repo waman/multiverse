@@ -87,6 +87,7 @@ trait VoltagePostfixOps[A]{
 
   protected def voltagePostfixOps(unit: VoltageUnit): A
 
+
   def yV : A = voltagePostfixOps(YoctoVolt)
   def zV : A = voltagePostfixOps(ZeptoVolt)
   def aV : A = voltagePostfixOps(AttoVolt)

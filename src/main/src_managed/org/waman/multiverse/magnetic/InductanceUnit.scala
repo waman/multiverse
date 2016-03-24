@@ -1,9 +1,10 @@
 package org.waman.multiverse.magnetic
 
-import org.waman.multiverse._
-import org.waman.multiverse.electric._
-import spire.implicits._
 import spire.math.Real
+import spire.implicits._
+import org.waman.multiverse._
+
+import org.waman.multiverse.electric._
 
 sealed trait InductanceUnit extends PhysicalUnit[InductanceUnit]{
 
@@ -77,6 +78,7 @@ trait InductancePostfixOps[A]{
   import InductanceUnit._
 
   protected def inductancePostfixOps(unit: InductanceUnit): A
+
 
   def yH : A = inductancePostfixOps(YoctoHenry)
   def zH : A = inductancePostfixOps(ZeptoHenry)

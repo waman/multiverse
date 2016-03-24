@@ -75,6 +75,7 @@ trait VelocityPostfixOps[A]{
 
   protected def velocityPostfixOps(unit: VelocityUnit): A
 
+
   def M : A = velocityPostfixOps(MachNumber)
   def c : A = velocityPostfixOps(SpeedOfLight)
   def kn : A = velocityPostfixOps(Knot)
@@ -87,17 +88,21 @@ trait VelocityPostfixOps[A]{
   def mps : A = velocityPostfixOps(MilePerSecond)
   def mpm : A = velocityPostfixOps(MilePerMinute)
   def mph : A = velocityPostfixOps(MilePerHour)
-  import VelocityPostfixOps._
 
-  def kn(c: Context): A = velocityPostfixOps(_kn(c))
+  import VelocityPostfixOps._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
+
+  def kn(c: MetricContext): A = velocityPostfixOps(_kn(c))
 }
 
 object VelocityPostfixOps{
   import VelocityUnit._
-  import org.waman.multiverse.Context._
+  import org.waman.multiverse.metric.MetricContext
+  import MetricContext._
 
 
-  lazy val _kn : PartialFunction[Context, VelocityUnit] = {
+  lazy val _kn : PartialFunction[MetricContext, VelocityUnit] = {
     case Admiralty => Knot_Admiralty
   }
 }

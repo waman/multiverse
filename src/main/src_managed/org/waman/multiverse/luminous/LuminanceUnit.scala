@@ -64,6 +64,7 @@ trait LuminancePostfixOps[A]{
 
   protected def luminancePostfixOps(unit: LuminanceUnit): A
 
+
   def sb : A = luminancePostfixOps(Stilb)
   def Lb : A = luminancePostfixOps(Lambert)
   def asb : A = luminancePostfixOps(ApoStilb)
