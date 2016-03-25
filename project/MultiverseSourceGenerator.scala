@@ -19,9 +19,9 @@ object MultiverseSourceGenerator extends GluinoPath{
     val (contexts, contextArrays) = generateContexts(rsrc, srcManaged)
     // contextArrays: Map("org.waman.multiverse.metric.MetricContext" -> Array(NameSymbol("UnitedStates", "US"), NameSymbol("Imperial", "imp"), ...)
 
-    val unitSystem = generateUnitSystem(rsrc, srcManaged, contextArrays)
+    val (unitSystem, unitSourceArray) = generateUnitSystem(rsrc, srcManaged, contextArrays)
 
-    val unitTraits = generateUnitTraits(rsrc, srcManaged, contextArrays)
+    val unitTraits = generateUnitTraits(rsrc, srcManaged, contextArrays, unitSourceArray)
 
     contexts ::: unitSystem :: unitTraits
   }
@@ -34,10 +34,6 @@ object MultiverseSourceGenerator extends GluinoPath{
       val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
       val generated = srcManaged / rel / (id + ".scala")
 
-//      val nsList: List[NameSymbol] = json.withReader(parser.parse(_))
-//        .getAsJsonArray.toList
-//        .map(_.getAsJsonObject)
-//        .map{ obj => NameSymbol(getString(obj, "name"), getString(obj, "symbol"))}
       val nsArray = json.withReader(gson.fromJson(_, contextType)).asInstanceOf[Array[ContextJson]]
 
       if(!generated.exists || generated.isOlderThan(json) ) {
@@ -109,78 +105,84 @@ object MultiverseSourceGenerator extends GluinoPath{
   def jsonPropertyFilesOfUnits(rsrc: Path): List[Path] =
     rsrc.filesMatchRecurse(FileType.Files, fileExtensionFilter("Unit.json")).toList
 
-  def generateUnitSystem(rsrc: Path, srcManaged: Path, contextLists: Map[String, Array[ContextJson]]): Path = {
+  def generateUnitSystem(rsrc: Path, srcManaged: Path, contextLists: Map[String, Array[ContextJson]]):
+      (Path, Array[UnitSource]) = {
+
     val generated = srcManaged / "org/waman/multiverse/UnitSystem.scala"
-
-    if(generated.exists && jsonPropertyFilesOfUnits(rsrc).forall(generated.isNewerThan))
-      return generated
-
-    if(generated.exists)generated.delete()
 
     val unitSystemInfo = jsonPropertyFilesOfUnits(rsrc).map { json: Path =>
       val rel = rsrc.relativize(json.getParent)
       val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
       val className = json.getFileName.toString.replace("Unit.json", "")
+      val fullClassName = s"$packageName.$className"
 
       val prop = json.withReader(gson.fromJson(_, unitType)).asInstanceOf[UnitJson]
+      val us = UnitSource(json, packageName, className, prop)
 
-      if(prop.hasConstants)
-        List(s"$packageName.$className", s"$packageName.Predefined${className}Unit")
+      if (prop.hasConstants)
+        List(us, fullClassName, s"$packageName.Predefined${className}Unit")
       else
-        List(s"$packageName.$className")
+        List(us, fullClassName)
     }
 
-    generated.withWriter{ writer =>
-      writer <<
-        s"""package org.waman.multiverse
-           |
-           |trait UnitSystem extends UnitSystemImplicits""".stripMargin
+    if(!generated.exists || jsonPropertyFilesOfUnits(rsrc).forall(generated.isOlderThan)) {
+      if (generated.exists) generated.delete()
 
-      contextLists.foreach{ case (contextClass, _) =>
+      generated.withWriter { writer =>
+        writer <<
+          s"""package org.waman.multiverse
+             |
+             |trait UnitSystem extends UnitSystemImplicits""".stripMargin
+
+        contextLists.foreach{ case (contextClass, _) =>
+          writer <<
+            s"""
+               |  with ${contextClass}Defined""".stripMargin
+        }
+
+        unitSystemInfo.flatMap {
+          case list if list.length == 3 => List(list(2))
+          case _ => Nil
+        }.foreach{ predef =>
+          writer <<
+              s"""
+                 |  with $predef""".stripMargin
+        }
+
         writer <<
           s"""
-             |  with ${contextClass}Defined""".stripMargin
-      }
+             |
+             |object UnitSystem extends UnitSystem{
+             |
+             |  lazy val supportedQuantities: Set[Class[_]] = Set(
+             |    """.stripMargin
 
-      unitSystemInfo.flatMap{
-        case a::b::_ => List(b)
-        case _ =>  Nil
-      }.foreach{ p =>
+        writer << unitSystemInfo.map(_(1)).map(
+          "classOf[" + _ + "[_]]").mkString(
+          s""",
+             |    """.stripMargin)
         writer <<
           s"""
-             |  with $p""".stripMargin
-      }
-
-      writer <<
-        s"""
-           |
-           |object UnitSystem extends UnitSystem{
-           |
-           |  lazy val supportedQuantities: Set[Class[_]] = Set(
-           |    """.stripMargin
-
-      writer << unitSystemInfo.map(_.head).map("classOf[" + _ + "[_]]").mkString(
-        s""",
-           |    """.stripMargin)
-
-      writer <<
-        s"""
-           |  )
-           |}""".stripMargin
+             |  )
+             |}""".stripMargin
+       }
+       println("[GENERATE] " + generated)
     }
-    println("[GENERATE] " + generated)
-    generated
+
+    val props = unitSystemInfo.map(_(0).asInstanceOf[UnitSource]).toArray
+    (generated, props)
   }
 
-  def generateUnitTraits(rsrc: Path, srcManaged: Path, contextArrays: Map[String, Array[ContextJson]]): List[Path] = {
+  def generateUnitTraits(rsrc: Path, srcManaged: Path,
+                         contextArrays: Map[String, Array[ContextJson]],
+                         unitSourceArray: Array[UnitSource]): List[Path] = {
     jsonPropertyFilesOfUnits(rsrc).map{ json: Path =>
-      val rel = rsrc.relativize(json.getParent)
-      val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
+      val unitSource = unitSourceArray.find(_.src == json).get
 
+      val rel = rsrc.relativize(json.getParent)
       val destDir = srcManaged / rel
-      val className = json.getFileName.toString.replace("Unit.json", "")  // Length (not contain "Unit")
-      val fileName = if(className == "Temperature") "TemperaturePostfixOps.scala"
-                     else className + "Unit.scala"
+      val fileName = if(unitSource.unitName == "Temperature") "TemperaturePostfixOps.scala"
+                     else unitSource.unitName + "Unit.scala"
       val generated = destDir / fileName
 
       if(!generated.exists || generated.isOlderThan(json)){
@@ -188,8 +190,7 @@ object MultiverseSourceGenerator extends GluinoPath{
         destDir.createDirectories()
         generated.createFile()
 
-        val prop = json.withReader(gson.fromJson(_, unitType)).asInstanceOf[UnitJson]
-        generateUnitTrait(generated, packageName, className, prop, contextArrays)
+        generateUnitTrait(generated, unitSource.packageName, unitSource.unitName, unitSource.unitJson, contextArrays)
         println("[GENERATE] " + generated)
       }
       generated

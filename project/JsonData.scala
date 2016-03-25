@@ -1,3 +1,5 @@
+import java.nio.file.Path
+
 case class Scale(name: String, prefix: String, scale: String)
 
 case class ContextJson(name: String, symbol: String)
@@ -89,6 +91,8 @@ case class CanonicalConstant
 
   private def quote(s: String) = "\"" + s + "\""
 }
+
+case class UnitSource(src: Path, packageName: String, unitName: String, unitJson: UnitJson)
 
 object GenerationUtil{
 
