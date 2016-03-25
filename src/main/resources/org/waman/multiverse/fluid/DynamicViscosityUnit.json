@@ -8,8 +8,8 @@
   "baseUnit":"PressureUnit.Pascal * TimeUnit.Second",
   "baseUnitAccessor":"unitInPascalSecond",
 
-  "product":[["PressureUnit", "TimeUnit"]],
-  "quotient":[["MomentumUnit", "AreaUnit"]],
+  "products":[["PressureUnit", "TimeUnit"]],
+  "quotients":[["MomentumUnit", "AreaUnit"]],
 
   "constants":[
     {"name":"Poise", "symbols":["P"], "args":"r\"0.1\""}

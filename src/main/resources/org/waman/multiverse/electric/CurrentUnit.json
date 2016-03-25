@@ -6,9 +6,9 @@
   "baseUnit":"Ampere",
   "baseUnitAccessor":"unitInAmpere",
 
-  "multiplicative":[["TimeUnit", "ChargeUnit"]],
+  "multiplicatives":[["TimeUnit", "ChargeUnit"]],
 
-  "quotient":[["ChargeUnit", "TimeUnit"]],
+  "quotients":[["ChargeUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Ampere", "symbol":"A", "args":"", "scalePrefixes":true}

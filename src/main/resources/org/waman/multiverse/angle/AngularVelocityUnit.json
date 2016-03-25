@@ -7,7 +7,7 @@
   "baseUnit":"AngleUnit.Radian / TimeUnit.Second",
   "baseUnitAccessor":"unitInRadianPerSecond",
 
-  "quotient":[["AngleUnit", "TimeUnit"]],
+  "quotients":[["AngleUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"CyclePerSecond", "symbols":["cps"], "args":"twoPi"},

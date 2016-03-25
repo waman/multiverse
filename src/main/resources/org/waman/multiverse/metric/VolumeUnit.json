@@ -8,10 +8,10 @@
   "baseUnit":"CubicMetre",
   "baseUnitAccessor":"unitInCubicMetre",
 
-  "multiplicative":[["PressureUnit", "EnergyUnit"]],
-  "divisible":[["TimeUnit", "VolumeFlowUnit"]],
+  "multiplicatives":[["PressureUnit", "EnergyUnit"]],
+  "divisibles":[["TimeUnit", "VolumeFlowUnit"]],
 
-  "product":[["AreaUnit", "LengthUnit"]],
+  "products":[["AreaUnit", "LengthUnit"]],
 
   "context":"org.waman.multiverse.metric.MetricContext",
 

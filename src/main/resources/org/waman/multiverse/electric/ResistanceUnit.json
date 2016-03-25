@@ -2,7 +2,7 @@
   "baseUnit":"Ohm",
   "baseUnitAccessor":"unitInOhm",
 
-  "quotient":[["VoltageUnit", "CurrentUnit"]],
+  "quotients":[["VoltageUnit", "CurrentUnit"]],
 
   "constants":[
     {"name":"Ohm", "symbol":"Ω", "args":"", "scalePrefixes":true}

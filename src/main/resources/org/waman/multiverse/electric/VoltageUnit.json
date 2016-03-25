@@ -8,10 +8,10 @@
   "baseUnit":"Volt",
   "baseUnitAccessor":"unitInVolt",
 
-  "multiplicative":[["TimeUnit", "FluxUnit"]],
-  "divisible":[["CurrentUnit", "ResistanceUnit"]],
+  "multiplicatives":[["TimeUnit", "FluxUnit"]],
+  "divisibles":[["CurrentUnit", "ResistanceUnit"]],
 
-  "quotient":[["PowerUnit", "CurrentUnit"]],
+  "quotients":[["PowerUnit", "CurrentUnit"]],
 
   "constants":[
     {"name":"Volt", "symbol":"V", "args":"", "scalePrefixes":true}

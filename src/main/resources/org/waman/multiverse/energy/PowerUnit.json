@@ -7,10 +7,10 @@
   "baseUnit":"Watt",
   "baseUnitAccessor":"unitInWatt",
 
-  "multiplicative":[["TimeUnit", "EnergyUnit"]],
-  "divisible":[["CurrentUnit", "VoltageUnit"]],
+  "multiplicatives":[["TimeUnit", "EnergyUnit"]],
+  "divisibles":[["CurrentUnit", "VoltageUnit"]],
 
-  "quotient":[["EnergyUnit", "TimeUnit"]],
+  "quotients":[["EnergyUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Watt", "symbol":"W", "args":"", "scalePrefixes":true}

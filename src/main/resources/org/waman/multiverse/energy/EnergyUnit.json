@@ -13,15 +13,15 @@
   "baseUnit":"Joule",
   "baseUnitAccessor":"unitInJoule",
 
-  "multiplicative":[["TimeUnit", "ActionUnit"]],
-  "divisible":[["TimeUnit", "PowerUnit"], ["TemperatureUnit", "EntropyUnit"], ["MassUnit", "AbsorbedDoseUnit"]],
+  "multiplicatives":[["TimeUnit", "ActionUnit"]],
+  "divisibles":[["TimeUnit", "PowerUnit"], ["TemperatureUnit", "EntropyUnit"], ["MassUnit", "AbsorbedDoseUnit"]],
 
-  "product":[["LengthUnit", "ForceUnit"], ["ChargeUnit", "VoltageUnit"],
+  "products":[["LengthUnit", "ForceUnit"], ["ChargeUnit", "VoltageUnit"],
              ["PowerUnit", "TimeUnit"], ["VolumeUnit", "PressureUnit"]],
 
   "constants":[
     {"name":"Joule", "symbol":"J", "args":"", "scalePrefixes":true},
     {"name":"ElectronVolt", "symbol":"eV", "args":" * ChargeUnit.ElementaryCharge.unitInCoulomb",
-      "scalePrefixes":true, "NotExact":true}
+      "scalePrefixes":true, "notExact":true}
   ]
 }

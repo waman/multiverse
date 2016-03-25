@@ -10,14 +10,14 @@
   "baseUnit":"Coulomb",
   "baseUnitAccessor":"unitInCoulomb",
 
-  "multiplicative":[["LengthUnit", "DipoleUnit"], ["VoltageUnit", "EnergyUnit"]],
-  "divisible":[["TimeUnit", "CurrentUnit"], ["VoltageUnit", "CapacitanceUnit"], ["MassUnit", "ExposureUnit"]],
+  "multiplicatives":[["LengthUnit", "DipoleUnit"], ["VoltageUnit", "EnergyUnit"]],
+  "divisibles":[["TimeUnit", "CurrentUnit"], ["VoltageUnit", "CapacitanceUnit"], ["MassUnit", "ExposureUnit"]],
 
-  "product":[["CurrentUnit", "TimeUnit"]],
+  "products":[["CurrentUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Coulomb", "symbol":"C", "args":"", "scalePrefixes":true},
 
-    {"name":"ElementaryCharge", "symbol":"e", "args":"1.602176620898e-19", "NotExact":true}
+    {"name":"ElementaryCharge", "symbols":["e"], "args":"r\"1.602176620898e-19\"", "notExact":true}
   ]
 }

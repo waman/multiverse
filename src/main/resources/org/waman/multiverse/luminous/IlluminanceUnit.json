@@ -6,7 +6,7 @@
   "baseUnit":"Lux",
   "baseUnitAccessor":"unitInLux",
 
-  "quotient":[["LuminousFluxUnit", "AreaUnit"]],
+  "quotients":[["LuminousFluxUnit", "AreaUnit"]],
 
   "constants":[
     {"name":"Lux"       , "symbol":"lx"   , "args":"", "scalePrefixes":true},

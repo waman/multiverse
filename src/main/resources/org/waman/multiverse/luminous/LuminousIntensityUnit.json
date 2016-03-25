@@ -6,7 +6,7 @@
   "baseUnit":"Candela",
   "baseUnitAccessor":"unitInCandela",
 
-  "divisible":[["AreaUnit", "LuminanceUnit"]],
+  "divisibles":[["AreaUnit", "LuminanceUnit"]],
 
   "constants":[
     {"name":"Candela", "scalePrefixes":true, "symbol":"cd", "args":""}

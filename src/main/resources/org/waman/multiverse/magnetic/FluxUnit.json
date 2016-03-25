@@ -8,9 +8,9 @@
   "baseUnit":"Weber",
   "baseUnitAccessor":"unitInWeber",
 
-  "divisible":[["AreaUnit", "FluxDensityUnit"], ["CurrentUnit", "InductanceUnit"]],
+  "divisibles":[["AreaUnit", "FluxDensityUnit"], ["CurrentUnit", "InductanceUnit"]],
 
-  "product":[["VoltageUnit", "TimeUnit"]],
+  "products":[["VoltageUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Weber", "symbol":"Wb", "args":"", "scalePrefixes":true},

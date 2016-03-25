@@ -7,9 +7,9 @@
   "baseUnit":"Gray",
   "baseUnitAccessor":"unitInGray",
 
-  "quotient":[["EnergyUnit", "MassUnit"]],
+  "quotients":[["EnergyUnit", "MassUnit"]],
 
   "constants":[
-    {"name":"Gray", "scalePrefixes":true, "symbol":"Gy", "args":""}
+    {"name":"Gray", "symbol":"Gy", "args":"", "scalePrefixes":true}
   ]
 }

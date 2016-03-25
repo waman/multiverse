@@ -10,15 +10,15 @@
   "baseUnit":"Newton",
   "baseUnitAccessor":"unitInNewton",
 
-  "multiplicative":[["LengthUnit", "TorqueUnit"], ["TimeUnit", "MomentumUnit"]],
-  "divisible":[["AreaUnit", "PressureUnit"]],
+  "multiplicatives":[["LengthUnit", "TorqueUnit"], ["TimeUnit", "MomentumUnit"]],
+  "divisibles":[["AreaUnit", "PressureUnit"]],
 
-  "product":[["MassUnit", "AccelerationUnit"]],
+  "products":[["MassUnit", "AccelerationUnit"]],
 
   "constants":[
     {"name":"Newton", "symbol":"N", "args":"", "scalePrefixes":true},
     {"name":"Dyne", "symbols":["dyn"], "args":"r\"1e-5\""},
     {"name":"KiloGramForce", "symbols":["kgf", "kp"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared", "NotExact":true}
+      "args":"StandardGravity.unitInMetrePerSecondSquared", "notExact":true}
   ]
 }

@@ -7,8 +7,8 @@
   "baseUnit":"KiloGram",
   "baseUnitAccessor":"unitInKiloGram",
 
-  "multiplicative":[["AccelerationUnit", "ForceUnit"]],
-  "divisible":[["VolumeUnit", "DensityUnit"]],
+  "multiplicatives":[["AccelerationUnit", "ForceUnit"]],
+  "divisibles":[["VolumeUnit", "DensityUnit"]],
 
   "constants":[
     {"name":"Gram"   , "symbol":"g"    , "args":" * r\"1e-3\"", "scalePrefixes":true},
@@ -18,8 +18,8 @@
     {"name":"Quintal", "symbols":["q"] , "args":"100, KiloGram"},
 
     // microscopic
-    {"name":"AtomicMassUnit", "symbols":["u", "AMU", "Da"], "args":"r\"1.66053892173e-27\"", "NotExact":true},
-    {"name":"ElectronMass"  , "symbols":["m_e"]           , "args":"r\"9.1093829140e-31\"" , "NotExact":true},
+    {"name":"AtomicMassUnit", "symbols":["u", "AMU", "Da"], "args":"r\"1.66053892173e-27\"", "notExact":true},
+    {"name":"ElectronMass"  , "symbols":["m_e"]           , "args":"r\"9.1093829140e-31\"" , "notExact":true},
 
     // yard-pond
     {"name":"Ounce"      , "symbols":["oz"]            , "args":"28, Gram"},

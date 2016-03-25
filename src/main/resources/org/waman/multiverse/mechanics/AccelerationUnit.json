@@ -8,7 +8,7 @@
   "baseUnit":"LengthUnit.Metre / TimeSquaredUnit.SecondSquared",
   "baseUnitAccessor":"unitInMetrePerSecondSquared",
 
-  "quotient":[["LengthUnit", "TimeSquaredUnit"], ["VelocityUnit", "TimeUnit"]],
+  "quotients":[["LengthUnit", "TimeSquaredUnit"], ["VelocityUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"StandardGravity", "symbols":["g0"], "args":"r\"9.80665\""},

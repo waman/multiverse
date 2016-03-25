@@ -6,7 +6,7 @@
   "baseUnit":"Tesla",
   "baseUnitAccessor":"unitInTesla",
 
-  "quotient":[["FluxUnit", "AreaUnit"]],
+  "quotients":[["FluxUnit", "AreaUnit"]],
 
   "constants":[
     {"name":"Tesla", "symbol":"T", "args":"", "scalePrefixes":true},

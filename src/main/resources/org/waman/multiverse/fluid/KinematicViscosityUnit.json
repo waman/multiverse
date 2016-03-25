@@ -7,7 +7,7 @@
   "baseUnit":"AreaUnit.SquareMetre / TimeUnit.Second",
   "baseUnitAccessor":"unitInSquareMetrePerSecond",
 
-  "quotient":[["AreaUnit", "TimeUnit"]],
+  "quotients":[["AreaUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"Stokes", "symbols":["St"], "args":"r\"1e-4\""}

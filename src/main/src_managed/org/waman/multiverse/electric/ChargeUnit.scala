@@ -69,7 +69,7 @@ object ChargeUnit extends ConstantsDefined[ChargeUnit]{
   case object ExaCoulomb extends IntrinsicChargeUnit("ExaCoulomb", Seq("EC"), r"1e18")
   case object ZettaCoulomb extends IntrinsicChargeUnit("ZettaCoulomb", Seq("ZC"), r"1e21")
   case object YottaCoulomb extends IntrinsicChargeUnit("YottaCoulomb", Seq("YC"), r"1e24")
-  case object ElementaryCharge extends IntrinsicChargeUnit("ElementaryCharge", Seq(), 1.602176620898e-19) with NotExact
+  case object ElementaryCharge extends IntrinsicChargeUnit("ElementaryCharge", Seq("e"), r"1.602176620898e-19") with NotExact
 
   override lazy val values = Seq(YoctoCoulomb, ZeptoCoulomb, AttoCoulomb, FemtoCoulomb, PicoCoulomb, NanoCoulomb, MicroCoulomb, MilliCoulomb, CentiCoulomb, DeciCoulomb, Coulomb, DecaCoulomb, HectoCoulomb, KiloCoulomb, MegaCoulomb, GigaCoulomb, TeraCoulomb, PetaCoulomb, ExaCoulomb, ZettaCoulomb, YottaCoulomb, ElementaryCharge)
 
@@ -123,6 +123,7 @@ trait ChargePostfixOps[A]{
   def EC : A = chargePostfixOps(ExaCoulomb)
   def ZC : A = chargePostfixOps(ZettaCoulomb)
   def YC : A = chargePostfixOps(YottaCoulomb)
+  def e : A = chargePostfixOps(ElementaryCharge)
 }
 
 trait ChargeDot[A]{
@@ -153,6 +154,7 @@ trait ChargeDot[A]{
   def EC(dot: Dot): A = chargeDot(ExaCoulomb)
   def ZC(dot: Dot): A = chargeDot(ZettaCoulomb)
   def YC(dot: Dot): A = chargeDot(YottaCoulomb)
+  def e(dot: Dot): A = chargeDot(ElementaryCharge)
 }
 
 trait ChargePer[A]{
@@ -183,6 +185,7 @@ trait ChargePer[A]{
   def EC(per: Per): A = chargePer(ExaCoulomb)
   def ZC(per: Per): A = chargePer(ZettaCoulomb)
   def YC(per: Per): A = chargePer(YottaCoulomb)
+  def e(per: Per): A = chargePer(ElementaryCharge)
 }
 
 trait PredefinedChargeUnit extends ChargePostfixOps[ChargeUnit]{

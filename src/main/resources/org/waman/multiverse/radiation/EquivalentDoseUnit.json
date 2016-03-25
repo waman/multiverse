@@ -6,7 +6,7 @@
   "baseUnit":"Sievert",
   "baseUnitAccessor":"unitInSievert",
 
-  "divisible":[["TimeUnit", "EquivalentDoseRateUnit"]],
+  "divisibles":[["TimeUnit", "EquivalentDoseRateUnit"]],
 
   "constants":[
     {"name":"Sievert", "symbol":"Sv" , "args":""            , "scalePrefixes":true},

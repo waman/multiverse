@@ -2,7 +2,7 @@
   "baseUnit":"SecondSquared",
   "baseUnitAccessor":"unitInSecondSquared",
 
-  "product":[["TimeUnit", "TimeUnit"]],
+  "products":[["TimeUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"SecondSquared", "symbols":["s2"], "args":"1"}

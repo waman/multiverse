@@ -8,7 +8,7 @@
   "baseUnit":"ForceUnit.Newton * TimeUnit.Second",
   "baseUnitAccessor":"unitInNewtonSecond",
 
-  "divisible":[["AreaUnit", "DynamicViscosityUnit"]],
+  "divisibles":[["AreaUnit", "DynamicViscosityUnit"]],
 
-  "product":[["ForceUnit", "TimeUnit"]]
+  "products":[["ForceUnit", "TimeUnit"]]
 }

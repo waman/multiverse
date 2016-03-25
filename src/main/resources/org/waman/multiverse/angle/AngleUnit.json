@@ -8,7 +8,7 @@
   "baseUnit":"Radian",
   "baseUnitAccessor":"unitInRadian",
 
-  "divisible":[["TimeUnit", "AngularVelocityUnit"]],
+  "divisibles":[["TimeUnit", "AngularVelocityUnit"]],
 
   "constants":[
     {"name":"Radian", "symbol":"rad", "args":"", "scalePrefixes":true,

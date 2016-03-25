@@ -6,7 +6,7 @@
   "baseUnit":"Henry",
   "baseUnitAccessor":"unitInHenry",
 
-  "quotient":[["FluxUnit", "CurrentUnit"]],
+  "quotients":[["FluxUnit", "CurrentUnit"]],
 
   "constants":[
     {"name":"Henry", "symbol":"H", "args":"", "scalePrefixes":true}

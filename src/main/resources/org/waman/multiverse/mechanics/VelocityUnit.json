@@ -7,14 +7,14 @@
   "baseUnit":"LengthUnit.Metre / TimeUnit.Second",
   "baseUnitAccessor":"unitInMetrePerSecond",
 
-  "divisible":[["TimeUnit", "AccelerationUnit"]],
+  "divisibles":[["TimeUnit", "AccelerationUnit"]],
 
-  "quotient":[["LengthUnit", "TimeUnit"]],
+  "quotients":[["LengthUnit", "TimeUnit"]],
 
   "context":"org.waman.multiverse.metric.MetricContext",
 
   "constants":[
-    {"name":"MachNumber"    , "symbols":["M"], "args":"r\"340\"", "NotExact":true},
+    {"name":"MachNumber"    , "symbols":["M"], "args":"r\"340\"", "notExact":true},
     {"name":"SpeedOfLight"  , "symbols":["c"], "args":"r\"299792458\""},
 
     {"name":"Knot"          , "symbols":["kn"], "args":"LengthUnit.NauticalMile / TimeUnit.Hour"},

@@ -6,5 +6,5 @@
   "baseUnit":"MassUnit.KiloGram / VolumeUnit.CubicMetre",
   "baseUnitAccessor":"unitInKiloGramPerCubicMetre",
 
-  "quotient":[["MassUnit", "VolumeUnit"]]
+  "quotients":[["MassUnit", "VolumeUnit"]]
 }

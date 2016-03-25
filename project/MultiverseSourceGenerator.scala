@@ -1,56 +1,32 @@
 import java.nio.file.Path
 
+import GenerationUtil._
 import com.google.gson._
+import com.google.gson.reflect.TypeToken
 import org.waman.gluino.io.FileType
 import org.waman.gluino.nio.GluinoPath
 
-import scala.collection.JavaConversions._
-
 object MultiverseSourceGenerator extends GluinoPath{
 
-  val parser = new JsonParser
+  val gson = new Gson
 
-  case class Scale(name: String, prefix: String, scale: String)
-  case class NameSymbol(name: String, symbol: String)
-
-  val scalePrefixes: Seq[Scale] = Seq(
-    Scale("Yocto", "y", "1e-24"),
-    Scale("Zepto", "z", "1e-21"),
-    Scale("Atto" , "a", "1e-18"),
-    Scale("Femto", "f", "1e-15"),
-    Scale("Pico" , "p", "1e-12"),
-    Scale("Nano" , "n", "1e-9"),
-    Scale("Micro", "μ", "1e-6"),
-    Scale("Milli", "m", "1e-3"),
-    Scale("Centi", "c", "1e-2"),
-    Scale("Deci" , "d", "1e-1"),
-    Scale(""     , "" , "1"),
-    Scale("Deca" , "da", "1e1"),
-    Scale("Hecto", "h", "1e2"),
-    Scale("Kilo" , "k", "1e3"),
-    Scale("Mega" , "M", "1e6"),
-    Scale("Giga" , "G", "1e9"),
-    Scale("Tera" , "T", "1e12"),
-    Scale("Peta" , "P", "1e15"),
-    Scale("Exa"  , "E", "1e18"),
-    Scale("Zetta", "Z", "1e21"),
-    Scale("Yotta", "Y", "1e24")
-  )
+  val contextType = new TypeToken[Array[ContextJson]](){}.getRawType
+  val unitType = new TypeToken[UnitJson](){}.getRawType
 
   def generate(rsrc: Path, srcManaged: Path): List[Path] = {
     srcManaged.createDirectories()
 
-    val (contexts, contextLists) = generateContexts(rsrc, srcManaged)
-    // 2nd Map("org.waman.multiverse.metric.MetricContext" -> List(NameSymbol("UnitedStates", "US"), NameSymbol("Imperial", "imp"), ...)
+    val (contexts, contextArrays) = generateContexts(rsrc, srcManaged)
+    // contextArrays: Map("org.waman.multiverse.metric.MetricContext" -> Array(NameSymbol("UnitedStates", "US"), NameSymbol("Imperial", "imp"), ...)
 
-    val unitSystem = generateUnitSystem(rsrc, srcManaged, contextLists)
+    val unitSystem = generateUnitSystem(rsrc, srcManaged, contextArrays)
 
-    val unitTraits = generateUnitTraits(rsrc, srcManaged, contextLists)
+    val unitTraits = generateUnitTraits(rsrc, srcManaged, contextArrays)
 
     contexts ::: unitSystem :: unitTraits
   }
 
-  def generateContexts(rsrc: Path, srcManaged: Path): (List[Path], Map[String, List[NameSymbol]]) = {
+  def generateContexts(rsrc: Path, srcManaged: Path): (List[Path], Map[String, Array[ContextJson]]) = {
 
     val seq = rsrc.filesMatchRecurse(FileType.Files, fileExtensionFilter("Context.json")).map { json =>
       val id = json.getFileName.toString.replaceAll("\\.json", "")
@@ -58,27 +34,28 @@ object MultiverseSourceGenerator extends GluinoPath{
       val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
       val generated = srcManaged / rel / (id + ".scala")
 
-      val nsList: List[NameSymbol] = json.withReader(parser.parse(_))
-        .getAsJsonArray.toList
-        .map(_.getAsJsonObject)
-        .map{ obj => NameSymbol(getString(obj, "name"), getString(obj, "symbol"))}
+//      val nsList: List[NameSymbol] = json.withReader(parser.parse(_))
+//        .getAsJsonArray.toList
+//        .map(_.getAsJsonObject)
+//        .map{ obj => NameSymbol(getString(obj, "name"), getString(obj, "symbol"))}
+      val nsArray = json.withReader(gson.fromJson(_, contextType)).asInstanceOf[Array[ContextJson]]
 
       if(!generated.exists || generated.isOlderThan(json) ) {
         if (generated.exists) generated.delete()
         generated.getParent.createDirectories()
 
-        generateContext(id, packageName, generated, nsList)
+        generateContext(id, packageName, generated, nsArray)
         println("[GENERATE] " + generated)
       }
 
-      (generated, packageName + "." + id, nsList)
-      // (generated, "org.waman.multiverse.metric.MetricContext", List(NameSymbol("UnitedStates", "US"), ...))
+      (generated, packageName + "." + id, nsArray)
+      // (generated, "org.waman.multiverse.metric.MetricContext", Array(NameSymbol("UnitedStates", "US"), ...))
     }
 
     (seq.map(_._1).toList, Map(seq.map(t => (t._2, t._3)):_*))
   }
 
-  def generateContext(id: String, packageName: String, generated: Path, contextList: List[NameSymbol]): Unit = {
+  def generateContext(id: String, packageName: String, generated: Path, contextArray: Array[ContextJson]): Unit = {
     generated.withWriter{ writer =>
       // Context trait
       writer <<
@@ -95,7 +72,7 @@ object MultiverseSourceGenerator extends GluinoPath{
            |object $id extends ConstantsDefined[$id]{
            |""".stripMargin
 
-      contextList.foreach { ns =>
+      contextArray.foreach { ns =>
         writer <<
           // case object UnitedStates extends Context("UnitedStates", "US")
           s"""
@@ -105,7 +82,7 @@ object MultiverseSourceGenerator extends GluinoPath{
       writer <<
         s"""
            |
-           |  lazy val values = Seq(${contextList.map(_.name).mkString(", ")})
+           |  lazy val values = Seq(${contextArray.map(_.name).mkString(", ")})
            |}""".stripMargin
 
       // ContextDefined trait
@@ -116,7 +93,7 @@ object MultiverseSourceGenerator extends GluinoPath{
            |  import $id._
            |""".stripMargin
 
-      contextList.foreach{ ns =>
+      contextArray.foreach{ ns =>
         writer <<
           // val US = Context.UnitedStates
           s"""
@@ -132,7 +109,7 @@ object MultiverseSourceGenerator extends GluinoPath{
   def jsonPropertyFilesOfUnits(rsrc: Path): List[Path] =
     rsrc.filesMatchRecurse(FileType.Files, fileExtensionFilter("Unit.json")).toList
 
-  def generateUnitSystem(rsrc: Path, srcManaged: Path, contextLists: Map[String, List[NameSymbol]]): Path = {
+  def generateUnitSystem(rsrc: Path, srcManaged: Path, contextLists: Map[String, Array[ContextJson]]): Path = {
     val generated = srcManaged / "org/waman/multiverse/UnitSystem.scala"
 
     if(generated.exists && jsonPropertyFilesOfUnits(rsrc).forall(generated.isNewerThan))
@@ -145,8 +122,9 @@ object MultiverseSourceGenerator extends GluinoPath{
       val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
       val className = json.getFileName.toString.replace("Unit.json", "")
 
-      val jsonProp = json.withReader(parser.parse(_)).getAsJsonObject
-      if(jsonProp.has("constants"))
+      val prop = json.withReader(gson.fromJson(_, unitType)).asInstanceOf[UnitJson]
+
+      if(prop.hasConstants)
         List(s"$packageName.$className", s"$packageName.Predefined${className}Unit")
       else
         List(s"$packageName.$className")
@@ -194,7 +172,7 @@ object MultiverseSourceGenerator extends GluinoPath{
     generated
   }
 
-  def generateUnitTraits(rsrc: Path, srcManaged: Path, contextLists: Map[String, List[NameSymbol]]): List[Path] = {
+  def generateUnitTraits(rsrc: Path, srcManaged: Path, contextArrays: Map[String, Array[ContextJson]]): List[Path] = {
     jsonPropertyFilesOfUnits(rsrc).map{ json: Path =>
       val rel = rsrc.relativize(json.getParent)
       val packageName = rel.toString.replaceAll("[/\\\\]+", ".")
@@ -210,8 +188,8 @@ object MultiverseSourceGenerator extends GluinoPath{
         destDir.createDirectories()
         generated.createFile()
 
-        val jsonProp: JsonObject = json.withReader(parser.parse(_)).getAsJsonObject
-        generateUnitTrait(generated, packageName, className, jsonProp, contextLists)
+        val prop = json.withReader(gson.fromJson(_, unitType)).asInstanceOf[UnitJson]
+        generateUnitTrait(generated, packageName, className, prop, contextArrays)
         println("[GENERATE] " + generated)
       }
       generated
@@ -219,12 +197,12 @@ object MultiverseSourceGenerator extends GluinoPath{
   }
 
   def generateUnitTrait(dest: Path, packageName: String, className: String,
-                        json: JsonObject, contextLists: Map[String, List[NameSymbol]]): Unit = {
+                        json: UnitJson, contextArrays: Map[String, Array[ContextJson]]): Unit = {
     val id = headToLower(className)  // length
-    val units: List[UnitConstant] = getUnitConstants(json)
-    val (contextful, contextless) = getUnitNameSymbolTuples(units)
-    // contextful: List(NameSymbol("Foot", "ft(US)"), ...)
-    // contextless: List(NameSymbol("Metre", "m"), NameSymbol("Foot", "ft"), ...)
+    val constants: Array[CanonicalConstant] = json.getCanonicalConstants
+    val (contextful, contextless) = getUnitNameSymbolTuples(constants)
+    // contextful: Array(NameSymbol("Foot", "ft(US)"), ...)
+    // contextless: Array(NameSymbol("Metre", "m"), NameSymbol("Foot", "ft"), ...)
 
     dest.withWriter { writer =>
 
@@ -236,7 +214,7 @@ object MultiverseSourceGenerator extends GluinoPath{
            |import org.waman.multiverse._
            |""".stripMargin
 
-      getChildren(json, "imports").map(_.getAsString).foreach{ i =>
+      json.getImports.foreach{ i =>
         writer <<
           s"""
              |import $i""".stripMargin
@@ -244,17 +222,14 @@ object MultiverseSourceGenerator extends GluinoPath{
 
       if(className != "Temperature"){
         //***** Unit trait  *****
-        val baseUnitAccessor = getString(json, "baseUnitAccessor")
-        val baseUnit = getString(json, "baseUnit") match {
+        val baseUnitAccessor = json.baseUnitAccessor
+        val baseUnit = json.baseUnit match {
           case s if s.contains("*") || s. contains("/") => s
           case s => packageName + "." + className + "Unit." + s
         }
 
-        val muls = getChildren(json, "multiplicative").map(_.getAsJsonArray.toList.map(_.getAsString))
-          .map(p => (p.head, p(1)))
-
-        val divs  = getChildren(json, "divisible").map(_.getAsJsonArray.toList.map(_.getAsString))
-          .map(q => (q.head, q(1)))
+        val muls = json.getMultiplicatives.map(m => (m(0), m(1)))
+        val divs = json.getDivisibles.map(d => (d(0), d(1)))
 
         writer <<
           s"""
@@ -273,18 +248,16 @@ object MultiverseSourceGenerator extends GluinoPath{
                 |  with DivisibleBy$by[$result]""".stripMargin
         }
 
-        if(json.has("square")){
-          val square = json.getAsJsonPrimitive("square").getAsString
+        if(json.hasSquare){
           writer <<
             s"""
-               |  with CanSquare[$square]""".stripMargin
+               |  with CanSquare[${json.square}]""".stripMargin
         }
 
-        if(json.has("cubic")){
-          val cubic = json.getAsJsonPrimitive("cubic").getAsString
+        if(json.hasCubic){
           writer <<
             s"""
-               |  with CanCubic[$cubic]""".stripMargin
+               |  with CanCubic[${json.cubic}]""".stripMargin
         }
 
         writer <<
@@ -309,20 +282,18 @@ object MultiverseSourceGenerator extends GluinoPath{
                |  override def /(unit: $arg) = $result(this, unit)""".stripMargin
         }
 
-        if(json.has("square")){
-          val square = json.getAsJsonPrimitive("square").getAsString
+        if(json.hasSquare){
           writer <<
             s"""
                |
-               |  override def square: $square = this * this""".stripMargin
+               |  override def square: ${json.square} = this * this""".stripMargin
         }
 
-        if(json.has("cubic")){
-          val cubic = json.getAsJsonPrimitive("cubic").getAsString
+        if(json.hasCubic){
           writer <<
             s"""
                |
-               |  override def cubic: $cubic = this * this * this""".stripMargin
+               |  override def cubic: ${json.cubic} = this * this * this""".stripMargin
         }
 
         writer <<
@@ -349,14 +320,14 @@ object MultiverseSourceGenerator extends GluinoPath{
              |
              |""".stripMargin
 
-        units.foreach{ unit =>
+        constants.foreach{ unit =>
           //  case object Metre extends IntrinsicLengthUnit("Metre", Seq("m"), r"1")
           writer <<
             s"""
                |  case object ${unit.name} extends Intrinsic${className}Unit""".stripMargin
-          writer << s"""("${unit.name}", Seq(${unit.symbols.map(quote).mkString(", ")}), ${unit.args})"""
+          writer << s"""("${unit.name}", ${unit.symbolSeqString}, ${unit.args})"""
           if(unit.isNotExact) writer << " with NotExact"
-          if(unit.mixed.length > 0){
+          if(unit.hasMixed){
             writer <<
               s"""
                  |    ${unit.mixed}""".stripMargin  // for Degree
@@ -367,56 +338,50 @@ object MultiverseSourceGenerator extends GluinoPath{
           //  Seq(..., MilliMetre, CentiMetre, Metre, ...)
           s"""
              |
-             |  override lazy val values = Seq(${units.map(_.name).mkString(", ")})""".stripMargin
+             |  override lazy val values = Seq(${constants.map(_.name).mkString(", ")})""".stripMargin
+
+
+        val prods = json.getProducts.map(p => (p(0), p(1)))
+        val quots = json.getQuotients.map(q => (q(0), q(1)))
 
         // product unit
-        if(json.has("product")) {
-          getChildren(json, "product").map(_.getAsJsonArray.toList.map(_.getAsJsonPrimitive.getAsString))
-              .foreach{ case first::second::_ =>
-            val productUnit = "Product" + first.replaceAll("Unit", "") +
-                                "Dot" + second.replaceAll("Unit", "") + "Unit"
-            writer <<
-              s"""
-                 |
-                 |  // $first * $second -> $className
-                 |  private[${className}Unit]
-                 |  class $productUnit(val firstUnit: $first, val secondUnit: $second)
-                 |      extends ${className}Unit with ProductUnit[${className}Unit, $first, $second]{
-                 |
-                 |    override lazy val $baseUnitAccessor: Real =
-                 |      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
-                 |  }
-                 |
-                 |  def apply(unit1: $first, unit2: $second): ${className}Unit =
-                 |    new $productUnit(unit1, unit2)""".stripMargin
-
-              case _ =>
-          }
+        prods.foreach{ case (first, second) =>
+          val productUnit = "Product" + first.replaceAll("Unit", "") +
+                              "Dot" + second.replaceAll("Unit", "") + "Unit"
+          writer <<
+            s"""
+               |
+               |  // $first * $second -> $className
+               |  private[${className}Unit]
+               |  class $productUnit(val firstUnit: $first, val secondUnit: $second)
+               |      extends ${className}Unit with ProductUnit[${className}Unit, $first, $second]{
+               |
+               |    override lazy val $baseUnitAccessor: Real =
+               |      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+               |  }
+               |
+               |  def apply(unit1: $first, unit2: $second): ${className}Unit =
+               |    new $productUnit(unit1, unit2)""".stripMargin
         }
 
         // quotient unit
-        if(json.has("quotient")) {
-          getChildren(json, "quotient").map(_.getAsJsonArray.toList.map(_.getAsJsonPrimitive.getAsString))
-              .foreach { case numerator :: denominator :: _ =>
-            val quotientUnit = "Quotient" + numerator.replaceAll("Unit", "") +
-                               "Per" + denominator.replaceAll("Unit", "") + "Unit"
-            writer <<
-              s"""
-                 |
-                 |  // $numerator / $denominator -> $className
-                 |  private[${className}Unit]
-                 |  class $quotientUnit(val numeratorUnit: $numerator, val denominatorUnit: $denominator)
-                 |      extends ${className}Unit with QuotientUnit[${className}Unit, $numerator, $denominator]{
-                 |
-                 |    override lazy val $baseUnitAccessor: Real =
-                 |      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
-                 |  }
-                 |
-                 |  def apply(nUnit: $numerator, dUnit: $denominator): ${className}Unit =
-                 |    new $quotientUnit(nUnit, dUnit)""".stripMargin
-
-              case _ =>
-          }
+        quots.foreach { case (numerator, denominator) =>
+          val quotientUnit = "Quotient" + numerator.replaceAll("Unit", "") +
+            "Per" + denominator.replaceAll("Unit", "") + "Unit"
+          writer <<
+            s"""
+               |
+               |  // $numerator / $denominator -> $className
+               |  private[${className}Unit]
+               |  class $quotientUnit(val numeratorUnit: $numerator, val denominatorUnit: $denominator)
+               |      extends ${className}Unit with QuotientUnit[${className}Unit, $numerator, $denominator]{
+               |
+               |    override lazy val $baseUnitAccessor: Real =
+               |      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+               |  }
+               |
+               |  def apply(nUnit: $numerator, dUnit: $denominator): ${className}Unit =
+               |    new $quotientUnit(nUnit, dUnit)""".stripMargin
         }
 
         writer <<
@@ -436,7 +401,7 @@ object MultiverseSourceGenerator extends GluinoPath{
            |  def /(unit: ${className}Unit): R
            |}""".stripMargin
 
-      if(units.nonEmpty) {
+      if(constants.nonEmpty) {
         //***** PostfixOps trait *****
         writer <<
           s"""
@@ -455,11 +420,8 @@ object MultiverseSourceGenerator extends GluinoPath{
                |  def ${ns.symbol} : A = ${id}PostfixOps(${ns.name})""".stripMargin
         }
 
-        val contextFullClassName = if(json.has("context"))getString(json, "context") else ""
-        val contextClassName =
-          if(contextFullClassName.length > 0)
-            contextFullClassName.substring(contextFullClassName.lastIndexOf(".") + 1)
-          else ""
+        val contextFullClassName = json.contextFullClassName
+        val contextClassName = json.contextClassName
 
         if (contextful.nonEmpty) {
           writer <<
@@ -484,7 +446,7 @@ object MultiverseSourceGenerator extends GluinoPath{
 
         //***** PostfixOps object *****
         if (contextful.nonEmpty) {
-          val contextList = contextLists(contextFullClassName)
+          val contextList = contextArrays(contextFullClassName)
           writer <<
             s"""
                |
@@ -497,7 +459,7 @@ object MultiverseSourceGenerator extends GluinoPath{
           groupingContextList(contextful, contextList).foreach { case (symbol, cs) =>
             // (
             //   "ft",
-            //   List(("UnitedStates", "Foot_US_Survey"), ...)
+            //   Array(("UnitedStates", "Foot_US_Survey"), ...)
             // )
 
             writer <<
@@ -580,45 +542,12 @@ object MultiverseSourceGenerator extends GluinoPath{
 
   def fileExtensionFilter(ext: String): Path => Boolean = _.getFileName.toString.endsWith(ext)
 
-  case class UnitConstant(name: String, symbols: Seq[String], args:String, isNotExact: Boolean, mixed: String)
-
-  def getUnitConstants(json: JsonObject): List[UnitConstant] =
-    getChildren(json, "constants").map(_.getAsJsonObject).flatMap{ e =>
-      val name = getString(e, "name")
-      val args = getString(e, "args")
-      val isNotExact = getBoolean(e, "NotExact")
-      val excludePrefixes = getChildren(e, "excludePrefixes").map(_.getAsString)
-      val mixed = if(e.has("mixed"))getString(e, "mixed") else ""
-
-      e match {
-        case _ if getBoolean(e, "scalePrefixes") =>
-          val symbol = getString(e, "symbol")
-          scalePrefixes.filterNot(sp => excludePrefixes.contains(sp.prefix)).map { sp =>
-            val symbols =
-              if (sp.name == "Micro"){
-                if(symbol.length == 1 && symbol.head.isLower)
-                  Seq("micro" + name, sp.prefix + symbol)
-                // MicroMetre => Seq("microMetre", "μm")
-                else
-                  Seq("micro" + name, "micro" + headToUpper(symbol), sp.prefix + symbol)
-                // MicroMetre => Seq("microGauss", "microG", "μG")
-              }else{
-                Seq(sp.prefix + symbol)
-              }
-            UnitConstant(sp.name + name, symbols, s"""r"${sp.scale}"$args""", isNotExact, mixed)
-          }
-
-        case _ =>
-          Seq(UnitConstant(name, getChildren(e, "symbols").map(_.getAsString), args, isNotExact, mixed))
-      }
-    }
-
-  def getUnitNameSymbolTuples(units: List[UnitConstant]): (List[NameSymbol], List[NameSymbol]) =
-    units.flatMap(u => u.symbols.map(NameSymbol(u.name, _)))
+  def getUnitNameSymbolTuples(units: Array[CanonicalConstant]): (Array[ContextJson], Array[ContextJson]) =
+    units.flatMap(u => u.symbols.map(ContextJson(u.name, _)))
       .partition(_.symbol.contains("("))
 
-  def groupingContextList(contextful: List[NameSymbol],
-                          contextList: List[NameSymbol]): Map[String, List[(String, String)]] =
+  def groupingContextList(contextful: Array[ContextJson],
+                          contextList: Array[ContextJson]): Map[String, Array[(String, String)]] =
 
     contextful.map{ ns =>  // NameSymbol("Foot_US_Survey", "ft(US)")
       val ss = ns.symbol.split("\\(")
@@ -626,20 +555,7 @@ object MultiverseSourceGenerator extends GluinoPath{
     }.groupBy(_._1).map{ g =>
       val symbol = g._1  // "ft"
       val cs = g._2.map(s => (contextList.find(_.symbol == s._2).get.name, s._3))
-        // List(("UnitedStates", "Foot_US_Survey"), ...)
+        // Array(("UnitedStates", "Foot_US_Survey"), ...)
       (symbol, cs)
     }
-
-  // Utility methods
-  // String
-  def headToLower(className: String) = className.charAt(0).toLower.toString + className.substring(1)
-  def headToUpper(className: String) = className.charAt(0).toUpper.toString + className.substring(1)
-  def quote(s: String) = "\"" + s + "\""
-
-  // Gson
-  def getBoolean(e: JsonObject, name: String): Boolean = e.has(name) && e.getAsJsonPrimitive(name).getAsBoolean
-  def getString(e: JsonObject, name: String): String = e.getAsJsonPrimitive(name).getAsString
-  def getChildren(e: JsonObject, name: String): List[JsonElement] =
-    if(e.has(name))e.getAsJsonArray(name).toList
-    else Nil
 }

@@ -7,7 +7,7 @@
   "baseUnit":"VolumeUnit.CubicMetre / TimeUnit.Second",
   "baseUnitAccessor":"unitInCubicMetrePerSecond",
 
-  "quotient":[["VolumeUnit", "TimeUnit"]],
+  "quotients":[["VolumeUnit", "TimeUnit"]],
 
   "constants":[
     {"name":"LitrePerMinute"    , "symbols":["LPM"], "args":"VolumeUnit.Litre / TimeUnit.Minute"},

@@ -6,5 +6,5 @@
   "baseUnit":"ForceUnit.Newton * LengthUnit.Metre",
   "baseUnitAccessor":"unitInNewtonMetre",
 
-  "product":[["ForceUnit", "LengthUnit"]]
+  "products":[["ForceUnit", "LengthUnit"]]
 }

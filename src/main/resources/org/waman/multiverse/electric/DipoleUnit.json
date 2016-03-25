@@ -6,7 +6,7 @@
   "baseUnit":"ChargeUnit.Coulomb * LengthUnit.Metre",
   "baseUnitAccessor":"unitInCoulombMetre",
 
-  "product":[["ChargeUnit", "LengthUnit"]],
+  "products":[["ChargeUnit", "LengthUnit"]],
 
   "constants":[
     {"name":"Debye", "symbols":["D"], "args":"r\"340\""}

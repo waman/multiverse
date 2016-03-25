@@ -7,10 +7,10 @@
   "baseUnit":"SquareMetre",
   "baseUnitAccessor":"unitInSquareMetre",
 
-  "multiplicative":[["LengthUnit", "VolumeUnit"]],
-  "divisible":[["TimeUnit", "KinematicViscosityUnit"]],
+  "multiplicatives":[["LengthUnit", "VolumeUnit"]],
+  "divisibles":[["TimeUnit", "KinematicViscosityUnit"]],
 
-  "product":[["LengthUnit", "LengthUnit"]],
+  "products":[["LengthUnit", "LengthUnit"]],
 
   "context":"org.waman.multiverse.metric.MetricContext",
 

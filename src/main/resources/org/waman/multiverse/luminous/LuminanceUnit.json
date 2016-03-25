@@ -6,7 +6,7 @@
   "baseUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareMetre",
   "baseUnitAccessor":"unitInCandelaPerSquareMetre",
 
-  "quotient":[["LuminousIntensityUnit", "AreaUnit"]],
+  "quotients":[["LuminousIntensityUnit", "AreaUnit"]],
 
   "constants":[
       {"name":"Stilb"      , "symbols":["sb"]  , "args":"r\"1e4\""},

@@ -7,7 +7,7 @@
   "baseUnit":"ChargeUnit.Coulomb / MassUnit.KiloGram",
   "baseUnitAccessor":"unitInCoulombPerKiloGram",
 
-  "quotient":[["ChargeUnit", "MassUnit"]],
+  "quotients":[["ChargeUnit", "MassUnit"]],
 
   "constants":[
     {"name":"Roentgen", "symbols":["R"], "args":"r\"2.58e-4\""}

@@ -6,23 +6,22 @@
   "baseUnit":"EnergyUnit.Joule / TemperatureUnit.Kelvin",
   "baseUnitAccessor":"unitInJoulePerKelvin",
 
-
-  "quotient":[["EnergyUnit", "TemperatureUnit"]],
+  "quotients":[["EnergyUnit", "TemperatureUnit"]],
 
   "constants":[
-    {"name":"Nat", "symbols":["nat", "k_B"] , "args":"r\"1.380650523e-23\"", "NotExact":true},
-    {"name":"Bit", "symbols":["bit", "Sh"]  , "args":"Real(2).log(), Nat", "NotExact":true},
-    {"name":"Ban", "symbols":["ban", "Hart"], "args":"Real(10).log(), Nat", "NotExact":true},
+    {"name":"Nat", "symbols":["nat", "k_B"] , "args":"r\"1.380650523e-23\"", "notExact":true},
+    {"name":"Bit", "symbols":["bit", "Sh"]  , "args":"Real(2).log(), Nat", "notExact":true},
+    {"name":"Ban", "symbols":["ban", "Hart"], "args":"Real(10).log(), Nat", "notExact":true},
 
     {"name":"Byte", "symbol":"B", "args":" * 8, Bit", "scalePrefixes":true,
-      "excludePrefixes":["y", "z", "a", "f", "p", "n", "μ", "m", "c", "d"], "NotExact":true},
-    {"name":"KibiByte", "symbols":["KiB", "KB"], "args":"r\"1024\", Byte", "NotExact":true},
-    {"name":"MebiByte", "symbols":["MiB"]      , "args":"r\"1024\"**2, Byte", "NotExact":true},
-    {"name":"GibiByte", "symbols":["GiB"]      , "args":"r\"1024\"**3, Byte", "NotExact":true},
-    {"name":"TebiByte", "symbols":["TiB"]      , "args":"r\"1024\"**4, Byte", "NotExact":true},
-    {"name":"PebiByte", "symbols":["PiB"]      , "args":"r\"1024\"**5, Byte", "NotExact":true},
-    {"name":"ExbiByte", "symbols":["EiB"]      , "args":"r\"1024\"**6, Byte", "NotExact":true},
-    {"name":"ZebiByte", "symbols":["ZiB"]      , "args":"r\"1024\"**7, Byte", "NotExact":true},
-    {"name":"YobiByte", "symbols":["YiB"]      , "args":"r\"1024\"**8, Byte", "NotExact":true}
+      "excludePrefixes":["y", "z", "a", "f", "p", "n", "μ", "m", "c", "d"], "notExact":true},
+    {"name":"KibiByte", "symbols":["KiB", "KB"], "args":"r\"1024\", Byte", "notExact":true},
+    {"name":"MebiByte", "symbols":["MiB"]      , "args":"r\"1024\"**2, Byte", "notExact":true},
+    {"name":"GibiByte", "symbols":["GiB"]      , "args":"r\"1024\"**3, Byte", "notExact":true},
+    {"name":"TebiByte", "symbols":["TiB"]      , "args":"r\"1024\"**4, Byte", "notExact":true},
+    {"name":"PebiByte", "symbols":["PiB"]      , "args":"r\"1024\"**5, Byte", "notExact":true},
+    {"name":"ExbiByte", "symbols":["EiB"]      , "args":"r\"1024\"**6, Byte", "notExact":true},
+    {"name":"ZebiByte", "symbols":["ZiB"]      , "args":"r\"1024\"**7, Byte", "notExact":true},
+    {"name":"YobiByte", "symbols":["YiB"]      , "args":"r\"1024\"**8, Byte", "notExact":true}
   ]
 }

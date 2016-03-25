@@ -6,7 +6,7 @@
   "baseUnit":"Lumen",
   "baseUnitAccessor":"unitInLumen",
 
-  "divisible":[["AreaUnit", "IlluminanceUnit"]],
+  "divisibles":[["AreaUnit", "IlluminanceUnit"]],
 
   "constants":[
     {"name":"Lumen", "scalePrefixes":true, "symbol":"lm", "args":""}

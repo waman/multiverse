@@ -8,9 +8,9 @@
   "baseUnit":"Pascal",
   "baseUnitAccessor":"unitInPascal",
 
-  "multiplicative":[["TimeUnit", "DynamicViscosityUnit"]],
+  "multiplicatives":[["TimeUnit", "DynamicViscosityUnit"]],
 
-  "quotient":[["ForceUnit", "AreaUnit"]],
+  "quotients":[["ForceUnit", "AreaUnit"]],
 
   "constants":[
     {"name":"Pascal", "symbol":"Pa", "args":"", "scalePrefixes":true}
