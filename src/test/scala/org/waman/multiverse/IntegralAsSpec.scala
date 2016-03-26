@@ -71,7 +71,7 @@ class IntegralAsSpec extends MultiverseCustomSpec{
 
   "When IntegralAsRational is imported" - {
 
-    "Integrals are converted to a Rational value" in {
+    "Integrals are converted to a Rational value " in {
       import IntegralAsRational._
       __Exercise__
       val sut: Rational = BigInt(3)

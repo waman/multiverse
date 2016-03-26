@@ -29,7 +29,7 @@ object ActionUnit extends ConstantsDefined[ActionUnit]{
   }
 
 
-  case object ReducedPlanckConstant extends IntrinsicActionUnit("ReducedPlanckConstant", Seq("ħ", "hbar"), r"1.05457172647e-34") with NotExact
+  case object ReducedPlanckConstant extends IntrinsicActionUnit("ReducedPlanckConstant", Seq("ħ", "hbar"), r"1.05457180013e-34") with NotExact
 
   override lazy val values = Seq(ReducedPlanckConstant)
 

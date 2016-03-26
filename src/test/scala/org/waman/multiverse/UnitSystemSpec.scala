@@ -12,15 +12,15 @@ class UnitSystemSpec extends MultiverseCustomSpec{
   "supportedQuantities property should return a set of Class objects of supported Quantities" in {
     __SetUp__
     val expected = Set(
-      "Length"          , "Area"              , "Volume"       , "Angle"            , "SolidAngle"  ,
-      "Mass"            , "Density"           , "Time"         , "TimeSquared"      , "Frequency"   ,
-      "Velocity"        , "AngularVelocity"   , "VolumeFlow"   , "Acceleration"     , "Force"       ,
-      "Pressure"        , "Torque"            , "Energy"       , "Power"            , "Action"      ,
-      "DynamicViscosity", "KinematicViscosity", "Current"      , "Charge"           , "Dipole"      ,
-      "Voltage"         , "Resistance"        , "Capacitance"  , "Flux"             , "FluxDensity" ,
-      "Inductance"      , "Temperature"       , "Entropy"      , "LuminousIntensity", "Luminance"   ,
-      "LuminousFlux"    , "Illuminance"       , "Radioactivity", "Exposure"         , "AbsorbedDose",
-      "EquivalentDose"  , "EquivalentDoseRate"
+      "Length"      , "Area"            , "Volume"            , "Angle"        , "SolidAngle"       ,
+      "Mass"        , "Density"         , "Time"              , "TimeSquared"  , "Frequency"        ,
+      "Velocity"    , "AngularVelocity" , "VolumeFlow"        , "Acceleration" , "Force"            ,
+      "Pressure"    , "Torque"          , "Energy"            , "Momentum"     , "Power"            ,
+      "Action"      , "DynamicViscosity", "KinematicViscosity", "Current"      , "Charge"           ,
+      "Dipole"      , "Voltage"         , "Resistance"        , "Capacitance"  , "Flux"             ,
+      "FluxDensity" , "Inductance"      , "Temperature"       , "Entropy"      , "LuminousIntensity",
+      "Luminance"   , "LuminousFlux"    , "Illuminance"       , "Radioactivity", "Exposure"         ,
+      "AbsorbedDose", "EquivalentDose"  , "EquivalentDoseRate"
     )
     __Exercise__
     val sut = UnitSystem.supportedQuantities.map(_.getSimpleName)

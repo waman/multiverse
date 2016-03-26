@@ -16,14 +16,16 @@ class ActionSpec
 
   override protected val getUnitClass = classOf[ActionUnit]
 
+  val reducedPlanckConstant = 1.05457180013e-34
+
   "3.0 <<action unit>> should be converted to the equivalent value in Joule second" in {
     __Exercise__
     val conversions =
       Table(
         ("actions", "expected"),
         (Seq(3.0.J*s , 3.0 J*s , 3.0 (J*s)) , 3.0),
-        (Seq(3.0.hbar, 3.0 hbar, 3.0 (hbar)), 3.0 * 1.05457168e-34),
-        (Seq(3.0.ħ   , 3.0 ħ   , 3.0 (ħ))   , 3.0 * 1.05457168e-34)
+        (Seq(3.0.hbar, 3.0 hbar, 3.0 (hbar)), 3.0 * reducedPlanckConstant),
+        (Seq(3.0.ħ   , 3.0 ħ   , 3.0 (ħ))   , 3.0 * reducedPlanckConstant)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Action[Double]], expected: Double) =>
@@ -41,8 +43,8 @@ class ActionSpec
       Table(
         ("actions", "expected"),
         (Seq(q.J*s , q J*s , q (J*s)) , 3.0),
-        (Seq(q.hbar, q hbar, q (hbar)), 3.0 / 1.05457168e-34),
-        (Seq(q.ħ   , q ħ   , q (ħ))   , 3.0 / 1.05457168e-34)
+        (Seq(q.hbar, q hbar, q (hbar)), 3.0 / reducedPlanckConstant),
+        (Seq(q.ħ   , q ħ   , q (ħ))   , 3.0 / reducedPlanckConstant)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>
