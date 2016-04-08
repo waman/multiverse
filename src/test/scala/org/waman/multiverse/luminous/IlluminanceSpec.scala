@@ -28,6 +28,7 @@ class IlluminanceSpec
         (Seq(3.0.plx, 3.0 plx, 3.0 (plx)), 3e-12),
         (Seq(3.0.nlx, 3.0 nlx, 3.0 (nlx)), 3e-9),
         (Seq(3.0.μlx, 3.0 μlx, 3.0 (μlx)), 3e-6),
+        (Seq(3.0.mclx, 3.0 mclx, 3.0 (mclx)), 3e-6),
         (Seq(3.0.mlx, 3.0 mlx, 3.0 (mlx)), 3e-3),
         (Seq(3.0.clx, 3.0 clx, 3.0 (clx)), 3e-2),
         (Seq(3.0.dlx, 3.0 dlx, 3.0 (dlx)), 3e-1),
@@ -68,6 +69,7 @@ class IlluminanceSpec
         (Seq(q.plx, q plx, q (plx)), 3e12),
         (Seq(q.nlx, q nlx, q (nlx)), 3e9),
         (Seq(q.μlx, q μlx, q (μlx)), 3e6),
+        (Seq(q.mclx, q mclx, q (mclx)), 3e6),
         (Seq(q.mlx, q mlx, q (mlx)), 3e3),
         (Seq(q.clx, q clx, q (clx)), 3e2),
         (Seq(q.dlx, q dlx, q (dlx)), 3e1),
@@ -100,7 +102,7 @@ class IlluminanceSpec
       __Exercise__
       val sut = lm/in2
       __Verify__
-      sut.unitInLux.toDouble should equal (%%%%(1550.0031))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1550.0031))
     }
 
     "3.0 lm/in2 should equal 3.0 * 1550.0031 lx" in {

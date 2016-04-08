@@ -5,37 +5,36 @@ import spire.implicits._
 import org.waman.multiverse._
 
 import org.waman.multiverse.metric.LengthUnit
-import org.waman.multiverse.time.TimeUnit
-import org.waman.multiverse.time.TimeSquaredUnit
+import org.waman.multiverse.metric.LengthUnit._
+import org.waman.multiverse.time._
+import org.waman.multiverse.time.TimeUnit._
+import org.waman.multiverse.time.TimeSquaredUnit._
 
 sealed trait AccelerationUnit extends PhysicalUnit[AccelerationUnit]{
 
-  def unitInMetrePerSecondSquared: Real
-
-  override def baseUnit = LengthUnit.Metre / TimeSquaredUnit.SecondSquared
-  override def valueInBaseUnit = unitInMetrePerSecondSquared
+  override def getSIUnit = LengthUnit.Metre / TimeSquaredUnit.SecondSquared
 }
 
 object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
 
   // intrinsic
   private[AccelerationUnit]
-  class IntrinsicAccelerationUnit(name: String, val symbols: Seq[String], val unitInMetrePerSecondSquared: Real)
+  class IntrinsicAccelerationUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends AccelerationUnit{
 
     def this(name: String, symbols: Seq[String], unit: AccelerationUnit) =
-      this(name, symbols, unit.unitInMetrePerSecondSquared)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: AccelerationUnit) =
-      this(name, symbols, factor * unit.unitInMetrePerSecondSquared)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
   case object StandardGravity extends IntrinsicAccelerationUnit("StandardGravity", Seq("g0"), r"9.80665")
-  case object Galileo extends IntrinsicAccelerationUnit("Galileo", Seq("Gal"), LengthUnit.CentiMetre / TimeSquaredUnit.SecondSquared)
-  case object InchPerSecondSquared extends IntrinsicAccelerationUnit("InchPerSecondSquared", Seq("ips2"), LengthUnit.Inch / TimeSquaredUnit.SecondSquared)
-  case object FootPerSecondSquared extends IntrinsicAccelerationUnit("FootPerSecondSquared", Seq("fps2"), LengthUnit.Foot / TimeSquaredUnit.SecondSquared)
-  case object MilePerSecondSquared extends IntrinsicAccelerationUnit("MilePerSecondSquared", Seq("mps2"), LengthUnit.Mile / TimeSquaredUnit.SecondSquared)
+  case object Galileo extends IntrinsicAccelerationUnit("Galileo", Seq("Gal"), CentiMetre / SecondSquared)
+  case object InchPerSecondSquared extends IntrinsicAccelerationUnit("InchPerSecondSquared", Seq("ips2"), Inch / SecondSquared)
+  case object FootPerSecondSquared extends IntrinsicAccelerationUnit("FootPerSecondSquared", Seq("fps2"), Foot / SecondSquared)
+  case object MilePerSecondSquared extends IntrinsicAccelerationUnit("MilePerSecondSquared", Seq("mps2"), Mile / SecondSquared)
 
   override lazy val values = Seq(StandardGravity, Galileo, InchPerSecondSquared, FootPerSecondSquared, MilePerSecondSquared)
 
@@ -44,8 +43,8 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
   class QuotientLengthPerTimeSquaredUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeSquaredUnit)
       extends AccelerationUnit with QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit]{
 
-    override lazy val unitInMetrePerSecondSquared: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: LengthUnit, dUnit: TimeSquaredUnit): AccelerationUnit =
@@ -56,8 +55,8 @@ object AccelerationUnit extends ConstantsDefined[AccelerationUnit]{
   class QuotientVelocityPerTimeUnit(val numeratorUnit: VelocityUnit, val denominatorUnit: TimeUnit)
       extends AccelerationUnit with QuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit]{
 
-    override lazy val unitInMetrePerSecondSquared: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: VelocityUnit, dUnit: TimeUnit): AccelerationUnit =

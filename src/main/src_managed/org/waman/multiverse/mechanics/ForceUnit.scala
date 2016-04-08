@@ -16,10 +16,7 @@ sealed trait ForceUnit extends PhysicalUnit[ForceUnit]
   with MultiplicativeByTimeUnit[MomentumUnit]
   with DivisibleByAreaUnit[PressureUnit]{
 
-  def unitInNewton: Real
-
-  override def baseUnit = org.waman.multiverse.mechanics.ForceUnit.Newton
-  override def valueInBaseUnit = unitInNewton
+  override def getSIUnit = org.waman.multiverse.mechanics.ForceUnit.Newton
 
   override def *(unit: LengthUnit) = TorqueUnit(this, unit)
 
@@ -32,14 +29,14 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
 
   // intrinsic
   private[ForceUnit]
-  class IntrinsicForceUnit(name: String, val symbols: Seq[String], val unitInNewton: Real)
+  class IntrinsicForceUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends ForceUnit{
 
     def this(name: String, symbols: Seq[String], unit: ForceUnit) =
-      this(name, symbols, unit.unitInNewton)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: ForceUnit) =
-      this(name, symbols, factor * unit.unitInNewton)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -65,14 +62,14 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
   case object ZettaNewton extends IntrinsicForceUnit("ZettaNewton", Seq("ZN"), r"1e21")
   case object YottaNewton extends IntrinsicForceUnit("YottaNewton", Seq("YN"), r"1e24")
   case object Dyne extends IntrinsicForceUnit("Dyne", Seq("dyn"), r"1e-5")
-  case object KiloGramForce extends IntrinsicForceUnit("KiloGramForce", Seq("kgf", "kp", "Gf"), StandardGravity.unitInMetrePerSecondSquared) with NotExact
-  case object MilliGraveForce extends IntrinsicForceUnit("MilliGraveForce", Seq("mGf", "gf"), StandardGravity.unitInMetrePerSecondSquared / 1000) with NotExact
-  case object OunceForce extends IntrinsicForceUnit("OunceForce", Seq("ozf"), StandardGravity.unitInMetrePerSecondSquared * Ounce.unitInKiloGram)
-  case object PoundForce extends IntrinsicForceUnit("PoundForce", Seq("lbf"), StandardGravity.unitInMetrePerSecondSquared * Pound.unitInKiloGram)
-  case object Poundal extends IntrinsicForceUnit("Poundal", Seq("pdl"), Pound.unitInKiloGram * FootPerSecondSquared.unitInMetrePerSecondSquared)
-  case object KipForce extends IntrinsicForceUnit("KipForce", Seq("kipf", "klbf"), StandardGravity.unitInMetrePerSecondSquared * 1000 * Pound.unitInKiloGram)
-  case object ShortTonForce extends IntrinsicForceUnit("ShortTonForce", Seq("sh_tnf"), StandardGravity.unitInMetrePerSecondSquared * ShortTon.unitInKiloGram)
-  case object LongTonForce extends IntrinsicForceUnit("LongTonForce", Seq("tnf", "long_tnf"), StandardGravity.unitInMetrePerSecondSquared * LongTon.unitInKiloGram)
+  case object KiloGramForce extends IntrinsicForceUnit("KiloGramForce", Seq("kgf", "kp", "Gf"), StandardGravity.unitValueInSIUnit) with NotExact
+  case object MilliGraveForce extends IntrinsicForceUnit("MilliGraveForce", Seq("mGf", "gf"), StandardGravity.unitValueInSIUnit / 1000) with NotExact
+  case object OunceForce extends IntrinsicForceUnit("OunceForce", Seq("ozf"), Ounce * StandardGravity)
+  case object PoundForce extends IntrinsicForceUnit("PoundForce", Seq("lbf"), Pound * StandardGravity)
+  case object Poundal extends IntrinsicForceUnit("Poundal", Seq("pdl"), Pound * FootPerSecondSquared)
+  case object KipForce extends IntrinsicForceUnit("KipForce", Seq("kipf", "klbf"), 1000, Pound * StandardGravity)
+  case object ShortTonForce extends IntrinsicForceUnit("ShortTonForce", Seq("sh_tnf"), ShortTon * StandardGravity)
+  case object LongTonForce extends IntrinsicForceUnit("LongTonForce", Seq("tnf", "long_tnf"), LongTon * StandardGravity)
   case object Sthene extends IntrinsicForceUnit("Sthene", Seq("sn"), r"1e3")
 
   override lazy val values = Seq(YoctoNewton, ZeptoNewton, AttoNewton, FemtoNewton, PicoNewton, NanoNewton, MicroNewton, MilliNewton, CentiNewton, DeciNewton, Newton, DecaNewton, HectoNewton, KiloNewton, MegaNewton, GigaNewton, TeraNewton, PetaNewton, ExaNewton, ZettaNewton, YottaNewton, Dyne, KiloGramForce, MilliGraveForce, OunceForce, PoundForce, Poundal, KipForce, ShortTonForce, LongTonForce, Sthene)
@@ -82,8 +79,8 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
   class ProductMassDotAccelerationUnit(val firstUnit: MassUnit, val secondUnit: AccelerationUnit)
       extends ForceUnit with ProductUnit[ForceUnit, MassUnit, AccelerationUnit]{
 
-    override lazy val unitInNewton: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: MassUnit, unit2: AccelerationUnit): ForceUnit =

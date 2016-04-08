@@ -15,7 +15,7 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
 
   def apply(evalUnit: ForceUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInNewton) / real(evalUnit.unitInNewton)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def forcePostfixOps(forceUnit: ForceUnit) = apply(forceUnit)
 

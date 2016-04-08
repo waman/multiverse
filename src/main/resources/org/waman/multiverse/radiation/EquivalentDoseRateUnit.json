@@ -3,8 +3,7 @@
     "org.waman.multiverse.time._"
   ],
 
-  "baseUnit":"EquivalentDoseUnit.Sievert / TimeUnit.Second",
-  "baseUnitAccessor":"unitInSievertPerSecond",
+  "SIUnit":"EquivalentDoseUnit.Sievert / TimeUnit.Second",
 
   "quotients":[["EquivalentDoseUnit", "TimeUnit"]]
 }

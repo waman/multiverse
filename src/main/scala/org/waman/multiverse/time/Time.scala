@@ -13,7 +13,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 
   def apply(evalUnit: TimeUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSecond) / real(evalUnit.unitInSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def timePostfixOps(timeUnit: TimeUnit) = apply(timeUnit)
 }

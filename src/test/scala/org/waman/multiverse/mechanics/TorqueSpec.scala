@@ -19,7 +19,7 @@ class TorqueSpec extends MultiverseCustomSpec with PropertyChecks{
       __SetUp__
       val tu = N*m
       __Verify__
-      tu.unitInNewtonMetre should equal (r"1.0")
+      tu.unitValueInSIUnit should equal (r"1.0")
     }
 
     "be evaluated as equal even if different objects" in {

@@ -30,6 +30,7 @@ class FluxDensitySpec
           (Seq(3.0.pT, 3.0 pT, 3.0 (pT)), 3e-12),
           (Seq(3.0.nT, 3.0 nT, 3.0 (nT)), 3e-9),
           (Seq(3.0.μT, 3.0 μT, 3.0 (μT)), 3e-6),
+          (Seq(3.0.mcT, 3.0 mcT, 3.0 (mcT)), 3e-6),
           (Seq(3.0.mT, 3.0 mT, 3.0 (mT)), 3e-3),
           (Seq(3.0.cT, 3.0 cT, 3.0 (cT)), 3e-2),
           (Seq(3.0.dT, 3.0 dT, 3.0 (dT)), 3e-1),
@@ -52,6 +53,7 @@ class FluxDensitySpec
           (Seq(3.0.pG, 3.0 pG, 3.0 (pG)), 3e-16),
           (Seq(3.0.nG, 3.0 nG, 3.0 (nG)), 3e-13),
           (Seq(3.0.μG, 3.0 μG, 3.0 (μG)), 3e-10),
+          (Seq(3.0.mcG, 3.0 mcG, 3.0 (mcG)), 3e-10),
           (Seq(3.0.mG, 3.0 mG, 3.0 (mG)), 3e-7),
           (Seq(3.0.cG, 3.0 cG, 3.0 (cG)), 3e-6),
           (Seq(3.0.dG, 3.0 dG, 3.0 (dG)), 3e-5),
@@ -89,6 +91,7 @@ class FluxDensitySpec
           (Seq(q.pT, q pT, q(pT)), 3e12),
           (Seq(q.nT, q nT, q(nT)), 3e9),
           (Seq(q.μT, q μT, q(μT)), 3e6),
+          (Seq(q.mcT, q mcT, q(mcT)), 3e6),
           (Seq(q.mT, q mT, q(mT)), 3e3),
           (Seq(q.cT, q cT, q(cT)), 3e2),
           (Seq(q.dT, q dT, q(dT)), 3e1),
@@ -111,6 +114,7 @@ class FluxDensitySpec
           (Seq(q.pG, q pG, q(pG)), 3e16),
           (Seq(q.nG, q nG, q(nG)), 3e13),
           (Seq(q.μG, q μG, q(μG)), 3e10),
+          (Seq(q.mcG, q mcG, q(mcG)), 3e10),
           (Seq(q.mG, q mG, q(mG)), 3e7),
           (Seq(q.cG, q cG, q(cG)), 3e6),
           (Seq(q.dG, q dG, q(dG)), 3e5),
@@ -141,7 +145,7 @@ class FluxDensitySpec
       __Exercise__
       val sut = hWb/mm2
       __Verify__
-      sut.unitInTesla.toDouble should equal (%%%%(1e8))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1e8))
     }
 
     "3.0 hWb/mm2 should equal 3e8 T" in {

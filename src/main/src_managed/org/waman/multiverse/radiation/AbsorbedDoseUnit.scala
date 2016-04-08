@@ -9,24 +9,21 @@ import org.waman.multiverse.energy._
 
 sealed trait AbsorbedDoseUnit extends PhysicalUnit[AbsorbedDoseUnit]{
 
-  def unitInGray: Real
-
-  override def baseUnit = org.waman.multiverse.radiation.AbsorbedDoseUnit.Gray
-  override def valueInBaseUnit = unitInGray
+  override def getSIUnit = org.waman.multiverse.radiation.AbsorbedDoseUnit.Gray
 }
 
 object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
 
   // intrinsic
   private[AbsorbedDoseUnit]
-  class IntrinsicAbsorbedDoseUnit(name: String, val symbols: Seq[String], val unitInGray: Real)
+  class IntrinsicAbsorbedDoseUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends AbsorbedDoseUnit{
 
     def this(name: String, symbols: Seq[String], unit: AbsorbedDoseUnit) =
-      this(name, symbols, unit.unitInGray)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: AbsorbedDoseUnit) =
-      this(name, symbols, factor * unit.unitInGray)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -59,8 +56,8 @@ object AbsorbedDoseUnit extends ConstantsDefined[AbsorbedDoseUnit]{
   class QuotientEnergyPerMassUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: MassUnit)
       extends AbsorbedDoseUnit with QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit]{
 
-    override lazy val unitInGray: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: EnergyUnit, dUnit: MassUnit): AbsorbedDoseUnit =

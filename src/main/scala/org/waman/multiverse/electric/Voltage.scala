@@ -16,7 +16,7 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
 
   def apply(evalUnit: VoltageUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInVolt) / real(evalUnit.unitInVolt)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def voltagePostfixOps(voltageUnit: VoltageUnit) = apply(voltageUnit)
 

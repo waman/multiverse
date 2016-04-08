@@ -5,8 +5,7 @@
     "org.waman.multiverse.thermal._"
   ],
 
-  "baseUnit":"Radian",
-  "baseUnitAccessor":"unitInRadian",
+  "SIUnit":"Radian",
 
   "divisibles":[["TimeUnit", "AngularVelocityUnit"]],
 

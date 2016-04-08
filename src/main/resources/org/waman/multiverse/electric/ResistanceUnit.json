@@ -1,6 +1,5 @@
 {
-  "baseUnit":"Ohm",
-  "baseUnitAccessor":"unitInOhm",
+  "SIUnit":"Ohm",
 
   "quotients":[["VoltageUnit", "CurrentUnit"]],
 

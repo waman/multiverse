@@ -4,8 +4,7 @@
     "org.waman.multiverse.mass.MassUnit"
   ],
 
-  "baseUnit":"ChargeUnit.Coulomb / MassUnit.KiloGram",
-  "baseUnitAccessor":"unitInCoulombPerKiloGram",
+  "SIUnit":"ChargeUnit.Coulomb / MassUnit.KiloGram",
 
   "quotients":[["ChargeUnit", "MassUnit"]],
 

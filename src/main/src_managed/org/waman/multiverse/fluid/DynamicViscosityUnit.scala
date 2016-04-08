@@ -10,24 +10,21 @@ import org.waman.multiverse.mechanics._
 
 sealed trait DynamicViscosityUnit extends PhysicalUnit[DynamicViscosityUnit]{
 
-  def unitInPascalSecond: Real
-
-  override def baseUnit = PressureUnit.Pascal * TimeUnit.Second
-  override def valueInBaseUnit = unitInPascalSecond
+  override def getSIUnit = PressureUnit.Pascal * TimeUnit.Second
 }
 
 object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
 
   // intrinsic
   private[DynamicViscosityUnit]
-  class IntrinsicDynamicViscosityUnit(name: String, val symbols: Seq[String], val unitInPascalSecond: Real)
+  class IntrinsicDynamicViscosityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends DynamicViscosityUnit{
 
     def this(name: String, symbols: Seq[String], unit: DynamicViscosityUnit) =
-      this(name, symbols, unit.unitInPascalSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: DynamicViscosityUnit) =
-      this(name, symbols, factor * unit.unitInPascalSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -40,8 +37,8 @@ object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
   class ProductPressureDotTimeUnit(val firstUnit: PressureUnit, val secondUnit: TimeUnit)
       extends DynamicViscosityUnit with ProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit]{
 
-    override lazy val unitInPascalSecond: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: PressureUnit, unit2: TimeUnit): DynamicViscosityUnit =
@@ -52,8 +49,8 @@ object DynamicViscosityUnit extends ConstantsDefined[DynamicViscosityUnit]{
   class QuotientMomentumPerAreaUnit(val numeratorUnit: MomentumUnit, val denominatorUnit: AreaUnit)
       extends DynamicViscosityUnit with QuotientUnit[DynamicViscosityUnit, MomentumUnit, AreaUnit]{
 
-    override lazy val unitInPascalSecond: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: MomentumUnit, dUnit: AreaUnit): DynamicViscosityUnit =

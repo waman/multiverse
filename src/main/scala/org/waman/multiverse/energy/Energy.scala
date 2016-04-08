@@ -20,7 +20,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
   def apply(evalUnit: EnergyUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInJoule) / real(evalUnit.unitInJoule)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def energyPostfixOps(energyUnit: EnergyUnit) = apply(energyUnit)
 

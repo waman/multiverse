@@ -15,7 +15,7 @@ class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
 
   def apply(evalUnit: PressureUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInPascal) / real(evalUnit.unitInPascal)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def pressurePostfixOps(pressureUnit: PressureUnit) = apply(pressureUnit)
 

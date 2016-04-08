@@ -7,7 +7,7 @@ case class ContextJson(name: String, symbol: String)
 case class UnitJson
 (
   imports: Array[String],
-  baseUnit: String,
+  SIUnit: String,
   baseUnitAccessor: String,
   multiplicatives: Array[Array[String]],
   divisibles: Array[Array[String]],

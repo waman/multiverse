@@ -7,24 +7,21 @@ import org.waman.multiverse._
 
 sealed trait RadioactivityUnit extends PhysicalUnit[RadioactivityUnit]{
 
-  def unitInBecquerel: Real
-
-  override def baseUnit = org.waman.multiverse.radiation.RadioactivityUnit.Becquerel
-  override def valueInBaseUnit = unitInBecquerel
+  override def getSIUnit = org.waman.multiverse.radiation.RadioactivityUnit.Becquerel
 }
 
 object RadioactivityUnit extends ConstantsDefined[RadioactivityUnit]{
 
   // intrinsic
   private[RadioactivityUnit]
-  class IntrinsicRadioactivityUnit(name: String, val symbols: Seq[String], val unitInBecquerel: Real)
+  class IntrinsicRadioactivityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends RadioactivityUnit{
 
     def this(name: String, symbols: Seq[String], unit: RadioactivityUnit) =
-      this(name, symbols, unit.unitInBecquerel)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: RadioactivityUnit) =
-      this(name, symbols, factor * unit.unitInBecquerel)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

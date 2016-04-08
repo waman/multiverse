@@ -19,7 +19,7 @@ class EquivalentDoseRateSpec extends MultiverseCustomSpec with PropertyChecks{
       __Exercise__
       val sut = kSv/h
       __Verify__
-      sut.unitInSievertPerSecond.toDouble should equal (%%%%(1000.0 / 3600.0))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1000.0 / 3600.0))
     }
 
     "3.0 kSv/h should equal 3.0 * 1000.0 / 3600.0 Sv/s" in {

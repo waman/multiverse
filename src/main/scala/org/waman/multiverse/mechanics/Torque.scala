@@ -15,7 +15,7 @@ class Torque[A: Fractional](val value: A, val unit: TorqueUnit)
 
   def apply(evalUnit: TorqueUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInNewtonMetre) / real(evalUnit.unitInNewtonMetre)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def forcePostfixOps(forceUnit: ForceUnit) = new MultiplicativeByLengthUnit[A]{
     override def *(lengthUnit: LengthUnit): A = apply(forceUnit * lengthUnit)

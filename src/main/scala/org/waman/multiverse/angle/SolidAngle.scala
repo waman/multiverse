@@ -14,7 +14,7 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
 
   def apply(evalUnit: SolidAngleUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSteradian) / real(evalUnit.unitInSteradian)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def solidAnglePostfixOps(solidAngleUnit: SolidAngleUnit) = apply(solidAngleUnit)
 }

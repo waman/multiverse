@@ -30,6 +30,7 @@ class AbsorbedDoseSpec
           (Seq(3.0.pGy, 3.0 pGy, 3.0 (pGy)), 3e-12),
           (Seq(3.0.nGy, 3.0 nGy, 3.0 (nGy)), 3e-9),
           (Seq(3.0.μGy, 3.0 μGy, 3.0 (μGy)), 3e-6),
+          (Seq(3.0.mcGy, 3.0 mcGy, 3.0 (mcGy)), 3e-6),
           (Seq(3.0.mGy, 3.0 mGy, 3.0 (mGy)), 3e-3),
           (Seq(3.0.cGy, 3.0 cGy, 3.0 (cGy)), 3e-2),
           (Seq(3.0.dGy, 3.0 dGy, 3.0 (dGy)), 3e-1),
@@ -67,6 +68,7 @@ class AbsorbedDoseSpec
           (Seq(q.pGy, q pGy, q(pGy)), 3e12),
           (Seq(q.nGy, q nGy, q(nGy)), 3e9),
           (Seq(q.μGy, q μGy, q(μGy)), 3e6),
+          (Seq(q.mcGy, q mcGy, q(mcGy)), 3e6),
           (Seq(q.mGy, q mGy, q(mGy)), 3e3),
           (Seq(q.cGy, q cGy, q(cGy)), 3e2),
           (Seq(q.dGy, q dGy, q(dGy)), 3e1),
@@ -97,7 +99,7 @@ class AbsorbedDoseSpec
       __Exercise__
       val sut = J/kg
       __Verify__
-      sut.unitInGray.toDouble should equal (%%%%(1.0))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1.0))
     }
 
     "3.0 J/kg should equal 3.0 Gy" in {

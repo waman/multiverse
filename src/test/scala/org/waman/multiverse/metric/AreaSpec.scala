@@ -35,6 +35,7 @@ class AreaSpec
           (Seq(3.0.pm2, 3.0 pm2, 3.0 (pm2)), 3e-24),
           (Seq(3.0.nm2, 3.0 nm2, 3.0 (nm2)), 3e-18),
           (Seq(3.0.μm2, 3.0 μm2, 3.0 (μm2)), 3e-12),
+          (Seq(3.0.mcm2, 3.0 mcm2, 3.0 (mcm2)), 3e-12),
           (Seq(3.0.mm2, 3.0 mm2, 3.0 (mm2)), 3e-6),
           (Seq(3.0.cm2, 3.0 cm2, 3.0 (cm2)), 3e-4),
           (Seq(3.0.dm2, 3.0 dm2, 3.0 (dm2)), 3e-2),
@@ -60,6 +61,7 @@ class AreaSpec
           (Seq(3.0.pb, 3.0 pb, 3.0 (pb)), 3e-40),
           (Seq(3.0.nb, 3.0 nb, 3.0 (nb)), 3e-37),
           (Seq(3.0.μb, 3.0 μb, 3.0 (μb)), 3e-34),
+          (Seq(3.0.mcb, 3.0 mcb, 3.0 (mcb)), 3e-34),
           (Seq(3.0.mb, 3.0 mb, 3.0 (mb)), 3e-31),
           (Seq(3.0.b, 3.0 b, 3.0 (b)), 3e-28),
           (Seq(3.0.kb, 3.0 kb, 3.0 (kb)), 3e-25),
@@ -129,6 +131,7 @@ class AreaSpec
           (Seq(q.pm2, q pm2, q(pm2)), 3e24),
           (Seq(q.nm2, q nm2, q(nm2)), 3e18),
           (Seq(q.μm2, q μm2, q(μm2)), 3e12),
+          (Seq(q.mcm2, q mcm2, q(mcm2)), 3e12),
           (Seq(q.mm2, q mm2, q(mm2)), 3e6),
           (Seq(q.cm2, q cm2, q(cm2)), 3e4),
           (Seq(q.dm2, q dm2, q(dm2)), 3e2),
@@ -154,6 +157,7 @@ class AreaSpec
           (Seq(q.pb, q pb, q(pb)), 3e40),
           (Seq(q.nb, q nb, q(nb)), 3e37),
           (Seq(q.μb, q μb, q(μb)), 3e34),
+          (Seq(q.mcb, q mcb, q(mcb)), 3e34),
           (Seq(q.mb, q mb, q(mb)), 3e31),
           (Seq(q.b, q b, q(b)), 3e28),
           (Seq(q.kb, q kb, q(kb)), 3e25),
@@ -215,7 +219,7 @@ class AreaSpec
       __Exercise__
       val sut = m*cm
       __Verify__
-      sut.unitInSquareMetre should equal (r"0.01")
+      sut.unitValueInSIUnit should equal (r"0.01")
     }
 
     "3.0 m*cm should equal 0.03 m2" in {

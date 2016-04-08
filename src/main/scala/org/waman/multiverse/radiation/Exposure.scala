@@ -17,7 +17,7 @@ class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
 
   def apply(evalUnit: ExposureUnit): A =
     if (unit == evalUnit) value
-    else value * real(unit.unitInCoulombPerKiloGram) / real(evalUnit.unitInCoulombPerKiloGram)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def exposurePostfixOps(exposureUnit: ExposureUnit) = apply(exposureUnit)
 

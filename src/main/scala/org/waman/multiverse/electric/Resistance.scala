@@ -13,7 +13,7 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
 
   def apply(evalUnit: ResistanceUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInOhm) / real(evalUnit.unitInOhm)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def resistancePostfixOps(resistanceUnit: ResistanceUnit) = apply(resistanceUnit)
 }

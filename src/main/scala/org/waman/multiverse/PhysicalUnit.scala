@@ -4,15 +4,11 @@ import spire.math.Real
 
 trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 
-  lazy val name: String = {
-    val cName = getClass.getSimpleName
-    cName.substring(0, cName.length - 1)  // drop the end char "$"
-  }
-
+  val name: String
   val symbols: Seq[String]
 
-  def baseUnit: U
-  def valueInBaseUnit: Real
+  def getSIUnit: U
+  def unitValueInSIUnit: Real
 
   protected lazy val symbolStr = symbols.mkString(";")
 
@@ -21,14 +17,14 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
   def toDetailString: String = {
     val s = s"${name.padTo(30, ' ')} ($symbolStr)"
 
-    if (valueInBaseUnit == Real.one) s
+    if (unitValueInSIUnit == Real.one) s
     else {
       val eqSymbol = if(this.isInstanceOf[NotExact]) "~" else "="
-      s.padTo(50, ' ') + s": 1 ${symbols.head.padTo(10, ' ')} $eqSymbol $valueInBaseUnit ${baseUnit.symbols.head}"
+      s.padTo(50, ' ') + s": 1 ${symbols.head.padTo(10, ' ')} $eqSymbol $unitValueInSIUnit ${getSIUnit.symbols.head}"
     }
   }
 
-  override def compare(that: U): Int = this.valueInBaseUnit.compare(that.valueInBaseUnit)
+  override def compare(that: U): Int = this.unitValueInSIUnit.compare(that.unitValueInSIUnit)
 }
 
 trait NotExact

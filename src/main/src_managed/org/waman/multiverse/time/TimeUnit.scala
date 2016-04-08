@@ -9,10 +9,7 @@ sealed trait TimeUnit extends PhysicalUnit[TimeUnit]
   with MultiplicativeByTimeUnit[TimeSquaredUnit]
   with CanSquare[TimeSquaredUnit]{
 
-  def unitInSecond: Real
-
-  override def baseUnit = org.waman.multiverse.time.TimeUnit.Second
-  override def valueInBaseUnit = unitInSecond
+  override def getSIUnit = org.waman.multiverse.time.TimeUnit.Second
 
   override def *(unit: TimeUnit) = TimeSquaredUnit(this, unit)
 
@@ -23,14 +20,14 @@ object TimeUnit extends ConstantsDefined[TimeUnit]{
 
   // intrinsic
   private[TimeUnit]
-  class IntrinsicTimeUnit(name: String, val symbols: Seq[String], val unitInSecond: Real)
+  class IntrinsicTimeUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends TimeUnit{
 
     def this(name: String, symbols: Seq[String], unit: TimeUnit) =
-      this(name, symbols, unit.unitInSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: TimeUnit) =
-      this(name, symbols, factor * unit.unitInSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

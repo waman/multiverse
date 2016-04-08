@@ -15,7 +15,7 @@ class LuminousIntensity[A: Fractional](val value: A, val unit: LuminousIntensity
 
   def apply(evalUnit: LuminousIntensityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInCandela) / real(evalUnit.unitInCandela)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def luminousIntensityPostfixOps(luminousIntensityUnit: LuminousIntensityUnit) =
     apply(luminousIntensityUnit)

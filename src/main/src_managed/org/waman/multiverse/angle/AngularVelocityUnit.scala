@@ -9,24 +9,21 @@ import org.waman.multiverse.MultiverseUtil.twoPi
 
 sealed trait AngularVelocityUnit extends PhysicalUnit[AngularVelocityUnit]{
 
-  def unitInRadianPerSecond: Real
-
-  override def baseUnit = AngleUnit.Radian / TimeUnit.Second
-  override def valueInBaseUnit = unitInRadianPerSecond
+  override def getSIUnit = AngleUnit.Radian / TimeUnit.Second
 }
 
 object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
 
   // intrinsic
   private[AngularVelocityUnit]
-  class IntrinsicAngularVelocityUnit(name: String, val symbols: Seq[String], val unitInRadianPerSecond: Real)
+  class IntrinsicAngularVelocityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends AngularVelocityUnit{
 
     def this(name: String, symbols: Seq[String], unit: AngularVelocityUnit) =
-      this(name, symbols, unit.unitInRadianPerSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: AngularVelocityUnit) =
-      this(name, symbols, factor * unit.unitInRadianPerSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -40,8 +37,8 @@ object AngularVelocityUnit extends ConstantsDefined[AngularVelocityUnit]{
   class QuotientAnglePerTimeUnit(val numeratorUnit: AngleUnit, val denominatorUnit: TimeUnit)
       extends AngularVelocityUnit with QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit]{
 
-    override lazy val unitInRadianPerSecond: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: AngleUnit, dUnit: TimeUnit): AngularVelocityUnit =

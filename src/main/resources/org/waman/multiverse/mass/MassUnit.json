@@ -1,11 +1,12 @@
 {
   "imports":[
     "org.waman.multiverse.metric._",
-    "org.waman.multiverse.mechanics._"
+    "org.waman.multiverse.mechanics._",
+    "org.waman.multiverse.metric.LengthUnit._",
+    "org.waman.multiverse.mechanics.AccelerationUnit._"
   ],
 
-  "baseUnit":"KiloGram",
-  "baseUnitAccessor":"unitInKiloGram",
+  "SIUnit":"KiloGram",
 
   "multiplicatives":[["AccelerationUnit", "ForceUnit"]],
   "divisibles":[["VolumeUnit", "DensityUnit"]],
@@ -50,6 +51,6 @@
     {"name":"ShortAssayTon", "symbols":["sh_AT"]        , "args":"r\"175/6\", Gram"},
 
     {"name":"Slug", "symbols":["slug"],
-      "args":"AccelerationUnit.StandardGravity.unitInMetrePerSecondSquared / LengthUnit.Foot.unitInMetre"}
+      "args":"StandardGravity.unitValueInSIUnit / Foot.unitValueInSIUnit"}
   ]
 }

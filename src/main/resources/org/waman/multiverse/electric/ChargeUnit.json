@@ -8,8 +8,7 @@
     "org.waman.multiverse.mechanics.VelocityUnit.SpeedOfLight"
   ],
 
-  "baseUnit":"Coulomb",
-  "baseUnitAccessor":"unitInCoulomb",
+  "SIUnit":"Coulomb",
 
   "multiplicatives":[["LengthUnit", "DipoleUnit"], ["VoltageUnit", "EnergyUnit"]],
   "divisibles":[["TimeUnit", "CurrentUnit"], ["VoltageUnit", "CapacitanceUnit"], ["MassUnit", "ExposureUnit"]],
@@ -19,7 +18,7 @@
   "constants":[
     {"name":"Coulomb"         , "symbol":"C"              , "args":"", "scalePrefixes":true},
     {"name":"Abcoulomb"       , "symbols":["abC"]         , "args":"10"},
-    {"name":"Statcoulomb"     , "symbols":["statC", "esu"], "args":"r\"0.1\" / SpeedOfLight.unitInMetrePerSecond"},
+    {"name":"Statcoulomb"     , "symbols":["statC", "esu"], "args":"r\"0.1\" / SpeedOfLight.unitValueInSIUnit"},
     {"name":"ElementaryCharge", "symbols":["e"]           , "args":"r\"1.602176620898e-19\"", "notExact":true}
   ]
 }

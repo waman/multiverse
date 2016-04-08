@@ -11,10 +11,7 @@ import org.waman.multiverse.thermal._
 sealed trait AngleUnit extends PhysicalUnit[AngleUnit]
   with DivisibleByTimeUnit[AngularVelocityUnit]{
 
-  def unitInRadian: Real
-
-  override def baseUnit = org.waman.multiverse.angle.AngleUnit.Radian
-  override def valueInBaseUnit = unitInRadian
+  override def getSIUnit = org.waman.multiverse.angle.AngleUnit.Radian
 
   override def /(unit: TimeUnit) = AngularVelocityUnit(this, unit)
 }
@@ -23,14 +20,14 @@ object AngleUnit extends ConstantsDefined[AngleUnit]{
 
   // intrinsic
   private[AngleUnit]
-  class IntrinsicAngleUnit(name: String, val symbols: Seq[String], val unitInRadian: Real)
+  class IntrinsicAngleUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends AngleUnit{
 
     def this(name: String, symbols: Seq[String], unit: AngleUnit) =
-      this(name, symbols, unit.unitInRadian)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: AngleUnit) =
-      this(name, symbols, factor * unit.unitInRadian)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

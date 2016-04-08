@@ -8,24 +8,21 @@ import org.waman.multiverse.electric._
 
 sealed trait InductanceUnit extends PhysicalUnit[InductanceUnit]{
 
-  def unitInHenry: Real
-
-  override def baseUnit = org.waman.multiverse.magnetic.InductanceUnit.Henry
-  override def valueInBaseUnit = unitInHenry
+  override def getSIUnit = org.waman.multiverse.magnetic.InductanceUnit.Henry
 }
 
 object InductanceUnit extends ConstantsDefined[InductanceUnit]{
 
   // intrinsic
   private[InductanceUnit]
-  class IntrinsicInductanceUnit(name: String, val symbols: Seq[String], val unitInHenry: Real)
+  class IntrinsicInductanceUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends InductanceUnit{
 
     def this(name: String, symbols: Seq[String], unit: InductanceUnit) =
-      this(name, symbols, unit.unitInHenry)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: InductanceUnit) =
-      this(name, symbols, factor * unit.unitInHenry)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -58,8 +55,8 @@ object InductanceUnit extends ConstantsDefined[InductanceUnit]{
   class QuotientFluxPerCurrentUnit(val numeratorUnit: FluxUnit, val denominatorUnit: CurrentUnit)
       extends InductanceUnit with QuotientUnit[InductanceUnit, FluxUnit, CurrentUnit]{
 
-    override lazy val unitInHenry: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: FluxUnit, dUnit: CurrentUnit): InductanceUnit =

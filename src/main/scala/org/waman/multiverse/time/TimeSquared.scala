@@ -13,7 +13,7 @@ class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
 
   def apply(evalUnit: TimeSquaredUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSecondSquared) / real(evalUnit.unitInSecondSquared)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def timeSquaredPostfixOps(timeSquaredUnit: TimeSquaredUnit) = apply(timeSquaredUnit)
 }

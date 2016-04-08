@@ -7,24 +7,21 @@ import org.waman.multiverse._
 
 sealed trait ResistanceUnit extends PhysicalUnit[ResistanceUnit]{
 
-  def unitInOhm: Real
-
-  override def baseUnit = org.waman.multiverse.electric.ResistanceUnit.Ohm
-  override def valueInBaseUnit = unitInOhm
+  override def getSIUnit = org.waman.multiverse.electric.ResistanceUnit.Ohm
 }
 
 object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
 
   // intrinsic
   private[ResistanceUnit]
-  class IntrinsicResistanceUnit(name: String, val symbols: Seq[String], val unitInOhm: Real)
+  class IntrinsicResistanceUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends ResistanceUnit{
 
     def this(name: String, symbols: Seq[String], unit: ResistanceUnit) =
-      this(name, symbols, unit.unitInOhm)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: ResistanceUnit) =
-      this(name, symbols, factor * unit.unitInOhm)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -58,8 +55,8 @@ object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
   class QuotientVoltagePerCurrentUnit(val numeratorUnit: VoltageUnit, val denominatorUnit: CurrentUnit)
       extends ResistanceUnit with QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit]{
 
-    override lazy val unitInOhm: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: VoltageUnit, dUnit: CurrentUnit): ResistanceUnit =

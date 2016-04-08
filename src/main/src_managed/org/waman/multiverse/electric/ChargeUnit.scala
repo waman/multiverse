@@ -18,10 +18,7 @@ sealed trait ChargeUnit extends PhysicalUnit[ChargeUnit]
   with DivisibleByVoltageUnit[CapacitanceUnit]
   with DivisibleByMassUnit[ExposureUnit]{
 
-  def unitInCoulomb: Real
-
-  override def baseUnit = org.waman.multiverse.electric.ChargeUnit.Coulomb
-  override def valueInBaseUnit = unitInCoulomb
+  override def getSIUnit = org.waman.multiverse.electric.ChargeUnit.Coulomb
 
   override def *(unit: LengthUnit) = DipoleUnit(this, unit)
 
@@ -38,14 +35,14 @@ object ChargeUnit extends ConstantsDefined[ChargeUnit]{
 
   // intrinsic
   private[ChargeUnit]
-  class IntrinsicChargeUnit(name: String, val symbols: Seq[String], val unitInCoulomb: Real)
+  class IntrinsicChargeUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends ChargeUnit{
 
     def this(name: String, symbols: Seq[String], unit: ChargeUnit) =
-      this(name, symbols, unit.unitInCoulomb)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: ChargeUnit) =
-      this(name, symbols, factor * unit.unitInCoulomb)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -71,7 +68,7 @@ object ChargeUnit extends ConstantsDefined[ChargeUnit]{
   case object ZettaCoulomb extends IntrinsicChargeUnit("ZettaCoulomb", Seq("ZC"), r"1e21")
   case object YottaCoulomb extends IntrinsicChargeUnit("YottaCoulomb", Seq("YC"), r"1e24")
   case object Abcoulomb extends IntrinsicChargeUnit("Abcoulomb", Seq("abC"), 10)
-  case object Statcoulomb extends IntrinsicChargeUnit("Statcoulomb", Seq("statC", "esu"), r"0.1" / SpeedOfLight.unitInMetrePerSecond)
+  case object Statcoulomb extends IntrinsicChargeUnit("Statcoulomb", Seq("statC", "esu"), r"0.1" / SpeedOfLight.unitValueInSIUnit)
   case object ElementaryCharge extends IntrinsicChargeUnit("ElementaryCharge", Seq("e"), r"1.602176620898e-19") with NotExact
 
   override lazy val values = Seq(YoctoCoulomb, ZeptoCoulomb, AttoCoulomb, FemtoCoulomb, PicoCoulomb, NanoCoulomb, MicroCoulomb, MilliCoulomb, CentiCoulomb, DeciCoulomb, Coulomb, DecaCoulomb, HectoCoulomb, KiloCoulomb, MegaCoulomb, GigaCoulomb, TeraCoulomb, PetaCoulomb, ExaCoulomb, ZettaCoulomb, YottaCoulomb, Abcoulomb, Statcoulomb, ElementaryCharge)
@@ -81,8 +78,8 @@ object ChargeUnit extends ConstantsDefined[ChargeUnit]{
   class ProductCurrentDotTimeUnit(val firstUnit: CurrentUnit, val secondUnit: TimeUnit)
       extends ChargeUnit with ProductUnit[ChargeUnit, CurrentUnit, TimeUnit]{
 
-    override lazy val unitInCoulomb: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: CurrentUnit, unit2: TimeUnit): ChargeUnit =

@@ -6,15 +6,14 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.metric._
 import org.waman.multiverse.mechanics._
+import org.waman.multiverse.metric.LengthUnit._
+import org.waman.multiverse.mechanics.AccelerationUnit._
 
 sealed trait MassUnit extends PhysicalUnit[MassUnit]
   with MultiplicativeByAccelerationUnit[ForceUnit]
   with DivisibleByVolumeUnit[DensityUnit]{
 
-  def unitInKiloGram: Real
-
-  override def baseUnit = org.waman.multiverse.mass.MassUnit.KiloGram
-  override def valueInBaseUnit = unitInKiloGram
+  override def getSIUnit = org.waman.multiverse.mass.MassUnit.KiloGram
 
   override def *(unit: AccelerationUnit) = ForceUnit(this, unit)
 
@@ -25,14 +24,14 @@ object MassUnit extends ConstantsDefined[MassUnit]{
 
   // intrinsic
   private[MassUnit]
-  class IntrinsicMassUnit(name: String, val symbols: Seq[String], val unitInKiloGram: Real)
+  class IntrinsicMassUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends MassUnit{
 
     def this(name: String, symbols: Seq[String], unit: MassUnit) =
-      this(name, symbols, unit.unitInKiloGram)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: MassUnit) =
-      this(name, symbols, factor * unit.unitInKiloGram)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -83,7 +82,7 @@ object MassUnit extends ConstantsDefined[MassUnit]{
   case object Pennyweight extends IntrinsicMassUnit("Pennyweight", Seq("dwt", "pwt"), r"1/20", Ounce_troy)
   case object LongAssayTon extends IntrinsicMassUnit("LongAssayTon", Seq("long_AT", "AT"), r"98/3", Gram)
   case object ShortAssayTon extends IntrinsicMassUnit("ShortAssayTon", Seq("sh_AT"), r"175/6", Gram)
-  case object Slug extends IntrinsicMassUnit("Slug", Seq("slug"), AccelerationUnit.StandardGravity.unitInMetrePerSecondSquared / LengthUnit.Foot.unitInMetre)
+  case object Slug extends IntrinsicMassUnit("Slug", Seq("slug"), StandardGravity.unitValueInSIUnit / Foot.unitValueInSIUnit)
 
   override lazy val values = Seq(YoctoGram, ZeptoGram, AttoGram, FemtoGram, PicoGram, NanoGram, MicroGram, MilliGram, CentiGram, DeciGram, Gram, DecaGram, HectoGram, KiloGram, MegaGram, GigaGram, TeraGram, PetaGram, ExaGram, ZettaGram, YottaGram, Grave, Tonne, Gamma, Quintal, AtomicMassUnit, ElectronMass, Ounce, Pound, LongTon, ShortTon, Scruple, Carat, MetricCarat, Stone, Dram_avoirdupois, Grain, LongHundredweight, ShortHundredweight, Kip, Ounce_avoirdupois, Dram_troy, Ounce_troy, Pound_troy, Pennyweight, LongAssayTon, ShortAssayTon, Slug)
 }

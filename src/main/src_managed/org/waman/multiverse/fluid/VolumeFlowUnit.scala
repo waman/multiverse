@@ -11,24 +11,21 @@ import org.waman.multiverse.time.TimeUnit._
 
 sealed trait VolumeFlowUnit extends PhysicalUnit[VolumeFlowUnit]{
 
-  def unitInCubicMetrePerSecond: Real
-
-  override def baseUnit = CubicMetre / Second
-  override def valueInBaseUnit = unitInCubicMetrePerSecond
+  override def getSIUnit = CubicMetre / Second
 }
 
 object VolumeFlowUnit extends ConstantsDefined[VolumeFlowUnit]{
 
   // intrinsic
   private[VolumeFlowUnit]
-  class IntrinsicVolumeFlowUnit(name: String, val symbols: Seq[String], val unitInCubicMetrePerSecond: Real)
+  class IntrinsicVolumeFlowUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends VolumeFlowUnit{
 
     def this(name: String, symbols: Seq[String], unit: VolumeFlowUnit) =
-      this(name, symbols, unit.unitInCubicMetrePerSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: VolumeFlowUnit) =
-      this(name, symbols, factor * unit.unitInCubicMetrePerSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -49,8 +46,8 @@ object VolumeFlowUnit extends ConstantsDefined[VolumeFlowUnit]{
   class QuotientVolumePerTimeUnit(val numeratorUnit: VolumeUnit, val denominatorUnit: TimeUnit)
       extends VolumeFlowUnit with QuotientUnit[VolumeFlowUnit, VolumeUnit, TimeUnit]{
 
-    override lazy val unitInCubicMetrePerSecond: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: VolumeUnit, dUnit: TimeUnit): VolumeFlowUnit =

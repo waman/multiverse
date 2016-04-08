@@ -17,7 +17,7 @@ class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosi
 
   def apply(evalUnit: KinematicViscosityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSquareMetrePerSecond) / real(evalUnit.unitInSquareMetrePerSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def kinematicViscosityPostfixOps(kinematicViscosityUnit: KinematicViscosityUnit) =
     apply(kinematicViscosityUnit)

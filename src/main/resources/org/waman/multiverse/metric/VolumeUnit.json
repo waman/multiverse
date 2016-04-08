@@ -2,11 +2,11 @@
   "imports":[
     "org.waman.multiverse.time._",
     "org.waman.multiverse.fluid._",
-    "org.waman.multiverse.energy._"
+    "org.waman.multiverse.energy._",
+    "org.waman.multiverse.metric.LengthUnit._"
   ],
 
-  "baseUnit":"CubicMetre",
-  "baseUnitAccessor":"unitInCubicMetre",
+  "SIUnit":"CubicMetre",
 
   "multiplicatives":[["PressureUnit", "EnergyUnit"]],
   "divisibles":[["TimeUnit", "VolumeFlowUnit"]],
@@ -22,11 +22,11 @@
 
     {"name":"Lambda", "symbols":["λ"], "args":"r\"1e-9\""},
 
-    {"name":"CubicInch"  , "symbols":["in3", "cu_in"] , "args":"LengthUnit.Inch.cubic"},
-    {"name":"CubicFoot"  , "symbols":["ft3", "cu_ft"] , "args":"LengthUnit.Foot.cubic"},
-    {"name":"CubicYard"  , "symbols":["yd3", "cu_yd"] , "args":"LengthUnit.Yard.cubic"},
-    {"name":"CubicFathom", "symbols":["ftm3", "cu_fm"], "args":"LengthUnit.Fathom.cubic"},
-    {"name":"CubicMile"  , "symbols":["mi3", "cu_mi"] , "args":"LengthUnit.Mile.cubic"},
+    {"name":"CubicInch"  , "symbols":["in3", "cu_in"] , "args":"Inch.cubic"},
+    {"name":"CubicFoot"  , "symbols":["ft3", "cu_ft"] , "args":"Foot.cubic"},
+    {"name":"CubicYard"  , "symbols":["yd3", "cu_yd"] , "args":"Yard.cubic"},
+    {"name":"CubicFathom", "symbols":["ftm3", "cu_fm"], "args":"Fathom.cubic"},
+    {"name":"CubicMile"  , "symbols":["mi3", "cu_mi"] , "args":"Mile.cubic"},
 
     {"name":"BoardFoot", "symbols":["fbm"], "args":"144, CubicInch"},
 

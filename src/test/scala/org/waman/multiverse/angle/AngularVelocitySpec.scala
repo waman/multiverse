@@ -24,7 +24,7 @@ class AngularVelocitySpec
       __SetUp__
       val avu = deg / h
       __Verify__
-      avu.unitInRadianPerSecond should equal(Real.pi / r"180" / r"3600")
+      avu.unitValueInSIUnit should equal(Real.pi / r"180" / r"3600")
     }
 
     "be evaluated as equal even if different objects" in {

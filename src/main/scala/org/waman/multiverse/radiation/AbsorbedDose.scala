@@ -17,7 +17,7 @@ class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
 
   def apply(evalUnit: AbsorbedDoseUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInGray) / real(evalUnit.unitInGray)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def absorbedDosePostfixOps(absorbedDoseUnit: AbsorbedDoseUnit) = apply(absorbedDoseUnit)
 

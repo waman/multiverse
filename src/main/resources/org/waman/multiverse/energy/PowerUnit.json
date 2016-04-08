@@ -10,8 +10,7 @@
     "org.waman.multiverse.energy.EnergyUnit._"
   ],
 
-  "baseUnit":"Watt",
-  "baseUnitAccessor":"unitInWatt",
+  "SIUnit":"Watt",
 
   "multiplicatives":[["TimeUnit", "EnergyUnit"]],
   "divisibles":[["CurrentUnit", "VoltageUnit"]],

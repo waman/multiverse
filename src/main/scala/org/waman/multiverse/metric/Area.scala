@@ -19,7 +19,7 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
 
   def apply(evalUnit: AreaUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSquareMetre) / real(evalUnit.unitInSquareMetre)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def areaPostfixOps(areaUnit: AreaUnit) = apply(areaUnit)
 

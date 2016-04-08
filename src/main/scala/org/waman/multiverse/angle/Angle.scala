@@ -22,7 +22,7 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
 
   def apply(evalUnit: AngleUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInRadian) / real(evalUnit.unitInRadian)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def anglePostfixOps(angleUnit: AngleUnit) = apply(angleUnit)
 

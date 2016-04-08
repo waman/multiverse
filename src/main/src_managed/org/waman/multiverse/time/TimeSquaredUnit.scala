@@ -7,24 +7,21 @@ import org.waman.multiverse._
 
 sealed trait TimeSquaredUnit extends PhysicalUnit[TimeSquaredUnit]{
 
-  def unitInSecondSquared: Real
-
-  override def baseUnit = org.waman.multiverse.time.TimeSquaredUnit.SecondSquared
-  override def valueInBaseUnit = unitInSecondSquared
+  override def getSIUnit = org.waman.multiverse.time.TimeSquaredUnit.SecondSquared
 }
 
 object TimeSquaredUnit extends ConstantsDefined[TimeSquaredUnit]{
 
   // intrinsic
   private[TimeSquaredUnit]
-  class IntrinsicTimeSquaredUnit(name: String, val symbols: Seq[String], val unitInSecondSquared: Real)
+  class IntrinsicTimeSquaredUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends TimeSquaredUnit{
 
     def this(name: String, symbols: Seq[String], unit: TimeSquaredUnit) =
-      this(name, symbols, unit.unitInSecondSquared)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: TimeSquaredUnit) =
-      this(name, symbols, factor * unit.unitInSecondSquared)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -37,8 +34,8 @@ object TimeSquaredUnit extends ConstantsDefined[TimeSquaredUnit]{
   class ProductTimeDotTimeUnit(val firstUnit: TimeUnit, val secondUnit: TimeUnit)
       extends TimeSquaredUnit with ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit]{
 
-    override lazy val unitInSecondSquared: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: TimeUnit, unit2: TimeUnit): TimeSquaredUnit =

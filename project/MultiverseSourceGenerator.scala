@@ -223,8 +223,7 @@ object MultiverseSourceGenerator extends GluinoPath{
 
       if(className != "Temperature"){
         //***** Unit trait  *****
-        val baseUnitAccessor = json.baseUnitAccessor
-        val baseUnit = json.baseUnit match {
+        val siUnit = json.SIUnit match {
           case s if s.contains("*") || s. contains("/") => s
           case s => packageName + "." + className + "Unit." + s
         }
@@ -264,10 +263,7 @@ object MultiverseSourceGenerator extends GluinoPath{
         writer <<
           s"""{
              |
-             |  def $baseUnitAccessor: Real
-             |
-             |  override def baseUnit = $baseUnit
-             |  override def valueInBaseUnit = $baseUnitAccessor""".stripMargin
+             |  override def getSIUnit = $siUnit""".stripMargin
 
         muls.foreach{ case (arg, result) =>
           writer <<
@@ -309,14 +305,14 @@ object MultiverseSourceGenerator extends GluinoPath{
              |
              |  // intrinsic
              |  private[${className}Unit]
-             |  class Intrinsic${className}Unit(name: String, val symbols: Seq[String], val $baseUnitAccessor: Real)
+             |  class Intrinsic${className}Unit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
              |      extends ${className}Unit{
              |
              |    def this(name: String, symbols: Seq[String], unit: ${className}Unit) =
-             |      this(name, symbols, unit.$baseUnitAccessor)
+             |      this(name, symbols, unit.unitValueInSIUnit)
              |
              |    def this(name: String, symbols: Seq[String], factor: Real, unit: ${className}Unit) =
-             |      this(name, symbols, factor * unit.$baseUnitAccessor)
+             |      this(name, symbols, factor * unit.unitValueInSIUnit)
              |  }
              |
              |""".stripMargin
@@ -357,8 +353,8 @@ object MultiverseSourceGenerator extends GluinoPath{
                |  class $productUnit(val firstUnit: $first, val secondUnit: $second)
                |      extends ${className}Unit with ProductUnit[${className}Unit, $first, $second]{
                |
-               |    override lazy val $baseUnitAccessor: Real =
-               |      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+               |    override lazy val unitValueInSIUnit: Real =
+               |      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
                |  }
                |
                |  def apply(unit1: $first, unit2: $second): ${className}Unit =
@@ -377,8 +373,8 @@ object MultiverseSourceGenerator extends GluinoPath{
                |  class $quotientUnit(val numeratorUnit: $numerator, val denominatorUnit: $denominator)
                |      extends ${className}Unit with QuotientUnit[${className}Unit, $numerator, $denominator]{
                |
-               |    override lazy val $baseUnitAccessor: Real =
-               |      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+               |    override lazy val unitValueInSIUnit: Real =
+               |      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
                |  }
                |
                |  def apply(nUnit: $numerator, dUnit: $denominator): ${className}Unit =

@@ -68,7 +68,7 @@ class LuminanceSpec
       __Exercise__
       val sut = cd/in2
       __Verify__
-      sut.unitInCandelaPerSquareMetre.toDouble should equal (%%%%(1550.0031))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1550.0031))
     }
 
     "3.0 lm/in2 should equal 3.0 * 1550.0031 lx" in {

@@ -13,7 +13,7 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
 
   def apply(evalUnit: CurrentUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInAmpere) / real(evalUnit.unitInAmpere)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
 
   override protected def currentPostfixOps(currentUnit: CurrentUnit) = apply(currentUnit)

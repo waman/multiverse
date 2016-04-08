@@ -18,7 +18,7 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
 
   def apply(evalUnit: ChargeUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInCoulomb) / real(evalUnit.unitInCoulomb)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def chargePostfixOps(chargeUnit: ChargeUnit) = apply(chargeUnit)
 

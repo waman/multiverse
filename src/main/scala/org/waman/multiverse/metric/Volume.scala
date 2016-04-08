@@ -18,7 +18,7 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
 
   def apply(evalUnit: VolumeUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInCubicMetre) / real(evalUnit.unitInCubicMetre)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def volumePostfixOps(volumeUnit: VolumeUnit) = apply(volumeUnit)
 

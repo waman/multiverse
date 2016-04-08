@@ -16,7 +16,7 @@ class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUn
 
   def apply(evalUnit: DynamicViscosityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInPascalSecond) / real(evalUnit.unitInPascalSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def dynamicViscosityPostfixOps(dynamicViscosityUnit: DynamicViscosityUnit) =
     apply(dynamicViscosityUnit)

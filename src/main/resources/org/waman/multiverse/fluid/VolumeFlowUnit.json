@@ -6,8 +6,7 @@
     "org.waman.multiverse.time.TimeUnit._"
   ],
 
-  "baseUnit":"CubicMetre / Second",
-  "baseUnitAccessor":"unitInCubicMetrePerSecond",
+  "SIUnit":"CubicMetre / Second",
 
   "quotients":[["VolumeUnit", "TimeUnit"]],
 

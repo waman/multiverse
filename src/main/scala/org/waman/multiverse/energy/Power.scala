@@ -13,7 +13,7 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
 
   def apply(evalUnit: PowerUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInWatt) / real(evalUnit.unitInWatt)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
 
   override protected def powerPostfixOps(powerUnit: PowerUnit) = apply(powerUnit)

@@ -13,6 +13,7 @@ import org.waman.multiverse.electric._
 import org.waman.multiverse.thermal._
 import org.waman.multiverse.radiation._
 import org.waman.multiverse.metric.VolumeUnit._
+import org.waman.multiverse.electric.ChargeUnit._
 import org.waman.multiverse.fluid.PressureUnit._
 
 sealed trait EnergyUnit extends PhysicalUnit[EnergyUnit]
@@ -21,10 +22,7 @@ sealed trait EnergyUnit extends PhysicalUnit[EnergyUnit]
   with DivisibleByTemperatureUnit[EntropyUnit]
   with DivisibleByMassUnit[AbsorbedDoseUnit]{
 
-  def unitInJoule: Real
-
-  override def baseUnit = org.waman.multiverse.energy.EnergyUnit.Joule
-  override def valueInBaseUnit = unitInJoule
+  override def getSIUnit = org.waman.multiverse.energy.EnergyUnit.Joule
 
   override def *(unit: TimeUnit) = ActionUnit(this, unit)
 
@@ -39,14 +37,14 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
 
   // intrinsic
   private[EnergyUnit]
-  class IntrinsicEnergyUnit(name: String, val symbols: Seq[String], val unitInJoule: Real)
+  class IntrinsicEnergyUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends EnergyUnit{
 
     def this(name: String, symbols: Seq[String], unit: EnergyUnit) =
-      this(name, symbols, unit.unitInJoule)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: EnergyUnit) =
-      this(name, symbols, factor * unit.unitInJoule)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -72,27 +70,27 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
   case object ZettaJoule extends IntrinsicEnergyUnit("ZettaJoule", Seq("ZJ"), r"1e21")
   case object YottaJoule extends IntrinsicEnergyUnit("YottaJoule", Seq("YJ"), r"1e24")
   case object Erg extends IntrinsicEnergyUnit("Erg", Seq("erg"), r"1e-7")
-  case object YoctoElectronVolt extends IntrinsicEnergyUnit("YoctoElectronVolt", Seq("yeV"), r"1e-24" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object ZeptoElectronVolt extends IntrinsicEnergyUnit("ZeptoElectronVolt", Seq("zeV"), r"1e-21" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object AttoElectronVolt extends IntrinsicEnergyUnit("AttoElectronVolt", Seq("aeV"), r"1e-18" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object FemtoElectronVolt extends IntrinsicEnergyUnit("FemtoElectronVolt", Seq("feV"), r"1e-15" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object PicoElectronVolt extends IntrinsicEnergyUnit("PicoElectronVolt", Seq("peV"), r"1e-12" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object NanoElectronVolt extends IntrinsicEnergyUnit("NanoElectronVolt", Seq("neV"), r"1e-9" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object MicroElectronVolt extends IntrinsicEnergyUnit("MicroElectronVolt", Seq("μeV", "mceV"), r"1e-6" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object MilliElectronVolt extends IntrinsicEnergyUnit("MilliElectronVolt", Seq("meV"), r"1e-3" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object CentiElectronVolt extends IntrinsicEnergyUnit("CentiElectronVolt", Seq("ceV"), r"1e-2" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object DeciElectronVolt extends IntrinsicEnergyUnit("DeciElectronVolt", Seq("deV"), r"1e-1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object ElectronVolt extends IntrinsicEnergyUnit("ElectronVolt", Seq("eV"), r"1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object DecaElectronVolt extends IntrinsicEnergyUnit("DecaElectronVolt", Seq("daeV"), r"1e1" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object HectoElectronVolt extends IntrinsicEnergyUnit("HectoElectronVolt", Seq("heV"), r"1e2" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object KiloElectronVolt extends IntrinsicEnergyUnit("KiloElectronVolt", Seq("keV"), r"1e3" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object MegaElectronVolt extends IntrinsicEnergyUnit("MegaElectronVolt", Seq("MeV"), r"1e6" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object GigaElectronVolt extends IntrinsicEnergyUnit("GigaElectronVolt", Seq("GeV"), r"1e9" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object TeraElectronVolt extends IntrinsicEnergyUnit("TeraElectronVolt", Seq("TeV"), r"1e12" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object PetaElectronVolt extends IntrinsicEnergyUnit("PetaElectronVolt", Seq("PeV"), r"1e15" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object ExaElectronVolt extends IntrinsicEnergyUnit("ExaElectronVolt", Seq("EeV"), r"1e18" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object ZettaElectronVolt extends IntrinsicEnergyUnit("ZettaElectronVolt", Seq("ZeV"), r"1e21" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
-  case object YottaElectronVolt extends IntrinsicEnergyUnit("YottaElectronVolt", Seq("YeV"), r"1e24" * ChargeUnit.ElementaryCharge.unitInCoulomb) with NotExact
+  case object YoctoElectronVolt extends IntrinsicEnergyUnit("YoctoElectronVolt", Seq("yeV"), r"1e-24" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object ZeptoElectronVolt extends IntrinsicEnergyUnit("ZeptoElectronVolt", Seq("zeV"), r"1e-21" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object AttoElectronVolt extends IntrinsicEnergyUnit("AttoElectronVolt", Seq("aeV"), r"1e-18" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object FemtoElectronVolt extends IntrinsicEnergyUnit("FemtoElectronVolt", Seq("feV"), r"1e-15" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object PicoElectronVolt extends IntrinsicEnergyUnit("PicoElectronVolt", Seq("peV"), r"1e-12" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object NanoElectronVolt extends IntrinsicEnergyUnit("NanoElectronVolt", Seq("neV"), r"1e-9" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object MicroElectronVolt extends IntrinsicEnergyUnit("MicroElectronVolt", Seq("μeV", "mceV"), r"1e-6" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object MilliElectronVolt extends IntrinsicEnergyUnit("MilliElectronVolt", Seq("meV"), r"1e-3" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object CentiElectronVolt extends IntrinsicEnergyUnit("CentiElectronVolt", Seq("ceV"), r"1e-2" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object DeciElectronVolt extends IntrinsicEnergyUnit("DeciElectronVolt", Seq("deV"), r"1e-1" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object ElectronVolt extends IntrinsicEnergyUnit("ElectronVolt", Seq("eV"), r"1" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object DecaElectronVolt extends IntrinsicEnergyUnit("DecaElectronVolt", Seq("daeV"), r"1e1" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object HectoElectronVolt extends IntrinsicEnergyUnit("HectoElectronVolt", Seq("heV"), r"1e2" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object KiloElectronVolt extends IntrinsicEnergyUnit("KiloElectronVolt", Seq("keV"), r"1e3" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object MegaElectronVolt extends IntrinsicEnergyUnit("MegaElectronVolt", Seq("MeV"), r"1e6" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object GigaElectronVolt extends IntrinsicEnergyUnit("GigaElectronVolt", Seq("GeV"), r"1e9" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object TeraElectronVolt extends IntrinsicEnergyUnit("TeraElectronVolt", Seq("TeV"), r"1e12" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object PetaElectronVolt extends IntrinsicEnergyUnit("PetaElectronVolt", Seq("PeV"), r"1e15" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object ExaElectronVolt extends IntrinsicEnergyUnit("ExaElectronVolt", Seq("EeV"), r"1e18" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object ZettaElectronVolt extends IntrinsicEnergyUnit("ZettaElectronVolt", Seq("ZeV"), r"1e21" * ElementaryCharge.unitValueInSIUnit) with NotExact
+  case object YottaElectronVolt extends IntrinsicEnergyUnit("YottaElectronVolt", Seq("YeV"), r"1e24" * ElementaryCharge.unitValueInSIUnit) with NotExact
   case object Rydberg extends IntrinsicEnergyUnit("Rydberg", Seq("Ry"), r"13.6056925330", ElectronVolt) with NotExact
   case object AtomicUnitOfEnergy extends IntrinsicEnergyUnit("AtomicUnitOfEnergy", Seq("E_h"), 2, Rydberg) with NotExact
   case object Calorie_IT extends IntrinsicEnergyUnit("Calorie_IT", Seq("cal", "cal(IT)", "cal_IT"), r"4.1868")
@@ -124,8 +122,8 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
   class ProductLengthDotForceUnit(val firstUnit: LengthUnit, val secondUnit: ForceUnit)
       extends EnergyUnit with ProductUnit[EnergyUnit, LengthUnit, ForceUnit]{
 
-    override lazy val unitInJoule: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: LengthUnit, unit2: ForceUnit): EnergyUnit =
@@ -136,8 +134,8 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
   class ProductChargeDotVoltageUnit(val firstUnit: ChargeUnit, val secondUnit: VoltageUnit)
       extends EnergyUnit with ProductUnit[EnergyUnit, ChargeUnit, VoltageUnit]{
 
-    override lazy val unitInJoule: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: ChargeUnit, unit2: VoltageUnit): EnergyUnit =
@@ -148,8 +146,8 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
   class ProductPowerDotTimeUnit(val firstUnit: PowerUnit, val secondUnit: TimeUnit)
       extends EnergyUnit with ProductUnit[EnergyUnit, PowerUnit, TimeUnit]{
 
-    override lazy val unitInJoule: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: PowerUnit, unit2: TimeUnit): EnergyUnit =
@@ -160,8 +158,8 @@ object EnergyUnit extends ConstantsDefined[EnergyUnit]{
   class ProductVolumeDotPressureUnit(val firstUnit: VolumeUnit, val secondUnit: PressureUnit)
       extends EnergyUnit with ProductUnit[EnergyUnit, VolumeUnit, PressureUnit]{
 
-    override lazy val unitInJoule: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: VolumeUnit, unit2: PressureUnit): EnergyUnit =

@@ -3,8 +3,7 @@
     "org.waman.multiverse.metric.AreaUnit"
   ],
 
-  "baseUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareMetre",
-  "baseUnitAccessor":"unitInCandelaPerSquareMetre",
+  "SIUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareMetre",
 
   "quotients":[["LuminousIntensityUnit", "AreaUnit"]],
 

@@ -8,24 +8,21 @@ import org.waman.multiverse.metric._
 
 sealed trait DensityUnit extends PhysicalUnit[DensityUnit]{
 
-  def unitInKiloGramPerCubicMetre: Real
-
-  override def baseUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
-  override def valueInBaseUnit = unitInKiloGramPerCubicMetre
+  override def getSIUnit = MassUnit.KiloGram / VolumeUnit.CubicMetre
 }
 
 object DensityUnit extends ConstantsDefined[DensityUnit]{
 
   // intrinsic
   private[DensityUnit]
-  class IntrinsicDensityUnit(name: String, val symbols: Seq[String], val unitInKiloGramPerCubicMetre: Real)
+  class IntrinsicDensityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends DensityUnit{
 
     def this(name: String, symbols: Seq[String], unit: DensityUnit) =
-      this(name, symbols, unit.unitInKiloGramPerCubicMetre)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: DensityUnit) =
-      this(name, symbols, factor * unit.unitInKiloGramPerCubicMetre)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -39,8 +36,8 @@ object DensityUnit extends ConstantsDefined[DensityUnit]{
   class QuotientMassPerVolumeUnit(val numeratorUnit: MassUnit, val denominatorUnit: VolumeUnit)
       extends DensityUnit with QuotientUnit[DensityUnit, MassUnit, VolumeUnit]{
 
-    override lazy val unitInKiloGramPerCubicMetre: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: MassUnit, dUnit: VolumeUnit): DensityUnit =

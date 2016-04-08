@@ -18,7 +18,7 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
   // for style like "velocity (m/s)" ( = "velocity.apply(m/s)")
   def apply(evalUnit: VelocityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInMetrePerSecond) / real(evalUnit.unitInMetrePerSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def velocityPostfixOps(velocityUnit: VelocityUnit) = apply(velocityUnit)
 

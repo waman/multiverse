@@ -45,7 +45,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   /** For style like <code>length (m)</code> where <code>length</code> is a Length object*/
   def apply(evalUnit: LengthUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInMetre) / real(evalUnit.unitInMetre)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override def *(lengthUnit: LengthUnit): Area[A] = new Area(value, unit * lengthUnit)
 

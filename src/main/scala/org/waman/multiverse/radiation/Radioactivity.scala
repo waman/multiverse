@@ -13,7 +13,7 @@ class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
 
   def apply(evalUnit: RadioactivityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInBecquerel) / real(evalUnit.unitInBecquerel)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def radioactivityPostfixOps(radioactivityUnit: RadioactivityUnit) = apply(radioactivityUnit)
 }

@@ -21,7 +21,7 @@ class DensitySpec
       __SetUp__
       val du = g/cm3
       __Verify__
-      du.unitInKiloGramPerCubicMetre should equal (r"1e3")
+      du.unitValueInSIUnit should equal (r"1e3")
     }
 
     "be evaluated as equal even if different objects" in {

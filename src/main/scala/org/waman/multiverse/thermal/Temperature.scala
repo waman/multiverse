@@ -45,11 +45,11 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
   *   <li>zeroInKelvin = 273.15</li>
   * </ul>
   */
-sealed abstract class TemperatureUnit(val symbols: Seq[String], val unitInKelvin: Real, val zeroInKelvin: Real)
+sealed abstract class TemperatureUnit(val name: String, val symbols: Seq[String], val unitInKelvin: Real, val zeroInKelvin: Real)
     extends PhysicalUnit[TemperatureUnit]{
 
-  override def baseUnit = TemperatureUnit.Kelvin
-  override def valueInBaseUnit = unitInKelvin
+  override def getSIUnit = TemperatureUnit.Kelvin
+  override def unitValueInSIUnit = unitInKelvin
 
   override def toDetailString: String = {
     val s = s"${name.padTo(30, ' ')} ($symbolStr)"
@@ -81,40 +81,37 @@ sealed abstract class TemperatureUnit(val symbols: Seq[String], val unitInKelvin
 
 object TemperatureUnit extends ConstantsDefined[TemperatureUnit]{
 
-  import scala.language.implicitConversions
-  implicit def convertToSeq(s: String): Seq[String] = Seq(s)
-
   // intrinsic
-  case object YoctoKelvin extends TemperatureUnit("yK", r"1e-24", 0)
-  case object ZeptoKelvin extends TemperatureUnit("zK", r"1e-21", 0)
-  case object AttoKelvin  extends TemperatureUnit("aK", r"1e-18", 0)
-  case object FemtoKelvin extends TemperatureUnit("fK", r"1e-15", 0)
-  case object PicoKelvin  extends TemperatureUnit("pK", r"1e-12", 0)
-  case object NanoKelvin  extends TemperatureUnit("nK", r"1e-9", 0)
-  case object MicroKelvin extends TemperatureUnit(Seq("μK", "microKelvin", "microK"), r"1e-6", 0)
-  case object MilliKelvin extends TemperatureUnit("mK", r"1e-3", 0)
-  case object CentiKelvin extends TemperatureUnit("cK", r"1e-2", 0)
-  case object DeciKelvin  extends TemperatureUnit("dK", r"1e-1", 0)
-  case object Kelvin      extends TemperatureUnit("K" , 1      , 0)
-  case object DecaKelvin  extends TemperatureUnit("daK", r"1e1", 0)
-  case object HectoKelvin extends TemperatureUnit("hK", r"1e2" , 0)
-  case object KiloKelvin  extends TemperatureUnit("kK", r"1e3" , 0)
-  case object MegaKelvin  extends TemperatureUnit("MK", r"1e6" , 0)
-  case object GigaKelvin  extends TemperatureUnit("GK", r"1e9" , 0)
-  case object TeraKelvin  extends TemperatureUnit("TK", r"1e12", 0)
-  case object PetaKelvin  extends TemperatureUnit("PK", r"1e15", 0)
-  case object ExaKelvin   extends TemperatureUnit("EK", r"1e18", 0)
-  case object ZettaKelvin extends TemperatureUnit("ZK", r"1e21", 0)
-  case object YottaKelvin extends TemperatureUnit("YK", r"1e24", 0)
+  case object YoctoKelvin extends TemperatureUnit("YoctoKelvin", Seq("yK"), r"1e-24", 0)
+  case object ZeptoKelvin extends TemperatureUnit("ZeptoKelvin", Seq("zK"), r"1e-21", 0)
+  case object AttoKelvin  extends TemperatureUnit("AttoKelvin" , Seq("aK"), r"1e-18", 0)
+  case object FemtoKelvin extends TemperatureUnit("FemtoKelvin", Seq("fK"), r"1e-15", 0)
+  case object PicoKelvin  extends TemperatureUnit("PicoKelvin" , Seq("pK"), r"1e-12", 0)
+  case object NanoKelvin  extends TemperatureUnit("NanoKelvin" , Seq("nK"), r"1e-9", 0)
+  case object MicroKelvin extends TemperatureUnit("MicroKelvin", Seq("μK", "mcK"), r"1e-6", 0)
+  case object MilliKelvin extends TemperatureUnit("MilliKelvin", Seq("mK"), r"1e-3", 0)
+  case object CentiKelvin extends TemperatureUnit("CentiKelvin", Seq("cK"), r"1e-2", 0)
+  case object DeciKelvin  extends TemperatureUnit("DeciKelvin" , Seq("dK"), r"1e-1", 0)
+  case object Kelvin      extends TemperatureUnit("Kelvin"     , Seq("K") , 1      , 0)
+  case object DecaKelvin  extends TemperatureUnit("DecaKelvin" , Seq("daK"), r"1e1", 0)
+  case object HectoKelvin extends TemperatureUnit("HectoKelvin", Seq("hK"), r"1e2" , 0)
+  case object KiloKelvin  extends TemperatureUnit("KiloKelvin" , Seq("kK"), r"1e3" , 0)
+  case object MegaKelvin  extends TemperatureUnit("MegaKelvin" , Seq("MK"), r"1e6" , 0)
+  case object GigaKelvin  extends TemperatureUnit("GigaKelvin" , Seq("GK"), r"1e9" , 0)
+  case object TeraKelvin  extends TemperatureUnit("TeraKelvin" , Seq("TK"), r"1e12", 0)
+  case object PetaKelvin  extends TemperatureUnit("PetaKelvin" , Seq("PK"), r"1e15", 0)
+  case object ExaKelvin   extends TemperatureUnit("ExaKelvin"  , Seq("EK"), r"1e18", 0)
+  case object ZettaKelvin extends TemperatureUnit("ZettaKelvin", Seq("ZK"), r"1e21", 0)
+  case object YottaKelvin extends TemperatureUnit("YottaKelvin", Seq("YK"), r"1e24", 0)
 
-  case object DegreeCelsius    extends TemperatureUnit(Seq("degC", "℃", "°C"), 1        , r"273.15")
-  case object DegreeFahrenheit extends TemperatureUnit(Seq("degF", "℉", "°F" ), r"5/9"   , r"273.15" - r"5/9" * 32)
-  case object DegreeDelisle    extends TemperatureUnit(Seq("degDe", "°De"    ), r"-2/3"  , r"373.15")
-  case object DegreeNewton     extends TemperatureUnit(Seq("degN", "°N"      ), r"100/33", r"273.15")
-  case object DegreeRankine    extends TemperatureUnit(Seq("degR", "°R"      ), r"5/9"   , 0)
-  case object DegreeReaumur    extends TemperatureUnit(Seq("degRe", "°Re"    ), r"5/4"   , r"273.15")
-  case object DegreeRomer      extends TemperatureUnit(Seq("degRo", "°Ro"    ), r"40/21" , r"273.15" - r"7.5" * r"40/21")
-  case object ReguloGasMark    extends TemperatureUnit("GM"                   , r"125/9" , r"422.038")
+  case object DegreeCelsius    extends TemperatureUnit("DegreeCelsius"   , Seq("degC", "℃", "°C"), 1        , r"273.15")
+  case object DegreeFahrenheit extends TemperatureUnit("DegreeFahrenheit", Seq("degF", "℉", "°F" ), r"5/9"   , r"273.15" - r"5/9" * 32)
+  case object DegreeDelisle    extends TemperatureUnit("DegreeDelisle"   , Seq("degDe", "°De"    ), r"-2/3"  , r"373.15")
+  case object DegreeNewton     extends TemperatureUnit("DegreeNewton"    , Seq("degN", "°N"      ), r"100/33", r"273.15")
+  case object DegreeRankine    extends TemperatureUnit("DegreeRankine"   , Seq("degR", "°R"      ), r"5/9"   , 0)
+  case object DegreeReaumur    extends TemperatureUnit("DegreeReaumur"   , Seq("degRe", "°Re"    ), r"5/4"   , r"273.15")
+  case object DegreeRomer      extends TemperatureUnit("DegreeRomer"     , Seq("degRo", "°Ro"    ), r"40/21" , r"273.15" - r"7.5" * r"40/21")
+  case object ReguloGasMark    extends TemperatureUnit("ReguloGasMark"   , Seq("GM"              ), r"125/9" , r"422.038")
 
   override lazy val values = Seq(
     YoctoKelvin,

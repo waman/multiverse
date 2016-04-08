@@ -1,6 +1,5 @@
 {
-  "baseUnit":"Second",
-  "baseUnitAccessor":"unitInSecond",
+  "SIUnit":"Second",
 
   "multiplicatives":[["TimeUnit", "TimeSquaredUnit"]],
 

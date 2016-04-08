@@ -30,6 +30,7 @@ class VolumeSpec
           (Seq(3.0.pm3, 3.0 pm3, 3.0 (pm3)), 3e-36),
           (Seq(3.0.nm3, 3.0 nm3, 3.0 (nm3)), 3e-27),
           (Seq(3.0.μm3, 3.0 μm3, 3.0 (μm3)), 3e-18),
+          (Seq(3.0.mcm3, 3.0 mcm3, 3.0 (mcm3)), 3e-18),
           (Seq(3.0.mm3, 3.0 mm3, 3.0 (mm3)), 3e-9),
           (Seq(3.0.cm3, 3.0 cm3, 3.0 (cm3)), 3e-6),
           (Seq(3.0.dm3, 3.0 dm3, 3.0 (dm3)), 3e-3),
@@ -52,6 +53,7 @@ class VolumeSpec
           (Seq(3.0.pL, 3.0 pL, 3.0 (pL)), 3e-15),
           (Seq(3.0.nL, 3.0 nL, 3.0 (nL)), 3e-12),
           (Seq(3.0.μL, 3.0 μL, 3.0 (μL)), 3e-9),
+          (Seq(3.0.mcL, 3.0 mcL, 3.0 (mcL)), 3e-9),
           (Seq(3.0.mL, 3.0 mL, 3.0 (mL)), 3e-6),
           (Seq(3.0.cL, 3.0 cL, 3.0 (cL)), 3e-5),
           (Seq(3.0.dL, 3.0 dL, 3.0 (dL)), 3e-4),
@@ -156,6 +158,7 @@ class VolumeSpec
           (Seq(q.pm3, q pm3, q(pm3)), 3e36),
           (Seq(q.nm3, q nm3, q(nm3)), 3e27),
           (Seq(q.μm3, q μm3, q(μm3)), 3e18),
+          (Seq(q.mcm3, q mcm3, q(mcm3)), 3e18),
           (Seq(q.mm3, q mm3, q(mm3)), 3e9),
           (Seq(q.cm3, q cm3, q(cm3)), 3e6),
           (Seq(q.dm3, q dm3, q(dm3)), 3e3),
@@ -178,6 +181,7 @@ class VolumeSpec
           (Seq(q.pL, q pL, q(pL)), 3e15),
           (Seq(q.nL, q nL, q(nL)), 3e12),
           (Seq(q.μL, q μL, q(μL)), 3e9),
+          (Seq(q.mcL, q mcL, q(mcL)), 3e9),
           (Seq(q.mL, q mL, q(mL)), 3e6),
           (Seq(q.cL, q cL, q(cL)), 3e5),
           (Seq(q.dL, q dL, q(dL)), 3e4),
@@ -275,7 +279,7 @@ class VolumeSpec
       __Exercise__
       val sut = ac*ft
       __Verify__
-      sut.unitInCubicMetre.toDouble should equal (%%%%(1233.48183754752))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1233.48183754752))
     }
 
     "3.0 ac*ft should equal 3.0 * 43560.0 cu_ft" in {

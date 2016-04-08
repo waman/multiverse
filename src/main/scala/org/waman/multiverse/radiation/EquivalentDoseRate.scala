@@ -15,7 +15,7 @@ class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRa
 
   def apply(evalUnit: EquivalentDoseRateUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSievertPerSecond) / real(evalUnit.unitInSievertPerSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def equivalentDosePostfixOps(equivalentDoseUnit: EquivalentDoseUnit) =
     new DivisibleByTimeUnit[A]{

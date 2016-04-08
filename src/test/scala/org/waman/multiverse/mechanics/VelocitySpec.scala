@@ -23,7 +23,7 @@ class VelocitySpec
       __SetUp__
       val vu = km/h
       __Verify__
-      vu.unitInMetrePerSecond should equal (r"1000" / r"3600")
+      vu.unitValueInSIUnit should equal (r"1000" / r"3600")
     }
 
     "be evaluated as equal even if different objects" in {

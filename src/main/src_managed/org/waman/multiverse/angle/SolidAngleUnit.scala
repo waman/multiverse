@@ -8,24 +8,21 @@ import org.waman.multiverse.MultiverseUtil.twoPi
 
 sealed trait SolidAngleUnit extends PhysicalUnit[SolidAngleUnit]{
 
-  def unitInSteradian: Real
-
-  override def baseUnit = org.waman.multiverse.angle.SolidAngleUnit.Steradian
-  override def valueInBaseUnit = unitInSteradian
+  override def getSIUnit = org.waman.multiverse.angle.SolidAngleUnit.Steradian
 }
 
 object SolidAngleUnit extends ConstantsDefined[SolidAngleUnit]{
 
   // intrinsic
   private[SolidAngleUnit]
-  class IntrinsicSolidAngleUnit(name: String, val symbols: Seq[String], val unitInSteradian: Real)
+  class IntrinsicSolidAngleUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends SolidAngleUnit{
 
     def this(name: String, symbols: Seq[String], unit: SolidAngleUnit) =
-      this(name, symbols, unit.unitInSteradian)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: SolidAngleUnit) =
-      this(name, symbols, factor * unit.unitInSteradian)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

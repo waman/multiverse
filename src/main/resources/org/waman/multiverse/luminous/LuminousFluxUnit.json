@@ -3,8 +3,7 @@
     "org.waman.multiverse.metric._"
   ],
 
-  "baseUnit":"Lumen",
-  "baseUnitAccessor":"unitInLumen",
+  "SIUnit":"Lumen",
 
   "divisibles":[["AreaUnit", "IlluminanceUnit"]],
 

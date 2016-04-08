@@ -10,29 +10,26 @@ import org.waman.multiverse.metric.LengthUnit.AtomicUnitOfLength
 
 sealed trait DipoleUnit extends PhysicalUnit[DipoleUnit]{
 
-  def unitInCoulombMetre: Real
-
-  override def baseUnit = ChargeUnit.Coulomb * LengthUnit.Metre
-  override def valueInBaseUnit = unitInCoulombMetre
+  override def getSIUnit = ChargeUnit.Coulomb * LengthUnit.Metre
 }
 
 object DipoleUnit extends ConstantsDefined[DipoleUnit]{
 
   // intrinsic
   private[DipoleUnit]
-  class IntrinsicDipoleUnit(name: String, val symbols: Seq[String], val unitInCoulombMetre: Real)
+  class IntrinsicDipoleUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends DipoleUnit{
 
     def this(name: String, symbols: Seq[String], unit: DipoleUnit) =
-      this(name, symbols, unit.unitInCoulombMetre)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: DipoleUnit) =
-      this(name, symbols, factor * unit.unitInCoulombMetre)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
-  case object Debye extends IntrinsicDipoleUnit("Debye", Seq("D"), r"1e-20" * Statcoulomb.unitInCoulomb)
-  case object AtomicUnitOfElectricDipoleMoment extends IntrinsicDipoleUnit("AtomicUnitOfElectricDipoleMoment", Seq("ea0"), ElementaryCharge.unitInCoulomb * AtomicUnitOfLength.unitInMetre)
+  case object Debye extends IntrinsicDipoleUnit("Debye", Seq("D"), r"1e-20" * Statcoulomb.unitValueInSIUnit)
+  case object AtomicUnitOfElectricDipoleMoment extends IntrinsicDipoleUnit("AtomicUnitOfElectricDipoleMoment", Seq("ea0"), ElementaryCharge.unitValueInSIUnit * AtomicUnitOfLength.unitValueInSIUnit)
 
   override lazy val values = Seq(Debye, AtomicUnitOfElectricDipoleMoment)
 
@@ -41,8 +38,8 @@ object DipoleUnit extends ConstantsDefined[DipoleUnit]{
   class ProductChargeDotLengthUnit(val firstUnit: ChargeUnit, val secondUnit: LengthUnit)
       extends DipoleUnit with ProductUnit[DipoleUnit, ChargeUnit, LengthUnit]{
 
-    override lazy val unitInCoulombMetre: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: ChargeUnit, unit2: LengthUnit): DipoleUnit =

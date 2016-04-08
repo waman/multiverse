@@ -5,8 +5,7 @@
     "org.waman.multiverse.electric._"
   ],
 
-  "baseUnit":"Weber",
-  "baseUnitAccessor":"unitInWeber",
+  "SIUnit":"Weber",
 
   "divisibles":[["AreaUnit", "FluxDensityUnit"], ["CurrentUnit", "InductanceUnit"]],
 

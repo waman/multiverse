@@ -16,10 +16,7 @@ sealed trait LengthUnit extends PhysicalUnit[LengthUnit]
   with CanSquare[AreaUnit]
   with CanCubic[VolumeUnit]{
 
-  def unitInMetre: Real
-
-  override def baseUnit = org.waman.multiverse.metric.LengthUnit.Metre
-  override def valueInBaseUnit = unitInMetre
+  override def getSIUnit = org.waman.multiverse.metric.LengthUnit.Metre
 
   override def *(unit: LengthUnit) = AreaUnit(this, unit)
 
@@ -38,14 +35,14 @@ object LengthUnit extends ConstantsDefined[LengthUnit]{
 
   // intrinsic
   private[LengthUnit]
-  class IntrinsicLengthUnit(name: String, val symbols: Seq[String], val unitInMetre: Real)
+  class IntrinsicLengthUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends LengthUnit{
 
     def this(name: String, symbols: Seq[String], unit: LengthUnit) =
-      this(name, symbols, unit.unitInMetre)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: LengthUnit) =
-      this(name, symbols, factor * unit.unitInMetre)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

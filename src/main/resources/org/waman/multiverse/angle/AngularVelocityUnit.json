@@ -4,8 +4,7 @@
     "org.waman.multiverse.MultiverseUtil.twoPi"
   ],
 
-  "baseUnit":"AngleUnit.Radian / TimeUnit.Second",
-  "baseUnitAccessor":"unitInRadianPerSecond",
+  "SIUnit":"AngleUnit.Radian / TimeUnit.Second",
 
   "quotients":[["AngleUnit", "TimeUnit"]],
 

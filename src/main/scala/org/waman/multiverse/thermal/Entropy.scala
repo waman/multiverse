@@ -16,7 +16,7 @@ class Entropy[A: Fractional](val value: A, val unit: EntropyUnit)
 
   def apply(evalUnit: EntropyUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInJoulePerKelvin) / real(evalUnit.unitInJoulePerKelvin)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def entropyPostfixOps(entropyUnit: EntropyUnit) = apply(entropyUnit)
 

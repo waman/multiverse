@@ -16,7 +16,7 @@ class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit) extends 
 
   def apply(evalUnit: VolumeFlowUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInCubicMetrePerSecond) / real(evalUnit.unitInCubicMetrePerSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def volumeFlowPostfixOps(volumeFlowUnit: VolumeFlowUnit) = apply(volumeFlowUnit)
 

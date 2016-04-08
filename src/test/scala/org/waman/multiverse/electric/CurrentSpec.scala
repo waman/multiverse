@@ -28,6 +28,7 @@ class CurrentSpec
         (Seq(3.0.pA, 3.0 pA, 3.0 (pA)), 3e-12),
         (Seq(3.0.nA, 3.0 nA, 3.0 (nA)), 3e-9),
         (Seq(3.0.μA, 3.0 μA, 3.0 (μA)), 3e-6),
+        (Seq(3.0.mcA, 3.0 mcA, 3.0 (mcA)), 3e-6),
         (Seq(3.0.mA, 3.0 mA, 3.0 (mA)), 3e-3),
         (Seq(3.0.cA, 3.0 cA, 3.0 (cA)), 3e-2),
         (Seq(3.0.dA, 3.0 dA, 3.0 (dA)), 3e-1),

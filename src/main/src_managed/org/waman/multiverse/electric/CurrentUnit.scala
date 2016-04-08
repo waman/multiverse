@@ -9,10 +9,7 @@ import org.waman.multiverse.time._
 sealed trait CurrentUnit extends PhysicalUnit[CurrentUnit]
   with MultiplicativeByTimeUnit[ChargeUnit]{
 
-  def unitInAmpere: Real
-
-  override def baseUnit = org.waman.multiverse.electric.CurrentUnit.Ampere
-  override def valueInBaseUnit = unitInAmpere
+  override def getSIUnit = org.waman.multiverse.electric.CurrentUnit.Ampere
 
   override def *(unit: TimeUnit) = ChargeUnit(this, unit)
 }
@@ -21,14 +18,14 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
 
   // intrinsic
   private[CurrentUnit]
-  class IntrinsicCurrentUnit(name: String, val symbols: Seq[String], val unitInAmpere: Real)
+  class IntrinsicCurrentUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends CurrentUnit{
 
     def this(name: String, symbols: Seq[String], unit: CurrentUnit) =
-      this(name, symbols, unit.unitInAmpere)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: CurrentUnit) =
-      this(name, symbols, factor * unit.unitInAmpere)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -62,8 +59,8 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
   class QuotientChargePerTimeUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: TimeUnit)
       extends CurrentUnit with QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit]{
 
-    override lazy val unitInAmpere: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: ChargeUnit, dUnit: TimeUnit): CurrentUnit =

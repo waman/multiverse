@@ -6,14 +6,13 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.metric._
 import org.waman.multiverse.time._
+import org.waman.multiverse.metric.LengthUnit._
+import org.waman.multiverse.time.TimeUnit._
 
 sealed trait VelocityUnit extends PhysicalUnit[VelocityUnit]
   with DivisibleByTimeUnit[AccelerationUnit]{
 
-  def unitInMetrePerSecond: Real
-
-  override def baseUnit = LengthUnit.Metre / TimeUnit.Second
-  override def valueInBaseUnit = unitInMetrePerSecond
+  override def getSIUnit = LengthUnit.Metre / TimeUnit.Second
 
   override def /(unit: TimeUnit) = AccelerationUnit(this, unit)
 }
@@ -22,30 +21,30 @@ object VelocityUnit extends ConstantsDefined[VelocityUnit]{
 
   // intrinsic
   private[VelocityUnit]
-  class IntrinsicVelocityUnit(name: String, val symbols: Seq[String], val unitInMetrePerSecond: Real)
+  class IntrinsicVelocityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends VelocityUnit{
 
     def this(name: String, symbols: Seq[String], unit: VelocityUnit) =
-      this(name, symbols, unit.unitInMetrePerSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: VelocityUnit) =
-      this(name, symbols, factor * unit.unitInMetrePerSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
   case object MachNumber extends IntrinsicVelocityUnit("MachNumber", Seq("M"), r"340") with NotExact
   case object SpeedOfLight extends IntrinsicVelocityUnit("SpeedOfLight", Seq("c"), r"299792458")
-  case object Knot extends IntrinsicVelocityUnit("Knot", Seq("kn"), LengthUnit.NauticalMile / TimeUnit.Hour)
-  case object Knot_Admiralty extends IntrinsicVelocityUnit("Knot_Admiralty", Seq("kn(Adm)"), LengthUnit.NauticalMile_Admiralty / TimeUnit.Hour)
-  case object InchPerSecond extends IntrinsicVelocityUnit("InchPerSecond", Seq("ips"), LengthUnit.Inch / TimeUnit.Second)
-  case object InchPerMinute extends IntrinsicVelocityUnit("InchPerMinute", Seq("ipm"), LengthUnit.Inch / TimeUnit.Minute)
-  case object InchPerHour extends IntrinsicVelocityUnit("InchPerHour", Seq("iph"), LengthUnit.Inch / TimeUnit.Hour)
-  case object FootPerSecond extends IntrinsicVelocityUnit("FootPerSecond", Seq("fps"), LengthUnit.Foot / TimeUnit.Second)
-  case object FootPerMinute extends IntrinsicVelocityUnit("FootPerMinute", Seq("fpm"), LengthUnit.Foot / TimeUnit.Minute)
-  case object FootPerHour extends IntrinsicVelocityUnit("FootPerHour", Seq("fph"), LengthUnit.Foot / TimeUnit.Hour)
-  case object MilePerSecond extends IntrinsicVelocityUnit("MilePerSecond", Seq("mps"), LengthUnit.Mile / TimeUnit.Second)
-  case object MilePerMinute extends IntrinsicVelocityUnit("MilePerMinute", Seq("mpm"), LengthUnit.Mile / TimeUnit.Minute)
-  case object MilePerHour extends IntrinsicVelocityUnit("MilePerHour", Seq("mph"), LengthUnit.Mile / TimeUnit.Hour)
+  case object Knot extends IntrinsicVelocityUnit("Knot", Seq("kn"), NauticalMile / Hour)
+  case object Knot_Admiralty extends IntrinsicVelocityUnit("Knot_Admiralty", Seq("kn(Adm)"), NauticalMile_Admiralty / Hour)
+  case object InchPerSecond extends IntrinsicVelocityUnit("InchPerSecond", Seq("ips"), Inch / Second)
+  case object InchPerMinute extends IntrinsicVelocityUnit("InchPerMinute", Seq("ipm"), Inch / Minute)
+  case object InchPerHour extends IntrinsicVelocityUnit("InchPerHour", Seq("iph"), Inch / Hour)
+  case object FootPerSecond extends IntrinsicVelocityUnit("FootPerSecond", Seq("fps"), Foot / Second)
+  case object FootPerMinute extends IntrinsicVelocityUnit("FootPerMinute", Seq("fpm"), Foot / Minute)
+  case object FootPerHour extends IntrinsicVelocityUnit("FootPerHour", Seq("fph"), Foot / Hour)
+  case object MilePerSecond extends IntrinsicVelocityUnit("MilePerSecond", Seq("mps"), Mile / Second)
+  case object MilePerMinute extends IntrinsicVelocityUnit("MilePerMinute", Seq("mpm"), Mile / Minute)
+  case object MilePerHour extends IntrinsicVelocityUnit("MilePerHour", Seq("mph"), Mile / Hour)
 
   override lazy val values = Seq(MachNumber, SpeedOfLight, Knot, Knot_Admiralty, InchPerSecond, InchPerMinute, InchPerHour, FootPerSecond, FootPerMinute, FootPerHour, MilePerSecond, MilePerMinute, MilePerHour)
 
@@ -54,8 +53,8 @@ object VelocityUnit extends ConstantsDefined[VelocityUnit]{
   class QuotientLengthPerTimeUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
       extends VelocityUnit with QuotientUnit[VelocityUnit, LengthUnit, TimeUnit]{
 
-    override lazy val unitInMetrePerSecond: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: LengthUnit, dUnit: TimeUnit): VelocityUnit =

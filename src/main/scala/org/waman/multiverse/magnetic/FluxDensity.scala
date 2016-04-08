@@ -16,7 +16,7 @@ class FluxDensity[A: Fractional](val value: A, val unit: FluxDensityUnit)
 
   def apply(evalUnit: FluxDensityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInTesla) / real(evalUnit.unitInTesla)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def fluxDensityPostfixOps(fluxDensityUnit: FluxDensityUnit) = apply(fluxDensityUnit)
 

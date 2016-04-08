@@ -20,7 +20,7 @@ class Flux[A: Fractional](val value: A, val unit: FluxUnit)
 
   def apply(evalUnit: FluxUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInWeber) / real(evalUnit.unitInWeber)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def fluxPostfixOps(fluxUnit: FluxUnit) = apply(fluxUnit)
 

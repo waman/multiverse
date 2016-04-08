@@ -13,10 +13,7 @@ sealed trait VoltageUnit extends PhysicalUnit[VoltageUnit]
   with MultiplicativeByTimeUnit[FluxUnit]
   with DivisibleByCurrentUnit[ResistanceUnit]{
 
-  def unitInVolt: Real
-
-  override def baseUnit = org.waman.multiverse.electric.VoltageUnit.Volt
-  override def valueInBaseUnit = unitInVolt
+  override def getSIUnit = org.waman.multiverse.electric.VoltageUnit.Volt
 
   override def *(unit: TimeUnit) = FluxUnit(this, unit)
 
@@ -27,14 +24,14 @@ object VoltageUnit extends ConstantsDefined[VoltageUnit]{
 
   // intrinsic
   private[VoltageUnit]
-  class IntrinsicVoltageUnit(name: String, val symbols: Seq[String], val unitInVolt: Real)
+  class IntrinsicVoltageUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends VoltageUnit{
 
     def this(name: String, symbols: Seq[String], unit: VoltageUnit) =
-      this(name, symbols, unit.unitInVolt)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: VoltageUnit) =
-      this(name, symbols, factor * unit.unitInVolt)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -59,7 +56,7 @@ object VoltageUnit extends ConstantsDefined[VoltageUnit]{
   case object ExaVolt extends IntrinsicVoltageUnit("ExaVolt", Seq("EV"), r"1e18")
   case object ZettaVolt extends IntrinsicVoltageUnit("ZettaVolt", Seq("ZV"), r"1e21")
   case object YottaVolt extends IntrinsicVoltageUnit("YottaVolt", Seq("YV"), r"1e24")
-  case object statVolt extends IntrinsicVoltageUnit("statVolt", Seq("statV"), SpeedOfLight.unitInMetrePerSecond / r"1e6")
+  case object statVolt extends IntrinsicVoltageUnit("statVolt", Seq("statV"), SpeedOfLight.unitValueInSIUnit / r"1e6")
   case object Abvolt extends IntrinsicVoltageUnit("Abvolt", Seq("abV"), r"1e-8")
 
   override lazy val values = Seq(YoctoVolt, ZeptoVolt, AttoVolt, FemtoVolt, PicoVolt, NanoVolt, MicroVolt, MilliVolt, CentiVolt, DeciVolt, Volt, DecaVolt, HectoVolt, KiloVolt, MegaVolt, GigaVolt, TeraVolt, PetaVolt, ExaVolt, ZettaVolt, YottaVolt, statVolt, Abvolt)
@@ -69,8 +66,8 @@ object VoltageUnit extends ConstantsDefined[VoltageUnit]{
   class QuotientPowerPerCurrentUnit(val numeratorUnit: PowerUnit, val denominatorUnit: CurrentUnit)
       extends VoltageUnit with QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit]{
 
-    override lazy val unitInVolt: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: PowerUnit, dUnit: CurrentUnit): VoltageUnit =

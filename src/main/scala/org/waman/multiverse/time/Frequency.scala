@@ -14,7 +14,7 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
 
   def apply(evalUnit: FrequencyUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInHeltz) / real(evalUnit.unitInHeltz)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def frequencyPostfixOps(frequencyUnit: FrequencyUnit) = apply(frequencyUnit)
 

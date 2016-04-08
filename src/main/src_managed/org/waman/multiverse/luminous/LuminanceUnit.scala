@@ -8,24 +8,21 @@ import org.waman.multiverse.metric.AreaUnit
 
 sealed trait LuminanceUnit extends PhysicalUnit[LuminanceUnit]{
 
-  def unitInCandelaPerSquareMetre: Real
-
-  override def baseUnit = LuminousIntensityUnit.Candela / AreaUnit.SquareMetre
-  override def valueInBaseUnit = unitInCandelaPerSquareMetre
+  override def getSIUnit = LuminousIntensityUnit.Candela / AreaUnit.SquareMetre
 }
 
 object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
 
   // intrinsic
   private[LuminanceUnit]
-  class IntrinsicLuminanceUnit(name: String, val symbols: Seq[String], val unitInCandelaPerSquareMetre: Real)
+  class IntrinsicLuminanceUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends LuminanceUnit{
 
     def this(name: String, symbols: Seq[String], unit: LuminanceUnit) =
-      this(name, symbols, unit.unitInCandelaPerSquareMetre)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: LuminanceUnit) =
-      this(name, symbols, factor * unit.unitInCandelaPerSquareMetre)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -43,8 +40,8 @@ object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
   class QuotientLuminousIntensityPerAreaUnit(val numeratorUnit: LuminousIntensityUnit, val denominatorUnit: AreaUnit)
       extends LuminanceUnit with QuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit]{
 
-    override lazy val unitInCandelaPerSquareMetre: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: LuminousIntensityUnit, dUnit: AreaUnit): LuminanceUnit =

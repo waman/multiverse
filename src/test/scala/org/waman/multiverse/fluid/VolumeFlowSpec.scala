@@ -23,7 +23,7 @@ class VolumeFlowSpec
       __SetUp__
       val vf = L/minute
       __Verify__
-      vf.unitInCubicMetrePerSecond should equal (r"1e-3" / r"60")
+      vf.unitValueInSIUnit should equal (r"1e-3" / r"60")
     }
 
     "be evaluated as equal even if a different object" in {

@@ -15,7 +15,7 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 
   def apply(evalUnit: MassUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInKiloGram) / real(evalUnit.unitInKiloGram)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
 
   override protected def massPostfixOps(massUnit: MassUnit) = apply(massUnit)

@@ -5,8 +5,7 @@
     "org.waman.multiverse.mechanics._"
   ],
 
-  "baseUnit":"PressureUnit.Pascal * TimeUnit.Second",
-  "baseUnitAccessor":"unitInPascalSecond",
+  "SIUnit":"PressureUnit.Pascal * TimeUnit.Second",
 
   "products":[["PressureUnit", "TimeUnit"]],
   "quotients":[["MomentumUnit", "AreaUnit"]],

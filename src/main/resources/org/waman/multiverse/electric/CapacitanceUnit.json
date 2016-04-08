@@ -1,6 +1,5 @@
 {
-  "baseUnit":"Farad",
-  "baseUnitAccessor":"unitInFarad",
+  "SIUnit":"Farad",
 
   "quotients":[["ChargeUnit", "VoltageUnit"]],
 

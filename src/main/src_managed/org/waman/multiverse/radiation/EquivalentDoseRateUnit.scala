@@ -8,24 +8,21 @@ import org.waman.multiverse.time._
 
 sealed trait EquivalentDoseRateUnit extends PhysicalUnit[EquivalentDoseRateUnit]{
 
-  def unitInSievertPerSecond: Real
-
-  override def baseUnit = EquivalentDoseUnit.Sievert / TimeUnit.Second
-  override def valueInBaseUnit = unitInSievertPerSecond
+  override def getSIUnit = EquivalentDoseUnit.Sievert / TimeUnit.Second
 }
 
 object EquivalentDoseRateUnit extends ConstantsDefined[EquivalentDoseRateUnit]{
 
   // intrinsic
   private[EquivalentDoseRateUnit]
-  class IntrinsicEquivalentDoseRateUnit(name: String, val symbols: Seq[String], val unitInSievertPerSecond: Real)
+  class IntrinsicEquivalentDoseRateUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends EquivalentDoseRateUnit{
 
     def this(name: String, symbols: Seq[String], unit: EquivalentDoseRateUnit) =
-      this(name, symbols, unit.unitInSievertPerSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: EquivalentDoseRateUnit) =
-      this(name, symbols, factor * unit.unitInSievertPerSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -37,8 +34,8 @@ object EquivalentDoseRateUnit extends ConstantsDefined[EquivalentDoseRateUnit]{
   class QuotientEquivalentDosePerTimeUnit(val numeratorUnit: EquivalentDoseUnit, val denominatorUnit: TimeUnit)
       extends EquivalentDoseRateUnit with QuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit]{
 
-    override lazy val unitInSievertPerSecond: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: EquivalentDoseUnit, dUnit: TimeUnit): EquivalentDoseRateUnit =

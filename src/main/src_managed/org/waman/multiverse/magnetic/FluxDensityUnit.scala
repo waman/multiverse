@@ -8,24 +8,21 @@ import org.waman.multiverse.metric._
 
 sealed trait FluxDensityUnit extends PhysicalUnit[FluxDensityUnit]{
 
-  def unitInTesla: Real
-
-  override def baseUnit = org.waman.multiverse.magnetic.FluxDensityUnit.Tesla
-  override def valueInBaseUnit = unitInTesla
+  override def getSIUnit = org.waman.multiverse.magnetic.FluxDensityUnit.Tesla
 }
 
 object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
 
   // intrinsic
   private[FluxDensityUnit]
-  class IntrinsicFluxDensityUnit(name: String, val symbols: Seq[String], val unitInTesla: Real)
+  class IntrinsicFluxDensityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends FluxDensityUnit{
 
     def this(name: String, symbols: Seq[String], unit: FluxDensityUnit) =
-      this(name, symbols, unit.unitInTesla)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: FluxDensityUnit) =
-      this(name, symbols, factor * unit.unitInTesla)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -79,8 +76,8 @@ object FluxDensityUnit extends ConstantsDefined[FluxDensityUnit]{
   class QuotientFluxPerAreaUnit(val numeratorUnit: FluxUnit, val denominatorUnit: AreaUnit)
       extends FluxDensityUnit with QuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit]{
 
-    override lazy val unitInTesla: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: FluxUnit, dUnit: AreaUnit): FluxDensityUnit =

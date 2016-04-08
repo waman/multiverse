@@ -9,10 +9,7 @@ import org.waman.multiverse.time._
 sealed trait EquivalentDoseUnit extends PhysicalUnit[EquivalentDoseUnit]
   with DivisibleByTimeUnit[EquivalentDoseRateUnit]{
 
-  def unitInSievert: Real
-
-  override def baseUnit = org.waman.multiverse.radiation.EquivalentDoseUnit.Sievert
-  override def valueInBaseUnit = unitInSievert
+  override def getSIUnit = org.waman.multiverse.radiation.EquivalentDoseUnit.Sievert
 
   override def /(unit: TimeUnit) = EquivalentDoseRateUnit(this, unit)
 }
@@ -21,14 +18,14 @@ object EquivalentDoseUnit extends ConstantsDefined[EquivalentDoseUnit]{
 
   // intrinsic
   private[EquivalentDoseUnit]
-  class IntrinsicEquivalentDoseUnit(name: String, val symbols: Seq[String], val unitInSievert: Real)
+  class IntrinsicEquivalentDoseUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends EquivalentDoseUnit{
 
     def this(name: String, symbols: Seq[String], unit: EquivalentDoseUnit) =
-      this(name, symbols, unit.unitInSievert)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: EquivalentDoseUnit) =
-      this(name, symbols, factor * unit.unitInSievert)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

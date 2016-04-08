@@ -6,15 +6,13 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.time._
 import org.waman.multiverse.fluid._
+import org.waman.multiverse.metric.LengthUnit._
 
 sealed trait AreaUnit extends PhysicalUnit[AreaUnit]
   with MultiplicativeByLengthUnit[VolumeUnit]
   with DivisibleByTimeUnit[KinematicViscosityUnit]{
 
-  def unitInSquareMetre: Real
-
-  override def baseUnit = org.waman.multiverse.metric.AreaUnit.SquareMetre
-  override def valueInBaseUnit = unitInSquareMetre
+  override def getSIUnit = org.waman.multiverse.metric.AreaUnit.SquareMetre
 
   override def *(unit: LengthUnit) = VolumeUnit(this, unit)
 
@@ -25,14 +23,14 @@ object AreaUnit extends ConstantsDefined[AreaUnit]{
 
   // intrinsic
   private[AreaUnit]
-  class IntrinsicAreaUnit(name: String, val symbols: Seq[String], val unitInSquareMetre: Real)
+  class IntrinsicAreaUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends AreaUnit{
 
     def this(name: String, symbols: Seq[String], unit: AreaUnit) =
-      this(name, symbols, unit.unitInSquareMetre)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: AreaUnit) =
-      this(name, symbols, factor * unit.unitInSquareMetre)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -76,24 +74,24 @@ object AreaUnit extends ConstantsDefined[AreaUnit]{
   case object ExaBarn extends IntrinsicAreaUnit("ExaBarn", Seq("Eb"), r"1e18" * r"1e-28")
   case object ZettaBarn extends IntrinsicAreaUnit("ZettaBarn", Seq("Zb"), r"1e21" * r"1e-28")
   case object YottaBarn extends IntrinsicAreaUnit("YottaBarn", Seq("Yb"), r"1e24" * r"1e-28")
-  case object SquareMil extends IntrinsicAreaUnit("SquareMil", Seq("mil2", "sq_mil"), LengthUnit.Mil.square)
-  case object SquareInch extends IntrinsicAreaUnit("SquareInch", Seq("in2", "sq_in"), LengthUnit.Inch.square)
-  case object SquareLink extends IntrinsicAreaUnit("SquareLink", Seq("li2", "lnk2", "sq_li", "sq_lnk"), LengthUnit.Link.square)
-  case object SquareFoot extends IntrinsicAreaUnit("SquareFoot", Seq("ft2", "sq_ft"), LengthUnit.Foot.square)
-  case object SquareChain extends IntrinsicAreaUnit("SquareChain", Seq("ch2", "sq_ch"), LengthUnit.Chain.square)
-  case object SquareYard extends IntrinsicAreaUnit("SquareYard", Seq("yd2", "sq_yd"), LengthUnit.Yard.square)
-  case object SquareRod extends IntrinsicAreaUnit("SquareRod", Seq("rd2", "sq_rd"), LengthUnit.Rod.square)
-  case object SquareMile extends IntrinsicAreaUnit("SquareMile", Seq("mi2", "sq_mi"), LengthUnit.Mile.square)
+  case object SquareMil extends IntrinsicAreaUnit("SquareMil", Seq("mil2", "sq_mil"), Mil.square)
+  case object SquareInch extends IntrinsicAreaUnit("SquareInch", Seq("in2", "sq_in"), Inch.square)
+  case object SquareLink extends IntrinsicAreaUnit("SquareLink", Seq("li2", "lnk2", "sq_li", "sq_lnk"), Link.square)
+  case object SquareFoot extends IntrinsicAreaUnit("SquareFoot", Seq("ft2", "sq_ft"), Foot.square)
+  case object SquareChain extends IntrinsicAreaUnit("SquareChain", Seq("ch2", "sq_ch"), Chain.square)
+  case object SquareYard extends IntrinsicAreaUnit("SquareYard", Seq("yd2", "sq_yd"), Yard.square)
+  case object SquareRod extends IntrinsicAreaUnit("SquareRod", Seq("rd2", "sq_rd"), Rod.square)
+  case object SquareMile extends IntrinsicAreaUnit("SquareMile", Seq("mi2", "sq_mi"), Mile.square)
   case object Acre extends IntrinsicAreaUnit("Acre", Seq("ac"), 10, LengthUnit.Chain.square)
   case object Rood extends IntrinsicAreaUnit("Rood", Seq("ro"), r"1/4", Acre)
-  case object SquareLink_US_Survey extends IntrinsicAreaUnit("SquareLink_US_Survey", Seq("sq_li(US)", "sq_lnk(US)"), LengthUnit.Link_US_Survey.square)
-  case object SquareFoot_US_Survey extends IntrinsicAreaUnit("SquareFoot_US_Survey", Seq("sq_ft(US)"), LengthUnit.Foot_US_Survey.square)
-  case object SquareChain_US_Survey extends IntrinsicAreaUnit("SquareChain_US_Survey", Seq("sq_ch(US)"), LengthUnit.Chain_US_Survey.square)
-  case object SquareMile_US_Survey extends IntrinsicAreaUnit("SquareMile_US_Survey", Seq("sq_mi(US)"), LengthUnit.Mile_US_Survey.square)
+  case object SquareLink_US_Survey extends IntrinsicAreaUnit("SquareLink_US_Survey", Seq("sq_li(US)", "sq_lnk(US)"), Link_US_Survey.square)
+  case object SquareFoot_US_Survey extends IntrinsicAreaUnit("SquareFoot_US_Survey", Seq("sq_ft(US)"), Foot_US_Survey.square)
+  case object SquareChain_US_Survey extends IntrinsicAreaUnit("SquareChain_US_Survey", Seq("sq_ch(US)"), Chain_US_Survey.square)
+  case object SquareMile_US_Survey extends IntrinsicAreaUnit("SquareMile_US_Survey", Seq("sq_mi(US)"), Mile_US_Survey.square)
   case object Acre_US_Survey extends IntrinsicAreaUnit("Acre_US_Survey", Seq("ac(US)"), 10, LengthUnit.Chain_US_Survey.square)
   case object CircularMil extends IntrinsicAreaUnit("CircularMil", Seq("circ_mil"), Real.pi/4.0, SquareMil)
   case object CircularInch extends IntrinsicAreaUnit("CircularInch", Seq("circ_in"), Real.pi/4.0, SquareInch)
-  case object Board extends IntrinsicAreaUnit("Board", Seq("bd"), LengthUnit.Inch * LengthUnit.Foot)
+  case object Board extends IntrinsicAreaUnit("Board", Seq("bd"), Inch * LengthUnit.Foot)
 
   override lazy val values = Seq(SquareYoctoMetre, SquareZeptoMetre, SquareAttoMetre, SquareFemtoMetre, SquarePicoMetre, SquareNanoMetre, SquareMicroMetre, SquareMilliMetre, SquareCentiMetre, SquareDeciMetre, SquareMetre, SquareDecaMetre, SquareHectoMetre, SquareKiloMetre, SquareMegaMetre, SquareGigaMetre, SquareTeraMetre, SquarePetaMetre, SquareExaMetre, SquareZettaMetre, SquareYottaMetre, Are, Hectare, YoctoBarn, ZeptoBarn, AttoBarn, FemtoBarn, PicoBarn, NanoBarn, MicroBarn, MilliBarn, Barn, KiloBarn, MegaBarn, GigaBarn, TeraBarn, PetaBarn, ExaBarn, ZettaBarn, YottaBarn, SquareMil, SquareInch, SquareLink, SquareFoot, SquareChain, SquareYard, SquareRod, SquareMile, Acre, Rood, SquareLink_US_Survey, SquareFoot_US_Survey, SquareChain_US_Survey, SquareMile_US_Survey, Acre_US_Survey, CircularMil, CircularInch, Board)
 
@@ -102,8 +100,8 @@ object AreaUnit extends ConstantsDefined[AreaUnit]{
   class ProductLengthDotLengthUnit(val firstUnit: LengthUnit, val secondUnit: LengthUnit)
       extends AreaUnit with ProductUnit[AreaUnit, LengthUnit, LengthUnit]{
 
-    override lazy val unitInSquareMetre: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: LengthUnit, unit2: LengthUnit): AreaUnit =

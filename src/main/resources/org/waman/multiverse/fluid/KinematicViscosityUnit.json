@@ -4,8 +4,7 @@
     "org.waman.multiverse.time.TimeUnit"
   ],
 
-  "baseUnit":"AreaUnit.SquareMetre / TimeUnit.Second",
-  "baseUnitAccessor":"unitInSquareMetrePerSecond",
+  "SIUnit":"AreaUnit.SquareMetre / TimeUnit.Second",
 
   "quotients":[["AreaUnit", "TimeUnit"]],
 

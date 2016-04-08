@@ -7,15 +7,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.time._
 import org.waman.multiverse.fluid._
 import org.waman.multiverse.energy._
+import org.waman.multiverse.metric.LengthUnit._
 
 sealed trait VolumeUnit extends PhysicalUnit[VolumeUnit]
   with MultiplicativeByPressureUnit[EnergyUnit]
   with DivisibleByTimeUnit[VolumeFlowUnit]{
 
-  def unitInCubicMetre: Real
-
-  override def baseUnit = org.waman.multiverse.metric.VolumeUnit.CubicMetre
-  override def valueInBaseUnit = unitInCubicMetre
+  override def getSIUnit = org.waman.multiverse.metric.VolumeUnit.CubicMetre
 
   override def *(unit: PressureUnit) = EnergyUnit(this, unit)
 
@@ -26,14 +24,14 @@ object VolumeUnit extends ConstantsDefined[VolumeUnit]{
 
   // intrinsic
   private[VolumeUnit]
-  class IntrinsicVolumeUnit(name: String, val symbols: Seq[String], val unitInCubicMetre: Real)
+  class IntrinsicVolumeUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends VolumeUnit{
 
     def this(name: String, symbols: Seq[String], unit: VolumeUnit) =
-      this(name, symbols, unit.unitInCubicMetre)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: VolumeUnit) =
-      this(name, symbols, factor * unit.unitInCubicMetre)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -80,11 +78,11 @@ object VolumeUnit extends ConstantsDefined[VolumeUnit]{
   case object ZettaLitre extends IntrinsicVolumeUnit("ZettaLitre", Seq("ZL"), r"1e21" * r"1e-3")
   case object YottaLitre extends IntrinsicVolumeUnit("YottaLitre", Seq("YL"), r"1e24" * r"1e-3")
   case object Lambda extends IntrinsicVolumeUnit("Lambda", Seq("λ"), r"1e-9")
-  case object CubicInch extends IntrinsicVolumeUnit("CubicInch", Seq("in3", "cu_in"), LengthUnit.Inch.cubic)
-  case object CubicFoot extends IntrinsicVolumeUnit("CubicFoot", Seq("ft3", "cu_ft"), LengthUnit.Foot.cubic)
-  case object CubicYard extends IntrinsicVolumeUnit("CubicYard", Seq("yd3", "cu_yd"), LengthUnit.Yard.cubic)
-  case object CubicFathom extends IntrinsicVolumeUnit("CubicFathom", Seq("ftm3", "cu_fm"), LengthUnit.Fathom.cubic)
-  case object CubicMile extends IntrinsicVolumeUnit("CubicMile", Seq("mi3", "cu_mi"), LengthUnit.Mile.cubic)
+  case object CubicInch extends IntrinsicVolumeUnit("CubicInch", Seq("in3", "cu_in"), Inch.cubic)
+  case object CubicFoot extends IntrinsicVolumeUnit("CubicFoot", Seq("ft3", "cu_ft"), Foot.cubic)
+  case object CubicYard extends IntrinsicVolumeUnit("CubicYard", Seq("yd3", "cu_yd"), Yard.cubic)
+  case object CubicFathom extends IntrinsicVolumeUnit("CubicFathom", Seq("ftm3", "cu_fm"), Fathom.cubic)
+  case object CubicMile extends IntrinsicVolumeUnit("CubicMile", Seq("mi3", "cu_mi"), Mile.cubic)
   case object BoardFoot extends IntrinsicVolumeUnit("BoardFoot", Seq("fbm"), 144, CubicInch)
   case object Gallon_beer extends IntrinsicVolumeUnit("Gallon_beer", Seq("beer_gal"), 282, CubicInch)
   case object Perch extends IntrinsicVolumeUnit("Perch", Seq("per"), r"33/2" * r"3/2", CubicFoot)
@@ -126,8 +124,8 @@ object VolumeUnit extends ConstantsDefined[VolumeUnit]{
   class ProductAreaDotLengthUnit(val firstUnit: AreaUnit, val secondUnit: LengthUnit)
       extends VolumeUnit with ProductUnit[VolumeUnit, AreaUnit, LengthUnit]{
 
-    override lazy val unitInCubicMetre: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: AreaUnit, unit2: LengthUnit): VolumeUnit =

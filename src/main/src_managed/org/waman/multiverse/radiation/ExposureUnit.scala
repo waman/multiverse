@@ -9,24 +9,21 @@ import org.waman.multiverse.mass.MassUnit
 
 sealed trait ExposureUnit extends PhysicalUnit[ExposureUnit]{
 
-  def unitInCoulombPerKiloGram: Real
-
-  override def baseUnit = ChargeUnit.Coulomb / MassUnit.KiloGram
-  override def valueInBaseUnit = unitInCoulombPerKiloGram
+  override def getSIUnit = ChargeUnit.Coulomb / MassUnit.KiloGram
 }
 
 object ExposureUnit extends ConstantsDefined[ExposureUnit]{
 
   // intrinsic
   private[ExposureUnit]
-  class IntrinsicExposureUnit(name: String, val symbols: Seq[String], val unitInCoulombPerKiloGram: Real)
+  class IntrinsicExposureUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends ExposureUnit{
 
     def this(name: String, symbols: Seq[String], unit: ExposureUnit) =
-      this(name, symbols, unit.unitInCoulombPerKiloGram)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: ExposureUnit) =
-      this(name, symbols, factor * unit.unitInCoulombPerKiloGram)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -39,8 +36,8 @@ object ExposureUnit extends ConstantsDefined[ExposureUnit]{
   class QuotientChargePerMassUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: MassUnit)
       extends ExposureUnit with QuotientUnit[ExposureUnit, ChargeUnit, MassUnit]{
 
-    override lazy val unitInCoulombPerKiloGram: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: ChargeUnit, dUnit: MassUnit): ExposureUnit =

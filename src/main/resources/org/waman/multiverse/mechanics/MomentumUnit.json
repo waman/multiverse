@@ -5,8 +5,7 @@
     "org.waman.multiverse.fluid._"
   ],
 
-  "baseUnit":"ForceUnit.Newton * TimeUnit.Second",
-  "baseUnitAccessor":"unitInNewtonSecond",
+  "SIUnit":"ForceUnit.Newton * TimeUnit.Second",
 
   "divisibles":[["AreaUnit", "DynamicViscosityUnit"]],
 

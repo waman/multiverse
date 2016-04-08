@@ -3,8 +3,7 @@
     "org.waman.multiverse.MultiverseUtil.twoPi"
   ],
 
-  "baseUnit":"Steradian",
-  "baseUnitAccessor":"unitInSteradian",
+  "SIUnit":"Steradian",
 
   "constants":[
     {"name":"Steradian", "symbol":"sr", "args":"", "scalePrefixes":true,

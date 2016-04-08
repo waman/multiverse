@@ -3,8 +3,7 @@
     "org.waman.multiverse.time._"
   ],
 
-  "baseUnit":"Sievert",
-  "baseUnitAccessor":"unitInSievert",
+  "SIUnit":"Sievert",
 
   "divisibles":[["TimeUnit", "EquivalentDoseRateUnit"]],
 

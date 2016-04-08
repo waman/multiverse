@@ -15,7 +15,7 @@ class Density[A: Fractional](val value: A, val unit: DensityUnit)
 
   def apply(evalUnit: DensityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInKiloGramPerCubicMetre) / real(evalUnit.unitInKiloGramPerCubicMetre)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def massPostfixOps(massUnit: MassUnit) = new DivisibleByVolumeUnit[A]{
     override def /(volumeUnit: VolumeUnit): A = apply(massUnit / volumeUnit)

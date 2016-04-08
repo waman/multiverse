@@ -9,24 +9,21 @@ import org.waman.multiverse.time.TimeUnit
 
 sealed trait KinematicViscosityUnit extends PhysicalUnit[KinematicViscosityUnit]{
 
-  def unitInSquareMetrePerSecond: Real
-
-  override def baseUnit = AreaUnit.SquareMetre / TimeUnit.Second
-  override def valueInBaseUnit = unitInSquareMetrePerSecond
+  override def getSIUnit = AreaUnit.SquareMetre / TimeUnit.Second
 }
 
 object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
 
   // intrinsic
   private[KinematicViscosityUnit]
-  class IntrinsicKinematicViscosityUnit(name: String, val symbols: Seq[String], val unitInSquareMetrePerSecond: Real)
+  class IntrinsicKinematicViscosityUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends KinematicViscosityUnit{
 
     def this(name: String, symbols: Seq[String], unit: KinematicViscosityUnit) =
-      this(name, symbols, unit.unitInSquareMetrePerSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: KinematicViscosityUnit) =
-      this(name, symbols, factor * unit.unitInSquareMetrePerSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -39,8 +36,8 @@ object KinematicViscosityUnit extends ConstantsDefined[KinematicViscosityUnit]{
   class QuotientAreaPerTimeUnit(val numeratorUnit: AreaUnit, val denominatorUnit: TimeUnit)
       extends KinematicViscosityUnit with QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit]{
 
-    override lazy val unitInSquareMetrePerSecond: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: AreaUnit, dUnit: TimeUnit): KinematicViscosityUnit =

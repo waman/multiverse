@@ -13,7 +13,7 @@ class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
 
   def apply(evalUnit: CapacitanceUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInFarad) / real(evalUnit.unitInFarad)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def capacitancePostfixOps(capacitanceUnit: CapacitanceUnit) = apply(capacitanceUnit)
 }

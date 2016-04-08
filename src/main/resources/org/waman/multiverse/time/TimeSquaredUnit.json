@@ -1,6 +1,5 @@
 {
-  "baseUnit":"SecondSquared",
-  "baseUnitAccessor":"unitInSecondSquared",
+  "SIUnit":"SecondSquared",
 
   "products":[["TimeUnit", "TimeUnit"]],
 

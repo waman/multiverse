@@ -4,8 +4,7 @@
     "org.waman.multiverse.energy._"
   ],
 
-  "baseUnit":"Gray",
-  "baseUnitAccessor":"unitInGray",
+  "SIUnit":"Gray",
 
   "quotients":[["EnergyUnit", "MassUnit"]],
 

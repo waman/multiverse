@@ -9,10 +9,7 @@ import org.waman.multiverse.metric._
 sealed trait LuminousFluxUnit extends PhysicalUnit[LuminousFluxUnit]
   with DivisibleByAreaUnit[IlluminanceUnit]{
 
-  def unitInLumen: Real
-
-  override def baseUnit = org.waman.multiverse.luminous.LuminousFluxUnit.Lumen
-  override def valueInBaseUnit = unitInLumen
+  override def getSIUnit = org.waman.multiverse.luminous.LuminousFluxUnit.Lumen
 
   override def /(unit: AreaUnit) = IlluminanceUnit(this, unit)
 }
@@ -21,14 +18,14 @@ object LuminousFluxUnit extends ConstantsDefined[LuminousFluxUnit]{
 
   // intrinsic
   private[LuminousFluxUnit]
-  class IntrinsicLuminousFluxUnit(name: String, val symbols: Seq[String], val unitInLumen: Real)
+  class IntrinsicLuminousFluxUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends LuminousFluxUnit{
 
     def this(name: String, symbols: Seq[String], unit: LuminousFluxUnit) =
-      this(name, symbols, unit.unitInLumen)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: LuminousFluxUnit) =
-      this(name, symbols, factor * unit.unitInLumen)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

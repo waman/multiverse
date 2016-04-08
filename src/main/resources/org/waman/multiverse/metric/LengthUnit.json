@@ -5,8 +5,7 @@
     "org.waman.multiverse.energy._"
   ],
 
-  "baseUnit":"Metre",
-  "baseUnitAccessor":"unitInMetre",
+  "SIUnit":"Metre",
 
   "multiplicatives":[["LengthUnit", "AreaUnit"], ["ForceUnit", "EnergyUnit"]],
   "divisibles":[["TimeUnit", "VelocityUnit"], ["TimeSquaredUnit", "AccelerationUnit"]],

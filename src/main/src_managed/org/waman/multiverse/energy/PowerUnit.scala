@@ -17,10 +17,7 @@ sealed trait PowerUnit extends PhysicalUnit[PowerUnit]
   with MultiplicativeByTimeUnit[EnergyUnit]
   with DivisibleByCurrentUnit[VoltageUnit]{
 
-  def unitInWatt: Real
-
-  override def baseUnit = org.waman.multiverse.energy.PowerUnit.Watt
-  override def valueInBaseUnit = unitInWatt
+  override def getSIUnit = org.waman.multiverse.energy.PowerUnit.Watt
 
   override def *(unit: TimeUnit) = EnergyUnit(this, unit)
 
@@ -31,14 +28,14 @@ object PowerUnit extends ConstantsDefined[PowerUnit]{
 
   // intrinsic
   private[PowerUnit]
-  class IntrinsicPowerUnit(name: String, val symbols: Seq[String], val unitInWatt: Real)
+  class IntrinsicPowerUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends PowerUnit{
 
     def this(name: String, symbols: Seq[String], unit: PowerUnit) =
-      this(name, symbols, unit.unitInWatt)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: PowerUnit) =
-      this(name, symbols, factor * unit.unitInWatt)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -78,8 +75,8 @@ object PowerUnit extends ConstantsDefined[PowerUnit]{
   class QuotientEnergyPerTimeUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: TimeUnit)
       extends PowerUnit with QuotientUnit[PowerUnit, EnergyUnit, TimeUnit]{
 
-    override lazy val unitInWatt: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: EnergyUnit, dUnit: TimeUnit): PowerUnit =

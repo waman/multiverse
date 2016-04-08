@@ -5,27 +5,26 @@ import spire.implicits._
 import org.waman.multiverse._
 
 import org.waman.multiverse.metric._
+import org.waman.multiverse.luminous.LuminousFluxUnit._
+import org.waman.multiverse.metric.AreaUnit._
 
 sealed trait IlluminanceUnit extends PhysicalUnit[IlluminanceUnit]{
 
-  def unitInLux: Real
-
-  override def baseUnit = org.waman.multiverse.luminous.IlluminanceUnit.Lux
-  override def valueInBaseUnit = unitInLux
+  override def getSIUnit = org.waman.multiverse.luminous.IlluminanceUnit.Lux
 }
 
 object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
 
   // intrinsic
   private[IlluminanceUnit]
-  class IntrinsicIlluminanceUnit(name: String, val symbols: Seq[String], val unitInLux: Real)
+  class IntrinsicIlluminanceUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends IlluminanceUnit{
 
     def this(name: String, symbols: Seq[String], unit: IlluminanceUnit) =
-      this(name, symbols, unit.unitInLux)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: IlluminanceUnit) =
-      this(name, symbols, factor * unit.unitInLux)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -51,7 +50,7 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
   case object ZettaLux extends IntrinsicIlluminanceUnit("ZettaLux", Seq("Zlx"), r"1e21")
   case object YottaLux extends IntrinsicIlluminanceUnit("YottaLux", Seq("Ylx"), r"1e24")
   case object Phot extends IntrinsicIlluminanceUnit("Phot", Seq("ph"), r"1e4")
-  case object FootCandle extends IntrinsicIlluminanceUnit("FootCandle", Seq("fc"), LuminousFluxUnit.Lumen / AreaUnit.SquareFoot)
+  case object FootCandle extends IntrinsicIlluminanceUnit("FootCandle", Seq("fc"), Lumen / SquareFoot)
 
   override lazy val values = Seq(YoctoLux, ZeptoLux, AttoLux, FemtoLux, PicoLux, NanoLux, MicroLux, MilliLux, CentiLux, DeciLux, Lux, DecaLux, HectoLux, KiloLux, MegaLux, GigaLux, TeraLux, PetaLux, ExaLux, ZettaLux, YottaLux, Phot, FootCandle)
 
@@ -60,8 +59,8 @@ object IlluminanceUnit extends ConstantsDefined[IlluminanceUnit]{
   class QuotientLuminousFluxPerAreaUnit(val numeratorUnit: LuminousFluxUnit, val denominatorUnit: AreaUnit)
       extends IlluminanceUnit with QuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit]{
 
-    override lazy val unitInLux: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: LuminousFluxUnit, dUnit: AreaUnit): IlluminanceUnit =

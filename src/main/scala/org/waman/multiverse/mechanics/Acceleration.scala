@@ -19,7 +19,7 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
 
   def apply(evalUnit: AccelerationUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInMetrePerSecondSquared) / real(evalUnit.unitInMetrePerSecondSquared)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def accelerationPostfixOps(accelerationUnit: AccelerationUnit) = apply(accelerationUnit)
 

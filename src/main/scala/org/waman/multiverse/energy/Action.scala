@@ -16,7 +16,7 @@ class Action[A: Fractional](val value: A, val unit: ActionUnit)
 
   def apply(evalUnit: ActionUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInJouleSecond) / real(evalUnit.unitInJouleSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
 
   override protected def actionPostfixOps(actionUnit: ActionUnit) = apply(actionUnit)

@@ -9,11 +9,11 @@
     "org.waman.multiverse.thermal._",
     "org.waman.multiverse.radiation._",
     "org.waman.multiverse.metric.VolumeUnit._",
+    "org.waman.multiverse.electric.ChargeUnit._",
     "org.waman.multiverse.fluid.PressureUnit._"
   ],
 
-  "baseUnit":"Joule",
-  "baseUnitAccessor":"unitInJoule",
+  "SIUnit":"Joule",
 
   "multiplicatives":[["TimeUnit", "ActionUnit"]],
   "divisibles":[["TimeUnit", "PowerUnit"], ["TemperatureUnit", "EntropyUnit"], ["MassUnit", "AbsorbedDoseUnit"]],
@@ -26,7 +26,7 @@
   "constants":[
     {"name":"Joule", "symbol":"J", "args":"", "scalePrefixes":true},
     {"name":"Erg", "symbols":["erg"], "args":"r\"1e-7\""},
-    {"name":"ElectronVolt", "symbol":"eV", "args":" * ChargeUnit.ElementaryCharge.unitInCoulomb",
+    {"name":"ElectronVolt", "symbol":"eV", "args":" * ElementaryCharge.unitValueInSIUnit",
       "scalePrefixes":true, "notExact":true},
     {"name":"Rydberg", "symbols":["Ry"], "args":"r\"13.6056925330\", ElectronVolt", "notExact":true},
     {"name":"AtomicUnitOfEnergy", "symbols":["E_h"], "args":"2, Rydberg", "notExact":true},

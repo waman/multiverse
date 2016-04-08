@@ -17,7 +17,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
   def apply(evalUnit: AngularVelocityUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInRadianPerSecond) / real(evalUnit.unitInRadianPerSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def angularVelocityPostfixOps(angularVelocityUnit: AngularVelocityUnit) =
     apply(angularVelocityUnit)

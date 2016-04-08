@@ -30,6 +30,7 @@ class InductanceSpec
           (Seq(3.0.pH, 3.0 pH, 3.0 (pH)), 3e-12),
           (Seq(3.0.nH, 3.0 nH, 3.0 (nH)), 3e-9),
           (Seq(3.0.μH, 3.0 μH, 3.0 (μH)), 3e-6),
+          (Seq(3.0.mcH, 3.0 mcH, 3.0 (mcH)), 3e-6),
           (Seq(3.0.mH, 3.0 mH, 3.0 (mH)), 3e-3),
           (Seq(3.0.cH, 3.0 cH, 3.0 (cH)), 3e-2),
           (Seq(3.0.dH, 3.0 dH, 3.0 (dH)), 3e-1),
@@ -67,6 +68,7 @@ class InductanceSpec
           (Seq(q.pH, q pH, q(pH)), 3e12),
           (Seq(q.nH, q nH, q(nH)), 3e9),
           (Seq(q.μH, q μH, q(μH)), 3e6),
+          (Seq(q.mcH, q mcH, q(mcH)), 3e6),
           (Seq(q.mH, q mH, q(mH)), 3e3),
           (Seq(q.cH, q cH, q(cH)), 3e2),
           (Seq(q.dH, q dH, q(dH)), 3e1),
@@ -97,7 +99,7 @@ class InductanceSpec
       __Exercise__
       val sut = hWb/mA
       __Verify__
-      sut.unitInHenry.toDouble should equal (%%%%(1e5))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(1e5))
     }
 
     "3.0 hWb/mA should equal 3e5 H" in {

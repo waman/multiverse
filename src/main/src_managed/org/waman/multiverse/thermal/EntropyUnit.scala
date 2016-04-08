@@ -8,24 +8,21 @@ import org.waman.multiverse.energy.EnergyUnit
 
 sealed trait EntropyUnit extends PhysicalUnit[EntropyUnit]{
 
-  def unitInJoulePerKelvin: Real
-
-  override def baseUnit = EnergyUnit.Joule / TemperatureUnit.Kelvin
-  override def valueInBaseUnit = unitInJoulePerKelvin
+  override def getSIUnit = EnergyUnit.Joule / TemperatureUnit.Kelvin
 }
 
 object EntropyUnit extends ConstantsDefined[EntropyUnit]{
 
   // intrinsic
   private[EntropyUnit]
-  class IntrinsicEntropyUnit(name: String, val symbols: Seq[String], val unitInJoulePerKelvin: Real)
+  class IntrinsicEntropyUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends EntropyUnit{
 
     def this(name: String, symbols: Seq[String], unit: EntropyUnit) =
-      this(name, symbols, unit.unitInJoulePerKelvin)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: EntropyUnit) =
-      this(name, symbols, factor * unit.unitInJoulePerKelvin)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -59,8 +56,8 @@ object EntropyUnit extends ConstantsDefined[EntropyUnit]{
   class QuotientEnergyPerTemperatureUnit(val numeratorUnit: EnergyUnit, val denominatorUnit: TemperatureUnit)
       extends EntropyUnit with QuotientUnit[EntropyUnit, EnergyUnit, TemperatureUnit]{
 
-    override lazy val unitInJoulePerKelvin: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: EnergyUnit, dUnit: TemperatureUnit): EntropyUnit =

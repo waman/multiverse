@@ -16,7 +16,7 @@ class Momentum[A: Fractional](val value: A, val unit: MomentumUnit)
 
   def apply(evalUnit: MomentumUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInNewtonSecond) / real(evalUnit.unitInNewtonSecond)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def forcePostfixOps(forceUnit: ForceUnit) = new MultiplicativeByTimeUnit[A]{
     override def *(timeUnit: TimeUnit): A = apply(forceUnit * timeUnit)

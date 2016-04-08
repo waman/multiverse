@@ -8,24 +8,21 @@ import org.waman.multiverse.time.TimeUnit
 
 sealed trait ActionUnit extends PhysicalUnit[ActionUnit]{
 
-  def unitInJouleSecond: Real
-
-  override def baseUnit = EnergyUnit.Joule * TimeUnit.Second
-  override def valueInBaseUnit = unitInJouleSecond
+  override def getSIUnit = EnergyUnit.Joule * TimeUnit.Second
 }
 
 object ActionUnit extends ConstantsDefined[ActionUnit]{
 
   // intrinsic
   private[ActionUnit]
-  class IntrinsicActionUnit(name: String, val symbols: Seq[String], val unitInJouleSecond: Real)
+  class IntrinsicActionUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends ActionUnit{
 
     def this(name: String, symbols: Seq[String], unit: ActionUnit) =
-      this(name, symbols, unit.unitInJouleSecond)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: ActionUnit) =
-      this(name, symbols, factor * unit.unitInJouleSecond)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -38,8 +35,8 @@ object ActionUnit extends ConstantsDefined[ActionUnit]{
   class ProductEnergyDotTimeUnit(val firstUnit: EnergyUnit, val secondUnit: TimeUnit)
       extends ActionUnit with ProductUnit[ActionUnit, EnergyUnit, TimeUnit]{
 
-    override lazy val unitInJouleSecond: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: EnergyUnit, unit2: TimeUnit): ActionUnit =

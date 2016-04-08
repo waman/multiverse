@@ -7,24 +7,21 @@ import org.waman.multiverse._
 
 sealed trait FrequencyUnit extends PhysicalUnit[FrequencyUnit]{
 
-  def unitInHeltz: Real
-
-  override def baseUnit = org.waman.multiverse.time.FrequencyUnit.Heltz
-  override def valueInBaseUnit = unitInHeltz
+  override def getSIUnit = org.waman.multiverse.time.FrequencyUnit.Heltz
 }
 
 object FrequencyUnit extends ConstantsDefined[FrequencyUnit]{
 
   // intrinsic
   private[FrequencyUnit]
-  class IntrinsicFrequencyUnit(name: String, val symbols: Seq[String], val unitInHeltz: Real)
+  class IntrinsicFrequencyUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends FrequencyUnit{
 
     def this(name: String, symbols: Seq[String], unit: FrequencyUnit) =
-      this(name, symbols, unit.unitInHeltz)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: FrequencyUnit) =
-      this(name, symbols, factor * unit.unitInHeltz)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 

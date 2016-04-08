@@ -30,6 +30,7 @@ class FluxSpec
           (Seq(3.0.pWb, 3.0 pWb, 3.0 (pWb)), 3e-12),
           (Seq(3.0.nWb, 3.0 nWb, 3.0 (nWb)), 3e-9),
           (Seq(3.0.μWb, 3.0 μWb, 3.0 (μWb)), 3e-6),
+          (Seq(3.0.mcWb, 3.0 mcWb, 3.0 (mcWb)), 3e-6),
           (Seq(3.0.mWb, 3.0 mWb, 3.0 (mWb)), 3e-3),
           (Seq(3.0.cWb, 3.0 cWb, 3.0 (cWb)), 3e-2),
           (Seq(3.0.dWb, 3.0 dWb, 3.0 (dWb)), 3e-1),
@@ -52,6 +53,7 @@ class FluxSpec
           (Seq(3.0.pMx, 3.0 pMx, 3.0 (pMx)), 3e-20),
           (Seq(3.0.nMx, 3.0 nMx, 3.0 (nMx)), 3e-17),
           (Seq(3.0.μMx, 3.0 μMx, 3.0 (μMx)), 3e-14),
+          (Seq(3.0.mcMx, 3.0 mcMx, 3.0 (mcMx)), 3e-14),
           (Seq(3.0.mMx, 3.0 mMx, 3.0 (mMx)), 3e-11),
           (Seq(3.0.cMx, 3.0 cMx, 3.0 (cMx)), 3e-10),
           (Seq(3.0.dMx, 3.0 dMx, 3.0 (dMx)), 3e-9),
@@ -89,6 +91,7 @@ class FluxSpec
           (Seq(q.pWb, q pWb, q(pWb)), 3e12),
           (Seq(q.nWb, q nWb, q(nWb)), 3e9),
           (Seq(q.μWb, q μWb, q(μWb)), 3e6),
+          (Seq(q.mcWb, q mcWb, q(mcWb)), 3e6),
           (Seq(q.mWb, q mWb, q(mWb)), 3e3),
           (Seq(q.cWb, q cWb, q(cWb)), 3e2),
           (Seq(q.dWb, q dWb, q(dWb)), 3e1),
@@ -111,6 +114,7 @@ class FluxSpec
           (Seq(q.pMx, q pMx, q(pMx)), 3e20),
           (Seq(q.nMx, q nMx, q(nMx)), 3e17),
           (Seq(q.μMx, q μMx, q(μMx)), 3e14),
+          (Seq(q.mcMx, q mcMx, q(mcMx)), 3e14),
           (Seq(q.mMx, q mMx, q(mMx)), 3e11),
           (Seq(q.cMx, q cMx, q(cMx)), 3e10),
           (Seq(q.dMx, q dMx, q(dMx)), 3e9),
@@ -141,7 +145,7 @@ class FluxSpec
       __Exercise__
       val sut = kV*h
       __Verify__
-      sut.unitInWeber.toDouble should equal (%%%%(3600e3))
+      sut.unitValueInSIUnit.toDouble should equal (%%%%(3600e3))
     }
 
     "3.0 kV*h should equal 3.0 * 3600e3 Wb" in {

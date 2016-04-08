@@ -12,10 +12,7 @@ sealed trait FluxUnit extends PhysicalUnit[FluxUnit]
   with DivisibleByAreaUnit[FluxDensityUnit]
   with DivisibleByCurrentUnit[InductanceUnit]{
 
-  def unitInWeber: Real
-
-  override def baseUnit = org.waman.multiverse.magnetic.FluxUnit.Weber
-  override def valueInBaseUnit = unitInWeber
+  override def getSIUnit = org.waman.multiverse.magnetic.FluxUnit.Weber
 
   override def /(unit: AreaUnit) = FluxDensityUnit(this, unit)
 
@@ -26,14 +23,14 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
 
   // intrinsic
   private[FluxUnit]
-  class IntrinsicFluxUnit(name: String, val symbols: Seq[String], val unitInWeber: Real)
+  class IntrinsicFluxUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends FluxUnit{
 
     def this(name: String, symbols: Seq[String], unit: FluxUnit) =
-      this(name, symbols, unit.unitInWeber)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: FluxUnit) =
-      this(name, symbols, factor * unit.unitInWeber)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -87,8 +84,8 @@ object FluxUnit extends ConstantsDefined[FluxUnit]{
   class ProductVoltageDotTimeUnit(val firstUnit: VoltageUnit, val secondUnit: TimeUnit)
       extends FluxUnit with ProductUnit[FluxUnit, VoltageUnit, TimeUnit]{
 
-    override lazy val unitInWeber: Real =
-      firstUnit.valueInBaseUnit * secondUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
   }
 
   def apply(unit1: VoltageUnit, unit2: TimeUnit): FluxUnit =

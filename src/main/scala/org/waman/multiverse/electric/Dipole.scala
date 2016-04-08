@@ -16,7 +16,7 @@ class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
 
   def apply(evalUnit: DipoleUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInCoulombMetre) / real(evalUnit.unitInCoulombMetre)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def dipolePostfixOps(dipoleUnit: DipoleUnit) = apply(dipoleUnit)
 

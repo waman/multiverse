@@ -17,10 +17,7 @@ import org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity
 sealed trait PressureUnit extends PhysicalUnit[PressureUnit]
   with MultiplicativeByTimeUnit[DynamicViscosityUnit]{
 
-  def unitInPascal: Real
-
-  override def baseUnit = org.waman.multiverse.fluid.PressureUnit.Pascal
-  override def valueInBaseUnit = unitInPascal
+  override def getSIUnit = org.waman.multiverse.fluid.PressureUnit.Pascal
 
   override def *(unit: TimeUnit) = DynamicViscosityUnit(this, unit)
 }
@@ -29,14 +26,14 @@ object PressureUnit extends ConstantsDefined[PressureUnit]{
 
   // intrinsic
   private[PressureUnit]
-  class IntrinsicPressureUnit(name: String, val symbols: Seq[String], val unitInPascal: Real)
+  class IntrinsicPressureUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends PressureUnit{
 
     def this(name: String, symbols: Seq[String], unit: PressureUnit) =
-      this(name, symbols, unit.unitInPascal)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: PressureUnit) =
-      this(name, symbols, factor * unit.unitInPascal)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -66,19 +63,19 @@ object PressureUnit extends ConstantsDefined[PressureUnit]{
   case object Atmosphere_technical extends IntrinsicPressureUnit("Atmosphere_technical", Seq("at"), KiloGramForce / SquareCentiMetre)
   case object Bar extends IntrinsicPressureUnit("Bar", Seq("bar"), r"1e5")
   case object Pieze extends IntrinsicPressureUnit("Pieze", Seq("pz"), 1000)
-  case object Torr extends IntrinsicPressureUnit("Torr", Seq("torr"), Atmosphere.unitInPascal / 760)
+  case object Torr extends IntrinsicPressureUnit("Torr", Seq("torr"), Atmosphere.unitValueInSIUnit / 760)
   case object KipPerSquareInch extends IntrinsicPressureUnit("KipPerSquareInch", Seq("ksi"), KipForce / SquareInch)
   case object PoundPerSquareFoot extends IntrinsicPressureUnit("PoundPerSquareFoot", Seq("psf"), PoundForce / SquareFoot)
   case object PoundPerSquareInch extends IntrinsicPressureUnit("PoundPerSquareInch", Seq("psi"), PoundForce / SquareInch)
-  case object MicroMetreOfMercury extends IntrinsicPressureUnit("MicroMetreOfMercury", Seq("μmHg", "microMetreHg"), Mercury.unitInKiloGramPerCubicMetre * MicroMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object MilliMetreOfMercury extends IntrinsicPressureUnit("MilliMetreOfMercury", Seq("mmHg"), Mercury.unitInKiloGramPerCubicMetre * MilliMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object CentiMetreOfMercury extends IntrinsicPressureUnit("CentiMetreOfMercury", Seq("cmHg"), Mercury.unitInKiloGramPerCubicMetre * CentiMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object InchOfMercury extends IntrinsicPressureUnit("InchOfMercury", Seq("inHg"), Mercury.unitInKiloGramPerCubicMetre * Inch.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object FootOfMercury extends IntrinsicPressureUnit("FootOfMercury", Seq("ftHg"), Mercury.unitInKiloGramPerCubicMetre * Foot.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object MilliMetreOfWater extends IntrinsicPressureUnit("MilliMetreOfWater", Seq("mmH2O"), Water.unitInKiloGramPerCubicMetre * MilliMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object CentiMetreOfWater extends IntrinsicPressureUnit("CentiMetreOfWater", Seq("cmH2O"), Water.unitInKiloGramPerCubicMetre * CentiMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object InchOfWater extends IntrinsicPressureUnit("InchOfWater", Seq("inH2O"), Water.unitInKiloGramPerCubicMetre * Inch.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
-  case object FootOfWater extends IntrinsicPressureUnit("FootOfWater", Seq("ftH2O"), Water.unitInKiloGramPerCubicMetre * Foot.unitInMetre * StandardGravity.unitInMetrePerSecondSquared)
+  case object MicroMetreOfMercury extends IntrinsicPressureUnit("MicroMetreOfMercury", Seq("μmHg", "microMetreHg"), Mercury.unitValueInSIUnit * MicroMetre.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object MilliMetreOfMercury extends IntrinsicPressureUnit("MilliMetreOfMercury", Seq("mmHg"), Mercury.unitValueInSIUnit * MilliMetre.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object CentiMetreOfMercury extends IntrinsicPressureUnit("CentiMetreOfMercury", Seq("cmHg"), Mercury.unitValueInSIUnit * CentiMetre.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object InchOfMercury extends IntrinsicPressureUnit("InchOfMercury", Seq("inHg"), Mercury.unitValueInSIUnit * Inch.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object FootOfMercury extends IntrinsicPressureUnit("FootOfMercury", Seq("ftHg"), Mercury.unitValueInSIUnit * Foot.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object MilliMetreOfWater extends IntrinsicPressureUnit("MilliMetreOfWater", Seq("mmH2O"), Water.unitValueInSIUnit * MilliMetre.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object CentiMetreOfWater extends IntrinsicPressureUnit("CentiMetreOfWater", Seq("cmH2O"), Water.unitValueInSIUnit * CentiMetre.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object InchOfWater extends IntrinsicPressureUnit("InchOfWater", Seq("inH2O"), Water.unitValueInSIUnit * Inch.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
+  case object FootOfWater extends IntrinsicPressureUnit("FootOfWater", Seq("ftH2O"), Water.unitValueInSIUnit * Foot.unitValueInSIUnit * StandardGravity.unitValueInSIUnit)
 
   override lazy val values = Seq(YoctoPascal, ZeptoPascal, AttoPascal, FemtoPascal, PicoPascal, NanoPascal, MicroPascal, MilliPascal, CentiPascal, DeciPascal, Pascal, DecaPascal, HectoPascal, KiloPascal, MegaPascal, GigaPascal, TeraPascal, PetaPascal, ExaPascal, ZettaPascal, YottaPascal, Barye, Atmosphere, Atmosphere_technical, Bar, Pieze, Torr, KipPerSquareInch, PoundPerSquareFoot, PoundPerSquareInch, MicroMetreOfMercury, MilliMetreOfMercury, CentiMetreOfMercury, InchOfMercury, FootOfMercury, MilliMetreOfWater, CentiMetreOfWater, InchOfWater, FootOfWater)
 
@@ -87,8 +84,8 @@ object PressureUnit extends ConstantsDefined[PressureUnit]{
   class QuotientForcePerAreaUnit(val numeratorUnit: ForceUnit, val denominatorUnit: AreaUnit)
       extends PressureUnit with QuotientUnit[PressureUnit, ForceUnit, AreaUnit]{
 
-    override lazy val unitInPascal: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: ForceUnit, dUnit: AreaUnit): PressureUnit =

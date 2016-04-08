@@ -1,11 +1,12 @@
 {
   "imports":[
     "org.waman.multiverse.metric._",
-    "org.waman.multiverse.time._"
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.metric.LengthUnit._",
+    "org.waman.multiverse.time.TimeUnit._"
   ],
 
-  "baseUnit":"LengthUnit.Metre / TimeUnit.Second",
-  "baseUnitAccessor":"unitInMetrePerSecond",
+  "SIUnit":"LengthUnit.Metre / TimeUnit.Second",
 
   "divisibles":[["TimeUnit", "AccelerationUnit"]],
 
@@ -17,19 +18,19 @@
     {"name":"MachNumber"    , "symbols":["M"], "args":"r\"340\"", "notExact":true},
     {"name":"SpeedOfLight"  , "symbols":["c"], "args":"r\"299792458\""},
 
-    {"name":"Knot"          , "symbols":["kn"], "args":"LengthUnit.NauticalMile / TimeUnit.Hour"},
-    {"name":"Knot_Admiralty", "symbols":["kn(Adm)"], "args":"LengthUnit.NauticalMile_Admiralty / TimeUnit.Hour"},
+    {"name":"Knot"          , "symbols":["kn"], "args":"NauticalMile / Hour"},
+    {"name":"Knot_Admiralty", "symbols":["kn(Adm)"], "args":"NauticalMile_Admiralty / Hour"},
 
-    {"name":"InchPerSecond" , "symbols":["ips"], "args":"LengthUnit.Inch / TimeUnit.Second"},
-    {"name":"InchPerMinute" , "symbols":["ipm"], "args":"LengthUnit.Inch / TimeUnit.Minute"},
-    {"name":"InchPerHour"   , "symbols":["iph"], "args":"LengthUnit.Inch / TimeUnit.Hour"},
+    {"name":"InchPerSecond" , "symbols":["ips"], "args":"Inch / Second"},
+    {"name":"InchPerMinute" , "symbols":["ipm"], "args":"Inch / Minute"},
+    {"name":"InchPerHour"   , "symbols":["iph"], "args":"Inch / Hour"},
 
-    {"name":"FootPerSecond" , "symbols":["fps"], "args":"LengthUnit.Foot / TimeUnit.Second"},
-    {"name":"FootPerMinute" , "symbols":["fpm"], "args":"LengthUnit.Foot / TimeUnit.Minute"},
-    {"name":"FootPerHour"   , "symbols":["fph"], "args":"LengthUnit.Foot / TimeUnit.Hour"},
+    {"name":"FootPerSecond" , "symbols":["fps"], "args":"Foot / Second"},
+    {"name":"FootPerMinute" , "symbols":["fpm"], "args":"Foot / Minute"},
+    {"name":"FootPerHour"   , "symbols":["fph"], "args":"Foot / Hour"},
 
-    {"name":"MilePerSecond" , "symbols":["mps"], "args":"LengthUnit.Mile / TimeUnit.Second"},
-    {"name":"MilePerMinute" , "symbols":["mpm"], "args":"LengthUnit.Mile / TimeUnit.Minute"},
-    {"name":"MilePerHour"   , "symbols":["mph"], "args":"LengthUnit.Mile / TimeUnit.Hour"}
+    {"name":"MilePerSecond" , "symbols":["mps"], "args":"Mile / Second"},
+    {"name":"MilePerMinute" , "symbols":["mpm"], "args":"Mile / Minute"},
+    {"name":"MilePerHour"   , "symbols":["mph"], "args":"Mile / Hour"}
   ]
 }

@@ -7,24 +7,21 @@ import org.waman.multiverse._
 
 sealed trait CapacitanceUnit extends PhysicalUnit[CapacitanceUnit]{
 
-  def unitInFarad: Real
-
-  override def baseUnit = org.waman.multiverse.electric.CapacitanceUnit.Farad
-  override def valueInBaseUnit = unitInFarad
+  override def getSIUnit = org.waman.multiverse.electric.CapacitanceUnit.Farad
 }
 
 object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
 
   // intrinsic
   private[CapacitanceUnit]
-  class IntrinsicCapacitanceUnit(name: String, val symbols: Seq[String], val unitInFarad: Real)
+  class IntrinsicCapacitanceUnit(val name: String, val symbols: Seq[String], val unitValueInSIUnit: Real)
       extends CapacitanceUnit{
 
     def this(name: String, symbols: Seq[String], unit: CapacitanceUnit) =
-      this(name, symbols, unit.unitInFarad)
+      this(name, symbols, unit.unitValueInSIUnit)
 
     def this(name: String, symbols: Seq[String], factor: Real, unit: CapacitanceUnit) =
-      this(name, symbols, factor * unit.unitInFarad)
+      this(name, symbols, factor * unit.unitValueInSIUnit)
   }
 
 
@@ -57,8 +54,8 @@ object CapacitanceUnit extends ConstantsDefined[CapacitanceUnit]{
   class QuotientChargePerVoltageUnit(val numeratorUnit: ChargeUnit, val denominatorUnit: VoltageUnit)
       extends CapacitanceUnit with QuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit]{
 
-    override lazy val unitInFarad: Real =
-      numeratorUnit.valueInBaseUnit / denominatorUnit.valueInBaseUnit
+    override lazy val unitValueInSIUnit: Real =
+      numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
   }
 
   def apply(nUnit: ChargeUnit, dUnit: VoltageUnit): CapacitanceUnit =

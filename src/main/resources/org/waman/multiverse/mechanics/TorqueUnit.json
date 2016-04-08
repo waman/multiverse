@@ -3,8 +3,7 @@
     "org.waman.multiverse.metric._"
   ],
 
-  "baseUnit":"ForceUnit.Newton * LengthUnit.Metre",
-  "baseUnitAccessor":"unitInNewtonMetre",
+  "SIUnit":"ForceUnit.Newton * LengthUnit.Metre",
 
   "products":[["ForceUnit", "LengthUnit"]]
 }

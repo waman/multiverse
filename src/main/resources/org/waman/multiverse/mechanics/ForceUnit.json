@@ -8,8 +8,7 @@
     "org.waman.multiverse.mass.MassUnit._"
   ],
 
-  "baseUnit":"Newton",
-  "baseUnitAccessor":"unitInNewton",
+  "SIUnit":"Newton",
 
   "multiplicatives":[["LengthUnit", "TorqueUnit"], ["TimeUnit", "MomentumUnit"]],
   "divisibles":[["AreaUnit", "PressureUnit"]],
@@ -20,24 +19,17 @@
     {"name":"Newton"         , "symbol":"N"     , "args":"", "scalePrefixes":true},
     {"name":"Dyne"           , "symbols":["dyn"], "args":"r\"1e-5\""},
     {"name":"KiloGramForce"  , "symbols":["kgf", "kp", "Gf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared", "notExact":true},
+      "args":"StandardGravity.unitValueInSIUnit", "notExact":true},
     {"name":"MilliGraveForce", "symbols":["mGf", "gf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared / 1000", "notExact":true},
+      "args":"StandardGravity.unitValueInSIUnit / 1000", "notExact":true},
 
     // yard-pond
-    {"name":"OunceForce", "symbols":["ozf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared * Ounce.unitInKiloGram"},
-    {"name":"PoundForce", "symbols":["lbf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared * Pound.unitInKiloGram"},
-    {"name":"Poundal", "symbols":["pdl"],
-      "args":"Pound.unitInKiloGram * FootPerSecondSquared.unitInMetrePerSecondSquared"},
-    {"name":"KipForce", "symbols":["kipf", "klbf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared * 1000 * Pound.unitInKiloGram"},
-
-    {"name":"ShortTonForce", "symbols":["sh_tnf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared * ShortTon.unitInKiloGram"},
-    {"name":"LongTonForce", "symbols":["tnf", "long_tnf"],
-      "args":"StandardGravity.unitInMetrePerSecondSquared * LongTon.unitInKiloGram"},
-    {"name":"Sthene", "symbols":["sn"], "args":"r\"1e3\""}
+    {"name":"OunceForce"   , "symbols":["ozf"], "args":"Ounce * StandardGravity"},
+    {"name":"PoundForce"   , "symbols":["lbf"], "args":"Pound * StandardGravity"},
+    {"name":"Poundal"      , "symbols":["pdl"], "args":"Pound * FootPerSecondSquared"},
+    {"name":"KipForce"     , "symbols":["kipf", "klbf"], "args":"1000, Pound * StandardGravity"},
+    {"name":"ShortTonForce", "symbols":["sh_tnf"], "args":"ShortTon * StandardGravity"},
+    {"name":"LongTonForce" , "symbols":["tnf", "long_tnf"], "args":"LongTon * StandardGravity"},
+    {"name":"Sthene"       , "symbols":["sn"], "args":"r\"1e3\""}
   ]
 }

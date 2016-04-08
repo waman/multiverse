@@ -15,7 +15,7 @@ class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
 
   def apply(evalUnit: EquivalentDoseUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInSievert) / real(evalUnit.unitInSievert)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def equivalentDosePostfixOps(equivalentDoseUnit: EquivalentDoseUnit) =
     apply(equivalentDoseUnit)

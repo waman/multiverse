@@ -1,6 +1,5 @@
 {
-  "baseUnit":"Becquerel",
-  "baseUnitAccessor":"unitInBecquerel",
+  "SIUnit":"Becquerel",
 
   "constants":[
     {"name":"Becquerel" , "symbol":"Bq"   , "args":""              , "scalePrefixes":true},

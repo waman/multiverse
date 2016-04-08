@@ -16,7 +16,7 @@ class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
 
   def apply(evalUnit: InductanceUnit): A =
     if(unit == evalUnit) value
-    else value * real(unit.unitInHenry) / real(evalUnit.unitInHenry)
+    else value * real(unit.unitValueInSIUnit) / real(evalUnit.unitValueInSIUnit)
 
   override protected def inductancePostfixOps(inductanceUnit: InductanceUnit) = apply(inductanceUnit)
 
