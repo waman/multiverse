@@ -38,7 +38,7 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
   case object FemtoAmpere extends IntrinsicCurrentUnit("FemtoAmpere", Seq("fA"), r"1e-15")
   case object PicoAmpere extends IntrinsicCurrentUnit("PicoAmpere", Seq("pA"), r"1e-12")
   case object NanoAmpere extends IntrinsicCurrentUnit("NanoAmpere", Seq("nA"), r"1e-9")
-  case object MicroAmpere extends IntrinsicCurrentUnit("MicroAmpere", Seq("microAmpere", "microA", "μA"), r"1e-6")
+  case object MicroAmpere extends IntrinsicCurrentUnit("MicroAmpere", Seq("μA", "mcA"), r"1e-6")
   case object MilliAmpere extends IntrinsicCurrentUnit("MilliAmpere", Seq("mA"), r"1e-3")
   case object CentiAmpere extends IntrinsicCurrentUnit("CentiAmpere", Seq("cA"), r"1e-2")
   case object DeciAmpere extends IntrinsicCurrentUnit("DeciAmpere", Seq("dA"), r"1e-1")
@@ -53,8 +53,9 @@ object CurrentUnit extends ConstantsDefined[CurrentUnit]{
   case object ExaAmpere extends IntrinsicCurrentUnit("ExaAmpere", Seq("EA"), r"1e18")
   case object ZettaAmpere extends IntrinsicCurrentUnit("ZettaAmpere", Seq("ZA"), r"1e21")
   case object YottaAmpere extends IntrinsicCurrentUnit("YottaAmpere", Seq("YA"), r"1e24")
+  case object Abampere extends IntrinsicCurrentUnit("Abampere", Seq("abamp"), 10)
 
-  override lazy val values = Seq(YoctoAmpere, ZeptoAmpere, AttoAmpere, FemtoAmpere, PicoAmpere, NanoAmpere, MicroAmpere, MilliAmpere, CentiAmpere, DeciAmpere, Ampere, DecaAmpere, HectoAmpere, KiloAmpere, MegaAmpere, GigaAmpere, TeraAmpere, PetaAmpere, ExaAmpere, ZettaAmpere, YottaAmpere)
+  override lazy val values = Seq(YoctoAmpere, ZeptoAmpere, AttoAmpere, FemtoAmpere, PicoAmpere, NanoAmpere, MicroAmpere, MilliAmpere, CentiAmpere, DeciAmpere, Ampere, DecaAmpere, HectoAmpere, KiloAmpere, MegaAmpere, GigaAmpere, TeraAmpere, PetaAmpere, ExaAmpere, ZettaAmpere, YottaAmpere, Abampere)
 
   // ChargeUnit / TimeUnit -> Current
   private[CurrentUnit]
@@ -89,9 +90,8 @@ trait CurrentPostfixOps[A]{
   def fA : A = currentPostfixOps(FemtoAmpere)
   def pA : A = currentPostfixOps(PicoAmpere)
   def nA : A = currentPostfixOps(NanoAmpere)
-  def microAmpere : A = currentPostfixOps(MicroAmpere)
-  def microA : A = currentPostfixOps(MicroAmpere)
   def μA : A = currentPostfixOps(MicroAmpere)
+  def mcA : A = currentPostfixOps(MicroAmpere)
   def mA : A = currentPostfixOps(MilliAmpere)
   def cA : A = currentPostfixOps(CentiAmpere)
   def dA : A = currentPostfixOps(DeciAmpere)
@@ -106,6 +106,7 @@ trait CurrentPostfixOps[A]{
   def EA : A = currentPostfixOps(ExaAmpere)
   def ZA : A = currentPostfixOps(ZettaAmpere)
   def YA : A = currentPostfixOps(YottaAmpere)
+  def abamp : A = currentPostfixOps(Abampere)
 }
 
 trait CurrentDot[A]{
@@ -119,9 +120,8 @@ trait CurrentDot[A]{
   def fA(dot: Dot): A = currentDot(FemtoAmpere)
   def pA(dot: Dot): A = currentDot(PicoAmpere)
   def nA(dot: Dot): A = currentDot(NanoAmpere)
-  def microAmpere(dot: Dot): A = currentDot(MicroAmpere)
-  def microA(dot: Dot): A = currentDot(MicroAmpere)
   def μA(dot: Dot): A = currentDot(MicroAmpere)
+  def mcA(dot: Dot): A = currentDot(MicroAmpere)
   def mA(dot: Dot): A = currentDot(MilliAmpere)
   def cA(dot: Dot): A = currentDot(CentiAmpere)
   def dA(dot: Dot): A = currentDot(DeciAmpere)
@@ -136,6 +136,7 @@ trait CurrentDot[A]{
   def EA(dot: Dot): A = currentDot(ExaAmpere)
   def ZA(dot: Dot): A = currentDot(ZettaAmpere)
   def YA(dot: Dot): A = currentDot(YottaAmpere)
+  def abamp(dot: Dot): A = currentDot(Abampere)
 }
 
 trait CurrentPer[A]{
@@ -149,9 +150,8 @@ trait CurrentPer[A]{
   def fA(per: Per): A = currentPer(FemtoAmpere)
   def pA(per: Per): A = currentPer(PicoAmpere)
   def nA(per: Per): A = currentPer(NanoAmpere)
-  def microAmpere(per: Per): A = currentPer(MicroAmpere)
-  def microA(per: Per): A = currentPer(MicroAmpere)
   def μA(per: Per): A = currentPer(MicroAmpere)
+  def mcA(per: Per): A = currentPer(MicroAmpere)
   def mA(per: Per): A = currentPer(MilliAmpere)
   def cA(per: Per): A = currentPer(CentiAmpere)
   def dA(per: Per): A = currentPer(DeciAmpere)
@@ -166,6 +166,7 @@ trait CurrentPer[A]{
   def EA(per: Per): A = currentPer(ExaAmpere)
   def ZA(per: Per): A = currentPer(ZettaAmpere)
   def YA(per: Per): A = currentPer(YottaAmpere)
+  def abamp(per: Per): A = currentPer(Abampere)
 }
 
 trait PredefinedCurrentUnit extends CurrentPostfixOps[CurrentUnit]{

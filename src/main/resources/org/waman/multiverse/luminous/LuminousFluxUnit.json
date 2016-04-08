@@ -9,6 +9,6 @@
   "divisibles":[["AreaUnit", "IlluminanceUnit"]],
 
   "constants":[
-    {"name":"Lumen", "scalePrefixes":true, "symbol":"lm", "args":""}
+    {"name":"Lumen", "symbol":"lm", "args":"", "scalePrefixes":true}
   ]
 }

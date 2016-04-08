@@ -28,7 +28,6 @@ class LengthSpec
         (Seq(3.0.fm, 3.0 fm, 3.0 (fm)), 3e-15),
         (Seq(3.0.pm, 3.0 pm, 3.0 (pm)), 3e-12),
         (Seq(3.0.nm, 3.0 nm, 3.0 (nm)), 3e-9),
-        (Seq(3.0.microMetre, 3.0 microMetre, 3.0 (microMetre)), 3e-6),
         (Seq(3.0.μm, 3.0 μm, 3.0 (μm)), 3e-6),
         (Seq(3.0.mm, 3.0 mm, 3.0 (mm)), 3e-3),
         (Seq(3.0.cm, 3.0 cm, 3.0 (cm)), 3e-2),
@@ -46,16 +45,14 @@ class LengthSpec
         (Seq(3.0.Ym, 3.0 Ym, 3.0 (Ym)), 3e24),
 
         // microscopic
-        (Seq(3.0.micron , 3.0 micron , 3.0 (micron)) , 3.0 * 1e-6),
         (Seq(3.0.µ , 3.0 µ , 3.0 (µ)) , 3.0 * 1e-6),
-        (Seq(3.0.angstrom , 3.0 angstrom , 3.0 (angstrom)) , 3.0 * 1e-10),
         (Seq(3.0.Å , 3.0 Å , 3.0 (Å)) , 3.0 * 1e-10),
         (Seq(3.0.a0, 3.0 a0, 3.0 (a0)), 3.0 * 5.2917721092e-11),
         (Seq(3.0.xu, 3.0 xu, 3.0 (xu)), 3.0 * 1.0021e-13),
         (Seq(3.0.xu(CuKα1), 3.0 xu(CuKα1), 3.0 (xu(CuKα1))), 3.0 * 1.0020769928e-13),
         (Seq(3.0.xu(MoKα1), 3.0 xu(MoKα1), 3.0 (xu(MoKα1))), 3.0 * 1.0020995553e-13),
         (Seq(3.0.l_p, 3.0 l_p, 3.0 (l_p)), 3.0 * 1.61624e-35),
-        (Seq(3.0.lp, 3.0 lp, 3.0 (lp)), 3.0 * 1.61624e-35),
+        (Seq(3.0.lp , 3.0 lp , 3.0 (lp)) , 3.0 * 1.61624e-35),
 
         // astronomy
         (Seq(3.0.au, 3.0 au, 3.0 (au)), 3.0 * 149597870700.0),
@@ -97,7 +94,7 @@ class LengthSpec
         (Seq(3.0.ch(US) , 3.0 ch(US) , 3.0 (ch(US))) , 3.0 * 66 * 1200 / 3937),
         (Seq(3.0.mi(US) , 3.0 mi(US) , 3.0 (mi(US))) , 3.0 * 5280 * 1200 / 3937),
 
-        (Seq(3.0.mf, 3.0 mf, 3.0 (mf)), 3.0 * 0.31622776601),
+        (Seq(3.0.mf , 3.0 mf , 3.0 (mf)) , 3.0 * 0.31622776601),
         (Seq(3.0.smf, 3.0 smf, 3.0 (smf)), 3.0 * 0.3),
         (Seq(3.0.lmf, 3.0 lmf, 3.0 (lmf)), 3.0 * 0.3333333333),
 
@@ -125,7 +122,6 @@ class LengthSpec
         (Seq(q.fm, q fm, q (fm)), 3e15),
         (Seq(q.pm, q pm, q (pm)), 3e12),
         (Seq(q.nm, q nm, q (nm)), 3e9),
-        (Seq(q.microMetre, q microMetre, q (microMetre)), 3e6),
         (Seq(q.μm, q μm, q (μm)), 3e6),
         (Seq(q.mm, q mm, q (mm)), 3e3),
         (Seq(q.cm, q cm, q (cm)), 3e2),
@@ -143,16 +139,14 @@ class LengthSpec
         (Seq(q.Ym, q Ym, q (Ym)), 3e-24),
 
         // microscopic
-        (Seq(q.micron, q micron, q (micron)), 3e6),
-        (Seq(q.µ, q µ, q (µ)), 3e6),
-        (Seq(q.angstrom, q angstrom, q (angstrom)), 3e10),
-        (Seq(q.Å, q Å, q (Å)), 3e10),
+        (Seq(q.µ , q µ , q (µ)) , 3e6),
+        (Seq(q.Å , q Å , q (Å)) , 3e10),
         (Seq(q.a0, q a0, q (a0)), 3.0 / 5.2917721092e-11),
         (Seq(q.xu, q xu, q (xu)), 3.0 / 1.0021e-13),
         (Seq(q.xu(CuKα1), q xu(CuKα1), q (xu(CuKα1))), 3.0 / 1.0020769928e-13),
         (Seq(q.xu(MoKα1), q xu(MoKα1), q (xu(MoKα1))), 3.0 / 1.0020995553e-13),
         (Seq(q.l_p, q l_p, q (l_p)), 3.0 / 1.61624e-35),
-        (Seq(q.lp, q lp, q (lp)), 3.0 / 1.61624e-35),
+        (Seq(q.lp , q lp , q (lp)) , 3.0 / 1.61624e-35),
 
         // astronomy
         (Seq(q.au, q au, q (au)), 3.0 / 149597870700.0),

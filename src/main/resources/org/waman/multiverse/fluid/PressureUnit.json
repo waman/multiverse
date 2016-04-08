@@ -1,8 +1,14 @@
 {
   "imports":[
     "org.waman.multiverse.metric._",
+    "org.waman.multiverse.mass.DensityUnit",
     "org.waman.multiverse.time._",
-    "org.waman.multiverse.mechanics._"
+    "org.waman.multiverse.mechanics._",
+    "org.waman.multiverse.metric.LengthUnit._",
+    "org.waman.multiverse.metric.AreaUnit._",
+    "org.waman.multiverse.mechanics.ForceUnit._",
+    "org.waman.multiverse.mass.DensityUnit._",
+    "org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity"
   ],
 
   "baseUnit":"Pascal",
@@ -13,6 +19,41 @@
   "quotients":[["ForceUnit", "AreaUnit"]],
 
   "constants":[
-    {"name":"Pascal", "symbol":"Pa", "args":"", "scalePrefixes":true}
+    {"name":"Pascal", "symbol":"Pa"   , "args":"", "scalePrefixes":true},
+    {"name":"Barye" , "symbols":["Ba"], "args":"Dyne / SquareCentiMetre"},
+
+    {"name":"Atmosphere"    , "symbols":["atm"] , "args":"101325"},
+    {"name":"Atmosphere_technical"   , "symbols":["at"]  , "args":"KiloGramForce / SquareCentiMetre"},
+    {"name":"Bar", "symbols":["bar"] , "args":"r\"1e5\""},
+    {"name":"Pieze", "symbols":["pz"], "args":"1000"},
+
+    {"name":"Torr", "symbols":["torr"], "args":"Atmosphere.unitInPascal / 760"},
+
+    // yard-pond
+    {"name":"KipPerSquareInch"  , "symbols":["ksi"], "args":"KipForce / SquareInch"},
+    {"name":"PoundPerSquareFoot", "symbols":["psf"], "args":"PoundForce / SquareFoot"},
+    {"name":"PoundPerSquareInch", "symbols":["psi"], "args":"PoundForce / SquareInch"},
+
+    // Hg
+    {"name":"MicroMetreOfMercury", "symbols":["μmHg", "microMetreHg"],
+      "args":"Mercury.unitInKiloGramPerCubicMetre * MicroMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"MilliMetreOfMercury", "symbols":["mmHg"],
+      "args":"Mercury.unitInKiloGramPerCubicMetre * MilliMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"CentiMetreOfMercury", "symbols":["cmHg"],
+      "args":"Mercury.unitInKiloGramPerCubicMetre * CentiMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"InchOfMercury", "symbols":["inHg"],
+      "args":"Mercury.unitInKiloGramPerCubicMetre * Inch.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"FootOfMercury", "symbols":["ftHg"],
+      "args":"Mercury.unitInKiloGramPerCubicMetre * Foot.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+
+    // H2O
+    {"name":"MilliMetreOfWater", "symbols":["mmH2O"],
+      "args":"Water.unitInKiloGramPerCubicMetre * MilliMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"CentiMetreOfWater", "symbols":["cmH2O"],
+      "args":"Water.unitInKiloGramPerCubicMetre * CentiMetre.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"InchOfWater", "symbols":["inH2O"],
+      "args":"Water.unitInKiloGramPerCubicMetre * Inch.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"},
+    {"name":"FootOfWater", "symbols":["ftH2O"],
+      "args":"Water.unitInKiloGramPerCubicMetre * Foot.unitInMetre * StandardGravity.unitInMetrePerSecondSquared"}
   ]
 }

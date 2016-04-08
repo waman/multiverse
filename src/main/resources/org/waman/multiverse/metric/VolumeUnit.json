@@ -16,11 +16,11 @@
   "context":"org.waman.multiverse.metric.MetricContext",
 
   "constants":[
-    {"name":"CubicMetre", "symbol":"m3", "args":"**3", "scalePrefixes":true},
+    {"name":"Cubic$Metre", "symbol":"m3", "args":"**3", "scalePrefixes":true},
 
     {"name":"Litre", "symbol":"L", "args":" * r\"1e-3\"", "scalePrefixes":true},
 
-    {"name":"Lambda", "symbols":["λ", "lambda"], "args":"r\"1e-9\""},
+    {"name":"Lambda", "symbols":["λ"], "args":"r\"1e-9\""},
 
     {"name":"CubicInch"  , "symbols":["in3", "cu_in"] , "args":"LengthUnit.Inch.cubic"},
     {"name":"CubicFoot"  , "symbols":["ft3", "cu_ft"] , "args":"LengthUnit.Foot.cubic"},
@@ -42,33 +42,33 @@
     {"name":"FluidDram_US"  , "symbols":["fl_dr(US)"], "args":"r\"1/8\", Fluid_Ounce_US"},
 
     // US fluid
-    {"name":"Pint_US_fluid", "symbols":["pt(US_fl)"], "args":"r\"1/8\", Gallon_US_fluid"},
-    {"name":"Quart_US_fluid", "symbols":["qt(US_fl)"], "args":"r\"1/4\", Gallon_US_fluid"},
+    {"name":"Pint_US_fluid"  , "symbols":["pt(US_fl)"], "args":"r\"1/8\", Gallon_US_fluid"},
+    {"name":"Quart_US_fluid" , "symbols":["qt(US_fl)"], "args":"r\"1/4\", Gallon_US_fluid"},
     {"name":"Gallon_US_fluid", "symbols":["gal", "US_gal", "gal(US)", "gal(US_fl)"], "args":"231, CubicInch"},
     {"name":"Barrel_US_fluid", "symbols":["bl(US_fl)", "fl_bl", "fl_bl(US)"], "args":"r\"31.5\", Gallon_US_fluid"},
 
     // US dry
-    {"name":"Pint_US_dry", "symbols":["pt(US_dry)"], "args":"r\"1/8\", Gallon_US_dry"},
-    {"name":"Quart_US_dry", "symbols":["qt(US_dry)"], "args":"r\"1/4\", Gallon_US_dry"},
+    {"name":"Pint_US_dry"  , "symbols":["pt(US_dry)"] , "args":"r\"1/8\", Gallon_US_dry"},
+    {"name":"Quart_US_dry" , "symbols":["qt(US_dry)"] , "args":"r\"1/4\", Gallon_US_dry"},
     {"name":"Gallon_US_dry", "symbols":["gal(US_dry)"], "args":"r\"1/8\", Bushel_US_dry_level"},
-    {"name":"Peck_US_dry", "symbols":["pk(US_dry)"], "args":"r\"1/4\", Bushel_US_dry_level"},
-    {"name":"Bushel_US_dry", "symbols":["bu(US_dry)"], "args":"r\"5/4\", Bushel_US_dry_level"},
-    {"name":"Barrel_US_dry", "symbols":["bl(US_dry)"], "args":"105, Quart_US_dry"},
+    {"name":"Peck_US_dry"  , "symbols":["pk(US_dry)"] , "args":"r\"1/4\", Bushel_US_dry_level"},
+    {"name":"Bushel_US_dry", "symbols":["bu(US_dry)"] , "args":"r\"5/4\", Bushel_US_dry_level"},
+    {"name":"Barrel_US_dry", "symbols":["bl(US_dry)"] , "args":"105, Quart_US_dry"},
     {"name":"Bushel_US_dry_level", "symbols":["bu(US_lvl)"], "args":"r\"2150.42\", CubicInch"},
 
     // imperial
-    {"name":"Minim_imperial", "symbols":["minim(imp)"], "args":"r\"1/480\", Fluid_Ounce_imperial"},
-    {"name":"Fluid_Ounce_imperial", "symbols":["fl_oz(imp)"], "args":"r\"1/160\", Gallon_imperial"},
-    {"name":"Gill_imperial", "symbols":["gi(imp)", "nog"], "args":"5, Fluid_Ounce_imperial"},
-    {"name":"Pint_imperial", "symbols":["pt(imp)"], "args":"r\"1/8\", Gallon_imperial"},
-    {"name":"Quart_imperial", "symbols":["qt(imp)"], "args":"r\"1/4\", Gallon_imperial"},
-    {"name":"Gallon_imperial", "symbols":["imp_gal", "gal(imp)"], "args":"r\"4.54609\", Litre"},
-    {"name":"Peck_imperial", "symbols":["pk(imp)"], "args":"2, Gallon_imperial"},
-    {"name":"Bushel_imperial", "symbols":["bu(imp)"], "args":"8, Gallon_imperial"},
-    {"name":"Barrel_imperial", "symbols":["bl(imp)"], "args":"36, Gallon_imperial"},
-    {"name":"Hogshead_imperial", "symbols":["hhd(imp)"], "args":"2, Barrel_imperial"},
+    {"name":"Minim_imperial"      , "symbols":["minim(imp)"]         , "args":"r\"1/480\", Fluid_Ounce_imperial"},
+    {"name":"Fluid_Ounce_imperial", "symbols":["fl_oz(imp)"]         , "args":"r\"1/160\", Gallon_imperial"},
+    {"name":"Gill_imperial"       , "symbols":["gi(imp)", "nog"]     , "args":"5, Fluid_Ounce_imperial"},
+    {"name":"Pint_imperial"       , "symbols":["pt(imp)"]            , "args":"r\"1/8\", Gallon_imperial"},
+    {"name":"Quart_imperial"      , "symbols":["qt(imp)"]            , "args":"r\"1/4\", Gallon_imperial"},
+    {"name":"Gallon_imperial"     , "symbols":["imp_gal", "gal(imp)"], "args":"r\"4.54609\", Litre"},
+    {"name":"Peck_imperial"       , "symbols":["pk(imp)"]            , "args":"2, Gallon_imperial"},
+    {"name":"Bushel_imperial"     , "symbols":["bu(imp)"]            , "args":"8, Gallon_imperial"},
+    {"name":"Barrel_imperial"     , "symbols":["bl(imp)"]            , "args":"36, Gallon_imperial"},
+    {"name":"Hogshead_imperial"   , "symbols":["hhd(imp)"]           , "args":"2, Barrel_imperial"},
 
-    {"name":"FluidScruple", "symbols":["fl_s"], "args":"r\"1/24\", Fluid_Ounce_imperial"},
+    {"name":"FluidScruple"        , "symbols":["fl_s"]      , "args":"r\"1/24\", Fluid_Ounce_imperial"},
     {"name":"FluidDrachm_imperial", "symbols":["fl_dr(imp)"], "args":"r\"1/8\", Fluid_Ounce_imperial"},
 
     {"name":"Bucket", "symbols":["bkt"], "args":"4, Gallon_imperial"}

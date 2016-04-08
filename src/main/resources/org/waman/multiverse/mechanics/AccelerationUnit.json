@@ -11,8 +11,8 @@
   "quotients":[["LengthUnit", "TimeSquaredUnit"], ["VelocityUnit", "TimeUnit"]],
 
   "constants":[
-    {"name":"StandardGravity", "symbols":["g0"], "args":"r\"9.80665\""},
-    {"name":"Galileo", "symbols":["Gal"], "args":"LengthUnit.CentiMetre / TimeSquaredUnit.SecondSquared"},
+    {"name":"StandardGravity", "symbols":["g0"] , "args":"r\"9.80665\""},
+    {"name":"Galileo"        , "symbols":["Gal"], "args":"LengthUnit.CentiMetre / TimeSquaredUnit.SecondSquared"},
 
     {"name":"InchPerSecondSquared", "symbols":["ips2"], "args":"LengthUnit.Inch / TimeSquaredUnit.SecondSquared"},
     {"name":"FootPerSecondSquared", "symbols":["fps2"], "args":"LengthUnit.Foot / TimeSquaredUnit.SecondSquared"},

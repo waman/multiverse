@@ -40,7 +40,7 @@ object TimeUnit extends ConstantsDefined[TimeUnit]{
   case object FemtoSecond extends IntrinsicTimeUnit("FemtoSecond", Seq("fs"), r"1e-15")
   case object PicoSecond extends IntrinsicTimeUnit("PicoSecond", Seq("ps"), r"1e-12")
   case object NanoSecond extends IntrinsicTimeUnit("NanoSecond", Seq("ns"), r"1e-9")
-  case object MicroSecond extends IntrinsicTimeUnit("MicroSecond", Seq("microSecond", "μs"), r"1e-6")
+  case object MicroSecond extends IntrinsicTimeUnit("MicroSecond", Seq("μs", "mcs"), r"1e-6")
   case object MilliSecond extends IntrinsicTimeUnit("MilliSecond", Seq("ms"), r"1e-3")
   case object CentiSecond extends IntrinsicTimeUnit("CentiSecond", Seq("cs"), r"1e-2")
   case object DeciSecond extends IntrinsicTimeUnit("DeciSecond", Seq("ds"), r"1e-1")
@@ -59,22 +59,33 @@ object TimeUnit extends ConstantsDefined[TimeUnit]{
   case object Hour extends IntrinsicTimeUnit("Hour", Seq("h"), 60, Minute)
   case object Day extends IntrinsicTimeUnit("Day", Seq("d"), 24, Hour)
   case object Week extends IntrinsicTimeUnit("Week", Seq("wk"), 7, Day)
+  case object Month_Gregorian extends IntrinsicTimeUnit("Month_Gregorian", Seq("mo(Gregorian)"), 30.436875, Day)
   case object Year_Gregorian extends IntrinsicTimeUnit("Year_Gregorian", Seq("y", "yr", "a(Gregorian)", "y(Gregorian)", "yr(Gregorian)"), r"365.2425", Day)
   case object Svedberg extends IntrinsicTimeUnit("Svedberg", Seq("S"), r"1e-13")
   case object MilliDay extends IntrinsicTimeUnit("MilliDay", Seq("md"), r"24", Hour)
-  case object Decade extends IntrinsicTimeUnit("Decade", Seq("dec"), 10, Year_Gregorian)
-  case object Century extends IntrinsicTimeUnit("Century", Seq("century"), 100, Year_Gregorian)
+  case object Decade extends IntrinsicTimeUnit("Decade", Seq("dec", "dec(Gregorian)"), 10, Year_Gregorian)
+  case object Century extends IntrinsicTimeUnit("Century", Seq("century", "c(Gregorian)"), 100, Year_Gregorian)
   case object Jitty extends IntrinsicTimeUnit("Jitty", Seq("j"), r"1/60", Second)
   case object JittyAlternative extends IntrinsicTimeUnit("JittyAlternative", Seq("ja"), 1, CentiSecond)
   case object Fortnight extends IntrinsicTimeUnit("Fortnight", Seq("fn"), 2, Week)
   case object Day_sidereal extends IntrinsicTimeUnit("Day_sidereal", Seq("d(sidereal)"), 23.9344699, Hour) with NotExact
   case object Year_sidereal extends IntrinsicTimeUnit("Year_sidereal", Seq("y(sidereal)", "yr(sidereal)"), r"365.256363", Day) with NotExact
+  case object Decade_sidereal extends IntrinsicTimeUnit("Decade_sidereal", Seq("dec(sidereal)"), 10, Year_sidereal)
+  case object Century_sidereal extends IntrinsicTimeUnit("Century_sidereal", Seq("c(sidereal)"), 100, Year_sidereal)
+  case object Month_full extends IntrinsicTimeUnit("Month_full", Seq("mo(full)"), 30, Day)
+  case object Month_hollow extends IntrinsicTimeUnit("Month_hollow", Seq("mo(hollow)"), 29, Day)
+  case object Month_synodic extends IntrinsicTimeUnit("Month_synodic", Seq("mo(synodic)"), 29.530589, Day)
   case object Year_common extends IntrinsicTimeUnit("Year_common", Seq("a(common)", "y(common)", "yr(common)"), 365, Day)
   case object Year_leap extends IntrinsicTimeUnit("Year_leap", Seq("a(leap)", "y(leap)", "yr(leap)"), 366, Day)
   case object Year_Julian extends IntrinsicTimeUnit("Year_Julian", Seq("a(Julian)", "y(Julian)", "yr(Julian)"), r"365.25", Day)
   case object Year_tropical extends IntrinsicTimeUnit("Year_tropical", Seq("a(tropical)", "y(tropical)", "yr(tropical)"), r"365.256363", Day) with NotExact
+  case object Decade_Julian extends IntrinsicTimeUnit("Decade_Julian", Seq("dec(Julian)"), 10, Year_Julian)
+  case object Century_Julian extends IntrinsicTimeUnit("Century_Julian", Seq("c(Julian)"), 100, Year_Julian)
+  case object Decade_tropical extends IntrinsicTimeUnit("Decade_tropical", Seq("dec(tropical)"), 10, Year_tropical)
+  case object Century_tropical extends IntrinsicTimeUnit("Century_tropical", Seq("c(tropical)"), 100, Year_tropical)
+  case object PlanckTime extends IntrinsicTimeUnit("PlanckTime", Seq("t_p"), r"5.3910632e-44") with NotExact
 
-  override lazy val values = Seq(YoctoSecond, ZeptoSecond, AttoSecond, FemtoSecond, PicoSecond, NanoSecond, MicroSecond, MilliSecond, CentiSecond, DeciSecond, Second, DecaSecond, HectoSecond, KiloSecond, MegaSecond, GigaSecond, TeraSecond, PetaSecond, ExaSecond, ZettaSecond, YottaSecond, Minute, Hour, Day, Week, Year_Gregorian, Svedberg, MilliDay, Decade, Century, Jitty, JittyAlternative, Fortnight, Day_sidereal, Year_sidereal, Year_common, Year_leap, Year_Julian, Year_tropical)
+  override lazy val values = Seq(YoctoSecond, ZeptoSecond, AttoSecond, FemtoSecond, PicoSecond, NanoSecond, MicroSecond, MilliSecond, CentiSecond, DeciSecond, Second, DecaSecond, HectoSecond, KiloSecond, MegaSecond, GigaSecond, TeraSecond, PetaSecond, ExaSecond, ZettaSecond, YottaSecond, Minute, Hour, Day, Week, Month_Gregorian, Year_Gregorian, Svedberg, MilliDay, Decade, Century, Jitty, JittyAlternative, Fortnight, Day_sidereal, Year_sidereal, Decade_sidereal, Century_sidereal, Month_full, Month_hollow, Month_synodic, Year_common, Year_leap, Year_Julian, Year_tropical, Decade_Julian, Century_Julian, Decade_tropical, Century_tropical, PlanckTime)
 }
 
 trait MultiplicativeByTimeUnit[R]{
@@ -97,8 +108,8 @@ trait TimePostfixOps[A]{
   def fs : A = timePostfixOps(FemtoSecond)
   def ps : A = timePostfixOps(PicoSecond)
   def ns : A = timePostfixOps(NanoSecond)
-  def microSecond : A = timePostfixOps(MicroSecond)
   def μs : A = timePostfixOps(MicroSecond)
+  def mcs : A = timePostfixOps(MicroSecond)
   def ms : A = timePostfixOps(MilliSecond)
   def cs : A = timePostfixOps(CentiSecond)
   def ds : A = timePostfixOps(DeciSecond)
@@ -126,14 +137,18 @@ trait TimePostfixOps[A]{
   def j : A = timePostfixOps(Jitty)
   def ja : A = timePostfixOps(JittyAlternative)
   def fn : A = timePostfixOps(Fortnight)
+  def t_p : A = timePostfixOps(PlanckTime)
 
   import TimePostfixOps._
   import org.waman.multiverse.time.TimeContext
   import TimeContext._
 
+  def mo(c: TimeContext): A = timePostfixOps(_mo(c))
   def a(c: TimeContext): A = timePostfixOps(_a(c))
   def y(c: TimeContext): A = timePostfixOps(_y(c))
   def yr(c: TimeContext): A = timePostfixOps(_yr(c))
+  def dec(c: TimeContext): A = timePostfixOps(_dec(c))
+  def c(c: TimeContext): A = timePostfixOps(_c(c))
   def d(c: TimeContext): A = timePostfixOps(_d(c))
 }
 
@@ -143,20 +158,7 @@ object TimePostfixOps{
   import TimeContext._
 
 
-  lazy val _d : PartialFunction[TimeContext, TimeUnit] = {
-    case Sidereal => Day_sidereal
-  }
-
   lazy val _y : PartialFunction[TimeContext, TimeUnit] = {
-    case GregorianCalendar => Year_Gregorian
-    case Sidereal => Year_sidereal
-    case CommonYear => Year_common
-    case LeapYear => Year_leap
-    case JulianCalendar => Year_Julian
-    case Tropical => Year_tropical
-  }
-
-  lazy val _yr : PartialFunction[TimeContext, TimeUnit] = {
     case GregorianCalendar => Year_Gregorian
     case Sidereal => Year_sidereal
     case CommonYear => Year_common
@@ -172,6 +174,40 @@ object TimePostfixOps{
     case JulianCalendar => Year_Julian
     case Tropical => Year_tropical
   }
+
+  lazy val _mo : PartialFunction[TimeContext, TimeUnit] = {
+    case GregorianCalendar => Month_Gregorian
+    case FullMonth => Month_full
+    case HollowMonth => Month_hollow
+    case Synodic => Month_synodic
+  }
+
+  lazy val _c : PartialFunction[TimeContext, TimeUnit] = {
+    case GregorianCalendar => Century
+    case Sidereal => Century_sidereal
+    case JulianCalendar => Century_Julian
+    case Tropical => Century_tropical
+  }
+
+  lazy val _dec : PartialFunction[TimeContext, TimeUnit] = {
+    case GregorianCalendar => Decade
+    case Sidereal => Decade_sidereal
+    case JulianCalendar => Decade_Julian
+    case Tropical => Decade_tropical
+  }
+
+  lazy val _yr : PartialFunction[TimeContext, TimeUnit] = {
+    case GregorianCalendar => Year_Gregorian
+    case Sidereal => Year_sidereal
+    case CommonYear => Year_common
+    case LeapYear => Year_leap
+    case JulianCalendar => Year_Julian
+    case Tropical => Year_tropical
+  }
+
+  lazy val _d : PartialFunction[TimeContext, TimeUnit] = {
+    case Sidereal => Day_sidereal
+  }
 }
 
 trait TimeDot[A]{
@@ -185,8 +221,8 @@ trait TimeDot[A]{
   def fs(dot: Dot): A = timeDot(FemtoSecond)
   def ps(dot: Dot): A = timeDot(PicoSecond)
   def ns(dot: Dot): A = timeDot(NanoSecond)
-  def microSecond(dot: Dot): A = timeDot(MicroSecond)
   def μs(dot: Dot): A = timeDot(MicroSecond)
+  def mcs(dot: Dot): A = timeDot(MicroSecond)
   def ms(dot: Dot): A = timeDot(MilliSecond)
   def cs(dot: Dot): A = timeDot(CentiSecond)
   def ds(dot: Dot): A = timeDot(DeciSecond)
@@ -214,6 +250,7 @@ trait TimeDot[A]{
   def j(dot: Dot): A = timeDot(Jitty)
   def ja(dot: Dot): A = timeDot(JittyAlternative)
   def fn(dot: Dot): A = timeDot(Fortnight)
+  def t_p(dot: Dot): A = timeDot(PlanckTime)
 }
 
 trait TimePer[A]{
@@ -227,8 +264,8 @@ trait TimePer[A]{
   def fs(per: Per): A = timePer(FemtoSecond)
   def ps(per: Per): A = timePer(PicoSecond)
   def ns(per: Per): A = timePer(NanoSecond)
-  def microSecond(per: Per): A = timePer(MicroSecond)
   def μs(per: Per): A = timePer(MicroSecond)
+  def mcs(per: Per): A = timePer(MicroSecond)
   def ms(per: Per): A = timePer(MilliSecond)
   def cs(per: Per): A = timePer(CentiSecond)
   def ds(per: Per): A = timePer(DeciSecond)
@@ -256,6 +293,7 @@ trait TimePer[A]{
   def j(per: Per): A = timePer(Jitty)
   def ja(per: Per): A = timePer(JittyAlternative)
   def fn(per: Per): A = timePer(Fortnight)
+  def t_p(per: Per): A = timePer(PlanckTime)
 }
 
 trait PredefinedTimeUnit extends TimePostfixOps[TimeUnit]{

@@ -5,6 +5,7 @@
   "quotients":[["VoltageUnit", "CurrentUnit"]],
 
   "constants":[
-    {"name":"Ohm", "symbol":"Ω", "args":"", "scalePrefixes":true}
+    {"name":"Ohm"  , "symbol":"Ω"     , "args":"", "scalePrefixes":true},
+    {"name":"Abohm", "symbols":["abΩ"], "args":"r\"1e-9\""}
   ]
 }

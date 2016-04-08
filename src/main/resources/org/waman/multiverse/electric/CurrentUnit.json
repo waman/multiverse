@@ -11,6 +11,7 @@
   "quotients":[["ChargeUnit", "TimeUnit"]],
 
   "constants":[
-    {"name":"Ampere", "symbol":"A", "args":"", "scalePrefixes":true}
+    {"name":"Ampere"  , "symbol":"A"       , "args":"", "scalePrefixes":true},
+    {"name":"Abampere", "symbols":["abamp"], "args":"10"}
   ]
 }

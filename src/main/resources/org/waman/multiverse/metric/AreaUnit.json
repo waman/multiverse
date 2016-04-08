@@ -15,7 +15,7 @@
   "context":"org.waman.multiverse.metric.MetricContext",
 
   "constants":[
-    {"name":"SquareMetre", "symbol":"m2", "args":"**2", "scalePrefixes":true},
+    {"name":"Square$Metre", "symbol":"m2", "args":"**2", "scalePrefixes":true},
 
     {"name":"Are"    , "symbols":["a"] , "args":"r\"1e2\""},
     {"name":"Hectare", "symbols":["ha"], "args":"r\"1e4\""},

@@ -34,7 +34,7 @@ object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
   case object FemtoOhm extends IntrinsicResistanceUnit("FemtoOhm", Seq("fΩ"), r"1e-15")
   case object PicoOhm extends IntrinsicResistanceUnit("PicoOhm", Seq("pΩ"), r"1e-12")
   case object NanoOhm extends IntrinsicResistanceUnit("NanoOhm", Seq("nΩ"), r"1e-9")
-  case object MicroOhm extends IntrinsicResistanceUnit("MicroOhm", Seq("microOhm", "microΩ", "μΩ"), r"1e-6")
+  case object MicroOhm extends IntrinsicResistanceUnit("MicroOhm", Seq("μΩ", "mcΩ"), r"1e-6")
   case object MilliOhm extends IntrinsicResistanceUnit("MilliOhm", Seq("mΩ"), r"1e-3")
   case object CentiOhm extends IntrinsicResistanceUnit("CentiOhm", Seq("cΩ"), r"1e-2")
   case object DeciOhm extends IntrinsicResistanceUnit("DeciOhm", Seq("dΩ"), r"1e-1")
@@ -49,8 +49,9 @@ object ResistanceUnit extends ConstantsDefined[ResistanceUnit]{
   case object ExaOhm extends IntrinsicResistanceUnit("ExaOhm", Seq("EΩ"), r"1e18")
   case object ZettaOhm extends IntrinsicResistanceUnit("ZettaOhm", Seq("ZΩ"), r"1e21")
   case object YottaOhm extends IntrinsicResistanceUnit("YottaOhm", Seq("YΩ"), r"1e24")
+  case object Abohm extends IntrinsicResistanceUnit("Abohm", Seq("abΩ"), r"1e-9")
 
-  override lazy val values = Seq(YoctoOhm, ZeptoOhm, AttoOhm, FemtoOhm, PicoOhm, NanoOhm, MicroOhm, MilliOhm, CentiOhm, DeciOhm, Ohm, DecaOhm, HectoOhm, KiloOhm, MegaOhm, GigaOhm, TeraOhm, PetaOhm, ExaOhm, ZettaOhm, YottaOhm)
+  override lazy val values = Seq(YoctoOhm, ZeptoOhm, AttoOhm, FemtoOhm, PicoOhm, NanoOhm, MicroOhm, MilliOhm, CentiOhm, DeciOhm, Ohm, DecaOhm, HectoOhm, KiloOhm, MegaOhm, GigaOhm, TeraOhm, PetaOhm, ExaOhm, ZettaOhm, YottaOhm, Abohm)
 
   // VoltageUnit / CurrentUnit -> Resistance
   private[ResistanceUnit]
@@ -85,9 +86,8 @@ trait ResistancePostfixOps[A]{
   def fΩ : A = resistancePostfixOps(FemtoOhm)
   def pΩ : A = resistancePostfixOps(PicoOhm)
   def nΩ : A = resistancePostfixOps(NanoOhm)
-  def microOhm : A = resistancePostfixOps(MicroOhm)
-  def microΩ : A = resistancePostfixOps(MicroOhm)
   def μΩ : A = resistancePostfixOps(MicroOhm)
+  def mcΩ : A = resistancePostfixOps(MicroOhm)
   def mΩ : A = resistancePostfixOps(MilliOhm)
   def cΩ : A = resistancePostfixOps(CentiOhm)
   def dΩ : A = resistancePostfixOps(DeciOhm)
@@ -102,6 +102,7 @@ trait ResistancePostfixOps[A]{
   def EΩ : A = resistancePostfixOps(ExaOhm)
   def ZΩ : A = resistancePostfixOps(ZettaOhm)
   def YΩ : A = resistancePostfixOps(YottaOhm)
+  def abΩ : A = resistancePostfixOps(Abohm)
 }
 
 trait ResistanceDot[A]{
@@ -115,9 +116,8 @@ trait ResistanceDot[A]{
   def fΩ(dot: Dot): A = resistanceDot(FemtoOhm)
   def pΩ(dot: Dot): A = resistanceDot(PicoOhm)
   def nΩ(dot: Dot): A = resistanceDot(NanoOhm)
-  def microOhm(dot: Dot): A = resistanceDot(MicroOhm)
-  def microΩ(dot: Dot): A = resistanceDot(MicroOhm)
   def μΩ(dot: Dot): A = resistanceDot(MicroOhm)
+  def mcΩ(dot: Dot): A = resistanceDot(MicroOhm)
   def mΩ(dot: Dot): A = resistanceDot(MilliOhm)
   def cΩ(dot: Dot): A = resistanceDot(CentiOhm)
   def dΩ(dot: Dot): A = resistanceDot(DeciOhm)
@@ -132,6 +132,7 @@ trait ResistanceDot[A]{
   def EΩ(dot: Dot): A = resistanceDot(ExaOhm)
   def ZΩ(dot: Dot): A = resistanceDot(ZettaOhm)
   def YΩ(dot: Dot): A = resistanceDot(YottaOhm)
+  def abΩ(dot: Dot): A = resistanceDot(Abohm)
 }
 
 trait ResistancePer[A]{
@@ -145,9 +146,8 @@ trait ResistancePer[A]{
   def fΩ(per: Per): A = resistancePer(FemtoOhm)
   def pΩ(per: Per): A = resistancePer(PicoOhm)
   def nΩ(per: Per): A = resistancePer(NanoOhm)
-  def microOhm(per: Per): A = resistancePer(MicroOhm)
-  def microΩ(per: Per): A = resistancePer(MicroOhm)
   def μΩ(per: Per): A = resistancePer(MicroOhm)
+  def mcΩ(per: Per): A = resistancePer(MicroOhm)
   def mΩ(per: Per): A = resistancePer(MilliOhm)
   def cΩ(per: Per): A = resistancePer(CentiOhm)
   def dΩ(per: Per): A = resistancePer(DeciOhm)
@@ -162,6 +162,7 @@ trait ResistancePer[A]{
   def EΩ(per: Per): A = resistancePer(ExaOhm)
   def ZΩ(per: Per): A = resistancePer(ZettaOhm)
   def YΩ(per: Per): A = resistancePer(YottaOhm)
+  def abΩ(per: Per): A = resistancePer(Abohm)
 }
 
 trait PredefinedResistanceUnit extends ResistancePostfixOps[ResistanceUnit]{

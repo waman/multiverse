@@ -1,0 +1,9 @@
+[
+  {"name":"InternationalOrganizationForStandardization", "symbol":"ISO"},
+  {"name":"InternationalTable", "symbol":"IT"},
+  {"name":"ThermoChemical", "symbol":"th"},
+  {"name":"Boiler", "symbol":"boiler"},
+  {"name":"Electrical", "symbol":"electrical"},
+  {"name":"Mechanical", "symbol":"mechanical"},
+  {"name":"Metric", "symbol":"metric"}
+]

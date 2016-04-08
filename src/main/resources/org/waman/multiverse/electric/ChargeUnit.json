@@ -4,7 +4,8 @@
     "org.waman.multiverse.time._",
     "org.waman.multiverse.mass._",
     "org.waman.multiverse.energy._",
-    "org.waman.multiverse.radiation._"
+    "org.waman.multiverse.radiation._",
+    "org.waman.multiverse.mechanics.VelocityUnit.SpeedOfLight"
   ],
 
   "baseUnit":"Coulomb",
@@ -16,8 +17,9 @@
   "products":[["CurrentUnit", "TimeUnit"]],
 
   "constants":[
-    {"name":"Coulomb", "symbol":"C", "args":"", "scalePrefixes":true},
-
-    {"name":"ElementaryCharge", "symbols":["e"], "args":"r\"1.602176620898e-19\"", "notExact":true}
+    {"name":"Coulomb"         , "symbol":"C"              , "args":"", "scalePrefixes":true},
+    {"name":"Abcoulomb"       , "symbols":["abC"]         , "args":"10"},
+    {"name":"Statcoulomb"     , "symbols":["statC", "esu"], "args":"r\"0.1\" / SpeedOfLight.unitInMetrePerSecond"},
+    {"name":"ElementaryCharge", "symbols":["e"]           , "args":"r\"1.602176620898e-19\"", "notExact":true}
   ]
 }

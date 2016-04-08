@@ -9,6 +9,6 @@
   "divisibles":[["AreaUnit", "LuminanceUnit"]],
 
   "constants":[
-    {"name":"Candela", "scalePrefixes":true, "symbol":"cd", "args":""}
+    {"name":"Candela", "symbol":"cd", "args":"", "scalePrefixes":true}
   ]
 }

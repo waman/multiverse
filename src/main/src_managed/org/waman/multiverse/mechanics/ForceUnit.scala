@@ -8,7 +8,8 @@ import org.waman.multiverse.metric._
 import org.waman.multiverse.time._
 import org.waman.multiverse.mass._
 import org.waman.multiverse.fluid._
-import org.waman.multiverse.mechanics.AccelerationUnit.StandardGravity
+import org.waman.multiverse.mechanics.AccelerationUnit._
+import org.waman.multiverse.mass.MassUnit._
 
 sealed trait ForceUnit extends PhysicalUnit[ForceUnit]
   with MultiplicativeByLengthUnit[TorqueUnit]
@@ -48,7 +49,7 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
   case object FemtoNewton extends IntrinsicForceUnit("FemtoNewton", Seq("fN"), r"1e-15")
   case object PicoNewton extends IntrinsicForceUnit("PicoNewton", Seq("pN"), r"1e-12")
   case object NanoNewton extends IntrinsicForceUnit("NanoNewton", Seq("nN"), r"1e-9")
-  case object MicroNewton extends IntrinsicForceUnit("MicroNewton", Seq("microNewton", "microN", "μN"), r"1e-6")
+  case object MicroNewton extends IntrinsicForceUnit("MicroNewton", Seq("μN", "mcN"), r"1e-6")
   case object MilliNewton extends IntrinsicForceUnit("MilliNewton", Seq("mN"), r"1e-3")
   case object CentiNewton extends IntrinsicForceUnit("CentiNewton", Seq("cN"), r"1e-2")
   case object DeciNewton extends IntrinsicForceUnit("DeciNewton", Seq("dN"), r"1e-1")
@@ -64,9 +65,17 @@ object ForceUnit extends ConstantsDefined[ForceUnit]{
   case object ZettaNewton extends IntrinsicForceUnit("ZettaNewton", Seq("ZN"), r"1e21")
   case object YottaNewton extends IntrinsicForceUnit("YottaNewton", Seq("YN"), r"1e24")
   case object Dyne extends IntrinsicForceUnit("Dyne", Seq("dyn"), r"1e-5")
-  case object KiloGramForce extends IntrinsicForceUnit("KiloGramForce", Seq("kgf", "kp"), StandardGravity.unitInMetrePerSecondSquared) with NotExact
+  case object KiloGramForce extends IntrinsicForceUnit("KiloGramForce", Seq("kgf", "kp", "Gf"), StandardGravity.unitInMetrePerSecondSquared) with NotExact
+  case object MilliGraveForce extends IntrinsicForceUnit("MilliGraveForce", Seq("mGf", "gf"), StandardGravity.unitInMetrePerSecondSquared / 1000) with NotExact
+  case object OunceForce extends IntrinsicForceUnit("OunceForce", Seq("ozf"), StandardGravity.unitInMetrePerSecondSquared * Ounce.unitInKiloGram)
+  case object PoundForce extends IntrinsicForceUnit("PoundForce", Seq("lbf"), StandardGravity.unitInMetrePerSecondSquared * Pound.unitInKiloGram)
+  case object Poundal extends IntrinsicForceUnit("Poundal", Seq("pdl"), Pound.unitInKiloGram * FootPerSecondSquared.unitInMetrePerSecondSquared)
+  case object KipForce extends IntrinsicForceUnit("KipForce", Seq("kipf", "klbf"), StandardGravity.unitInMetrePerSecondSquared * 1000 * Pound.unitInKiloGram)
+  case object ShortTonForce extends IntrinsicForceUnit("ShortTonForce", Seq("sh_tnf"), StandardGravity.unitInMetrePerSecondSquared * ShortTon.unitInKiloGram)
+  case object LongTonForce extends IntrinsicForceUnit("LongTonForce", Seq("tnf", "long_tnf"), StandardGravity.unitInMetrePerSecondSquared * LongTon.unitInKiloGram)
+  case object Sthene extends IntrinsicForceUnit("Sthene", Seq("sn"), r"1e3")
 
-  override lazy val values = Seq(YoctoNewton, ZeptoNewton, AttoNewton, FemtoNewton, PicoNewton, NanoNewton, MicroNewton, MilliNewton, CentiNewton, DeciNewton, Newton, DecaNewton, HectoNewton, KiloNewton, MegaNewton, GigaNewton, TeraNewton, PetaNewton, ExaNewton, ZettaNewton, YottaNewton, Dyne, KiloGramForce)
+  override lazy val values = Seq(YoctoNewton, ZeptoNewton, AttoNewton, FemtoNewton, PicoNewton, NanoNewton, MicroNewton, MilliNewton, CentiNewton, DeciNewton, Newton, DecaNewton, HectoNewton, KiloNewton, MegaNewton, GigaNewton, TeraNewton, PetaNewton, ExaNewton, ZettaNewton, YottaNewton, Dyne, KiloGramForce, MilliGraveForce, OunceForce, PoundForce, Poundal, KipForce, ShortTonForce, LongTonForce, Sthene)
 
   // MassUnit * AccelerationUnit -> Force
   private[ForceUnit]
@@ -101,9 +110,8 @@ trait ForcePostfixOps[A]{
   def fN : A = forcePostfixOps(FemtoNewton)
   def pN : A = forcePostfixOps(PicoNewton)
   def nN : A = forcePostfixOps(NanoNewton)
-  def microNewton : A = forcePostfixOps(MicroNewton)
-  def microN : A = forcePostfixOps(MicroNewton)
   def μN : A = forcePostfixOps(MicroNewton)
+  def mcN : A = forcePostfixOps(MicroNewton)
   def mN : A = forcePostfixOps(MilliNewton)
   def cN : A = forcePostfixOps(CentiNewton)
   def dN : A = forcePostfixOps(DeciNewton)
@@ -121,6 +129,18 @@ trait ForcePostfixOps[A]{
   def dyn : A = forcePostfixOps(Dyne)
   def kgf : A = forcePostfixOps(KiloGramForce)
   def kp : A = forcePostfixOps(KiloGramForce)
+  def Gf : A = forcePostfixOps(KiloGramForce)
+  def mGf : A = forcePostfixOps(MilliGraveForce)
+  def gf : A = forcePostfixOps(MilliGraveForce)
+  def ozf : A = forcePostfixOps(OunceForce)
+  def lbf : A = forcePostfixOps(PoundForce)
+  def pdl : A = forcePostfixOps(Poundal)
+  def kipf : A = forcePostfixOps(KipForce)
+  def klbf : A = forcePostfixOps(KipForce)
+  def sh_tnf : A = forcePostfixOps(ShortTonForce)
+  def tnf : A = forcePostfixOps(LongTonForce)
+  def long_tnf : A = forcePostfixOps(LongTonForce)
+  def sn : A = forcePostfixOps(Sthene)
 }
 
 trait ForceDot[A]{
@@ -134,9 +154,8 @@ trait ForceDot[A]{
   def fN(dot: Dot): A = forceDot(FemtoNewton)
   def pN(dot: Dot): A = forceDot(PicoNewton)
   def nN(dot: Dot): A = forceDot(NanoNewton)
-  def microNewton(dot: Dot): A = forceDot(MicroNewton)
-  def microN(dot: Dot): A = forceDot(MicroNewton)
   def μN(dot: Dot): A = forceDot(MicroNewton)
+  def mcN(dot: Dot): A = forceDot(MicroNewton)
   def mN(dot: Dot): A = forceDot(MilliNewton)
   def cN(dot: Dot): A = forceDot(CentiNewton)
   def dN(dot: Dot): A = forceDot(DeciNewton)
@@ -154,6 +173,18 @@ trait ForceDot[A]{
   def dyn(dot: Dot): A = forceDot(Dyne)
   def kgf(dot: Dot): A = forceDot(KiloGramForce)
   def kp(dot: Dot): A = forceDot(KiloGramForce)
+  def Gf(dot: Dot): A = forceDot(KiloGramForce)
+  def mGf(dot: Dot): A = forceDot(MilliGraveForce)
+  def gf(dot: Dot): A = forceDot(MilliGraveForce)
+  def ozf(dot: Dot): A = forceDot(OunceForce)
+  def lbf(dot: Dot): A = forceDot(PoundForce)
+  def pdl(dot: Dot): A = forceDot(Poundal)
+  def kipf(dot: Dot): A = forceDot(KipForce)
+  def klbf(dot: Dot): A = forceDot(KipForce)
+  def sh_tnf(dot: Dot): A = forceDot(ShortTonForce)
+  def tnf(dot: Dot): A = forceDot(LongTonForce)
+  def long_tnf(dot: Dot): A = forceDot(LongTonForce)
+  def sn(dot: Dot): A = forceDot(Sthene)
 }
 
 trait ForcePer[A]{
@@ -167,9 +198,8 @@ trait ForcePer[A]{
   def fN(per: Per): A = forcePer(FemtoNewton)
   def pN(per: Per): A = forcePer(PicoNewton)
   def nN(per: Per): A = forcePer(NanoNewton)
-  def microNewton(per: Per): A = forcePer(MicroNewton)
-  def microN(per: Per): A = forcePer(MicroNewton)
   def μN(per: Per): A = forcePer(MicroNewton)
+  def mcN(per: Per): A = forcePer(MicroNewton)
   def mN(per: Per): A = forcePer(MilliNewton)
   def cN(per: Per): A = forcePer(CentiNewton)
   def dN(per: Per): A = forcePer(DeciNewton)
@@ -187,6 +217,18 @@ trait ForcePer[A]{
   def dyn(per: Per): A = forcePer(Dyne)
   def kgf(per: Per): A = forcePer(KiloGramForce)
   def kp(per: Per): A = forcePer(KiloGramForce)
+  def Gf(per: Per): A = forcePer(KiloGramForce)
+  def mGf(per: Per): A = forcePer(MilliGraveForce)
+  def gf(per: Per): A = forcePer(MilliGraveForce)
+  def ozf(per: Per): A = forcePer(OunceForce)
+  def lbf(per: Per): A = forcePer(PoundForce)
+  def pdl(per: Per): A = forcePer(Poundal)
+  def kipf(per: Per): A = forcePer(KipForce)
+  def klbf(per: Per): A = forcePer(KipForce)
+  def sh_tnf(per: Per): A = forcePer(ShortTonForce)
+  def tnf(per: Per): A = forcePer(LongTonForce)
+  def long_tnf(per: Per): A = forcePer(LongTonForce)
+  def sn(per: Per): A = forcePer(Sthene)
 }
 
 trait PredefinedForceUnit extends ForcePostfixOps[ForceUnit]{

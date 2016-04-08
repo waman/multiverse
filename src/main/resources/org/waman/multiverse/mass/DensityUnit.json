@@ -6,5 +6,10 @@
   "baseUnit":"MassUnit.KiloGram / VolumeUnit.CubicMetre",
   "baseUnitAccessor":"unitInKiloGramPerCubicMetre",
 
-  "quotients":[["MassUnit", "VolumeUnit"]]
+  "quotients":[["MassUnit", "VolumeUnit"]],
+
+  "constants":[
+    {"name":"Water", "symbols":["H2O"], "args":"r\"999.972\""},
+    {"name":"Mercury", "symbols":["Hg"], "args":"r\"13.5951\""}
+  ]
 }

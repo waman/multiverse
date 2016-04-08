@@ -2,7 +2,8 @@
   "imports":[
     "org.waman.multiverse.time._",
     "org.waman.multiverse.energy._",
-    "org.waman.multiverse.magnetic._"
+    "org.waman.multiverse.magnetic._",
+    "org.waman.multiverse.mechanics.VelocityUnit.SpeedOfLight"
   ],
 
   "baseUnit":"Volt",
@@ -14,6 +15,8 @@
   "quotients":[["PowerUnit", "CurrentUnit"]],
 
   "constants":[
-    {"name":"Volt", "symbol":"V", "args":"", "scalePrefixes":true}
+    {"name":"Volt", "symbol":"V", "args":"", "scalePrefixes":true},
+    {"name":"statVolt", "symbols":["statV"], "args":"SpeedOfLight.unitInMetrePerSecond / r\"1e6\""},
+    {"name":"Abvolt", "symbols":["abV"], "args":"r\"1e-8\""}
   ]
 }

@@ -1,6 +1,8 @@
 {
   "imports":[
-    "org.waman.multiverse.metric._"
+    "org.waman.multiverse.metric._",
+    "org.waman.multiverse.electric.ChargeUnit._",
+    "org.waman.multiverse.metric.LengthUnit.AtomicUnitOfLength"
   ],
 
   "baseUnit":"ChargeUnit.Coulomb * LengthUnit.Metre",
@@ -9,6 +11,8 @@
   "products":[["ChargeUnit", "LengthUnit"]],
 
   "constants":[
-    {"name":"Debye", "symbols":["D"], "args":"r\"340\""}
+    {"name":"Debye", "symbols":["D"], "args":"r\"1e-20\" * Statcoulomb.unitInCoulomb"},
+    {"name":"AtomicUnitOfElectricDipoleMoment", "symbols":["ea0"],
+      "args":"ElementaryCharge.unitInCoulomb * AtomicUnitOfLength.unitInMetre"}
   ]
 }

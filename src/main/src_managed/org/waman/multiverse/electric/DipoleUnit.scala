@@ -5,6 +5,8 @@ import spire.implicits._
 import org.waman.multiverse._
 
 import org.waman.multiverse.metric._
+import org.waman.multiverse.electric.ChargeUnit._
+import org.waman.multiverse.metric.LengthUnit.AtomicUnitOfLength
 
 sealed trait DipoleUnit extends PhysicalUnit[DipoleUnit]{
 
@@ -29,9 +31,10 @@ object DipoleUnit extends ConstantsDefined[DipoleUnit]{
   }
 
 
-  case object Debye extends IntrinsicDipoleUnit("Debye", Seq("D"), r"340")
+  case object Debye extends IntrinsicDipoleUnit("Debye", Seq("D"), r"1e-20" * Statcoulomb.unitInCoulomb)
+  case object AtomicUnitOfElectricDipoleMoment extends IntrinsicDipoleUnit("AtomicUnitOfElectricDipoleMoment", Seq("ea0"), ElementaryCharge.unitInCoulomb * AtomicUnitOfLength.unitInMetre)
 
-  override lazy val values = Seq(Debye)
+  override lazy val values = Seq(Debye, AtomicUnitOfElectricDipoleMoment)
 
   // ChargeUnit * LengthUnit -> Dipole
   private[DipoleUnit]
@@ -61,6 +64,7 @@ trait DipolePostfixOps[A]{
 
 
   def D : A = dipolePostfixOps(Debye)
+  def ea0 : A = dipolePostfixOps(AtomicUnitOfElectricDipoleMoment)
 }
 
 trait DipoleDot[A]{
@@ -69,6 +73,7 @@ trait DipoleDot[A]{
   protected def dipoleDot(unit: DipoleUnit): A
 
   def D(dot: Dot): A = dipoleDot(Debye)
+  def ea0(dot: Dot): A = dipoleDot(AtomicUnitOfElectricDipoleMoment)
 }
 
 trait DipolePer[A]{
@@ -77,6 +82,7 @@ trait DipolePer[A]{
   protected def dipolePer(unit: DipoleUnit): A
 
   def D(per: Per): A = dipolePer(Debye)
+  def ea0(per: Per): A = dipolePer(AtomicUnitOfElectricDipoleMoment)
 }
 
 trait PredefinedDipoleUnit extends DipolePostfixOps[DipoleUnit]{

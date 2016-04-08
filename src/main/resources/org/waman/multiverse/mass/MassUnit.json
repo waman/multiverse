@@ -14,7 +14,7 @@
     {"name":"Gram"   , "symbol":"g"    , "args":" * r\"1e-3\"", "scalePrefixes":true},
     {"name":"Grave"  , "symbols":["gv"], "args":"1, KiloGram"},
     {"name":"Tonne"  , "symbols":["t"] , "args":"1000"},
-    {"name":"Gamma"  , "symbols":["γ", "gamma"], "args":"1, MicroGram"},
+    {"name":"Gamma"  , "symbols":["γ"] , "args":"1, MicroGram"},
     {"name":"Quintal", "symbols":["q"] , "args":"100, KiloGram"},
 
     // microscopic

@@ -15,6 +15,6 @@
       {"name":"Skot"       , "symbols":["sk"]  , "args":"r\"1e-3\" / Real.pi"},
       {"name":"Bril"       , "symbols":["bril"], "args":"r\"1e-7\" / Real.pi"},
       {"name":"FootLambert", "symbols":["fLb"] ,
-        "args": "r\"1\" / Real.pi, LuminousIntensityUnit.Candela / AreaUnit.SquareFoot"}
+        "args":"1 / Real.pi, LuminousIntensityUnit.Candela / AreaUnit.SquareFoot"}
     ]
 }

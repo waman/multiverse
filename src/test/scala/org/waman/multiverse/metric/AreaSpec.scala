@@ -34,8 +34,6 @@ class AreaSpec
           (Seq(3.0.fm2, 3.0 fm2, 3.0 (fm2)), 3e-30),
           (Seq(3.0.pm2, 3.0 pm2, 3.0 (pm2)), 3e-24),
           (Seq(3.0.nm2, 3.0 nm2, 3.0 (nm2)), 3e-18),
-          (Seq(3.0.microSquareMetre, 3.0 microSquareMetre, 3.0 (microSquareMetre)), 3e-12),
-          (Seq(3.0.microM2, 3.0 microM2, 3.0 (microM2)), 3e-12),
           (Seq(3.0.μm2, 3.0 μm2, 3.0 (μm2)), 3e-12),
           (Seq(3.0.mm2, 3.0 mm2, 3.0 (mm2)), 3e-6),
           (Seq(3.0.cm2, 3.0 cm2, 3.0 (cm2)), 3e-4),
@@ -61,7 +59,6 @@ class AreaSpec
           (Seq(3.0.fb, 3.0 fb, 3.0 (fb)), 3e-43),
           (Seq(3.0.pb, 3.0 pb, 3.0 (pb)), 3e-40),
           (Seq(3.0.nb, 3.0 nb, 3.0 (nb)), 3e-37),
-          (Seq(3.0.microBarn, 3.0 microBarn, 3.0 (microBarn)), 3e-34),
           (Seq(3.0.μb, 3.0 μb, 3.0 (μb)), 3e-34),
           (Seq(3.0.mb, 3.0 mb, 3.0 (mb)), 3e-31),
           (Seq(3.0.b, 3.0 b, 3.0 (b)), 3e-28),
@@ -97,15 +94,15 @@ class AreaSpec
           (Seq(3.0.ac, 3.0 ac, 3.0 (ac)), 3.0 * 4046.8564224),
           (Seq(3.0.ro, 3.0 ro, 3.0 (ro)), 3.0 * 1011.7141056),
 
-          (Seq(3.0.sq_li(US), 3.0 sq_li(US), 3.0 (sq_li(US))), 3.0 * Math.pow(0.66 * usFoot, 2)),
-          (Seq(3.0.sq_lnk(US), 3.0 sq_lnk (US), 3.0 (sq_lnk(US))), 3.0 * Math.pow(0.66 * usFoot, 2)),
-          (Seq(3.0.sq_ft(US), 3.0 sq_ft (US), 3.0 (sq_ft(US))), 3.0 * Math.pow(usFoot, 2)),
-          (Seq(3.0.sq_ch(US), 3.0 sq_ch (US), 3.0 (sq_ch(US))), 3.0 * Math.pow(66 * usFoot, 2)),
-          (Seq(3.0.sq_mi(US), 3.0 sq_mi (US), 3.0 (sq_mi(US))), 3.0 * Math.pow(5280 * usFoot, 2)),
-          (Seq(3.0.ac(US), 3.0 ac (US), 3.0 (ac(US))), 3.0 * 10.0 * Math.pow(66 * usFoot, 2)),
+          (Seq(3.0.sq_li(US) , 3.0 sq_li(US) , 3.0 (sq_li(US))) , 3.0 * Math.pow(0.66 * usFoot, 2)),
+          (Seq(3.0.sq_lnk(US), 3.0 sq_lnk(US), 3.0 (sq_lnk(US))), 3.0 * Math.pow(0.66 * usFoot, 2)),
+          (Seq(3.0.sq_ft(US) , 3.0 sq_ft(US) , 3.0 (sq_ft(US))) , 3.0 * Math.pow(usFoot, 2)),
+          (Seq(3.0.sq_ch(US) , 3.0 sq_ch(US) , 3.0 (sq_ch(US))) , 3.0 * Math.pow(66 * usFoot, 2)),
+          (Seq(3.0.sq_mi(US) , 3.0 sq_mi(US) , 3.0 (sq_mi(US))) , 3.0 * Math.pow(5280 * usFoot, 2)),
+          (Seq(3.0.ac(US)    , 3.0 ac (US)   , 3.0 (ac(US)))    , 3.0 * 10.0 * Math.pow(66 * usFoot, 2)),
 
           (Seq(3.0.circ_mil, 3.0 circ_mil, 3.0 (circ_mil)), 3.0 * Math.PI * Math.pow(2.54e-5, 2) / 4.0),
-          (Seq(3.0.circ_in, 3.0 circ_in, 3.0 (circ_in)), 3.0 * Math.PI * Math.pow(0.0254, 2) / 4.0),
+          (Seq(3.0.circ_in , 3.0 circ_in , 3.0 (circ_in)) , 3.0 * Math.PI * Math.pow(0.0254, 2) / 4.0),
 
           (Seq(3.0.bd, 3.0 bd, 3.0 (bd)), 3.0 * 7.74192e-3)
         )
@@ -131,8 +128,6 @@ class AreaSpec
           (Seq(q.fm2, q fm2, q(fm2)), 3e30),
           (Seq(q.pm2, q pm2, q(pm2)), 3e24),
           (Seq(q.nm2, q nm2, q(nm2)), 3e18),
-          (Seq(q.microSquareMetre, q microSquareMetre, q(microSquareMetre)), 3e12),
-          (Seq(q.microM2, q microM2, q(microM2)), 3e12),
           (Seq(q.μm2, q μm2, q(μm2)), 3e12),
           (Seq(q.mm2, q mm2, q(mm2)), 3e6),
           (Seq(q.cm2, q cm2, q(cm2)), 3e4),
@@ -193,15 +188,15 @@ class AreaSpec
           (Seq(q.ac, q ac, q(ac)), 3.0 / 4046.8564224),
           (Seq(q.ro, q ro, q(ro)), 3.0 / 1011.7141056),
 
-          (Seq(q.sq_li(US), q sq_li (US), q(sq_li(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
-          (Seq(q.sq_lnk(US), q sq_lnk (US), q(sq_lnk(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
-          (Seq(q.sq_ft(US), q sq_ft (US), q(sq_ft(US))), 3.0 / Math.pow(usFoot, 2)),
-          (Seq(q.sq_ch(US), q sq_ch (US), q(sq_ch(US))), 3.0 / Math.pow(66 * usFoot, 2)),
-          (Seq(q.sq_mi(US), q sq_mi (US), q(sq_mi(US))), 3.0 / Math.pow(5280 * usFoot, 2)),
-          (Seq(q.ac(US), q ac (US), q(ac(US))), 3.0 / (10.0 * Math.pow(66 * usFoot, 2))),
+          (Seq(q.sq_li(US) , q sq_li(US) , q(sq_li(US))) , 3.0 / Math.pow(0.66 * usFoot, 2)),
+          (Seq(q.sq_lnk(US), q sq_lnk(US), q(sq_lnk(US))), 3.0 / Math.pow(0.66 * usFoot, 2)),
+          (Seq(q.sq_ft(US) , q sq_ft(US) , q(sq_ft(US))) , 3.0 / Math.pow(usFoot, 2)),
+          (Seq(q.sq_ch(US) , q sq_ch(US) , q(sq_ch(US))) , 3.0 / Math.pow(66 * usFoot, 2)),
+          (Seq(q.sq_mi(US) , q sq_mi(US) , q(sq_mi(US))) , 3.0 / Math.pow(5280 * usFoot, 2)),
+          (Seq(q.ac(US)    , q ac (US)   , q(ac(US)))    , 3.0 / (10.0 * Math.pow(66 * usFoot, 2))),
 
           (Seq(q.circ_mil, q circ_mil, q(circ_mil)), 3.0 * 4.0 / (Math.PI * Math.pow(2.54e-5, 2))),
-          (Seq(q.circ_in, q circ_in, q(circ_in)), 3.0 * 4.0 / (Math.PI * Math.pow(0.0254, 2))),
+          (Seq(q.circ_in , q circ_in , q(circ_in)) , 3.0 * 4.0 / (Math.PI * Math.pow(0.0254, 2))),
 
           (Seq(q.bd, q bd, q(bd)), 3.0 / 7.74192e-3)
         )

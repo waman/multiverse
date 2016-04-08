@@ -20,13 +20,13 @@
     {"name":"Metre", "symbol":"m", "args":"", "scalePrefixes":true},
 
     // microscopic
-    {"name":"Micron"            , "symbols":["µ", "micron"]  , "args":"r\"1e-6\""},
-    {"name":"Angstrom"          , "symbols":["Å", "angstrom"], "args":"r\"1e-10\""},
-    {"name":"AtomicUnitOfLength", "symbols":["a0"]           , "args":"r\"5.291772109217e-11\"", "notExact":true},
-    {"name":"XUnit"             , "symbols":["xu"]           , "args":"r\"1.0021e-13\"", "notExact":true},
-    {"name":"XUnit_CuKAlpha1"   , "symbols":["xu(CuKα1)"]    , "args":"r\"1.0020769928e-13\"", "notExact":true},
-    {"name":"XUnit_MoKAlpha1"   , "symbols":["xu(MoKα1)"]    , "args":"r\"1.0020995553e-13\"", "notExact":true},
-    {"name":"PlanckLength"      , "symbols":["lp", "l_p"]    , "args":"r\"1.61624e-35\"", "notExact":true},
+    {"name":"Micron"            , "symbols":["µ"]        , "args":"r\"1e-6\""},
+    {"name":"Angstrom"          , "symbols":["Å"]        , "args":"r\"1e-10\""},
+    {"name":"AtomicUnitOfLength", "symbols":["a0"]       , "args":"r\"5.291772109217e-11\"", "notExact":true},
+    {"name":"XUnit"             , "symbols":["xu"]       , "args":"r\"1.0021e-13\""        , "notExact":true},
+    {"name":"XUnit_CuKAlpha1"   , "symbols":["xu(CuKα1)"], "args":"r\"1.0020769928e-13\""  , "notExact":true},
+    {"name":"XUnit_MoKAlpha1"   , "symbols":["xu(MoKα1)"], "args":"r\"1.0020995553e-13\""  , "notExact":true},
+    {"name":"PlanckLength"      , "symbols":["lp", "l_p"], "args":"r\"1.61624e-35\""       , "notExact":true},
 
     // astronomy
     {"name":"AstronomicalUnit", "symbols":["au"], "args":"r\"149597870700\""},

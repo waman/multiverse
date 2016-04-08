@@ -27,9 +27,6 @@ class MassSpec
         (Seq(3.0.fg, 3.0 fg, 3.0 (fg)), 3e-18),
         (Seq(3.0.pg, 3.0 pg, 3.0 (pg)), 3e-15),
         (Seq(3.0.ng, 3.0 ng, 3.0 (ng)), 3e-12),
-        (Seq(3.0.microGram, 3.0 microGram, 3.0 (microGram)), 3e-9),
-//        (Seq(3.0.microgram, 3.0 microgram, 3.0 (microgram)), 3e-9),
-//        (Seq(3.0.mcg, 3.0 mcg, 3.0 (mcg)), 3e-9),
         (Seq(3.0.μg, 3.0 μg, 3.0 (μg)), 3e-9),
         (Seq(3.0.mg, 3.0 mg, 3.0 (mg)), 3e-6),
         (Seq(3.0.cg, 3.0 cg, 3.0 (cg)), 3e-5),
@@ -44,7 +41,9 @@ class MassSpec
         (Seq(3.0.Pg, 3.0 Pg, 3.0 (Pg)), 3e12),
         (Seq(3.0.Eg, 3.0 Eg, 3.0 (Eg)), 3e15),
         (Seq(3.0.Zg, 3.0 Zg, 3.0 (Zg)), 3e18),
-        (Seq(3.0.Yg, 3.0 Yg, 3.0 (Yg)), 3e21)
+        (Seq(3.0.Yg, 3.0 Yg, 3.0 (Yg)), 3e21),
+
+        (Seq(3.0.mcg, 3.0 mcg, 3.0 (mcg)), 3e-9)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Mass[Double]], expected: Double) =>
@@ -67,9 +66,6 @@ class MassSpec
         (Seq(q.fg, q fg, q (fg)), 3e18),
         (Seq(q.pg, q pg, q (pg)), 3e15),
         (Seq(q.ng, q ng, q (ng)), 3e12),
-        (Seq(q.microGram, q microGram, q (microGram)), 3e9),
-//        (Seq(q.microgram, q microgram, q (microgram)), 3e9),
-//        (Seq(q.mcg, q mcg, q (mcg)), 3e9),
         (Seq(q.μg, q μg, q (μg)), 3e9),
         (Seq(q.mg, q mg, q (mg)), 3e6),
         (Seq(q.cg, q cg, q (cg)), 3e5),
@@ -84,7 +80,9 @@ class MassSpec
         (Seq(q.Pg, q Pg, q (Pg)), 3e-12),
         (Seq(q.Eg, q Eg, q (Eg)), 3e-15),
         (Seq(q.Zg, q Zg, q (Zg)), 3e-18),
-        (Seq(q.Yg, q Yg, q (Yg)), 3e-21)
+        (Seq(q.Yg, q Yg, q (Yg)), 3e-21),
+
+        (Seq(q.mcg, q mcg, q (mcg)), 3e9)
       )
     __Verify__
     forAll(conversions){ (suts: Seq[Double], expected: Double) =>

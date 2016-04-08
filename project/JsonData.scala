@@ -51,6 +51,7 @@ case class Constant
   notExact: Boolean,
   mixed: String
 ){
+  import GenerationUtil._
 
   def generateCanonicalConstants: Array[CanonicalConstant] =
     if(symbols != null) {
@@ -58,22 +59,21 @@ case class Constant
     }else {
       val excludes: Array[String] = if (excludePrefixes != null) excludePrefixes else Array[String]()
       GenerationUtil.scalePrefixes.filterNot(sp => excludes.contains(sp.prefix)).map { sp =>
-        val ss: Array[String] =
+        val canonicalName =
+          if(name.contains("$")) name.replace("$", sp.name)
+          else sp.name + name
+
+        val canonicalSymbols: Array[String] =
           if (sp.name == "Micro") {
-            if (symbol.length == 1 && symbol.head.isLower)
-              Array("micro" + name, sp.prefix + symbol)
-            // MicroMetre => Array("microMetre", "μm")
-            else
-              Array("micro" + name, "micro" + headToUpper(symbol), sp.prefix + symbol)
-            // MicroMetre => Array("microGauss", "microG", "μG")
+            Array(sp.prefix + symbol, "mc" + symbol)
+              // MicroMetre => Array("μm", "mcm")
           } else {
             Array(sp.prefix + symbol)
           }
-        CanonicalConstant(sp.name + name, ss, s"""r"${sp.scale}"$args""", notExact, mixed)
+
+        CanonicalConstant(canonicalName, canonicalSymbols, s"""r"${sp.scale}"$args""", notExact, mixed)
       }.toArray
     }
-
-  private def headToUpper(s: String) = s.charAt(0).toUpper.toString + s.substring(1)
 }
 
 case class CanonicalConstant
@@ -122,4 +122,5 @@ object GenerationUtil{
 
   // String
   def headToLower(s: String) = s.charAt(0).toLower.toString + s.substring(1)
+  def headToUpper(s: String) = s.charAt(0).toUpper.toString + s.substring(1)
 }

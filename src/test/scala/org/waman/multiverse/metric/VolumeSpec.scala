@@ -29,8 +29,6 @@ class VolumeSpec
           (Seq(3.0.fm3, 3.0 fm3, 3.0 (fm3)), 3e-45),
           (Seq(3.0.pm3, 3.0 pm3, 3.0 (pm3)), 3e-36),
           (Seq(3.0.nm3, 3.0 nm3, 3.0 (nm3)), 3e-27),
-          (Seq(3.0.microCubicMetre, 3.0 microCubicMetre, 3.0 (microCubicMetre)), 3e-18),
-          (Seq(3.0.microM3, 3.0 microM3, 3.0 (microM3)), 3e-18),
           (Seq(3.0.μm3, 3.0 μm3, 3.0 (μm3)), 3e-18),
           (Seq(3.0.mm3, 3.0 mm3, 3.0 (mm3)), 3e-9),
           (Seq(3.0.cm3, 3.0 cm3, 3.0 (cm3)), 3e-6),
@@ -53,8 +51,6 @@ class VolumeSpec
           (Seq(3.0.fL, 3.0 fL, 3.0 (fL)), 3e-18),
           (Seq(3.0.pL, 3.0 pL, 3.0 (pL)), 3e-15),
           (Seq(3.0.nL, 3.0 nL, 3.0 (nL)), 3e-12),
-          (Seq(3.0.microLitre, 3.0 microLitre, 3.0 (microLitre)), 3e-9),
-          (Seq(3.0.microL, 3.0 microL, 3.0 (microL)), 3e-9),
           (Seq(3.0.μL, 3.0 μL, 3.0 (μL)), 3e-9),
           (Seq(3.0.mL, 3.0 mL, 3.0 (mL)), 3e-6),
           (Seq(3.0.cL, 3.0 cL, 3.0 (cL)), 3e-5),
@@ -71,7 +67,6 @@ class VolumeSpec
           (Seq(3.0.ZL, 3.0 ZL, 3.0 (ZL)), 3e18),
           (Seq(3.0.YL, 3.0 YL, 3.0 (YL)), 3e21),
 
-          (Seq(3.0.lambda, 3.0 lambda, 3.0 (lambda)), 3e-9),
           (Seq(3.0.λ, 3.0 λ, 3.0 (λ)), 3e-9),
 
           (Seq(3.0.in3, 3.0 in3, 3.0 (in3)), 3.0 * 16.387064e-6),
@@ -160,8 +155,6 @@ class VolumeSpec
           (Seq(q.fm3, q fm3, q(fm3)), 3e45),
           (Seq(q.pm3, q pm3, q(pm3)), 3e36),
           (Seq(q.nm3, q nm3, q(nm3)), 3e27),
-          (Seq(q.microCubicMetre, q microCubicMetre, q(microCubicMetre)), 3e18),
-          (Seq(q.microM3, q microM3, q(microM3)), 3e18),
           (Seq(q.μm3, q μm3, q(μm3)), 3e18),
           (Seq(q.mm3, q mm3, q(mm3)), 3e9),
           (Seq(q.cm3, q cm3, q(cm3)), 3e6),
@@ -184,8 +177,6 @@ class VolumeSpec
           (Seq(q.fL, q fL, q(fL)), 3e18),
           (Seq(q.pL, q pL, q(pL)), 3e15),
           (Seq(q.nL, q nL, q(nL)), 3e12),
-          (Seq(q.microLitre, q microLitre, q(microLitre)), 3e9),
-          (Seq(q.microL, q microL, q(microL)), 3e9),
           (Seq(q.μL, q μL, q(μL)), 3e9),
           (Seq(q.mL, q mL, q(mL)), 3e6),
           (Seq(q.cL, q cL, q(cL)), 3e5),
@@ -202,7 +193,6 @@ class VolumeSpec
           (Seq(q.ZL, q ZL, q(ZL)), 3e-18),
           (Seq(q.YL, q YL, q(YL)), 3e-21),
 
-          (Seq(q.lambda, q lambda, q(lambda)), 3.0e9),
           (Seq(q.λ, q λ, q(λ)), 3.0e9),
 
           (Seq(q.in3, q in3, q(in3)), 3.0 / 16.387064e-6),

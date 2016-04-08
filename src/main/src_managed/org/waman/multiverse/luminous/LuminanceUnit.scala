@@ -34,7 +34,7 @@ object LuminanceUnit extends ConstantsDefined[LuminanceUnit]{
   case object ApoStilb extends IntrinsicLuminanceUnit("ApoStilb", Seq("asb"), r"1" / Real.pi)
   case object Skot extends IntrinsicLuminanceUnit("Skot", Seq("sk"), r"1e-3" / Real.pi)
   case object Bril extends IntrinsicLuminanceUnit("Bril", Seq("bril"), r"1e-7" / Real.pi)
-  case object FootLambert extends IntrinsicLuminanceUnit("FootLambert", Seq("fLb"), r"1" / Real.pi, LuminousIntensityUnit.Candela / AreaUnit.SquareFoot)
+  case object FootLambert extends IntrinsicLuminanceUnit("FootLambert", Seq("fLb"), 1 / Real.pi, LuminousIntensityUnit.Candela / AreaUnit.SquareFoot)
 
   override lazy val values = Seq(Stilb, Lambert, ApoStilb, Skot, Bril, FootLambert)
 

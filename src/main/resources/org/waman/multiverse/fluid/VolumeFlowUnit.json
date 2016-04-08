@@ -1,19 +1,26 @@
 {
   "imports":[
     "org.waman.multiverse.metric._",
-    "org.waman.multiverse.time._"
+    "org.waman.multiverse.time._",
+    "org.waman.multiverse.metric.VolumeUnit._",
+    "org.waman.multiverse.time.TimeUnit._"
   ],
 
-  "baseUnit":"VolumeUnit.CubicMetre / TimeUnit.Second",
+  "baseUnit":"CubicMetre / Second",
   "baseUnitAccessor":"unitInCubicMetrePerSecond",
 
   "quotients":[["VolumeUnit", "TimeUnit"]],
 
   "constants":[
-    {"name":"LitrePerMinute"    , "symbols":["LPM"], "args":"VolumeUnit.Litre / TimeUnit.Minute"},
-    {"name":"CubicFootPerMinute", "symbols":["CFM"], "args":"VolumeUnit.CubicFoot / TimeUnit.Minute"},
-    {"name":"GallonPerMinute"   , "symbols":["GPM"], "args":"VolumeUnit.Gallon_US_fluid / TimeUnit.Minute"},
-    {"name":"GallonPerHour"     , "symbols":["GPH"], "args":"VolumeUnit.Gallon_US_fluid / TimeUnit.Hour"},
-    {"name":"GallonPerDay"      , "symbols":["GPD"], "args":"VolumeUnit.Gallon_US_fluid / TimeUnit.Day"}
+    {"name":"LitrePerMinute"    , "symbols":["LPM"], "args":"Litre / Minute"},
+    {"name":"GallonPerMinute"   , "symbols":["GPM"], "args":"Gallon_US_fluid / Minute"},
+    {"name":"GallonPerHour"     , "symbols":["GPH"], "args":"Gallon_US_fluid / Hour"},
+    {"name":"GallonPerDay"      , "symbols":["GPD"], "args":"Gallon_US_fluid / Day"},
+
+    {"name":"CubicCentiMetrePerSecond", "symbols":["ccs"], "args":"CubicCentiMetre / Second"},
+    {"name":"CubicCentiMetrePerMinute", "symbols":["ccm"], "args":"CubicCentiMetre / Minute"},
+    {"name":"CubicFootPerSecond"      , "symbols":["cfs"], "args":"CubicFoot / Second"},
+    {"name":"CubicFootPerMinute"      , "symbols":["cfm", "CFM"], "args":"CubicFoot / Minute"},
+    {"name":"CubicFootPerHour"        , "symbols":["cfh"], "args":"CubicFoot / Hour"}
   ]
 }
