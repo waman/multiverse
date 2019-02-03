@@ -1,9 +1,0 @@
-{
-  "imports": [
-    "org.waman.multiverse.metric._"
-  ],
-
-  "SIUnit":"ForceUnit.Newton * LengthUnit.Metre",
-
-  "products":[["ForceUnit", "LengthUnit"]]
-}

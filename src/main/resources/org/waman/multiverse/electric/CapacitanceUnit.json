@@ -1,9 +1,0 @@
-{
-  "SIUnit":"Farad",
-
-  "quotients":[["ChargeUnit", "VoltageUnit"]],
-
-  "constants":[
-    {"name":"Farad", "symbol":"F", "args":"", "scalePrefixes":true}
-  ]
-}

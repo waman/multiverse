@@ -1,9 +1,0 @@
-{
-  "imports":[
-    "org.waman.multiverse.time._"
-  ],
-
-  "SIUnit":"EquivalentDoseUnit.Sievert / TimeUnit.Second",
-
-  "quotients":[["EquivalentDoseUnit", "TimeUnit"]]
-}

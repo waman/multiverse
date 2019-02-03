@@ -1,9 +1,0 @@
-{
-  "SIUnit":"SecondSquared",
-
-  "products":[["TimeUnit", "TimeUnit"]],
-
-  "constants":[
-    {"name":"SecondSquared", "symbols":["s2"], "args":"1"}
-  ]
-}
