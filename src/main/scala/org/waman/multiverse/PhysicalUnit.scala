@@ -4,8 +4,11 @@ import spire.math.Real
 
 trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 
-//  val name: String
-//  val symbols: Seq[String]
+  val name: String
+  lazy val symbol: String = getClass.getSimpleName match {
+    case s if s.endsWith("$") => s.substring(0, s.length-1)
+    case s => s
+  }
 
 //  def getSIUnit: U
   def unitValueInSIUnit: Real
@@ -23,6 +26,8 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 //      s.padTo(50, ' ') + s": 1 ${symbols.head.padTo(10, ' ')} $eqSymbol $unitValueInSIUnit ${getSIUnit.symbols.head}"
 //    }
 //  }
+
+  override def toString: String =  s"$name ($symbol)"
 
   override def compare(that: U): Int = this.unitValueInSIUnit.compare(that.unitValueInSIUnit)
 }

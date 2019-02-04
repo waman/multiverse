@@ -1,4 +1,4 @@
-package org.waman.multiverse.metric
+package org.waman.multiverse.units
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
@@ -23,7 +23,7 @@ class LengthSpec extends MultiverseCustomSpec {
 
   "3.0(m) should be converted to the equivalent value in other length units" in {
     // SetUp
-    val q: Length[Double] = 3.0 (m)
+    val q = 3.0 (m)
     // Exercise
     val conversions =
       Table(

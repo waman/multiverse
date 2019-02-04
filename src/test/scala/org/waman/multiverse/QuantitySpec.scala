@@ -39,4 +39,25 @@ class QuantitySpec extends MultiverseCustomSpec{
       result should be (false)
     }
   }
+
+  "toString" - {
+
+    "3.0(m) should return '3.0(m)' " in {
+      // SetUp
+      val q = 3.0(m)
+      // Exercise
+      val sut = q.toString
+      // Verify
+      sut should be ("3.0(m)")
+    }
+
+    "3.0(m) should return '3.0 [m]' when open ' [', close ']' passed" in {
+      // SetUp
+      val q = 3.0(m)
+      // Exercise
+      val sut = q.toString(" [", "]")
+      // Verify
+      sut should be ("3.0 [m]")
+    }
+  }
 }

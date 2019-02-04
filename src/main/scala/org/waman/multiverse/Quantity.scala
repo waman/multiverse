@@ -33,6 +33,13 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
       41 + value.hashCode
       ) + unit.hashCode
 
+  override def toString: String = toString("(", ")")
+
+  // for 1.0(m),
+  // open ~ (
+  // close ~ )
+  def toString(open: String, close: String): String = s"$value$open${unit.symbol}$close"
+
   override def compare(that: Quantity[A, U]): Int = {
     val evalUnit = PhysicalUnit.getBigger(this.unit, that.unit)
     implicitly[Fractional[A]].compare(this(evalUnit), that(evalUnit))

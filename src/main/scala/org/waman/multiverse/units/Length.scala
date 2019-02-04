@@ -1,7 +1,7 @@
-package org.waman.multiverse.metric
+package org.waman.multiverse.units
 
 import org.waman.multiverse._
-import spire.math.Fractional
+import spire.math.{Fractional, Real}
 
 /*
  * +++++ For Length +++++
@@ -26,3 +26,7 @@ trait LengthFactory[A]{
 //  def apply(velocityUnit: VelocityUnit): Velocity[A]
 //  def apply(accelerationUnit: AccelerationUnit): Acceleration[A]
 }
+
+trait LengthUnit extends PhysicalUnit[LengthUnit]
+
+class SimpleLengthUnit(val name: String, val unitValueInSIUnit: Real) extends LengthUnit

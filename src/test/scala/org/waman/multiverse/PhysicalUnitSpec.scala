@@ -1,5 +1,6 @@
 package org.waman.multiverse
 
+import org.waman.multiverse.units.LengthUnit
 import org.waman.multiverse.predef.LengthUnits._
 
 class PhysicalUnitSpec extends MultiverseCustomSpec{
@@ -8,16 +9,36 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
 
     "(m) should be less than (km)" in {
       // Exercise
-      val result = m < km
+      val sut = m < km
       // Verify
-      result should be (true)
+      sut should be (true)
     }
 
     "(m) should not be less than (mm)" in {
       // Exercise
-      val result = m < mm
+      val sut = m < mm
       // Verify
-      result should be (false)
+      sut should be (false)
     }
+  }
+
+  "toString method" - {
+
+      "(m) should return 'm'" in {
+        val conversions =
+          Table(
+            ("length unit", "expected"),
+            (mm, "millimetre (mm)"),
+            (m , "metre (m)"),
+            (km, "kilometre (km)")
+          )
+
+        forAll(conversions){ (unit: LengthUnit, expected: String) =>
+          // Exercise
+          val sut = unit.toString
+          //Verify
+          sut should equal (expected)
+        }
+      }
   }
 }
