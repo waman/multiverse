@@ -10,25 +10,34 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     case s => s
   }
 
-//  def getSIUnit: U
+  protected def getSIUnit: U
   def unitValueInSIUnit: Real
 
-//  protected lazy val symbolStr: String = symbols.mkString(";")
-//
-//  override def toString: String = s"$name ($symbolStr)"
-//
-//  def toDetailString: String = {
-//    val s = s"${name.padTo(30, ' ')} ($symbolStr)"
-//
-//    if (unitValueInSIUnit == Real.one) s
-//    else {
-//      val eqSymbol = if(this.isInstanceOf[NotExact]) "~" else "="
-//      s.padTo(50, ' ') + s": 1 ${symbols.head.padTo(10, ' ')} $eqSymbol $unitValueInSIUnit ${getSIUnit.symbols.head}"
-//    }
-//  }
+  /** Use <code>name</code> and <code>unitValueInSIUnit</code> properties (not <code>symbol</code>) for equality evaluation. */
+  override def equals(other: Any): Boolean = other match {
+    case that: PhysicalUnit[_] =>
+      (that canEqual this) &&
+        name == that.name &&
+        unitValueInSIUnit == that.unitValueInSIUnit
+    case _ => false
+  }
 
-  override def toString: String =  s"$name ($symbol)"
+  def canEqual(other: Any): Boolean = other.isInstanceOf[PhysicalUnit[_]]
 
+  override def hashCode: Int =
+    41 * (
+      41 + name.hashCode
+      ) + unitValueInSIUnit.hashCode
+
+  override def toString: String = getSIUnit match {
+    case u if this == u =>
+      s"$name ($symbol)"
+    case _ =>
+      s"$name ($symbol) [1($symbol) = $unitValueInSIUnit(${getSIUnit.symbol})]"
+  }
+
+  /** Use only <code>unitValueInSIUnit</code> property for evaluation (not use <code>name</code> property),
+    * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
   override def compare(that: U): Int = this.unitValueInSIUnit.compare(that.unitValueInSIUnit)
 }
 
@@ -63,29 +72,28 @@ trait NotExact
 //        41 + firstUnit.hashCode
 //      ) + secondUnit.hashCode
 //}
-//
-//trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[B]]
-//  extends PhysicalUnit[U]{
-//
-//  def numeratorUnit: A
-//  def denominatorUnit: B
-//
-//  override lazy val name: String = s"${numeratorUnit.name}Per${denominatorUnit.name}"
-//  override lazy val symbols: Seq[String] =
-//    for(x <- numeratorUnit.symbols; y <- denominatorUnit.symbols) yield s"$x/$y"
-//
-//  override def equals(other: Any): Boolean = other match {
-//    case that: QuotientUnit[_, _, _] =>
-//      (that canEqual this) &&
-//        numeratorUnit == that.numeratorUnit &&
-//        denominatorUnit == that.denominatorUnit
-//    case _ => false
-//  }
-//
-//  def canEqual(other: Any): Boolean = other.isInstanceOf[QuotientUnit[_, _, _]]
-//
-//  override def hashCode: Int =
-//    41 * (
-//      41 + numeratorUnit.hashCode
-//      ) + denominatorUnit.hashCode
-//}
+
+trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[B]]
+  extends PhysicalUnit[U]{
+
+  def numeratorUnit: A
+  def denominatorUnit: B
+
+  override lazy val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
+  override lazy val symbol: String = s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
+
+  override def equals(other: Any): Boolean = other match {
+    case that: QuotientUnit[_, _, _] =>
+      (that canEqual this) &&
+        numeratorUnit == that.numeratorUnit &&
+        denominatorUnit == that.denominatorUnit
+    case _ => false
+  }
+
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[QuotientUnit[_, _, _]]
+
+  override def hashCode: Int =
+    41 * (
+      41 + numeratorUnit.hashCode
+      ) + denominatorUnit.hashCode
+}

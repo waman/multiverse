@@ -6,29 +6,29 @@ import org.waman.multiverse.predef.TimeUnits._
 
 class TimeSpec extends MultiverseCustomSpec {
 
-  "3.0 <<length unit>> should be converted to the equivalent value in metre" in {
+  "3.0 <<time unit>> should be converted to the equivalent value in metre" in {
     // Exercise
     val conversions =
       Table(
-        ("length", "expected"),
+        ("time", "expected"),
         (3.0(ms), 3e-3),
         (3.0(s) , 3.0),
         (3.0(min), 3.0*60.0),
         (3.0(h), 3.0*3600.0)
       )
     // Verify
-    forAll(conversions){ (sut: Length[Double], expected: Double) =>
+    forAll(conversions){ (sut: Time[Double], expected: Double) =>
       sut(s) should equal (%%%%(expected))
     }
   }
 
-  "3.0(m) should be converted to the equivalent value in other length units" in {
+  "3.0(m) should be converted to the equivalent value in other time units" in {
     // SetUp
     val q = 3.0 (s)
     // Exercise
     val conversions =
       Table(
-        ("length", "expected"),
+        ("time", "expected"),
         (q(ms), 3e3),
         (q(s) , 3.0),
         (q(min), 3.0/60.0),
