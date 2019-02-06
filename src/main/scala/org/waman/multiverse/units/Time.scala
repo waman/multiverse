@@ -5,11 +5,10 @@ import spire.math.{Fractional, Real}
 import org.waman.multiverse.predef.TimeUnits.s
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
-    extends LinearQuantity[A, TimeUnit]{
-}
+    extends ExtensiveQuantity[Time[A], A, TimeUnit]{
 
-trait TimeFactory[A]{
-  def apply(unit: TimeUnit): Time[A]
+  override protected def newQuantity(value: A, unit: TimeUnit): Time[A] =
+    new Time(value, unit)
 }
 
 trait TimeUnit extends PhysicalUnit[TimeUnit] {

@@ -1,8 +1,8 @@
 package org.waman.multiverse
 
-import spire.implicits._
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.predef.LengthUnits._
+import spire.implicits._
+import org.waman.multiverse.predef.BasicUnits._
 
 class QuantitySpec extends MultiverseCustomSpec{
 
@@ -59,5 +59,36 @@ class QuantitySpec extends MultiverseCustomSpec{
       // Verify
       sut should be ("3.0 [m]")
     }
+  }
+
+  "Extensive Quantity operations" - {
+
+    "Addition: 3.0(m) + 10.0(mm) = 3.01(m)" in {
+      // Exercise
+      val sut = r"3.0"(m) + r"10.0"(mm)
+      // Verify
+      sut should be (r"3.01"(m))
+    }
+
+    "Subtractioin: 3.0(m) - 10.0(mm) = 2.99(m)" in {
+      // Exercise
+      val sut = r"3.0"(m) - r"10.0"(mm)
+      // Verify
+      sut should be (r"2.99"(m))
+    }
+  }
+
+  "Scalar multiplication: 3.0(m) * 4.0 = 12.0(m)" in {
+    // Exercise
+    val sut = r"3.0" (m) * r"4.0"
+    // Verify
+    sut should be(r"12.0" (m))
+  }
+
+  "Scalar divistion: 3.0(m) / 4.0 = 0.75(m)" in {
+    // Exercise
+    val sut = r"3.0" (m) / r"4.0"
+    // Verify
+    sut should be(r"0.75" (m))
   }
 }

@@ -5,15 +5,16 @@ import spire.math.{Fractional, Real}
 import org.waman.multiverse.predef.LengthUnits.m
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
-    extends LinearQuantity[A, LengthUnit]{
-}
+    extends ExtensiveQuantity[Length[A], A, LengthUnit] {
 
-trait LengthFactory[A]{
-  def apply(unit: LengthUnit): Length[A]
+  override protected def newQuantity(value: A, unit: LengthUnit): Length[A] =
+    new Length(value, unit)
 }
 
 trait LengthUnit extends PhysicalUnit[LengthUnit]{
+
   override protected def getSIUnit: LengthUnit = m
+
   def /(timeUnit: TimeUnit): VelocityUnit = new LengthPerTimeVelocityUnit(this, timeUnit)
 }
 

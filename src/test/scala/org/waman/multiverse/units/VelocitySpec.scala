@@ -2,8 +2,7 @@ package org.waman.multiverse.units
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.predef.LengthUnits._
-import org.waman.multiverse.predef.TimeUnits._
+import org.waman.multiverse.predef.BasicUnits._
 
 class VelocitySpec extends MultiverseCustomSpec {
 

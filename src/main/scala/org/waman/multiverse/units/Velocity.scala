@@ -8,10 +8,6 @@ import org.waman.multiverse.predef.TimeUnits.s
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends LinearQuantity[A, VelocityUnit]
 
-trait VelocityFactory[A]{
-  def apply(unit: VelocityUnit): Velocity[A]
-}
-
 trait VelocityUnit extends PhysicalUnit[VelocityUnit] {
   override protected def getSIUnit: VelocityUnit = m/s
 }

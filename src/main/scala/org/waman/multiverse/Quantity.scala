@@ -58,3 +58,24 @@ abstract class LinearQuantity[A: Fractional, U <: PhysicalUnit[U]]
       value * algebra.fromReal(unit.unitValueInSIUnit) / algebra.fromReal(evalUnit.unitValueInSIUnit)
     }
 }
+
+abstract class ExtensiveQuantity[Q <: ExtensiveQuantity[Q, A, U], A: Fractional, U <: PhysicalUnit[U]]
+  extends LinearQuantity[A, U]{
+
+  protected def newQuantity(value: A, unit: U): Q
+
+  def +(that: Q): Q = {
+    val u = PhysicalUnit.getBigger(this.unit, that.unit)
+    val value = this(u) + that(u)
+    newQuantity(value, u)
+  }
+
+  def -(that: Q): Q = {
+    val u = PhysicalUnit.getBigger(this.unit, that.unit)
+    val value = this(u) - that(u)
+    newQuantity(value, u)
+  }
+
+  def *(c: A): Q = newQuantity(this.value * c, this.unit)
+  def /(c: A): Q = newQuantity(this.value / c, this.unit)
+}
