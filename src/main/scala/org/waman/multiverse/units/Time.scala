@@ -12,7 +12,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 }
 
 trait TimeUnit extends PhysicalUnit[TimeUnit] {
-  override protected def getSIUnit: TimeUnit = s
+  override def getSIUnit: TimeUnit = s
 }
 
 class SimpleTimeUnit(val name: String, val unitValueInSIUnit: Real) extends TimeUnit

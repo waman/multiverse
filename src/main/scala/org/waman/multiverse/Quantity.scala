@@ -10,8 +10,6 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
   val unit: U
   def apply(unit: U): A
 
-//  override def toString = s"$value (${unit.symbols.mkString("|")})"
-
   override def equals(other: Any): Boolean = other match {
     case that: Quantity[A, U] =>
       if(!(that canEqual this))
@@ -28,10 +26,12 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 
   def canEqual(other: Any): Boolean = other.isInstanceOf[Quantity[_, _]]
 
-  override def hashCode: Int =
+  override lazy val hashCode: Int = {
+    val siUnit = unit.getSIUnit
     41 * (
-      41 + value.hashCode
-      ) + unit.hashCode
+      41 + this(siUnit).hashCode
+      ) + siUnit.hashCode
+  }
 
   override def toString: String = toString("(", ")")
 

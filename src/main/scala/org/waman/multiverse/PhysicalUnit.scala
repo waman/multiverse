@@ -10,7 +10,7 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     case s => s
   }
 
-  protected def getSIUnit: U
+  def getSIUnit: U
   def unitValueInSIUnit: Real
 
   /** Use <code>name</code> and <code>unitValueInSIUnit</code> properties (not <code>symbol</code>) for equality evaluation. */

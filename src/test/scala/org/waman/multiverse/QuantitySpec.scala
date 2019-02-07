@@ -21,6 +21,27 @@ class QuantitySpec extends MultiverseCustomSpec{
       // Verify
       result should be (false)
     }
+
+    "3 (m/s) should equal 3 (mm/ms)" in {
+      // Exercise
+      val result = r"3"(m/s) == r"3"(mm/ms)
+      // Verify
+      result should be (true)
+    }
+
+    "3 (m/s) should not equal 3 (mm/s)" in {
+      // Exercise
+      val result = r"3"(m/s) == r"3"(mm/s)
+      // Verify
+      result should be (false)
+    }
+
+    "3 (m/s) should return the same hashCoide as 3 (mm/ms)" in {
+      // Exercise
+      val result = r"3"(m/s).hashCode == r"3"(mm/ms).hashCode
+      // Verify
+      result should be (true)
+    }
   }
 
   "Order" - {

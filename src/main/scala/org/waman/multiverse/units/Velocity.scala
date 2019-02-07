@@ -9,7 +9,7 @@ class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends LinearQuantity[A, VelocityUnit]
 
 trait VelocityUnit extends PhysicalUnit[VelocityUnit] {
-  override protected def getSIUnit: VelocityUnit = m/s
+  override def getSIUnit: VelocityUnit = m/s
 }
 
 class SimpleVelocityUnit(val name: String, val unitValueInSIUnit: Real) extends VelocityUnit

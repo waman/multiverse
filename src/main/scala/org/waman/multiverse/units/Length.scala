@@ -13,7 +13,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 
 trait LengthUnit extends PhysicalUnit[LengthUnit]{
 
-  override protected def getSIUnit: LengthUnit = m
+  override def getSIUnit: LengthUnit = m
 
   def /(timeUnit: TimeUnit): VelocityUnit = new LengthPerTimeVelocityUnit(this, timeUnit)
 }
