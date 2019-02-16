@@ -1,8 +1,8 @@
-package org.waman.multiverse.units
+package org.waman.multiverse.units.basic
 
 import org.waman.multiverse._
 import spire.math.{Fractional, Real}
-import org.waman.multiverse.predef.TimeUnits.s
+import org.waman.multiverse.predef.BasicUnits.s
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends ExtensiveQuantity[Time[A], A, TimeUnit]{

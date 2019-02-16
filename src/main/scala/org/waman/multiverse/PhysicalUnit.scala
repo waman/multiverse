@@ -5,7 +5,9 @@ import spire.math.Real
 trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 
   val name: String
-  lazy val symbol: String = getClass.getSimpleName match {
+  lazy val symbol: String = extractSymbol
+
+  protected def extractSymbol: String =  getClass.getSimpleName match {
     case s if s.endsWith("$") => s.substring(0, s.length-1)
     case s => s
   }
@@ -80,7 +82,7 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
   def denominatorUnit: B
 
   override lazy val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
-  override lazy val symbol: String = s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
+  override protected def extractSymbol: String = s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
 
   override def equals(other: Any): Boolean = other match {
     case that: QuotientUnit[_, _, _] =>

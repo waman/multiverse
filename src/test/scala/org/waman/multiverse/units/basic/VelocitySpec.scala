@@ -1,4 +1,4 @@
-package org.waman.multiverse.units
+package org.waman.multiverse.units.basic
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._

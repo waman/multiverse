@@ -1,7 +1,7 @@
-package org.waman.multiverse.predef
+package org.waman.multiverse.predef.basic
 
 import org.waman.multiverse.NotExact
-import org.waman.multiverse.units.SimpleVelocityUnit
+import org.waman.multiverse.units.basic.SimpleVelocityUnit
 import spire.implicits._
 
 trait VelocityUnits{

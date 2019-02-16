@@ -1,8 +1,8 @@
-package org.waman.multiverse.units
+package org.waman.multiverse.units.basic
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.predef.TimeUnits._
+import org.waman.multiverse.predef.BasicUnits._
 
 class TimeSpec extends MultiverseCustomSpec {
 
