@@ -5,5 +5,5 @@ import org.waman.multiverse.units.basic.SimpleVelocityUnit
 
 trait AccelerationUnits{
 
-  case object g0 extends SimpleVelocityUnit("standard gravity", r"9.80665")
+  final case object g0 extends SimpleVelocityUnit("standard gravity", r"9.80665")
 }
