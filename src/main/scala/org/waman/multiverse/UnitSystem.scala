@@ -1,6 +1,7 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.predef.BasicUnits._
+import org.waman.multiverse.predef.MechanicsUnits._
 import org.waman.multiverse.units.basic.{Length, Mass, Time, Velocity}
 import org.waman.multiverse.units.mechanics.Acceleration
 import spire.math.Fractional
@@ -16,7 +17,7 @@ trait MKSUnitSystem extends UnitSystem{
   implicit def convertMassToFractional[A: Fractional](q: Mass[A]): A = q(kg)
   implicit def convertTimeToFractional[A: Fractional](q: Time[A]): A = q(s)
   implicit def convertVelocityToFractional[A: Fractional](q: Velocity[A]): A = q(m/s)
-  implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(m/s^2)
+  implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(m/s2)
 }
 
 object MKSUnitSystem extends MKSUnitSystem
@@ -33,7 +34,7 @@ trait CGSUnitSystem extends UnitSystem{
   implicit def convertMassToFractional[A: Fractional](q: Mass[A]): A = q(g)
   implicit def convertTimeToFractional[A: Fractional](q: Time[A]): A = q(s)
   implicit def convertVelocityToFractional[A: Fractional](q: Velocity[A]): A = q(cm/s)
-  implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(cm/s^2)
+  implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(cm/s2)
 }
 
 object CGSUnitSystem extends CGSUnitSystem

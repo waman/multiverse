@@ -6,8 +6,8 @@ import spire.implicits._
 abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
     extends Ordered[Quantity[A, U]]{
 
-  val value: A
-  val unit: U
+  def value: A
+  def unit: U
   def apply(unit: U): A
 
   override def equals(other: Any): Boolean = other match {
@@ -35,9 +35,10 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 
   override def toString: String = toString("(", ")")
 
-  // for 1.0(m),
-  // open ~ (
-  // close ~ )
+  // $value$open$symbol$close
+  // For 1.0(m),
+  // open: (
+  // close : )
   def toString(open: String, close: String): String = s"$value$open${unit.symbol}$close"
 
   override def compare(that: Quantity[A, U]): Int = {

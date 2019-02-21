@@ -1,9 +1,10 @@
 package org.waman.multiverse.predef
 
-import org.waman.multiverse.predef.mechanics.AccelerationUnits
+import org.waman.multiverse.predef.mechanics.{AccelerationUnits, TimeSquaredUnits}
 
 trait MechanicsUnits
-  extends AccelerationUnits
+  extends TimeSquaredUnits
+  with AccelerationUnits
 
 object MechanicsUnits extends MechanicsUnits
 
