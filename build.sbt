@@ -41,7 +41,7 @@ fork := true
 
 //initialCommands in console :=
 //  """import org.waman.multiverse._
-//    |import org.waman.multiverse.MKSUnitSystem._
+//    |import org.waman.multiverse.unitsystem.MKSUnitSystem._
 //    |import scala.language.postfixOps
 //  """.stripMargin
 

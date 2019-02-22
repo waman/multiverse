@@ -1,4 +1,4 @@
-package org.waman.multiverse
+package org.waman.multiverse.unitsystem
 
 import org.waman.multiverse.predef.BasicUnits._
 import org.waman.multiverse.predef.MechanicsUnits._
@@ -8,10 +8,8 @@ import spire.math.Fractional
 
 import scala.language.implicitConversions
 
-trait UnitSystem
-
 //***** MKS Unit System *****
-trait MKSUnitSystem extends UnitSystem{
+trait MKS extends UnitSystem{
 
   implicit def convertLengthToFractional[A: Fractional](q: Length[A]): A = q(m)
   implicit def convertMassToFractional[A: Fractional](q: Mass[A]): A = q(kg)
@@ -20,21 +18,12 @@ trait MKSUnitSystem extends UnitSystem{
   implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(m/s2)
 }
 
-object MKSUnitSystem extends MKSUnitSystem
+object MKS extends MKS
 
 //***** MKSA Unit System *****
-trait MKSAUnitSystem extends MKSUnitSystem
+trait MKSA extends MKS
+object MKSA extends MKSA
 
-object MKSAUnitSystem extends MKSAUnitSystem
-
-//***** CGS Unit System *****
-trait CGSUnitSystem extends UnitSystem{
-
-  implicit def convertLengthToFractional[A: Fractional](q: Length[A]): A = q(cm)
-  implicit def convertMassToFractional[A: Fractional](q: Mass[A]): A = q(g)
-  implicit def convertTimeToFractional[A: Fractional](q: Time[A]): A = q(s)
-  implicit def convertVelocityToFractional[A: Fractional](q: Velocity[A]): A = q(cm/s)
-  implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(cm/s2)
-}
-
-object CGSUnitSystem extends CGSUnitSystem
+//***** SI Unit System (= MKSA Unit System) *****
+trait SI extends MKSA
+object SI extends SI

@@ -1,5 +1,6 @@
-package org.waman.multiverse
+package org.waman.multiverse.unitsystem
 
+import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.predef.BasicUnits._
 
@@ -58,7 +59,7 @@ class UnitSystemSpec extends MultiverseCustomSpec{
   "MKS Unit System" - {
 
     "Length object is implicitly converted to Double value in metre unit" in {
-      import org.waman.multiverse.MKSUnitSystem._
+      import org.waman.multiverse.unitsystem.MKS._
       // Exercise
       val sut: Double = 1.0(km)
       // Verify
