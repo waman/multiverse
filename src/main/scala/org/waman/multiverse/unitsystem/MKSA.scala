@@ -1,7 +1,9 @@
 package org.waman.multiverse.unitsystem
 
-import org.waman.multiverse.predef.BasicUnits._
-import org.waman.multiverse.predef.MechanicsUnits._
+import org.waman.multiverse.predef.basic.LengthUnits.m
+import org.waman.multiverse.predef.basic.MassUnits.kg
+import org.waman.multiverse.predef.basic.TimeUnits.s
+import org.waman.multiverse.predef.mechanics.TimeSquaredUnits.s2
 import org.waman.multiverse.units.basic.{Length, Mass, Time, Velocity}
 import org.waman.multiverse.units.mechanics.Acceleration
 import spire.math.Fractional

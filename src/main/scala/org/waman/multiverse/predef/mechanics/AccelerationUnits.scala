@@ -1,9 +1,14 @@
 package org.waman.multiverse.predef.mechanics
 
+import org.waman.multiverse.predef.PhysicalUnitPredef
+import org.waman.multiverse.units.mechanics.{AccelerationUnit, SimpleAccelerationUnit}
 import spire.implicits._
-import org.waman.multiverse.units.basic.SimpleVelocityUnit
 
-trait AccelerationUnits{
+import scala.reflect.runtime.{universe => ru}
 
-  final case object g0 extends SimpleVelocityUnit("standard gravity", r"9.80665")
+object AccelerationUnits extends PhysicalUnitPredef[AccelerationUnit]{
+
+  final case object g0 extends SimpleAccelerationUnit("standard gravity", r"9.80665")
+
+  override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
 }

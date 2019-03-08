@@ -16,7 +16,7 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
 
   "Order" - {
 
-    "(mm/ms) should DO equal (m/s) with compare method" in {
+    "(mm/ms) should DO equal (m/s) with the compare method" in {
       // Exercise
       val sut = (mm/ms).compare(m/s)
       // Verify

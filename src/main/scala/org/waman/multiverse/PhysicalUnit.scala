@@ -1,16 +1,22 @@
 package org.waman.multiverse
 
 import spire.math.Real
+import scala.reflect.runtime.{universe => ru}
 
 trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 
   def name: String
   lazy val symbol: String = extractSymbol
 
-  protected def extractSymbol: String =  getClass.getSimpleName match {
-    case s if s.endsWith("$") => s.substring(0, s.length-1)
-    case s => s
+  protected def extractSymbol: String =  {
+    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(this)
+    im.symbol.name.toString
   }
+
+//  protected def extractSymbol: String =  getClass.getSimpleName match {
+//    case s if s.endsWith("$") => s.substring(0, s.length-1)
+//    case s => s
+//  }
 
   def getSIUnit: U
   def unitValueInSIUnit: Real

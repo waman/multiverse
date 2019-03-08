@@ -2,7 +2,7 @@ package org.waman.multiverse.units.basic
 
 import org.waman.multiverse._
 import spire.math.{Fractional, Real}
-import org.waman.multiverse.predef.BasicUnits.s
+import org.waman.multiverse.predef.basic.TimeUnits
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends ExtensiveQuantity[Time[A], A, TimeUnit]{
@@ -12,7 +12,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 }
 
 trait TimeUnit extends PhysicalUnit[TimeUnit] {
-  override def getSIUnit: TimeUnit = s
+  override def getSIUnit: TimeUnit = TimeUnits.s
 }
 
 class SimpleTimeUnit(val name: String, val unitValueInSIUnit: Real) extends TimeUnit

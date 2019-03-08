@@ -1,7 +1,7 @@
 package org.waman.multiverse.units.basic
 
 import org.waman.multiverse._
-import org.waman.multiverse.predef.BasicUnits.kg
+import org.waman.multiverse.predef.basic.MassUnits
 import spire.math.{Fractional, Real}
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
@@ -13,7 +13,7 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 
 trait MassUnit extends PhysicalUnit[MassUnit]{
 
-  override def getSIUnit: MassUnit = kg
+  override def getSIUnit: MassUnit = MassUnits.kg
 }
 
 class SimpleMassUnit(val name: String, val unitValueInSIUnit: Real) extends MassUnit

@@ -1,7 +1,8 @@
 package org.waman.multiverse.units.basic
 
 import org.waman.multiverse._
-import org.waman.multiverse.predef.BasicUnits._
+import org.waman.multiverse.predef.basic.LengthUnits.m
+import org.waman.multiverse.predef.basic.TimeUnits.s
 import spire.math.{Fractional, Real}
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)

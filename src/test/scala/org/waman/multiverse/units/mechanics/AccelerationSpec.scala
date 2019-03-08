@@ -14,6 +14,7 @@ class AccelerationSpec extends MultiverseCustomSpec {
         ("acceleration", "expected"),
         (m/s2, "m/s²"),
         (km/s2, "km/s²")//,
+//        (m/(s*s), "m/s²"),  TODO
 //        (m/s/s, "m/s²"),
 //        (M/s, "M/s")
       )

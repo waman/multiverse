@@ -1,8 +1,8 @@
 package org.waman.multiverse.units.mechanics
 
 import org.waman.multiverse._
-import org.waman.multiverse.predef.BasicUnits._
-import org.waman.multiverse.predef.MechanicsUnits.s2
+import org.waman.multiverse.predef.basic.LengthUnits.m
+import org.waman.multiverse.predef.mechanics.TimeSquaredUnits.s2
 import org.waman.multiverse.units.basic.LengthUnit
 import spire.math.{Fractional, Real}
 

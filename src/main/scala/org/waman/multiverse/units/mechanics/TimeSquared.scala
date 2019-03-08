@@ -1,14 +1,14 @@
 package org.waman.multiverse.units.mechanics
 
 import org.waman.multiverse._
-import org.waman.multiverse.predef.MechanicsUnits.s2
+import org.waman.multiverse.predef.mechanics.TimeSquaredUnits
 import spire.math.{Fractional, Real}
 
 class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
     extends LinearQuantity[A, TimeSquaredUnit]
 
 trait TimeSquaredUnit extends PhysicalUnit[TimeSquaredUnit] {
-  override def getSIUnit: TimeSquaredUnit = s2
+  override def getSIUnit: TimeSquaredUnit = TimeSquaredUnits.s2
 }
 
 class SimpleTimeSquaredUnit(val name: String, val unitValueInSIUnit: Real) extends TimeSquaredUnit {
