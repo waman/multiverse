@@ -1,6 +1,6 @@
-package org.waman.multiverse
+package org.waman.multiverse.predef
 
-import org.waman.multiverse.predef.MechanicsUnits
+import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.predef.basic.VelocityUnits
 import org.waman.multiverse.predef.basic.VelocityUnits._
 import org.waman.multiverse.predef.mechanics.AccelerationUnits.g0

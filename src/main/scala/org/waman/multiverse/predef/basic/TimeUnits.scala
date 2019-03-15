@@ -20,7 +20,7 @@ object TimeUnits extends PhysicalUnitPredef[TimeUnit]{
   final case object ms extends SimpleTimeUnit("millisecond", milli[Real])
 
   final case object s extends SimpleTimeUnit("second", r"1")
-  final case object min extends SimpleTimeUnit("minite", r"60")
+  final case object min extends SimpleTimeUnit("minute", r"60")
   final case object h extends SimpleTimeUnit("hour", r"3600")
 
   override protected def getUnitsType: ru.Type = ru.typeOf[this.type]

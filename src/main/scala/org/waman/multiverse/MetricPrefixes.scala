@@ -37,7 +37,7 @@ object MetricPrefixes {
   def micro[A: Fractional]: A = fromReal(microReal)
   def milli[A: Fractional]: A = fromReal(milliReal)
   def centi[A: Fractional]: A = fromReal(centiReal)
-  def deci[A: Fractional]: A = fromReal(decaReal)
+  def deci[A: Fractional]: A = fromReal(deciReal)
   def deca[A: Fractional]: A = fromReal(decaReal)
   def hecto[A: Fractional]: A = fromReal(hectoReal)
   def kilo[A: Fractional]: A = fromReal(kiloReal)

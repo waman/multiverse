@@ -13,10 +13,11 @@ class AccelerationSpec extends MultiverseCustomSpec {
       Table(
         ("acceleration", "expected"),
         (m/s2, "m/s²"),
-        (km/s2, "km/s²")//,
-//        (m/(s*s), "m/s²"),  TODO
-//        (m/s/s, "m/s²"),
-//        (M/s, "M/s")
+        (km/s2, "km/s²"),
+        (m/(s*s), "m/s²"),
+        (m/(s*ms), "m/(s*ms)"),
+        (m/s/s, "m/s/s"),
+        (M/s, "M/s")
       )
     // Verify
     forAll(conversions){ (sut: AccelerationUnit, expected: String) =>
@@ -24,7 +25,7 @@ class AccelerationSpec extends MultiverseCustomSpec {
     }
   }
 
-  "3.0 <<acceleration unit>> should be converted to the equivalent value in m/s^2" in {
+  "3.0 <<acceleration unit>> should be converted to the equivalent value in m/s²" in {
     // Exercise
     val conversions =
       Table(
@@ -39,7 +40,7 @@ class AccelerationSpec extends MultiverseCustomSpec {
     }
   }
 
-  "3.0(m/s^2) should be converted to the equivalent value in other acceleration units" in {
+  "3.0(m/s2) should be converted to the equivalent value in other acceleration units" in {
     // SetUp
     val q = 3.0 (m/s2)
     // Exercise

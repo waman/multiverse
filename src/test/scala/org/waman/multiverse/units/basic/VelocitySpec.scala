@@ -21,7 +21,7 @@ class VelocitySpec extends MultiverseCustomSpec {
     }
   }
 
-  "3.0(m) should be converted to the equivalent value in other velocity units" in {
+  "3.0(m/s) should be converted to the equivalent value in other velocity units" in {
     // SetUp
     val q = 3.0 (m/s)
     // Exercise

@@ -6,7 +6,7 @@ import org.waman.multiverse.predef.BasicUnits._
 
 class MassSpec extends MultiverseCustomSpec {
 
-  "3.0 <<mass unit>> should be converted to the equivalent value in metre" in {
+  "3.0 <<mass unit>> should be converted to the equivalent value in kilogram" in {
     // Exercise
     val conversions =
       Table(
@@ -21,7 +21,7 @@ class MassSpec extends MultiverseCustomSpec {
     }
   }
 
-  "3.0(m) should be converted to the equivalent value in other mass units" in {
+  "3.0(kg) should be converted to the equivalent value in other mass units" in {
     // SetUp
     val q = 3.0 (kg)
     // Exercise

@@ -6,7 +6,7 @@ import org.waman.multiverse.predef.BasicUnits._
 
 class TimeSpec extends MultiverseCustomSpec {
 
-  "3.0 <<time unit>> should be converted to the equivalent value in metre" in {
+  "3.0 <<time unit>> should be converted to the equivalent value in second" in {
     // Exercise
     val conversions =
       Table(
@@ -22,7 +22,7 @@ class TimeSpec extends MultiverseCustomSpec {
     }
   }
 
-  "3.0(m) should be converted to the equivalent value in other time units" in {
+  "3.0(s) should be converted to the equivalent value in other time units" in {
     // SetUp
     val q = 3.0 (s)
     // Exercise

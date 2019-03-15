@@ -13,11 +13,6 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
     im.symbol.name.toString
   }
 
-//  protected def extractSymbol: String =  getClass.getSimpleName match {
-//    case s if s.endsWith("$") => s.substring(0, s.length-1)
-//    case s => s
-//  }
-
   def getSIUnit: U
   def unitValueInSIUnit: Real
 
@@ -55,40 +50,51 @@ object PhysicalUnit{
 
 trait NotExact
 
-//trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[B]]
-//    extends PhysicalUnit[U]{
-//
-//  def firstUnit: A
-//  def secondUnit: B
-//
-//  override lazy val name: String = s"${firstUnit.name}${secondUnit.name}"
-//  override lazy val symbols: Seq[String] =
-//    for(x <- firstUnit.symbols; y <- secondUnit.symbols)yield s"$x*$y"
-//
-//  override def equals(other: Any): Boolean = other match {
-//    case that: ProductUnit[_, _, _] =>
-//      (that canEqual this) &&
-//      firstUnit == that.firstUnit &&
-//      secondUnit == that.secondUnit
-//    case _ => false
-//  }
-//
-//  def canEqual(other: Any): Boolean = other.isInstanceOf[ProductUnit[_, _, _]]
-//
-//  override def hashCode: Int =
-//    41 * (
-//        41 + firstUnit.hashCode
-//      ) + secondUnit.hashCode
-//}
+// For symbol property of QuotientUnit: m/(s*ms)
+// Tests are written in AccelerationSpec
+private[multiverse] trait LiteralComposite
+
+trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[B]]
+    extends PhysicalUnit[U] with LiteralComposite {
+
+  def firstUnit: A
+  def secondUnit: B
+
+  override lazy val name: String = s"${firstUnit.name} times ${secondUnit.name}"
+  override protected def extractSymbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
+
+  override val unitValueInSIUnit: Real = firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
+
+  override def equals(other: Any): Boolean = other match {
+    case that: ProductUnit[_, _, _] =>
+      (that canEqual this) &&
+      firstUnit == that.firstUnit &&
+      secondUnit == that.secondUnit
+    case _ => false
+  }
+
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[ProductUnit[_, _, _]]
+
+  override def hashCode: Int =
+    41 * (
+      41 * (
+        41 + firstUnit.hashCode
+        ) + "*".hashCode
+    ) + secondUnit.hashCode
+}
 
 trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[B]]
-  extends PhysicalUnit[U]{
+  extends PhysicalUnit[U] with LiteralComposite {
 
   def numeratorUnit: A
   def denominatorUnit: B
 
   override lazy val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
-  override protected def extractSymbol: String = s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
+  override protected def extractSymbol: String =
+    if(denominatorUnit.isInstanceOf[LiteralComposite])
+      s"${numeratorUnit.symbol}/(${denominatorUnit.symbol})"
+    else
+      s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
 
   override val unitValueInSIUnit: Real = numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
 
@@ -104,6 +110,8 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
 
   override def hashCode: Int =
     41 * (
-      41 + numeratorUnit.hashCode
-      ) + denominatorUnit.hashCode
+      41 * (
+        41 + numeratorUnit.hashCode
+        ) + "/".hashCode
+    ) + denominatorUnit.hashCode
 }

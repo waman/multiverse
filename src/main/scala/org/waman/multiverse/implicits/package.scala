@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.units.basic._
-import org.waman.multiverse.units.mechanics.{Acceleration, AccelerationUnit}
+import org.waman.multiverse.units.mechanics.{Acceleration, AccelerationUnit, TimeSquared, TimeSquaredUnit}
 import spire.math.{Fractional, Real, SafeLong}
 
 import scala.language.implicitConversions
@@ -14,6 +14,8 @@ package object implicits {
     def apply(unit: MassUnit): Mass[A] = new Mass(value, unit)
     def apply(unit: TimeUnit): Time[A] = new Time(value, unit)
     def apply(unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
+
+    def apply(unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
     def apply(unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
   }
 
