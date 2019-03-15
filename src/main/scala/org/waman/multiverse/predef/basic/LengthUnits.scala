@@ -19,8 +19,20 @@ object LengthUnits extends PhysicalUnitPredef[LengthUnit]{
   final case object μm extends SimpleLengthUnit("micrometre", micro[Real])
   final case object mm extends SimpleLengthUnit("millimetre", milli[Real])
   final case object cm extends SimpleLengthUnit("centimetre", centi[Real])
+  final case object dm extends SimpleLengthUnit("decimetre", deci[Real])
+
   final case object m extends SimpleLengthUnit("metre", r"1")
+
+  final case object dam extends SimpleLengthUnit("decametre", deca[Real])
+  final case object hm extends SimpleLengthUnit("hectometre", hecto[Real])
   final case object km extends SimpleLengthUnit("kilometre", kilo[Real])
+  final case object Mm extends SimpleLengthUnit("megametre", mega[Real])
+  final case object Gm extends SimpleLengthUnit("gigametre", giga[Real])
+  final case object Tm extends SimpleLengthUnit("terametre", tera[Real])
+  final case object Pm extends SimpleLengthUnit("petametre", peta[Real])
+  final case object Em extends SimpleLengthUnit("exametre", exa[Real])
+  final case object Zm extends SimpleLengthUnit("zettametre", zetta[Real])
+  final case object Ym extends SimpleLengthUnit("yottametre", yotta[Real])
 
   override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
 }

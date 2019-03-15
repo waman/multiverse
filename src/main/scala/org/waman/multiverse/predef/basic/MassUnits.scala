@@ -19,8 +19,21 @@ object MassUnits extends PhysicalUnitPredef[MassUnit]{
   final case object ng extends SimpleMassUnit("nanogram", nano[Real](r"1e-3"))
   final case object μg extends SimpleMassUnit("microgram", micro[Real](r"1e-3"))
   final case object mg extends SimpleMassUnit("milligram", milli[Real](r"1e-3"))
+  final case object cg extends SimpleMassUnit("centigram", centi[Real](r"1e-3"))
+  final case object dg extends SimpleMassUnit("decigram", deci[Real](r"1e-3"))
   final case object g extends SimpleMassUnit("gram", r"1e-3")
+  final case object dag extends SimpleMassUnit("decagram", deca[Real](r"1e-3"))
+  final case object hg extends SimpleMassUnit("hectogram", hecto[Real](r"1e-3"))
+  
   final case object kg extends SimpleMassUnit("kilogram", r"1")
+  
+  final case object Mg extends SimpleMassUnit("megagram", mega[Real](r"1e-3"))
+  final case object Gg extends SimpleMassUnit("gigagram", giga[Real](r"1e-3"))
+  final case object Tg extends SimpleMassUnit("teragram", tera[Real](r"1e-3"))
+  final case object Pg extends SimpleMassUnit("petagram", peta[Real](r"1e-3"))
+  final case object Eg extends SimpleMassUnit("exagram", exa[Real](r"1e-3"))
+  final case object Zg extends SimpleMassUnit("zettagram", zetta[Real](r"1e-3"))
+  final case object Yg extends SimpleMassUnit("yottagram", yotta[Real](r"1e-3"))
 
   final case object t extends SimpleMassUnit("ton", kilo[Real])
 
