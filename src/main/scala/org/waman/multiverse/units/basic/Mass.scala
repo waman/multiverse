@@ -11,9 +11,9 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
     new Mass(value, unit)
 }
 
-trait MassUnit extends PhysicalUnit[MassUnit]{
+trait MassUnit extends ScaleUnit[MassUnit]{
 
   override def getSIUnit: MassUnit = MassUnits.kg
 }
 
-class SimpleMassUnit(val name: String, val unitValueInSIUnit: Real) extends MassUnit
+class SimpleMassUnit(val name: String, val intervalInSIUnit: Real) extends MassUnit

@@ -12,7 +12,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
     new Time(value, unit)
 }
 
-trait TimeUnit extends PhysicalUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
+trait TimeUnit extends ScaleUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
   override def getSIUnit: TimeUnit = TimeUnits.s
 
   def *(timeUnit: TimeUnit): TimeSquaredUnit =
@@ -22,6 +22,6 @@ trait TimeUnit extends PhysicalUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
   override def square: TimeSquaredUnit = new TimeSquared_TimeSquaredUnit(this)
 }
 
-class SimpleTimeUnit(val name: String, val unitValueInSIUnit: Real) extends TimeUnit {
-  def this(name: String, factor: Real, u: TimeUnit) = this(name, factor*u.unitValueInSIUnit)
+class SimpleTimeUnit(val name: String, val intervalInSIUnit: Real) extends TimeUnit {
+  def this(name: String, factor: Real, u: TimeUnit) = this(name, factor*u.intervalInSIUnit)
 }

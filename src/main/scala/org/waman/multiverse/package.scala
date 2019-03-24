@@ -1,5 +1,7 @@
 package org.waman
 
+import scala.util.matching.Regex
+
 package object multiverse {
 
 //  def help(): Unit = {
@@ -31,4 +33,16 @@ package object multiverse {
 //        }
 //    }
 //  }
+
+
+  protected[multiverse] def getBigger[U <: ScaleUnit[U]](u:U, v: U): U = if(u.compare(v) >= 0) u else v
+
+  // pattern like $u00B0
+  private[multiverse] val escaped: Regex = """\$u([0-9A-F]{4})""".r
+
+  // transform string like $u00B0C → °C
+  private[multiverse] def decodeLiteralId(s: String): String = {
+    def decode(s: String): String = Integer.parseInt(s, 16).asInstanceOf[Char].toString
+    escaped.replaceAllIn(s, m => decode(m.group(1)))
+  }
 }

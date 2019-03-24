@@ -8,7 +8,7 @@ import scala.reflect.runtime.{universe => ru}
 object MechanicsUnits extends PhysicalUnitPredefProxy {
 
   // Time Squared Units
-  def s2: TimeSquaredUnit = TimeSquaredUnits.s2
+  def s2: TimeSquaredUnit = TimeSquaredUnits.`s²`
 
   // Acceleration Units
   def g0: AccelerationUnit = AccelerationUnits.g0

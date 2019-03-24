@@ -1,27 +1,32 @@
 package org.waman.multiverse
 
+import spire.implicits._
 import spire.math.Real
+
 import scala.reflect.runtime.{universe => ru}
 
-trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
+trait PhysicalUnit[U <: PhysicalUnit[U]]{
 
   def name: String
   lazy val symbol: String = extractSymbol
 
   protected def extractSymbol: String =  {
     val im = ru.runtimeMirror(getClass.getClassLoader).reflect(this)
-    im.symbol.name.toString
+    val s = im.symbol.name.toString
+    decodeLiteralId(s)
   }
 
   def getSIUnit: U
-  def unitValueInSIUnit: Real
+  def zeroInSIUnit: Real
+  def intervalInSIUnit: Real
 
   /** Use <code>name</code> and <code>unitValueInSIUnit</code> properties (not <code>symbol</code>) for equality evaluation. */
   override def equals(other: Any): Boolean = other match {
     case that: PhysicalUnit[_] =>
       (that canEqual this) &&
         name == that.name &&
-        unitValueInSIUnit == that.unitValueInSIUnit
+        zeroInSIUnit == that.zeroInSIUnit &&
+        intervalInSIUnit == that.intervalInSIUnit
     case _ => false
   }
 
@@ -29,23 +34,56 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] extends Ordered[U]{
 
   override def hashCode: Int =
     41 * (
+      41 * (
+        41 + name.hashCode
+        ) + zeroInSIUnit.hashCode
+    ) + intervalInSIUnit.hashCode
+
+  override def toString: String =
+    if(this == getSIUnit) {
+      s"$name ($symbol)"
+    }else{
+      this.intervalInSIUnit match {
+        case i if i.isOne =>
+          s"$name ($symbol) [($symbol) = (${getSIUnit.symbol}) - $zeroInSIUnit]"
+        case i if (-i).isOne =>
+          s"$name ($symbol) [($symbol) = - (${getSIUnit.symbol}) + $zeroInSIUnit]"
+        case _ =>
+          s"$name ($symbol) [($symbol) = ${1/intervalInSIUnit}*(${getSIUnit.symbol}) - ${zeroInSIUnit/intervalInSIUnit}]"
+      }
+  }
+}
+
+trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{
+
+  override def zeroInSIUnit: Real = 0
+
+  /** Use <code>name</code> and <code>unitValueInSIUnit</code> properties (not <code>symbol</code>) for equality evaluation. */
+  override def equals(other: Any): Boolean = other match {
+    case that: ScaleUnit[_] =>
+      (that canEqual this) &&
+        name == that.name &&
+        intervalInSIUnit == that.intervalInSIUnit
+    case _ => false
+  }
+
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[ScaleUnit[_]]
+
+  override def hashCode: Int =
+    41 * (
       41 + name.hashCode
-      ) + unitValueInSIUnit.hashCode
+      ) + intervalInSIUnit.hashCode
 
   override def toString: String = getSIUnit match {
     case u if this == u =>
       s"$name ($symbol)"
     case _ =>
-      s"$name ($symbol) [1($symbol) = $unitValueInSIUnit(${getSIUnit.symbol})]"
+      s"$name ($symbol) [1($symbol) = $intervalInSIUnit(${getSIUnit.symbol})]"
   }
 
   /** Use only <code>unitValueInSIUnit</code> property for evaluation (not use <code>name</code> property),
     * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
-  override def compare(that: U): Int = this.unitValueInSIUnit.compare(that.unitValueInSIUnit)
-}
-
-object PhysicalUnit{
-  def getBigger[U <: PhysicalUnit[U]](u:U, v: U): U = if(u.compare(v) >= 0) u else v
+  override def compare(that: U): Int = this.intervalInSIUnit.compare(that.intervalInSIUnit)
 }
 
 trait NotExact
@@ -63,7 +101,7 @@ trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[
   override lazy val name: String = s"${firstUnit.name} times ${secondUnit.name}"
   override protected def extractSymbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
 
-  override val unitValueInSIUnit: Real = firstUnit.unitValueInSIUnit * secondUnit.unitValueInSIUnit
+  override val intervalInSIUnit: Real = firstUnit.intervalInSIUnit * secondUnit.intervalInSIUnit
 
   override def equals(other: Any): Boolean = other match {
     case that: ProductUnit[_, _, _] =>
@@ -96,7 +134,7 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
     else
       s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
 
-  override val unitValueInSIUnit: Real = numeratorUnit.unitValueInSIUnit / denominatorUnit.unitValueInSIUnit
+  override val intervalInSIUnit: Real = numeratorUnit.intervalInSIUnit / denominatorUnit.intervalInSIUnit
 
   override def equals(other: Any): Boolean = other match {
     case that: QuotientUnit[_, _, _] =>

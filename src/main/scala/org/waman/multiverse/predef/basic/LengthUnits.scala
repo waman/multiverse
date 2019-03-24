@@ -26,6 +26,12 @@ object LengthUnits extends PhysicalUnitPredef[LengthUnit]{
   final case object dam extends SimpleLengthUnit("decametre", deca[Real])
   final case object hm extends SimpleLengthUnit("hectometre", hecto[Real])
   final case object km extends SimpleLengthUnit("kilometre", kilo[Real])
+
+  override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
+}
+
+object LengthXUnits extends PhysicalUnitPredef[LengthUnit]{
+
   final case object Mm extends SimpleLengthUnit("megametre", mega[Real])
   final case object Gm extends SimpleLengthUnit("gigametre", giga[Real])
   final case object Tm extends SimpleLengthUnit("terametre", tera[Real])

@@ -2,6 +2,7 @@ package org.waman.multiverse
 
 import org.waman.multiverse.units.basic._
 import org.waman.multiverse.units.mechanics.{Acceleration, AccelerationUnit, TimeSquared, TimeSquaredUnit}
+import org.waman.multiverse.units.thermal.{Temperature, TemperatureUnit}
 import spire.math.{Fractional, Real, SafeLong}
 
 import scala.language.implicitConversions
@@ -10,13 +11,18 @@ package object implicits {
 
   implicit class QuantityFactory[A: Fractional](val value: A){
 
+    // Basics
     def apply(unit: LengthUnit): Length[A] = new Length(value, unit)
     def apply(unit: MassUnit): Mass[A] = new Mass(value, unit)
     def apply(unit: TimeUnit): Time[A] = new Time(value, unit)
     def apply(unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
 
+    // Mechanics
     def apply(unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
     def apply(unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
+
+    // Thermal
+    def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)
   }
 
 //  implicit def convertFractionalToQuantityFactory[A: Fractional](value: A): QuantityFactory[A] =

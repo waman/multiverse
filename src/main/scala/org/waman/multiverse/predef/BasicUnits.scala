@@ -10,6 +10,8 @@ object BasicUnits extends PhysicalUnitPredefProxy{
   // Length Units
   def nm: LengthUnit = LengthUnits.nm
   def μm: LengthUnit = LengthUnits.μm
+  /** Equivalent to μm */
+  def micron: LengthUnit = LengthUnits.μm
   def mm: LengthUnit = LengthUnits.mm
   def cm: LengthUnit = LengthUnits.cm
   def m : LengthUnit = LengthUnits.m
@@ -17,6 +19,8 @@ object BasicUnits extends PhysicalUnitPredefProxy{
 
   // Mass Units
   def μg: MassUnit = MassUnits.μg
+  /** Equivalent to μg */
+  def mcg: MassUnit = MassUnits.μg
   def mg: MassUnit = MassUnits.mg
   def g : MassUnit = MassUnits.g
   def kg: MassUnit = MassUnits.kg

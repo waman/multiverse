@@ -10,9 +10,10 @@ import scala.reflect.runtime.{universe => ru}
 
 object TimeUnits extends PhysicalUnitPredef[TimeUnit]{
 
-  final case object s extends SimpleTimeUnit("second", r"1")
-  final case object min extends SimpleTimeUnit("minute", r"60")
-  final case object h extends SimpleTimeUnit("hour", r"60", min)
+  final case object s extends SimpleTimeUnit("second", 1)
+  final case object min extends SimpleTimeUnit("minute", 60)
+  final case object h extends SimpleTimeUnit("hour", 60, min)
+  final case object day extends SimpleTimeUnit("day", 24, h)
 
   final case object ys extends SimpleTimeUnit("yoctosecond", yocto[Real])
   final case object zs extends SimpleTimeUnit("zeptosecond", zepto[Real])
@@ -28,6 +29,11 @@ object TimeUnits extends PhysicalUnitPredef[TimeUnit]{
   final case object das extends SimpleTimeUnit("decasecond", deca[Real])
   final case object hs extends SimpleTimeUnit("hectosecond", hecto[Real])
   final case object ks extends SimpleTimeUnit("kilosecond", kilo[Real])
+
+  override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
+}
+
+object TimeXUnits extends PhysicalUnitPredef[TimeUnit]{
   final case object Ms extends SimpleTimeUnit("megasecond", mega[Real])
   final case object Gs extends SimpleTimeUnit("gigasecond", giga[Real])
   final case object Ts extends SimpleTimeUnit("terasecond", tera[Real])
