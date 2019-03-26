@@ -28,8 +28,8 @@ class TemperatureSpec extends MultiverseCustomSpec {
       Table(
         ("TemperatureUnit", "expected"),
         (K, "Kelvin (K)"),
-        (`°C`, "Celsius (°C) [(°C) = (K) - 5463/20]"),
-        (`°F`, "Fahrenheit (°F) [(°F) = 9/5*(K) - 45967/100]")
+        (`°C`, "Celsius (°C) [0(°C) = 5463/20(K), Δ(°C) = Δ(K)]"),
+        (`°F`, "Fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)]")
       )
     // Verify
     forAll(conversions){ (sut: TemperatureUnit, expected: String) =>

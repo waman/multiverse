@@ -43,13 +43,14 @@ trait PhysicalUnit[U <: PhysicalUnit[U]]{
     if(this == getSIUnit) {
       s"$name ($symbol)"
     }else{
+      val symbolSI = getSIUnit.symbol
       this.intervalInSIUnit match {
         case i if i.isOne =>
-          s"$name ($symbol) [($symbol) = (${getSIUnit.symbol}) - $zeroInSIUnit]"
+          s"$name ($symbol) [0($symbol) = $zeroInSIUnit($symbolSI), Δ($symbol) = Δ($symbolSI)]"
         case i if (-i).isOne =>
-          s"$name ($symbol) [($symbol) = - (${getSIUnit.symbol}) + $zeroInSIUnit]"
+          s"$name ($symbol) [0($symbol) = $zeroInSIUnit($symbolSI), Δ($symbol) = -Δ($symbolSI)]"
         case _ =>
-          s"$name ($symbol) [($symbol) = ${1/intervalInSIUnit}*(${getSIUnit.symbol}) - ${zeroInSIUnit/intervalInSIUnit}]"
+          s"$name ($symbol) [0($symbol) = $zeroInSIUnit($symbolSI), Δ($symbol) = $intervalInSIUnit*Δ($symbolSI)]"
       }
   }
 }
