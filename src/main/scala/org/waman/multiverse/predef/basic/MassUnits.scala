@@ -31,7 +31,7 @@ object MassUnits extends PhysicalUnitPredef[MassUnit]{
   override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
 }
 
-object MassXUnits extends PhysicalUnitPredef[MassUnit]{
+object XMassUnits extends PhysicalUnitPredef[MassUnit]{
 
   final case object Mg extends SimpleMassUnit("megagram", mega[Real](r"1e-3"))
   final case object Gg extends SimpleMassUnit("gigagram", giga[Real](r"1e-3"))

@@ -1,6 +1,7 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.predef.BasicUnits._
+import org.waman.multiverse.predef.basic.LengthUnits.a_0
 
 class PhysicalUnitSpec extends MultiverseCustomSpec{
 
@@ -47,7 +48,8 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
             (mm, "millimetre (mm) [1(mm) = 1/1000(m)]"),
             (m , "metre (m)"),  // SI unit
             (km, "kilometre (km) [1(km) = 1000(m)]"),
-            (km/s, "kilometre per second (km/s) [1(km/s) = 1000(m/s)]")  // quotient unit
+            (km/s, "kilometre per second (km/s) [1(km/s) = 1000(m/s)]"),  // quotient unit
+            (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 5291772109217/100000000000000000000000(m)]")  // quotient unit
           )
 
         forAll(conversions){ (unit: PhysicalUnit[_], expected: String) =>

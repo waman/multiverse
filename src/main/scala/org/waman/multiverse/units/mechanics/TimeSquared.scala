@@ -18,7 +18,7 @@ class TimeSquared_TimeSquaredUnit(timeUnit: TimeUnit) extends TimeSquaredUnit {
 
   override val intervalInSIUnit: Real = timeUnit.intervalInSIUnit**2
 
-  override protected def extractSymbol: String = s"${timeUnit.symbol}²"
+  override protected def newSymbolString: String = s"${timeUnit.symbol}²"
 }
 
 class TimeTimesTime_TimeSquaredUnit(val firstUnit: TimeUnit, val secondUnit: TimeUnit)

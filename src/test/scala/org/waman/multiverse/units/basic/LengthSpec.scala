@@ -37,4 +37,40 @@ class LengthSpec extends MultiverseCustomSpec {
       sut should equal (%%%%(expected))
     }
   }
+
+  "Contextful units" - {
+    import org.waman.multiverse
+    import multiverse.predef.basic.LengthUnits.xu
+    import multiverse.predef.basic.XUnitContexts._
+
+    "symbol property should return the proper string" in {
+      // Exercise
+      val conversions =
+        Table(
+          ("length", "expected"),
+          (xu, "xu"),
+          (xu(CuKα1) , "xu(CuKα1)"),
+          (xu(MoKα1), "xu(MoKα1)")
+        )
+      // Verify
+      forAll(conversions){ (sut: LengthUnit, expected: String) =>
+        sut.symbol should equal (expected)
+      }
+    }
+
+    "3.0 <<length unit>> should be converted to the equivalent value in metre" in {
+      // Exercise
+      val conversions =
+        Table(
+          ("length", "expected"),
+          (3.0(xu), 3.0*1.0021e-13),
+          (3.0(xu(CuKα1)) , 3.0*1.0020769928e-13),
+          (3.0(xu(MoKα1)), 3.0*1.0020995553e-13)
+        )
+      // Verify
+      forAll(conversions){ (sut: Length[Double], expected: Double) =>
+        sut(m) should equal (%%%%(expected))
+      }
+    }
+  }
 }

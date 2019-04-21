@@ -33,7 +33,7 @@ object TimeUnits extends PhysicalUnitPredef[TimeUnit]{
   override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
 }
 
-object TimeXUnits extends PhysicalUnitPredef[TimeUnit]{
+object XTimeUnits extends PhysicalUnitPredef[TimeUnit]{
   final case object Ms extends SimpleTimeUnit("megasecond", mega[Real])
   final case object Gs extends SimpleTimeUnit("gigasecond", giga[Real])
   final case object Ts extends SimpleTimeUnit("terasecond", tera[Real])

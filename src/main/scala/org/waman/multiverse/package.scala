@@ -2,6 +2,8 @@ package org.waman
 
 import scala.util.matching.Regex
 
+import scala.reflect.runtime.{universe => ru}
+
 package object multiverse {
 
 //  def help(): Unit = {
@@ -40,8 +42,11 @@ package object multiverse {
   // pattern like $u00B0
   private[multiverse] val escaped: Regex = """\$u([0-9A-F]{4})""".r
 
-  // transform string like $u00B0C → °C
-  private[multiverse] def decodeLiteralId(s: String): String = {
+  private[multiverse] def extractObjectSymbol(obj: Any): String = {
+    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(obj)
+    val s = im.symbol.name.toString
+
+    // transform string like "$u00B0C" to "°C"
     def decode(s: String): String = Integer.parseInt(s, 16).asInstanceOf[Char].toString
     escaped.replaceAllIn(s, m => decode(m.group(1)))
   }

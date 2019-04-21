@@ -3,18 +3,12 @@ package org.waman.multiverse
 import spire.implicits._
 import spire.math.Real
 
-import scala.reflect.runtime.{universe => ru}
-
 trait PhysicalUnit[U <: PhysicalUnit[U]]{
 
   def name: String
-  lazy val symbol: String = extractSymbol
+  lazy val symbol: String = newSymbolString
 
-  protected def extractSymbol: String =  {
-    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(this)
-    val s = im.symbol.name.toString
-    decodeLiteralId(s)
-  }
+  protected def newSymbolString: String = extractObjectSymbol(this)
 
   def getSIUnit: U
   def zeroInSIUnit: Real
@@ -75,9 +69,11 @@ trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{
       41 + name.hashCode
       ) + intervalInSIUnit.hashCode
 
-  override def toString: String = getSIUnit match {
-    case u if this == u =>
+  override def toString: String = this match {
+    case thisUnit if thisUnit == getSIUnit =>
       s"$name ($symbol)"
+    case _: NotExact =>
+      s"$name ($symbol) [1($symbol) ≈ $intervalInSIUnit(${getSIUnit.symbol})]"
     case _ =>
       s"$name ($symbol) [1($symbol) = $intervalInSIUnit(${getSIUnit.symbol})]"
   }
@@ -100,7 +96,7 @@ trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[
   def secondUnit: B
 
   override lazy val name: String = s"${firstUnit.name} times ${secondUnit.name}"
-  override protected def extractSymbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
+  override protected def newSymbolString: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
 
   override val intervalInSIUnit: Real = firstUnit.intervalInSIUnit * secondUnit.intervalInSIUnit
 
@@ -129,7 +125,7 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
   def denominatorUnit: B
 
   override lazy val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
-  override protected def extractSymbol: String =
+  override protected def newSymbolString: String =
     if(denominatorUnit.isInstanceOf[LiteralComposite])
       s"${numeratorUnit.symbol}/(${denominatorUnit.symbol})"
     else
