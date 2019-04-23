@@ -45,11 +45,11 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
         val conversions =
           Table(
             ("length unit", "expected"),
-            (mm, "millimetre (mm) [1(mm) = 1/1000(m)]"),
+            (mm, "millimetre (mm) [1(mm) = 0.001(m)]"),
             (m , "metre (m)"),  // SI unit
-            (km, "kilometre (km) [1(km) = 1000(m)]"),
-            (km/s, "kilometre per second (km/s) [1(km/s) = 1000(m/s)]"),  // quotient unit
-            (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 5291772109217/100000000000000000000000(m)]")  // quotient unit
+            (km, "kilometre (km) [1(km) = 1,000(m)]"),
+            (km/s, "kilometre per second (km/s) [1(km/s) = 1,000(m/s)]"),  // quotient unit
+            (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 0.00000000005291772109217(m)]")  // NotExact unit
           )
 
         forAll(conversions){ (unit: PhysicalUnit[_], expected: String) =>

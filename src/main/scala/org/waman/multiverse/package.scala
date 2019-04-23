@@ -1,8 +1,9 @@
 package org.waman
 
-import scala.util.matching.Regex
+import spire.math._
+import spire.implicits._
 
-import scala.reflect.runtime.{universe => ru}
+import scala.annotation.tailrec
 
 package object multiverse {
 
@@ -36,18 +37,52 @@ package object multiverse {
 //    }
 //  }
 
+  def toReadableString(r: Real): String =
+    if(r.isWhole) {
+      String.format("%,d", r.toRational.toBigInt.bigInteger)
+    }else{
+      val ra = r.toRational
+      if(ra == r) toReadableString(ra)
+      else r.toString
+    }
 
-  protected[multiverse] def getBigger[U <: ScaleUnit[U]](u:U, v: U): U = if(u.compare(v) >= 0) u else v
+  private def toReadableString(r: Rational): String = {
+    val (num, deno) = (r.numerator, r.denominator)
+    val (x, n10) = divideRepeatedly(deno, 10L)
+    if(x == 1L){
+      formatToDecimal(num, n10)
+    }else{
+      val g = num gcd deno
+      val d = deno / g
+      val (y, n2) = divideRepeatedly(d, 2L)
+      val (z, n5) = divideRepeatedly(y, 5L)
+      if(z != 1L) return r.toString  // cannot represent as an exact decimal
 
-  // pattern like $u00B0
-  private[multiverse] val escaped: Regex = """\$u([0-9A-F]{4})""".r
+      if(n2 > n5){
+        formatToDecimal(num / g * (5L**(n2-n5)), n2)
+      }else{
+        formatToDecimal(num / g * (2L**(n5-n2)), n5)
+      }
+    }
+  }
 
-  private[multiverse] def extractObjectSymbol(obj: Any): String = {
-    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(obj)
-    val s = im.symbol.name.toString
+  private def divideRepeatedly(n: SafeLong, p: SafeLong): (SafeLong, Int) = {
+    @tailrec
+    def f(n: SafeLong, count: Int): (SafeLong, Int) = n /% p match {
+      case (a, b) if b == 0 => f(a, count+1)
+      case _ => (n, count)
+    }
 
-    // transform string like "$u00B0C" to "°C"
-    def decode(s: String): String = Integer.parseInt(s, 16).asInstanceOf[Char].toString
-    escaped.replaceAllIn(s, m => decode(m.group(1)))
+    f(n, 0)
+  }
+
+  private def formatToDecimal(num: SafeLong, n: Int): String = num.toString match {
+    case s if s.length > n =>
+      val sep = s.length - n
+      val (s0, s1) = (s.substring(0, sep), s.substring(sep))
+      s0+"."+s1
+    case s =>
+      val zeros = "0"*(n-s.length)
+      "0."+zeros + s
   }
 }

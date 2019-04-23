@@ -77,12 +77,12 @@ abstract class ScaleQuantity[A: Fractional, U <: ScaleUnit[U]]
   }
 
   override protected def equalsInDifferentUnit(that: Quantity[A, U]): Boolean = {
-    val evalUnit = getBigger(this.unit, that.unit)
+    val evalUnit = this.unit max that.unit
     this(evalUnit) == that(evalUnit)
   }
 
   override def compareInDifferentUnit(that: Quantity[A, U]): Int = {
-    val evalUnit = getBigger(this.unit, that.unit)
+    val evalUnit = this.unit max that.unit
     implicitly[Fractional[A]].compare(this(evalUnit), that(evalUnit))
   }
 }
@@ -93,13 +93,13 @@ abstract class ExtensiveQuantity[Q <: ExtensiveQuantity[Q, A, U], A: Fractional,
   protected def newQuantity(value: A, unit: U): Q
 
   def +(that: Q): Q = {
-    val u = getBigger(this.unit, that.unit)
+    val u = this.unit max that.unit
     val value = this(u) + that(u)
     newQuantity(value, u)
   }
 
   def -(that: Q): Q = {
-    val u = getBigger(this.unit, that.unit)
+    val u = this.unit max that.unit
     val value = this(u) - that(u)
     newQuantity(value, u)
   }

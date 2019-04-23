@@ -28,7 +28,7 @@ class TemperatureSpec extends MultiverseCustomSpec {
       Table(
         ("TemperatureUnit", "expected"),
         (K, "Kelvin (K)"),
-        (`°C`, "Celsius (°C) [0(°C) = 5463/20(K), Δ(°C) = Δ(K)]"),
+        (`°C`, "Celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)]"),
         (`°F`, "Fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)]")
       )
     // Verify

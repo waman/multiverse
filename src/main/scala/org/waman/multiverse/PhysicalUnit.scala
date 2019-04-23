@@ -3,12 +3,14 @@ package org.waman.multiverse
 import spire.implicits._
 import spire.math.Real
 
+import scala.util.matching.Regex
+
 trait PhysicalUnit[U <: PhysicalUnit[U]]{
 
   def name: String
   lazy val symbol: String = newSymbolString
 
-  protected def newSymbolString: String = extractObjectSymbol(this)
+  protected def newSymbolString: String = PhysicalUnit.extractObjectSymbol(this)
 
   def getSIUnit: U
   def zeroInSIUnit: Real
@@ -38,18 +40,37 @@ trait PhysicalUnit[U <: PhysicalUnit[U]]{
       s"$name ($symbol)"
     }else{
       val symbolSI = getSIUnit.symbol
+      val sZero = toReadableString(zeroInSIUnit)
       this.intervalInSIUnit match {
         case i if i.isOne =>
-          s"$name ($symbol) [0($symbol) = $zeroInSIUnit($symbolSI), Δ($symbol) = Δ($symbolSI)]"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = Δ($symbolSI)]"
         case i if (-i).isOne =>
-          s"$name ($symbol) [0($symbol) = $zeroInSIUnit($symbolSI), Δ($symbol) = -Δ($symbolSI)]"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = -Δ($symbolSI)]"
         case _ =>
-          s"$name ($symbol) [0($symbol) = $zeroInSIUnit($symbolSI), Δ($symbol) = $intervalInSIUnit*Δ($symbolSI)]"
+          val sInterval = toReadableString(intervalInSIUnit)
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]"
       }
   }
 }
 
-trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{
+object PhysicalUnit{
+
+  // pattern like $u00B0
+  private val escaped: Regex = """\$u([0-9A-F]{4})""".r
+
+  private[multiverse] def extractObjectSymbol(obj: Any): String = {
+    import scala.reflect.runtime.{universe => ru}
+
+    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(obj)
+    val s = im.symbol.name.toString
+
+    // transform string like "$u00B0C" to "°C"
+    def decode(s: String): String = Integer.parseInt(s, 16).asInstanceOf[Char].toString
+    escaped.replaceAllIn(s, m => decode(m.group(1)))
+  }
+}
+
+trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{ this: U =>
 
   override def zeroInSIUnit: Real = 0
 
@@ -69,18 +90,24 @@ trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{
       41 + name.hashCode
       ) + intervalInSIUnit.hashCode
 
-  override def toString: String = this match {
-    case thisUnit if thisUnit == getSIUnit =>
-      s"$name ($symbol)"
-    case _: NotExact =>
-      s"$name ($symbol) [1($symbol) ≈ $intervalInSIUnit(${getSIUnit.symbol})]"
-    case _ =>
-      s"$name ($symbol) [1($symbol) = $intervalInSIUnit(${getSIUnit.symbol})]"
+  override def toString: String = {
+    val sInterval = toReadableString(intervalInSIUnit)
+    this match {
+      case thisUnit if thisUnit == getSIUnit =>
+        s"$name ($symbol)"
+      case _: NotExact =>
+        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]"
+      case _ =>
+        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]"
+    }
   }
 
   /** Use only <code>unitValueInSIUnit</code> property for evaluation (not use <code>name</code> property),
     * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
   override def compare(that: U): Int = this.intervalInSIUnit.compare(that.intervalInSIUnit)
+
+  def max(that: U): U = if((this compare that) >= 0) this else that
+  def min(that: U): U = if((this compare that) <= 0) this else that
 }
 
 trait NotExact
