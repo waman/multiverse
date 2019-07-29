@@ -13,7 +13,7 @@ trait AccelerationUnit extends ScaleUnit[AccelerationUnit] {
   override def getSIUnit: AccelerationUnit = m/`s²`
 }
 
-class SimpleAccelerationUnit(val name: String, val intervalInSIUnit: Real) extends AccelerationUnit
+class SimpleAccelerationUnit(val name: String, val intervalInSIUnit: Real) extends AccelerationUnit with SymbolByClassName[AccelerationUnit]
 
 class LengthPerTimeSquared_AccelerationUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeSquaredUnit)
     extends QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit]

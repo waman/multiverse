@@ -15,7 +15,7 @@ trait VelocityUnit extends ScaleUnit[VelocityUnit] {
   def /(timeUnit: TimeUnit): AccelerationUnit = new VelocityPerTime_AccelerationUnit(this, timeUnit)
 }
 
-class SimpleVelocityUnit(val name: String, val intervalInSIUnit: Real) extends VelocityUnit
+class SimpleVelocityUnit(val name: String, val intervalInSIUnit: Real) extends VelocityUnit with SymbolByClassName[VelocityUnit]
 
 class LengthPerTime_VelocityUnit(val numeratorUnit: LengthUnit, val denominatorUnit: TimeUnit)
     extends QuotientUnit[VelocityUnit, LengthUnit, TimeUnit]

@@ -1,0 +1,13 @@
+{
+  "SIUnit":"joule",
+
+  "units":[
+    {"name":"joule", "symbol":"J", "intervalInSIUnit":"1", "scalePrefixes":true},
+    {"name":"erg", "symbol":"erg", "intervalInSIUnit":"1e-7"},
+    {"name":"electronvolt", "symbol":"eV", "intervalInSIUnit":"Constants.ElementaryCharge", "scalePrefixes":true, "notExact":true},
+    {"name":"rydberg", "symbol":"Ry", "intervalInSIUnit":"13.6056925330", "baseUnit":"electronvolt", "notExact":true},
+    {"name":"atomic unit of energy", "symbol":"E_h", "intervalInSIUnit":"2", "baseUnit":"rydberg", "notExact":true},
+
+    {"name":"calorie", "symbol": "cal", "aliases":["cal(IT)", "cal_IT"], "intervalInSIUnit":"4.1868"}
+  ]
+}

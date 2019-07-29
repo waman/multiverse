@@ -22,6 +22,6 @@ trait TimeUnit extends ScaleUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
   override def square: TimeSquaredUnit = new TimeSquared_TimeSquaredUnit(this)
 }
 
-class SimpleTimeUnit(val name: String, val intervalInSIUnit: Real) extends TimeUnit {
+class SimpleTimeUnit(val name: String, val intervalInSIUnit: Real) extends TimeUnit with SymbolByClassName[TimeUnit]{
   def this(name: String, factor: Real, u: TimeUnit) = this(name, factor*u.intervalInSIUnit)
 }

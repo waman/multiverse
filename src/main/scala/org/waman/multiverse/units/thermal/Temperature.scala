@@ -12,4 +12,5 @@ trait TemperatureUnit extends PhysicalUnit[TemperatureUnit]{
   override def getSIUnit: TemperatureUnit = TemperatureUnits.K
 }
 
-class SimpleTemperatureUnit(val name: String, val zeroInSIUnit: Real, val intervalInSIUnit: Real) extends TemperatureUnit
+class SimpleTemperatureUnit(val name: String, val zeroInSIUnit: Real, val intervalInSIUnit: Real)
+  extends TemperatureUnit with SymbolByClassName[TemperatureUnit]

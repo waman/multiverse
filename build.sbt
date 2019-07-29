@@ -1,6 +1,6 @@
 name := "multiverse"
 
-version := "0.2"
+version := "0.3"
 
 organization := "org.waman"
 
@@ -16,8 +16,8 @@ javaVersion := "10"
 encoding := "UTF-8"
 
 libraryDependencies ++= Seq(
-  "org.typelevel" %% "spire" % "0.16.0",
-  "org.scalatest" %% "scalatest" % "3.0.5" % Test,
+  "org.typelevel" %% "spire" % "0.16.2",
+  "org.scalatest" %% "scalatest" % "3.0.8" % Test,
   "org.scalacheck" %% "scalacheck" % "1.14.0" % Test
 )
 
@@ -38,6 +38,18 @@ scalacOptions ++= Seq(
 
 //***** Running *****
 fork := true
+
+//***** Source Generation *****
+sourceManaged in Compile := file((sourceDirectory in Compile).value.getAbsolutePath + "/src_managed")
+//sourceManaged in Compile := file("src/main/src_managed")
+
+sourceGenerators in Compile += Def.task {
+  val info = (resourceDirectory in Compile).value / "physical-units"
+  val destDir = (sourceManaged in Compile).value
+  MultiverseSourceGenerator.generate(info, destDir)
+}.taskValue
+
+cleanFiles += (sourceManaged in Compile).value
 
 //initialCommands in console :=
 //  """import org.waman.multiverse._

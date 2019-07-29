@@ -42,7 +42,7 @@ package object multiverse {
       String.format("%,d", r.toRational.toBigInt.bigInteger)
     }else{
       val ra = r.toRational
-      if(ra == r) toReadableString(ra)
+      if(areSameValues(ra, r)) toReadableString(ra)
       else r.toString
     }
 
@@ -52,19 +52,20 @@ package object multiverse {
     if(x == 1L){
       formatToDecimal(num, n10)
     }else{
-      val g = num gcd deno
-      val d = deno / g
-      val (y, n2) = divideRepeatedly(d, 2L)
+      val (y, n2) = divideRepeatedly(deno, 2L)
       val (z, n5) = divideRepeatedly(y, 5L)
-      if(z != 1L) return r.toString  // cannot represent as an exact decimal
+      if(z != 1L) return r.toString  // cannot be represented as an exact decimal
 
       if(n2 > n5){
-        formatToDecimal(num / g * (5L**(n2-n5)), n2)
+        formatToDecimal(num * (5L**(n2-n5)), n2)
       }else{
-        formatToDecimal(num / g * (2L**(n5-n2)), n5)
+        formatToDecimal(num * (2L**(n5-n2)), n5)
       }
     }
   }
+
+  @SuppressWarnings(Array("unchecked"))
+  private def areSameValues(ra: Rational, r: Real): Boolean = ra == r
 
   private def divideRepeatedly(n: SafeLong, p: SafeLong): (SafeLong, Int) = {
     @tailrec
@@ -79,8 +80,7 @@ package object multiverse {
   private def formatToDecimal(num: SafeLong, n: Int): String = num.toString match {
     case s if s.length > n =>
       val sep = s.length - n
-      val (s0, s1) = (s.substring(0, sep), s.substring(sep))
-      s0+"."+s1
+      s.substring(0, sep) + "." + s.substring(sep)
     case s =>
       val zeros = "0"*(n-s.length)
       "0."+zeros + s

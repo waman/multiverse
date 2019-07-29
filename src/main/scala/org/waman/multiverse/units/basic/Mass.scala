@@ -16,4 +16,4 @@ trait MassUnit extends ScaleUnit[MassUnit]{
   override def getSIUnit: MassUnit = MassUnits.kg
 }
 
-class SimpleMassUnit(val name: String, val intervalInSIUnit: Real) extends MassUnit
+class SimpleMassUnit(val name: String, val intervalInSIUnit: Real) extends MassUnit with SymbolByClassName[MassUnit]

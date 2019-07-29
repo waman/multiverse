@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
 import org.waman.multiverse.units.basic._
-import org.waman.multiverse.units.mechanics.{Acceleration, AccelerationUnit, TimeSquared, TimeSquaredUnit}
+import org.waman.multiverse.units.mechanics.{Acceleration, AccelerationUnit, Energy, EnergyUnit, TimeSquared, TimeSquaredUnit}
 import org.waman.multiverse.units.thermal.{Temperature, TemperatureUnit}
 import spire.math.{Fractional, Real, SafeLong}
 
@@ -20,6 +20,7 @@ package object implicits {
     // Mechanics
     def apply(unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
     def apply(unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
+    def apply(unit: EnergyUnit): Energy[A] = new Energy(value, unit)
 
     // Thermal
     def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)

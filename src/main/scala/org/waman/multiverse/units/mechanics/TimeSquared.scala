@@ -12,13 +12,12 @@ trait TimeSquaredUnit extends ScaleUnit[TimeSquaredUnit] {
   override def getSIUnit: TimeSquaredUnit = TimeSquaredUnits.`s²`
 }
 
-class TimeSquared_TimeSquaredUnit(timeUnit: TimeUnit) extends TimeSquaredUnit {
+class TimeSquared_TimeSquaredUnit(timeUnit: TimeUnit) extends TimeSquaredUnit{
 
   override val name: String = s"${timeUnit.name} squared"
-
+  override lazy val symbol: String = s"${timeUnit.symbol}²"
   override val intervalInSIUnit: Real = timeUnit.intervalInSIUnit**2
-
-  override protected def newSymbolString: String = s"${timeUnit.symbol}²"
+  override val aliases: Seq[String] = Nil
 }
 
 class TimeTimesTime_TimeSquaredUnit(val firstUnit: TimeUnit, val secondUnit: TimeUnit)

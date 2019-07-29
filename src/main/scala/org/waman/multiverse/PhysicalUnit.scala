@@ -8,9 +8,8 @@ import scala.util.matching.Regex
 trait PhysicalUnit[U <: PhysicalUnit[U]]{
 
   def name: String
-  lazy val symbol: String = newSymbolString
-
-  protected def newSymbolString: String = PhysicalUnit.extractObjectSymbol(this)
+  def symbol: String
+  def aliases: Seq[String]
 
   def getSIUnit: U
   def zeroInSIUnit: Real
@@ -70,44 +69,21 @@ object PhysicalUnit{
   }
 }
 
-trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{ this: U =>
+@deprecated
+trait NameByClassName[U <: PhysicalUnit[U]] extends PhysicalUnit[U]{
 
-  override def zeroInSIUnit: Real = 0
-
-  /** Use <code>name</code> and <code>unitValueInSIUnit</code> properties (not <code>symbol</code>) for equality evaluation. */
-  override def equals(other: Any): Boolean = other match {
-    case that: ScaleUnit[_] =>
-      (that canEqual this) &&
-        name == that.name &&
-        intervalInSIUnit == that.intervalInSIUnit
-    case _ => false
+  override def name: String = {
+    import scala.reflect.runtime.{universe => ru}
+    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(this)
+    im.symbol.name.toString
   }
+}
 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[ScaleUnit[_]]
-
-  override def hashCode: Int =
-    41 * (
-      41 + name.hashCode
-      ) + intervalInSIUnit.hashCode
-
-  override def toString: String = {
-    val sInterval = toReadableString(intervalInSIUnit)
-    this match {
-      case thisUnit if thisUnit == getSIUnit =>
-        s"$name ($symbol)"
-      case _: NotExact =>
-        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]"
-      case _ =>
-        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]"
-    }
-  }
-
-  /** Use only <code>unitValueInSIUnit</code> property for evaluation (not use <code>name</code> property),
-    * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
-  override def compare(that: U): Int = this.intervalInSIUnit.compare(that.intervalInSIUnit)
-
-  def max(that: U): U = if((this compare that) >= 0) this else that
-  def min(that: U): U = if((this compare that) <= 0) this else that
+@deprecated
+trait SymbolByClassName[U <: PhysicalUnit[U]] extends PhysicalUnit[U]{
+  override lazy val symbol: String = newSymbolString
+  protected def newSymbolString: String = PhysicalUnit.extractObjectSymbol(this)
+  override def aliases: Seq[String] = Nil
 }
 
 trait NotExact
@@ -123,7 +99,9 @@ trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[
   def secondUnit: B
 
   override lazy val name: String = s"${firstUnit.name} times ${secondUnit.name}"
-  override protected def newSymbolString: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
+  override lazy val symbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
+  override def aliases: Seq[String] =
+    ((firstUnit.symbol +: firstUnit.aliases) zip (secondUnit.symbol +: secondUnit.aliases)).map(ss => s"${ss._1}*${ss._2}").tail
 
   override val intervalInSIUnit: Real = firstUnit.intervalInSIUnit * secondUnit.intervalInSIUnit
 
@@ -152,11 +130,15 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
   def denominatorUnit: B
 
   override lazy val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
-  override protected def newSymbolString: String =
+  override lazy val symbol: String =
     if(denominatorUnit.isInstanceOf[LiteralComposite])
       s"${numeratorUnit.symbol}/(${denominatorUnit.symbol})"
     else
       s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
+
+  override def aliases: Seq[String] =
+    ((numeratorUnit.symbol +: numeratorUnit.aliases) zip (denominatorUnit.symbol +: denominatorUnit.aliases))
+      .map(ss => s"${ss._1}/${ss._2}").tail
 
   override val intervalInSIUnit: Real = numeratorUnit.intervalInSIUnit / denominatorUnit.intervalInSIUnit
 

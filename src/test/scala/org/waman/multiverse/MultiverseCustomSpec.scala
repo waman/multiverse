@@ -1,11 +1,11 @@
 package org.waman.multiverse
 
 import org.scalactic.TripleEqualsSupport.Spread
-import org.scalatest.{FreeSpec, Matchers}
 import org.scalatest.matchers.{MatchResult, Matcher}
-import org.scalatest.prop.PropertyChecks
+import org.scalatest.{FreeSpec, Matchers}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-class MultiverseCustomSpec  extends FreeSpec with Matchers with PropertyChecks{
+class MultiverseCustomSpec  extends FreeSpec with Matchers with ScalaCheckPropertyChecks{
 
   //***** Utility methods *****
   def convertImplicitly[T](t: T): T = t

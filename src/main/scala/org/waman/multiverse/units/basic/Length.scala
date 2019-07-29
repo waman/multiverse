@@ -20,4 +20,4 @@ trait LengthUnit extends ScaleUnit[LengthUnit]{
   def /(timeUnit: TimeSquaredUnit): AccelerationUnit = new LengthPerTimeSquared_AccelerationUnit(this, timeUnit)
 }
 
-class SimpleLengthUnit(val name: String, val intervalInSIUnit: Real) extends LengthUnit
+class SimpleLengthUnit(val name: String, val intervalInSIUnit: Real) extends LengthUnit with SymbolByClassName[LengthUnit]
