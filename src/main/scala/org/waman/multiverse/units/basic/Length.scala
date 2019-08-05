@@ -12,7 +12,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     new Length(value, unit)
 }
 
-trait LengthUnit extends ScaleUnit[LengthUnit]{
+trait LengthUnit extends LinearUnit[LengthUnit]{
 
   override def getSIUnit: LengthUnit = LengthUnits.m
 

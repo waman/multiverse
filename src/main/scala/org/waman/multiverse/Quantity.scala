@@ -68,7 +68,7 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 }
 
 // maybe all quantities other than temperature
-abstract class ScaleQuantity[A: Fractional, U <: ScaleUnit[U]]
+abstract class ScaleQuantity[A: Fractional, U <: LinearUnit[U]]
   extends Quantity[A, U] {
 
   override protected def applyInDifferentUnit(evalUnit: U): A = {
@@ -87,7 +87,7 @@ abstract class ScaleQuantity[A: Fractional, U <: ScaleUnit[U]]
   }
 }
 
-abstract class ExtensiveQuantity[Q <: ExtensiveQuantity[Q, A, U], A: Fractional, U <: ScaleUnit[U]]
+abstract class ExtensiveQuantity[Q <: ExtensiveQuantity[Q, A, U], A: Fractional, U <: LinearUnit[U]]
   extends ScaleQuantity[A, U]{
 
   protected def newQuantity(value: A, unit: U): Q

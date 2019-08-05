@@ -9,7 +9,7 @@ import spire.math.{Fractional, Real}
 class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
     extends ScaleQuantity[A, AccelerationUnit]
 
-trait AccelerationUnit extends ScaleUnit[AccelerationUnit] {
+trait AccelerationUnit extends LinearUnit[AccelerationUnit] {
   override def getSIUnit: AccelerationUnit = m/`s²`
 }
 

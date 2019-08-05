@@ -1,0 +1,8 @@
+{
+  "SIUnit":"metre per second",
+
+  "units":[
+    {"name":"speed of light", "symbol":"c", "intervalInSIUnit":"Constants.SpeedOfLight"},
+    {"name":"mach number", "symbol":"M", "intervalInSIUnit":"340", "notExact": true}
+  ]
+}

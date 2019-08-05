@@ -1,4 +1,4 @@
-import java.io.File
+import java.io.{BufferedWriter, File}
 import java.nio.charset.Charset
 
 import com.google.gson._
@@ -246,67 +246,112 @@ object MultiverseSourceGenerator{
       val categ = gson.fromJson(reader, unitCategoryType).asInstanceOf[UnitCategory]
       val units = categ.units.flatMap(_.canonicalizeAndExpandScalePrefixes())
 
-      val objCode = new StringBuilder
-      val unitsCode = new StringBuilder
-      val getUnitsCode = new mutable.ListBuffer[String]
-
-      objCode.append(s"object ${id}UnitObjects{\n")
-      unitsCode.append(s"object ${id}Units{\n")
-
-      units.foreach { u =>
-        val objName = u.name.replaceAll("\\s", "_")
-
-        //***** PredefLengthUnitObjects *****
-        val aliases =
-          if (u.aliases.isEmpty) "Nil"
-          else u.aliases.mkString("Seq(\"", "\", \"", "\")")
-
-        val notExact =
-          if (!u.notExact) ""
-          else " with NotExact"
-
-        // final case object metre extends SimpleLengthUnit("metre", "m", Nil, r"1")
-        objCode.append(
-          s"""  final object $objName extends Simple${id}Unit(""" +
-            s""""${u.name}", "${u.symbol}", $aliases, ${u.intervalInSIUnit})$notExact\n""")
-
-        //***** getUnitsCode *****
-        getUnitsCode.append(objName)
-
-        //***** PredefLengthUnits *****
-        // def m: LengthUnit = LengthUnitObjects.metre
-        unitsCode.append(s"""  def ${u.symbol}: ${id}Unit = ${id}UnitObjects.$objName\n""")
-
-        u.aliases.foreach { a =>
-          if (!a.contains("(")) // TODO
-            unitsCode.append(s"""  def $a: ${id}Unit = ${id}UnitObjects.$objName\n""")
-        }
-      }
-
-      objCode.append(s"""\n  def getUnits: Seq[${id}Unit] = \n""")
-      objCode.append(getUnitsCode.mkString("    Seq(", ", ", ")\n\n"))
-      objCode.append("}\n\n")
-
-      unitsCode.append(s"""\n  def getUnits: Seq[${id}Unit] = ${id}UnitObjects.getUnits\n""")
-      unitsCode.append("}")
-
       IO.writer(destFile, "", utf8, append = false) { writer =>
         writer.write(s"package $packageName\n\n")
         writer.write("import spire.math.Real\n")
         writer.write("import spire.implicits._\n\n")
 
-        // import org.waman.multiverse.units.basic.LengthUnit
         writer.write("import org.waman.multiverse._\n")
         writer.write("import org.waman.multiverse.predef._\n")
         writer.write(s"""import ${packageName.replaceAll("predef", "units")}.${id}Unit\n\n""")
 
         // class SimpleEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val intervalInSIUnit: Real) extends EnergyUnit
         writer.write(
-          s"""class Simple${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val intervalInSIUnit: Real) extends ${id}Unit\n\n""")
+          s"""class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val intervalInSIUnit: Real) extends ${id}Unit\n\n""")
 
-        writer.write(objCode.toString)
-        writer.write(unitsCode.toString)
+        val attrGenerated = generateAttributesCode(writer, id, units)
+        writer.write("\n")
+        generateUnitObjectCode(writer, id, units, attrGenerated)
+        writer.write("\n")
+        generateUnitsCode(writer, id, units)
       }
     }
+  }
+
+  def toObjectName(s: String): String = {
+    val ss = s.replaceAll("\\s", "_")
+    if(ss.contains("("))
+      s"""`$ss`"""
+    else
+      ss
+  }
+
+  def generateUnitObjectCode(writer: BufferedWriter, id: String, units: Seq[CanonicalizedUnitJson], attrGenerated: Boolean): Unit = {
+    val getUnitsCode = new mutable.ListBuffer[String]
+
+    writer.write(s"object ${id}UnitObjects{\n")
+    if(attrGenerated) writer.write(s"""  import ${id}Attributes._\n\n""")
+
+    units.foreach { u =>
+      val objName = toObjectName(u.name)
+
+      val aliases =
+        if (u.aliases.isEmpty) "Nil"
+        else u.aliases.mkString("Seq(\"", "\", \"", "\")")
+
+      val notExact =
+        if (!u.notExact) ""
+        else " with NotExact"
+
+      // final case object metre extends SimpleLengthUnit("metre", "m", Nil, r"1")
+      writer.write(
+        s"""  final object $objName extends Default${id}Unit(""" +
+          s""""${u.name}", "${u.symbol}", $aliases, ${u.intervalInSIUnit})$notExact""")
+
+      if(u.attributes.nonEmpty){
+        writer.write("{\n")
+        writer.write(s"""    def apply(a: ${u.name}Attribute): ${id}Unit = a match {\n""")
+        u.attributes.foreach{ a =>
+          writer.write(s"""      case ${a.name} => `${u.name}(${a.name})`\n""")
+        }
+        writer.write("    }\n")
+        writer.write("  }")
+      }
+
+      writer.write("\n")
+
+      //***** getUnitsCode *****
+      getUnitsCode.append(objName)
+    }
+
+    writer.write(s"""\n  def getUnits: Seq[${id}Unit] = \n""")
+    writer.write(getUnitsCode.mkString("    Seq(", ", ", ")\n"))
+    writer.write("}\n")
+  }
+
+  def generateUnitsCode(writer: BufferedWriter, id: String, units: Seq[CanonicalizedUnitJson]): Unit = {
+    writer.write(s"object ${id}Units{\n")
+
+    units.filterNot(_.name.contains("(")).foreach { u =>
+      val objName = toObjectName(u.name)
+
+      // def m: LengthUnit = LengthUnitObjects.metre
+      writer.write(s"""  def ${u.symbol}: ${id}Unit = ${id}UnitObjects.$objName\n""")
+
+      u.aliases.filterNot(_.contains("(")).foreach { a =>
+        writer.write(s"""  def $a: ${id}Unit = ${id}UnitObjects.$objName\n""")
+      }
+    }
+
+    writer.write(s"""\n  def getUnits: Seq[${id}Unit] = ${id}UnitObjects.getUnits\n""")
+    writer.write("}\n")
+  }
+
+  def generateAttributesCode(writer: BufferedWriter, id: String, units: Seq[CanonicalizedUnitJson]): Boolean = {
+    val attUnits = units.filter(_.attributes.nonEmpty)
+    if(attUnits.isEmpty) return false
+
+    attUnits.foreach{ u =>
+      writer.write(s"""sealed trait ${u.name}Attribute\n""")
+    }
+
+    // [gregorian: Seq(month, year, decade, ...), julian: Seq(year, decade, ...), ...]
+    val map = attUnits.flatMap(u => u.attributes.map(a => (u.name, a.name))).groupBy(_._2).mapValues(v => v.map(_._1))
+    writer.write(s"\nobject ${id}Attributes{\n")
+    map.foreach{ u =>
+      writer.write(s"""  final object ${u._1} extends ${u._2.map(_+"Attribute").mkString(" with ")}\n""")
+    }
+    writer.write("}\n")
+    true
   }
 }

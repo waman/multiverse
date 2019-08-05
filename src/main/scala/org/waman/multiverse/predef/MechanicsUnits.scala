@@ -11,7 +11,7 @@ object MechanicsUnits extends PhysicalUnitPredefProxy {
   def s2: TimeSquaredUnit = TimeSquaredUnits.`s²`
 
   // Acceleration Units
-  def g0: AccelerationUnit = AccelerationUnits.g0
+  def g_0: AccelerationUnit = AccelerationUnits.g_0
 
   override protected def getUnitsType: ru.Type = ru.typeOf[this.type]
 }

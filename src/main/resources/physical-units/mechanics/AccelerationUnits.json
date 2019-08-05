@@ -1,0 +1,7 @@
+{
+  "SIUnit":"metre per second per second",
+
+  "units":[
+    {"name":"standard gravity", "symbol":"g_0", "intervalInSIUnit":"9.80665"}
+  ]
+}

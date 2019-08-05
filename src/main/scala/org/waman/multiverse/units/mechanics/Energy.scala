@@ -11,7 +11,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     new Energy(value, unit)
 }
 
-trait EnergyUnit extends ScaleUnit[EnergyUnit]{
+trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   override def getSIUnit: EnergyUnit = EnergyUnitObjects.joule
 }

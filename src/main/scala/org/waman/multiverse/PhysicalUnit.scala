@@ -100,8 +100,10 @@ trait ProductUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit[
 
   override lazy val name: String = s"${firstUnit.name} times ${secondUnit.name}"
   override lazy val symbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
-  override def aliases: Seq[String] =
-    ((firstUnit.symbol +: firstUnit.aliases) zip (secondUnit.symbol +: secondUnit.aliases)).map(ss => s"${ss._1}*${ss._2}").tail
+  override def aliases: Seq[String] = {
+    val fm = firstUnit.symbol +: firstUnit.aliases
+    (secondUnit.symbol +: secondUnit.aliases).flatMap(s => fm.map(f => s"$f*$s")).tail
+  }
 
   override val intervalInSIUnit: Real = firstUnit.intervalInSIUnit * secondUnit.intervalInSIUnit
 
@@ -136,9 +138,10 @@ trait QuotientUnit[U <: PhysicalUnit[U], A <: PhysicalUnit[A], B <: PhysicalUnit
     else
       s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
 
-  override def aliases: Seq[String] =
-    ((numeratorUnit.symbol +: numeratorUnit.aliases) zip (denominatorUnit.symbol +: denominatorUnit.aliases))
-      .map(ss => s"${ss._1}/${ss._2}").tail
+  override def aliases: Seq[String] = {
+    val nm = numeratorUnit.symbol +: numeratorUnit.aliases
+    (denominatorUnit.symbol +: denominatorUnit.aliases).flatMap(d => nm.map(n => s"$n/$d")).tail
+  }
 
   override val intervalInSIUnit: Real = numeratorUnit.intervalInSIUnit / denominatorUnit.intervalInSIUnit
 

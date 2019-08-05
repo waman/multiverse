@@ -2,20 +2,20 @@ package org.waman.multiverse
 
 import spire.math.Real
 
-trait ScaleUnit[U <: ScaleUnit[U]] extends PhysicalUnit[U] with Ordered[U]{ this: U =>
+trait LinearUnit[U <: LinearUnit[U]] extends PhysicalUnit[U] with Ordered[U]{ this: U =>
 
   override def zeroInSIUnit: Real = 0
 
   /** Use <code>name</code> and <code>unitValueInSIUnit</code> properties (not <code>symbol</code>) for equality evaluation. */
   override def equals(other: Any): Boolean = other match {
-    case that: ScaleUnit[_] =>
+    case that: LinearUnit[_] =>
       (that canEqual this) &&
         name == that.name &&
         intervalInSIUnit == that.intervalInSIUnit
     case _ => false
   }
 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[ScaleUnit[_]]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[LinearUnit[_]]
 
   override def hashCode: Int =
     41 * (

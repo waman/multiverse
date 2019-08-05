@@ -12,7 +12,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
     new Time(value, unit)
 }
 
-trait TimeUnit extends ScaleUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
+trait TimeUnit extends LinearUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
   override def getSIUnit: TimeUnit = TimeUnits.s
 
   def *(timeUnit: TimeUnit): TimeSquaredUnit =

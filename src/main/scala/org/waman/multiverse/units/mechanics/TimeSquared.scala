@@ -8,7 +8,7 @@ import spire.math.{Fractional, Real}
 class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
     extends ScaleQuantity[A, TimeSquaredUnit]
 
-trait TimeSquaredUnit extends ScaleUnit[TimeSquaredUnit] {
+trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit] {
   override def getSIUnit: TimeSquaredUnit = TimeSquaredUnits.`s²`
 }
 
