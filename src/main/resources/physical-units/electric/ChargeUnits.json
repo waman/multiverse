@@ -1,0 +1,10 @@
+{
+  "SIUnit":"coulomb",
+
+  "units":[
+    {"name":"coulomb", "symbol":"C", "interval":"1", "scalePrefixes":true},
+    {"name":"abcoulomb", "symbol":"abC", "interval":"10"},
+    {"name":"statcoulomb", "symbol":"statC", "aliases": ["Fr","esu"], "interval":"Constants.SpeedOfLight", "notExact": true},
+    {"name":"atomic unit of charge", "symbol":"au", "aliases":["e"], "interval":"Constants.ElementaryCharge"}
+  ]
+}

@@ -2,7 +2,7 @@ package org.waman.multiverse
 
 import spire.implicits._
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.predef.BasicUnits._
+import org.waman.multiverse.unit.BasicUnits._
 
 class QuantitySpec extends MultiverseCustomSpec{
 

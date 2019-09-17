@@ -1,0 +1,46 @@
+{
+  "SIUnit":"metre",
+
+  "units":[
+      {"name":"metre", "symbol":"m", "interval":"1", "scalePrefixes":true},
+
+      {"name":"micron", "symbol":"µ", "interval":"1e-6"},
+      {"name":"Angstrom", "symbol":"Å", "interval":"1e-10"},
+      {"name":"atomic unit of length", "symbol":"a_0", "interval":"5.291772109217e-11", "notExact":true},
+      {"name":"xunit", "symbol":"xu", "interval":"1.0021e-13", "notExact":true,
+        "attributes": [
+          {"name": "CuKα1", "interval":"1.0020769928e-13", "notExact":true},
+          {"name":"MoKα1", "interval":"1.0020995553e-13", "notExact":true}
+        ]
+      },
+    
+      {"name":"planck length", "symbol":"l_p", "interval":"1.61624e-35", "notExact":true},
+
+      {"name":"astronomical unit", "symbol":"au", "interval":"149597870700"},
+      {"name":"light year", "symbol":"ly", "interval":"9.4607304725808e15"},
+      {"name":"parsec", "symbol":"pc", "interval":"3.08567782e16", "notExact":true},
+
+      {"name":"mil", "symbol":"mil", "aliases":["thou"], "interval":"1/1000", "baseUnit":"inch"},
+      {"name":"twip", "symbol":"twp", "interval":"1/20", "baseUnit":"point"},
+      {"name":"point", "symbol":"pt", "interval":"1/72", "baseUnit":"inch"},
+      {"name":"line", "symbol":"ln", "interval":"1/12", "baseUnit":"inch"},
+      {"name":"inch", "symbol":"in", "interval":"2.54", "baseUnit":"centimetre"},
+
+      {"name":"foot", "symbol":"ft", "interval":"12", "baseUnit":"inch"},
+      {"name":"yard", "symbol":"yd", "interval":"3", "baseUnit":"foot"},
+      {"name":"ell", "symbol":"ell", "interval":"45", "baseUnit":"inch"},
+      {"name":"fathom", "symbol":"ftm", "interval":"6", "baseUnit":"foot"},
+      {"name":"rod", "symbol":"rd", "interval":"16.5", "baseUnit":"foot"},
+      {"name":"rope", "symbol":"rope", "interval":"20", "baseUnit":"foot"},
+      {"name":"chain", "symbol":"ch", "interval":"66", "baseUnit":"foot"},
+      {"name":"mile", "symbol":"mi", "interval":"1760", "baseUnit":"yard"},
+      {"name":"league", "symbol":"lea", "interval":"3", "baseUnit":"mile"},
+
+      {"name":"nautical mile", "symbol":"NM", "aliases":["nmi"], "interval":"1852",
+        "attributes": [
+          {"name": "Adm", "interval":"6080", "baseUnit":"foot"}
+        ]
+      },
+      {"name":"nautical league", "symbol":"NL", "aliases":["nl"], "interval":"3", "baseUnit":"nautical mile"}
+  ]
+}

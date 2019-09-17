@@ -1,0 +1,12 @@
+{
+  "SIUnit":"Charge * basic.Length",
+
+  "products": [
+    {"firstUnit": "Charge", "secondUnit": "basic.Length"}
+  ],
+
+  "units":[
+    {"name":"debye", "symbol":"D", "interval":"Constants.SpeedOfLight * 1e-20"},
+    {"name":"atomic unit of electric dipole moment", "symbol":"ea_0", "interval":"Constants.BohrRadius", "notExact": true}
+  ]
+}

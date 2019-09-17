@@ -1,0 +1,7 @@
+{
+  "SIUnit":"farad",
+
+  "units": [
+    {"name":"farad", "symbol":"F", "interval":"1", "scalePrefixes":true}
+  ]
+}

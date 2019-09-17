@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.predef.BasicUnits._
-import org.waman.multiverse.predef.basic.LengthUnits.a_0
+import org.waman.multiverse.unit.BasicUnits._
+import org.waman.multiverse.unit.basic.LengthUnits.a_0
 
 class PhysicalUnitSpec extends MultiverseCustomSpec{
 

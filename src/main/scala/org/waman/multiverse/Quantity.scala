@@ -4,7 +4,7 @@ import spire.math.{Fractional, Real}
 import spire.implicits._
 
 abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
-    extends Ordered[Quantity[A, U]]{
+    extends Ordered[Quantity[A, U]] {
 
   def value: A
   def unit: U
@@ -13,11 +13,7 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
     if(unit == evalUnit) value
     else applyInDifferentUnit(evalUnit)
 
-  protected def applyInDifferentUnit(evalUnit: U): A = {
-    val algebra = implicitly[Fractional[A]]
-    def real(r: Real): A = algebra.fromReal(r)
-    (value * real(unit.intervalInSIUnit) + real(unit.zeroInSIUnit) - real(evalUnit.zeroInSIUnit)) / real(evalUnit.intervalInSIUnit)
-  }
+  protected def applyInDifferentUnit(evalUnit: U): A
 
   override def equals(other: Any): Boolean = other match {
     case that: Quantity[A, U] =>
@@ -61,6 +57,17 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
       compareInDifferentUnit(that)
   }
 
+  protected def compareInDifferentUnit(that: Quantity[A, U]): Int
+}
+
+abstract class HomogeneousQuantity[A: Fractional, U <: HomogeneousUnit[U]] extends Quantity[A, U]{
+
+  protected def applyInDifferentUnit(evalUnit: U): A = {
+    val algebra = implicitly[Fractional[A]]
+    def real(r: Real): A = algebra.fromReal(r)
+    (value * real(unit.interval) + real(unit.zero) - real(evalUnit.zero)) / real(evalUnit.interval)
+  }
+
   protected def compareInDifferentUnit(that: Quantity[A, U]): Int = {
     val siUnit = unit.getSIUnit
     implicitly[Fractional[A]].compare(this(siUnit), that(siUnit))
@@ -68,40 +75,37 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 }
 
 // maybe all quantities other than temperature
-abstract class ScaleQuantity[A: Fractional, U <: LinearUnit[U]]
+abstract class LinearQuantity[Q <: LinearQuantity[Q, A, U], A: Fractional, U <: LinearUnit[U]]
   extends Quantity[A, U] {
-
-  override protected def applyInDifferentUnit(evalUnit: U): A = {
-    val algebra: Fractional[A] = implicitly[Fractional[A]]
-    value * algebra.fromReal(unit.intervalInSIUnit) / algebra.fromReal(evalUnit.intervalInSIUnit)
-  }
-
-  override protected def equalsInDifferentUnit(that: Quantity[A, U]): Boolean = {
-    val evalUnit = this.unit max that.unit
-    this(evalUnit) == that(evalUnit)
-  }
-
-  override def compareInDifferentUnit(that: Quantity[A, U]): Int = {
-    val evalUnit = this.unit max that.unit
-    implicitly[Fractional[A]].compare(this(evalUnit), that(evalUnit))
-  }
-}
-
-abstract class ExtensiveQuantity[Q <: ExtensiveQuantity[Q, A, U], A: Fractional, U <: LinearUnit[U]]
-  extends ScaleQuantity[A, U]{
 
   protected def newQuantity(value: A, unit: U): Q
 
+  override protected def applyInDifferentUnit(evalUnit: U): A = {
+    val algebra: Fractional[A] = implicitly[Fractional[A]]
+    value * algebra.fromReal(unit.interval) / algebra.fromReal(evalUnit.interval)
+  }
+
+  override protected def compareInDifferentUnit(that: Quantity[A, U]): Int = {
+    val evalUnit = this.unit max that.unit
+    implicitly[Fractional[A]].compare(this(evalUnit), that(evalUnit))
+  }
+
   def +(that: Q): Q = {
     val u = this.unit max that.unit
-    val value = this(u) + that(u)
-    newQuantity(value, u)
+    newQuantity(this(u) + that(u), u)
+  }
+
+  /** harmonic sum: v1v2/(v1 + v2) or v of 1/v =  1/v1 + 1/v2 */
+  def |+|(that: Q): Q = {
+    val u = this.unit max that.unit
+    val v1 = this(u)
+    val v2 = that(u)
+    newQuantity(v1*v2/(v1 + v2), u)
   }
 
   def -(that: Q): Q = {
     val u = this.unit max that.unit
-    val value = this(u) - that(u)
-    newQuantity(value, u)
+    newQuantity(this(u) - that(u), u)
   }
 
   def *(c: A): Q = newQuantity(this.value * c, this.unit)

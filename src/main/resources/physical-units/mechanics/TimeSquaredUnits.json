@@ -1,0 +1,10 @@
+{
+  "SIUnit":"basic.Time * basic.Time",
+
+  "products": [
+    {"firstUnit": "basic.Time", "secondUnit": "basic.Time"
+    }
+  ],
+
+  "units":[]
+}

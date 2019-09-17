@@ -1,7 +1,12 @@
 {
-  "SIUnit":"metre per second per second",
+  "SIUnit":"basic.Length / TimeSquared",
+
+  "quotients":[
+    {"numeratorUnit": "basic.Length", "denominatorUnit":"TimeSquared"},
+    {"numeratorUnit": "basic.Velocity", "denominatorUnit":"basic.Time"}
+  ],
 
   "units":[
-    {"name":"standard gravity", "symbol":"g_0", "intervalInSIUnit":"9.80665"}
+    {"name":"standard gravity", "symbol":"g_0", "interval":"9.80665"}
   ]
 }

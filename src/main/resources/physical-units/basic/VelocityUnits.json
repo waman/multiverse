@@ -1,8 +1,12 @@
 {
-  "SIUnit":"metre per second",
+  "SIUnit":"Length / Time",
+
+  "quotients":[
+    {"numeratorUnit": "Length", "denominatorUnit":"Time"}
+  ],
 
   "units":[
-    {"name":"speed of light", "symbol":"c", "intervalInSIUnit":"Constants.SpeedOfLight"},
-    {"name":"mach number", "symbol":"M", "intervalInSIUnit":"340", "notExact": true}
+    {"name":"speed of light", "symbol":"c", "interval":"Constants.SpeedOfLight"},
+    {"name":"mach number", "symbol":"M", "interval":"340", "notExact": true}
   ]
 }

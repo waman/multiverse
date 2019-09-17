@@ -1,5 +1,6 @@
 [
   {"name":"SpeedOfLight", "value":"299792458"},
   {"name": "PlanckConstant", "value": "6.62607015e-34"},
-  {"name":"ElementaryCharge", "value":"1.602176620898e-19"}
+  {"name":"ElementaryCharge", "value":"1.602176634e-19"},
+  {"name": "BohrRadius", "value": "5.2917721090380e-11"}
 ]

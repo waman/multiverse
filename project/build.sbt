@@ -21,9 +21,9 @@ javacOptions ++= Seq(
 )
 
 scalacOptions ++= Seq(
-  "-Xlint",
-  "-deprecation",
-  "-unchecked",
-  "-feature",
+//  "-Xlint",
+//  "-deprecation",
+//  "-unchecked",
+//  "-feature",
   "-encoding", encoding.value
 )

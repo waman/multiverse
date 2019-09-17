@@ -46,7 +46,8 @@ sourceManaged in Compile := file((sourceDirectory in Compile).value.getAbsoluteP
 sourceGenerators in Compile += Def.task {
   val info = (resourceDirectory in Compile).value / "physical-units"
   val destDir = (sourceManaged in Compile).value
-  MultiverseSourceGenerator.generate(info, destDir)
+  val scalaMain = (sourceDirectory in Compile).value / "scala"
+  MultiverseSourceGenerator.generate(info, destDir, scalaMain)
 }.taskValue
 
 cleanFiles += (sourceManaged in Compile).value
