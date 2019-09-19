@@ -25,9 +25,9 @@ object DipoleUnitObjects{
 
   final object debye extends DefaultDipoleUnit("debye", "D", Nil, Constants.SpeedOfLight * r"1e-20")
   final object atomic_unit_of_electric_dipole_moment extends DefaultDipoleUnit("atomic unit of electric dipole moment", "ea_0", Nil, Constants.BohrRadius) with NotExact
-  import org.waman.multiverse.unit.basic
+  import org.waman.multiverse.unit.basic.LengthUnitObjects
 
-  val getSIUnit: DipoleUnit = ChargeUnitObjects.getSIUnit * basic.LengthUnitObjects.getSIUnit
+  val getSIUnit: DipoleUnit = ChargeUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
 
   def getUnits: Seq[DipoleUnit] =
     Seq(debye, atomic_unit_of_electric_dipole_moment)

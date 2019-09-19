@@ -1,9 +1,9 @@
 {
-  "SIUnit":"basic.Length / TimeSquared",
+  "SIUnit":"Length / TimeSquared",
 
   "quotients":[
-    {"numeratorUnit": "basic.Length", "denominatorUnit":"TimeSquared"},
-    {"numeratorUnit": "basic.Velocity", "denominatorUnit":"basic.Time"}
+    {"numeratorUnit": "Length", "denominatorUnit":"TimeSquared"},
+    {"numeratorUnit": "Velocity", "denominatorUnit":"Time"}
   ],
 
   "units":[

@@ -1,8 +1,8 @@
 {
-  "SIUnit":"Charge * basic.Length",
+  "SIUnit":"Charge * Length",
 
   "products": [
-    {"firstUnit": "Charge", "secondUnit": "basic.Length"}
+    {"firstUnit": "Charge", "secondUnit": "Length"}
   ],
 
   "units":[

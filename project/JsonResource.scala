@@ -57,6 +57,7 @@ object GenerationUtil{
   val utf8: Charset = Charset.forName("UTF-8")
 
   val regId: Regex = """[a-zA-z.]+""".r
+  val regCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
   val regNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
 
   val scalePrefixes: Seq[ScalePrefix] = Seq(

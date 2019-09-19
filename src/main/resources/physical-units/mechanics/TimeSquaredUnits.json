@@ -1,8 +1,8 @@
 {
-  "SIUnit":"basic.Time * basic.Time",
+  "SIUnit":"Time * Time",
 
   "products": [
-    {"firstUnit": "basic.Time", "secondUnit": "basic.Time"
+    {"firstUnit": "Time", "secondUnit": "Time"
     }
   ],
 

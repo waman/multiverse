@@ -162,23 +162,15 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
 
       val mul: Seq[(BriefType, BriefType)] =
         linearUnits.flatMap(lu => lu.unitCategory._products.flatMap{
-          case p if p.firstUnit.endsWith(id) =>
-            val secondType =
-              if (p.secondUnit.contains(".")) BriefType(p.secondUnit)
-              else BriefType(lu.kind, p.secondUnit)
-
-            Seq((secondType, BriefType(lu.kind, lu.id)))
+          case p if p.firstUnit == this.id =>
+            Seq((BriefType(p.secondUnit, linearUnits), BriefType(lu.kind, lu.id)))
           case _ => Nil
         })
 
       val div: Seq[(BriefType, BriefType)] =
         linearUnits.flatMap(lu => lu.unitCategory._quotients.flatMap{
-          case p if p.numeratorUnit.endsWith(id) =>
-            val denoType =
-              if (p.denominatorUnit.contains(".")) BriefType(p.denominatorUnit)
-              else BriefType(lu.kind, p.denominatorUnit)
-
-            Seq((denoType, BriefType(lu.kind, lu.id)))
+          case p if p.numeratorUnit == id =>
+            Seq((BriefType(p.denominatorUnit, linearUnits), BriefType(lu.kind, lu.id)))
           case _ => Nil
         })
 
@@ -226,7 +218,7 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
 
       generateAttributesCode(writer, id, units)
       writer.write("\n")
-      generateUnitObjectCode(writer, id, this.unitCategory.SIUnit, units)
+      generateUnitObjectCode(writer, id, this.unitCategory.SIUnit, units, linearUnits)
       writer.write("\n")
       generateUnitsCode(writer, id, units)
     }
@@ -235,12 +227,10 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
   case class BriefType(kind: String, id: String)
 
   object BriefType{
-    def apply(s: String): BriefType =
-      if (s.contains(".")){
-        val ss = s.split('.')
-        BriefType(ss(0), ss(1))
-      }else{
-        BriefType("", s)
+    def apply(id: String, linearUnits: Seq[LinearUnitResource]): BriefType =
+      linearUnits.find(_.id == id) match {
+        case Some(lu) => BriefType(lu.kind, id)
+        case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
       }
   }
 
@@ -266,7 +256,9 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
     true
   }
 
-  private def generateUnitObjectCode(writer: BufferedWriter, id: String, siUnit: String, units: Seq[CanonicalizedUnitJson]): Unit = {
+  private def generateUnitObjectCode(
+                                      writer: BufferedWriter, id: String, siUnit: String, units: Seq[CanonicalizedUnitJson],
+                                      linearUnits: Seq[LinearUnitResource]): Unit = {
 
     writer.write(s"object ${id}UnitObjects{\n")
 
@@ -287,19 +279,19 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
         s"""  final object ${u.objectName} extends Default${id}Unit("${u.name}", "${u.symbol}", $aliases, ${u.interval})$notExact\n""")
     }
 
+    writer.write("\n")
+
     //***** SI Unit *****
-    if (siUnit.contains("*") || siUnit.contains("/")){
-      val s = GenerationUtil.regId.replaceAllIn(siUnit, m => {
-        val ss = siUnit.substring(m.start, m.end)
-        if (ss.contains(".")){
-          val k = ss.substring(0, ss.indexOf('.'))
-          writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.$k\n""")
-        }
-        ss + "UnitObjects.getSIUnit"
-      })
+    if (siUnit.contains('*') || siUnit.contains('/')){
+      val GenerationUtil.regCompositeUnit(first, op, second) = siUnit
+
+      List(first, second).map(BriefType(_, linearUnits)).filterNot(_.kind == this.kind).foreach{ bt =>
+        writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${bt.kind}.${bt.id}UnitObjects\n""")
+      }
+
       writer.write(
         s"""
-           |  val getSIUnit: ${id}Unit = $s
+           |  val getSIUnit: ${id}Unit = ${first}UnitObjects.getSIUnit $op ${second}UnitObjects.getSIUnit
            |""".stripMargin)
     }else{
       writer.write(
@@ -341,7 +333,7 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
         writer.write(s"""  def $al: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
 
         // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
-        if (u.attributes.nonEmpty) {
+        if (u.attributes.nonEmpty && !al.contains("_")) {
           writer.write(s"""  def $al(a: ${u.objectName}Attribute): ${id}Unit = ${u.symbol}(a)\n""")
         }
       }

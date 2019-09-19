@@ -135,7 +135,6 @@ object EnergyUnits{
     case EnergyAttributes.IT => EnergyUnitObjects.`calorie(IT)`
   }
   def cal_IT: EnergyUnit = EnergyUnitObjects.calorie
-  def cal_IT(a: calorieAttribute): EnergyUnit = cal(a)
 
   def getSIUnit: EnergyUnit = EnergyUnitObjects.getSIUnit
   def getUnits: Seq[EnergyUnit] = EnergyUnitObjects.getUnits
