@@ -14,6 +14,11 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
   override def getSIUnit: CurrentUnit = CurrentUnitObjects.getSIUnit
 
+  import org.waman.multiverse.unit.basic.TimeUnit
+
+  def *(timeUnit: TimeUnit): ChargeUnit =
+    new ProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
+
 }
 
 class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -43,6 +48,7 @@ object CurrentUnitObjects{
   final object zettaampere extends DefaultCurrentUnit("zettaampere", "ZA", Nil, r"1" * r"1e21")
   final object yottaampere extends DefaultCurrentUnit("yottaampere", "YA", Nil, r"1" * r"1e24")
   final object abampere extends DefaultCurrentUnit("abampere", "abamp", Nil, r"10")
+
 
   def getSIUnit: CurrentUnit = ampere
 

@@ -28,7 +28,10 @@ class ConstantsResource(json: File, destDir: File, mainDir: File)
              |""".stripMargin)
 
         consts.foreach { c =>
-          writer.write(s"""  val ${c.name}: Real = r"${c.value}"\n""")
+          if (c.name == "Pi")
+            writer.write(s"""  val Pi: Real = Real.pi\n""")
+          else
+            writer.write(s"""  val ${c.name}: Real = r"${c.value}"\n""")
         }
 
         writer.write("}")

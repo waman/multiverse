@@ -14,6 +14,16 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
 trait VoltageUnit extends LinearUnit[VoltageUnit]{
   override def getSIUnit: VoltageUnit = VoltageUnitObjects.getSIUnit
 
+  import org.waman.multiverse.unit.basic.TimeUnit
+  import org.waman.multiverse.unit.magnetic.FluxUnit
+
+  def *(timeUnit: TimeUnit): FluxUnit =
+    new ProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
+
+
+  def /(currentUnit: CurrentUnit): ResistanceUnit =
+    new QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
+
 }
 
 class DefaultVoltageUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -46,6 +56,7 @@ object VoltageUnitObjects{
   final object yottavolt extends DefaultVoltageUnit("yottavolt", "YV", Nil, r"1" * r"1e24")
   final object statvolt extends DefaultVoltageUnit("statvolt", "statV", Nil, Constants.SpeedOfLight / r"1e6")
   final object abvolt extends DefaultVoltageUnit("abvolt", "abV", Nil, r"1e-8")
+
 
   def getSIUnit: VoltageUnit = volt
 

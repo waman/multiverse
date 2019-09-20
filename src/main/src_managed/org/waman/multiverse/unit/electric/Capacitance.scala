@@ -43,6 +43,7 @@ object CapacitanceUnitObjects{
   final object zettafarad extends DefaultCapacitanceUnit("zettafarad", "ZF", Nil, r"1" * r"1e21")
   final object yottafarad extends DefaultCapacitanceUnit("yottafarad", "YF", Nil, r"1" * r"1e24")
 
+
   def getSIUnit: CapacitanceUnit = farad
 
   def getUnits: Seq[CapacitanceUnit] =

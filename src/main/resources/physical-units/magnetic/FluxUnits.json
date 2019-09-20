@@ -1,0 +1,10 @@
+{
+  "SIUnit":"weber",
+
+  "composites": ["Voltage * Time"],
+
+  "units":[
+    {"name":"weber"  , "symbol":"Wb", "interval":"1", "scalePrefixes":true},
+    {"name":"maxwell", "symbol":"Mx", "interval":"1e-8", "scalePrefixes":true}
+  ]
+}

@@ -1,6 +1,8 @@
 {
   "SIUnit":"farad",
 
+  "composites": ["Charge / Voltage"],
+
   "units": [
     {"name":"farad", "symbol":"F", "interval":"1", "scalePrefixes":true}
   ]

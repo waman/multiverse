@@ -44,6 +44,7 @@ object ResistanceUnitObjects{
   final object yottaohm extends DefaultResistanceUnit("yottaohm", "YΩ", Seq("Yohm"), r"1" * r"1e24")
   final object abohm extends DefaultResistanceUnit("abohm", "abΩ", Seq("abohm"), r"1e-9")
 
+
   def getSIUnit: ResistanceUnit = ohm
 
   def getUnits: Seq[ResistanceUnit] =

@@ -14,6 +14,16 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
   override def getSIUnit: EnergyUnit = EnergyUnitObjects.getSIUnit
 
+  import org.waman.multiverse.unit.basic.TimeUnit
+
+  def *(timeUnit: TimeUnit): ActionUnit =
+    new ProductUnit[ActionUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with ActionUnit
+
+  import org.waman.multiverse.unit.basic.TimeUnit
+
+  def /(timeUnit: TimeUnit): PowerUnit =
+    new QuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
+
 }
 
 class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -75,6 +85,7 @@ object EnergyUnitObjects{
   final object atomic_unit_of_energy extends DefaultEnergyUnit("atomic unit of energy", "E_h", Nil, r"2" * rydberg.interval) with NotExact
   final object calorie extends DefaultEnergyUnit("calorie", "cal", Seq("cal_IT"), r"4.1868")
   final object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT(IT)"), r"4.1868")
+
 
   def getSIUnit: EnergyUnit = joule
 

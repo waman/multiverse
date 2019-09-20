@@ -1,6 +1,8 @@
 {
   "SIUnit":"coulomb",
 
+  "composites": ["Current * Time"],
+
   "units":[
     {"name":"coulomb", "symbol":"C", "interval":"1", "scalePrefixes":true},
     {"name":"abcoulomb", "symbol":"abC", "interval":"10"},

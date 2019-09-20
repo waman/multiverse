@@ -1,6 +1,8 @@
 {
   "SIUnit":"volt",
 
+  "composites": ["Power / Current"],
+
   "units": [
     {"name":"volt", "symbol":"V", "interval":"1", "scalePrefixes":true},
     {"name":"statvolt", "symbol":"statV", "interval":"Constants.SpeedOfLight / 1e6"},

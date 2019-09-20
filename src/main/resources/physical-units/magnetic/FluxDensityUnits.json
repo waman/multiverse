@@ -1,0 +1,10 @@
+{
+  "SIUnit":"tesla",
+
+  "composites": ["Flux / Area"],
+
+  "units":[
+    {"name":"tesla", "symbol":"T", "interval":"1", "scalePrefixes":true},
+    {"name":"gauss", "symbol":"G", "interval":"1e-4", "scalePrefixes":true}
+  ]
+}

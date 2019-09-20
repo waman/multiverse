@@ -19,6 +19,15 @@ trait ChargeUnit extends LinearUnit[ChargeUnit]{
   def *(lengthUnit: LengthUnit): DipoleUnit =
     new ProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
 
+
+  def /(voltageUnit: VoltageUnit): CapacitanceUnit =
+    new QuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit](ChargeUnit.this, voltageUnit) with CapacitanceUnit
+
+  import org.waman.multiverse.unit.basic.TimeUnit
+
+  def /(timeUnit: TimeUnit): CurrentUnit =
+    new QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
+
 }
 
 class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -52,6 +61,7 @@ object ChargeUnitObjects{
   final object abcoulomb extends DefaultChargeUnit("abcoulomb", "abC", Nil, r"10")
   final object statcoulomb extends DefaultChargeUnit("statcoulomb", "statC", Seq("Fr", "esu"), Constants.SpeedOfLight) with NotExact
   final object atomic_unit_of_charge extends DefaultChargeUnit("atomic unit of charge", "au", Seq("e"), Constants.ElementaryCharge)
+
 
   def getSIUnit: ChargeUnit = coulomb
 

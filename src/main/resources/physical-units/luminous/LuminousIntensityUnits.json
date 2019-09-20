@@ -1,0 +1,7 @@
+{
+  "SIUnit":"candela",
+
+  "units":[
+    {"name":"candela", "symbol":"cd", "interval":"1", "scalePrefixes":true}
+  ]
+}

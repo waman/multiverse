@@ -1,9 +1,7 @@
 {
   "SIUnit":"Charge * Length",
 
-  "products": [
-    {"firstUnit": "Charge", "secondUnit": "Length"}
-  ],
+  "composites": ["Charge * Length"],
 
   "units":[
     {"name":"debye", "symbol":"D", "interval":"Constants.SpeedOfLight * 1e-20"},

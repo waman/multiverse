@@ -1,0 +1,9 @@
+{
+  "SIUnit":"henry",
+
+  "composites": ["Flux /Current "],
+
+  "units":[
+    {"name":"henry", "symbol":"H", "interval":"1", "scalePrefixes":true}
+  ]
+}

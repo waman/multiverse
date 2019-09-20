@@ -22,6 +22,7 @@ class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases:
 
 object AccelerationUnitObjects{
   final object standard_gravity extends DefaultAccelerationUnit("standard gravity", "g_0", Nil, r"9.80665")
+
   import org.waman.multiverse.unit.basic.LengthUnitObjects
 
   val getSIUnit: AccelerationUnit = LengthUnitObjects.getSIUnit / TimeSquaredUnitObjects.getSIUnit

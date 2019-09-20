@@ -1,0 +1,10 @@
+{
+  "SIUnit":"Length * Length",
+
+  "composites": ["Length * Length"],
+
+  "units":[
+    {"name":"are", "symbol":"a", "interval":"1e2"},
+    {"name":"hectare", "symbol":"ha", "interval":"1e4"}
+  ]
+}

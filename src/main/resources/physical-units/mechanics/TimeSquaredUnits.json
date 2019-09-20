@@ -1,10 +1,7 @@
 {
   "SIUnit":"Time * Time",
 
-  "products": [
-    {"firstUnit": "Time", "secondUnit": "Time"
-    }
-  ],
+  "composites": ["Time * Time"],
 
   "units":[]
 }

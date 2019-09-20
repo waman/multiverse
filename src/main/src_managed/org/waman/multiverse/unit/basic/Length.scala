@@ -15,6 +15,10 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
   override def getSIUnit: LengthUnit = LengthUnitObjects.getSIUnit
 
 
+  def *(lengthUnit: LengthUnit): AreaUnit =
+    new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
+
+
   def /(timeUnit: TimeUnit): VelocityUnit =
     new QuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
 
@@ -87,6 +91,7 @@ object LengthUnitObjects{
   final object nautical_mile extends DefaultLengthUnit("nautical mile", "NM", Seq("nmi"), r"1852")
   final object `nautical_mile(Adm)` extends DefaultLengthUnit("nautical mile(Adm)", "NM(Adm)", Seq("nmi(Adm)"), r"6080" * foot.interval)
   final object nautical_league extends DefaultLengthUnit("nautical league", "NL", Seq("nl"), r"3" * nautical_mile.interval)
+
 
   def getSIUnit: LengthUnit = metre
 

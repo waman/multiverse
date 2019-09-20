@@ -1,0 +1,7 @@
+{
+  "SIUnit":"lumen",
+
+  "units":[
+    {"name":"lumen", "symbol":"lm", "interval":"1", "scalePrefixes":true}
+  ]
+}

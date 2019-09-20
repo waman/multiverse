@@ -1,6 +1,12 @@
 {
   "SIUnit":"ohm",
 
+  "composites": ["Voltage / Current"],
+
+  "quotients":[
+    {"numeratorUnit": "Voltage", "denominatorUnit":"Current"}
+  ],
+
   "units":[
     {"name":"ohm", "symbol":"Ω", "aliases": ["ohm"], "interval":"1", "scalePrefixes":true},
     {"name":"abohm", "symbol":"abΩ", "aliases": ["abohm"], "interval":"1e-9"}

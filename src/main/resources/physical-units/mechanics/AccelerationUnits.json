@@ -1,9 +1,9 @@
 {
   "SIUnit":"Length / TimeSquared",
 
-  "quotients":[
-    {"numeratorUnit": "Length", "denominatorUnit":"TimeSquared"},
-    {"numeratorUnit": "Velocity", "denominatorUnit":"Time"}
+  "composites": [
+    "Length / TimeSquared",
+    "Velocity / Time"
   ],
 
   "units":[

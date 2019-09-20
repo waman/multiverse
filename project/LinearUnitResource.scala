@@ -4,18 +4,7 @@ import java.io.{BufferedWriter, File}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class UnitCategory(SIUnit: String, products: Array[ProductUnit], quotients: Array[QuotientUnit], units: Array[UnitJson]){
-  lazy val _products: Seq[ProductUnit] =
-    if (this.products != null) this.products.toList
-    else Nil
-
-  lazy val _quotients: Seq[QuotientUnit] =
-    if (this.quotients != null) this.quotients.toList
-    else Nil
-}
-
-case class ProductUnit(firstUnit: String, secondUnit: String)
-case class QuotientUnit(numeratorUnit: String, denominatorUnit: String)
+case class UnitCategory(SIUnit: String, composites: Array[String], units: Array[UnitJson])
 
 // ex)
 //{"name":"electronvolt", "symbol":"eV", "interval":"Constants.ElementaryCharge",
@@ -92,13 +81,13 @@ case class UnitJson(
   }
 
   private def makeIntervalExpression(interval: String, baseUnit: String): String = {
-    val i = GenerationUtil.regNum.replaceAllIn(interval, m => s"""r"${interval.substring(m.start, m.end)}"""")
+    val interval1 = GenerationUtil.regNum.replaceAllIn(interval, m => s"""r"${interval.substring(m.start, m.end)}"""")
+    val interval2 = interval1.replaceAll("pi", "Constants.Pi")
+    val interval3 =
+      if(baseUnit == null) interval2
+      else s"""$interval2 * ${toObjectName(baseUnit)}.interval"""
 
-    val bu =
-      if(baseUnit == null) ""
-      else s""" * ${toObjectName(baseUnit)}.interval"""
-
-    i + bu
+    interval3
   }
 
   private def toObjectName(s: String): String = {
@@ -128,10 +117,25 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
   val id: String = jsonFile.getName.replace("Units.json", "")  // Length
   val destFilename: String =  id + ".scala"// Length.scala
   val packageName: String = GenerationUtil.rootPackage + ".unit." + kind
+
   val unitCategory: UnitCategory =
     IO.reader(jsonFile, UTF8) { reader =>
-      gson.fromJson(reader, unitCategoryType).asInstanceOf[UnitCategory]
+      val categ = gson.fromJson(reader, unitCategoryType).asInstanceOf[UnitCategory]
+      categ
     }
+
+  case class Composites(products: Seq[(String, String)], quotients: Seq[(String, String)])
+
+  lazy val composites: Composites =
+    if (this.unitCategory.composites != null){
+      val (p, q) = this.unitCategory.composites.partition(_.contains('*'))
+      val prod = p.map(s => s.split('*')).map(ss => (ss(0).trim, ss(1).trim))
+      val quot = q.map(s => s.split('/')).map(ss => (ss(0).trim, ss(1).trim))
+      Composites(prod, quot)
+    }else{
+      Composites(Nil, Nil)
+    }
+
 
   override def isLinearUnit: Boolean = true
 
@@ -160,24 +164,23 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
 
       val linearUnits = jsons.filter(_.isLinearUnit).map(_.asInstanceOf[LinearUnitResource])
 
-      val mul: Seq[(BriefType, BriefType)] =
-        linearUnits.flatMap(lu => lu.unitCategory._products.flatMap{
-          case p if p.firstUnit == this.id =>
-            Seq((BriefType(p.secondUnit, linearUnits), BriefType(lu.kind, lu.id)))
-          case _ => Nil
-        })
+      val mul: Seq[(LinearUnitResource, LinearUnitResource)] =
+        linearUnits.flatMap{ lu =>
+          lu.composites.products
+            .filter(_._1 == this.id)
+            .map(p => (searchLinearUnit(p._2, linearUnits), lu))
+        }
 
-      val div: Seq[(BriefType, BriefType)] =
-        linearUnits.flatMap(lu => lu.unitCategory._quotients.flatMap{
-          case p if p.numeratorUnit == id =>
-            Seq((BriefType(p.denominatorUnit, linearUnits), BriefType(lu.kind, lu.id)))
-          case _ => Nil
-        })
-
+      val div: Seq[(LinearUnitResource, LinearUnitResource)] =
+        linearUnits.flatMap{ lu =>
+          lu.composites.quotients
+            .filter(_._1 == this.id)
+            .map(p => (searchLinearUnit(p._2, linearUnits), lu))
+        }
       mul.foreach{ p =>
-        Seq(p._1, p._2).foreach{ bt =>
-          if (bt.kind != "" && bt.kind != this.kind)
-            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${bt.kind}.${bt.id}Unit\n""")
+        Seq(p._1, p._2).foreach{ lu =>
+          if (lu.kind != "" && lu.kind != this.kind)
+            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.kind}.${lu.id}Unit\n""")
         }
 
         val secondType = p._1.id
@@ -192,9 +195,9 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
       }
 
       div.foreach{ p =>
-        Seq(p._1, p._2).foreach{ bt =>
-          if (bt.kind != "" && bt.kind != this.kind)
-            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${bt.kind}.${bt.id}Unit\n""")
+        Seq(p._1, p._2).foreach{ lu =>
+          if (lu.kind != "" && lu.kind != this.kind)
+            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.kind}.${lu.id}Unit\n""")
         }
 
         val denoType = p._1.id
@@ -224,15 +227,11 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
     }
   }
 
-  case class BriefType(kind: String, id: String)
-
-  object BriefType{
-    def apply(id: String, linearUnits: Seq[LinearUnitResource]): BriefType =
-      linearUnits.find(_.id == id) match {
-        case Some(lu) => BriefType(lu.kind, id)
-        case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
-      }
-  }
+  private def searchLinearUnit(id: String, linearUnits: Seq[LinearUnitResource]): LinearUnitResource =
+    linearUnits.find(_.id == id) match {
+      case Some(lu) => lu
+      case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
+    }
 
   private def headToLower(s: String): String = Character.toLowerCase(s.charAt(0)) + s.substring(1)
 
@@ -285,8 +284,8 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
     if (siUnit.contains('*') || siUnit.contains('/')){
       val GenerationUtil.regCompositeUnit(first, op, second) = siUnit
 
-      List(first, second).map(BriefType(_, linearUnits)).filterNot(_.kind == this.kind).foreach{ bt =>
-        writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${bt.kind}.${bt.id}UnitObjects\n""")
+      List(first, second).map(searchLinearUnit(_, linearUnits)).filterNot(_.kind == this.kind).foreach{ lu =>
+        writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.kind}.${lu.id}UnitObjects\n""")
       }
 
       writer.write(
@@ -333,7 +332,7 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
         writer.write(s"""  def $al: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
 
         // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
-        if (u.attributes.nonEmpty && !al.contains("_")) {
+        if (u.attributes.nonEmpty && !al.contains("_")) {  // the second condition is for removing ones like cal_IT(IT)
           writer.write(s"""  def $al(a: ${u.objectName}Attribute): ${id}Unit = ${u.symbol}(a)\n""")
         }
       }

@@ -1,0 +1,14 @@
+{
+  "SIUnit":"LuminousIntensity / Area",
+
+  "composites": ["LuminousIntensity / Area"],
+
+  "units":[
+    {"name":"stilb", "symbol":"sb", "interval":"1e4"},
+    {"name":"lambert", "symbol":"Lb", "interval":"1e4 / pi"},
+    {"name":"apo stilb", "symbol":"asb", "interval":"1 / pi"},
+    {"name":"skot", "symbol":"sk", "interval":"1e-3 / pi"},
+    {"name":"bril", "symbol":"bril", "interval":"1e-7 / pi"}//,
+    //{"name":"foot lambert", "symbol":"fLb", "interval":"1 / pi", "baseUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareFoot"}
+  ]
+}

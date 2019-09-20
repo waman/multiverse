@@ -31,6 +31,7 @@ object VelocityUnitObjects{
   final object speed_of_light extends DefaultVelocityUnit("speed of light", "c", Nil, Constants.SpeedOfLight)
   final object mach_number extends DefaultVelocityUnit("mach number", "M", Nil, r"340") with NotExact
 
+
   val getSIUnit: VelocityUnit = LengthUnitObjects.getSIUnit / TimeUnitObjects.getSIUnit
 
   def getUnits: Seq[VelocityUnit] =

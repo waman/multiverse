@@ -1,9 +1,7 @@
 {
   "SIUnit":"Length / Time",
 
-  "quotients":[
-    {"numeratorUnit": "Length", "denominatorUnit":"Time"}
-  ],
+  "composites": ["Length / Time"],
 
   "units":[
     {"name":"speed of light", "symbol":"c", "interval":"Constants.SpeedOfLight"},
