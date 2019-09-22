@@ -56,7 +56,7 @@ object LengthUnitObjects{
   final object decimetre extends DefaultLengthUnit("decimetre", "dm", Nil, r"1" * r"1e-1")
   final object decametre extends DefaultLengthUnit("decametre", "dam", Nil, r"1" * r"1e1")
   final object hectometre extends DefaultLengthUnit("hectometre", "hm", Nil, r"1" * r"1e2")
-  final object kilometre extends DefaultLengthUnit("kilometre", "km", Nil, r"1" * r"1e3")
+  final object kilometre extends DefaultLengthUnit("kilometre", "km", Seq("Km"), r"1" * r"1e3")
   final object megametre extends DefaultLengthUnit("megametre", "Mm", Nil, r"1" * r"1e6")
   final object gigametre extends DefaultLengthUnit("gigametre", "Gm", Nil, r"1" * r"1e9")
   final object terametre extends DefaultLengthUnit("terametre", "Tm", Nil, r"1" * r"1e12")
@@ -115,6 +115,7 @@ object LengthUnits{
   def dam: LengthUnit = LengthUnitObjects.decametre
   def hm: LengthUnit = LengthUnitObjects.hectometre
   def km: LengthUnit = LengthUnitObjects.kilometre
+  def Km: LengthUnit = LengthUnitObjects.kilometre
   def Mm: LengthUnit = LengthUnitObjects.megametre
   def Gm: LengthUnit = LengthUnitObjects.gigametre
   def Tm: LengthUnit = LengthUnitObjects.terametre

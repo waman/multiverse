@@ -24,6 +24,12 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
   def /(timeUnit: TimeUnit): PowerUnit =
     new QuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
 
+  import org.waman.multiverse.unit.basic.MassUnit
+  import org.waman.multiverse.unit.radiation.AbsorbedDoseUnit
+
+  def /(massUnit: MassUnit): AbsorbedDoseUnit =
+    new QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
+
 }
 
 class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -51,7 +57,7 @@ object EnergyUnitObjects{
   final object decijoule extends DefaultEnergyUnit("decijoule", "dJ", Nil, r"1" * r"1e-1")
   final object decajoule extends DefaultEnergyUnit("decajoule", "daJ", Nil, r"1" * r"1e1")
   final object hectojoule extends DefaultEnergyUnit("hectojoule", "hJ", Nil, r"1" * r"1e2")
-  final object kilojoule extends DefaultEnergyUnit("kilojoule", "kJ", Nil, r"1" * r"1e3")
+  final object kilojoule extends DefaultEnergyUnit("kilojoule", "kJ", Seq("KJ"), r"1" * r"1e3")
   final object megajoule extends DefaultEnergyUnit("megajoule", "MJ", Nil, r"1" * r"1e6")
   final object gigajoule extends DefaultEnergyUnit("gigajoule", "GJ", Nil, r"1" * r"1e9")
   final object terajoule extends DefaultEnergyUnit("terajoule", "TJ", Nil, r"1" * r"1e12")
@@ -73,7 +79,7 @@ object EnergyUnitObjects{
   final object decielectronvolt extends DefaultEnergyUnit("decielectronvolt", "deV", Nil, Constants.ElementaryCharge * r"1e-1") with NotExact
   final object decaelectronvolt extends DefaultEnergyUnit("decaelectronvolt", "daeV", Nil, Constants.ElementaryCharge * r"1e1") with NotExact
   final object hectoelectronvolt extends DefaultEnergyUnit("hectoelectronvolt", "heV", Nil, Constants.ElementaryCharge * r"1e2") with NotExact
-  final object kiloelectronvolt extends DefaultEnergyUnit("kiloelectronvolt", "keV", Nil, Constants.ElementaryCharge * r"1e3") with NotExact
+  final object kiloelectronvolt extends DefaultEnergyUnit("kiloelectronvolt", "keV", Seq("KeV"), Constants.ElementaryCharge * r"1e3") with NotExact
   final object megaelectronvolt extends DefaultEnergyUnit("megaelectronvolt", "MeV", Nil, Constants.ElementaryCharge * r"1e6") with NotExact
   final object gigaelectronvolt extends DefaultEnergyUnit("gigaelectronvolt", "GeV", Nil, Constants.ElementaryCharge * r"1e9") with NotExact
   final object teraelectronvolt extends DefaultEnergyUnit("teraelectronvolt", "TeV", Nil, Constants.ElementaryCharge * r"1e12") with NotExact
@@ -109,6 +115,7 @@ object EnergyUnits{
   def daJ: EnergyUnit = EnergyUnitObjects.decajoule
   def hJ: EnergyUnit = EnergyUnitObjects.hectojoule
   def kJ: EnergyUnit = EnergyUnitObjects.kilojoule
+  def KJ: EnergyUnit = EnergyUnitObjects.kilojoule
   def MJ: EnergyUnit = EnergyUnitObjects.megajoule
   def GJ: EnergyUnit = EnergyUnitObjects.gigajoule
   def TJ: EnergyUnit = EnergyUnitObjects.terajoule
@@ -132,6 +139,7 @@ object EnergyUnits{
   def daeV: EnergyUnit = EnergyUnitObjects.decaelectronvolt
   def heV: EnergyUnit = EnergyUnitObjects.hectoelectronvolt
   def keV: EnergyUnit = EnergyUnitObjects.kiloelectronvolt
+  def KeV: EnergyUnit = EnergyUnitObjects.kiloelectronvolt
   def MeV: EnergyUnit = EnergyUnitObjects.megaelectronvolt
   def GeV: EnergyUnit = EnergyUnitObjects.gigaelectronvolt
   def TeV: EnergyUnit = EnergyUnitObjects.teraelectronvolt

@@ -39,7 +39,7 @@ object CurrentUnitObjects{
   final object deciampere extends DefaultCurrentUnit("deciampere", "dA", Nil, r"1" * r"1e-1")
   final object decaampere extends DefaultCurrentUnit("decaampere", "daA", Nil, r"1" * r"1e1")
   final object hectoampere extends DefaultCurrentUnit("hectoampere", "hA", Nil, r"1" * r"1e2")
-  final object kiloampere extends DefaultCurrentUnit("kiloampere", "kA", Nil, r"1" * r"1e3")
+  final object kiloampere extends DefaultCurrentUnit("kiloampere", "kA", Seq("KA"), r"1" * r"1e3")
   final object megaampere extends DefaultCurrentUnit("megaampere", "MA", Nil, r"1" * r"1e6")
   final object gigaampere extends DefaultCurrentUnit("gigaampere", "GA", Nil, r"1" * r"1e9")
   final object teraampere extends DefaultCurrentUnit("teraampere", "TA", Nil, r"1" * r"1e12")
@@ -72,6 +72,7 @@ object CurrentUnits{
   def daA: CurrentUnit = CurrentUnitObjects.decaampere
   def hA: CurrentUnit = CurrentUnitObjects.hectoampere
   def kA: CurrentUnit = CurrentUnitObjects.kiloampere
+  def KA: CurrentUnit = CurrentUnitObjects.kiloampere
   def MA: CurrentUnit = CurrentUnitObjects.megaampere
   def GA: CurrentUnit = CurrentUnitObjects.gigaampere
   def TA: CurrentUnit = CurrentUnitObjects.teraampere

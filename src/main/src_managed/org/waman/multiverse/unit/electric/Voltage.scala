@@ -46,7 +46,7 @@ object VoltageUnitObjects{
   final object decivolt extends DefaultVoltageUnit("decivolt", "dV", Nil, r"1" * r"1e-1")
   final object decavolt extends DefaultVoltageUnit("decavolt", "daV", Nil, r"1" * r"1e1")
   final object hectovolt extends DefaultVoltageUnit("hectovolt", "hV", Nil, r"1" * r"1e2")
-  final object kilovolt extends DefaultVoltageUnit("kilovolt", "kV", Nil, r"1" * r"1e3")
+  final object kilovolt extends DefaultVoltageUnit("kilovolt", "kV", Seq("KV"), r"1" * r"1e3")
   final object megavolt extends DefaultVoltageUnit("megavolt", "MV", Nil, r"1" * r"1e6")
   final object gigavolt extends DefaultVoltageUnit("gigavolt", "GV", Nil, r"1" * r"1e9")
   final object teravolt extends DefaultVoltageUnit("teravolt", "TV", Nil, r"1" * r"1e12")
@@ -80,6 +80,7 @@ object VoltageUnits{
   def daV: VoltageUnit = VoltageUnitObjects.decavolt
   def hV: VoltageUnit = VoltageUnitObjects.hectovolt
   def kV: VoltageUnit = VoltageUnitObjects.kilovolt
+  def KV: VoltageUnit = VoltageUnitObjects.kilovolt
   def MV: VoltageUnit = VoltageUnitObjects.megavolt
   def GV: VoltageUnit = VoltageUnitObjects.gigavolt
   def TV: VoltageUnit = VoltageUnitObjects.teravolt

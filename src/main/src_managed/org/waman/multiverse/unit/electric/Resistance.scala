@@ -34,7 +34,7 @@ object ResistanceUnitObjects{
   final object deciohm extends DefaultResistanceUnit("deciohm", "dΩ", Seq("dohm"), r"1" * r"1e-1")
   final object decaohm extends DefaultResistanceUnit("decaohm", "daΩ", Seq("daohm"), r"1" * r"1e1")
   final object hectoohm extends DefaultResistanceUnit("hectoohm", "hΩ", Seq("hohm"), r"1" * r"1e2")
-  final object kiloohm extends DefaultResistanceUnit("kiloohm", "kΩ", Seq("kohm"), r"1" * r"1e3")
+  final object kiloohm extends DefaultResistanceUnit("kiloohm", "kΩ", Seq("kohm", "KΩ", "Kohm"), r"1" * r"1e3")
   final object megaohm extends DefaultResistanceUnit("megaohm", "MΩ", Seq("Mohm"), r"1" * r"1e6")
   final object gigaohm extends DefaultResistanceUnit("gigaohm", "GΩ", Seq("Gohm"), r"1" * r"1e9")
   final object teraohm extends DefaultResistanceUnit("teraohm", "TΩ", Seq("Tohm"), r"1" * r"1e12")
@@ -82,6 +82,8 @@ object ResistanceUnits{
   def hohm: ResistanceUnit = ResistanceUnitObjects.hectoohm
   def kΩ: ResistanceUnit = ResistanceUnitObjects.kiloohm
   def kohm: ResistanceUnit = ResistanceUnitObjects.kiloohm
+  def KΩ: ResistanceUnit = ResistanceUnitObjects.kiloohm
+  def Kohm: ResistanceUnit = ResistanceUnitObjects.kiloohm
   def MΩ: ResistanceUnit = ResistanceUnitObjects.megaohm
   def Mohm: ResistanceUnit = ResistanceUnitObjects.megaohm
   def GΩ: ResistanceUnit = ResistanceUnitObjects.gigaohm

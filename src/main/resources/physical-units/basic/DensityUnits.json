@@ -1,0 +1,10 @@
+{
+  "SIUnit":"Mass / Volume",
+
+  "composites":["Mass / Volume"],
+
+  "units":[
+    {"name":"water", "symbol":"H2O", "interval":"999.972"},
+    {"name":"mercury", "symbol":"Hg", "interval":"13.5951"}
+  ]
+}

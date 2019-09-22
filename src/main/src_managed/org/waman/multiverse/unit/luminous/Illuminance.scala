@@ -34,7 +34,7 @@ object IlluminanceUnitObjects{
   final object decilux extends DefaultIlluminanceUnit("decilux", "dlx", Nil, r"1" * r"1e-1")
   final object decalux extends DefaultIlluminanceUnit("decalux", "dalx", Nil, r"1" * r"1e1")
   final object hectolux extends DefaultIlluminanceUnit("hectolux", "hlx", Nil, r"1" * r"1e2")
-  final object kilolux extends DefaultIlluminanceUnit("kilolux", "klx", Nil, r"1" * r"1e3")
+  final object kilolux extends DefaultIlluminanceUnit("kilolux", "klx", Seq("Klx"), r"1" * r"1e3")
   final object megalux extends DefaultIlluminanceUnit("megalux", "Mlx", Nil, r"1" * r"1e6")
   final object gigalux extends DefaultIlluminanceUnit("gigalux", "Glx", Nil, r"1" * r"1e9")
   final object teralux extends DefaultIlluminanceUnit("teralux", "Tlx", Nil, r"1" * r"1e12")
@@ -67,6 +67,7 @@ object IlluminanceUnits{
   def dalx: IlluminanceUnit = IlluminanceUnitObjects.decalux
   def hlx: IlluminanceUnit = IlluminanceUnitObjects.hectolux
   def klx: IlluminanceUnit = IlluminanceUnitObjects.kilolux
+  def Klx: IlluminanceUnit = IlluminanceUnitObjects.kilolux
   def Mlx: IlluminanceUnit = IlluminanceUnitObjects.megalux
   def Glx: IlluminanceUnit = IlluminanceUnitObjects.gigalux
   def Tlx: IlluminanceUnit = IlluminanceUnitObjects.teralux

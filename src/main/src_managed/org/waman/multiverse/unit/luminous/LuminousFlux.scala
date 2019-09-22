@@ -39,7 +39,7 @@ object LuminousFluxUnitObjects{
   final object decilumen extends DefaultLuminousFluxUnit("decilumen", "dlm", Nil, r"1" * r"1e-1")
   final object decalumen extends DefaultLuminousFluxUnit("decalumen", "dalm", Nil, r"1" * r"1e1")
   final object hectolumen extends DefaultLuminousFluxUnit("hectolumen", "hlm", Nil, r"1" * r"1e2")
-  final object kilolumen extends DefaultLuminousFluxUnit("kilolumen", "klm", Nil, r"1" * r"1e3")
+  final object kilolumen extends DefaultLuminousFluxUnit("kilolumen", "klm", Seq("Klm"), r"1" * r"1e3")
   final object megalumen extends DefaultLuminousFluxUnit("megalumen", "Mlm", Nil, r"1" * r"1e6")
   final object gigalumen extends DefaultLuminousFluxUnit("gigalumen", "Glm", Nil, r"1" * r"1e9")
   final object teralumen extends DefaultLuminousFluxUnit("teralumen", "Tlm", Nil, r"1" * r"1e12")
@@ -71,6 +71,7 @@ object LuminousFluxUnits{
   def dalm: LuminousFluxUnit = LuminousFluxUnitObjects.decalumen
   def hlm: LuminousFluxUnit = LuminousFluxUnitObjects.hectolumen
   def klm: LuminousFluxUnit = LuminousFluxUnitObjects.kilolumen
+  def Klm: LuminousFluxUnit = LuminousFluxUnitObjects.kilolumen
   def Mlm: LuminousFluxUnit = LuminousFluxUnitObjects.megalumen
   def Glm: LuminousFluxUnit = LuminousFluxUnitObjects.gigalumen
   def Tlm: LuminousFluxUnit = LuminousFluxUnitObjects.teralumen

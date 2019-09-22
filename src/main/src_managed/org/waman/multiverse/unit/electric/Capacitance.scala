@@ -34,7 +34,7 @@ object CapacitanceUnitObjects{
   final object decifarad extends DefaultCapacitanceUnit("decifarad", "dF", Nil, r"1" * r"1e-1")
   final object decafarad extends DefaultCapacitanceUnit("decafarad", "daF", Nil, r"1" * r"1e1")
   final object hectofarad extends DefaultCapacitanceUnit("hectofarad", "hF", Nil, r"1" * r"1e2")
-  final object kilofarad extends DefaultCapacitanceUnit("kilofarad", "kF", Nil, r"1" * r"1e3")
+  final object kilofarad extends DefaultCapacitanceUnit("kilofarad", "kF", Seq("KF"), r"1" * r"1e3")
   final object megafarad extends DefaultCapacitanceUnit("megafarad", "MF", Nil, r"1" * r"1e6")
   final object gigafarad extends DefaultCapacitanceUnit("gigafarad", "GF", Nil, r"1" * r"1e9")
   final object terafarad extends DefaultCapacitanceUnit("terafarad", "TF", Nil, r"1" * r"1e12")
@@ -66,6 +66,7 @@ object CapacitanceUnits{
   def daF: CapacitanceUnit = CapacitanceUnitObjects.decafarad
   def hF: CapacitanceUnit = CapacitanceUnitObjects.hectofarad
   def kF: CapacitanceUnit = CapacitanceUnitObjects.kilofarad
+  def KF: CapacitanceUnit = CapacitanceUnitObjects.kilofarad
   def MF: CapacitanceUnit = CapacitanceUnitObjects.megafarad
   def GF: CapacitanceUnit = CapacitanceUnitObjects.gigafarad
   def TF: CapacitanceUnit = CapacitanceUnitObjects.terafarad

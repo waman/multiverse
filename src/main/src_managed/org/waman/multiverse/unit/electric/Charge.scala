@@ -28,6 +28,12 @@ trait ChargeUnit extends LinearUnit[ChargeUnit]{
   def /(timeUnit: TimeUnit): CurrentUnit =
     new QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
 
+  import org.waman.multiverse.unit.basic.MassUnit
+  import org.waman.multiverse.unit.radiation.ExposureUnit
+
+  def /(massUnit: MassUnit): ExposureUnit =
+    new QuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
+
 }
 
 class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -50,7 +56,7 @@ object ChargeUnitObjects{
   final object decicoulomb extends DefaultChargeUnit("decicoulomb", "dC", Nil, r"1" * r"1e-1")
   final object decacoulomb extends DefaultChargeUnit("decacoulomb", "daC", Nil, r"1" * r"1e1")
   final object hectocoulomb extends DefaultChargeUnit("hectocoulomb", "hC", Nil, r"1" * r"1e2")
-  final object kilocoulomb extends DefaultChargeUnit("kilocoulomb", "kC", Nil, r"1" * r"1e3")
+  final object kilocoulomb extends DefaultChargeUnit("kilocoulomb", "kC", Seq("KC"), r"1" * r"1e3")
   final object megacoulomb extends DefaultChargeUnit("megacoulomb", "MC", Nil, r"1" * r"1e6")
   final object gigacoulomb extends DefaultChargeUnit("gigacoulomb", "GC", Nil, r"1" * r"1e9")
   final object teracoulomb extends DefaultChargeUnit("teracoulomb", "TC", Nil, r"1" * r"1e12")
@@ -85,6 +91,7 @@ object ChargeUnits{
   def daC: ChargeUnit = ChargeUnitObjects.decacoulomb
   def hC: ChargeUnit = ChargeUnitObjects.hectocoulomb
   def kC: ChargeUnit = ChargeUnitObjects.kilocoulomb
+  def KC: ChargeUnit = ChargeUnitObjects.kilocoulomb
   def MC: ChargeUnit = ChargeUnitObjects.megacoulomb
   def GC: ChargeUnit = ChargeUnitObjects.gigacoulomb
   def TC: ChargeUnit = ChargeUnitObjects.teracoulomb

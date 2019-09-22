@@ -44,7 +44,7 @@ object FluxUnitObjects{
   final object deciweber extends DefaultFluxUnit("deciweber", "dWb", Nil, r"1" * r"1e-1")
   final object decaweber extends DefaultFluxUnit("decaweber", "daWb", Nil, r"1" * r"1e1")
   final object hectoweber extends DefaultFluxUnit("hectoweber", "hWb", Nil, r"1" * r"1e2")
-  final object kiloweber extends DefaultFluxUnit("kiloweber", "kWb", Nil, r"1" * r"1e3")
+  final object kiloweber extends DefaultFluxUnit("kiloweber", "kWb", Seq("KWb"), r"1" * r"1e3")
   final object megaweber extends DefaultFluxUnit("megaweber", "MWb", Nil, r"1" * r"1e6")
   final object gigaweber extends DefaultFluxUnit("gigaweber", "GWb", Nil, r"1" * r"1e9")
   final object teraweber extends DefaultFluxUnit("teraweber", "TWb", Nil, r"1" * r"1e12")
@@ -65,7 +65,7 @@ object FluxUnitObjects{
   final object decimaxwell extends DefaultFluxUnit("decimaxwell", "dMx", Nil, r"1e-8" * r"1e-1")
   final object decamaxwell extends DefaultFluxUnit("decamaxwell", "daMx", Nil, r"1e-8" * r"1e1")
   final object hectomaxwell extends DefaultFluxUnit("hectomaxwell", "hMx", Nil, r"1e-8" * r"1e2")
-  final object kilomaxwell extends DefaultFluxUnit("kilomaxwell", "kMx", Nil, r"1e-8" * r"1e3")
+  final object kilomaxwell extends DefaultFluxUnit("kilomaxwell", "kMx", Seq("KMx"), r"1e-8" * r"1e3")
   final object megamaxwell extends DefaultFluxUnit("megamaxwell", "MMx", Nil, r"1e-8" * r"1e6")
   final object gigamaxwell extends DefaultFluxUnit("gigamaxwell", "GMx", Nil, r"1e-8" * r"1e9")
   final object teramaxwell extends DefaultFluxUnit("teramaxwell", "TMx", Nil, r"1e-8" * r"1e12")
@@ -97,6 +97,7 @@ object FluxUnits{
   def daWb: FluxUnit = FluxUnitObjects.decaweber
   def hWb: FluxUnit = FluxUnitObjects.hectoweber
   def kWb: FluxUnit = FluxUnitObjects.kiloweber
+  def KWb: FluxUnit = FluxUnitObjects.kiloweber
   def MWb: FluxUnit = FluxUnitObjects.megaweber
   def GWb: FluxUnit = FluxUnitObjects.gigaweber
   def TWb: FluxUnit = FluxUnitObjects.teraweber
@@ -119,6 +120,7 @@ object FluxUnits{
   def daMx: FluxUnit = FluxUnitObjects.decamaxwell
   def hMx: FluxUnit = FluxUnitObjects.hectomaxwell
   def kMx: FluxUnit = FluxUnitObjects.kilomaxwell
+  def KMx: FluxUnit = FluxUnitObjects.kilomaxwell
   def MMx: FluxUnit = FluxUnitObjects.megamaxwell
   def GMx: FluxUnit = FluxUnitObjects.gigamaxwell
   def TMx: FluxUnit = FluxUnitObjects.teramaxwell

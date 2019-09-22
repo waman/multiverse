@@ -4,7 +4,7 @@ import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
 class ConstantsResource(json: File, destDir: File, mainDir: File)
-    extends JsonResource(json, destDir, mainDir) {
+    extends GeneratingJsonResource(json, destDir, mainDir) {
 
   val constantsType: Class[_ >: Array[Constant]] = new TypeToken[Array[Constant]]() {}.getRawType
 

@@ -1,0 +1,8 @@
+{
+  "SIUnit":"sievert",
+
+  "units":[
+    {"name":"sievert", "symbol":"Sv", "interval":"1", "scalePrefixes":true},
+    {"name":"rem", "symbol":"rem", "interval":"1e-2", "scalePrefixes":true}
+  ]
+}

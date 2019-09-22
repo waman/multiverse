@@ -34,7 +34,7 @@ object FluxDensityUnitObjects{
   final object decitesla extends DefaultFluxDensityUnit("decitesla", "dT", Nil, r"1" * r"1e-1")
   final object decatesla extends DefaultFluxDensityUnit("decatesla", "daT", Nil, r"1" * r"1e1")
   final object hectotesla extends DefaultFluxDensityUnit("hectotesla", "hT", Nil, r"1" * r"1e2")
-  final object kilotesla extends DefaultFluxDensityUnit("kilotesla", "kT", Nil, r"1" * r"1e3")
+  final object kilotesla extends DefaultFluxDensityUnit("kilotesla", "kT", Seq("KT"), r"1" * r"1e3")
   final object megatesla extends DefaultFluxDensityUnit("megatesla", "MT", Nil, r"1" * r"1e6")
   final object gigatesla extends DefaultFluxDensityUnit("gigatesla", "GT", Nil, r"1" * r"1e9")
   final object teratesla extends DefaultFluxDensityUnit("teratesla", "TT", Nil, r"1" * r"1e12")
@@ -55,7 +55,7 @@ object FluxDensityUnitObjects{
   final object decigauss extends DefaultFluxDensityUnit("decigauss", "dG", Nil, r"1e-4" * r"1e-1")
   final object decagauss extends DefaultFluxDensityUnit("decagauss", "daG", Nil, r"1e-4" * r"1e1")
   final object hectogauss extends DefaultFluxDensityUnit("hectogauss", "hG", Nil, r"1e-4" * r"1e2")
-  final object kilogauss extends DefaultFluxDensityUnit("kilogauss", "kG", Nil, r"1e-4" * r"1e3")
+  final object kilogauss extends DefaultFluxDensityUnit("kilogauss", "kG", Seq("KG"), r"1e-4" * r"1e3")
   final object megagauss extends DefaultFluxDensityUnit("megagauss", "MG", Nil, r"1e-4" * r"1e6")
   final object gigagauss extends DefaultFluxDensityUnit("gigagauss", "GG", Nil, r"1e-4" * r"1e9")
   final object teragauss extends DefaultFluxDensityUnit("teragauss", "TG", Nil, r"1e-4" * r"1e12")
@@ -87,6 +87,7 @@ object FluxDensityUnits{
   def daT: FluxDensityUnit = FluxDensityUnitObjects.decatesla
   def hT: FluxDensityUnit = FluxDensityUnitObjects.hectotesla
   def kT: FluxDensityUnit = FluxDensityUnitObjects.kilotesla
+  def KT: FluxDensityUnit = FluxDensityUnitObjects.kilotesla
   def MT: FluxDensityUnit = FluxDensityUnitObjects.megatesla
   def GT: FluxDensityUnit = FluxDensityUnitObjects.gigatesla
   def TT: FluxDensityUnit = FluxDensityUnitObjects.teratesla
@@ -109,6 +110,7 @@ object FluxDensityUnits{
   def daG: FluxDensityUnit = FluxDensityUnitObjects.decagauss
   def hG: FluxDensityUnit = FluxDensityUnitObjects.hectogauss
   def kG: FluxDensityUnit = FluxDensityUnitObjects.kilogauss
+  def KG: FluxDensityUnit = FluxDensityUnitObjects.kilogauss
   def MG: FluxDensityUnit = FluxDensityUnitObjects.megagauss
   def GG: FluxDensityUnit = FluxDensityUnitObjects.gigagauss
   def TG: FluxDensityUnit = FluxDensityUnitObjects.teragauss

@@ -40,7 +40,7 @@ object PowerUnitObjects{
   final object deciwatt extends DefaultPowerUnit("deciwatt", "dW", Nil, r"1" * r"1e-1")
   final object decawatt extends DefaultPowerUnit("decawatt", "daW", Nil, r"1" * r"1e1")
   final object hectowatt extends DefaultPowerUnit("hectowatt", "hW", Nil, r"1" * r"1e2")
-  final object kilowatt extends DefaultPowerUnit("kilowatt", "kW", Nil, r"1" * r"1e3")
+  final object kilowatt extends DefaultPowerUnit("kilowatt", "kW", Seq("KW"), r"1" * r"1e3")
   final object megawatt extends DefaultPowerUnit("megawatt", "MW", Nil, r"1" * r"1e6")
   final object gigawatt extends DefaultPowerUnit("gigawatt", "GW", Nil, r"1" * r"1e9")
   final object terawatt extends DefaultPowerUnit("terawatt", "TW", Nil, r"1" * r"1e12")
@@ -72,6 +72,7 @@ object PowerUnits{
   def daW: PowerUnit = PowerUnitObjects.decawatt
   def hW: PowerUnit = PowerUnitObjects.hectowatt
   def kW: PowerUnit = PowerUnitObjects.kilowatt
+  def KW: PowerUnit = PowerUnitObjects.kilowatt
   def MW: PowerUnit = PowerUnitObjects.megawatt
   def GW: PowerUnit = PowerUnitObjects.gigawatt
   def TW: PowerUnit = PowerUnitObjects.terawatt

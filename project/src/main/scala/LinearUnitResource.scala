@@ -4,7 +4,9 @@ import java.io.{BufferedWriter, File}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class UnitCategory(SIUnit: String, composites: Array[String], units: Array[UnitJson])
+case class UnitCategory(SIUnit: String, composites: Array[String], units: Array[UnitJson]){
+  def _units: Seq[UnitJson] = if (this.units != null) this.units else Nil
+}
 
 // ex)
 //{"name":"electronvolt", "symbol":"eV", "interval":"Constants.ElementaryCharge",
@@ -20,6 +22,12 @@ case class UnitJson(
                      notExact: Boolean,
                      attributes: Array[Attribute]
                    ){
+  def _aliases: Seq[String] =
+    if (this.aliases != null) this.aliases else Nil
+
+  lazy val _excludePrefixes: Seq[String] =
+    if (this.excludePrefixes != null) this.excludePrefixes else Nil
+
   def extractInterval: String =
     if(this.interval != null)
       this.interval
@@ -42,21 +50,17 @@ case class UnitJson(
           "Neither a baseUnit element or a default attribute exists: " + this.name)
       }
 
-  def _aliases: Seq[String] =
-    if (this.aliases != null) this.aliases.toList
-    else Nil
-
-  def canonicalizeAndExpandScalePrefixes(): Seq[CanonicalizedUnitJson] = {
+  def canonicalizeAndExpandScalePrefixes(prefixes: Seq[ScalePrefix]): Seq[CanonicalizedUnitJson] = {
     val interval = makeIntervalExpression(extractInterval, extractBaseUnit)
-    val aliases: Seq[String] = this._aliases
+    val aliases = this._aliases
 
     if(scalePrefixes){
       val nm = this.symbol +: aliases
 
       // In this case, always name == objectName
       CanonicalizedUnitJson(this.name, this.name, this.symbol, aliases, interval, this.notExact, Nil) +:
-        GenerationUtil.scalePrefixes.map{ p =>
-          val al = (p.prefix +: p.aliases).flatMap(ps => nm.map(ns => ps + ns)).tail
+        prefixes.filterNot(p => this._excludePrefixes.contains(p.prefix)).map{ p =>
+          val al = (p.prefix +: p._aliases).flatMap(ps => nm.map(ns => ps + ns)).tail
           val name = p.name + this.name
           CanonicalizedUnitJson(name, name, p.prefix + this.symbol, nonNull(al),
             s"""$interval * r"${p.scale}"""", this.notExact, Nil)
@@ -110,19 +114,17 @@ case class CanonicalizedUnitJson(
                                   notExact: Boolean,
                                   attributes: Seq[Attribute])
 
-class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind: String)
-    extends JsonResource(jsonFile, destDir, mainDir){
+class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val subpackage: String)
+    extends GeneratingJsonResource(jsonFile, destDir, mainDir){
 
   val unitCategoryType: Class[_ >: UnitCategory] = new TypeToken[UnitCategory]() {}.getRawType
   val id: String = jsonFile.getName.replace("Units.json", "")  // Length
   val destFilename: String =  id + ".scala"// Length.scala
-  val packageName: String = GenerationUtil.rootPackage + ".unit." + kind
+  val packageName: String = GenerationUtil.rootPackage + ".unit." + subpackage
 
-  val unitCategory: UnitCategory =
-    IO.reader(jsonFile, UTF8) { reader =>
-      val categ = gson.fromJson(reader, unitCategoryType).asInstanceOf[UnitCategory]
-      categ
-    }
+  val unitCategory: UnitCategory = IO.reader(jsonFile, UTF8) { reader =>
+    gson.fromJson(reader, unitCategoryType).asInstanceOf[UnitCategory]
+  }
 
   case class Composites(products: Seq[(String, String)], quotients: Seq[(String, String)])
 
@@ -141,7 +143,8 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
 
   protected def doGenerate(jsons: Seq[JsonResource]): Unit = {
     IO.writer(this.destFile, "", UTF8, append = false) { writer: io.BufferedWriter =>
-      val units = this.unitCategory.units.flatMap(_.canonicalizeAndExpandScalePrefixes())
+      val spr = jsons.find(_.isInstanceOf[ScalePrefixResource]).get.asInstanceOf[ScalePrefixResource]
+      val units = this.unitCategory._units.flatMap(_.canonicalizeAndExpandScalePrefixes(spr.scalePrefixes))
 
       writer.write(
         s"""package $packageName
@@ -179,8 +182,8 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
         }
       mul.foreach{ p =>
         Seq(p._1, p._2).foreach{ lu =>
-          if (lu.kind != "" && lu.kind != this.kind)
-            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.kind}.${lu.id}Unit\n""")
+          if (lu.subpackage != "" && lu.subpackage != this.subpackage)
+            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.subpackage}.${lu.id}Unit\n""")
         }
 
         val secondType = p._1.id
@@ -196,8 +199,8 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
 
       div.foreach{ p =>
         Seq(p._1, p._2).foreach{ lu =>
-          if (lu.kind != "" && lu.kind != this.kind)
-            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.kind}.${lu.id}Unit\n""")
+          if (lu.subpackage != "" && lu.subpackage != this.subpackage)
+            writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.subpackage}.${lu.id}Unit\n""")
         }
 
         val denoType = p._1.id
@@ -284,8 +287,8 @@ class LinearUnitResource(jsonFile: File, destDir: File, mainDir: File, val kind:
     if (siUnit.contains('*') || siUnit.contains('/')){
       val GenerationUtil.regCompositeUnit(first, op, second) = siUnit
 
-      List(first, second).map(searchLinearUnit(_, linearUnits)).filterNot(_.kind == this.kind).foreach{ lu =>
-        writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.kind}.${lu.id}UnitObjects\n""")
+      List(first, second).map(searchLinearUnit(_, linearUnits)).filterNot(_.subpackage == this.subpackage).foreach{ lu =>
+        writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.${lu.subpackage}.${lu.id}UnitObjects\n""")
       }
 
       writer.write(

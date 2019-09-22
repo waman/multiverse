@@ -34,7 +34,7 @@ object InductanceUnitObjects{
   final object decihenry extends DefaultInductanceUnit("decihenry", "dH", Nil, r"1" * r"1e-1")
   final object decahenry extends DefaultInductanceUnit("decahenry", "daH", Nil, r"1" * r"1e1")
   final object hectohenry extends DefaultInductanceUnit("hectohenry", "hH", Nil, r"1" * r"1e2")
-  final object kilohenry extends DefaultInductanceUnit("kilohenry", "kH", Nil, r"1" * r"1e3")
+  final object kilohenry extends DefaultInductanceUnit("kilohenry", "kH", Seq("KH"), r"1" * r"1e3")
   final object megahenry extends DefaultInductanceUnit("megahenry", "MH", Nil, r"1" * r"1e6")
   final object gigahenry extends DefaultInductanceUnit("gigahenry", "GH", Nil, r"1" * r"1e9")
   final object terahenry extends DefaultInductanceUnit("terahenry", "TH", Nil, r"1" * r"1e12")
@@ -66,6 +66,7 @@ object InductanceUnits{
   def daH: InductanceUnit = InductanceUnitObjects.decahenry
   def hH: InductanceUnit = InductanceUnitObjects.hectohenry
   def kH: InductanceUnit = InductanceUnitObjects.kilohenry
+  def KH: InductanceUnit = InductanceUnitObjects.kilohenry
   def MH: InductanceUnit = InductanceUnitObjects.megahenry
   def GH: InductanceUnit = InductanceUnitObjects.gigahenry
   def TH: InductanceUnit = InductanceUnitObjects.terahenry

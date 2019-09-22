@@ -34,7 +34,7 @@ object VolumeUnitObjects{
   final object decilitre extends DefaultVolumeUnit("decilitre", "dL", Nil, r"1e-3" * r"1e-1")
   final object decalitre extends DefaultVolumeUnit("decalitre", "daL", Nil, r"1e-3" * r"1e1")
   final object hectolitre extends DefaultVolumeUnit("hectolitre", "hL", Nil, r"1e-3" * r"1e2")
-  final object kilolitre extends DefaultVolumeUnit("kilolitre", "kL", Nil, r"1e-3" * r"1e3")
+  final object kilolitre extends DefaultVolumeUnit("kilolitre", "kL", Seq("KL"), r"1e-3" * r"1e3")
   final object megalitre extends DefaultVolumeUnit("megalitre", "ML", Nil, r"1e-3" * r"1e6")
   final object gigalitre extends DefaultVolumeUnit("gigalitre", "GL", Nil, r"1e-3" * r"1e9")
   final object teralitre extends DefaultVolumeUnit("teralitre", "TL", Nil, r"1e-3" * r"1e12")
@@ -67,6 +67,7 @@ object VolumeUnits{
   def daL: VolumeUnit = VolumeUnitObjects.decalitre
   def hL: VolumeUnit = VolumeUnitObjects.hectolitre
   def kL: VolumeUnit = VolumeUnitObjects.kilolitre
+  def KL: VolumeUnit = VolumeUnitObjects.kilolitre
   def ML: VolumeUnit = VolumeUnitObjects.megalitre
   def GL: VolumeUnit = VolumeUnitObjects.gigalitre
   def TL: VolumeUnit = VolumeUnitObjects.teralitre

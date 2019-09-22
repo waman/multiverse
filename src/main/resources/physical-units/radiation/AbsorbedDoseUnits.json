@@ -1,0 +1,10 @@
+{
+  "SIUnit":"gray",
+
+  "composites":["Energy / Mass"],
+
+  "units":[
+    {"name":"gray", "symbol":"Gy", "interval":"1", "scalePrefixes":true}
+  ]
+
+}

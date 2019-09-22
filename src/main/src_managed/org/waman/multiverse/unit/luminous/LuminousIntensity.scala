@@ -39,7 +39,7 @@ object LuminousIntensityUnitObjects{
   final object decicandela extends DefaultLuminousIntensityUnit("decicandela", "dcd", Nil, r"1" * r"1e-1")
   final object decacandela extends DefaultLuminousIntensityUnit("decacandela", "dacd", Nil, r"1" * r"1e1")
   final object hectocandela extends DefaultLuminousIntensityUnit("hectocandela", "hcd", Nil, r"1" * r"1e2")
-  final object kilocandela extends DefaultLuminousIntensityUnit("kilocandela", "kcd", Nil, r"1" * r"1e3")
+  final object kilocandela extends DefaultLuminousIntensityUnit("kilocandela", "kcd", Seq("Kcd"), r"1" * r"1e3")
   final object megacandela extends DefaultLuminousIntensityUnit("megacandela", "Mcd", Nil, r"1" * r"1e6")
   final object gigacandela extends DefaultLuminousIntensityUnit("gigacandela", "Gcd", Nil, r"1" * r"1e9")
   final object teracandela extends DefaultLuminousIntensityUnit("teracandela", "Tcd", Nil, r"1" * r"1e12")
@@ -71,6 +71,7 @@ object LuminousIntensityUnits{
   def dacd: LuminousIntensityUnit = LuminousIntensityUnitObjects.decacandela
   def hcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.hectocandela
   def kcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.kilocandela
+  def Kcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.kilocandela
   def Mcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.megacandela
   def Gcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.gigacandela
   def Tcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.teracandela

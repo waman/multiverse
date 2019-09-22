@@ -1,0 +1,14 @@
+{
+  "SIUnit":"kilogram",
+
+  "units":[
+    {"name":"kilogram", "symbol":"kg", "aliases": ["Kg"], "interval":"1"},
+
+    {"name":"gram", "symbol":"g", "interval":"1e-3", "scalePrefixes":true, "excludePrefixes": ["k"]},
+    {"name":"tonne", "symbol":"t", "interval":"1000"},
+
+    {"name":"grave", "symbol":"gv", "interval":"1"},
+    {"name":"gamma", "symbol":"γ", "interval":"1", "baseUnit": "microgram"},
+    {"name":"quintal", "symbol":"q", "interval":"100", "baseUnit":"kilogram"}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "SIUnit":"becquerel",
+
+  "units":[
+    {"name":"becquerel", "symbol":"Bq", "interval":"1", "scalePrefixes":true},
+    {"name":"curie", "symbol":"Ci", "interval":"3.7e10", "scalePrefixes":true},
+    {"name":"rutherford", "symbol":"Rd", "interval":"1", "baseUnit":"megabecquerel"}
+  ]
+}
