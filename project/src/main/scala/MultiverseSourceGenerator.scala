@@ -33,7 +33,7 @@ object MultiverseSourceGenerator {
       }
 
     val jsons = walk(info, Nil)
-    jsons.filter(_.isGenerating).map(_.asInstanceOf[GeneratingJsonResource]).flatMap(_.generate(jsons))
+    jsons.filter(_.isGenerating).map(_.asInstanceOf[SourceGeneratorJson]).flatMap(_.generate(jsons))
   }
 }
 
@@ -45,5 +45,15 @@ object GenerationUtil{
 
   val regId: Regex = """[a-zA-z.]+""".r
   val regCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
-  val regNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
+
+  private val regNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
+
+  def refineNumber(s: String): String =
+    regNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
+
+  def toObjectName(s: String): String = {
+    val ss = s.replace(' ', '_')
+    if (ss.contains("(")) s"""`$ss`"""
+    else ss
+  }
 }

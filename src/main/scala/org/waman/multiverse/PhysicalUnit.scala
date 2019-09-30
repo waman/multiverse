@@ -3,8 +3,6 @@ package org.waman.multiverse
 import spire.implicits._
 import spire.math.Real
 
-import scala.util.matching.Regex
-
 trait PhysicalUnit[U <: PhysicalUnit[U]] {
   def name: String
   def symbol: String
@@ -54,41 +52,6 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{
           s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]"
       }
   }
-}
-
-@deprecated
-object PhysicalUnit{
-
-  // pattern like $u00B0
-  private val escaped: Regex = """\$u([0-9A-F]{4})""".r
-
-  private[multiverse] def extractObjectSymbol(obj: Any): String = {
-    import scala.reflect.runtime.{universe => ru}
-
-    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(obj)
-    val s = im.symbol.name.toString
-
-    // transform string like "$u00B0C" to "°C"
-    def decode(s: String): String = Integer.parseInt(s, 16).asInstanceOf[Char].toString
-    escaped.replaceAllIn(s, m => decode(m.group(1)))
-  }
-}
-
-@deprecated
-trait NameByClassName[U <: PhysicalUnit[U]] extends PhysicalUnit[U]{
-
-  override def name: String = {
-    import scala.reflect.runtime.{universe => ru}
-    val im = ru.runtimeMirror(getClass.getClassLoader).reflect(this)
-    im.symbol.name.toString
-  }
-}
-
-@deprecated
-trait SymbolByClassName[U <: PhysicalUnit[U]] extends PhysicalUnit[U]{
-  override lazy val symbol: String = newSymbolString
-  protected def newSymbolString: String = PhysicalUnit.extractObjectSymbol(this)
-  override def aliases: Seq[String] = Nil
 }
 
 trait NotExact

@@ -7,29 +7,14 @@ import org.waman.multiverse.unit.thermal.{Temperature, TemperatureUnit}
 
 class TemperatureSpec extends MultiverseCustomSpec {
 
-  "symbol property of TemperatureUnit object should return a proper string" in {
-    // Exercise
-    val conversions =
-      Table(
-        ("TemperatureUnit", "expected"),
-        (K, "K"),
-        (`°C`, "°C"),
-        (`°F`, "°F")
-      )
-    // Verify
-    forAll(conversions){ (sut: TemperatureUnit, expected: String) =>
-      sut.symbol should equal (expected)
-    }
-  }
-
   "toString method of TemperatureUnit object should return a proper string" in {
     // Exercise
     val conversions =
       Table(
         ("TemperatureUnit", "expected"),
-        (K, "Kelvin (K)"),
-        (`°C`, "Celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)]"),
-        (`°F`, "Fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)]")
+        (K, "kelvin (K)"),
+        (degC, "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)]"),
+        (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)]")
       )
     // Verify
     forAll(conversions){ (sut: TemperatureUnit, expected: String) =>
@@ -43,8 +28,8 @@ class TemperatureSpec extends MultiverseCustomSpec {
       Table(
         ("temperature", "expected"),
         (0.0(K), 0.0),
-        (0.0(`°C`) , 273.15),
-        (0.0(`°F`), 459.67*5.0/9.0)
+        (0.0(degC) , 273.15),
+        (0.0(degF), 459.67*5.0/9.0)
       )
     // Verify
     forAll(conversions){ (sut: Temperature[Double], expected: Double) =>
@@ -60,8 +45,8 @@ class TemperatureSpec extends MultiverseCustomSpec {
       Table(
         ("temperature", "expected"),
         (q(K), 0.0),
-        (q(`°C`) , -273.15),
-        (q(`°F`), -459.67)
+        (q(degC) , -273.15),
+        (q(degF), -459.67)
       )
     // Verify
     forAll(conversions){ (sut: Double, expected: Double) =>
@@ -74,10 +59,10 @@ class TemperatureSpec extends MultiverseCustomSpec {
     val conversions =
       Table(
         ("temperature", "expected"),
-        (0.0(`°C`)(`°F`), 32.0),
-        (32.0(`°F`)(`°C`) , 0.0),
-        (100.0(`°C`)(`°F`), 212.0),
-        (212.0(`°F`)(`°C`) , 100.0)
+        (0.0(degC)(degF), 32.0),
+        (32.0(degF)(degC) , 0.0),
+        (100.0(degC)(degF), 212.0),
+        (212.0(degF)(degC) , 100.0)
       )
     // Verify
     forAll(conversions){ (sut: Double, expected: Double) =>

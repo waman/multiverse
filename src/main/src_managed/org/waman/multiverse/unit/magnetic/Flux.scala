@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.magnetic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Flux[A: Fractional](val value: A, val unit: FluxUnit)
@@ -31,6 +32,9 @@ class DefaultFluxUnit(val name: String, val symbol: String, val aliases: Seq[Str
 
 
 object FluxUnitObjects{
+
+  def getSIUnit: FluxUnit = weber
+
   final object weber extends DefaultFluxUnit("weber", "Wb", Nil, r"1")
   final object yoctoweber extends DefaultFluxUnit("yoctoweber", "yWb", Nil, r"1" * r"1e-24")
   final object zeptoweber extends DefaultFluxUnit("zeptoweber", "zWb", Nil, r"1" * r"1e-21")
@@ -74,12 +78,10 @@ object FluxUnitObjects{
   final object zettamaxwell extends DefaultFluxUnit("zettamaxwell", "ZMx", Nil, r"1e-8" * r"1e21")
   final object yottamaxwell extends DefaultFluxUnit("yottamaxwell", "YMx", Nil, r"1e-8" * r"1e24")
 
-
-  def getSIUnit: FluxUnit = weber
-
   def getUnits: Seq[FluxUnit] =
     Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell)
 }
+
 
 object FluxUnits{
   def Wb: FluxUnit = FluxUnitObjects.weber

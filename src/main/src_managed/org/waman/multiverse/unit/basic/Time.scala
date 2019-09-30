@@ -1,9 +1,10 @@
 package org.waman.multiverse.unit.basic
 
-import org.waman.multiverse._
-import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+import spire.math.Real
+import spire.math.Fractional
 import spire.implicits._
-import spire.math.{Fractional, Real}
+
+import org.waman.multiverse._
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
@@ -11,15 +12,18 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   override protected def newQuantity(value: A, unit: TimeUnit): Time[A] = new Time(value, unit)
 }
 
-trait TimeUnit extends LinearUnit[TimeUnit] with CanSquare[TimeSquaredUnit]{
+trait TimeUnit extends LinearUnit[TimeUnit]{
   override def getSIUnit: TimeUnit = TimeUnitObjects.getSIUnit
 
-  override def square: TimeSquaredUnit =
+  import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+
+  def square: TimeSquaredUnit =
     new TimeSquaredUnit{
       override val name: String = TimeUnit.this.name + " squared"
       override val symbol: String = TimeUnit.this.symbol + "²"
       override val interval: Real = TimeUnit.this.interval**2
-      override val aliases: Seq[String] = TimeUnit.this.aliases.map(_ + "²")
+      override def aliases: Seq[String] = Nil
+      //override val aliases: Seq[String] = TimeUnit.this.aliases.map(_ + "²")
     }
 
   def *(timeUnit: TimeUnit): TimeSquaredUnit =
@@ -52,6 +56,9 @@ object TimeAttributes{
 }
 
 object TimeUnitObjects{
+
+  def getSIUnit: TimeUnit = second
+
   final object second extends DefaultTimeUnit("second", "s", Seq("sec"), r"1")
   final object yoctosecond extends DefaultTimeUnit("yoctosecond", "ys", Seq("ysec"), r"1" * r"1e-24")
   final object zeptosecond extends DefaultTimeUnit("zeptosecond", "zs", Seq("zsec"), r"1" * r"1e-21")
@@ -65,7 +72,7 @@ object TimeUnitObjects{
   final object decisecond extends DefaultTimeUnit("decisecond", "ds", Seq("dsec"), r"1" * r"1e-1")
   final object decasecond extends DefaultTimeUnit("decasecond", "das", Seq("dasec"), r"1" * r"1e1")
   final object hectosecond extends DefaultTimeUnit("hectosecond", "hs", Seq("hsec"), r"1" * r"1e2")
-  final object kilosecond extends DefaultTimeUnit("kilosecond", "ks", Seq("ksec"), r"1" * r"1e3")
+  final object kilosecond extends DefaultTimeUnit("kilosecond", "ks", Seq("ksec", "Ks", "Ksec"), r"1" * r"1e3")
   final object megasecond extends DefaultTimeUnit("megasecond", "Ms", Seq("Msec"), r"1" * r"1e6")
   final object gigasecond extends DefaultTimeUnit("gigasecond", "Gs", Seq("Gsec"), r"1" * r"1e9")
   final object terasecond extends DefaultTimeUnit("terasecond", "Ts", Seq("Tsec"), r"1" * r"1e12")
@@ -107,14 +114,12 @@ object TimeUnitObjects{
   final object fortnight extends DefaultTimeUnit("fortnight", "fn", Nil, r"2" * week.interval)
   final object planck_time extends DefaultTimeUnit("planck time", "t_p", Nil, r"5.3910632e-44") with NotExact
 
-  def getSIUnit: TimeUnit = second
-
   def getUnits: Seq[TimeUnit] =
     Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, planck_time)
 }
 
-object TimeUnits{
 
+object TimeUnits{
   def s: TimeUnit = TimeUnitObjects.second
   def sec: TimeUnit = TimeUnitObjects.second
   def ys: TimeUnit = TimeUnitObjects.yoctosecond
@@ -145,6 +150,8 @@ object TimeUnits{
   def hsec: TimeUnit = TimeUnitObjects.hectosecond
   def ks: TimeUnit = TimeUnitObjects.kilosecond
   def ksec: TimeUnit = TimeUnitObjects.kilosecond
+  def Ks: TimeUnit = TimeUnitObjects.kilosecond
+  def Ksec: TimeUnit = TimeUnitObjects.kilosecond
   def Ms: TimeUnit = TimeUnitObjects.megasecond
   def Msec: TimeUnit = TimeUnitObjects.megasecond
   def Gs: TimeUnit = TimeUnitObjects.gigasecond

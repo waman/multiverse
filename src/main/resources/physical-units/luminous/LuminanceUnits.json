@@ -5,10 +5,10 @@
 
   "units":[
     {"name":"stilb", "symbol":"sb", "interval":"1e4"},
-    {"name":"lambert", "symbol":"Lb", "interval":"1e4 / pi"},
-    {"name":"apo stilb", "symbol":"asb", "interval":"1 / pi"},
-    {"name":"skot", "symbol":"sk", "interval":"1e-3 / pi"},
-    {"name":"bril", "symbol":"bril", "interval":"1e-7 / pi"}//,
+    {"name":"lambert", "symbol":"Lb", "interval":"1e4 / Pi"},
+    {"name":"apo stilb", "symbol":"asb", "interval":"1 / Pi"},
+    {"name":"skot", "symbol":"sk", "interval":"1e-3 / Pi"},
+    {"name":"bril", "symbol":"bril", "interval":"1e-7 / Pi"}//,
     //{"name":"foot lambert", "symbol":"fLb", "interval":"1 / pi", "baseUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareFoot"}
   ]
 }

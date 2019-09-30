@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.magnetic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class FluxDensity[A: Fractional](val value: A, val unit: FluxDensityUnit)
@@ -21,6 +22,9 @@ class DefaultFluxDensityUnit(val name: String, val symbol: String, val aliases: 
 
 
 object FluxDensityUnitObjects{
+
+  def getSIUnit: FluxDensityUnit = tesla
+
   final object tesla extends DefaultFluxDensityUnit("tesla", "T", Nil, r"1")
   final object yoctotesla extends DefaultFluxDensityUnit("yoctotesla", "yT", Nil, r"1" * r"1e-24")
   final object zeptotesla extends DefaultFluxDensityUnit("zeptotesla", "zT", Nil, r"1" * r"1e-21")
@@ -64,12 +68,10 @@ object FluxDensityUnitObjects{
   final object zettagauss extends DefaultFluxDensityUnit("zettagauss", "ZG", Nil, r"1e-4" * r"1e21")
   final object yottagauss extends DefaultFluxDensityUnit("yottagauss", "YG", Nil, r"1e-4" * r"1e24")
 
-
-  def getSIUnit: FluxDensityUnit = tesla
-
   def getUnits: Seq[FluxDensityUnit] =
     Seq(tesla, yoctotesla, zeptotesla, attotesla, femtotesla, picotesla, nanotesla, microtesla, millitesla, centitesla, decitesla, decatesla, hectotesla, kilotesla, megatesla, gigatesla, teratesla, petatesla, exatesla, zettatesla, yottatesla, gauss, yoctogauss, zeptogauss, attogauss, femtogauss, picogauss, nanogauss, microgauss, milligauss, centigauss, decigauss, decagauss, hectogauss, kilogauss, megagauss, gigagauss, teragauss, petagauss, exagauss, zettagauss, yottagauss)
 }
+
 
 object FluxDensityUnits{
   def T: FluxDensityUnit = FluxDensityUnitObjects.tesla

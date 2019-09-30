@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.radiation
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
@@ -21,16 +22,17 @@ class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq
 
 
 object ExposureUnitObjects{
-  final object roentgen extends DefaultExposureUnit("roentgen", "R", Nil, r"2.58e-4")
-
   import org.waman.multiverse.unit.electric.ChargeUnitObjects
   import org.waman.multiverse.unit.basic.MassUnitObjects
 
   val getSIUnit: ExposureUnit = ChargeUnitObjects.getSIUnit / MassUnitObjects.getSIUnit
 
+  final object roentgen extends DefaultExposureUnit("roentgen", "R", Nil, r"2.58e-4")
+
   def getUnits: Seq[ExposureUnit] =
     Seq(roentgen)
 }
+
 
 object ExposureUnits{
   def R: ExposureUnit = ExposureUnitObjects.roentgen

@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
@@ -25,6 +26,9 @@ class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[Str
 
 
 object MassUnitObjects{
+
+  def getSIUnit: MassUnit = kilogram
+
   final object kilogram extends DefaultMassUnit("kilogram", "kg", Seq("Kg"), r"1")
   final object gram extends DefaultMassUnit("gram", "g", Nil, r"1e-3")
   final object yoctogram extends DefaultMassUnit("yoctogram", "yg", Nil, r"1e-3" * r"1e-24")
@@ -51,12 +55,10 @@ object MassUnitObjects{
   final object gamma extends DefaultMassUnit("gamma", "γ", Nil, r"1" * microgram.interval)
   final object quintal extends DefaultMassUnit("quintal", "q", Nil, r"100" * kilogram.interval)
 
-
-  def getSIUnit: MassUnit = kilogram
-
   def getUnits: Seq[MassUnit] =
     Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal)
 }
+
 
 object MassUnits{
   def kg: MassUnit = MassUnitObjects.kilogram

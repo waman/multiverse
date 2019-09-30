@@ -11,8 +11,9 @@ class MassSpec extends MultiverseCustomSpec {
     val conversions =
       Table(
         ("mass", "expected"),
-        (3.0(g), 3e-3),
         (3.0(kg) , 3.0),
+        (3.0(g), 3e-3),
+        (3.0(mg), 3e-6),
         (3.0(t), 3e3)
       )
     // Verify
@@ -28,8 +29,9 @@ class MassSpec extends MultiverseCustomSpec {
     val conversions =
       Table(
         ("mass", "expected"),
-        (q(g), 3e3),
         (q(kg) , 3.0),
+        (q(g), 3e3),
+        (q(mg), 3e6),
         (q(t), 3e-3)
       )
     // Verify

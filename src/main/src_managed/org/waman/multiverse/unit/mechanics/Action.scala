@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.mechanics
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Action[A: Fractional](val value: A, val unit: ActionUnit)
@@ -23,16 +24,17 @@ class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[S
 object ActionUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object planck_constant extends DefaultActionUnit("planck constant", "h", Nil, Constants.PlanckConstant)
-  final object reduced_planck_constant extends DefaultActionUnit("reduced planck constant", "ħ", Nil, Constants.PlanckConstant / r"2.0" / Constants.Pi)
-
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
   val getSIUnit: ActionUnit = EnergyUnitObjects.getSIUnit * TimeUnitObjects.getSIUnit
 
+  final object planck_constant extends DefaultActionUnit("planck constant", "h", Nil, Constants.PlanckConstant)
+  final object reduced_planck_constant extends DefaultActionUnit("reduced planck constant", "ħ", Nil, Constants.PlanckConstant / r"2.0" / Constants.Pi)
+
   def getUnits: Seq[ActionUnit] =
     Seq(planck_constant, reduced_planck_constant)
 }
+
 
 object ActionUnits{
   def h: ActionUnit = ActionUnitObjects.planck_constant

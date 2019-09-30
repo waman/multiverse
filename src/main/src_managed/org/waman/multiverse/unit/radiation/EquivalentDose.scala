@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.radiation
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
@@ -26,6 +27,9 @@ class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliase
 
 
 object EquivalentDoseUnitObjects{
+
+  def getSIUnit: EquivalentDoseUnit = sievert
+
   final object sievert extends DefaultEquivalentDoseUnit("sievert", "Sv", Nil, r"1")
   final object yoctosievert extends DefaultEquivalentDoseUnit("yoctosievert", "ySv", Nil, r"1" * r"1e-24")
   final object zeptosievert extends DefaultEquivalentDoseUnit("zeptosievert", "zSv", Nil, r"1" * r"1e-21")
@@ -69,12 +73,10 @@ object EquivalentDoseUnitObjects{
   final object zettarem extends DefaultEquivalentDoseUnit("zettarem", "Zrem", Nil, r"1e-2" * r"1e21")
   final object yottarem extends DefaultEquivalentDoseUnit("yottarem", "Yrem", Nil, r"1e-2" * r"1e24")
 
-
-  def getSIUnit: EquivalentDoseUnit = sievert
-
   def getUnits: Seq[EquivalentDoseUnit] =
     Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, rem, yoctorem, zeptorem, attorem, femtorem, picorem, nanorem, microrem, millirem, centirem, decirem, decarem, hectorem, kilorem, megarem, gigarem, terarem, petarem, exarem, zettarem, yottarem)
 }
+
 
 object EquivalentDoseUnits{
   def Sv: EquivalentDoseUnit = EquivalentDoseUnitObjects.sievert

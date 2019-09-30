@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.radiation
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRateUnit)
@@ -21,14 +21,15 @@ class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val al
 
 
 object EquivalentDoseRateUnitObjects{
-
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
   val getSIUnit: EquivalentDoseRateUnit = EquivalentDoseUnitObjects.getSIUnit / TimeUnitObjects.getSIUnit
 
+
   def getUnits: Seq[EquivalentDoseRateUnit] =
     Seq()
 }
+
 
 object EquivalentDoseRateUnits{
 

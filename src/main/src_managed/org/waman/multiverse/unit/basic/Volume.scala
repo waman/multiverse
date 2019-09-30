@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
@@ -21,6 +22,9 @@ class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[S
 
 
 object VolumeUnitObjects{
+
+  val getSIUnit: VolumeUnit = AreaUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
+
   final object litre extends DefaultVolumeUnit("litre", "L", Nil, r"1e-3")
   final object yoctolitre extends DefaultVolumeUnit("yoctolitre", "yL", Nil, r"1e-3" * r"1e-24")
   final object zeptolitre extends DefaultVolumeUnit("zeptolitre", "zL", Nil, r"1e-3" * r"1e-21")
@@ -44,12 +48,10 @@ object VolumeUnitObjects{
   final object yottalitre extends DefaultVolumeUnit("yottalitre", "YL", Nil, r"1e-3" * r"1e24")
   final object lambda extends DefaultVolumeUnit("lambda", "λ", Nil, r"1e-9")
 
-
-  val getSIUnit: VolumeUnit = AreaUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
-
   def getUnits: Seq[VolumeUnit] =
     Seq(litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda)
 }
+
 
 object VolumeUnits{
   def L: VolumeUnit = VolumeUnitObjects.litre

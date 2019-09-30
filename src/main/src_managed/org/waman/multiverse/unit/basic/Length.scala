@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
@@ -14,10 +15,37 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 trait LengthUnit extends LinearUnit[LengthUnit]{
   override def getSIUnit: LengthUnit = LengthUnitObjects.getSIUnit
 
+  def square: AreaUnit =
+    new AreaUnit{
+      override val name: String = LengthUnit.this.name + " squared"
+      override val symbol: String = LengthUnit.this.symbol + "²"
+      override val interval: Real = LengthUnit.this.interval**2
+      override def aliases: Seq[String] = Nil
+      //override val aliases: Seq[String] = LengthUnit.this.aliases.map(_ + "²")
+
+      override def *(lengthUnit: LengthUnit): VolumeUnit = {
+        if (lengthUnit == LengthUnit.this){
+          LengthUnit.this.cubic
+        } else {
+          super.*(lengthUnit)
+        }
+      }
+    }
+
+  def cubic: VolumeUnit =
+    new VolumeUnit{
+      override val name: String = LengthUnit.this.name + " cubic"
+      override val symbol: String = LengthUnit.this.symbol + "³"
+      override val interval: Real = LengthUnit.this.interval**3
+      override def aliases: Seq[String] = Nil
+      //override val aliases: Seq[String] = LengthUnit.this.aliases.map(_ + "³")
+    }
 
   def *(lengthUnit: LengthUnit): AreaUnit =
-    new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
-
+    if(this == lengthUnit)
+      square
+    else
+      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
 
   def /(timeUnit: TimeUnit): VelocityUnit =
     new QuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
@@ -43,6 +71,9 @@ object LengthAttributes{
 }
 
 object LengthUnitObjects{
+
+  def getSIUnit: LengthUnit = metre
+
   final object metre extends DefaultLengthUnit("metre", "m", Nil, r"1")
   final object yoctometre extends DefaultLengthUnit("yoctometre", "ym", Nil, r"1" * r"1e-24")
   final object zeptometre extends DefaultLengthUnit("zeptometre", "zm", Nil, r"1" * r"1e-21")
@@ -92,12 +123,10 @@ object LengthUnitObjects{
   final object `nautical_mile(Adm)` extends DefaultLengthUnit("nautical mile(Adm)", "NM(Adm)", Seq("nmi(Adm)"), r"6080" * foot.interval)
   final object nautical_league extends DefaultLengthUnit("nautical league", "NL", Seq("nl"), r"3" * nautical_mile.interval)
 
-
-  def getSIUnit: LengthUnit = metre
-
   def getUnits: Seq[LengthUnit] =
     Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, foot, yard, ell, fathom, rod, rope, chain, mile, league, nautical_mile, `nautical_mile(Adm)`, nautical_league)
 }
+
 
 object LengthUnits{
   def m: LengthUnit = LengthUnitObjects.metre

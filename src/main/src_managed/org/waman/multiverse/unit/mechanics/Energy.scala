@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.mechanics
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
@@ -30,6 +31,12 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
   def /(massUnit: MassUnit): AbsorbedDoseUnit =
     new QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
 
+  import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnit
+  import org.waman.multiverse.unit.thermal.EntropyUnit
+
+  def /(absoluteTemperatureUnit: AbsoluteTemperatureUnit): EntropyUnit =
+    new QuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
+
 }
 
 class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
@@ -43,6 +50,9 @@ object EnergyAttributes{
 
 object EnergyUnitObjects{
   import org.waman.multiverse.unit.Constants
+
+
+  def getSIUnit: EnergyUnit = joule
 
   final object joule extends DefaultEnergyUnit("joule", "J", Nil, r"1")
   final object yoctojoule extends DefaultEnergyUnit("yoctojoule", "yJ", Nil, r"1" * r"1e-24")
@@ -92,12 +102,10 @@ object EnergyUnitObjects{
   final object calorie extends DefaultEnergyUnit("calorie", "cal", Seq("cal_IT"), r"4.1868")
   final object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT(IT)"), r"4.1868")
 
-
-  def getSIUnit: EnergyUnit = joule
-
   def getUnits: Seq[EnergyUnit] =
     Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(IT)`)
 }
+
 
 object EnergyUnits{
   def J: EnergyUnit = EnergyUnitObjects.joule

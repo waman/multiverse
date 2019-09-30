@@ -5,6 +5,6 @@
 
   "units":[
     {"name":"planck constant", "symbol":"h", "interval":"Constants.PlanckConstant"},
-    {"name":"reduced planck constant", "symbol":"ħ", "aliases:":["hbar"], "interval":"Constants.PlanckConstant / 2.0 / pi"}
+    {"name":"reduced planck constant", "symbol":"ħ", "aliases:":["hbar"], "interval":"Constants.PlanckConstant / 2.0 / Pi"}
   ]
 }

@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
@@ -43,6 +44,9 @@ class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[S
 object ChargeUnitObjects{
   import org.waman.multiverse.unit.Constants
 
+
+  def getSIUnit: ChargeUnit = coulomb
+
   final object coulomb extends DefaultChargeUnit("coulomb", "C", Nil, r"1")
   final object yoctocoulomb extends DefaultChargeUnit("yoctocoulomb", "yC", Nil, r"1" * r"1e-24")
   final object zeptocoulomb extends DefaultChargeUnit("zeptocoulomb", "zC", Nil, r"1" * r"1e-21")
@@ -68,12 +72,10 @@ object ChargeUnitObjects{
   final object statcoulomb extends DefaultChargeUnit("statcoulomb", "statC", Seq("Fr", "esu"), Constants.SpeedOfLight) with NotExact
   final object atomic_unit_of_charge extends DefaultChargeUnit("atomic unit of charge", "au", Seq("e"), Constants.ElementaryCharge)
 
-
-  def getSIUnit: ChargeUnit = coulomb
-
   def getUnits: Seq[ChargeUnit] =
     Seq(coulomb, yoctocoulomb, zeptocoulomb, attocoulomb, femtocoulomb, picocoulomb, nanocoulomb, microcoulomb, millicoulomb, centicoulomb, decicoulomb, decacoulomb, hectocoulomb, kilocoulomb, megacoulomb, gigacoulomb, teracoulomb, petacoulomb, exacoulomb, zettacoulomb, yottacoulomb, abcoulomb, statcoulomb, atomic_unit_of_charge)
 }
+
 
 object ChargeUnits{
   def C: ChargeUnit = ChargeUnitObjects.coulomb

@@ -14,7 +14,9 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
         ("time squared unit", "expected"),
         (s2 , "s²"),
         (s*s, "s²"),
+        (s.square, "s²"),
         (ms*ms, "ms²"),
+        (ms.square, "ms²"),
         (s*ms, "s*ms")
       )
     // Verify
@@ -30,7 +32,9 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
         ("time squared", "expected"),
         (3.0(s2) , 3.0),
         (3.0(s*s), 3.0),
+        (3.0(s.square), 3.0),
         (3.0(ms*ms), 3.0*0.000001),
+        (3.0(ms.square), 3.0*0.000001),
         (3.0(s*ms), 3.0*0.001)
       )
     // Verify

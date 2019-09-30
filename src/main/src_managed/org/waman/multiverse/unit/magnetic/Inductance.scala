@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.magnetic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
@@ -21,6 +22,9 @@ class DefaultInductanceUnit(val name: String, val symbol: String, val aliases: S
 
 
 object InductanceUnitObjects{
+
+  def getSIUnit: InductanceUnit = henry
+
   final object henry extends DefaultInductanceUnit("henry", "H", Nil, r"1")
   final object yoctohenry extends DefaultInductanceUnit("yoctohenry", "yH", Nil, r"1" * r"1e-24")
   final object zeptohenry extends DefaultInductanceUnit("zeptohenry", "zH", Nil, r"1" * r"1e-21")
@@ -43,12 +47,10 @@ object InductanceUnitObjects{
   final object zettahenry extends DefaultInductanceUnit("zettahenry", "ZH", Nil, r"1" * r"1e21")
   final object yottahenry extends DefaultInductanceUnit("yottahenry", "YH", Nil, r"1" * r"1e24")
 
-
-  def getSIUnit: InductanceUnit = henry
-
   def getUnits: Seq[InductanceUnit] =
     Seq(henry, yoctohenry, zeptohenry, attohenry, femtohenry, picohenry, nanohenry, microhenry, millihenry, centihenry, decihenry, decahenry, hectohenry, kilohenry, megahenry, gigahenry, terahenry, petahenry, exahenry, zettahenry, yottahenry)
 }
+
 
 object InductanceUnits{
   def H: InductanceUnit = InductanceUnitObjects.henry

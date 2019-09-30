@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
@@ -28,15 +29,16 @@ class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq
 object VelocityUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object speed_of_light extends DefaultVelocityUnit("speed of light", "c", Nil, Constants.SpeedOfLight)
-  final object mach_number extends DefaultVelocityUnit("mach number", "M", Nil, r"340") with NotExact
-
 
   val getSIUnit: VelocityUnit = LengthUnitObjects.getSIUnit / TimeUnitObjects.getSIUnit
+
+  final object speed_of_light extends DefaultVelocityUnit("speed of light", "c", Nil, Constants.SpeedOfLight)
+  final object mach_number extends DefaultVelocityUnit("mach number", "M", Nil, r"340") with NotExact
 
   def getUnits: Seq[VelocityUnit] =
     Seq(speed_of_light, mach_number)
 }
+
 
 object VelocityUnits{
   def c: VelocityUnit = VelocityUnitObjects.speed_of_light

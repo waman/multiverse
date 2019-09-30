@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
@@ -21,6 +22,9 @@ class DefaultResistanceUnit(val name: String, val symbol: String, val aliases: S
 
 
 object ResistanceUnitObjects{
+
+  def getSIUnit: ResistanceUnit = ohm
+
   final object ohm extends DefaultResistanceUnit("ohm", "Ω", Seq("ohm"), r"1")
   final object yoctoohm extends DefaultResistanceUnit("yoctoohm", "yΩ", Seq("yohm"), r"1" * r"1e-24")
   final object zeptoohm extends DefaultResistanceUnit("zeptoohm", "zΩ", Seq("zohm"), r"1" * r"1e-21")
@@ -44,12 +48,10 @@ object ResistanceUnitObjects{
   final object yottaohm extends DefaultResistanceUnit("yottaohm", "YΩ", Seq("Yohm"), r"1" * r"1e24")
   final object abohm extends DefaultResistanceUnit("abohm", "abΩ", Seq("abohm"), r"1e-9")
 
-
-  def getSIUnit: ResistanceUnit = ohm
-
   def getUnits: Seq[ResistanceUnit] =
     Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm)
 }
+
 
 object ResistanceUnits{
   def Ω: ResistanceUnit = ResistanceUnitObjects.ohm

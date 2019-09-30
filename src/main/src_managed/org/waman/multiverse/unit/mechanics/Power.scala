@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.mechanics
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
@@ -27,6 +28,9 @@ class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[St
 
 
 object PowerUnitObjects{
+
+  def getSIUnit: PowerUnit = watt
+
   final object watt extends DefaultPowerUnit("watt", "W", Nil, r"1")
   final object yoctowatt extends DefaultPowerUnit("yoctowatt", "yW", Nil, r"1" * r"1e-24")
   final object zeptowatt extends DefaultPowerUnit("zeptowatt", "zW", Nil, r"1" * r"1e-21")
@@ -49,12 +53,10 @@ object PowerUnitObjects{
   final object zettawatt extends DefaultPowerUnit("zettawatt", "ZW", Nil, r"1" * r"1e21")
   final object yottawatt extends DefaultPowerUnit("yottawatt", "YW", Nil, r"1" * r"1e24")
 
-
-  def getSIUnit: PowerUnit = watt
-
   def getUnits: Seq[PowerUnit] =
     Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
 }
+
 
 object PowerUnits{
   def W: PowerUnit = PowerUnitObjects.watt

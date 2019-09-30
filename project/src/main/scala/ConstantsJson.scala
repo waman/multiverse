@@ -3,15 +3,15 @@ import java.io.File
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-class ConstantsResource(json: File, destDir: File, mainDir: File)
-    extends GeneratingJsonResource(json, destDir, mainDir) {
+class ConstantsJson(json: File, destDir: File, mainDir: File)
+    extends SourceGeneratorJson(json, destDir, mainDir) {
 
   val constantsType: Class[_ >: Array[Constant]] = new TypeToken[Array[Constant]]() {}.getRawType
 
   val destFilename: String = "Constants.scala"
   val packageName: String = GenerationUtil.rootPackage + ".unit"
 
-  override def isLinearUnit: Boolean = false
+  override def isUnitDefinitionJson: Boolean = false
 
   override protected def doGenerate(jsons: Seq[JsonResource]): Unit =
     IO.reader(jsonFile, UTF8) { reader =>

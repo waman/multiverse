@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.luminous
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
@@ -26,6 +27,9 @@ class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases:
 
 
 object LuminousFluxUnitObjects{
+
+  def getSIUnit: LuminousFluxUnit = lumen
+
   final object lumen extends DefaultLuminousFluxUnit("lumen", "lm", Nil, r"1")
   final object yoctolumen extends DefaultLuminousFluxUnit("yoctolumen", "ylm", Nil, r"1" * r"1e-24")
   final object zeptolumen extends DefaultLuminousFluxUnit("zeptolumen", "zlm", Nil, r"1" * r"1e-21")
@@ -48,12 +52,10 @@ object LuminousFluxUnitObjects{
   final object zettalumen extends DefaultLuminousFluxUnit("zettalumen", "Zlm", Nil, r"1" * r"1e21")
   final object yottalumen extends DefaultLuminousFluxUnit("yottalumen", "Ylm", Nil, r"1" * r"1e24")
 
-
-  def getSIUnit: LuminousFluxUnit = lumen
-
   def getUnits: Seq[LuminousFluxUnit] =
     Seq(lumen, yoctolumen, zeptolumen, attolumen, femtolumen, picolumen, nanolumen, microlumen, millilumen, centilumen, decilumen, decalumen, hectolumen, kilolumen, megalumen, gigalumen, teralumen, petalumen, exalumen, zettalumen, yottalumen)
 }
+
 
 object LuminousFluxUnits{
   def lm: LuminousFluxUnit = LuminousFluxUnitObjects.lumen

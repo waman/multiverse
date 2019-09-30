@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Current[A: Fractional](val value: A, val unit: CurrentUnit)
@@ -26,6 +27,9 @@ class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[
 
 
 object CurrentUnitObjects{
+
+  def getSIUnit: CurrentUnit = ampere
+
   final object ampere extends DefaultCurrentUnit("ampere", "A", Nil, r"1")
   final object yoctoampere extends DefaultCurrentUnit("yoctoampere", "yA", Nil, r"1" * r"1e-24")
   final object zeptoampere extends DefaultCurrentUnit("zeptoampere", "zA", Nil, r"1" * r"1e-21")
@@ -49,12 +53,10 @@ object CurrentUnitObjects{
   final object yottaampere extends DefaultCurrentUnit("yottaampere", "YA", Nil, r"1" * r"1e24")
   final object abampere extends DefaultCurrentUnit("abampere", "abamp", Nil, r"10")
 
-
-  def getSIUnit: CurrentUnit = ampere
-
   def getUnits: Seq[CurrentUnit] =
     Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere)
 }
+
 
 object CurrentUnits{
   def A: CurrentUnit = CurrentUnitObjects.ampere

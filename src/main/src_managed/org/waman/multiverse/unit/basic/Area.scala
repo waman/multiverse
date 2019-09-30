@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
@@ -25,15 +26,16 @@ class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[Str
 
 
 object AreaUnitObjects{
-  final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
-  final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
-
 
   val getSIUnit: AreaUnit = LengthUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
+
+  final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
+  final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
 
   def getUnits: Seq[AreaUnit] =
     Seq(are, hectare)
 }
+
 
 object AreaUnits{
   def a: AreaUnit = AreaUnitObjects.are

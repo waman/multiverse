@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.mechanics
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.BasicUnits._
+import org.waman.multiverse.unit.MechanicsUnits
 import org.waman.multiverse.unit.MechanicsUnits._
 
 class AccelerationSpec extends MultiverseCustomSpec {
@@ -55,5 +56,12 @@ class AccelerationSpec extends MultiverseCustomSpec {
     forAll(conversions){ (sut: Double, expected: Double) =>
       sut should equal (%%%%(expected))
     }
+  }
+
+  "getUnits method of MechanicsUnits should return Seq(s2, g_0)" in {
+    // Exercise
+    val sut = MechanicsUnits.getUnits
+    // Verify
+    sut should contain theSameElementsInOrderAs Seq(s2, g_0)
   }
 }

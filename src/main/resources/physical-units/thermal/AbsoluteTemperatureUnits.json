@@ -1,0 +1,7 @@
+{
+  "SIUnit": "kelvin",
+  
+  "units":[
+    {"name":"kelvin", "symbol":"K", "interval":"1", "scalePrefixes":true}
+  ]
+}

@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.luminous
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Illuminance[A: Fractional](val value: A, val unit: IlluminanceUnit)
@@ -21,6 +22,9 @@ class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: 
 
 
 object IlluminanceUnitObjects{
+
+  def getSIUnit: IlluminanceUnit = lux
+
   final object lux extends DefaultIlluminanceUnit("lux", "lx", Nil, r"1")
   final object yoctolux extends DefaultIlluminanceUnit("yoctolux", "ylx", Nil, r"1" * r"1e-24")
   final object zeptolux extends DefaultIlluminanceUnit("zeptolux", "zlx", Nil, r"1" * r"1e-21")
@@ -44,12 +48,10 @@ object IlluminanceUnitObjects{
   final object yottalux extends DefaultIlluminanceUnit("yottalux", "Ylx", Nil, r"1" * r"1e24")
   final object phot extends DefaultIlluminanceUnit("phot", "ph", Nil, r"1e4")
 
-
-  def getSIUnit: IlluminanceUnit = lux
-
   def getUnits: Seq[IlluminanceUnit] =
     Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot)
 }
+
 
 object IlluminanceUnits{
   def lx: IlluminanceUnit = IlluminanceUnitObjects.lux

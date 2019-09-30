@@ -1,5 +1,9 @@
 {
   "SIUnit":"Time * Time",
 
-  "composites": ["Time * Time"]
+  "composites": ["Time * Time"],
+
+  "units": [
+    {"name":"second squared", "symbol": "s²", "aliases": ["s2", "sec²", "sec2"], "baseUnit": "SIUnit"}
+  ]
 }

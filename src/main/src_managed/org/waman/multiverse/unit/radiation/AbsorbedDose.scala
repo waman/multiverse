@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.radiation
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
@@ -21,6 +22,9 @@ class DefaultAbsorbedDoseUnit(val name: String, val symbol: String, val aliases:
 
 
 object AbsorbedDoseUnitObjects{
+
+  def getSIUnit: AbsorbedDoseUnit = gray
+
   final object gray extends DefaultAbsorbedDoseUnit("gray", "Gy", Nil, r"1")
   final object yoctogray extends DefaultAbsorbedDoseUnit("yoctogray", "yGy", Nil, r"1" * r"1e-24")
   final object zeptogray extends DefaultAbsorbedDoseUnit("zeptogray", "zGy", Nil, r"1" * r"1e-21")
@@ -43,12 +47,10 @@ object AbsorbedDoseUnitObjects{
   final object zettagray extends DefaultAbsorbedDoseUnit("zettagray", "ZGy", Nil, r"1" * r"1e21")
   final object yottagray extends DefaultAbsorbedDoseUnit("yottagray", "YGy", Nil, r"1" * r"1e24")
 
-
-  def getSIUnit: AbsorbedDoseUnit = gray
-
   def getUnits: Seq[AbsorbedDoseUnit] =
     Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray)
 }
+
 
 object AbsorbedDoseUnits{
   def Gy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gray

@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.luminous
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class LuminousIntensity[A: Fractional](val value: A, val unit: LuminousIntensityUnit)
@@ -26,6 +27,9 @@ class DefaultLuminousIntensityUnit(val name: String, val symbol: String, val ali
 
 
 object LuminousIntensityUnitObjects{
+
+  def getSIUnit: LuminousIntensityUnit = candela
+
   final object candela extends DefaultLuminousIntensityUnit("candela", "cd", Nil, r"1")
   final object yoctocandela extends DefaultLuminousIntensityUnit("yoctocandela", "ycd", Nil, r"1" * r"1e-24")
   final object zeptocandela extends DefaultLuminousIntensityUnit("zeptocandela", "zcd", Nil, r"1" * r"1e-21")
@@ -48,12 +52,10 @@ object LuminousIntensityUnitObjects{
   final object zettacandela extends DefaultLuminousIntensityUnit("zettacandela", "Zcd", Nil, r"1" * r"1e21")
   final object yottacandela extends DefaultLuminousIntensityUnit("yottacandela", "Ycd", Nil, r"1" * r"1e24")
 
-
-  def getSIUnit: LuminousIntensityUnit = candela
-
   def getUnits: Seq[LuminousIntensityUnit] =
     Seq(candela, yoctocandela, zeptocandela, attocandela, femtocandela, picocandela, nanocandela, microcandela, millicandela, centicandela, decicandela, decacandela, hectocandela, kilocandela, megacandela, gigacandela, teracandela, petacandela, exacandela, zettacandela, yottacandela)
 }
+
 
 object LuminousIntensityUnits{
   def cd: LuminousIntensityUnit = LuminousIntensityUnitObjects.candela

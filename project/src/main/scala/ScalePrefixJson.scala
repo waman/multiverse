@@ -9,7 +9,7 @@ case class ScalePrefix(name: String, prefix: String, aliases: Array[String], sca
     if (aliases != null) aliases else Nil
 }
 
-class ScalePrefixResource(jsonFile: File) extends JsonResource(jsonFile){
+class ScalePrefixJson(jsonFile: File) extends JsonResource(jsonFile){
 
   private val scalePrefixType: Class[_ >: Array[ScalePrefix]] = new TypeToken[Array[ScalePrefix]]() {}.getRawType
 
@@ -18,6 +18,5 @@ class ScalePrefixResource(jsonFile: File) extends JsonResource(jsonFile){
   }
 
   override def isGenerating: Boolean = false
-  override def isLinearUnit: Boolean = false
-
+  override def isUnitDefinitionJson: Boolean = false
 }

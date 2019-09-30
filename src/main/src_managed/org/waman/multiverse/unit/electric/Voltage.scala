@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
@@ -33,6 +34,9 @@ class DefaultVoltageUnit(val name: String, val symbol: String, val aliases: Seq[
 object VoltageUnitObjects{
   import org.waman.multiverse.unit.Constants
 
+
+  def getSIUnit: VoltageUnit = volt
+
   final object volt extends DefaultVoltageUnit("volt", "V", Nil, r"1")
   final object yoctovolt extends DefaultVoltageUnit("yoctovolt", "yV", Nil, r"1" * r"1e-24")
   final object zeptovolt extends DefaultVoltageUnit("zeptovolt", "zV", Nil, r"1" * r"1e-21")
@@ -57,12 +61,10 @@ object VoltageUnitObjects{
   final object statvolt extends DefaultVoltageUnit("statvolt", "statV", Nil, Constants.SpeedOfLight / r"1e6")
   final object abvolt extends DefaultVoltageUnit("abvolt", "abV", Nil, r"1e-8")
 
-
-  def getSIUnit: VoltageUnit = volt
-
   def getUnits: Seq[VoltageUnit] =
     Seq(volt, yoctovolt, zeptovolt, attovolt, femtovolt, picovolt, nanovolt, microvolt, millivolt, centivolt, decivolt, decavolt, hectovolt, kilovolt, megavolt, gigavolt, teravolt, petavolt, exavolt, zettavolt, yottavolt, statvolt, abvolt)
 }
+
 
 object VoltageUnits{
   def V: VoltageUnit = VoltageUnitObjects.volt

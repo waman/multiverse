@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
+
 import org.waman.multiverse._
 
 class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
@@ -21,6 +22,9 @@ class DefaultCapacitanceUnit(val name: String, val symbol: String, val aliases: 
 
 
 object CapacitanceUnitObjects{
+
+  def getSIUnit: CapacitanceUnit = farad
+
   final object farad extends DefaultCapacitanceUnit("farad", "F", Nil, r"1")
   final object yoctofarad extends DefaultCapacitanceUnit("yoctofarad", "yF", Nil, r"1" * r"1e-24")
   final object zeptofarad extends DefaultCapacitanceUnit("zeptofarad", "zF", Nil, r"1" * r"1e-21")
@@ -43,12 +47,10 @@ object CapacitanceUnitObjects{
   final object zettafarad extends DefaultCapacitanceUnit("zettafarad", "ZF", Nil, r"1" * r"1e21")
   final object yottafarad extends DefaultCapacitanceUnit("yottafarad", "YF", Nil, r"1" * r"1e24")
 
-
-  def getSIUnit: CapacitanceUnit = farad
-
   def getUnits: Seq[CapacitanceUnit] =
     Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad)
 }
+
 
 object CapacitanceUnits{
   def F: CapacitanceUnit = CapacitanceUnitObjects.farad
