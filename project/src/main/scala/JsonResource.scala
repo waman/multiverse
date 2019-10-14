@@ -42,12 +42,12 @@ abstract class SourceGeneratorJson(jsonFile: File, destDir: File, mainDir: File)
   def packageName: String
 
   def generate(jsons: Seq[JsonResource]): Seq[File] = {
-    if (isGenerating){
+    if (this.isGenerating){
       doGenerate(jsons)
-      println("[GENERATE] " + destFile)
+      println("[GENERATE] " + this.destFilename)
     }
 
-    if(this.isGenerating) Seq(destFile)
+    if(this.isGenerating) Seq(this.destFile)
     else Nil
   }
 

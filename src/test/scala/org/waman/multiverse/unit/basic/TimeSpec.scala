@@ -1,8 +1,9 @@
 package org.waman.multiverse.unit.basic
 
 import org.waman.multiverse.MultiverseCustomSpec
+import org.waman.multiverse.unit.basic.TimeAttributes.gregorian
+import org.waman.multiverse.unit.basic.TimeUnits._
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.BasicUnits._
 
 class TimeSpec extends MultiverseCustomSpec {
 
@@ -37,6 +38,35 @@ class TimeSpec extends MultiverseCustomSpec {
     // Verify
     forAll(conversions){ (sut: Double, expected: Double) =>
       sut should equal (%%%%(expected))
+    }
+  }
+
+  "[SOURCE GENERATION]" - {
+
+    "The default attribute should provide the value of interval and baseUnit for the parent unit" in {
+      // Exercise
+      val conversions =
+        Table(
+          ("parent", "expected"),
+          (mo, mo(gregorian)),
+          (yr, yr(gregorian)),
+          (dec, dec(gregorian)),
+          (century, century(gregorian))
+        )
+      // Verify
+      forAll(conversions){ (sut: TimeUnit, expected: TimeUnit) =>
+        sut.interval should equal (expected.interval)
+      }
+    }
+
+    "prefixed unit 'microsecond' should have combinated aliases of a base unit and prefix" in {
+      // SetUp
+      val expected = Seq("μsec", "mcs", "mcsec")
+      // Exercise
+      val sut = TimeUnitObjects.microsecond
+      // Verify
+      sut.aliases should contain theSameElementsAs expected
+      sut.symbol should be ("μs")
     }
   }
 }

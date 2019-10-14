@@ -41,6 +41,14 @@
           {"name": "Adm", "interval":"6080", "baseUnit":"foot"}
         ]
       },
-      {"name":"nautical league", "symbol":"NL", "aliases":["nl"], "interval":"3", "baseUnit":"nautical mile"}
+
+      {"name":"nautical league", "symbol":"NL", "aliases":["nl"], "interval":"3", "baseUnit":"nautical mile"},
+
+      {"name":"metric foot", "symbol":"mf", "interval":"sqrt(1/10)"},
+      {"name":"short metric foot", "symbol":"smf", "interval":"0.3"},
+      {"name":"long metric foot", "symbol":"lmf", "interval":"1/3"},
+
+      {"name":"french", "symbol":"Fr", "interval":"1/3", "baseUnit":"millimetre"},
+      {"name":"furlong", "symbol":"fur", "interval":"660", "baseUnit":"foot"}
   ]
 }

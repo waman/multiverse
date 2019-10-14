@@ -33,7 +33,12 @@ object MultiverseSourceGenerator {
       }
 
     val jsons = walk(info, Nil)
-    jsons.filter(_.isGenerating).map(_.asInstanceOf[SourceGeneratorJson]).flatMap(_.generate(jsons))
+    val generated = jsons.filter(_.isGenerating).map(_.asInstanceOf[SourceGeneratorJson]).flatMap(_.generate(jsons))
+
+    val unitDefs = jsons.filter(_.isUnitDefinitionJson).map(_.asInstanceOf[UnitDefinitionJson])
+    val implicits = ImplicitsGenerator.generate(srcManaged, unitDefs)
+
+    implicits +: generated
   }
 }
 
@@ -48,8 +53,13 @@ object GenerationUtil{
 
   private val regNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
 
-  def refineNumber(s: String): String =
-    regNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
+  def refineNumber(s: String): String = s match {
+    // TODO
+    case "log(2)" => "Real(2).log()"  // Entropy.bit
+    case "log(10)" => "Real(10).log()"  // Entropy.ban
+    case "sqrt(1/10)" => """Real("1/10").sqrt()"""  // Length.
+    case _ => regNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
+  }
 
   def toObjectName(s: String): String = {
     val ss = s.replace(' ', '_')

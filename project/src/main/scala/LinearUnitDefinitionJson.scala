@@ -32,13 +32,7 @@ case class LinearUnit(
 
   def extractInterval: String =
     if(this.interval != null) {
-      this.interval match {
-          // TODO
-        case "log(2)" => "Real(2).log()"  // Entropy.bit
-        case "log(10)" => "Real(10).log()"  // Entropy.ban
-        case "sqrt(2)" => "Real(2).sqrt()"  // Length.
-        case _ => this.interval
-      }
+      this.interval
     } else {
       this.attributes.find(_.default) match {
         case Some(a) => a.interval
@@ -199,8 +193,15 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
               |      override val name: String = LengthUnit.this.name + " squared"
               |      override val symbol: String = LengthUnit.this.symbol + "²"
               |      override val interval: Real = LengthUnit.this.interval**2
-              |      override def aliases: Seq[String] = Nil
-              |      //override val aliases: Seq[String] = LengthUnit.this.aliases.map(_ + "²")
+              |      override def aliases: Seq[String] = {
+              |        val heads = if (LengthUnit.this.name == "metre") Seq("m2") else Nil
+              |
+              |        val symbols = LengthUnit.this.symbol +: LengthUnit.this.aliases
+              |        val squares = symbols.map(_+".square")
+              |        val prods = symbols.map(a => a+"*"+a)
+              |
+              |        heads ++: squares ++: prods
+              |      }
               |
               |      override def *(lengthUnit: LengthUnit): VolumeUnit = {
               |        if (lengthUnit == LengthUnit.this){
@@ -216,8 +217,15 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
               |      override val name: String = LengthUnit.this.name + " cubic"
               |      override val symbol: String = LengthUnit.this.symbol + "³"
               |      override val interval: Real = LengthUnit.this.interval**3
-              |      override def aliases: Seq[String] = Nil
-              |      //override val aliases: Seq[String] = LengthUnit.this.aliases.map(_ + "³")
+              |      override def aliases: Seq[String] = {
+              |        val heads = if (LengthUnit.this.name == "metre") Seq("m3") else Nil
+              |
+              |        val symbols = LengthUnit.this.symbol +: LengthUnit.this.aliases
+              |        val cubics = symbols.map(_+".cubic")
+              |        val prods = symbols.map(a => a+"*"+a+"*"+a)
+              |
+              |        heads ++: cubics ++: prods
+              |      }
               |    }
               |
               |  def *(lengthUnit: LengthUnit): AreaUnit =
@@ -229,15 +237,22 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
 
         } else if (this.id == "Time" && p._1.id == "Time") {
           writer.write(
-            """  import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+            s"""  import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
               |
               |  def square: TimeSquaredUnit =
               |    new TimeSquaredUnit{
               |      override val name: String = TimeUnit.this.name + " squared"
               |      override val symbol: String = TimeUnit.this.symbol + "²"
               |      override val interval: Real = TimeUnit.this.interval**2
-              |      override def aliases: Seq[String] = Nil
-              |      //override val aliases: Seq[String] = TimeUnit.this.aliases.map(_ + "²")
+              |      override def aliases: Seq[String] = {
+              |        val heads = if (TimeUnit.this.name == "second") Seq("s2", "sec²", "sec2") else Nil
+              |
+              |        val symbols = TimeUnit.this.symbol +: TimeUnit.this.aliases
+              |        val squares = symbols.map(_+".square")
+              |        val prods = symbols.map(a => a+"*"+a)
+              |
+              |        heads ++: squares ++: prods
+              |      }
               |    }
               |
               |  def *(timeUnit: TimeUnit): TimeSquaredUnit =
@@ -428,6 +443,6 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
   }
 
   def escapeSymbol(s: String): String =
-    if (s.contains('²') || s.contains('³')) s"""`$s`"""
+    if (s.contains('²') || s.contains('³') || s == "°") s"""`$s`"""
     else s
 }

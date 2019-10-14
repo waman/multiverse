@@ -20,8 +20,15 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
       override val name: String = LengthUnit.this.name + " squared"
       override val symbol: String = LengthUnit.this.symbol + "²"
       override val interval: Real = LengthUnit.this.interval**2
-      override def aliases: Seq[String] = Nil
-      //override val aliases: Seq[String] = LengthUnit.this.aliases.map(_ + "²")
+      override def aliases: Seq[String] = {
+        val heads = if (LengthUnit.this.name == "metre") Seq("m2") else Nil
+
+        val symbols = LengthUnit.this.symbol +: LengthUnit.this.aliases
+        val squares = symbols.map(_+".square")
+        val prods = symbols.map(a => a+"*"+a)
+
+        heads ++: squares ++: prods
+      }
 
       override def *(lengthUnit: LengthUnit): VolumeUnit = {
         if (lengthUnit == LengthUnit.this){
@@ -37,8 +44,15 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
       override val name: String = LengthUnit.this.name + " cubic"
       override val symbol: String = LengthUnit.this.symbol + "³"
       override val interval: Real = LengthUnit.this.interval**3
-      override def aliases: Seq[String] = Nil
-      //override val aliases: Seq[String] = LengthUnit.this.aliases.map(_ + "³")
+      override def aliases: Seq[String] = {
+        val heads = if (LengthUnit.this.name == "metre") Seq("m3") else Nil
+
+        val symbols = LengthUnit.this.symbol +: LengthUnit.this.aliases
+        val cubics = symbols.map(_+".cubic")
+        val prods = symbols.map(a => a+"*"+a+"*"+a)
+
+        heads ++: cubics ++: prods
+      }
     }
 
   def *(lengthUnit: LengthUnit): AreaUnit =
@@ -122,9 +136,14 @@ object LengthUnitObjects{
   final object nautical_mile extends DefaultLengthUnit("nautical mile", "NM", Seq("nmi"), r"1852")
   final object `nautical_mile(Adm)` extends DefaultLengthUnit("nautical mile(Adm)", "NM(Adm)", Seq("nmi(Adm)"), r"6080" * foot.interval)
   final object nautical_league extends DefaultLengthUnit("nautical league", "NL", Seq("nl"), r"3" * nautical_mile.interval)
+  final object metric_foot extends DefaultLengthUnit("metric foot", "mf", Nil, Real("1/10").sqrt())
+  final object short_metric_foot extends DefaultLengthUnit("short metric foot", "smf", Nil, r"0.3")
+  final object long_metric_foot extends DefaultLengthUnit("long metric foot", "lmf", Nil, r"1"/r"3")
+  final object french extends DefaultLengthUnit("french", "Fr", Nil, r"1"/r"3" * millimetre.interval)
+  final object furlong extends DefaultLengthUnit("furlong", "fur", Nil, r"660" * foot.interval)
 
   def getUnits: Seq[LengthUnit] =
-    Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, foot, yard, ell, fathom, rod, rope, chain, mile, league, nautical_mile, `nautical_mile(Adm)`, nautical_league)
+    Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, foot, yard, ell, fathom, rod, rope, chain, mile, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
 }
 
 
@@ -187,6 +206,11 @@ object LengthUnits{
   def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
   def NL: LengthUnit = LengthUnitObjects.nautical_league
   def nl: LengthUnit = LengthUnitObjects.nautical_league
+  def mf: LengthUnit = LengthUnitObjects.metric_foot
+  def smf: LengthUnit = LengthUnitObjects.short_metric_foot
+  def lmf: LengthUnit = LengthUnitObjects.long_metric_foot
+  def Fr: LengthUnit = LengthUnitObjects.french
+  def fur: LengthUnit = LengthUnitObjects.furlong
 
   def getSIUnit: LengthUnit = LengthUnitObjects.getSIUnit
   def getUnits: Seq[LengthUnit] = LengthUnitObjects.getUnits

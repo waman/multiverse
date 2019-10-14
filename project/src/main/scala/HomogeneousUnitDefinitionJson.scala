@@ -4,8 +4,6 @@ import java.io.{BufferedWriter, File}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-import scala.util.matching.Regex
-
 case class HomogeneousUnitCategory(SIUnit: String, composites: Array[String], units: Array[HomogeneousUnit]){
   def _units: Seq[HomogeneousUnit] = if (this.units != null) this.units else Nil
 }

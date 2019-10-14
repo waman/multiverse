@@ -25,6 +25,7 @@ object VolumeUnitObjects{
 
   val getSIUnit: VolumeUnit = AreaUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
 
+  val metre_cubic: VolumeUnit = getSIUnit
   final object litre extends DefaultVolumeUnit("litre", "L", Nil, r"1e-3")
   final object yoctolitre extends DefaultVolumeUnit("yoctolitre", "yL", Nil, r"1e-3" * r"1e-24")
   final object zeptolitre extends DefaultVolumeUnit("zeptolitre", "zL", Nil, r"1e-3" * r"1e-21")
@@ -49,11 +50,13 @@ object VolumeUnitObjects{
   final object lambda extends DefaultVolumeUnit("lambda", "λ", Nil, r"1e-9")
 
   def getUnits: Seq[VolumeUnit] =
-    Seq(litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda)
+    Seq(metre_cubic, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda)
 }
 
 
 object VolumeUnits{
+  def `m³`: VolumeUnit = VolumeUnitObjects.metre_cubic
+  def m3: VolumeUnit = VolumeUnitObjects.metre_cubic
   def L: VolumeUnit = VolumeUnitObjects.litre
   def yL: VolumeUnit = VolumeUnitObjects.yoctolitre
   def zL: VolumeUnit = VolumeUnitObjects.zeptolitre

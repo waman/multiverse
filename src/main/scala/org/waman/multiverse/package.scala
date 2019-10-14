@@ -2,6 +2,7 @@ package org.waman
 
 import spire.math._
 import spire.implicits._
+import spire.math.Real.Exact
 
 import scala.annotation.tailrec
 
@@ -37,14 +38,11 @@ package object multiverse {
 //    }
 //  }
 
-  def toReadableString(r: Real): String =
-    if(r.isWhole) {
-      String.format("%,d", r.toRational.toBigInt.bigInteger)
-    }else{
-      val ra = r.toRational
-      if(areSameValues(ra, r)) toReadableString(ra)
-      else r.toString
-    }
+  def toReadableString(r: Real): String = r match {
+    case _ if r.isWhole() => String.format("%,d", r.toRational.toBigInt.bigInteger)
+    case Exact(n) => toReadableString(n)
+    case _ => r.getString(10) + "..."
+  }
 
   private def toReadableString(r: Rational): String = {
     val (num, deno) = (r.numerator, r.denominator)
@@ -63,9 +61,6 @@ package object multiverse {
       }
     }
   }
-
-  @SuppressWarnings(Array("unchecked"))
-  private def areSameValues(ra: Rational, r: Real): Boolean = ra == r
 
   private def divideRepeatedly(n: SafeLong, p: SafeLong): (SafeLong, Int) = {
     @tailrec

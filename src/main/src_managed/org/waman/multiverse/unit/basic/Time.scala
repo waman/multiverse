@@ -22,8 +22,15 @@ trait TimeUnit extends LinearUnit[TimeUnit]{
       override val name: String = TimeUnit.this.name + " squared"
       override val symbol: String = TimeUnit.this.symbol + "²"
       override val interval: Real = TimeUnit.this.interval**2
-      override def aliases: Seq[String] = Nil
-      //override val aliases: Seq[String] = TimeUnit.this.aliases.map(_ + "²")
+      override def aliases: Seq[String] = {
+        val heads = if (TimeUnit.this.name == "second") Seq("s2", "sec²", "sec2") else Nil
+
+        val symbols = TimeUnit.this.symbol +: TimeUnit.this.aliases
+        val squares = symbols.map(_+".square")
+        val prods = symbols.map(a => a+"*"+a)
+
+        heads ++: squares ++: prods
+      }
     }
 
   def *(timeUnit: TimeUnit): TimeSquaredUnit =

@@ -29,8 +29,8 @@ object EntropyUnitObjects{
   val getSIUnit: EntropyUnit = EnergyUnitObjects.getSIUnit / AbsoluteTemperatureUnitObjects.getSIUnit
 
   final object nat extends DefaultEntropyUnit("nat", "nat", Nil, Constants.BoltzmannConstant)
-  final object bit extends DefaultEntropyUnit("bit", "bit", Nil, Real(r"2").log() * nat.interval)
-  final object ban extends DefaultEntropyUnit("ban", "ban", Nil, Real(r"10").log() * nat.interval)
+  final object bit extends DefaultEntropyUnit("bit", "bit", Nil, Real(2).log() * nat.interval)
+  final object ban extends DefaultEntropyUnit("ban", "ban", Nil, Real(10).log() * nat.interval)
   final object byte extends DefaultEntropyUnit("byte", "B", Nil, r"8" * bit.interval)
   final object decabyte extends DefaultEntropyUnit("decabyte", "daB", Nil, r"8" * bit.interval * r"1e1")
   final object hectobyte extends DefaultEntropyUnit("hectobyte", "hB", Nil, r"8" * bit.interval * r"1e2")

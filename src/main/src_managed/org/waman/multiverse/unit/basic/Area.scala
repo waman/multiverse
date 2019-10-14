@@ -29,15 +29,18 @@ object AreaUnitObjects{
 
   val getSIUnit: AreaUnit = LengthUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
 
+  val metre_squared: AreaUnit = getSIUnit
   final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
   final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
 
   def getUnits: Seq[AreaUnit] =
-    Seq(are, hectare)
+    Seq(metre_squared, are, hectare)
 }
 
 
 object AreaUnits{
+  def `m²`: AreaUnit = AreaUnitObjects.metre_squared
+  def m2: AreaUnit = AreaUnitObjects.metre_squared
   def a: AreaUnit = AreaUnitObjects.are
   def ha: AreaUnit = AreaUnitObjects.hectare
 

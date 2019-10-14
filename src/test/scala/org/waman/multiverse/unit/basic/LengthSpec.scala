@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.basic
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.BasicUnits._
+import spire.math.Real
 
 class LengthSpec extends MultiverseCustomSpec {
 
@@ -38,7 +39,7 @@ class LengthSpec extends MultiverseCustomSpec {
     }
   }
 
-  "Contextful units" - {
+  "Units with attributes" - {
     import org.waman.multiverse.unit.basic.LengthAttributes._
     import org.waman.multiverse.unit.basic.LengthUnits.xu
 
@@ -70,6 +71,18 @@ class LengthSpec extends MultiverseCustomSpec {
       forAll(conversions){ (sut: Length[Double], expected: Double) =>
         sut(m) should equal (%%%%(expected))
       }
+    }
+  }
+
+  "[SOURCE GENERATION] " - {
+
+    "The interval of metric foot should be sqrt(1/10)" in {
+      // SetUp
+      val expected = Real("1/10").sqrt()
+      // Exercise
+      val sut = LengthUnitObjects.metric_foot.interval
+      // Verify
+      sut should equal (expected)
     }
   }
 }

@@ -1,0 +1,10 @@
+{
+  "SIUnit":"Angle / Time",
+
+  "composites":["Angle / Time"],
+
+  "units":[
+    {"name":"cycle per second", "symbol":"cps", "interval":"2 * Pi"},
+    {"name":"revolution per minute", "symbol":"rpm", "interval":"2 * Pi / 60"}
+  ]
+}

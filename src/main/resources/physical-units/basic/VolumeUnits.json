@@ -4,6 +4,8 @@
   "composites":["Area * Length"],
 
   "units":[
+    {"name":"metre cubic", "symbol": "m³", "aliases": ["m3"], "baseUnit": "SIUnit"},
+
     {"name":"litre", "symbol":"L", "interval":"1e-3", "scalePrefixes":true},
     {"name":"lambda", "symbol":"λ", "interval":"1e-9"}
   ]

@@ -37,4 +37,14 @@ class EnergySpec extends MultiverseCustomSpec {
       sut should equal (%%%%(expected))
     }
   }
+
+  "[SOURCE GENERATION]" - {
+
+    "cal_IT(IT) should not compile" in {
+      import EnergyAttributes.IT
+      "EnergyUnits.cal_IT" should compile
+      "EnergyUnits.cal(IT)" should compile
+      "EnergyUnits.cal_IT(IT)" shouldNot compile
+    }
+  }
 }
