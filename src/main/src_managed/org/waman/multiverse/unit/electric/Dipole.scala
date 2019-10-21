@@ -10,6 +10,7 @@ class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
     extends LinearQuantity[Dipole[A], A, DipoleUnit] {
 
   override protected def newQuantity(value: A, unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
+           
 }
 
 trait DipoleUnit extends LinearUnit[DipoleUnit]{

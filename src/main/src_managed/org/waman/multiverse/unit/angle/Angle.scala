@@ -5,21 +5,24 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
 
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     extends LinearQuantity[Angle[A], A, AngleUnit] {
 
   override protected def newQuantity(value: A, unit: AngleUnit): Angle[A] = new Angle(value, unit)
+           
+  def /(time: Time[A]): AngularVelocity[A] = new AngularVelocity(this.value / time.value, this.unit / time.unit)
+
 }
 
 trait AngleUnit extends LinearUnit[AngleUnit]{
   override def getSIUnit: AngleUnit = AngleUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.basic.TimeUnit
 
   def /(timeUnit: TimeUnit): AngularVelocityUnit =
     new QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit](AngleUnit.this, timeUnit) with AngularVelocityUnit
-
 }
 
 class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

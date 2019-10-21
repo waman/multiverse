@@ -10,6 +10,7 @@ class FluxDensity[A: Fractional](val value: A, val unit: FluxDensityUnit)
     extends LinearQuantity[FluxDensity[A], A, FluxDensityUnit] {
 
   override protected def newQuantity(value: A, unit: FluxDensityUnit): FluxDensity[A] = new FluxDensity(value, unit)
+           
 }
 
 trait FluxDensityUnit extends LinearUnit[FluxDensityUnit]{

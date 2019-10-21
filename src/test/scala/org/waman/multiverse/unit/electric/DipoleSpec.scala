@@ -3,13 +3,28 @@ package org.waman.multiverse.unit.electric
 import spire.implicits._
 
 import org.waman.multiverse.MultiverseCustomSpec
+import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.electric
 import electric.ChargeUnitObjects.statcoulomb
 import electric.DipoleUnitObjects.debye
-import electric.ChargeUnits.statC
-import org.waman.multiverse.unit.basic.LengthUnits.NM
+import electric.ChargeUnits._
+import org.waman.multiverse.unit.basic.LengthUnits._
 
 class DipoleSpec extends MultiverseCustomSpec {
+
+  "Quantity" - {
+
+    "Multipliation between quantities should work well" in {
+      // SetUp
+      val q = 6(C)
+      val x = 3(m)
+      val expected = 18(C*m)
+      // Exercise
+      val sut = q*x
+      // Verify
+      sut should equal (expected)
+    }
+  }
 
   "[SOURCE GENERATION] " - {
 

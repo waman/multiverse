@@ -10,6 +10,7 @@ class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
     extends LinearQuantity[Luminance[A], A, LuminanceUnit] {
 
   override protected def newQuantity(value: A, unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
+           
 }
 
 trait LuminanceUnit extends LinearUnit[LuminanceUnit]{

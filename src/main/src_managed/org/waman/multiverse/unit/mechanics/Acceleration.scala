@@ -10,6 +10,7 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
     extends LinearQuantity[Acceleration[A], A, AccelerationUnit] {
 
   override protected def newQuantity(value: A, unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
+           
 }
 
 trait AccelerationUnit extends LinearUnit[AccelerationUnit]{

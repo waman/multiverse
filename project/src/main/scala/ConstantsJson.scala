@@ -11,8 +11,6 @@ class ConstantsJson(json: File, destDir: File, mainDir: File)
   val destFilename: String = "Constants.scala"
   val packageName: String = GenerationUtil.rootPackage + ".unit"
 
-  override def isUnitDefinitionJson: Boolean = false
-
   override protected def doGenerate(jsons: Seq[JsonResource]): Unit =
     IO.reader(jsonFile, UTF8) { reader =>
       val consts = gson.fromJson(reader, constantsType).asInstanceOf[Array[Constant]]

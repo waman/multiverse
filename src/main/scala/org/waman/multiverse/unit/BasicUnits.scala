@@ -15,6 +15,9 @@ object BasicUnits extends PhysicalUnitPredefProxy{
   def m : LengthUnit = LengthUnits.m
   def km: LengthUnit = LengthUnits.km
 
+  // Volume Units
+  def L: VolumeUnit = VolumeUnits.L
+
   // Mass Units
   def μg: MassUnit = MassUnits.μg
   /** Equivalent to μg */

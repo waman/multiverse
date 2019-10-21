@@ -5,22 +5,26 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.electric.Current
+import org.waman.multiverse.unit.electric.CurrentUnit
+import org.waman.multiverse.unit.electric.Voltage
+import org.waman.multiverse.unit.electric.VoltageUnit
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
 
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
+           
+  def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
+
 }
 
 trait PowerUnit extends LinearUnit[PowerUnit]{
   override def getSIUnit: PowerUnit = PowerUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.electric.CurrentUnit
-  import org.waman.multiverse.unit.electric.VoltageUnit
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
     new QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
-
 }
 
 class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

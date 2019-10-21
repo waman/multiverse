@@ -10,6 +10,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
     extends LinearQuantity[AngularVelocity[A], A, AngularVelocityUnit] {
 
   override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
+           
 }
 
 trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{

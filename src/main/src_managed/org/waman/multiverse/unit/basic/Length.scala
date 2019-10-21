@@ -5,11 +5,24 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.mechanics.TimeSquared
+import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+import org.waman.multiverse.unit.mechanics.Acceleration
+import org.waman.multiverse.unit.mechanics.AccelerationUnit
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
 
   override protected def newQuantity(value: A, unit: LengthUnit): Length[A] = new Length(value, unit)
+           
+  def *(length: Length[A]): Area[A] = new Area(this.value * length.value, this.unit * length.unit)
+  def square: Area[A] = this * this
+  def cubic: Volume[A] = this * this * this
+
+  def /(time: Time[A]): Velocity[A] = new Velocity(this.value / time.value, this.unit / time.unit)
+
+  def /(timeSquared: TimeSquared[A]): Acceleration[A] = new Acceleration(this.value / timeSquared.value, this.unit / timeSquared.unit)
+
 }
 
 trait LengthUnit extends LinearUnit[LengthUnit]{
@@ -64,12 +77,8 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
   def /(timeUnit: TimeUnit): VelocityUnit =
     new QuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
 
-  import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
-  import org.waman.multiverse.unit.mechanics.AccelerationUnit
-
   def /(timeSquaredUnit: TimeSquaredUnit): AccelerationUnit =
     new QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit](LengthUnit.this, timeSquaredUnit) with AccelerationUnit
-
 }
 
 class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

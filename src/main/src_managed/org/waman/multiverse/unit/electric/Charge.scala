@@ -5,36 +5,45 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.basic.Length
+import org.waman.multiverse.unit.basic.LengthUnit
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
+import org.waman.multiverse.unit.basic.Mass
+import org.waman.multiverse.unit.basic.MassUnit
+import org.waman.multiverse.unit.radiation.Exposure
+import org.waman.multiverse.unit.radiation.ExposureUnit
 
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
     extends LinearQuantity[Charge[A], A, ChargeUnit] {
 
   override protected def newQuantity(value: A, unit: ChargeUnit): Charge[A] = new Charge(value, unit)
+           
+  def *(length: Length[A]): Dipole[A] = new Dipole(this.value * length.value, this.unit * length.unit)
+
+  def /(voltage: Voltage[A]): Capacitance[A] = new Capacitance(this.value / voltage.value, this.unit / voltage.unit)
+
+  def /(time: Time[A]): Current[A] = new Current(this.value / time.value, this.unit / time.unit)
+
+  def /(mass: Mass[A]): Exposure[A] = new Exposure(this.value / mass.value, this.unit / mass.unit)
+
 }
 
 trait ChargeUnit extends LinearUnit[ChargeUnit]{
   override def getSIUnit: ChargeUnit = ChargeUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.basic.LengthUnit
 
   def *(lengthUnit: LengthUnit): DipoleUnit =
     new ProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
 
-
   def /(voltageUnit: VoltageUnit): CapacitanceUnit =
     new QuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit](ChargeUnit.this, voltageUnit) with CapacitanceUnit
-
-  import org.waman.multiverse.unit.basic.TimeUnit
 
   def /(timeUnit: TimeUnit): CurrentUnit =
     new QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
 
-  import org.waman.multiverse.unit.basic.MassUnit
-  import org.waman.multiverse.unit.radiation.ExposureUnit
-
   def /(massUnit: MassUnit): ExposureUnit =
     new QuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
-
 }
 
 class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

@@ -30,6 +30,5 @@ class EntropySpec extends MultiverseCustomSpec {
       "kilobyte" should compile
       "millibyte" shouldNot compile
     }
-
   }
 }

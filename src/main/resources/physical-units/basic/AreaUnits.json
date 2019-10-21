@@ -4,7 +4,7 @@
   "composites": ["Length * Length"],
 
   "units":[
-    {"name":"metre squared", "symbol": "m²", "aliases": ["m2"], "baseUnit": "SIUnit"},
+    {"name": "square", "baseUnit": "Length.metre", "scalePrefix": true},
 
     {"name":"are", "symbol":"a", "interval":"1e2"},
     {"name":"hectare", "symbol":"ha", "interval":"1e4"}

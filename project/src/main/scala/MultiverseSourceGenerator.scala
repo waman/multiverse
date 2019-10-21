@@ -7,6 +7,7 @@ import sbt.io.IO
 import scala.util.matching.Regex
 
 object MultiverseSourceGenerator {
+  import GenerationUtil._
 
   private val destPath = new File("org/waman/multiverse/unit")
 
@@ -33,9 +34,9 @@ object MultiverseSourceGenerator {
       }
 
     val jsons = walk(info, Nil)
-    val generated = jsons.filter(_.isGenerating).map(_.asInstanceOf[SourceGeneratorJson]).flatMap(_.generate(jsons))
+    val generated = extractResources(jsons, classOf[SourceGeneratorJson]).flatMap(_.generate(jsons))
 
-    val unitDefs = jsons.filter(_.isUnitDefinitionJson).map(_.asInstanceOf[UnitDefinitionJson])
+    val unitDefs = extractResources(jsons, classOf[UnitDefinitionJson])
     val implicits = ImplicitsGenerator.generate(srcManaged, unitDefs)
 
     implicits +: generated
@@ -48,17 +49,17 @@ object GenerationUtil{
   val gson: Gson = new Gson
   val utf8: Charset = Charset.forName("UTF-8")
 
-  val regId: Regex = """[a-zA-z.]+""".r
-  val regCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
+  val regexId: Regex = """[a-zA-z.]+""".r
+  val regexCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
 
-  private val regNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
+  private val regexNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
 
   def refineNumber(s: String): String = s match {
     // TODO
     case "log(2)" => "Real(2).log()"  // Entropy.bit
     case "log(10)" => "Real(10).log()"  // Entropy.ban
     case "sqrt(1/10)" => """Real("1/10").sqrt()"""  // Length.
-    case _ => regNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
+    case _ => regexNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
   }
 
   def toObjectName(s: String): String = {
@@ -66,4 +67,15 @@ object GenerationUtil{
     if (ss.contains("(")) s"""`$ss`"""
     else ss
   }
+
+  def extractResources[U <: JsonResource](jsons: Seq[JsonResource], cls: Class[U]): Seq[U] =
+    jsons.filter(cls.isInstance(_)).map(cls.cast(_))
+
+  def searchUnitDefinition[U <: UnitDefinitionJson](id: String, unitDefs: Seq[U]): U =
+    unitDefs.find(_.id == id) match {
+      case Some(ud) => ud
+      case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
+    }
+
+  def headToLower(s: String): String = Character.toLowerCase(s.charAt(0)) + s.substring(1)
 }

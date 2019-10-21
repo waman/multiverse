@@ -10,6 +10,7 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
     extends LinearQuantity[SolidAngle[A], A, SolidAngleUnit] {
 
   override protected def newQuantity(value: A, unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
+           
 }
 
 trait SolidAngleUnit extends LinearUnit[SolidAngleUnit]{

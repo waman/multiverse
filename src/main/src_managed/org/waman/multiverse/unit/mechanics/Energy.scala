@@ -5,38 +5,47 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
+import org.waman.multiverse.unit.basic.Mass
+import org.waman.multiverse.unit.basic.MassUnit
+import org.waman.multiverse.unit.radiation.AbsorbedDose
+import org.waman.multiverse.unit.radiation.AbsorbedDoseUnit
+import org.waman.multiverse.unit.thermal.AbsoluteTemperature
+import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnit
+import org.waman.multiverse.unit.thermal.Entropy
+import org.waman.multiverse.unit.thermal.EntropyUnit
 
 class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     extends LinearQuantity[Energy[A], A, EnergyUnit] {
 
   override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
+           
+  def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
+
+  def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
+
+  def /(mass: Mass[A]): AbsorbedDose[A] = new AbsorbedDose(this.value / mass.value, this.unit / mass.unit)
+
+  def /(absoluteTemperature: AbsoluteTemperature[A]): Entropy[A] = new Entropy(this.value / absoluteTemperature.value, this.unit / absoluteTemperature.unit)
+
 }
 
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
   override def getSIUnit: EnergyUnit = EnergyUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.basic.TimeUnit
 
   def *(timeUnit: TimeUnit): ActionUnit =
     new ProductUnit[ActionUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with ActionUnit
 
-  import org.waman.multiverse.unit.basic.TimeUnit
-
   def /(timeUnit: TimeUnit): PowerUnit =
     new QuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
-
-  import org.waman.multiverse.unit.basic.MassUnit
-  import org.waman.multiverse.unit.radiation.AbsorbedDoseUnit
 
   def /(massUnit: MassUnit): AbsorbedDoseUnit =
     new QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
 
-  import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnit
-  import org.waman.multiverse.unit.thermal.EntropyUnit
-
   def /(absoluteTemperatureUnit: AbsoluteTemperatureUnit): EntropyUnit =
     new QuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
-
 }
 
 class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

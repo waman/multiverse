@@ -10,6 +10,7 @@ class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
+           
 }
 
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{

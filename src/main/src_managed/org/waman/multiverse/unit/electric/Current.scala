@@ -5,21 +5,24 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
 
 class Current[A: Fractional](val value: A, val unit: CurrentUnit)
     extends LinearQuantity[Current[A], A, CurrentUnit] {
 
   override protected def newQuantity(value: A, unit: CurrentUnit): Current[A] = new Current(value, unit)
+           
+  def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
+
 }
 
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
   override def getSIUnit: CurrentUnit = CurrentUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.basic.TimeUnit
 
   def *(timeUnit: TimeUnit): ChargeUnit =
     new ProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
-
 }
 
 class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

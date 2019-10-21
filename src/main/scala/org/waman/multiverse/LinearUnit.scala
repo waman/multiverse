@@ -38,6 +38,11 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
     * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
   override def compare(that: U): Int = this.interval.compare(that.interval)
 
+//  def /[V <: LinearUnit[V], W <: LinearUnit[W]](denominatorUnit: V): W =
+//    new QuotientUnit[W, U, V](LinearUnit.this, denominatorUnit) { self: W =>
+//      override def getSIUnit: W = numeratorUnit.getSIUnit / denominatorUnit.getSIUnit
+//    }.asInstanceOf[W]
+
   def max(that: U): U = if((this compare that) >= 0) this else that
   def min(that: U): U = if((this compare that) <= 0) this else that
 }
@@ -46,7 +51,8 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 // Tests are written in AccelerationSpec
 private[multiverse] trait LiteralComposite
 
-abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]](val firstUnit: A, val secondUnit: B)
+abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
+  (val firstUnit: A, val secondUnit: B)
   extends LinearUnit[U] with LiteralComposite { self: U =>
 
   override val name: String = s"${firstUnit.name} times ${secondUnit.name}"
@@ -76,7 +82,8 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
       ) + secondUnit.hashCode
 }
 
-abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]](val numeratorUnit: A, val denominatorUnit: B)
+abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
+  (val numeratorUnit: A, val denominatorUnit: B)
   extends LinearUnit[U] with LiteralComposite { self: U =>
 
   override val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"

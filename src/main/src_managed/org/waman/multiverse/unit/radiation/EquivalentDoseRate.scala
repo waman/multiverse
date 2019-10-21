@@ -9,6 +9,7 @@ class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRa
     extends LinearQuantity[EquivalentDoseRate[A], A, EquivalentDoseRateUnit] {
 
   override protected def newQuantity(value: A, unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
+           
 }
 
 trait EquivalentDoseRateUnit extends LinearUnit[EquivalentDoseRateUnit]{

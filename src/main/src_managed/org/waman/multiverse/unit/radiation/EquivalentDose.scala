@@ -5,21 +5,24 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
 
 class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
     extends LinearQuantity[EquivalentDose[A], A, EquivalentDoseUnit] {
 
   override protected def newQuantity(value: A, unit: EquivalentDoseUnit): EquivalentDose[A] = new EquivalentDose(value, unit)
+           
+  def /(time: Time[A]): EquivalentDoseRate[A] = new EquivalentDoseRate(this.value / time.value, this.unit / time.unit)
+
 }
 
 trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
   override def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.basic.TimeUnit
 
   def /(timeUnit: TimeUnit): EquivalentDoseRateUnit =
     new QuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit](EquivalentDoseUnit.this, timeUnit) with EquivalentDoseRateUnit
-
 }
 
 class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

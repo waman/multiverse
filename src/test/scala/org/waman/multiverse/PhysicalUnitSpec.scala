@@ -60,4 +60,11 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
         }
       }
   }
+
+//  "/" in {
+//    // Exercise
+//    val sut = km/L
+//    // Verify
+//    sut.symbol should equal ("km/L")
+//  }
 }

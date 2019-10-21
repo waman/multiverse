@@ -10,6 +10,7 @@ class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
     extends LinearQuantity[Capacitance[A], A, CapacitanceUnit] {
 
   override protected def newQuantity(value: A, unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
+           
 }
 
 trait CapacitanceUnit extends LinearUnit[CapacitanceUnit]{

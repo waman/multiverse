@@ -16,7 +16,4 @@ class ScalePrefixJson(jsonFile: File) extends JsonResource(jsonFile){
   val scalePrefixes: Seq[ScalePrefix] = IO.reader(jsonFile, utf8) { reader =>
     gson.fromJson(reader, scalePrefixType).asInstanceOf[Array[ScalePrefix]].toSeq
   }
-
-  override def isGenerating: Boolean = false
-  override def isUnitDefinitionJson: Boolean = false
 }

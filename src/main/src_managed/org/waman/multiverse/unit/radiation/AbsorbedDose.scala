@@ -10,6 +10,7 @@ class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
     extends LinearQuantity[AbsorbedDose[A], A, AbsorbedDoseUnit] {
 
   override protected def newQuantity(value: A, unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
+           
 }
 
 trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{

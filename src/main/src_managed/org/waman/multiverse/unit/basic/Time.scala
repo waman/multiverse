@@ -5,17 +5,21 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.mechanics.TimeSquared
+import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
 
   override protected def newQuantity(value: A, unit: TimeUnit): Time[A] = new Time(value, unit)
+           
+  def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
+  def square: TimeSquared[A] = this * this
+
 }
 
 trait TimeUnit extends LinearUnit[TimeUnit]{
   override def getSIUnit: TimeUnit = TimeUnitObjects.getSIUnit
-
-  import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
 
   def square: TimeSquaredUnit =
     new TimeSquaredUnit{

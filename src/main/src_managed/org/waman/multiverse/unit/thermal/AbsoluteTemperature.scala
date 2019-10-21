@@ -10,6 +10,7 @@ class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTempera
     extends LinearQuantity[AbsoluteTemperature[A], A, AbsoluteTemperatureUnit] {
 
   override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
+           
 }
 
 trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{

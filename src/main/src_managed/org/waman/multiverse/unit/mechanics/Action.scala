@@ -10,6 +10,7 @@ class Action[A: Fractional](val value: A, val unit: ActionUnit)
     extends LinearQuantity[Action[A], A, ActionUnit] {
 
   override protected def newQuantity(value: A, unit: ActionUnit): Action[A] = new Action(value, unit)
+           
 }
 
 trait ActionUnit extends LinearUnit[ActionUnit]{

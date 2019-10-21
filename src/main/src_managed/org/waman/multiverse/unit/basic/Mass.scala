@@ -10,6 +10,9 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
     extends LinearQuantity[Mass[A], A, MassUnit] {
 
   override protected def newQuantity(value: A, unit: MassUnit): Mass[A] = new Mass(value, unit)
+           
+  def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
+
 }
 
 trait MassUnit extends LinearUnit[MassUnit]{
@@ -18,7 +21,6 @@ trait MassUnit extends LinearUnit[MassUnit]{
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
     new QuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
-
 }
 
 class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)

@@ -10,6 +10,7 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
     extends LinearQuantity[Resistance[A], A, ResistanceUnit] {
 
   override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
+           
 }
 
 trait ResistanceUnit extends LinearUnit[ResistanceUnit]{

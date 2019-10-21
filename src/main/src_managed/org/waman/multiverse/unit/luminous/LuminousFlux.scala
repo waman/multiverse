@@ -5,21 +5,24 @@ import spire.math.Fractional
 import spire.implicits._
 
 import org.waman.multiverse._
+import org.waman.multiverse.unit.basic.Area
+import org.waman.multiverse.unit.basic.AreaUnit
 
 class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
     extends LinearQuantity[LuminousFlux[A], A, LuminousFluxUnit] {
 
   override protected def newQuantity(value: A, unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
+           
+  def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
+
 }
 
 trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
   override def getSIUnit: LuminousFluxUnit = LuminousFluxUnitObjects.getSIUnit
 
-  import org.waman.multiverse.unit.basic.AreaUnit
 
   def /(areaUnit: AreaUnit): IlluminanceUnit =
     new QuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit](LuminousFluxUnit.this, areaUnit) with IlluminanceUnit
-
 }
 
 class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
