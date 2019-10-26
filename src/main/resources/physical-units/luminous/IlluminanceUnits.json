@@ -5,7 +5,7 @@
 
   "units":[
     {"name":"lux", "symbol":"lx", "interval":"1", "scalePrefixes":true},
-    {"name":"phot", "symbol":"ph", "interval":"1e4"}//,
-    //{"name":"foot candle", "symbol":"fc", "interval":"Lumen / SquareFoot"}
+    {"name":"phot", "symbol":"ph", "interval":"1e4"},
+    {"name":"foot candle", "symbol":"fc", "interval":"1/((12*2.54*0.01)*(12*2.54*0.01))"}
   ]
 }

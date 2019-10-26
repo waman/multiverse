@@ -81,6 +81,10 @@ case class LinearUnit(
         baseName+" "+suffix, baseName+"_"+suffix, baseSymbol+sup, ali.tail,
         null, this.baseUnit, this.notExact, Nil, defineAsVal=true)
 
+      if (!this.scalePrefixes) {
+        return Seq(head)
+      }
+
       val tail = prefixes.filterNot(p => this._excludePrefixes.contains(p.prefix)).map{ p =>
         val prefixedBaseUnit = this.baseUnit.replace(".", s""".${p.name}""")  // Time.millimetre
         val al = (p.prefix +: p._aliases).flatMap(ps => ali.map(a => ps + a)).tail

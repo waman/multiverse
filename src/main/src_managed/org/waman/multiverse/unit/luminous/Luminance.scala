@@ -34,9 +34,10 @@ object LuminanceUnitObjects{
   final object apo_stilb extends DefaultLuminanceUnit("apo stilb", "asb", Nil, r"1" / Constants.Pi)
   final object skot extends DefaultLuminanceUnit("skot", "sk", Nil, r"1e-3" / Constants.Pi)
   final object bril extends DefaultLuminanceUnit("bril", "bril", Nil, r"1e-7" / Constants.Pi)
+  final object foot_lambert extends DefaultLuminanceUnit("foot lambert", "fLb", Nil, r"1"/(Constants.Pi*(r"12"*r"2.54"*r"0.01")*(r"12"*r"2.54"*r"0.01")))
 
   def getUnits: Seq[LuminanceUnit] =
-    Seq(stilb, lambert, apo_stilb, skot, bril)
+    Seq(stilb, lambert, apo_stilb, skot, bril, foot_lambert)
 }
 
 
@@ -46,6 +47,7 @@ object LuminanceUnits{
   def asb: LuminanceUnit = LuminanceUnitObjects.apo_stilb
   def sk: LuminanceUnit = LuminanceUnitObjects.skot
   def bril: LuminanceUnit = LuminanceUnitObjects.bril
+  def fLb: LuminanceUnit = LuminanceUnitObjects.foot_lambert
 
   def getSIUnit: LuminanceUnit = LuminanceUnitObjects.getSIUnit
   def getUnits: Seq[LuminanceUnit] = LuminanceUnitObjects.getUnits

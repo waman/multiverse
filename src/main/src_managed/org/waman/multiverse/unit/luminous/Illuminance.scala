@@ -48,9 +48,10 @@ object IlluminanceUnitObjects{
   final object zettalux extends DefaultIlluminanceUnit("zettalux", "Zlx", Nil, r"1" * r"1e21")
   final object yottalux extends DefaultIlluminanceUnit("yottalux", "Ylx", Nil, r"1" * r"1e24")
   final object phot extends DefaultIlluminanceUnit("phot", "ph", Nil, r"1e4")
+  final object foot_candle extends DefaultIlluminanceUnit("foot candle", "fc", Nil, r"1"/((r"12"*r"2.54"*r"0.01")*(r"12"*r"2.54"*r"0.01")))
 
   def getUnits: Seq[IlluminanceUnit] =
-    Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot)
+    Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot, foot_candle)
 }
 
 
@@ -79,6 +80,7 @@ object IlluminanceUnits{
   def Zlx: IlluminanceUnit = IlluminanceUnitObjects.zettalux
   def Ylx: IlluminanceUnit = IlluminanceUnitObjects.yottalux
   def ph: IlluminanceUnit = IlluminanceUnitObjects.phot
+  def fc: IlluminanceUnit = IlluminanceUnitObjects.foot_candle
 
   def getSIUnit: IlluminanceUnit = IlluminanceUnitObjects.getSIUnit
   def getUnits: Seq[IlluminanceUnit] = IlluminanceUnitObjects.getUnits

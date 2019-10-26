@@ -8,7 +8,7 @@
     {"name":"lambert", "symbol":"Lb", "interval":"1e4 / Pi"},
     {"name":"apo stilb", "symbol":"asb", "interval":"1 / Pi"},
     {"name":"skot", "symbol":"sk", "interval":"1e-3 / Pi"},
-    {"name":"bril", "symbol":"bril", "interval":"1e-7 / Pi"}//,
-    //{"name":"foot lambert", "symbol":"fLb", "interval":"1 / pi", "baseUnit":"LuminousIntensityUnit.Candela / AreaUnit.SquareFoot"}
+    {"name":"bril", "symbol":"bril", "interval":"1e-7 / Pi"},
+    {"name":"foot lambert", "symbol":"fLb", "interval":"1/(Pi*(12*2.54*0.01)*(12*2.54*0.01))"}
   ]
 }

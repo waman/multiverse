@@ -4,7 +4,7 @@
   "composites":["Area * Length"],
 
   "units":[
-    {"name": "cubic", "baseUnit": "Length.metre", "scalePrefix": true},
+    {"name": "cubic", "baseUnit": "Length.metre", "scalePrefixes": true},
 
     {"name":"litre", "symbol":"L", "interval":"1e-3", "scalePrefixes":true},
     {"name":"lambda", "symbol":"λ", "interval":"1e-9"}

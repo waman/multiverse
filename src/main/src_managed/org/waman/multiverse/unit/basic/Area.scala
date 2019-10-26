@@ -52,11 +52,12 @@ object AreaUnitObjects{
   val exametre_squared: AreaUnit = LengthUnitObjects.exametre.square
   val zettametre_squared: AreaUnit = LengthUnitObjects.zettametre.square
   val yottametre_squared: AreaUnit = LengthUnitObjects.yottametre.square
+  val foot_squared: AreaUnit = LengthUnitObjects.foot.square
   final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
   final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
 
   def getUnits: Seq[AreaUnit] =
-    Seq(metre_squared, yoctometre_squared, zeptometre_squared, attometre_squared, femtometre_squared, picometre_squared, nanometre_squared, micrometre_squared, millimetre_squared, centimetre_squared, decimetre_squared, decametre_squared, hectometre_squared, kilometre_squared, megametre_squared, gigametre_squared, terametre_squared, petametre_squared, exametre_squared, zettametre_squared, yottametre_squared, are, hectare)
+    Seq(metre_squared, yoctometre_squared, zeptometre_squared, attometre_squared, femtometre_squared, picometre_squared, nanometre_squared, micrometre_squared, millimetre_squared, centimetre_squared, decimetre_squared, decametre_squared, hectometre_squared, kilometre_squared, megametre_squared, gigametre_squared, terametre_squared, petametre_squared, exametre_squared, zettametre_squared, yottametre_squared, foot_squared, are, hectare)
 }
 
 
@@ -107,6 +108,8 @@ object AreaUnits{
   def Zm2: AreaUnit = AreaUnitObjects.zettametre_squared
   def `Ym²`: AreaUnit = AreaUnitObjects.yottametre_squared
   def Ym2: AreaUnit = AreaUnitObjects.yottametre_squared
+  def `ft²`: AreaUnit = AreaUnitObjects.foot_squared
+  def ft2: AreaUnit = AreaUnitObjects.foot_squared
   def a: AreaUnit = AreaUnitObjects.are
   def ha: AreaUnit = AreaUnitObjects.hectare
 
