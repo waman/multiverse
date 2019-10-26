@@ -38,10 +38,11 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
     * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
   override def compare(that: U): Int = this.interval.compare(that.interval)
 
-//  def /[V <: LinearUnit[V], W <: LinearUnit[W]](denominatorUnit: V): W =
-//    new QuotientUnit[W, U, V](LinearUnit.this, denominatorUnit) { self: W =>
-//      override def getSIUnit: W = numeratorUnit.getSIUnit / denominatorUnit.getSIUnit
-//    }.asInstanceOf[W]
+  def *[V <: LinearUnit[V]](secondUnit: V): PUnit[U, V] =
+    new PUnit[U, V](LinearUnit.this, secondUnit)
+
+  def /[V <: LinearUnit[V]](denominatorUnit: V): QUnit[U, V] =
+    new QUnit[U, V](LinearUnit.this, denominatorUnit)
 
   def max(that: U): U = if((this compare that) >= 0) this else that
   def min(that: U): U = if((this compare that) <= 0) this else that
@@ -53,14 +54,12 @@ private[multiverse] trait LiteralComposite
 
 abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
   (val firstUnit: A, val secondUnit: B)
-  extends LinearUnit[U] with LiteralComposite { self: U =>
+  extends LinearUnit[U] with LiteralComposite { this: U =>
 
   override val name: String = s"${firstUnit.name} times ${secondUnit.name}"
   override val symbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
-  override def aliases: Seq[String] = {
-    val fm = firstUnit.symbol +: firstUnit.aliases
-    (secondUnit.symbol +: secondUnit.aliases).flatMap(s => fm.map(f => s"$f*$s")).tail
-  }
+  override def aliases: Seq[String] =
+    secondUnit.symbols.flatMap(s => firstUnit.symbols.map(f => s"$f*$s")).tail
 
   override val interval: Real = firstUnit.interval * secondUnit.interval
 
@@ -82,9 +81,15 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
       ) + secondUnit.hashCode
 }
 
+class PUnit[A <: LinearUnit[A], B <: LinearUnit[B]](firstUnit: A, secondUnit: B)
+  extends ProductUnit[PUnit[A, B], A, B](firstUnit, secondUnit){ this: PUnit[A, B] =>
+
+  override def getSIUnit: PUnit[A, B] = this.firstUnit.getSIUnit * this.secondUnit.getSIUnit
+}
+
 abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
   (val numeratorUnit: A, val denominatorUnit: B)
-  extends LinearUnit[U] with LiteralComposite { self: U =>
+  extends LinearUnit[U] with LiteralComposite { this: U =>
 
   override val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
   override val symbol: String =
@@ -93,10 +98,8 @@ abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearU
     else
       s"${numeratorUnit.symbol}/${denominatorUnit.symbol}"
 
-  override def aliases: Seq[String] = {
-    val nm = numeratorUnit.symbol +: numeratorUnit.aliases
-    (denominatorUnit.symbol +: denominatorUnit.aliases).flatMap(d => nm.map(n => s"$n/$d")).tail
-  }
+  override def aliases: Seq[String] =
+    denominatorUnit.symbols.flatMap(d => numeratorUnit.symbols.map(n => s"$n/$d")).tail
 
   override val interval: Real = numeratorUnit.interval / denominatorUnit.interval
 
@@ -116,4 +119,10 @@ abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearU
         41 + numeratorUnit.hashCode
         ) + "/".hashCode
       ) + denominatorUnit.hashCode
+}
+
+class QUnit[A <: LinearUnit[A], B <: LinearUnit[B]](numeratorUnit: A, denominatorUnit: B)
+  extends QuotientUnit[QUnit[A, B], A, B](numeratorUnit, denominatorUnit){ this: QUnit[A, B] =>
+
+  override def getSIUnit: QUnit[A, B] = this.numeratorUnit.getSIUnit / this.denominatorUnit.getSIUnit
 }

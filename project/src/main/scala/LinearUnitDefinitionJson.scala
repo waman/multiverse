@@ -163,7 +163,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
 
   val unitCategoryType: Class[_ >: LinearUnitCategory] = new TypeToken[LinearUnitCategory]() {}.getRawType
 
-  val unitCategory: LinearUnitCategory = IO.reader(jsonFile, UTF8) { reader =>
+  val unitCategory: LinearUnitCategory = IO.reader(jsonFile, utf8) { reader =>
     gson.fromJson(reader, unitCategoryType).asInstanceOf[LinearUnitCategory]
   }
 
@@ -178,7 +178,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
     }
 
   protected def doGenerate(jsons: Seq[JsonResource]): Unit = {
-    IO.writer(this.destFile, "", UTF8, append = false) { writer: io.BufferedWriter =>
+    IO.writer(this.destFile, "", utf8, append = false) { writer: io.BufferedWriter =>
       val spj = extractResources(jsons, classOf[ScalePrefixJson]).head
       val unitDefs = extractResources(jsons, classOf[UnitDefinitionJson])
       val linearUnitDefs = extractResources(unitDefs, classOf[LinearUnitDefinitionJson])

@@ -3,8 +3,8 @@ package org.waman.multiverse
 import spire.math._
 import spire.implicits._
 
-object MetricPrefixes {
-  
+object ScalePrefixes {
+
   private val yoctoReal: Real = r"1e-24"
   private val zeptoReal: Real = r"1e-21"
   private val attoReal: Real = r"1e-18"
@@ -15,7 +15,7 @@ object MetricPrefixes {
   private val milliReal: Real = r"1e-3"
   private val centiReal: Real = r"1e-2"
   private val deciReal: Real = r"1e-1"
-  private val decaReal: Real = r"10"
+  private val decaReal: Real = r"1e1"
   private val hectoReal: Real = r"1e2"
   private val kiloReal: Real = r"1e3"
   private val megaReal: Real = r"1e6"
@@ -51,22 +51,22 @@ object MetricPrefixes {
 
   def yocto[A: Fractional](value: A): A = yocto * value
   def zepto[A: Fractional](value: A): A = zepto * value
-  def atto[A: Fractional](value: A): A = atto  * value
+  def atto[A: Fractional](value: A): A = atto * value
   def femto[A: Fractional](value: A): A = femto * value
-  def pico[A: Fractional](value: A): A = pico  * value
-  def nano[A: Fractional](value: A): A = nano  * value
+  def pico[A: Fractional](value: A): A = pico * value
+  def nano[A: Fractional](value: A): A = nano * value
   def micro[A: Fractional](value: A): A = micro * value
   def milli[A: Fractional](value: A): A = milli * value
   def centi[A: Fractional](value: A): A = centi * value
-  def deci [A: Fractional](value: A): A = deci  * value
-  def deca [A: Fractional](value: A): A = deca  * value
+  def deci[A: Fractional](value: A): A = deci * value
+  def deca[A: Fractional](value: A): A = deca * value
   def hecto[A: Fractional](value: A): A = hecto * value
-  def kilo[A: Fractional](value: A): A = kilo  * value
-  def mega[A: Fractional](value: A): A = mega  * value
-  def giga[A: Fractional](value: A): A = giga  * value
-  def tera[A: Fractional](value: A): A = tera  * value
-  def peta[A: Fractional](value: A): A = peta  * value
-  def exa[A: Fractional](value: A): A = exa   * value
+  def kilo[A: Fractional](value: A): A = kilo * value
+  def mega[A: Fractional](value: A): A = mega * value
+  def giga[A: Fractional](value: A): A = giga * value
+  def tera[A: Fractional](value: A): A = tera * value
+  def peta[A: Fractional](value: A): A = peta * value
+  def exa[A: Fractional](value: A): A = exa * value
   def zetta[A: Fractional](value: A): A = zetta * value
   def yotta[A: Fractional](value: A): A = yotta * value
 }

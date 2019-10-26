@@ -3,14 +3,16 @@ import sbt.io.IO
 
 object ImplicitsGenerator {
 
+  import GenerationUtil._
+
   def generate(srcManaged: File, jsons: Seq[UnitDefinitionJson]): File = {
     val destDir = IO.resolve(srcManaged, new File("org/waman/multiverse/implicits"))
     if (!destDir.exists()) IO.createDirectory(destDir)
 
     val destFile = IO.resolve(destDir, new File("package.scala"))
-    IO.writer(destFile, "", GenerationUtil.utf8, append=false){ writer =>
+    IO.writer(destFile, "", utf8, append=false){ writer =>
       writer.write(
-        s"""package org.waman.multiverse
+        s"""package ${rootPackage}
            |
            |import scala.language.implicitConversions
            |import spire.math._
@@ -18,7 +20,7 @@ object ImplicitsGenerator {
            |""".stripMargin)
 
       jsons.map(_.subpackage).distinct.foreach{ sp =>
-        writer.write(s"""import org.waman.multiverse.unit.$sp._\n""")
+        writer.write(s"""import ${rootPackage}.unit.$sp._\n""")
       }
 
       writer.write(

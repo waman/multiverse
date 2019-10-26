@@ -3,15 +3,17 @@ package org.waman.multiverse
 import spire.implicits._
 import spire.math.Real
 
-trait PhysicalUnit[U <: PhysicalUnit[U]] {
+trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   def name: String
   def symbol: String
   def aliases: Seq[String]
+  /** Return <code>this.symbol +: this.aliases </code>*/
+  def symbols: Seq[String] = symbol +: aliases
   def getSIUnit: U
 }
 
 // Maybe only temperature
-trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{
+trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ thisd : U =>
   /** zero value in SI unit */
   def zero: Real
   /** interval in SI Unit */

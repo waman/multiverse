@@ -16,7 +16,7 @@ class JsonResourceFactory(info: File, srcManaged: File, src: File, destPath: Fil
 
     json.getName match {
       case "Constants.json" => new ConstantsJson(json, destDir, mainDir)
-      case "ScalePrefixes.json" => new ScalePrefixJson(json)
+      case "ScalePrefixes.json" => new ScalePrefixJson(json, destDir.getParentFile, mainDir)  // org.waman.multverse
       case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, mainDir, subpackage.toString)
       case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, mainDir, subpackage.toString)
       case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, mainDir, subpackage.toString)
@@ -25,11 +25,7 @@ class JsonResourceFactory(info: File, srcManaged: File, src: File, destPath: Fil
   }
 }
 
-abstract class JsonResource(val jsonFile: File){
-
-  protected final def gson: Gson = GenerationUtil.gson
-  protected final def UTF8: Charset = GenerationUtil.utf8
-}
+abstract class JsonResource(val jsonFile: File)
 
 abstract class SourceGeneratorJson(jsonFile: File, destDir: File, mainDir: File)
     extends JsonResource (jsonFile){

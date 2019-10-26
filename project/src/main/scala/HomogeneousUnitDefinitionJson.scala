@@ -54,9 +54,11 @@ case class CanonicalizedHomogeneousUnit(
 class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpackage: String) 
   extends UnitDefinitionJson(jsonFile, destDir, mainDir, subpackage){
 
+  import GenerationUtil._
+
   val unitCategoryType: Class[_ >: HomogeneousUnitCategory] = new TypeToken[HomogeneousUnitCategory]() {}.getRawType
 
-  val unitCategory: HomogeneousUnitCategory = IO.reader(jsonFile, UTF8) { reader =>
+  val unitCategory: HomogeneousUnitCategory = IO.reader(jsonFile, utf8) { reader =>
     gson.fromJson(reader, unitCategoryType).asInstanceOf[HomogeneousUnitCategory]
   }
 
@@ -64,7 +66,7 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File
 
   override protected def doGenerate(jsons: Seq[JsonResource]): Unit = {
 
-    IO.writer(this.destFile, "", UTF8, append = false) { writer: io.BufferedWriter =>
+    IO.writer(this.destFile, "", utf8, append = false) { writer: io.BufferedWriter =>
       val spj = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
       val units = this.unitCategory._units.flatMap(_.canonicalizeAndExpandScalePrefixes(spj.scalePrefixes))
 

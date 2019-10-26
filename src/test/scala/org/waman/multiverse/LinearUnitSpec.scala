@@ -3,7 +3,7 @@ package org.waman.multiverse
 import org.waman.multiverse.unit.BasicUnits._
 import org.waman.multiverse.unit.basic.LengthUnits.a_0
 
-class PhysicalUnitSpec extends MultiverseCustomSpec{
+class LinearUnitSpec extends MultiverseCustomSpec{
 
   "Equality" - {
 
@@ -61,10 +61,22 @@ class PhysicalUnitSpec extends MultiverseCustomSpec{
       }
   }
 
-//  "/" in {
-//    // Exercise
-//    val sut = km/L
-//    // Verify
-//    sut.symbol should equal ("km/L")
-//  }
+  "* operator should return the proper prduct unit" in {
+    // Exercise
+    val sut = km*h
+    // Verify
+    sut.name should equal ("kilometre times hour")
+    sut.symbol should equal ("km*h")
+    sut.getSIUnit should equal (m*s)
+  }
+
+  "/ operator should return the proper quotient unit" in {
+    import org.waman.multiverse.unit.basic.VolumeUnits.m3
+    // Exercise
+    val sut = km/L
+    // Verify
+    sut.name should equal ("kilometre per litre")
+    sut.symbol should equal ("km/L")
+    sut.getSIUnit should equal (m/m3)
+  }
 }
