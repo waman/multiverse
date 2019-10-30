@@ -3,14 +3,16 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
+
 import org.waman.multiverse.unit.radiation.Exposure
 import org.waman.multiverse.unit.radiation.ExposureUnit
 
@@ -18,8 +20,7 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
     extends LinearQuantity[Charge[A], A, ChargeUnit] {
 
   override protected def newQuantity(value: A, unit: ChargeUnit): Charge[A] = new Charge(value, unit)
-           
-  def *(length: Length[A]): Dipole[A] = new Dipole(this.value * length.value, this.unit * length.unit)
+             def *(length: Length[A]): Dipole[A] = new Dipole(this.value * length.value, this.unit * length.unit)
 
   def /(voltage: Voltage[A]): Capacitance[A] = new Capacitance(this.value / voltage.value, this.unit / voltage.unit)
 
@@ -30,8 +31,8 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
 }
 
 trait ChargeUnit extends LinearUnit[ChargeUnit]{
-  override def getSIUnit: ChargeUnit = ChargeUnitObjects.getSIUnit
-
+  override def getSIUnit: ChargeUnit = ChargeUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = ChargeUnit.dimension
 
   def *(lengthUnit: LengthUnit): DipoleUnit =
     new ProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
@@ -44,17 +45,28 @@ trait ChargeUnit extends LinearUnit[ChargeUnit]{
 
   def /(massUnit: MassUnit): ExposureUnit =
     new QuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
+
 }
+
+object ChargeUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> 1, I -> 1).withDefaultValue(0)
+
+  def getSIUnit: ChargeUnit = ChargeUnitObjects.coulomb
+
+import ChargeUnitObjects._
+  def getUnits: Seq[ChargeUnit] =
+    Seq(coulomb, yoctocoulomb, zeptocoulomb, attocoulomb, femtocoulomb, picocoulomb, nanocoulomb, microcoulomb, millicoulomb, centicoulomb, decicoulomb, decacoulomb, hectocoulomb, kilocoulomb, megacoulomb, gigacoulomb, teracoulomb, petacoulomb, exacoulomb, zettacoulomb, yottacoulomb, abcoulomb, statcoulomb, atomic_unit_of_charge)
+}
+
+
 
 class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ChargeUnit
 
-
 object ChargeUnitObjects{
   import org.waman.multiverse.unit.Constants
-
-
-  def getSIUnit: ChargeUnit = coulomb
 
   final object coulomb extends DefaultChargeUnit("coulomb", "C", Nil, r"1")
   final object yoctocoulomb extends DefaultChargeUnit("yoctocoulomb", "yC", Nil, r"1" * r"1e-24")
@@ -80,11 +92,7 @@ object ChargeUnitObjects{
   final object abcoulomb extends DefaultChargeUnit("abcoulomb", "abC", Nil, r"10")
   final object statcoulomb extends DefaultChargeUnit("statcoulomb", "statC", Seq("Fr", "esu"), Constants.SpeedOfLight) with NotExact
   final object atomic_unit_of_charge extends DefaultChargeUnit("atomic unit of charge", "au", Seq("e"), Constants.ElementaryCharge)
-
-  def getUnits: Seq[ChargeUnit] =
-    Seq(coulomb, yoctocoulomb, zeptocoulomb, attocoulomb, femtocoulomb, picocoulomb, nanocoulomb, microcoulomb, millicoulomb, centicoulomb, decicoulomb, decacoulomb, hectocoulomb, kilocoulomb, megacoulomb, gigacoulomb, teracoulomb, petacoulomb, exacoulomb, zettacoulomb, yottacoulomb, abcoulomb, statcoulomb, atomic_unit_of_charge)
 }
-
 
 object ChargeUnits{
   def C: ChargeUnit = ChargeUnitObjects.coulomb
@@ -116,7 +124,4 @@ object ChargeUnits{
   def esu: ChargeUnit = ChargeUnitObjects.statcoulomb
   def au: ChargeUnit = ChargeUnitObjects.atomic_unit_of_charge
   def e: ChargeUnit = ChargeUnitObjects.atomic_unit_of_charge
-
-  def getSIUnit: ChargeUnit = ChargeUnitObjects.getSIUnit
-  def getUnits: Seq[ChargeUnit] = ChargeUnitObjects.getUnits
 }

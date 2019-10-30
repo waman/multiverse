@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
     extends LinearQuantity[Resistance[A], A, ResistanceUnit] {
 
   override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
-           
-}
+           }
 
 trait ResistanceUnit extends LinearUnit[ResistanceUnit]{
-  override def getSIUnit: ResistanceUnit = ResistanceUnitObjects.getSIUnit
+  override def getSIUnit: ResistanceUnit = ResistanceUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = ResistanceUnit.dimension
 
 }
+
+object ResistanceUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -3, M -> 1, I -> -2, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: ResistanceUnit = ResistanceUnitObjects.ohm
+
+import ResistanceUnitObjects._
+  def getUnits: Seq[ResistanceUnit] =
+    Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm)
+}
+
+
 
 class DefaultResistanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ResistanceUnit
 
-
 object ResistanceUnitObjects{
-
-  def getSIUnit: ResistanceUnit = ohm
 
   final object ohm extends DefaultResistanceUnit("ohm", "Ω", Seq("ohm"), r"1")
   final object yoctoohm extends DefaultResistanceUnit("yoctoohm", "yΩ", Seq("yohm"), r"1" * r"1e-24")
@@ -48,11 +57,7 @@ object ResistanceUnitObjects{
   final object zettaohm extends DefaultResistanceUnit("zettaohm", "ZΩ", Seq("Zohm"), r"1" * r"1e21")
   final object yottaohm extends DefaultResistanceUnit("yottaohm", "YΩ", Seq("Yohm"), r"1" * r"1e24")
   final object abohm extends DefaultResistanceUnit("abohm", "abΩ", Seq("abohm"), r"1e-9")
-
-  def getUnits: Seq[ResistanceUnit] =
-    Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm)
 }
-
 
 object ResistanceUnits{
   def Ω: ResistanceUnit = ResistanceUnitObjects.ohm
@@ -103,7 +108,4 @@ object ResistanceUnits{
   def Yohm: ResistanceUnit = ResistanceUnitObjects.yottaohm
   def abΩ: ResistanceUnit = ResistanceUnitObjects.abohm
   def abohm: ResistanceUnit = ResistanceUnitObjects.abohm
-
-  def getSIUnit: ResistanceUnit = ResistanceUnitObjects.getSIUnit
-  def getUnits: Seq[ResistanceUnit] = ResistanceUnitObjects.getUnits
 }

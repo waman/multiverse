@@ -26,6 +26,15 @@ class AccelerationSpec extends MultiverseCustomSpec {
         sut.symbol should equal (expected)
       }
     }
+
+    "Dimension of a quotient of units should equal the dimension of the corresponding quotient unit" in {
+      // SetUp
+      val expected = AccelerationUnit.dimension
+      // Exercise
+      val sut = (m/s2).dimension
+      // Verify
+      sut should contain theSameElementsAs expected
+    }
   }
 
   "Quantity" - {

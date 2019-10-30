@@ -11,9 +11,9 @@ class AreaSpec extends MultiverseCustomSpec {
 
     "All of m2, m*m, and s.square should return equivalent objects" in {
       m2 should equal (m*m)
-      m2 should equal (m.square)
+      m2 should equal (m.squared)
 
-      mm*mm should equal (mm.square)
+      mm*mm should equal (mm.squared)
     }
 
     "The name property of area unit object should return the proper string" in {
@@ -60,6 +60,15 @@ class AreaSpec extends MultiverseCustomSpec {
         sut.aliases should contain theSameElementsAs expected
       }
     }
+
+    "Dimension of a square of a length unit should equal the dimension of area unit" in {
+      // SetUp
+      val expected = AreaUnit.dimension
+      // Exercise
+      val sut = ft.squared.dimension
+      // Verify
+      sut should contain theSameElementsAs expected
+    }
   }
 
   "Quantity" - {
@@ -71,9 +80,9 @@ class AreaSpec extends MultiverseCustomSpec {
           ("area", "expected"),
           (3.0(m2) , 3.0),
           (3.0(m*m), 3.0),
-          (3.0(m.square), 3.0),
+          (3.0(m.squared), 3.0),
           (3.0(mm*mm), 3.0*0.000001),
-          (3.0(mm.square), 3.0*0.000001),
+          (3.0(mm.squared), 3.0*0.000001),
           (3.0(m*mm), 3.0*0.001)
         )
       // Verify
@@ -105,7 +114,7 @@ class AreaSpec extends MultiverseCustomSpec {
       val expected = 9(mm2)
       val x = 3(mm)
       // Exercise
-      val sut = x.square
+      val sut = x.squared
       // Verify
       sut should equal (expected)
     }
@@ -115,7 +124,7 @@ class AreaSpec extends MultiverseCustomSpec {
 
     "metre_squared should have the proper symbol and some aliases" in {
       // SetUp
-      val expected = m.square
+      val expected = m.squared
       // Exercise
       val conversions =
         Table(
@@ -132,7 +141,7 @@ class AreaSpec extends MultiverseCustomSpec {
 
     "micrometre_squared should have the proper symbol and some aliases" in {
       // SetUp
-      val expected = mcm.square
+      val expected = mcm.squared
       // Exercise
       val conversions =
         Table(

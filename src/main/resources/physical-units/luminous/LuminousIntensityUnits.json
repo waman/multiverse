@@ -1,5 +1,6 @@
 {
   "SIUnit":"candela",
+  "dimension": {"J": 1},
 
   "units":[
     {"name":"candela", "symbol":"cd", "interval":"1", "scalePrefixes":true}

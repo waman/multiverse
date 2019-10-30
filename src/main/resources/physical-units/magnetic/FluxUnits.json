@@ -1,5 +1,6 @@
 {
   "SIUnit":"weber",
+  "dimension": {"M": 1, "L": 2, "T": -2, "I": -1},
 
   "composites": ["Voltage * Time"],
 

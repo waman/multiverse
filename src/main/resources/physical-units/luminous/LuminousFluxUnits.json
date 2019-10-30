@@ -1,5 +1,6 @@
 {
   "SIUnit":"lumen",
+  "dimension": {"J": 1},
 
   "units":[
     {"name":"lumen", "symbol":"lm", "interval":"1", "scalePrefixes":true}

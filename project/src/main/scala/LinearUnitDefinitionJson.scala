@@ -4,8 +4,14 @@ import java.io.{BufferedWriter, File}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class LinearUnitCategory(SIUnit: String, composites: Array[String], units: Array[LinearUnit]){
+case class LinearUnitCategory(
+                               SIUnit: String, dimension: Dimension, composites: Array[String], units: Array[LinearUnit]){
   def _units: Seq[LinearUnit] = if (this.units != null) this.units else Nil
+}
+
+case class Dimension(M:Int, L: Int, T: Int, I: Int, Θ: Int, N: Int, J: Int){
+  def getEntries: Map[String, Int] =
+    Map("M" -> M, "L" -> L, "T" -> T, "I" -> I, "Θ" -> Θ, "N" -> N, "J" -> J).filter(_._2 != 0)
 }
 
 // ex)
@@ -79,7 +85,7 @@ case class LinearUnit(
       //   "interval":(null), "baseUnit":"Time.second", ..., "defineAsVal":true}
       val head = CanonicalizedLinearUnit(
         baseName+" "+suffix, baseName+"_"+suffix, baseSymbol+sup, ali.tail,
-        null, this.baseUnit, this.notExact, Nil, defineAsVal=true)
+        null, this.baseUnit, this.notExact, Nil, isPower=true)
 
       if (!this.scalePrefixes) {
         return Seq(head)
@@ -90,7 +96,7 @@ case class LinearUnit(
         val al = (p.prefix +: p._aliases).flatMap(ps => ali.map(a => ps + a)).tail
         CanonicalizedLinearUnit(
           p.name+baseName+" "+suffix, p.name+baseName+"_"+suffix, p.prefix+baseSymbol+sup, al,
-          null, prefixedBaseUnit, this.notExact, Nil, defineAsVal=true)
+          null, prefixedBaseUnit, this.notExact, Nil, isPower=true)
       }
 
       return head +: tail
@@ -102,14 +108,14 @@ case class LinearUnit(
     if(scalePrefixes){
       // In this case, always name == objectName
       val head = CanonicalizedLinearUnit(this.name, this.name, this.symbol, aliases,
-        interval, null, this.notExact, Nil, defineAsVal=false)
+        interval, null, this.notExact, Nil, isPower=false)
 
       val nm = this.symbol +: aliases
       val tail = prefixes.filterNot(p => this._excludePrefixes.contains(p.prefix)).map{ p =>
           val al = (p.prefix +: p._aliases).flatMap(ps => nm.map(ns => ps + ns)).tail
           val name = p.name + this.name
           CanonicalizedLinearUnit(name, name, p.prefix + this.symbol, nonNull(al),
-            s"""$interval * r"${p.scale}"""", null, this.notExact, Nil, defineAsVal=false)
+            s"""$interval * r"${p.scale}"""", null, this.notExact, Nil, isPower=false)
         }
 
       head +: tail
@@ -119,13 +125,13 @@ case class LinearUnit(
         else this.attributes.toList
 
       val u = CanonicalizedLinearUnit(
-        this.name, toObjectName(this.name), this.symbol, aliases, interval, null, this.notExact, atts, defineAsVal=false)
+        this.name, toObjectName(this.name), this.symbol, aliases, interval, null, this.notExact, atts, isPower=false)
 
       val us = atts.map{ a =>
         val name = s"${u.name}(${a.name})"
         CanonicalizedLinearUnit(
           name, toObjectName(name), s"${u.symbol}(${a.name})", aliases.map(al => s"$al(${a.name})"),
-          makeIntervalExpression(a.interval, a.baseUnit), null, a.notExact, Nil, defineAsVal=false)
+          makeIntervalExpression(a.interval, a.baseUnit), null, a.notExact, Nil, isPower=false)
       }
 
       u +: us
@@ -148,16 +154,16 @@ case class LinearUnit(
 case class Attribute(name: String, interval: String, baseUnit: String, notExact: Boolean, default: Boolean)
 
 case class CanonicalizedLinearUnit(
-                                  name: String,
-                                  objectName: String,
-                                  symbol: String,
-                                  aliases: Seq[String],
-                                  interval: String,
-                                  baseUnit: String,
-                                  notExact: Boolean,
-                                  attributes: Seq[Attribute],
-                                  defineAsVal: Boolean){
-  require(if (defineAsVal) interval == null else baseUnit == null)
+                                    name: String,
+                                    objectName: String,
+                                    symbol: String,
+                                    aliases: Seq[String],
+                                    interval: String,
+                                    baseUnit: String,
+                                    notExact: Boolean,
+                                    attributes: Seq[Attribute],
+                                    isPower: Boolean){  // true for squared or cubic
+  require(if (isPower) interval == null else baseUnit == null)
 }
 
 class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpackage: String)
@@ -215,24 +221,25 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
       }
 
       writer.write(
-        s"""
-           |import ${rootPackage}._\n""".stripMargin)
+        s"""import $rootPackage._
+           |
+           |""".stripMargin)
 
       Seq.concat(mul, div).flatMap(p => Seq(p._1, p._2)).distinct.foreach{ ud =>
         if (ud.subpackage != "" && ud.subpackage != this.subpackage)
           writer.write(
             s"""import ${rootPackage}.unit.${ud.subpackage}.${ud.id}
                |import ${rootPackage}.unit.${ud.subpackage}.${ud.id}Unit
+               |
                |""".stripMargin)
       }
 
       writer.write(
-        s"""
-           |class $id[A: Fractional](val value: A, val unit: ${id}Unit)
+        s"""class $id[A: Fractional](val value: A, val unit: ${id}Unit)
            |    extends LinearQuantity[$id[A], A, ${id}Unit] {
            |
            |  override protected def newQuantity(value: A, unit: ${id}Unit): $id[A] = new $id(value, unit)
-           """.stripMargin)
+           |""".stripMargin)
 
       mul.foreach(generateQuantityMultiplication(writer, _))
 
@@ -241,17 +248,18 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
         val resultType = p._2.id
         val denoId = headToLower(denoType)
         writer.write(
-          s"""
-             |  def /($denoId: $denoType[A]): $resultType[A] = new $resultType(this.value / $denoId.value, this.unit / $denoId.unit)
+          s"""  def /($denoId: $denoType[A]): $resultType[A] = new $resultType(this.value / $denoId.value, this.unit / $denoId.unit)
+             |
              |""".stripMargin)
       }
 
       writer.write(
-        s"""
-           |}
+        s"""}
            |
            |trait ${id}Unit extends LinearUnit[${id}Unit]{
-           |  override def getSIUnit: ${id}Unit = ${id}UnitObjects.getSIUnit
+           |
+           |  override def getSIUnit: ${id}Unit = ${id}Unit.getSIUnit
+           |  override def dimension: Map[DimensionSymbol, Int] = ${id}Unit.dimension
            |
            |""".stripMargin)
 
@@ -262,25 +270,21 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
         val resultType = p._2.id
         val denoId = headToLower(denoType)
         writer.write(
-          s"""
-             |  def /(${denoId}Unit: ${denoType}Unit): ${resultType}Unit =
+          s"""  def /(${denoId}Unit: ${denoType}Unit): ${resultType}Unit =
              |    new QuotientUnit[${resultType}Unit, ${id}Unit, ${denoType}Unit](${id}Unit.this, ${denoId}Unit) with ${resultType}Unit
+             |
              |""".stripMargin)
       }
 
-      writer.write(
-        s"""}
-           |
-           |class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-           |  extends ${id}Unit
-           |
-           |""".stripMargin)
+      writer.write("}\n\n")
 
-      generateAttributesCode(writer, id, units)
+      generateXxxUnitCode(writer, units, unitDefs)
       writer.write("\n")
-      generateUnitObjectCode(writer, id, this.unitCategory.SIUnit, units, unitDefs)
+      generateXxxAttributesCode(writer, units)
       writer.write("\n")
-      generateUnitsCode(writer, id, units)
+      generateXxxUnitObjectsCode(writer, units)
+      writer.write("\n")
+      generateXxxUnitsCode(writer, units)
     }
   }
 
@@ -289,8 +293,8 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
     val resultType = p._2.id
     val secondId = headToLower(secondType)
     writer.write(
-      s"""
-         |  def *($secondId: ${secondType}[A]): $resultType[A] = new $resultType(this.value * $secondId.value, this.unit * $secondId.unit)
+      s"""  def *($secondId: ${secondType}[A]): $resultType[A] = new $resultType(this.value * $secondId.value, this.unit * $secondId.unit)
+         |
          |""".stripMargin)
   }
 
@@ -299,25 +303,76 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
     val resultType = p._2.id
     val secondId = headToLower(secondType)
     writer.write(
-      s"""
-         |  def *(${secondId}Unit: ${secondType}Unit): ${resultType}Unit =
+      s"""  def *(${secondId}Unit: ${secondType}Unit): ${resultType}Unit =
          |    new ProductUnit[${resultType}Unit, ${id}Unit, ${secondType}Unit](${id}Unit.this, ${secondId}Unit) with ${resultType}Unit
+         |
          |""".stripMargin)
   }
 
-  private def generateAttributesCode(writer: BufferedWriter, id: String, units: Seq[CanonicalizedLinearUnit]): Boolean = {
+  private def generateXxxUnitCode(
+                                    writer: BufferedWriter, units: Seq[CanonicalizedLinearUnit], unitDefs: Seq[UnitDefinitionJson]): Unit = {
+
+    writer.write(
+      s"""object ${id}Unit{
+         |""".stripMargin)
+
+    //***** Dimension *****
+    val entries = this.unitCategory.dimension.getEntries
+    if (entries.nonEmpty) writer.write("  import DimensionSymbol._\n")
+
+    val dim = entries.map(e => s"""${e._1} -> ${e._2}""").mkString(", ")
+    writer.write(
+      s"""  val dimension: Map[DimensionSymbol, Int] =
+         |    Map[DimensionSymbol, Int]($dim).withDefaultValue(0)
+         |
+         |""".stripMargin)
+
+    //***** SI Unit *****
+    val siUnit = this.unitCategory.SIUnit
+    if (siUnit.contains('*') || siUnit.contains('/')) {
+      val regexCompositeUnit(first, op, second) = siUnit
+
+      List(first, second).distinct.map(searchUnitDefinition(_, unitDefs)).filterNot(_.subpackage == this.subpackage).foreach { ud =>
+        writer.write(s"""  import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit\n""".stripMargin)
+      }
+
+      writer.write(
+        s"""  val getSIUnit: ${id}Unit = ${first}Unit.getSIUnit $op ${second}Unit.getSIUnit
+           |
+           |""".stripMargin)
+    } else {
+      writer.write(
+        s"""  def getSIUnit: ${id}Unit = ${id}UnitObjects.$siUnit
+           |
+           |""".stripMargin)
+    }
+
+    //***** Defined Units *****
+    if (units.nonEmpty) writer.write(s"""import ${id}UnitObjects._\n""")
+    writer.write(
+      s"""  def getUnits: Seq[${id}Unit] =
+         |    ${units.map(_.objectName).mkString("Seq(", ", ", ")")}
+         |}
+         |
+         |""".stripMargin)
+  }
+
+  private def generateXxxAttributesCode(writer: BufferedWriter, units: Seq[CanonicalizedLinearUnit]): Boolean = {
     val attUnits = units.filter(_.attributes.nonEmpty)
     if (attUnits.isEmpty) return false
 
     attUnits.foreach { u =>
-      writer.write(s"""sealed trait ${u.objectName}Attribute\n""")
+      writer.write(
+        s"""sealed trait ${u.objectName}Attribute
+           |
+           |""".stripMargin)
     }
 
     // [gregorian: Seq(month, year, decade, ...), julian: Seq(year, decade, ...), ...]
     val map = attUnits.flatMap(u => u.attributes.map(a => (u.objectName, a.name)))
       .groupBy(_._2)
       .mapValues(v => v.map(_._1))
-    writer.write(s"\nobject ${id}Attributes{\n")
+    writer.write(s"object ${id}Attributes{\n")
     map.foreach { u =>
       writer.write(s"""  final object ${u._1} extends ${u._2.map(_ + "Attribute").mkString(" with ")}\n""")
     }
@@ -325,42 +380,30 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
     true
   }
 
-  private def generateUnitObjectCode(
-      writer: BufferedWriter, id: String, siUnit: String,
-      units: Seq[CanonicalizedLinearUnit], unitDefs: Seq[UnitDefinitionJson]): Unit = {
+  private def generateXxxUnitObjectsCode(writer: BufferedWriter, units: Seq[CanonicalizedLinearUnit]): Unit = {
+
+    writer.write(
+      s"""class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+         |  extends ${id}Unit
+         |
+         |""".stripMargin)
 
     writer.write(s"object ${id}UnitObjects{\n")
 
     if(units.exists(u => u.interval != null && u.interval.contains("Constants")))
-      writer.write(s"""  import ${rootPackage}.unit.Constants\n\n""")
+      writer.write(s"""  import $rootPackage.unit.Constants\n""")
 
-    //***** SI Unit *****
-    if (siUnit.contains('*') || siUnit.contains('/')){
-      val regexCompositeUnit(first, op, second) = siUnit
+    if(id == "TimeSquared")
+      writer.write(s"""  import $rootPackage.unit.basic.TimeUnitObjects\n""")
 
-      List(first, second).distinct.map(searchUnitDefinition(_, unitDefs)).filterNot(_.subpackage == this.subpackage).foreach{ ud =>
-        writer.write(s"""  import ${rootPackage}.unit.${ud.subpackage}.${ud.id}UnitObjects\n""")
-      }
-
-      writer.write(
-        s"""
-           |  val getSIUnit: ${id}Unit = ${first}UnitObjects.getSIUnit $op ${second}UnitObjects.getSIUnit
-           |
-           |""".stripMargin)
-    }else{
-      writer.write(
-        s"""
-           |  def getSIUnit: ${id}Unit = $siUnit
-           |
-           |""".stripMargin)
-    }
+    writer.write("\n")
 
     //***** Unit Objects *****
     units.foreach{
-      case u if u.defineAsVal =>
-        // val metre_squared: AreaUnit = LengthUnitObjects.metre.square
+      case u if u.isPower =>
+        // val metre_squared: AreaUnit = LengthUnitObjects.metre.squared
         val baseUnits = u.baseUnit.split('.')  // baseUnit: Length.metre
-        val power = if (u.name.endsWith("cubic")) "cubic" else "square"
+        val power = if (u.name.endsWith("cubic")) "cubic" else "squared"
         writer.write(s"""  val ${u.objectName}: ${id}Unit = ${baseUnits(0)}UnitObjects.${baseUnits(1)}.$power\n""")
 
       case u =>
@@ -378,17 +421,10 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
             s"""("${u.name}", "${u.symbol}", $aliases, ${u.interval})$notExact\n""")
     }
 
-    writer.write(
-      s"""
-         |  def getUnits: Seq[${id}Unit] =
-         |    ${units.map(_.objectName).mkString("Seq(", ", ", ")")}
-         |}
-         |
-         |""".stripMargin)
+    writer.write("}\n")
   }
 
-  private def generateUnitsCode(
-      writer: BufferedWriter, id: String, units: Seq[CanonicalizedLinearUnit]): Unit = {
+  private def generateXxxUnitsCode(writer: BufferedWriter, units: Seq[CanonicalizedLinearUnit]): Unit = {
 
     writer.write(s"""object ${id}Units{\n""")
 
@@ -416,17 +452,12 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
 
         // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
         if (u.attributes.nonEmpty && !als.contains("_")) {  // the second condition is for removing ones like cal_IT(IT)
-          writer.write(s"""  def $als(a: ${u.objectName}Attribute): ${id}Unit = $sym(a)\n""")
+          writer.write(s"""  def $als(a: ${u.objectName}Attribute): ${id}Unit = $sym(a)\n\n""")
         }
       }
     }
 
-    writer.write(
-      s"""
-         |  def getSIUnit: ${id}Unit = ${id}UnitObjects.getSIUnit
-         |  def getUnits: Seq[${id}Unit] = ${id}UnitObjects.getUnits
-         |}
-         |""".stripMargin)
+    writer.write("}")
   }
 
   def escapeSymbol(s: String): String =
@@ -443,8 +474,9 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
     super.generateQuantityMultiplication(writer, p)
     if (p._1.id == "Length")
       writer.write(
-        s"""  def square: Area[A] = this * this
+        s"""  def squared: Area[A] = this * this
            |  def cubic: Volume[A] = this * this * this
+           |
            |""".stripMargin)
   }
 
@@ -452,7 +484,7 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
       writer: io.BufferedWriter, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit =
     if (p._1.id == "Length") {
       writer.write(
-        """  def square: AreaUnit =
+        """  def squared: AreaUnit =
           |    new AreaUnit{
           |      override val name: String = LengthUnit.this.name + " squared"
           |      override val symbol: String = LengthUnit.this.symbol + "²"
@@ -494,9 +526,10 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
           |
           |  def *(lengthUnit: LengthUnit): AreaUnit =
           |    if(this == lengthUnit)
-          |      square
+          |      this.squared
           |    else
           |      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
+          |
           |""".stripMargin)
     }else{
       super.generateUnitMultiplication(writer, p)
@@ -510,14 +543,14 @@ class TimeUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpa
      writer: BufferedWriter, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
     super.generateQuantityMultiplication(writer, p)
     if (p._1.id == "Time")
-      writer.write(s"""  def square: TimeSquared[A] = this * this\n""")
+      writer.write(s"""  def squared: TimeSquared[A] = this * this\n""")
   }
 
   override protected def generateUnitMultiplication(
       writer: io.BufferedWriter, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit =
     if (p._1.id == "Time") {
       writer.write(
-        s"""  def square: TimeSquaredUnit =
+        s"""  def squared: TimeSquaredUnit =
            |    new TimeSquaredUnit{
            |      override val name: String = TimeUnit.this.name + " squared"
            |      override val symbol: String = TimeUnit.this.symbol + "²"
@@ -535,7 +568,7 @@ class TimeUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpa
            |
            |  def *(timeUnit: TimeUnit): TimeSquaredUnit =
            |    if(this == timeUnit)
-           |      square
+           |      this.squared
            |    else
            |      new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
            |""".stripMargin)

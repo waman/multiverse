@@ -3,63 +3,68 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
     extends LinearQuantity[Area[A], A, AreaUnit] {
 
   override protected def newQuantity(value: A, unit: AreaUnit): Area[A] = new Area(value, unit)
-           
-  def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
+             def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
 
 }
 
 trait AreaUnit extends LinearUnit[AreaUnit]{
-  override def getSIUnit: AreaUnit = AreaUnitObjects.getSIUnit
-
+  override def getSIUnit: AreaUnit = AreaUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = AreaUnit.dimension
 
   def *(lengthUnit: LengthUnit): VolumeUnit =
     new ProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
+
 }
 
-class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AreaUnit
+object AreaUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](L -> 2).withDefaultValue(0)
 
+  val getSIUnit: AreaUnit = LengthUnit.getSIUnit * LengthUnit.getSIUnit
 
-object AreaUnitObjects{
-
-  val getSIUnit: AreaUnit = LengthUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
-
-  val metre_squared: AreaUnit = LengthUnitObjects.metre.square
-  val yoctometre_squared: AreaUnit = LengthUnitObjects.yoctometre.square
-  val zeptometre_squared: AreaUnit = LengthUnitObjects.zeptometre.square
-  val attometre_squared: AreaUnit = LengthUnitObjects.attometre.square
-  val femtometre_squared: AreaUnit = LengthUnitObjects.femtometre.square
-  val picometre_squared: AreaUnit = LengthUnitObjects.picometre.square
-  val nanometre_squared: AreaUnit = LengthUnitObjects.nanometre.square
-  val micrometre_squared: AreaUnit = LengthUnitObjects.micrometre.square
-  val millimetre_squared: AreaUnit = LengthUnitObjects.millimetre.square
-  val centimetre_squared: AreaUnit = LengthUnitObjects.centimetre.square
-  val decimetre_squared: AreaUnit = LengthUnitObjects.decimetre.square
-  val decametre_squared: AreaUnit = LengthUnitObjects.decametre.square
-  val hectometre_squared: AreaUnit = LengthUnitObjects.hectometre.square
-  val kilometre_squared: AreaUnit = LengthUnitObjects.kilometre.square
-  val megametre_squared: AreaUnit = LengthUnitObjects.megametre.square
-  val gigametre_squared: AreaUnit = LengthUnitObjects.gigametre.square
-  val terametre_squared: AreaUnit = LengthUnitObjects.terametre.square
-  val petametre_squared: AreaUnit = LengthUnitObjects.petametre.square
-  val exametre_squared: AreaUnit = LengthUnitObjects.exametre.square
-  val zettametre_squared: AreaUnit = LengthUnitObjects.zettametre.square
-  val yottametre_squared: AreaUnit = LengthUnitObjects.yottametre.square
-  val foot_squared: AreaUnit = LengthUnitObjects.foot.square
-  final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
-  final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
-
+import AreaUnitObjects._
   def getUnits: Seq[AreaUnit] =
     Seq(metre_squared, yoctometre_squared, zeptometre_squared, attometre_squared, femtometre_squared, picometre_squared, nanometre_squared, micrometre_squared, millimetre_squared, centimetre_squared, decimetre_squared, decametre_squared, hectometre_squared, kilometre_squared, megametre_squared, gigametre_squared, terametre_squared, petametre_squared, exametre_squared, zettametre_squared, yottametre_squared, foot_squared, are, hectare)
 }
 
+
+
+class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AreaUnit
+
+object AreaUnitObjects{
+
+  val metre_squared: AreaUnit = LengthUnitObjects.metre.squared
+  val yoctometre_squared: AreaUnit = LengthUnitObjects.yoctometre.squared
+  val zeptometre_squared: AreaUnit = LengthUnitObjects.zeptometre.squared
+  val attometre_squared: AreaUnit = LengthUnitObjects.attometre.squared
+  val femtometre_squared: AreaUnit = LengthUnitObjects.femtometre.squared
+  val picometre_squared: AreaUnit = LengthUnitObjects.picometre.squared
+  val nanometre_squared: AreaUnit = LengthUnitObjects.nanometre.squared
+  val micrometre_squared: AreaUnit = LengthUnitObjects.micrometre.squared
+  val millimetre_squared: AreaUnit = LengthUnitObjects.millimetre.squared
+  val centimetre_squared: AreaUnit = LengthUnitObjects.centimetre.squared
+  val decimetre_squared: AreaUnit = LengthUnitObjects.decimetre.squared
+  val decametre_squared: AreaUnit = LengthUnitObjects.decametre.squared
+  val hectometre_squared: AreaUnit = LengthUnitObjects.hectometre.squared
+  val kilometre_squared: AreaUnit = LengthUnitObjects.kilometre.squared
+  val megametre_squared: AreaUnit = LengthUnitObjects.megametre.squared
+  val gigametre_squared: AreaUnit = LengthUnitObjects.gigametre.squared
+  val terametre_squared: AreaUnit = LengthUnitObjects.terametre.squared
+  val petametre_squared: AreaUnit = LengthUnitObjects.petametre.squared
+  val exametre_squared: AreaUnit = LengthUnitObjects.exametre.squared
+  val zettametre_squared: AreaUnit = LengthUnitObjects.zettametre.squared
+  val yottametre_squared: AreaUnit = LengthUnitObjects.yottametre.squared
+  val foot_squared: AreaUnit = LengthUnitObjects.foot.squared
+  final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
+  final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
+}
 
 object AreaUnits{
   def `m²`: AreaUnit = AreaUnitObjects.metre_squared
@@ -112,7 +117,4 @@ object AreaUnits{
   def ft2: AreaUnit = AreaUnitObjects.foot_squared
   def a: AreaUnit = AreaUnitObjects.are
   def ha: AreaUnit = AreaUnitObjects.hectare
-
-  def getSIUnit: AreaUnit = AreaUnitObjects.getSIUnit
-  def getUnits: Seq[AreaUnit] = AreaUnitObjects.getUnits
 }

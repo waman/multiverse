@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.radiation
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,26 +11,37 @@ class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
     extends LinearQuantity[EquivalentDose[A], A, EquivalentDoseUnit] {
 
   override protected def newQuantity(value: A, unit: EquivalentDoseUnit): EquivalentDose[A] = new EquivalentDose(value, unit)
-           
-  def /(time: Time[A]): EquivalentDoseRate[A] = new EquivalentDoseRate(this.value / time.value, this.unit / time.unit)
+             def /(time: Time[A]): EquivalentDoseRate[A] = new EquivalentDoseRate(this.value / time.value, this.unit / time.unit)
 
 }
 
 trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
-  override def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnitObjects.getSIUnit
-
+  override def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = EquivalentDoseUnit.dimension
 
   def /(timeUnit: TimeUnit): EquivalentDoseRateUnit =
     new QuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit](EquivalentDoseUnit.this, timeUnit) with EquivalentDoseRateUnit
+
 }
+
+object EquivalentDoseUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -2, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnitObjects.sievert
+
+import EquivalentDoseUnitObjects._
+  def getUnits: Seq[EquivalentDoseUnit] =
+    Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, rem, yoctorem, zeptorem, attorem, femtorem, picorem, nanorem, microrem, millirem, centirem, decirem, decarem, hectorem, kilorem, megarem, gigarem, terarem, petarem, exarem, zettarem, yottarem)
+}
+
+
 
 class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends EquivalentDoseUnit
 
-
 object EquivalentDoseUnitObjects{
-
-  def getSIUnit: EquivalentDoseUnit = sievert
 
   final object sievert extends DefaultEquivalentDoseUnit("sievert", "Sv", Nil, r"1")
   final object yoctosievert extends DefaultEquivalentDoseUnit("yoctosievert", "ySv", Nil, r"1" * r"1e-24")
@@ -75,11 +85,7 @@ object EquivalentDoseUnitObjects{
   final object exarem extends DefaultEquivalentDoseUnit("exarem", "Erem", Nil, r"1e-2" * r"1e18")
   final object zettarem extends DefaultEquivalentDoseUnit("zettarem", "Zrem", Nil, r"1e-2" * r"1e21")
   final object yottarem extends DefaultEquivalentDoseUnit("yottarem", "Yrem", Nil, r"1e-2" * r"1e24")
-
-  def getUnits: Seq[EquivalentDoseUnit] =
-    Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, rem, yoctorem, zeptorem, attorem, femtorem, picorem, nanorem, microrem, millirem, centirem, decirem, decarem, hectorem, kilorem, megarem, gigarem, terarem, petarem, exarem, zettarem, yottarem)
 }
-
 
 object EquivalentDoseUnits{
   def Sv: EquivalentDoseUnit = EquivalentDoseUnitObjects.sievert
@@ -128,7 +134,4 @@ object EquivalentDoseUnits{
   def Erem: EquivalentDoseUnit = EquivalentDoseUnitObjects.exarem
   def Zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zettarem
   def Yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yottarem
-
-  def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnitObjects.getSIUnit
-  def getUnits: Seq[EquivalentDoseUnit] = EquivalentDoseUnitObjects.getUnits
 }

@@ -1,5 +1,6 @@
 {
   "SIUnit":"metre",
+  "dimension": {"L":1},
 
   "units":[
       {"name":"metre", "symbol":"m", "interval":"1", "scalePrefixes":true},

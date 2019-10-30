@@ -1,5 +1,6 @@
 {
   "SIUnit":"becquerel",
+  "dimension": {"T": -1},
 
   "units":[
     {"name":"becquerel", "symbol":"Bq", "interval":"1", "scalePrefixes":true},

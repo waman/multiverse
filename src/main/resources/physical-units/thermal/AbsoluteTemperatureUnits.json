@@ -1,5 +1,6 @@
 {
   "SIUnit": "kelvin",
+  "dimension": {"Θ": 1},
   
   "units":[
     {"name":"kelvin", "symbol":"K", "interval":"1", "scalePrefixes":true}

@@ -4,7 +4,8 @@ import java.io.{BufferedWriter, File}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class HomogeneousUnitCategory(SIUnit: String, composites: Array[String], units: Array[HomogeneousUnit]){
+case class HomogeneousUnitCategory(
+    SIUnit: String, dimension: Dimension, composites: Array[String], units: Array[HomogeneousUnit]){
   def _units: Seq[HomogeneousUnit] = if (this.units != null) this.units else Nil
 }
 
@@ -76,40 +77,69 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File
            |import spire.math.Real
            |import spire.math.Fractional
            |import spire.implicits._
-           |import ${GenerationUtil.rootPackage}._
+           |import $rootPackage._
            |
            |class $id[A: Fractional](val value: A, val unit: ${id}Unit)
            |    extends HomogeneousQuantity[A, ${id}Unit]
            |
            |trait ${id}Unit extends HomogeneousUnit[${id}Unit]{
-           |  override def getSIUnit: ${id}Unit = ${id}UnitObjects.getSIUnit
+           |  override def getSIUnit: ${id}Unit = ${id}Unit.getSIUnit
+           |  override def dimension: Map[DimensionSymbol, Int] = ${id}Unit.dimension
            |}
-           |
-           |class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val zero: Real, val interval: Real)
-           |  extends ${id}Unit
            |
            |""".stripMargin)
 
-      generateUnitObjectCode(writer, id, this.unitCategory.SIUnit, units)
+      generateXxxUnitCode(writer, units)
       writer.write("\n")
-      generateUnitsCode(writer, id, units)
+      generateXxxUnitObjectsCode(writer, units)
+      writer.write("\n")
+      generateXxxUnitsCode(writer, units)
     }
   }
 
-  private def generateUnitObjectCode(
-                                      writer: BufferedWriter, id: String, siUnit: String, units: Seq[CanonicalizedHomogeneousUnit]): Unit = {
+  private def generateXxxUnitCode(writer: BufferedWriter, units: Seq[CanonicalizedHomogeneousUnit]): Unit = {
+
+    writer.write(s"""object ${id}Unit{\n""")
+
+    //***** Dimension *****
+    val entries = this.unitCategory.dimension.getEntries
+    if (entries.nonEmpty) writer.write("  import DimensionSymbol._\n")
+
+    val dim = entries.map(e => s"""${e._1} -> ${e._2}""").mkString(", ")
+    writer.write(
+      s"""  val dimension: Map[DimensionSymbol, Int] =
+         |    Map[DimensionSymbol, Int]($dim).withDefaultValue(0)
+         |
+         |""".stripMargin)
+
+    //***** SI Unit *****
+    writer.write(
+      s"""  def getSIUnit: ${id}Unit = ${id}UnitObjects.${this.unitCategory.SIUnit}
+         |
+         |""".stripMargin)
+
+    //***** Defined Units *****
+    if (units.nonEmpty) writer.write(s"""  import ${id}UnitObjects._\n""")
+    writer.write(
+      s"""  def getUnits: Seq[${id}Unit] =
+         |    ${units.map(_.objectName).mkString("Seq(", ", ", ")")}
+         |}
+         |
+         |""".stripMargin)
+  }
+
+  private def generateXxxUnitObjectsCode(writer: BufferedWriter, units: Seq[CanonicalizedHomogeneousUnit]): Unit = {
+
+    writer.write(
+      s"""class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val zero: Real, val interval: Real)
+         |  extends ${id}Unit
+         |
+         |""".stripMargin)
 
     writer.write(s"object ${id}UnitObjects{\n")
 
     if(units.exists(u => u.interval.contains("Constants")))
-      writer.write(s"""  import ${GenerationUtil.rootPackage}.unit.Constants\n\n""")
-
-    //***** SI Unit *****
-    writer.write(
-      s"""
-         |  def getSIUnit: ${id}Unit = $siUnit
-         |
-         |""".stripMargin)
+      writer.write(s"""  import $rootPackage.unit.Constants\n\n""")
 
     //***** Unit Objects *****
     units.foreach{ u =>
@@ -123,17 +153,10 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File
           s"""("${u.name}", "${u.symbol}", $aliases, ${u.zero}, ${u.interval})\n""")
     }
 
-    writer.write(
-      s"""
-         |  def getUnits: Seq[${id}Unit] =
-         |    ${units.map(_.objectName).mkString("Seq(", ", ", ")")}
-         |}
-         |
-         |""".stripMargin)
+    writer.write("}\n")
   }
 
-  private def generateUnitsCode(
-                                 writer: BufferedWriter, id: String, units: Seq[CanonicalizedHomogeneousUnit]): Unit = {
+  private def generateXxxUnitsCode(writer: BufferedWriter, units: Seq[CanonicalizedHomogeneousUnit]): Unit = {
 
     writer.write(s"""object ${id}Units{\n""")
 
@@ -149,12 +172,7 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File
       }
     }
 
-    writer.write(
-      s"""
-         |  def getSIUnit: ${id}Unit = ${id}UnitObjects.getSIUnit
-         |  def getUnits: Seq[${id}Unit] = ${id}UnitObjects.getUnits
-         |}
-         |""".stripMargin)
+    writer.write("}")
   }
 
   def escapeSymbol(s: String): String =

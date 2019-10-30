@@ -16,7 +16,7 @@ class JsonResourceFactory(info: File, srcManaged: File, src: File, destPath: Fil
 
     json.getName match {
       case "Constants.json" => new ConstantsJson(json, destDir, mainDir)
-      case "ScalePrefixes.json" => new ScalePrefixJson(json, destDir.getParentFile, mainDir)  // org.waman.multverse
+      case "ScalePrefixes.json" => new ScalePrefixJson(json, destDir.getParentFile, mainDir)  // org.waman.multiverse
       case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, mainDir, subpackage.toString)
       case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, mainDir, subpackage.toString)
       case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, mainDir, subpackage.toString)

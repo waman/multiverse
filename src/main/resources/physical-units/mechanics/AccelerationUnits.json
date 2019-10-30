@@ -1,5 +1,6 @@
 {
   "SIUnit":"Length / TimeSquared",
+  "dimension":{"L": 1, "T": -2},
 
   "composites": [
     "Length / TimeSquared",

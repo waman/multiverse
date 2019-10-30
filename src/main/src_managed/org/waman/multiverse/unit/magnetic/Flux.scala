@@ -3,10 +3,10 @@ package org.waman.multiverse.unit.magnetic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
+
 import org.waman.multiverse.unit.electric.Current
 import org.waman.multiverse.unit.electric.CurrentUnit
 
@@ -14,31 +14,42 @@ class Flux[A: Fractional](val value: A, val unit: FluxUnit)
     extends LinearQuantity[Flux[A], A, FluxUnit] {
 
   override protected def newQuantity(value: A, unit: FluxUnit): Flux[A] = new Flux(value, unit)
-           
-  def /(area: Area[A]): FluxDensity[A] = new FluxDensity(this.value / area.value, this.unit / area.unit)
+             def /(area: Area[A]): FluxDensity[A] = new FluxDensity(this.value / area.value, this.unit / area.unit)
 
   def /(current: Current[A]): Inductance[A] = new Inductance(this.value / current.value, this.unit / current.unit)
 
 }
 
 trait FluxUnit extends LinearUnit[FluxUnit]{
-  override def getSIUnit: FluxUnit = FluxUnitObjects.getSIUnit
-
+  override def getSIUnit: FluxUnit = FluxUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = FluxUnit.dimension
 
   def /(areaUnit: AreaUnit): FluxDensityUnit =
     new QuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit](FluxUnit.this, areaUnit) with FluxDensityUnit
 
   def /(currentUnit: CurrentUnit): InductanceUnit =
     new QuotientUnit[InductanceUnit, FluxUnit, CurrentUnit](FluxUnit.this, currentUnit) with InductanceUnit
+
 }
+
+object FluxUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -2, M -> 1, I -> -1, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: FluxUnit = FluxUnitObjects.weber
+
+import FluxUnitObjects._
+  def getUnits: Seq[FluxUnit] =
+    Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell)
+}
+
+
 
 class DefaultFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends FluxUnit
 
-
 object FluxUnitObjects{
-
-  def getSIUnit: FluxUnit = weber
 
   final object weber extends DefaultFluxUnit("weber", "Wb", Nil, r"1")
   final object yoctoweber extends DefaultFluxUnit("yoctoweber", "yWb", Nil, r"1" * r"1e-24")
@@ -82,11 +93,7 @@ object FluxUnitObjects{
   final object examaxwell extends DefaultFluxUnit("examaxwell", "EMx", Nil, r"1e-8" * r"1e18")
   final object zettamaxwell extends DefaultFluxUnit("zettamaxwell", "ZMx", Nil, r"1e-8" * r"1e21")
   final object yottamaxwell extends DefaultFluxUnit("yottamaxwell", "YMx", Nil, r"1e-8" * r"1e24")
-
-  def getUnits: Seq[FluxUnit] =
-    Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell)
 }
-
 
 object FluxUnits{
   def Wb: FluxUnit = FluxUnitObjects.weber
@@ -135,7 +142,4 @@ object FluxUnits{
   def EMx: FluxUnit = FluxUnitObjects.examaxwell
   def ZMx: FluxUnit = FluxUnitObjects.zettamaxwell
   def YMx: FluxUnit = FluxUnitObjects.yottamaxwell
-
-  def getSIUnit: FluxUnit = FluxUnitObjects.getSIUnit
-  def getUnits: Seq[FluxUnit] = FluxUnitObjects.getUnits
 }

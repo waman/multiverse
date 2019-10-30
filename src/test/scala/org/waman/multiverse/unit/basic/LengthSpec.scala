@@ -28,6 +28,17 @@ class LengthSpec extends MultiverseCustomSpec {
         }
       }
     }
+
+    "A length unit should have the proper dimension" in {
+      // SetUp
+      import org.waman.multiverse.DimensionSymbol._
+      // Exercise
+      val sut = m.dimension
+      // Verify
+      sut should contain theSameElementsAs Map(L -> 1)
+      sut(L) should be (1)
+      sut(T) should be (0)
+    }
   }
 
   "Quantity" - {

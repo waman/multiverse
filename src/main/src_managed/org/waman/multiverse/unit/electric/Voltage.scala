@@ -3,10 +3,10 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.magnetic.Flux
 import org.waman.multiverse.unit.magnetic.FluxUnit
 
@@ -14,33 +14,43 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
     extends LinearQuantity[Voltage[A], A, VoltageUnit] {
 
   override protected def newQuantity(value: A, unit: VoltageUnit): Voltage[A] = new Voltage(value, unit)
-           
-  def *(time: Time[A]): Flux[A] = new Flux(this.value * time.value, this.unit * time.unit)
+             def *(time: Time[A]): Flux[A] = new Flux(this.value * time.value, this.unit * time.unit)
 
   def /(current: Current[A]): Resistance[A] = new Resistance(this.value / current.value, this.unit / current.unit)
 
 }
 
 trait VoltageUnit extends LinearUnit[VoltageUnit]{
-  override def getSIUnit: VoltageUnit = VoltageUnitObjects.getSIUnit
-
+  override def getSIUnit: VoltageUnit = VoltageUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = VoltageUnit.dimension
 
   def *(timeUnit: TimeUnit): FluxUnit =
     new ProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
 
   def /(currentUnit: CurrentUnit): ResistanceUnit =
     new QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
+
 }
+
+object VoltageUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -3, M -> 1, I -> -1, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: VoltageUnit = VoltageUnitObjects.volt
+
+import VoltageUnitObjects._
+  def getUnits: Seq[VoltageUnit] =
+    Seq(volt, yoctovolt, zeptovolt, attovolt, femtovolt, picovolt, nanovolt, microvolt, millivolt, centivolt, decivolt, decavolt, hectovolt, kilovolt, megavolt, gigavolt, teravolt, petavolt, exavolt, zettavolt, yottavolt, statvolt, abvolt)
+}
+
+
 
 class DefaultVoltageUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends VoltageUnit
 
-
 object VoltageUnitObjects{
   import org.waman.multiverse.unit.Constants
-
-
-  def getSIUnit: VoltageUnit = volt
 
   final object volt extends DefaultVoltageUnit("volt", "V", Nil, r"1")
   final object yoctovolt extends DefaultVoltageUnit("yoctovolt", "yV", Nil, r"1" * r"1e-24")
@@ -65,11 +75,7 @@ object VoltageUnitObjects{
   final object yottavolt extends DefaultVoltageUnit("yottavolt", "YV", Nil, r"1" * r"1e24")
   final object statvolt extends DefaultVoltageUnit("statvolt", "statV", Nil, Constants.SpeedOfLight / r"1e6")
   final object abvolt extends DefaultVoltageUnit("abvolt", "abV", Nil, r"1e-8")
-
-  def getUnits: Seq[VoltageUnit] =
-    Seq(volt, yoctovolt, zeptovolt, attovolt, femtovolt, picovolt, nanovolt, microvolt, millivolt, centivolt, decivolt, decavolt, hectovolt, kilovolt, megavolt, gigavolt, teravolt, petavolt, exavolt, zettavolt, yottavolt, statvolt, abvolt)
 }
-
 
 object VoltageUnits{
   def V: VoltageUnit = VoltageUnitObjects.volt
@@ -97,7 +103,4 @@ object VoltageUnits{
   def YV: VoltageUnit = VoltageUnitObjects.yottavolt
   def statV: VoltageUnit = VoltageUnitObjects.statvolt
   def abV: VoltageUnit = VoltageUnitObjects.abvolt
-
-  def getSIUnit: VoltageUnit = VoltageUnitObjects.getSIUnit
-  def getUnits: Seq[VoltageUnit] = VoltageUnitObjects.getUnits
 }

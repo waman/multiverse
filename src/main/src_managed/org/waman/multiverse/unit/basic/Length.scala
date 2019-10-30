@@ -3,10 +3,10 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
 
@@ -14,9 +14,9 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
 
   override protected def newQuantity(value: A, unit: LengthUnit): Length[A] = new Length(value, unit)
-           
-  def *(length: Length[A]): Area[A] = new Area(this.value * length.value, this.unit * length.unit)
-  def square: Area[A] = this * this
+             def *(length: Length[A]): Area[A] = new Area(this.value * length.value, this.unit * length.unit)
+
+  def squared: Area[A] = this * this
   def cubic: Volume[A] = this * this * this
 
   def /(time: Time[A]): Velocity[A] = new Velocity(this.value / time.value, this.unit / time.unit)
@@ -26,9 +26,10 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 }
 
 trait LengthUnit extends LinearUnit[LengthUnit]{
-  override def getSIUnit: LengthUnit = LengthUnitObjects.getSIUnit
+  override def getSIUnit: LengthUnit = LengthUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = LengthUnit.dimension
 
-  def square: AreaUnit =
+  def squared: AreaUnit =
     new AreaUnit{
       override val name: String = LengthUnit.this.name + " squared"
       override val symbol: String = LengthUnit.this.symbol + "²"
@@ -70,7 +71,7 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
 
   def *(lengthUnit: LengthUnit): AreaUnit =
     if(this == lengthUnit)
-      square
+      this.squared
     else
       new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
 
@@ -79,12 +80,24 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
 
   def /(timeSquaredUnit: TimeSquaredUnit): AccelerationUnit =
     new QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit](LengthUnit.this, timeSquaredUnit) with AccelerationUnit
+
 }
 
-class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends LengthUnit
+object LengthUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](L -> 1).withDefaultValue(0)
+
+  def getSIUnit: LengthUnit = LengthUnitObjects.metre
+
+import LengthUnitObjects._
+  def getUnits: Seq[LengthUnit] =
+    Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, foot, yard, ell, fathom, rod, rope, chain, mile, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
+}
+
 
 sealed trait xunitAttribute
+
 sealed trait nautical_mileAttribute
 
 object LengthAttributes{
@@ -93,9 +106,10 @@ object LengthAttributes{
   final object Adm extends nautical_mileAttribute
 }
 
-object LengthUnitObjects{
+class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends LengthUnit
 
-  def getSIUnit: LengthUnit = metre
+object LengthUnitObjects{
 
   final object metre extends DefaultLengthUnit("metre", "m", Nil, r"1")
   final object yoctometre extends DefaultLengthUnit("yoctometre", "ym", Nil, r"1" * r"1e-24")
@@ -150,11 +164,7 @@ object LengthUnitObjects{
   final object long_metric_foot extends DefaultLengthUnit("long metric foot", "lmf", Nil, r"1"/r"3")
   final object french extends DefaultLengthUnit("french", "Fr", Nil, r"1"/r"3" * millimetre.interval)
   final object furlong extends DefaultLengthUnit("furlong", "fur", Nil, r"660" * foot.interval)
-
-  def getUnits: Seq[LengthUnit] =
-    Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, foot, yard, ell, fathom, rod, rope, chain, mile, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
 }
-
 
 object LengthUnits{
   def m: LengthUnit = LengthUnitObjects.metre
@@ -213,6 +223,7 @@ object LengthUnits{
   }
   def nmi: LengthUnit = LengthUnitObjects.nautical_mile
   def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
+
   def NL: LengthUnit = LengthUnitObjects.nautical_league
   def nl: LengthUnit = LengthUnitObjects.nautical_league
   def mf: LengthUnit = LengthUnitObjects.metric_foot
@@ -220,7 +231,4 @@ object LengthUnits{
   def lmf: LengthUnit = LengthUnitObjects.long_metric_foot
   def Fr: LengthUnit = LengthUnitObjects.french
   def fur: LengthUnit = LengthUnitObjects.furlong
-
-  def getSIUnit: LengthUnit = LengthUnitObjects.getSIUnit
-  def getUnits: Seq[LengthUnit] = LengthUnitObjects.getUnits
 }

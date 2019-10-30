@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.luminous
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
@@ -12,26 +11,37 @@ class LuminousIntensity[A: Fractional](val value: A, val unit: LuminousIntensity
     extends LinearQuantity[LuminousIntensity[A], A, LuminousIntensityUnit] {
 
   override protected def newQuantity(value: A, unit: LuminousIntensityUnit): LuminousIntensity[A] = new LuminousIntensity(value, unit)
-           
-  def /(area: Area[A]): Luminance[A] = new Luminance(this.value / area.value, this.unit / area.unit)
+             def /(area: Area[A]): Luminance[A] = new Luminance(this.value / area.value, this.unit / area.unit)
 
 }
 
 trait LuminousIntensityUnit extends LinearUnit[LuminousIntensityUnit]{
-  override def getSIUnit: LuminousIntensityUnit = LuminousIntensityUnitObjects.getSIUnit
-
+  override def getSIUnit: LuminousIntensityUnit = LuminousIntensityUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = LuminousIntensityUnit.dimension
 
   def /(areaUnit: AreaUnit): LuminanceUnit =
     new QuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit](LuminousIntensityUnit.this, areaUnit) with LuminanceUnit
+
 }
+
+object LuminousIntensityUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](J -> 1).withDefaultValue(0)
+
+  def getSIUnit: LuminousIntensityUnit = LuminousIntensityUnitObjects.candela
+
+import LuminousIntensityUnitObjects._
+  def getUnits: Seq[LuminousIntensityUnit] =
+    Seq(candela, yoctocandela, zeptocandela, attocandela, femtocandela, picocandela, nanocandela, microcandela, millicandela, centicandela, decicandela, decacandela, hectocandela, kilocandela, megacandela, gigacandela, teracandela, petacandela, exacandela, zettacandela, yottacandela)
+}
+
+
 
 class DefaultLuminousIntensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminousIntensityUnit
 
-
 object LuminousIntensityUnitObjects{
-
-  def getSIUnit: LuminousIntensityUnit = candela
 
   final object candela extends DefaultLuminousIntensityUnit("candela", "cd", Nil, r"1")
   final object yoctocandela extends DefaultLuminousIntensityUnit("yoctocandela", "ycd", Nil, r"1" * r"1e-24")
@@ -54,11 +64,7 @@ object LuminousIntensityUnitObjects{
   final object exacandela extends DefaultLuminousIntensityUnit("exacandela", "Ecd", Nil, r"1" * r"1e18")
   final object zettacandela extends DefaultLuminousIntensityUnit("zettacandela", "Zcd", Nil, r"1" * r"1e21")
   final object yottacandela extends DefaultLuminousIntensityUnit("yottacandela", "Ycd", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[LuminousIntensityUnit] =
-    Seq(candela, yoctocandela, zeptocandela, attocandela, femtocandela, picocandela, nanocandela, microcandela, millicandela, centicandela, decicandela, decacandela, hectocandela, kilocandela, megacandela, gigacandela, teracandela, petacandela, exacandela, zettacandela, yottacandela)
 }
-
 
 object LuminousIntensityUnits{
   def cd: LuminousIntensityUnit = LuminousIntensityUnitObjects.candela
@@ -84,7 +90,4 @@ object LuminousIntensityUnits{
   def Ecd: LuminousIntensityUnit = LuminousIntensityUnitObjects.exacandela
   def Zcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.zettacandela
   def Ycd: LuminousIntensityUnit = LuminousIntensityUnitObjects.yottacandela
-
-  def getSIUnit: LuminousIntensityUnit = LuminousIntensityUnitObjects.getSIUnit
-  def getUnits: Seq[LuminousIntensityUnit] = LuminousIntensityUnitObjects.getUnits
 }

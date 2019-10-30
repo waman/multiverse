@@ -3,16 +3,19 @@ package org.waman.multiverse.unit.mechanics
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
+
 import org.waman.multiverse.unit.radiation.AbsorbedDose
 import org.waman.multiverse.unit.radiation.AbsorbedDoseUnit
+
 import org.waman.multiverse.unit.thermal.AbsoluteTemperature
 import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnit
+
 import org.waman.multiverse.unit.thermal.Entropy
 import org.waman.multiverse.unit.thermal.EntropyUnit
 
@@ -20,8 +23,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     extends LinearQuantity[Energy[A], A, EnergyUnit] {
 
   override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
-           
-  def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
+             def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
 
   def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
 
@@ -32,8 +34,8 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 }
 
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
-  override def getSIUnit: EnergyUnit = EnergyUnitObjects.getSIUnit
-
+  override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = EnergyUnit.dimension
 
   def *(timeUnit: TimeUnit): ActionUnit =
     new ProductUnit[ActionUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with ActionUnit
@@ -46,10 +48,21 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   def /(absoluteTemperatureUnit: AbsoluteTemperatureUnit): EntropyUnit =
     new QuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
+
 }
 
-class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends EnergyUnit
+object EnergyUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: EnergyUnit = EnergyUnitObjects.joule
+
+import EnergyUnitObjects._
+  def getUnits: Seq[EnergyUnit] =
+    Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(IT)`)
+}
+
 
 sealed trait calorieAttribute
 
@@ -57,11 +70,11 @@ object EnergyAttributes{
   final object IT extends calorieAttribute
 }
 
+class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends EnergyUnit
+
 object EnergyUnitObjects{
   import org.waman.multiverse.unit.Constants
-
-
-  def getSIUnit: EnergyUnit = joule
 
   final object joule extends DefaultEnergyUnit("joule", "J", Nil, r"1")
   final object yoctojoule extends DefaultEnergyUnit("yoctojoule", "yJ", Nil, r"1" * r"1e-24")
@@ -110,11 +123,7 @@ object EnergyUnitObjects{
   final object atomic_unit_of_energy extends DefaultEnergyUnit("atomic unit of energy", "E_h", Nil, r"2" * rydberg.interval) with NotExact
   final object calorie extends DefaultEnergyUnit("calorie", "cal", Seq("cal_IT"), r"4.1868")
   final object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT(IT)"), r"4.1868")
-
-  def getUnits: Seq[EnergyUnit] =
-    Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(IT)`)
 }
-
 
 object EnergyUnits{
   def J: EnergyUnit = EnergyUnitObjects.joule
@@ -171,7 +180,4 @@ object EnergyUnits{
     case EnergyAttributes.IT => EnergyUnitObjects.`calorie(IT)`
   }
   def cal_IT: EnergyUnit = EnergyUnitObjects.calorie
-
-  def getSIUnit: EnergyUnit = EnergyUnitObjects.getSIUnit
-  def getUnits: Seq[EnergyUnit] = EnergyUnitObjects.getUnits
 }

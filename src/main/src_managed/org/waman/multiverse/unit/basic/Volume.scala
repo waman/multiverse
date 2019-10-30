@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
     extends LinearQuantity[Volume[A], A, VolumeUnit] {
 
   override protected def newQuantity(value: A, unit: VolumeUnit): Volume[A] = new Volume(value, unit)
-           
-}
+           }
 
 trait VolumeUnit extends LinearUnit[VolumeUnit]{
-  override def getSIUnit: VolumeUnit = VolumeUnitObjects.getSIUnit
+  override def getSIUnit: VolumeUnit = VolumeUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = VolumeUnit.dimension
 
 }
+
+object VolumeUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](L -> 3).withDefaultValue(0)
+
+  val getSIUnit: VolumeUnit = AreaUnit.getSIUnit * LengthUnit.getSIUnit
+
+import VolumeUnitObjects._
+  def getUnits: Seq[VolumeUnit] =
+    Seq(metre_cubic, yoctometre_cubic, zeptometre_cubic, attometre_cubic, femtometre_cubic, picometre_cubic, nanometre_cubic, micrometre_cubic, millimetre_cubic, centimetre_cubic, decimetre_cubic, decametre_cubic, hectometre_cubic, kilometre_cubic, megametre_cubic, gigametre_cubic, terametre_cubic, petametre_cubic, exametre_cubic, zettametre_cubic, yottametre_cubic, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda)
+}
+
+
 
 class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends VolumeUnit
 
-
 object VolumeUnitObjects{
-
-  val getSIUnit: VolumeUnit = AreaUnitObjects.getSIUnit * LengthUnitObjects.getSIUnit
 
   val metre_cubic: VolumeUnit = LengthUnitObjects.metre.cubic
   val yoctometre_cubic: VolumeUnit = LengthUnitObjects.yoctometre.cubic
@@ -69,11 +78,7 @@ object VolumeUnitObjects{
   final object zettalitre extends DefaultVolumeUnit("zettalitre", "ZL", Nil, r"1e-3" * r"1e21")
   final object yottalitre extends DefaultVolumeUnit("yottalitre", "YL", Nil, r"1e-3" * r"1e24")
   final object lambda extends DefaultVolumeUnit("lambda", "λ", Nil, r"1e-9")
-
-  def getUnits: Seq[VolumeUnit] =
-    Seq(metre_cubic, yoctometre_cubic, zeptometre_cubic, attometre_cubic, femtometre_cubic, picometre_cubic, nanometre_cubic, micrometre_cubic, millimetre_cubic, centimetre_cubic, decimetre_cubic, decametre_cubic, hectometre_cubic, kilometre_cubic, megametre_cubic, gigametre_cubic, terametre_cubic, petametre_cubic, exametre_cubic, zettametre_cubic, yottametre_cubic, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda)
 }
-
 
 object VolumeUnits{
   def `m³`: VolumeUnit = VolumeUnitObjects.metre_cubic
@@ -146,7 +151,4 @@ object VolumeUnits{
   def ZL: VolumeUnit = VolumeUnitObjects.zettalitre
   def YL: VolumeUnit = VolumeUnitObjects.yottalitre
   def λ: VolumeUnit = VolumeUnitObjects.lambda
-
-  def getSIUnit: VolumeUnit = VolumeUnitObjects.getSIUnit
-  def getUnits: Seq[VolumeUnit] = VolumeUnitObjects.getUnits
 }

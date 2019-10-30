@@ -1,5 +1,6 @@
 {
   "SIUnit":"gray",
+  "dimension": {"L": 2, "T": -2},
 
   "composites":["Energy / Mass"],
 

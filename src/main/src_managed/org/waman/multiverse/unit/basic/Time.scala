@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
@@ -12,16 +11,16 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
 
   override protected def newQuantity(value: A, unit: TimeUnit): Time[A] = new Time(value, unit)
-           
-  def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
-  def square: TimeSquared[A] = this * this
+             def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
 
+  def squared: TimeSquared[A] = this * this
 }
 
 trait TimeUnit extends LinearUnit[TimeUnit]{
-  override def getSIUnit: TimeUnit = TimeUnitObjects.getSIUnit
+  override def getSIUnit: TimeUnit = TimeUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = TimeUnit.dimension
 
-  def square: TimeSquaredUnit =
+  def squared: TimeSquaredUnit =
     new TimeSquaredUnit{
       override val name: String = TimeUnit.this.name + " squared"
       override val symbol: String = TimeUnit.this.symbol + "²"
@@ -39,18 +38,32 @@ trait TimeUnit extends LinearUnit[TimeUnit]{
 
   def *(timeUnit: TimeUnit): TimeSquaredUnit =
     if(this == timeUnit)
-      square
+      this.squared
     else
       new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
 }
 
-class DefaultTimeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends TimeUnit
+object TimeUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> 1).withDefaultValue(0)
+
+  def getSIUnit: TimeUnit = TimeUnitObjects.second
+
+import TimeUnitObjects._
+  def getUnits: Seq[TimeUnit] =
+    Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, planck_time)
+}
+
 
 sealed trait dayAttribute
+
 sealed trait monthAttribute
+
 sealed trait yearAttribute
+
 sealed trait decadeAttribute
+
 sealed trait centuryAttribute
 
 object TimeAttributes{
@@ -66,9 +79,10 @@ object TimeAttributes{
   final object synodic extends monthAttribute
 }
 
-object TimeUnitObjects{
+class DefaultTimeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends TimeUnit
 
-  def getSIUnit: TimeUnit = second
+object TimeUnitObjects{
 
   final object second extends DefaultTimeUnit("second", "s", Seq("sec"), r"1")
   final object yoctosecond extends DefaultTimeUnit("yoctosecond", "ys", Seq("ysec"), r"1" * r"1e-24")
@@ -124,11 +138,7 @@ object TimeUnitObjects{
   final object jitty_alternative extends DefaultTimeUnit("jitty_alternative", "ja", Nil, r"1" * centisecond.interval)
   final object fortnight extends DefaultTimeUnit("fortnight", "fn", Nil, r"2" * week.interval)
   final object planck_time extends DefaultTimeUnit("planck time", "t_p", Nil, r"5.3910632e-44") with NotExact
-
-  def getUnits: Seq[TimeUnit] =
-    Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, planck_time)
 }
-
 
 object TimeUnits{
   def s: TimeUnit = TimeUnitObjects.second
@@ -202,8 +212,10 @@ object TimeUnits{
   }
   def y: TimeUnit = TimeUnitObjects.year
   def y(a: yearAttribute): TimeUnit = yr(a)
+
   def a: TimeUnit = TimeUnitObjects.year
   def a(a: yearAttribute): TimeUnit = yr(a)
+
   def dec: TimeUnit = TimeUnitObjects.decade
   def dec(a: decadeAttribute): TimeUnit = a match { 
     case TimeAttributes.gregorian => TimeUnitObjects.`decade(gregorian)`
@@ -224,7 +236,4 @@ object TimeUnits{
   def ja: TimeUnit = TimeUnitObjects.jitty_alternative
   def fn: TimeUnit = TimeUnitObjects.fortnight
   def t_p: TimeUnit = TimeUnitObjects.planck_time
-
-  def getSIUnit: TimeUnit = TimeUnitObjects.getSIUnit
-  def getUnits: Seq[TimeUnit] = TimeUnitObjects.getUnits
 }

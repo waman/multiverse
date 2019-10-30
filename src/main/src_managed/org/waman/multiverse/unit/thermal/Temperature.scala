@@ -9,16 +9,27 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
     extends HomogeneousQuantity[A, TemperatureUnit]
 
 trait TemperatureUnit extends HomogeneousUnit[TemperatureUnit]{
-  override def getSIUnit: TemperatureUnit = TemperatureUnitObjects.getSIUnit
+  override def getSIUnit: TemperatureUnit = TemperatureUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = TemperatureUnit.dimension
 }
+
+object TemperatureUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](Θ -> 1).withDefaultValue(0)
+
+  def getSIUnit: TemperatureUnit = TemperatureUnitObjects.kelvin
+
+  import TemperatureUnitObjects._
+  def getUnits: Seq[TemperatureUnit] =
+    Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin, celsius, fahrenheit, rankine, delisle, newton, réaumur, rømer, regulo_gas_mark)
+}
+
 
 class DefaultTemperatureUnit(val name: String, val symbol: String, val aliases: Seq[String], val zero: Real, val interval: Real)
   extends TemperatureUnit
 
 object TemperatureUnitObjects{
-
-  def getSIUnit: TemperatureUnit = kelvin
-
   final object kelvin extends DefaultTemperatureUnit("kelvin", "K", Nil, r"0", r"1")
   final object yoctokelvin extends DefaultTemperatureUnit("yoctokelvin", "yK", Nil, r"0", r"1" * r"1e-24")
   final object zeptokelvin extends DefaultTemperatureUnit("zeptokelvin", "zK", Nil, r"0", r"1" * r"1e-21")
@@ -48,11 +59,7 @@ object TemperatureUnitObjects{
   final object réaumur extends DefaultTemperatureUnit("réaumur", "°Ré", Seq("degRe"), r"273.15", r"5"/r"4")
   final object rømer extends DefaultTemperatureUnit("rømer", "°Rø", Seq("degRo"), r"273.15" - r"7.5" * r"40"/r"21", r"40"/r"21")
   final object regulo_gas_mark extends DefaultTemperatureUnit("regulo gas mark", "GM", Nil, r"422.038", r"125"/r"9")
-
-  def getUnits: Seq[TemperatureUnit] =
-    Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin, celsius, fahrenheit, rankine, delisle, newton, réaumur, rømer, regulo_gas_mark)
 }
-
 
 object TemperatureUnits{
   def K: TemperatureUnit = TemperatureUnitObjects.kelvin
@@ -95,7 +102,4 @@ object TemperatureUnits{
   def `°Rø`: TemperatureUnit = TemperatureUnitObjects.rømer
   def degRo: TemperatureUnit = TemperatureUnitObjects.rømer
   def GM: TemperatureUnit = TemperatureUnitObjects.regulo_gas_mark
-
-  def getSIUnit: TemperatureUnit = TemperatureUnitObjects.getSIUnit
-  def getUnits: Seq[TemperatureUnit] = TemperatureUnitObjects.getUnits
 }

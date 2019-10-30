@@ -61,6 +61,15 @@ class VolumeSpec extends MultiverseCustomSpec {
         sut.aliases should contain theSameElementsAs expected
       }
     }
+
+    "Dimension of a cubic of a length unit should equal the dimension of volume unit" in {
+      // SetUp
+      val expected = VolumeUnit.dimension
+      // Exercise
+      val sut = ft.cubic.dimension
+      // Verify
+      sut should contain theSameElementsAs expected
+    }
   }
 
   "Quantity" - {

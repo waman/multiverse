@@ -1,5 +1,6 @@
 {
   "SIUnit":"Area * Length",
+  "dimension":{"L":3},
 
   "composites":["Area * Length"],
 

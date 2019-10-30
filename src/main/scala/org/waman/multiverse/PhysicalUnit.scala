@@ -10,6 +10,32 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   /** Return <code>this.symbol +: this.aliases </code>*/
   def symbols: Seq[String] = symbol +: aliases
   def getSIUnit: U
+  def dimension: Map[DimensionSymbol, Int]
+}
+
+sealed abstract class DimensionSymbol
+
+object DimensionSymbol{
+  final case object T extends DimensionSymbol
+  final case object L extends DimensionSymbol
+  final case object M extends DimensionSymbol
+  final case object I extends DimensionSymbol
+  final case object Θ extends DimensionSymbol
+  final case object N extends DimensionSymbol
+  final case object J extends DimensionSymbol
+
+  def values: Seq[DimensionSymbol] = Seq(T, L, M, I, Θ, N, J)
+
+  def valueOf(s: String): Option[DimensionSymbol] = s match {
+    case "T" => Some(T)
+    case "L" => Some(L)
+    case "M" => Some(M)
+    case "I" => Some(I)
+    case "Θ" => Some(Θ)
+    case "N" => Some(N)
+    case "J" => Some(J)
+    case _ => None
+  }
 }
 
 // Maybe only temperature

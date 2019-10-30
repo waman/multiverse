@@ -1,5 +1,6 @@
 {
   "SIUnit":"Length * Length",
+  "dimension":{"L":2},
 
   "composites": ["Length * Length"],
 

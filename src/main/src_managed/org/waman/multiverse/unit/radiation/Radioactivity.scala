@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.radiation
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
-           
-}
+           }
 
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
-  override def getSIUnit: RadioactivityUnit = RadioactivityUnitObjects.getSIUnit
+  override def getSIUnit: RadioactivityUnit = RadioactivityUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = RadioactivityUnit.dimension
 
 }
+
+object RadioactivityUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
+
+  def getSIUnit: RadioactivityUnit = RadioactivityUnitObjects.becquerel
+
+import RadioactivityUnitObjects._
+  def getUnits: Seq[RadioactivityUnit] =
+    Seq(becquerel, yoctobecquerel, zeptobecquerel, attobecquerel, femtobecquerel, picobecquerel, nanobecquerel, microbecquerel, millibecquerel, centibecquerel, decibecquerel, decabecquerel, hectobecquerel, kilobecquerel, megabecquerel, gigabecquerel, terabecquerel, petabecquerel, exabecquerel, zettabecquerel, yottabecquerel, curie, yoctocurie, zeptocurie, attocurie, femtocurie, picocurie, nanocurie, microcurie, millicurie, centicurie, decicurie, decacurie, hectocurie, kilocurie, megacurie, gigacurie, teracurie, petacurie, exacurie, zettacurie, yottacurie, rutherford)
+}
+
+
 
 class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends RadioactivityUnit
 
-
 object RadioactivityUnitObjects{
-
-  def getSIUnit: RadioactivityUnit = becquerel
 
   final object becquerel extends DefaultRadioactivityUnit("becquerel", "Bq", Nil, r"1")
   final object yoctobecquerel extends DefaultRadioactivityUnit("yoctobecquerel", "yBq", Nil, r"1" * r"1e-24")
@@ -69,11 +78,7 @@ object RadioactivityUnitObjects{
   final object zettacurie extends DefaultRadioactivityUnit("zettacurie", "ZCi", Nil, r"3.7e10" * r"1e21")
   final object yottacurie extends DefaultRadioactivityUnit("yottacurie", "YCi", Nil, r"3.7e10" * r"1e24")
   final object rutherford extends DefaultRadioactivityUnit("rutherford", "Rd", Nil, r"1" * megabecquerel.interval)
-
-  def getUnits: Seq[RadioactivityUnit] =
-    Seq(becquerel, yoctobecquerel, zeptobecquerel, attobecquerel, femtobecquerel, picobecquerel, nanobecquerel, microbecquerel, millibecquerel, centibecquerel, decibecquerel, decabecquerel, hectobecquerel, kilobecquerel, megabecquerel, gigabecquerel, terabecquerel, petabecquerel, exabecquerel, zettabecquerel, yottabecquerel, curie, yoctocurie, zeptocurie, attocurie, femtocurie, picocurie, nanocurie, microcurie, millicurie, centicurie, decicurie, decacurie, hectocurie, kilocurie, megacurie, gigacurie, teracurie, petacurie, exacurie, zettacurie, yottacurie, rutherford)
 }
-
 
 object RadioactivityUnits{
   def Bq: RadioactivityUnit = RadioactivityUnitObjects.becquerel
@@ -123,7 +128,4 @@ object RadioactivityUnits{
   def ZCi: RadioactivityUnit = RadioactivityUnitObjects.zettacurie
   def YCi: RadioactivityUnit = RadioactivityUnitObjects.yottacurie
   def Rd: RadioactivityUnit = RadioactivityUnitObjects.rutherford
-
-  def getSIUnit: RadioactivityUnit = RadioactivityUnitObjects.getSIUnit
-  def getUnits: Seq[RadioactivityUnit] = RadioactivityUnitObjects.getUnits
 }

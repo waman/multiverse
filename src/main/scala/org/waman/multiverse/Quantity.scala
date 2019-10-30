@@ -9,6 +9,8 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
   def value: A
   def unit: U
 
+  def dimension: Map[DimensionSymbol, Int] = unit.dimension
+
   def apply(evalUnit: U): A =
     if(unit == evalUnit) value
     else applyInDifferentUnit(evalUnit)

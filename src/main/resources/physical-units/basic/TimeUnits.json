@@ -1,5 +1,6 @@
 {
   "SIUnit":"second",
+  "dimension":{"T":1},
 
   "units":[
     {"name":"second", "symbol":"s", "aliases": ["sec"], "interval": "1", "scalePrefixes":true},

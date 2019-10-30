@@ -1,5 +1,6 @@
 {
   "SIUnit":"joule",
+  "dimension": {"M": 1, "L": 2, "T": -2},
 
   "units":[
     {"name":"joule", "symbol":"J", "interval":"1", "scalePrefixes":true},

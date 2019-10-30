@@ -4,5 +4,6 @@
   {"name": "PlanckConstant", "value": "6.62607015e-34"},
   {"name":"ElementaryCharge", "value":"1.602176634e-19"},
   {"name": "BohrRadius", "value": "5.2917721090380e-11"},
-  {"name": "BoltzmannConstant", "value": "1.380649e-23"}
+  {"name": "BoltzmannConstant", "value": "1.380649e-23"},
+  {"name": "FootSquared", "value": "0.09290304"}
 ]

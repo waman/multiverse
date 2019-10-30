@@ -68,14 +68,14 @@ class VelocitySpec extends MultiverseCustomSpec {
       // SetUp
       val expected = m/s
       // Exercise
-      val sut = VelocityUnits.getSIUnit
+      val sut = VelocityUnit.getSIUnit
       // Verify
       sut should be (expected)
     }
 
     "The getUnits method of VelocityUnits should return Seq(c, M)" in {
       // Exercise
-      val sut = VelocityUnits.getUnits
+      val sut = VelocityUnit.getUnits
       // Verify
       sut should contain theSameElementsInOrderAs Seq(c, M)
     }

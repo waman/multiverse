@@ -8,7 +8,7 @@ class AngleSpec extends MultiverseCustomSpec {
 
   "Unit" - {
 
-    "degree unit should return the proper string (in the case that the interval is an irrational value π/180)" in {
+    "The degree unit should return the proper string (in the case that the interval is an irrational value π/180)" in {
       // SetUp
       val expected = "degree (°) [1(°) = 0.0174532925...(rad)]"
       // Exercise
@@ -16,6 +16,19 @@ class AngleSpec extends MultiverseCustomSpec {
       // Verify
       sut should be (expected)
     }
+
+    "The dimension of an angle unit should be dimensionless" in {
+      // SetUp
+      import org.waman.multiverse.DimensionSymbol._
+      // Exercise
+      val sut = deg.dimension
+      // Verify
+      sut should be (empty)
+      sut(L) should be (0)
+    }
+  }
+
+  "Quantity" - {
 
     "An angle quantity with degree unit should return the proper string" in {
       // SetUp
@@ -25,9 +38,6 @@ class AngleSpec extends MultiverseCustomSpec {
       // Verify
       sut.toString should be (expected)
     }
-  }
-
-  "Quantity" - {
 
     "3.0 <<angle unit>> should be converted to the equivalent value in radian" in {
       // Exercise

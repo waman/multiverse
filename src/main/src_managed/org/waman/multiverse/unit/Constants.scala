@@ -10,4 +10,5 @@ object Constants{
   val ElementaryCharge: Real = r"1.602176634e-19"
   val BohrRadius: Real = r"5.2917721090380e-11"
   val BoltzmannConstant: Real = r"1.380649e-23"
+  val FootSquared: Real = r"0.09290304"
 }

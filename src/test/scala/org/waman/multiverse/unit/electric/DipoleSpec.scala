@@ -12,6 +12,18 @@ import org.waman.multiverse.unit.basic.LengthUnits._
 
 class DipoleSpec extends MultiverseCustomSpec {
 
+  "Unit" - {
+
+    "Dimension of a product of units should equal the dimension of the corresponding product unit" in {
+      // SetUp
+      val expected = DipoleUnit.dimension
+      // Exercise
+      val sut = (C*m).dimension
+      // Verify
+      sut should contain theSameElementsAs expected
+    }
+  }
+
   "Quantity" - {
 
     "Multipliation between quantities should work well" in {

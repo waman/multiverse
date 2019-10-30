@@ -3,33 +3,42 @@ package org.waman.multiverse.unit.basic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
     extends LinearQuantity[Mass[A], A, MassUnit] {
 
   override protected def newQuantity(value: A, unit: MassUnit): Mass[A] = new Mass(value, unit)
-           
-  def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
+             def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
 
 }
 
 trait MassUnit extends LinearUnit[MassUnit]{
-  override def getSIUnit: MassUnit = MassUnitObjects.getSIUnit
-
+  override def getSIUnit: MassUnit = MassUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = MassUnit.dimension
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
     new QuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
+
 }
+
+object MassUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](M -> 1).withDefaultValue(0)
+
+  def getSIUnit: MassUnit = MassUnitObjects.kilogram
+
+import MassUnitObjects._
+  def getUnits: Seq[MassUnit] =
+    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal)
+}
+
+
 
 class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends MassUnit
 
-
 object MassUnitObjects{
-
-  def getSIUnit: MassUnit = kilogram
 
   final object kilogram extends DefaultMassUnit("kilogram", "kg", Seq("Kg"), r"1")
   final object gram extends DefaultMassUnit("gram", "g", Nil, r"1e-3")
@@ -56,11 +65,7 @@ object MassUnitObjects{
   final object grave extends DefaultMassUnit("grave", "gv", Nil, r"1")
   final object gamma extends DefaultMassUnit("gamma", "γ", Nil, r"1" * microgram.interval)
   final object quintal extends DefaultMassUnit("quintal", "q", Nil, r"100" * kilogram.interval)
-
-  def getUnits: Seq[MassUnit] =
-    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal)
 }
-
 
 object MassUnits{
   def kg: MassUnit = MassUnitObjects.kilogram
@@ -90,7 +95,4 @@ object MassUnits{
   def gv: MassUnit = MassUnitObjects.grave
   def γ: MassUnit = MassUnitObjects.gamma
   def q: MassUnit = MassUnitObjects.quintal
-
-  def getSIUnit: MassUnit = MassUnitObjects.getSIUnit
-  def getUnits: Seq[MassUnit] = MassUnitObjects.getUnits
 }

@@ -3,10 +3,10 @@ package org.waman.multiverse.unit.mechanics
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.electric.Current
 import org.waman.multiverse.unit.electric.CurrentUnit
+
 import org.waman.multiverse.unit.electric.Voltage
 import org.waman.multiverse.unit.electric.VoltageUnit
 
@@ -14,26 +14,37 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
 
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
-           
-  def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
+             def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
 
 }
 
 trait PowerUnit extends LinearUnit[PowerUnit]{
-  override def getSIUnit: PowerUnit = PowerUnitObjects.getSIUnit
-
+  override def getSIUnit: PowerUnit = PowerUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = PowerUnit.dimension
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
     new QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
+
 }
+
+object PowerUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -3, M -> 1, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: PowerUnit = PowerUnitObjects.watt
+
+import PowerUnitObjects._
+  def getUnits: Seq[PowerUnit] =
+    Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
+}
+
+
 
 class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends PowerUnit
 
-
 object PowerUnitObjects{
-
-  def getSIUnit: PowerUnit = watt
 
   final object watt extends DefaultPowerUnit("watt", "W", Nil, r"1")
   final object yoctowatt extends DefaultPowerUnit("yoctowatt", "yW", Nil, r"1" * r"1e-24")
@@ -56,11 +67,7 @@ object PowerUnitObjects{
   final object exawatt extends DefaultPowerUnit("exawatt", "EW", Nil, r"1" * r"1e18")
   final object zettawatt extends DefaultPowerUnit("zettawatt", "ZW", Nil, r"1" * r"1e21")
   final object yottawatt extends DefaultPowerUnit("yottawatt", "YW", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[PowerUnit] =
-    Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
 }
-
 
 object PowerUnits{
   def W: PowerUnit = PowerUnitObjects.watt
@@ -86,7 +93,4 @@ object PowerUnits{
   def EW: PowerUnit = PowerUnitObjects.exawatt
   def ZW: PowerUnit = PowerUnitObjects.zettawatt
   def YW: PowerUnit = PowerUnitObjects.yottawatt
-
-  def getSIUnit: PowerUnit = PowerUnitObjects.getSIUnit
-  def getUnits: Seq[PowerUnit] = PowerUnitObjects.getUnits
 }

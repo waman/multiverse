@@ -1,5 +1,6 @@
 {
   "SIUnit":"sievert",
+  "dimension": {"L": 2, "T": -2},
 
   "units":[
     {"name":"sievert", "symbol":"Sv", "interval":"1", "scalePrefixes":true},

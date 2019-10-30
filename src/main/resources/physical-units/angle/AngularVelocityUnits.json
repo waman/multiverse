@@ -1,5 +1,6 @@
 {
   "SIUnit":"Angle / Time",
+  "dimension": {"T":-1},
 
   "composites":["Angle / Time"],
 

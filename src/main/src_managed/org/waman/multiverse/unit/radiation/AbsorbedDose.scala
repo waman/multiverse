@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.radiation
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
     extends LinearQuantity[AbsorbedDose[A], A, AbsorbedDoseUnit] {
 
   override protected def newQuantity(value: A, unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
-           
-}
+           }
 
 trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{
-  override def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.getSIUnit
+  override def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = AbsorbedDoseUnit.dimension
 
 }
+
+object AbsorbedDoseUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -2, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gray
+
+import AbsorbedDoseUnitObjects._
+  def getUnits: Seq[AbsorbedDoseUnit] =
+    Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray)
+}
+
+
 
 class DefaultAbsorbedDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AbsorbedDoseUnit
 
-
 object AbsorbedDoseUnitObjects{
-
-  def getSIUnit: AbsorbedDoseUnit = gray
 
   final object gray extends DefaultAbsorbedDoseUnit("gray", "Gy", Nil, r"1")
   final object yoctogray extends DefaultAbsorbedDoseUnit("yoctogray", "yGy", Nil, r"1" * r"1e-24")
@@ -47,11 +56,7 @@ object AbsorbedDoseUnitObjects{
   final object exagray extends DefaultAbsorbedDoseUnit("exagray", "EGy", Nil, r"1" * r"1e18")
   final object zettagray extends DefaultAbsorbedDoseUnit("zettagray", "ZGy", Nil, r"1" * r"1e21")
   final object yottagray extends DefaultAbsorbedDoseUnit("yottagray", "YGy", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[AbsorbedDoseUnit] =
-    Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray)
 }
-
 
 object AbsorbedDoseUnits{
   def Gy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gray
@@ -77,7 +82,4 @@ object AbsorbedDoseUnits{
   def EGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.exagray
   def ZGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zettagray
   def YGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yottagray
-
-  def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.getSIUnit
-  def getUnits: Seq[AbsorbedDoseUnit] = AbsorbedDoseUnitObjects.getUnits
 }

@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,26 +11,37 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
     extends LinearQuantity[Current[A], A, CurrentUnit] {
 
   override protected def newQuantity(value: A, unit: CurrentUnit): Current[A] = new Current(value, unit)
-           
-  def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
+             def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
 
 }
 
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
-  override def getSIUnit: CurrentUnit = CurrentUnitObjects.getSIUnit
-
+  override def getSIUnit: CurrentUnit = CurrentUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = CurrentUnit.dimension
 
   def *(timeUnit: TimeUnit): ChargeUnit =
     new ProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
+
 }
+
+object CurrentUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](I -> 1).withDefaultValue(0)
+
+  def getSIUnit: CurrentUnit = CurrentUnitObjects.ampere
+
+import CurrentUnitObjects._
+  def getUnits: Seq[CurrentUnit] =
+    Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere)
+}
+
+
 
 class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends CurrentUnit
 
-
 object CurrentUnitObjects{
-
-  def getSIUnit: CurrentUnit = ampere
 
   final object ampere extends DefaultCurrentUnit("ampere", "A", Nil, r"1")
   final object yoctoampere extends DefaultCurrentUnit("yoctoampere", "yA", Nil, r"1" * r"1e-24")
@@ -55,11 +65,7 @@ object CurrentUnitObjects{
   final object zettaampere extends DefaultCurrentUnit("zettaampere", "ZA", Nil, r"1" * r"1e21")
   final object yottaampere extends DefaultCurrentUnit("yottaampere", "YA", Nil, r"1" * r"1e24")
   final object abampere extends DefaultCurrentUnit("abampere", "abamp", Nil, r"10")
-
-  def getUnits: Seq[CurrentUnit] =
-    Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere)
 }
-
 
 object CurrentUnits{
   def A: CurrentUnit = CurrentUnitObjects.ampere
@@ -86,7 +92,4 @@ object CurrentUnits{
   def ZA: CurrentUnit = CurrentUnitObjects.zettaampere
   def YA: CurrentUnit = CurrentUnitObjects.yottaampere
   def abamp: CurrentUnit = CurrentUnitObjects.abampere
-
-  def getSIUnit: CurrentUnit = CurrentUnitObjects.getSIUnit
-  def getUnits: Seq[CurrentUnit] = CurrentUnitObjects.getUnits
 }

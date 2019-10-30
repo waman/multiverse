@@ -1,5 +1,6 @@
 {
   "SIUnit":"Mass / Volume",
+  "dimension":{"M":1, "L": -3},
 
   "composites":["Mass / Volume"],
 

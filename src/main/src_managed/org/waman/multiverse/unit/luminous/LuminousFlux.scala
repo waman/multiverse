@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.luminous
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
@@ -12,26 +11,37 @@ class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
     extends LinearQuantity[LuminousFlux[A], A, LuminousFluxUnit] {
 
   override protected def newQuantity(value: A, unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
-           
-  def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
+             def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
 
 }
 
 trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
-  override def getSIUnit: LuminousFluxUnit = LuminousFluxUnitObjects.getSIUnit
-
+  override def getSIUnit: LuminousFluxUnit = LuminousFluxUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = LuminousFluxUnit.dimension
 
   def /(areaUnit: AreaUnit): IlluminanceUnit =
     new QuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit](LuminousFluxUnit.this, areaUnit) with IlluminanceUnit
+
 }
+
+object LuminousFluxUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](J -> 1).withDefaultValue(0)
+
+  def getSIUnit: LuminousFluxUnit = LuminousFluxUnitObjects.lumen
+
+import LuminousFluxUnitObjects._
+  def getUnits: Seq[LuminousFluxUnit] =
+    Seq(lumen, yoctolumen, zeptolumen, attolumen, femtolumen, picolumen, nanolumen, microlumen, millilumen, centilumen, decilumen, decalumen, hectolumen, kilolumen, megalumen, gigalumen, teralumen, petalumen, exalumen, zettalumen, yottalumen)
+}
+
+
 
 class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminousFluxUnit
 
-
 object LuminousFluxUnitObjects{
-
-  def getSIUnit: LuminousFluxUnit = lumen
 
   final object lumen extends DefaultLuminousFluxUnit("lumen", "lm", Nil, r"1")
   final object yoctolumen extends DefaultLuminousFluxUnit("yoctolumen", "ylm", Nil, r"1" * r"1e-24")
@@ -54,11 +64,7 @@ object LuminousFluxUnitObjects{
   final object exalumen extends DefaultLuminousFluxUnit("exalumen", "Elm", Nil, r"1" * r"1e18")
   final object zettalumen extends DefaultLuminousFluxUnit("zettalumen", "Zlm", Nil, r"1" * r"1e21")
   final object yottalumen extends DefaultLuminousFluxUnit("yottalumen", "Ylm", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[LuminousFluxUnit] =
-    Seq(lumen, yoctolumen, zeptolumen, attolumen, femtolumen, picolumen, nanolumen, microlumen, millilumen, centilumen, decilumen, decalumen, hectolumen, kilolumen, megalumen, gigalumen, teralumen, petalumen, exalumen, zettalumen, yottalumen)
 }
-
 
 object LuminousFluxUnits{
   def lm: LuminousFluxUnit = LuminousFluxUnitObjects.lumen
@@ -84,7 +90,4 @@ object LuminousFluxUnits{
   def Elm: LuminousFluxUnit = LuminousFluxUnitObjects.exalumen
   def Zlm: LuminousFluxUnit = LuminousFluxUnitObjects.zettalumen
   def Ylm: LuminousFluxUnit = LuminousFluxUnitObjects.yottalumen
-
-  def getSIUnit: LuminousFluxUnit = LuminousFluxUnitObjects.getSIUnit
-  def getUnits: Seq[LuminousFluxUnit] = LuminousFluxUnitObjects.getUnits
 }

@@ -1,5 +1,6 @@
 {
   "SIUnit":"steradian",
+  "dimension": {},
 
   "units":[
     {"name":"steradian", "symbol":"sr", "interval":"1", "scalePrefixes":true,

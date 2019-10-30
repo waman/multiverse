@@ -63,6 +63,9 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
 
   override val interval: Real = firstUnit.interval * secondUnit.interval
 
+  override def dimension: Map[DimensionSymbol, Int] =
+    DimensionSymbol.values.map(s => (s, firstUnit.dimension(s) + secondUnit.dimension(s))).toMap
+
   override def equals(other: Any): Boolean = other match {
     case that: ProductUnit[_, _, _] =>
       (that canEqual this) &&
@@ -85,6 +88,7 @@ class PUnit[A <: LinearUnit[A], B <: LinearUnit[B]](firstUnit: A, secondUnit: B)
   extends ProductUnit[PUnit[A, B], A, B](firstUnit, secondUnit){ this: PUnit[A, B] =>
 
   override def getSIUnit: PUnit[A, B] = this.firstUnit.getSIUnit * this.secondUnit.getSIUnit
+  override lazy val dimension: Map[DimensionSymbol, Int] = super.dimension.filter(_._2 != 0).withDefaultValue(0)
 }
 
 abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
@@ -102,6 +106,9 @@ abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearU
     denominatorUnit.symbols.flatMap(d => numeratorUnit.symbols.map(n => s"$n/$d")).tail
 
   override val interval: Real = numeratorUnit.interval / denominatorUnit.interval
+
+  override def dimension: Map[DimensionSymbol, Int] =
+    DimensionSymbol.values.map(s => (s, numeratorUnit.dimension(s) - denominatorUnit.dimension(s))).toMap
 
   override def equals(other: Any): Boolean = other match {
     case that: QuotientUnit[_, _, _] =>
@@ -125,4 +132,5 @@ class QUnit[A <: LinearUnit[A], B <: LinearUnit[B]](numeratorUnit: A, denominato
   extends QuotientUnit[QUnit[A, B], A, B](numeratorUnit, denominatorUnit){ this: QUnit[A, B] =>
 
   override def getSIUnit: QUnit[A, B] = this.numeratorUnit.getSIUnit / this.denominatorUnit.getSIUnit
+  override lazy val dimension: Map[DimensionSymbol, Int] = super.dimension.filter(_._2 != 0).withDefaultValue(0)
 }

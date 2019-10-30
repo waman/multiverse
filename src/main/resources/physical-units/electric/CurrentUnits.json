@@ -1,5 +1,6 @@
 {
   "SIUnit":"ampere",
+  "dimension":{"I":1},
 
   "composites": ["Charge / Time"],
 

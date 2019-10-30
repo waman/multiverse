@@ -11,9 +11,9 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
 
     "All of s2, s*s, and s.square should return equivalent objects" in {
       s2 should equal (s*s)
-      s2 should equal (s.square)
+      s2 should equal (s.squared)
 
-      ms*ms should equal (ms.square)
+      ms*ms should equal (ms.squared)
     }
 
     "The name property of TimeSquared unit object should return the proper string" in {
@@ -60,6 +60,15 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
         sut.aliases should contain theSameElementsAs expected
       }
     }
+
+    "Dimension of a square of a time unit should equal the dimension of TimeSquared unit" in {
+      // SetUp
+      val expected = TimeSquaredUnit.dimension
+      // Exercise
+      val sut = ms.squared.dimension
+      // Verify
+      sut should contain theSameElementsAs expected
+    }
   }
 
   "Quantity" - {
@@ -71,9 +80,9 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
           ("time squared", "expected"),
           (3.0(s2) , 3.0),
           (3.0(s*s), 3.0),
-          (3.0(s.square), 3.0),
+          (3.0(s.squared), 3.0),
           (3.0(ms*ms), 3.0*0.000001),
-          (3.0(ms.square), 3.0*0.000001),
+          (3.0(ms.squared), 3.0*0.000001),
           (3.0(s*ms), 3.0*0.001)
         )
       // Verify
@@ -105,7 +114,7 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
       val expected = 9(ms2)
       val time = 3(ms)
       // Exercise
-      val sut = time.square
+      val sut = time.squared
       // Verify
       sut should equal (expected)
     }
@@ -115,7 +124,7 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
 
     "second_squared should have the proper symbol and some aliases" in {
       // SetUp
-      val expected = s.square
+      val expected = s.squared
       // Exercise
       val conversions =
         Table(
@@ -134,7 +143,7 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
 
     "microsecond_squared should have the proper symbol and some aliases" in {
       // SetUp
-      val expected = mcs.square
+      val expected = mcs.squared
       // Exercise
       val conversions =
         Table(

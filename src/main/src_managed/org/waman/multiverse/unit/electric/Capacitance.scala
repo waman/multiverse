@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.electric
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
     extends LinearQuantity[Capacitance[A], A, CapacitanceUnit] {
 
   override protected def newQuantity(value: A, unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
-           
-}
+           }
 
 trait CapacitanceUnit extends LinearUnit[CapacitanceUnit]{
-  override def getSIUnit: CapacitanceUnit = CapacitanceUnitObjects.getSIUnit
+  override def getSIUnit: CapacitanceUnit = CapacitanceUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = CapacitanceUnit.dimension
 
 }
+
+object CapacitanceUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> 4, M -> -1, I -> 2, L -> -2).withDefaultValue(0)
+
+  def getSIUnit: CapacitanceUnit = CapacitanceUnitObjects.farad
+
+import CapacitanceUnitObjects._
+  def getUnits: Seq[CapacitanceUnit] =
+    Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad)
+}
+
+
 
 class DefaultCapacitanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends CapacitanceUnit
 
-
 object CapacitanceUnitObjects{
-
-  def getSIUnit: CapacitanceUnit = farad
 
   final object farad extends DefaultCapacitanceUnit("farad", "F", Nil, r"1")
   final object yoctofarad extends DefaultCapacitanceUnit("yoctofarad", "yF", Nil, r"1" * r"1e-24")
@@ -47,11 +56,7 @@ object CapacitanceUnitObjects{
   final object exafarad extends DefaultCapacitanceUnit("exafarad", "EF", Nil, r"1" * r"1e18")
   final object zettafarad extends DefaultCapacitanceUnit("zettafarad", "ZF", Nil, r"1" * r"1e21")
   final object yottafarad extends DefaultCapacitanceUnit("yottafarad", "YF", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[CapacitanceUnit] =
-    Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad)
 }
-
 
 object CapacitanceUnits{
   def F: CapacitanceUnit = CapacitanceUnitObjects.farad
@@ -77,7 +82,4 @@ object CapacitanceUnits{
   def EF: CapacitanceUnit = CapacitanceUnitObjects.exafarad
   def ZF: CapacitanceUnit = CapacitanceUnitObjects.zettafarad
   def YF: CapacitanceUnit = CapacitanceUnitObjects.yottafarad
-
-  def getSIUnit: CapacitanceUnit = CapacitanceUnitObjects.getSIUnit
-  def getUnits: Seq[CapacitanceUnit] = CapacitanceUnitObjects.getUnits
 }

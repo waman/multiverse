@@ -1,5 +1,6 @@
 {
   "SIUnit":"coulomb",
+  "dimension":{"T":1, "I":1},
 
   "composites": ["Current * Time"],
 

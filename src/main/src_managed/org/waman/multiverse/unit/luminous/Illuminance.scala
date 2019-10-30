@@ -3,28 +3,38 @@ package org.waman.multiverse.unit.luminous
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Illuminance[A: Fractional](val value: A, val unit: IlluminanceUnit)
     extends LinearQuantity[Illuminance[A], A, IlluminanceUnit] {
 
   override protected def newQuantity(value: A, unit: IlluminanceUnit): Illuminance[A] = new Illuminance(value, unit)
-           
-}
+           }
 
 trait IlluminanceUnit extends LinearUnit[IlluminanceUnit]{
-  override def getSIUnit: IlluminanceUnit = IlluminanceUnitObjects.getSIUnit
+  override def getSIUnit: IlluminanceUnit = IlluminanceUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = IlluminanceUnit.dimension
 
 }
+
+object IlluminanceUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](J -> 1, L -> -2).withDefaultValue(0)
+
+  def getSIUnit: IlluminanceUnit = IlluminanceUnitObjects.lux
+
+import IlluminanceUnitObjects._
+  def getUnits: Seq[IlluminanceUnit] =
+    Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot, foot_candle)
+}
+
+
 
 class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends IlluminanceUnit
 
-
 object IlluminanceUnitObjects{
-
-  def getSIUnit: IlluminanceUnit = lux
+  import org.waman.multiverse.unit.Constants
 
   final object lux extends DefaultIlluminanceUnit("lux", "lx", Nil, r"1")
   final object yoctolux extends DefaultIlluminanceUnit("yoctolux", "ylx", Nil, r"1" * r"1e-24")
@@ -48,12 +58,8 @@ object IlluminanceUnitObjects{
   final object zettalux extends DefaultIlluminanceUnit("zettalux", "Zlx", Nil, r"1" * r"1e21")
   final object yottalux extends DefaultIlluminanceUnit("yottalux", "Ylx", Nil, r"1" * r"1e24")
   final object phot extends DefaultIlluminanceUnit("phot", "ph", Nil, r"1e4")
-  final object foot_candle extends DefaultIlluminanceUnit("foot candle", "fc", Nil, r"1"/((r"12"*r"2.54"*r"0.01")*(r"12"*r"2.54"*r"0.01")))
-
-  def getUnits: Seq[IlluminanceUnit] =
-    Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot, foot_candle)
+  final object foot_candle extends DefaultIlluminanceUnit("foot candle", "fc", Nil, r"1"/Constants.FootSquared)
 }
-
 
 object IlluminanceUnits{
   def lx: IlluminanceUnit = IlluminanceUnitObjects.lux
@@ -81,7 +87,4 @@ object IlluminanceUnits{
   def Ylx: IlluminanceUnit = IlluminanceUnitObjects.yottalux
   def ph: IlluminanceUnit = IlluminanceUnitObjects.phot
   def fc: IlluminanceUnit = IlluminanceUnitObjects.foot_candle
-
-  def getSIUnit: IlluminanceUnit = IlluminanceUnitObjects.getSIUnit
-  def getUnits: Seq[IlluminanceUnit] = IlluminanceUnitObjects.getUnits
 }

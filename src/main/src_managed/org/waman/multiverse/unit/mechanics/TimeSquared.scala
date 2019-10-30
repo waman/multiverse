@@ -2,46 +2,52 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-
 import org.waman.multiverse._
-
 class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
     extends LinearQuantity[TimeSquared[A], A, TimeSquaredUnit] {
 
   override protected def newQuantity(value: A, unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
-           
-}
+           }
 
 trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit]{
-  override def getSIUnit: TimeSquaredUnit = TimeSquaredUnitObjects.getSIUnit
+  override def getSIUnit: TimeSquaredUnit = TimeSquaredUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = TimeSquaredUnit.dimension
 
 }
 
-class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends TimeSquaredUnit
+object TimeSquaredUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> 2).withDefaultValue(0)
 
+  import org.waman.multiverse.unit.basic.TimeUnit
+  val getSIUnit: TimeSquaredUnit = TimeUnit.getSIUnit * TimeUnit.getSIUnit
 
-object TimeSquaredUnitObjects{
-  import org.waman.multiverse.unit.basic.TimeUnitObjects
-
-  val getSIUnit: TimeSquaredUnit = TimeUnitObjects.getSIUnit * TimeUnitObjects.getSIUnit
-
-  val second_squared: TimeSquaredUnit = TimeUnitObjects.second.square
-  val yoctosecond_squared: TimeSquaredUnit = TimeUnitObjects.yoctosecond.square
-  val zeptosecond_squared: TimeSquaredUnit = TimeUnitObjects.zeptosecond.square
-  val attosecond_squared: TimeSquaredUnit = TimeUnitObjects.attosecond.square
-  val femtosecond_squared: TimeSquaredUnit = TimeUnitObjects.femtosecond.square
-  val picosecond_squared: TimeSquaredUnit = TimeUnitObjects.picosecond.square
-  val nanosecond_squared: TimeSquaredUnit = TimeUnitObjects.nanosecond.square
-  val microsecond_squared: TimeSquaredUnit = TimeUnitObjects.microsecond.square
-  val millisecond_squared: TimeSquaredUnit = TimeUnitObjects.millisecond.square
-  val centisecond_squared: TimeSquaredUnit = TimeUnitObjects.centisecond.square
-  val decisecond_squared: TimeSquaredUnit = TimeUnitObjects.decisecond.square
-
+import TimeSquaredUnitObjects._
   def getUnits: Seq[TimeSquaredUnit] =
     Seq(second_squared, yoctosecond_squared, zeptosecond_squared, attosecond_squared, femtosecond_squared, picosecond_squared, nanosecond_squared, microsecond_squared, millisecond_squared, centisecond_squared, decisecond_squared)
 }
 
+
+
+class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends TimeSquaredUnit
+
+object TimeSquaredUnitObjects{
+  import org.waman.multiverse.unit.basic.TimeUnitObjects
+
+  val second_squared: TimeSquaredUnit = TimeUnitObjects.second.squared
+  val yoctosecond_squared: TimeSquaredUnit = TimeUnitObjects.yoctosecond.squared
+  val zeptosecond_squared: TimeSquaredUnit = TimeUnitObjects.zeptosecond.squared
+  val attosecond_squared: TimeSquaredUnit = TimeUnitObjects.attosecond.squared
+  val femtosecond_squared: TimeSquaredUnit = TimeUnitObjects.femtosecond.squared
+  val picosecond_squared: TimeSquaredUnit = TimeUnitObjects.picosecond.squared
+  val nanosecond_squared: TimeSquaredUnit = TimeUnitObjects.nanosecond.squared
+  val microsecond_squared: TimeSquaredUnit = TimeUnitObjects.microsecond.squared
+  val millisecond_squared: TimeSquaredUnit = TimeUnitObjects.millisecond.squared
+  val centisecond_squared: TimeSquaredUnit = TimeUnitObjects.centisecond.squared
+  val decisecond_squared: TimeSquaredUnit = TimeUnitObjects.decisecond.squared
+}
 
 object TimeSquaredUnits{
   def `s²`: TimeSquaredUnit = TimeSquaredUnitObjects.second_squared
@@ -92,7 +98,4 @@ object TimeSquaredUnits{
   def ds2: TimeSquaredUnit = TimeSquaredUnitObjects.decisecond_squared
   def `dsec²`: TimeSquaredUnit = TimeSquaredUnitObjects.decisecond_squared
   def dsec2: TimeSquaredUnit = TimeSquaredUnitObjects.decisecond_squared
-
-  def getSIUnit: TimeSquaredUnit = TimeSquaredUnitObjects.getSIUnit
-  def getUnits: Seq[TimeSquaredUnit] = TimeSquaredUnitObjects.getUnits
 }

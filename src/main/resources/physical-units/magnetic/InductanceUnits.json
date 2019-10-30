@@ -1,5 +1,6 @@
 {
   "SIUnit":"henry",
+  "dimension":  {"M": 1, "L": 2, "T": -2, "I": -2},
 
   "composites": ["Flux /Current "],
 

@@ -1,5 +1,6 @@
 {
   "SIUnit":"kilogram",
+  "dimension":{"M":1},
 
   "units":[
     {"name":"kilogram", "symbol":"kg", "aliases": ["Kg"], "interval":"1"},

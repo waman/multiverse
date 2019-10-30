@@ -3,30 +3,37 @@ package org.waman.multiverse.unit.angle
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
     extends LinearQuantity[SolidAngle[A], A, SolidAngleUnit] {
 
   override protected def newQuantity(value: A, unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
-           
-}
+           }
 
 trait SolidAngleUnit extends LinearUnit[SolidAngleUnit]{
-  override def getSIUnit: SolidAngleUnit = SolidAngleUnitObjects.getSIUnit
+  override def getSIUnit: SolidAngleUnit = SolidAngleUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = SolidAngleUnit.dimension
 
 }
+
+object SolidAngleUnit{
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int]().withDefaultValue(0)
+
+  def getSIUnit: SolidAngleUnit = SolidAngleUnitObjects.steradian
+
+import SolidAngleUnitObjects._
+  def getUnits: Seq[SolidAngleUnit] =
+    Seq(steradian, yoctosteradian, zeptosteradian, attosteradian, femtosteradian, picosteradian, nanosteradian, microsteradian, millisteradian, centisteradian, decisteradian, decasteradian, spat, square_degree)
+}
+
+
 
 class DefaultSolidAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends SolidAngleUnit
 
-
 object SolidAngleUnitObjects{
   import org.waman.multiverse.unit.Constants
-
-
-  def getSIUnit: SolidAngleUnit = steradian
 
   final object steradian extends DefaultSolidAngleUnit("steradian", "sr", Nil, r"1")
   final object yoctosteradian extends DefaultSolidAngleUnit("yoctosteradian", "ysr", Nil, r"1" * r"1e-24")
@@ -42,11 +49,7 @@ object SolidAngleUnitObjects{
   final object decasteradian extends DefaultSolidAngleUnit("decasteradian", "dasr", Nil, r"1" * r"1e1")
   final object spat extends DefaultSolidAngleUnit("spat", "spat", Nil, r"4" * Constants.Pi * steradian.interval)
   final object square_degree extends DefaultSolidAngleUnit("square degree", "deg²", Seq("deg2"), (r"2" * Constants.Pi / r"360")*(r"2" * Constants.Pi / r"360"))
-
-  def getUnits: Seq[SolidAngleUnit] =
-    Seq(steradian, yoctosteradian, zeptosteradian, attosteradian, femtosteradian, picosteradian, nanosteradian, microsteradian, millisteradian, centisteradian, decisteradian, decasteradian, spat, square_degree)
 }
-
 
 object SolidAngleUnits{
   def sr: SolidAngleUnit = SolidAngleUnitObjects.steradian
@@ -65,7 +68,4 @@ object SolidAngleUnits{
   def spat: SolidAngleUnit = SolidAngleUnitObjects.spat
   def `deg²`: SolidAngleUnit = SolidAngleUnitObjects.square_degree
   def deg2: SolidAngleUnit = SolidAngleUnitObjects.square_degree
-
-  def getSIUnit: SolidAngleUnit = SolidAngleUnitObjects.getSIUnit
-  def getUnits: Seq[SolidAngleUnit] = SolidAngleUnitObjects.getUnits
 }

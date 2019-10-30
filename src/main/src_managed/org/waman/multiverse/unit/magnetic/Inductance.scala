@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.magnetic
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
     extends LinearQuantity[Inductance[A], A, InductanceUnit] {
 
   override protected def newQuantity(value: A, unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
-           
-}
+           }
 
 trait InductanceUnit extends LinearUnit[InductanceUnit]{
-  override def getSIUnit: InductanceUnit = InductanceUnitObjects.getSIUnit
+  override def getSIUnit: InductanceUnit = InductanceUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = InductanceUnit.dimension
 
 }
+
+object InductanceUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -2, M -> 1, I -> -2, L -> 2).withDefaultValue(0)
+
+  def getSIUnit: InductanceUnit = InductanceUnitObjects.henry
+
+import InductanceUnitObjects._
+  def getUnits: Seq[InductanceUnit] =
+    Seq(henry, yoctohenry, zeptohenry, attohenry, femtohenry, picohenry, nanohenry, microhenry, millihenry, centihenry, decihenry, decahenry, hectohenry, kilohenry, megahenry, gigahenry, terahenry, petahenry, exahenry, zettahenry, yottahenry)
+}
+
+
 
 class DefaultInductanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends InductanceUnit
 
-
 object InductanceUnitObjects{
-
-  def getSIUnit: InductanceUnit = henry
 
   final object henry extends DefaultInductanceUnit("henry", "H", Nil, r"1")
   final object yoctohenry extends DefaultInductanceUnit("yoctohenry", "yH", Nil, r"1" * r"1e-24")
@@ -47,11 +56,7 @@ object InductanceUnitObjects{
   final object exahenry extends DefaultInductanceUnit("exahenry", "EH", Nil, r"1" * r"1e18")
   final object zettahenry extends DefaultInductanceUnit("zettahenry", "ZH", Nil, r"1" * r"1e21")
   final object yottahenry extends DefaultInductanceUnit("yottahenry", "YH", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[InductanceUnit] =
-    Seq(henry, yoctohenry, zeptohenry, attohenry, femtohenry, picohenry, nanohenry, microhenry, millihenry, centihenry, decihenry, decahenry, hectohenry, kilohenry, megahenry, gigahenry, terahenry, petahenry, exahenry, zettahenry, yottahenry)
 }
-
 
 object InductanceUnits{
   def H: InductanceUnit = InductanceUnitObjects.henry
@@ -77,7 +82,4 @@ object InductanceUnits{
   def EH: InductanceUnit = InductanceUnitObjects.exahenry
   def ZH: InductanceUnit = InductanceUnitObjects.zettahenry
   def YH: InductanceUnit = InductanceUnitObjects.yottahenry
-
-  def getSIUnit: InductanceUnit = InductanceUnitObjects.getSIUnit
-  def getUnits: Seq[InductanceUnit] = InductanceUnitObjects.getUnits
 }

@@ -1,5 +1,6 @@
 {
   "SIUnit":"Energy / AbsoluteTemperature",
+  "dimension": {"M":1, "L":2, "T":-2, "Θ": -1},
 
   "composites":["Energy / AbsoluteTemperature"],
 

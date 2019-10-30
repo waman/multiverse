@@ -3,31 +3,39 @@ package org.waman.multiverse.unit.thermal
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class Entropy[A: Fractional](val value: A, val unit: EntropyUnit)
     extends LinearQuantity[Entropy[A], A, EntropyUnit] {
 
   override protected def newQuantity(value: A, unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
-           
-}
+           }
 
 trait EntropyUnit extends LinearUnit[EntropyUnit]{
-  override def getSIUnit: EntropyUnit = EntropyUnitObjects.getSIUnit
+  override def getSIUnit: EntropyUnit = EntropyUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = EntropyUnit.dimension
 
 }
+
+object EntropyUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](T -> -2, Θ -> -1, M -> 1, L -> 2).withDefaultValue(0)
+
+  import org.waman.multiverse.unit.mechanics.EnergyUnit
+  val getSIUnit: EntropyUnit = EnergyUnit.getSIUnit / AbsoluteTemperatureUnit.getSIUnit
+
+import EntropyUnitObjects._
+  def getUnits: Seq[EntropyUnit] =
+    Seq(nat, bit, ban, byte, decabyte, hectobyte, kilobyte, megabyte, gigabyte, terabyte, petabyte, exabyte, zettabyte, yottabyte, kibibyte, mebibyte, gibibyte, tebibyte, pebibyte, exbibyte, zebibyte, yobibyte)
+}
+
+
 
 class DefaultEntropyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends EntropyUnit
 
-
 object EntropyUnitObjects{
   import org.waman.multiverse.unit.Constants
-
-  import org.waman.multiverse.unit.mechanics.EnergyUnitObjects
-
-  val getSIUnit: EntropyUnit = EnergyUnitObjects.getSIUnit / AbsoluteTemperatureUnitObjects.getSIUnit
 
   final object nat extends DefaultEntropyUnit("nat", "nat", Nil, Constants.BoltzmannConstant)
   final object bit extends DefaultEntropyUnit("bit", "bit", Nil, Real(2).log() * nat.interval)
@@ -51,11 +59,7 @@ object EntropyUnitObjects{
   final object exbibyte extends DefaultEntropyUnit("exbibyte", "EiB", Nil, r"1024" * pebibyte.interval)
   final object zebibyte extends DefaultEntropyUnit("zebibyte", "ZiB", Nil, r"1024" * exbibyte.interval)
   final object yobibyte extends DefaultEntropyUnit("yobibyte", "YiB", Nil, r"1024" * zebibyte.interval)
-
-  def getUnits: Seq[EntropyUnit] =
-    Seq(nat, bit, ban, byte, decabyte, hectobyte, kilobyte, megabyte, gigabyte, terabyte, petabyte, exabyte, zettabyte, yottabyte, kibibyte, mebibyte, gibibyte, tebibyte, pebibyte, exbibyte, zebibyte, yobibyte)
 }
-
 
 object EntropyUnits{
   def nat: EntropyUnit = EntropyUnitObjects.nat
@@ -81,7 +85,4 @@ object EntropyUnits{
   def EiB: EntropyUnit = EntropyUnitObjects.exbibyte
   def ZiB: EntropyUnit = EntropyUnitObjects.zebibyte
   def YiB: EntropyUnit = EntropyUnitObjects.yobibyte
-
-  def getSIUnit: EntropyUnit = EntropyUnitObjects.getSIUnit
-  def getUnits: Seq[EntropyUnit] = EntropyUnitObjects.getUnits
 }

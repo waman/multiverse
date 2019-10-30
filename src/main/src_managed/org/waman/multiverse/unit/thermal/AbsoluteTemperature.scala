@@ -3,28 +3,37 @@ package org.waman.multiverse.unit.thermal
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
-
 import org.waman.multiverse._
-
 class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTemperatureUnit)
     extends LinearQuantity[AbsoluteTemperature[A], A, AbsoluteTemperatureUnit] {
 
   override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
-           
-}
+           }
 
 trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{
-  override def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.getSIUnit
+  override def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnit.getSIUnit
+  override def dimension: Map[DimensionSymbol, Int] = AbsoluteTemperatureUnit.dimension
 
 }
+
+object AbsoluteTemperatureUnit{
+  import DimensionSymbol._
+  val dimension: Map[DimensionSymbol, Int] =
+    Map[DimensionSymbol, Int](Θ -> 1).withDefaultValue(0)
+
+  def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kelvin
+
+import AbsoluteTemperatureUnitObjects._
+  def getUnits: Seq[AbsoluteTemperatureUnit] =
+    Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin)
+}
+
+
 
 class DefaultAbsoluteTemperatureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AbsoluteTemperatureUnit
 
-
 object AbsoluteTemperatureUnitObjects{
-
-  def getSIUnit: AbsoluteTemperatureUnit = kelvin
 
   final object kelvin extends DefaultAbsoluteTemperatureUnit("kelvin", "K", Nil, r"1")
   final object yoctokelvin extends DefaultAbsoluteTemperatureUnit("yoctokelvin", "yK", Nil, r"1" * r"1e-24")
@@ -47,11 +56,7 @@ object AbsoluteTemperatureUnitObjects{
   final object exakelvin extends DefaultAbsoluteTemperatureUnit("exakelvin", "EK", Nil, r"1" * r"1e18")
   final object zettakelvin extends DefaultAbsoluteTemperatureUnit("zettakelvin", "ZK", Nil, r"1" * r"1e21")
   final object yottakelvin extends DefaultAbsoluteTemperatureUnit("yottakelvin", "YK", Nil, r"1" * r"1e24")
-
-  def getUnits: Seq[AbsoluteTemperatureUnit] =
-    Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin)
 }
-
 
 object AbsoluteTemperatureUnits{
   def K: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kelvin
@@ -77,7 +82,4 @@ object AbsoluteTemperatureUnits{
   def EK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.exakelvin
   def ZK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.zettakelvin
   def YK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.yottakelvin
-
-  def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.getSIUnit
-  def getUnits: Seq[AbsoluteTemperatureUnit] = AbsoluteTemperatureUnitObjects.getUnits
 }
