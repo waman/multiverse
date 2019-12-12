@@ -6,31 +6,32 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 
   override def zero: Real = 0
 
-  /** Use <code>name</code> and <code>interval</code> properties (not <code>symbol</code>) for equality evaluation. */
+  /** Evaluate via <code>name</code>, <code>interval</code> and <code>dimension</code> properties
+    * (not <code>symbol</code>). */
   override def equals(other: Any): Boolean = other match {
     case that: LinearUnit[_] =>
       (that canEqual this) &&
         name == that.name &&
-        interval == that.interval
+        interval == that.interval &&
+        dimension == that.dimension
     case _ => false
   }
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LinearUnit[_]]
 
-  override def hashCode: Int =
-    41 * (
-      41 + name.hashCode
-      ) + interval.hashCode
+  override def hashCode: Int = (name, interval, dimension).##
 
   override def toString: String = {
     val sInterval = toReadableString(interval)
+    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(" aliases: [", ", ", "]") else ""
+    val dim = DimensionSymbol.toStringWithSymbol(this.dimension)
     this match {
-      case thisUnit if thisUnit == getSIUnit =>
-        s"$name ($symbol)"
+      case _ if this == getSIUnit =>
+        s"$name ($symbol)$ali dim:$dim"
       case _: NotExact =>
-        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]"
+        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali dim:$dim"
       case _ =>
-        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]"
+        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali dim:$dim"
     }
   }
 
@@ -46,6 +47,13 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 
   def max(that: U): U = if((this compare that) >= 0) this else that
   def min(that: U): U = if((this compare that) <= 0) this else that
+
+  /**
+    * Return true if <code>this.dimension == other.dimension && this.interval == other.interval</code>,
+    *  otherwise false. (Note: <code>name</code> property is not used for evaluation not like <code>equals</code> method.)
+    */
+  def isEquivalentTo(other: LinearUnit[_]): Boolean =
+    this.dimension == other.dimension && this.interval == other.interval
 }
 
 // For symbol property of QuotientUnit: m/(s*ms)
@@ -76,12 +84,7 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[ProductUnit[_, _, _]]
 
-  override def hashCode: Int =
-    41 * (
-      41 * (
-        41 + firstUnit.hashCode
-        ) + "*".hashCode
-      ) + secondUnit.hashCode
+  override def hashCode: Int = (firstUnit, "*", secondUnit).##
 }
 
 class PUnit[A <: LinearUnit[A], B <: LinearUnit[B]](firstUnit: A, secondUnit: B)
@@ -120,12 +123,7 @@ abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearU
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[QuotientUnit[_, _, _]]
 
-  override def hashCode: Int =
-    41 * (
-      41 * (
-        41 + numeratorUnit.hashCode
-        ) + "/".hashCode
-      ) + denominatorUnit.hashCode
+  override def hashCode: Int = (numeratorUnit, "/", denominatorUnit).##
 }
 
 class QUnit[A <: LinearUnit[A], B <: LinearUnit[B]](numeratorUnit: A, denominatorUnit: B)

@@ -5,5 +5,5 @@
   {"name":"ElementaryCharge", "value":"1.602176634e-19"},
   {"name": "BohrRadius", "value": "5.2917721090380e-11"},
   {"name": "BoltzmannConstant", "value": "1.380649e-23"},
-  {"name": "FootSquared", "value": "0.09290304"}
+  {"name": "AvogadroConstant", "value": "6.02214076e-23"}
 ]

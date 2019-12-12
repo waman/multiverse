@@ -1,20 +1,20 @@
 {
-  "SIUnit":"radian",
+  "SIUnit": "radian",
   "dimension": {},
   
-  "units":[
-    {"name":"radian", "symbol":"rad", "interval":"1"},
+  "units": [
+    {"name": "radian", "symbol": "rad"},
 
-    {"name":"degree", "symbol":"°", "aliases":["deg"], "interval":"2 * Pi / 360"},
-    {"name":"arcmin", "symbol":"arcmin", "aliases":["MOA"], "interval":"1/60", "baseUnit":"degree"},
-    {"name":"arcsec", "symbol":"arcsec", "aliases": ["as"], "interval":"1/60", "baseUnit":"arcmin"},
+    {"name": "degree", "symbol": "°", "aliases": ["deg"], "interval": "2 * Constants.Pi / 360"},
+    {"name": "arcmin", "symbol": "arcmin", "aliases": ["MOA"], "interval": "1/60", "baseUnit": "degree"},
+    {"name": "arcsec", "symbol": "arcsec", "aliases": ["as"], "interval": "1/60", "baseUnit": "arcmin"},
     
-    {"name":"gradian", "symbol": "ᵍ", "aliases":["grad", "gon"], "interval":"2 * Pi / 400"},
-    {"name":"turn", "symbol":"tr", "interval":"2 * Pi"},
+    {"name": "gradian", "symbol": "ᵍ", "aliases": ["grad", "gon"], "interval": "2 * Constants.Pi / 400"},
+    {"name": "turn", "symbol": "tr", "interval": "2 * Constants.Pi"},
 
-    {"name":"sign", "symbol":"sign", "interval":"30", "baseUnit":"degree"},
-    {"name":"octant", "symbol":"octant", "interval":"45", "baseUnit":"degree"},
-    {"name":"sextant", "symbol":"sextant", "interval":"60", "baseUnit":"degree"},
-    {"name":"quadrant", "symbol":"quadrant", "interval":"90", "baseUnit":"degree"}
+    {"name": "sign", "symbol": "sign", "interval": "30", "baseUnit": "degree"},
+    {"name": "octant", "symbol": "octant", "interval": "45", "baseUnit": "degree"},
+    {"name": "sextant", "symbol": "sextant", "interval": "60", "baseUnit": "degree"},
+    {"name": "quadrant", "symbol": "quadrant", "interval": "90", "baseUnit": "degree"}
   ]
 }

@@ -10,7 +10,7 @@ class IlluminanceSpec extends MultiverseCustomSpec {
   "[SOURCE GENERATION] " - {
 
     "The unit value of foot candle should be collect value" in {
-      // {"name":"foot candle", "symbol":"fc", "interval":"Lumen / SquareFoot"}
+      // {"name":"foot candle", "symbol":"fc", "baseUnit":"LuminousFlux.lumen / Area.square_foot"}
       // SetUp
       val expected = 1 / ft2.interval
       // Exercise

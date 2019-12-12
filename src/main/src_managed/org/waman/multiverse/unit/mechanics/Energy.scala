@@ -4,6 +4,7 @@ import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
@@ -23,7 +24,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     extends LinearQuantity[Energy[A], A, EnergyUnit] {
 
   override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
-             def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
+  def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
 
   def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
 
@@ -34,6 +35,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 }
 
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
+
   override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = EnergyUnit.dimension
 
@@ -58,7 +60,7 @@ object EnergyUnit{
 
   def getSIUnit: EnergyUnit = EnergyUnitObjects.joule
 
-import EnergyUnitObjects._
+  import EnergyUnitObjects._
   def getUnits: Seq[EnergyUnit] =
     Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(IT)`)
 }
@@ -76,27 +78,27 @@ class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[S
 object EnergyUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object joule extends DefaultEnergyUnit("joule", "J", Nil, r"1")
-  final object yoctojoule extends DefaultEnergyUnit("yoctojoule", "yJ", Nil, r"1" * r"1e-24")
-  final object zeptojoule extends DefaultEnergyUnit("zeptojoule", "zJ", Nil, r"1" * r"1e-21")
-  final object attojoule extends DefaultEnergyUnit("attojoule", "aJ", Nil, r"1" * r"1e-18")
-  final object femtojoule extends DefaultEnergyUnit("femtojoule", "fJ", Nil, r"1" * r"1e-15")
-  final object picojoule extends DefaultEnergyUnit("picojoule", "pJ", Nil, r"1" * r"1e-12")
-  final object nanojoule extends DefaultEnergyUnit("nanojoule", "nJ", Nil, r"1" * r"1e-9")
-  final object microjoule extends DefaultEnergyUnit("microjoule", "μJ", Seq("mcJ"), r"1" * r"1e-6")
-  final object millijoule extends DefaultEnergyUnit("millijoule", "mJ", Nil, r"1" * r"1e-3")
-  final object centijoule extends DefaultEnergyUnit("centijoule", "cJ", Nil, r"1" * r"1e-2")
-  final object decijoule extends DefaultEnergyUnit("decijoule", "dJ", Nil, r"1" * r"1e-1")
-  final object decajoule extends DefaultEnergyUnit("decajoule", "daJ", Nil, r"1" * r"1e1")
-  final object hectojoule extends DefaultEnergyUnit("hectojoule", "hJ", Nil, r"1" * r"1e2")
-  final object kilojoule extends DefaultEnergyUnit("kilojoule", "kJ", Seq("KJ"), r"1" * r"1e3")
-  final object megajoule extends DefaultEnergyUnit("megajoule", "MJ", Nil, r"1" * r"1e6")
-  final object gigajoule extends DefaultEnergyUnit("gigajoule", "GJ", Nil, r"1" * r"1e9")
-  final object terajoule extends DefaultEnergyUnit("terajoule", "TJ", Nil, r"1" * r"1e12")
-  final object petajoule extends DefaultEnergyUnit("petajoule", "PJ", Nil, r"1" * r"1e15")
-  final object exajoule extends DefaultEnergyUnit("exajoule", "EJ", Nil, r"1" * r"1e18")
-  final object zettajoule extends DefaultEnergyUnit("zettajoule", "ZJ", Nil, r"1" * r"1e21")
-  final object yottajoule extends DefaultEnergyUnit("yottajoule", "YJ", Nil, r"1" * r"1e24")
+  final object joule extends DefaultEnergyUnit("joule", "J", Nil, 1)
+  final object yoctojoule extends DefaultEnergyUnit("yoctojoule", "yJ", Nil, 1 * r"1e-24")
+  final object zeptojoule extends DefaultEnergyUnit("zeptojoule", "zJ", Nil, 1 * r"1e-21")
+  final object attojoule extends DefaultEnergyUnit("attojoule", "aJ", Nil, 1 * r"1e-18")
+  final object femtojoule extends DefaultEnergyUnit("femtojoule", "fJ", Nil, 1 * r"1e-15")
+  final object picojoule extends DefaultEnergyUnit("picojoule", "pJ", Nil, 1 * r"1e-12")
+  final object nanojoule extends DefaultEnergyUnit("nanojoule", "nJ", Nil, 1 * r"1e-9")
+  final object microjoule extends DefaultEnergyUnit("microjoule", "μJ", Seq("mcJ"), 1 * r"1e-6")
+  final object millijoule extends DefaultEnergyUnit("millijoule", "mJ", Nil, 1 * r"1e-3")
+  final object centijoule extends DefaultEnergyUnit("centijoule", "cJ", Nil, 1 * r"1e-2")
+  final object decijoule extends DefaultEnergyUnit("decijoule", "dJ", Nil, 1 * r"1e-1")
+  final object decajoule extends DefaultEnergyUnit("decajoule", "daJ", Nil, 1 * r"1e1")
+  final object hectojoule extends DefaultEnergyUnit("hectojoule", "hJ", Nil, 1 * r"1e2")
+  final object kilojoule extends DefaultEnergyUnit("kilojoule", "kJ", Seq("KJ"), 1 * r"1e3")
+  final object megajoule extends DefaultEnergyUnit("megajoule", "MJ", Nil, 1 * r"1e6")
+  final object gigajoule extends DefaultEnergyUnit("gigajoule", "GJ", Nil, 1 * r"1e9")
+  final object terajoule extends DefaultEnergyUnit("terajoule", "TJ", Nil, 1 * r"1e12")
+  final object petajoule extends DefaultEnergyUnit("petajoule", "PJ", Nil, 1 * r"1e15")
+  final object exajoule extends DefaultEnergyUnit("exajoule", "EJ", Nil, 1 * r"1e18")
+  final object zettajoule extends DefaultEnergyUnit("zettajoule", "ZJ", Nil, 1 * r"1e21")
+  final object yottajoule extends DefaultEnergyUnit("yottajoule", "YJ", Nil, 1 * r"1e24")
   final object erg extends DefaultEnergyUnit("erg", "erg", Nil, r"1e-7")
   final object electronvolt extends DefaultEnergyUnit("electronvolt", "eV", Nil, Constants.ElementaryCharge) with NotExact
   final object yoctoelectronvolt extends DefaultEnergyUnit("yoctoelectronvolt", "yeV", Nil, Constants.ElementaryCharge * r"1e-24") with NotExact

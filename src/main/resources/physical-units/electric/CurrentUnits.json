@@ -1,11 +1,11 @@
 {
-  "SIUnit":"ampere",
-  "dimension":{"I":1},
+  "SIUnit": "ampere",
+  "dimension": {"I":1},
 
   "composites": ["Charge / Time"],
 
-  "units":[
-    {"name":"ampere"  , "symbol":"A", "interval":"1", "scalePrefixes":true},
-    {"name":"abampere", "symbol":"abamp", "interval":"10"}
+  "units": [
+    {"name": "ampere"  , "symbol": "A", "scalePrefixes": true},
+    {"name": "abampere", "symbol": "abamp", "interval": "10"}
   ]
 }

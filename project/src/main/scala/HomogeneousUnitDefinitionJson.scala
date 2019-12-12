@@ -20,12 +20,12 @@ case class HomogeneousUnit(
                        interval: String,
                        scalePrefixes: Boolean
                      ){
-  import GenerationUtil.toObjectName
+  import GenerationUtil._
 
   def canonicalizeAndExpandScalePrefixes(prefixes: Seq[ScalePrefix]): Seq[CanonicalizedHomogeneousUnit] = {
 
-    val _zero = GenerationUtil.refineNumber(this.zero)
-    val _interval = GenerationUtil.refineNumber(this.interval)
+    val _zero = if (this.zero != null) refineNumbers(this.zero) else "0"
+    val _interval = if (this.interval != null) refineNumbers(this.interval) else "1"
     val _aliases = if (this.aliases != null) this.aliases.toSeq else Nil
 
     if(scalePrefixes){

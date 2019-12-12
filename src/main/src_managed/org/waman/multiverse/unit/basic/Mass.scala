@@ -4,17 +4,30 @@ import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
+
+import org.waman.multiverse.unit.mechanics.Acceleration
+import org.waman.multiverse.unit.mechanics.AccelerationUnit
+
+import org.waman.multiverse.unit.mechanics.Force
+import org.waman.multiverse.unit.mechanics.ForceUnit
+
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
     extends LinearQuantity[Mass[A], A, MassUnit] {
 
   override protected def newQuantity(value: A, unit: MassUnit): Mass[A] = new Mass(value, unit)
-             def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
+  def *(acceleration: Acceleration[A]): Force[A] = new Force(this.value * acceleration.value, this.unit * acceleration.unit)
+
+  def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
 
 }
 
 trait MassUnit extends LinearUnit[MassUnit]{
+
   override def getSIUnit: MassUnit = MassUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = MassUnit.dimension
+
+  def *(accelerationUnit: AccelerationUnit): ForceUnit =
+    new ProductUnit[ForceUnit, MassUnit, AccelerationUnit](MassUnit.this, accelerationUnit) with ForceUnit
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
     new QuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
@@ -28,7 +41,7 @@ object MassUnit{
 
   def getSIUnit: MassUnit = MassUnitObjects.kilogram
 
-import MassUnitObjects._
+  import MassUnitObjects._
   def getUnits: Seq[MassUnit] =
     Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal)
 }
@@ -40,7 +53,7 @@ class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[Str
 
 object MassUnitObjects{
 
-  final object kilogram extends DefaultMassUnit("kilogram", "kg", Seq("Kg"), r"1")
+  final object kilogram extends DefaultMassUnit("kilogram", "kg", Seq("Kg"), 1)
   final object gram extends DefaultMassUnit("gram", "g", Nil, r"1e-3")
   final object yoctogram extends DefaultMassUnit("yoctogram", "yg", Nil, r"1e-3" * r"1e-24")
   final object zeptogram extends DefaultMassUnit("zeptogram", "zg", Nil, r"1e-3" * r"1e-21")
@@ -62,8 +75,8 @@ object MassUnitObjects{
   final object zettagram extends DefaultMassUnit("zettagram", "Zg", Nil, r"1e-3" * r"1e21")
   final object yottagram extends DefaultMassUnit("yottagram", "Yg", Nil, r"1e-3" * r"1e24")
   final object tonne extends DefaultMassUnit("tonne", "t", Nil, r"1000")
-  final object grave extends DefaultMassUnit("grave", "gv", Nil, r"1")
-  final object gamma extends DefaultMassUnit("gamma", "γ", Nil, r"1" * microgram.interval)
+  final object grave extends DefaultMassUnit("grave", "gv", Nil, 1)
+  final object gamma extends DefaultMassUnit("gamma", "γ", Nil, microgram.interval)
   final object quintal extends DefaultMassUnit("quintal", "q", Nil, r"100" * kilogram.interval)
 }
 

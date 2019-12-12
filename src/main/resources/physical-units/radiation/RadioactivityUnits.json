@@ -1,10 +1,10 @@
 {
-  "SIUnit":"becquerel",
+  "SIUnit": "becquerel",
   "dimension": {"T": -1},
 
-  "units":[
-    {"name":"becquerel", "symbol":"Bq", "interval":"1", "scalePrefixes":true},
-    {"name":"curie", "symbol":"Ci", "interval":"3.7e10", "scalePrefixes":true},
-    {"name":"rutherford", "symbol":"Rd", "interval":"1", "baseUnit":"megabecquerel"}
+  "units": [
+    {"name": "becquerel", "symbol": "Bq", "scalePrefixes": true},
+    {"name": "curie", "symbol": "Ci", "interval": "3.7e10", "scalePrefixes": true},
+    {"name": "rutherford", "symbol": "Rd", "baseUnit": "megabecquerel"}
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "SIUnit":"henry",
-  "dimension":  {"M": 1, "L": 2, "T": -2, "I": -2},
+  "SIUnit": "henry",
+  "dimension": {"M": 1, "L": 2, "T": -2, "I": -2},
 
   "composites": ["Flux /Current "],
 
-  "units":[
-    {"name":"henry", "symbol":"H", "interval":"1", "scalePrefixes":true}
+  "units": [
+    {"name": "henry", "symbol": "H", "scalePrefixes": true}
   ]
 }

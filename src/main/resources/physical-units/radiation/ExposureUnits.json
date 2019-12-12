@@ -1,10 +1,10 @@
 {
-  "SIUnit":"Charge / Mass",
+  "SIUnit": "Charge / Mass",
   "dimension": {"M": -1, "T": 1, "I": 1},
 
-  "composites":["Charge / Mass"],
+  "composites": ["Charge / Mass"],
 
-  "units":[
-    {"name":"roentgen", "symbol":"R", "interval":"2.58e-4"}
+  "units": [
+    {"name": "roentgen", "symbol": "R", "interval": "2.58e-4"}
   ]
 }

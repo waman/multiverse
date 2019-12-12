@@ -46,7 +46,13 @@ class TimeSpec extends MultiverseCustomSpec {
 
   "[SOURCE GENERATION]" - {
 
-    "The default attribute should provide the value of interval and baseUnit for the parent unit" in {
+    "The baseUnit property that refers its child attribute should provide the proper interval" in {
+//      {"name":"year", "symbol":"yr", ..., "baseUnit":"year(gregorian)",
+//        "attributes": [
+//          ...
+//          {"name":"gregorian", "interval":"365.2425", "baseUnit":"day"},
+//          ...
+//         ]}
       // Exercise
       val conversions =
         Table(

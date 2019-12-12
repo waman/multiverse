@@ -1,23 +1,23 @@
 {
-  "SIUnit":"Energy / AbsoluteTemperature",
+  "SIUnit": "Energy / AbsoluteTemperature",
   "dimension": {"M":1, "L":2, "T":-2, "Θ": -1},
 
-  "composites":["Energy / AbsoluteTemperature"],
+  "composites": ["Energy / AbsoluteTemperature"],
 
-  "units":[
-    {"name":"nat", "symbol":"nat", "symbols":["k_B"], "interval":"Constants.BoltzmannConstant"},
-    {"name":"bit", "symbol":"bit", "symbols":["Sh"], "interval":"log(2)", "baseUnit":"nat"},
-    {"name":"ban", "symbol":"ban", "symbols":["Hart"], "interval":"log(10)", "baseUnit":"nat"},
+  "units": [
+    {"name": "nat", "symbol": "nat", "aliases": ["k_B"], "interval": "Constants.BoltzmannConstant"},
+    {"name": "bit", "symbol": "bit", "aliases": ["Sh"], "interval": "log(2)", "baseUnit": "nat"},
+    {"name": "ban", "symbol": "ban", "aliases": ["Hart"], "interval": "log(10)", "baseUnit": "nat"},
 
-    {"name":"byte", "symbol":"B", "interval":"8", "baseUnit":"bit", "scalePrefixes":true,
+    {"name": "byte", "symbol": "B", "interval": "8", "baseUnit": "bit", "scalePrefixes": true,
       "excludePrefixes":["y", "z", "a", "f", "p", "n", "μ", "m", "c", "d"]},
-    {"name":"kibibyte", "symbol":"KiB", "symbols":["KB"], "interval":"1024", "baseUnit":"byte"},
-    {"name":"mebibyte", "symbol":"MiB", "interval":"1024", "baseUnit":"kibibyte"},
-    {"name":"gibibyte", "symbol":"GiB", "interval":"1024", "baseUnit":"mebibyte"},
-    {"name":"tebibyte", "symbol":"TiB", "interval":"1024", "baseUnit":"gibibyte"},
-    {"name":"pebibyte", "symbol":"PiB", "interval":"1024", "baseUnit":"tebibyte"},
-    {"name":"exbibyte", "symbol":"EiB", "interval":"1024", "baseUnit":"pebibyte"},
-    {"name":"zebibyte", "symbol":"ZiB", "interval":"1024", "baseUnit":"exbibyte"},
-    {"name":"yobibyte", "symbol":"YiB", "interval":"1024", "baseUnit":"zebibyte"}
+    {"name": "kibibyte", "symbol": "KiB", "aliases": ["KB"], "interval": "1024", "baseUnit": "byte"},
+    {"name": "mebibyte", "symbol": "MiB", "interval": "1024", "baseUnit": "kibibyte"},
+    {"name": "gibibyte", "symbol": "GiB", "interval": "1024", "baseUnit": "mebibyte"},
+    {"name": "tebibyte", "symbol": "TiB", "interval": "1024", "baseUnit": "gibibyte"},
+    {"name": "pebibyte", "symbol": "PiB", "interval": "1024", "baseUnit": "tebibyte"},
+    {"name": "exbibyte", "symbol": "EiB", "interval": "1024", "baseUnit": "pebibyte"},
+    {"name": "zebibyte", "symbol": "ZiB", "interval": "1024", "baseUnit": "exbibyte"},
+    {"name": "yobibyte", "symbol": "YiB", "interval": "1024", "baseUnit": "zebibyte"}
   ]
 }

@@ -1,11 +1,11 @@
 {
-  "SIUnit":"tesla",
-  "dimension":  {"M": 1, "T": -2, "I": -1},
+  "SIUnit": "tesla",
+  "dimension": {"M": 1, "T": -2, "I": -1},
 
   "composites": ["Flux / Area"],
 
-  "units":[
-    {"name":"tesla", "symbol":"T", "interval":"1", "scalePrefixes":true},
-    {"name":"gauss", "symbol":"G", "interval":"1e-4", "scalePrefixes":true}
+  "units": [
+    {"name": "tesla", "symbol": "T", "scalePrefixes": true},
+    {"name": "gauss", "symbol": "G", "interval": "1e-4", "scalePrefixes": true}
   ]
 }

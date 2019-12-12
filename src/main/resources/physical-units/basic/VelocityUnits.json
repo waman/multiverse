@@ -1,11 +1,11 @@
 {
-  "SIUnit":"Length / Time",
-  "dimension":{"L":1, "T": -1},
+  "SIUnit": "Length / Time",
+  "dimension": {"L":1, "T": -1},
 
   "composites": ["Length / Time"],
 
-  "units":[
-    {"name":"speed of light", "symbol":"c", "interval":"Constants.SpeedOfLight"},
-    {"name":"mach number", "symbol":"M", "interval":"340", "notExact": true}
+  "units": [
+    {"name": "speed of light", "symbol": "c", "interval": "Constants.SpeedOfLight"},
+    {"name": "mach number", "symbol": "M", "interval": "340", "notExact": true}
   ]
 }

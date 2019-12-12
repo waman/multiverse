@@ -3,6 +3,7 @@ import java.nio.charset.Charset
 
 import com.google.gson.Gson
 import sbt.io.IO
+import sbt.util.Tracked
 
 import scala.util.matching.Regex
 
@@ -15,6 +16,12 @@ object MultiverseSourceGenerator {
     // info: src/main/resources/physical-units
     // srcManaged: src/main/src_managed
     // src: src/main/scala
+
+//    Tracked.inputChanged(info){ f: (Boolean, File) =>
+//      Tracked.outputChanged(srcManaged){ f: (Boolean, File) =>
+//
+//      }
+//    }
 
     IO.createDirectory(srcManaged)
     val factory = new JsonResourceFactory(info, srcManaged, src, destPath)
@@ -50,17 +57,36 @@ object GenerationUtil{
   val utf8: Charset = Charset.forName("UTF-8")
 
   val regexId: Regex = """[a-zA-z.]+""".r
-  val regexCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
+  val regexCompositeUnit: Regex = """(\w+)\s*        ([*/])\s*(\w+)""".r
 
   private val regexNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
-
-  def refineNumber(s: String): String = s match {
+  def refineNumbers(s: String): String = s match {
     // TODO
     case "log(2)" => "Real(2).log()"  // Entropy.bit
     case "log(10)" => "Real(10).log()"  // Entropy.ban
     case "sqrt(1/10)" => """Real("1/10").sqrt()"""  // Length.
     case _ => regexNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
   }
+
+  private val regexUnitName: Regex = """[\w.()]+""".r
+  def refineUnitNames(s: String): String = regexUnitName.replaceAllIn(s, m => {
+    val str = s.substring(m.start, m.end)
+    val (prefix, unitName) = str.indexOf('.') match {
+      case -1 => ("", str)
+      case i => (str.substring(0, i)+"UnitObjects.", str.substring(i+1))
+    }
+
+    val escapedUnitName = if (unitName.contains('(')) s"`$unitName`" else unitName
+    prefix + escapedUnitName + ".interval"
+  })
+
+  def extraUnitsInBaseUnit(s: String): Seq[String] = regexUnitName.findAllMatchIn(s).map{ m =>
+    val str = s.substring(m.start, m.end)
+    str.indexOf('.') match {
+      case -1 => Nil
+      case i => Seq(str.substring(0, i))
+    }
+  }.toSeq.flatten
 
   def toObjectName(s: String): String = {
     val ss = s.replace(' ', '_')

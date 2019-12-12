@@ -1,15 +1,44 @@
 {
-  "SIUnit":"kilogram",
-  "dimension":{"M":1},
+  "SIUnit": "kilogram",
+  "dimension": {"M":1},
 
-  "units":[
-    {"name":"kilogram", "symbol":"kg", "aliases": ["Kg"], "interval":"1"},
+  "units": [
+    {"name": "kilogram", "symbol": "kg", "aliases": ["Kg"]},
 
-    {"name":"gram", "symbol":"g", "interval":"1e-3", "scalePrefixes":true, "excludePrefixes": ["k"]},
-    {"name":"tonne", "symbol":"t", "interval":"1000"},
+    {"name": "gram", "symbol": "g", "interval": "1e-3", "scalePrefixes": true, "excludePrefixes": ["k"]},
+    {"name": "tonne", "symbol": "t", "interval": "1000"},
 
-    {"name":"grave", "symbol":"gv", "interval":"1"},
-    {"name":"gamma", "symbol":"γ", "interval":"1", "baseUnit": "microgram"},
-    {"name":"quintal", "symbol":"q", "interval":"100", "baseUnit":"kilogram"}
+    {"name": "grave", "symbol": "gv"},
+    {"name": "gamma", "symbol": "γ", "baseUnit": "microgram"},
+    {"name": "quintal", "symbol": "q", "interval": "100", "baseUnit": "kilogram"},
+
+    {"name": "atomic mass unit", "symbol": "u", "aliases": ["AMU", "Da"], "interval": "1.66053892173e-27", "notExact":true},
+    {"name": "electron mass", "symbol": "m_e", "interval": "9.1093829140e-31", "notExact":true},
+
+    {"name": "ounce", "symbol": "oz", "interval": "28", "baseUnit":"gram"},
+    {"name": "pound", "symbol": "lb", "aliases": "lb_av", "interval": "0.45359237"},
+    {"name": "long ton", "symbol": "long_tn", "interval": "2240", "baseUnit":"pound"},
+    {"name": "short ton", "symbol": "sh_tn", "interval": "2000", "baseUnit": "pound"},
+    {"name": "scruple", "symbol": "s_ap", "interval": "20", "baseUnit": "grain"},
+    {"name": "carat", "symbol": "kt", "interval": "19/6", "baseUnit": "grain"},
+    {"name": "metric carat", "symbol": "ct", "interval": "200", "baseUnit": "milligram"},
+    {"name": "stone", "symbol": "st", "interval": "14", "baseUnit": "pound"},
+
+    {"name": "dram avoirdupois", "symbol": "dr_av", "interval": "875/32", "baseUnit": "grain"},
+    {"name": "grain", "symbol": "gr", "interval": "1/7000", "baseUnit": "pound"},
+    {"name": "long hundred weight", "symbol": "cwt", "aliases": ["long_cwt"], "interval": "112", "baseUnit": "dram_avoirdupois"},
+    {"name": "short hundred weight", "symbol": "sh_cwt", "interval": "100", "baseUnit": "dram_avoirdupois"},
+    {"name": "kip", "symbol": "kip", "interval": "1000", "baseUnit": "dram_avoirdupois"},
+    {"name": "ounce avoirdupois", "symbol": "oz_av", "interval": "1/16", "baseUnit": "pound"},
+
+    {"name": "dram troy", "symbol": "dr_t", "interval": "60", "baseUnit": "grain"},
+    {"name": "ounce troy", "symbol": "oz_t", "interval": "1/12", "baseUnit": "pound_troy"},
+    {"name": "pound troy", "symbol": "lb_t", "interval": "5760", "baseUnit": "grain"},
+    {"name": "pennyweight", "symbol": "dwt", "aliases": ["pwt"], "interval": "1/20", "baseUnit": "ounce_troy"},
+
+    {"name": "long assay ton", "symbol": "long_AT", "aliases": ["AT"], "interval": "98/3", "baseUnit": "gram"},
+    {"name": "short assay ton", "symbol": "sh_AT", "interval": "175/6", "baseUnit": "gram"},
+
+    {"name": "slug", "symbol": "slug", "baseUnit": "pound * Acceleration.standard_gravity / Length.foot"}
   ]
 }

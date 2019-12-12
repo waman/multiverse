@@ -4,13 +4,15 @@ import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
+
 class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
-           }
+}
 
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
+
   override def getSIUnit: RadioactivityUnit = RadioactivityUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = RadioactivityUnit.dimension
 
@@ -23,7 +25,7 @@ object RadioactivityUnit{
 
   def getSIUnit: RadioactivityUnit = RadioactivityUnitObjects.becquerel
 
-import RadioactivityUnitObjects._
+  import RadioactivityUnitObjects._
   def getUnits: Seq[RadioactivityUnit] =
     Seq(becquerel, yoctobecquerel, zeptobecquerel, attobecquerel, femtobecquerel, picobecquerel, nanobecquerel, microbecquerel, millibecquerel, centibecquerel, decibecquerel, decabecquerel, hectobecquerel, kilobecquerel, megabecquerel, gigabecquerel, terabecquerel, petabecquerel, exabecquerel, zettabecquerel, yottabecquerel, curie, yoctocurie, zeptocurie, attocurie, femtocurie, picocurie, nanocurie, microcurie, millicurie, centicurie, decicurie, decacurie, hectocurie, kilocurie, megacurie, gigacurie, teracurie, petacurie, exacurie, zettacurie, yottacurie, rutherford)
 }
@@ -35,27 +37,27 @@ class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases
 
 object RadioactivityUnitObjects{
 
-  final object becquerel extends DefaultRadioactivityUnit("becquerel", "Bq", Nil, r"1")
-  final object yoctobecquerel extends DefaultRadioactivityUnit("yoctobecquerel", "yBq", Nil, r"1" * r"1e-24")
-  final object zeptobecquerel extends DefaultRadioactivityUnit("zeptobecquerel", "zBq", Nil, r"1" * r"1e-21")
-  final object attobecquerel extends DefaultRadioactivityUnit("attobecquerel", "aBq", Nil, r"1" * r"1e-18")
-  final object femtobecquerel extends DefaultRadioactivityUnit("femtobecquerel", "fBq", Nil, r"1" * r"1e-15")
-  final object picobecquerel extends DefaultRadioactivityUnit("picobecquerel", "pBq", Nil, r"1" * r"1e-12")
-  final object nanobecquerel extends DefaultRadioactivityUnit("nanobecquerel", "nBq", Nil, r"1" * r"1e-9")
-  final object microbecquerel extends DefaultRadioactivityUnit("microbecquerel", "μBq", Seq("mcBq"), r"1" * r"1e-6")
-  final object millibecquerel extends DefaultRadioactivityUnit("millibecquerel", "mBq", Nil, r"1" * r"1e-3")
-  final object centibecquerel extends DefaultRadioactivityUnit("centibecquerel", "cBq", Nil, r"1" * r"1e-2")
-  final object decibecquerel extends DefaultRadioactivityUnit("decibecquerel", "dBq", Nil, r"1" * r"1e-1")
-  final object decabecquerel extends DefaultRadioactivityUnit("decabecquerel", "daBq", Nil, r"1" * r"1e1")
-  final object hectobecquerel extends DefaultRadioactivityUnit("hectobecquerel", "hBq", Nil, r"1" * r"1e2")
-  final object kilobecquerel extends DefaultRadioactivityUnit("kilobecquerel", "kBq", Seq("KBq"), r"1" * r"1e3")
-  final object megabecquerel extends DefaultRadioactivityUnit("megabecquerel", "MBq", Nil, r"1" * r"1e6")
-  final object gigabecquerel extends DefaultRadioactivityUnit("gigabecquerel", "GBq", Nil, r"1" * r"1e9")
-  final object terabecquerel extends DefaultRadioactivityUnit("terabecquerel", "TBq", Nil, r"1" * r"1e12")
-  final object petabecquerel extends DefaultRadioactivityUnit("petabecquerel", "PBq", Nil, r"1" * r"1e15")
-  final object exabecquerel extends DefaultRadioactivityUnit("exabecquerel", "EBq", Nil, r"1" * r"1e18")
-  final object zettabecquerel extends DefaultRadioactivityUnit("zettabecquerel", "ZBq", Nil, r"1" * r"1e21")
-  final object yottabecquerel extends DefaultRadioactivityUnit("yottabecquerel", "YBq", Nil, r"1" * r"1e24")
+  final object becquerel extends DefaultRadioactivityUnit("becquerel", "Bq", Nil, 1)
+  final object yoctobecquerel extends DefaultRadioactivityUnit("yoctobecquerel", "yBq", Nil, 1 * r"1e-24")
+  final object zeptobecquerel extends DefaultRadioactivityUnit("zeptobecquerel", "zBq", Nil, 1 * r"1e-21")
+  final object attobecquerel extends DefaultRadioactivityUnit("attobecquerel", "aBq", Nil, 1 * r"1e-18")
+  final object femtobecquerel extends DefaultRadioactivityUnit("femtobecquerel", "fBq", Nil, 1 * r"1e-15")
+  final object picobecquerel extends DefaultRadioactivityUnit("picobecquerel", "pBq", Nil, 1 * r"1e-12")
+  final object nanobecquerel extends DefaultRadioactivityUnit("nanobecquerel", "nBq", Nil, 1 * r"1e-9")
+  final object microbecquerel extends DefaultRadioactivityUnit("microbecquerel", "μBq", Seq("mcBq"), 1 * r"1e-6")
+  final object millibecquerel extends DefaultRadioactivityUnit("millibecquerel", "mBq", Nil, 1 * r"1e-3")
+  final object centibecquerel extends DefaultRadioactivityUnit("centibecquerel", "cBq", Nil, 1 * r"1e-2")
+  final object decibecquerel extends DefaultRadioactivityUnit("decibecquerel", "dBq", Nil, 1 * r"1e-1")
+  final object decabecquerel extends DefaultRadioactivityUnit("decabecquerel", "daBq", Nil, 1 * r"1e1")
+  final object hectobecquerel extends DefaultRadioactivityUnit("hectobecquerel", "hBq", Nil, 1 * r"1e2")
+  final object kilobecquerel extends DefaultRadioactivityUnit("kilobecquerel", "kBq", Seq("KBq"), 1 * r"1e3")
+  final object megabecquerel extends DefaultRadioactivityUnit("megabecquerel", "MBq", Nil, 1 * r"1e6")
+  final object gigabecquerel extends DefaultRadioactivityUnit("gigabecquerel", "GBq", Nil, 1 * r"1e9")
+  final object terabecquerel extends DefaultRadioactivityUnit("terabecquerel", "TBq", Nil, 1 * r"1e12")
+  final object petabecquerel extends DefaultRadioactivityUnit("petabecquerel", "PBq", Nil, 1 * r"1e15")
+  final object exabecquerel extends DefaultRadioactivityUnit("exabecquerel", "EBq", Nil, 1 * r"1e18")
+  final object zettabecquerel extends DefaultRadioactivityUnit("zettabecquerel", "ZBq", Nil, 1 * r"1e21")
+  final object yottabecquerel extends DefaultRadioactivityUnit("yottabecquerel", "YBq", Nil, 1 * r"1e24")
   final object curie extends DefaultRadioactivityUnit("curie", "Ci", Nil, r"3.7e10")
   final object yoctocurie extends DefaultRadioactivityUnit("yoctocurie", "yCi", Nil, r"3.7e10" * r"1e-24")
   final object zeptocurie extends DefaultRadioactivityUnit("zeptocurie", "zCi", Nil, r"3.7e10" * r"1e-21")
@@ -77,7 +79,7 @@ object RadioactivityUnitObjects{
   final object exacurie extends DefaultRadioactivityUnit("exacurie", "ECi", Nil, r"3.7e10" * r"1e18")
   final object zettacurie extends DefaultRadioactivityUnit("zettacurie", "ZCi", Nil, r"3.7e10" * r"1e21")
   final object yottacurie extends DefaultRadioactivityUnit("yottacurie", "YCi", Nil, r"3.7e10" * r"1e24")
-  final object rutherford extends DefaultRadioactivityUnit("rutherford", "Rd", Nil, r"1" * megabecquerel.interval)
+  final object rutherford extends DefaultRadioactivityUnit("rutherford", "Rd", Nil, megabecquerel.interval)
 }
 
 object RadioactivityUnits{

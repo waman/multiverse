@@ -1,12 +1,12 @@
 {
-  "SIUnit":"volt",
+  "SIUnit": "volt",
   "dimension": {"M": 1, "L": 2, "T": -3, "I": -1},
 
   "composites": ["Power / Current"],
 
   "units": [
-    {"name":"volt", "symbol":"V", "interval":"1", "scalePrefixes":true},
-    {"name":"statvolt", "symbol":"statV", "interval":"Constants.SpeedOfLight / 1e6"},
-    {"name":"abvolt", "symbol":"abV", "interval":"1e-8"}
+    {"name": "volt", "symbol": "V", "scalePrefixes": true},
+    {"name": "statvolt", "symbol": "statV", "interval": "Constants.SpeedOfLight / 1e6"},
+    {"name": "abvolt", "symbol": "abV", "interval": "1e-8"}
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "SIUnit":"Time * Time",
+  "SIUnit": "Time * Time",
   "dimension": {"T": 2},
 
   "composites": ["Time * Time"],

@@ -1,11 +1,12 @@
 {
-  "SIUnit":"Energy * Time",
+  "SIUnit": "Energy * Time",
   "dimension": {"M": 1, "L": 2, "T": -1},
 
   "composites": ["Energy * Time"],
 
-  "units":[
-    {"name":"planck constant", "symbol":"h", "interval":"Constants.PlanckConstant"},
-    {"name":"reduced planck constant", "symbol":"ħ", "aliases:":["hbar"], "interval":"Constants.PlanckConstant / 2.0 / Pi"}
+  "units": [
+    {"name": "planck constant", "symbol": "h", "interval": "Constants.PlanckConstant"},
+    {"name": "reduced planck constant", "symbol": "ħ", "aliases: ": ["hbar"],
+      "interval": "Constants.PlanckConstant / 2.0 / Constants.Pi"}
   ]
 }

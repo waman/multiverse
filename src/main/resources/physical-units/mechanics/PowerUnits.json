@@ -1,10 +1,10 @@
 {
-  "SIUnit":"watt",
+  "SIUnit": "watt",
   "dimension": {"M": 1, "L": 2, "T": -3},
 
   "composites": ["Energy / Time"],
 
-  "units":[
-    {"name":"watt", "symbol":"W", "interval":"1", "scalePrefixes":true}
+  "units": [
+    {"name": "watt", "symbol": "W", "scalePrefixes": true}
   ]
 }

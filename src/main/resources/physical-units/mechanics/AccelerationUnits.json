@@ -1,13 +1,10 @@
 {
-  "SIUnit":"Length / TimeSquared",
+  "SIUnit": "Length / TimeSquared",
   "dimension":{"L": 1, "T": -2},
 
-  "composites": [
-    "Length / TimeSquared",
-    "Velocity / Time"
-  ],
+  "composites": ["Length / TimeSquared", "Velocity / Time"],
 
-  "units":[
-    {"name":"standard gravity", "symbol":"g_0", "interval":"9.80665"}
+  "units": [
+    {"name": "standard gravity", "symbol": "g_0", "interval": "9.80665"}
   ]
 }

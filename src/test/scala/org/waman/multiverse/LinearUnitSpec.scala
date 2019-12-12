@@ -1,7 +1,8 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.unit.BasicUnits._
-import org.waman.multiverse.unit.basic.LengthUnits.a_0
+import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.basic.TimeUnits._
+import org.waman.multiverse.unit.basic.VolumeUnits._
 
 class LinearUnitSpec extends MultiverseCustomSpec{
 
@@ -41,27 +42,66 @@ class LinearUnitSpec extends MultiverseCustomSpec{
 
   "toString method" - {
 
-      "(km) should return a string like ''kilometre (km) [1(km) = 1000(m)]" in {
-        val conversions =
-          Table(
-            ("length unit", "expected"),
-            (mm, "millimetre (mm) [1(mm) = 0.001(m)]"),
-            (m , "metre (m)"),  // SI unit
-            (km, "kilometre (km) [1(km) = 1,000(m)]"),
-            (km/s, "kilometre per second (km/s) [1(km/s) = 1,000(m/s)]"),  // quotient unit
-            (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 0.00000000005291772109217(m)]")  // NotExact unit
-          )
+    "(km) should return a string like ''kilometre (km) [1(km) = 1000(m)] ..." in {
+      val conversions =
+        Table(
+          ("length unit", "expected"),
+          (mm, "millimetre (mm) [1(mm) = 0.001(m)] dim: L"),
+          (m , "metre (m) dim: L"),  // SI unit
+          (km, "kilometre (km) [1(km) = 1,000(m)] aliases: [Km] dim: L"),
+          (km/s, "kilometre per second (km/s) [1(km/s) = 1,000(m/s)] aliases: [Km/s, km/sec, Km/sec] dim: LT⁻¹"),  // quotient unit
+          (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 0.00000000005291772109217(m)] dim: L")  // NotExact unit
+        )
 
-        forAll(conversions){ (unit: PhysicalUnit[_], expected: String) =>
-          // Exercise
-          val sut = unit.toString
-          //Verify
-          sut should equal (expected)
-        }
+      forAll(conversions){ (unit: PhysicalUnit[_], expected: String) =>
+        // Exercise
+        val sut = unit.toString
+        //Verify
+        sut should equal (expected)
       }
+    }
   }
 
-  "* operator should return the proper prduct unit" in {
+  "Equivalence" - {
+
+    "(mm/ms) should be equivalent to (m/s) unlike the equal method" in {
+      // Exercise
+      val sut = (mm/ms).isEquivalentTo(m/s)
+      // Verify
+      sut should be (true)
+    }
+
+    "isEquivalentTo method should return true if two units have the same dimension and interval" in {
+      import org.waman.multiverse.unit.basic.LengthUnitObjects._
+      // SetUp
+      val conversions =
+      Table(
+        ("unit", "expected"),
+        (micron, true),
+        (metre, false),
+        (ms, false)
+      )
+      forAll(conversions){ (unit: LinearUnit[_], expected: Boolean) =>
+        // Exercise
+        val sut = micrometre.isEquivalentTo(unit)
+        // Verify
+        sut should equal (expected)
+      }
+    }
+
+    "Quotient unit instantiated by / method of LinearUnit should be equivalent to the ordinal quotient unit" in {
+      // SetUp
+      val v = m/s
+      // Exercise
+      val unit: LinearUnit[_] = m
+      val sut = unit/s
+      // Verify
+      sut.isInstanceOf[QUnit[_, _]] should be (true)
+      sut.isEquivalentTo(v) should be (true)
+    }
+  }
+
+  "* operator should return the proper product unit" in {
     // Exercise
     val sut = km*h
     // Verify

@@ -122,14 +122,14 @@ class AreaSpec extends MultiverseCustomSpec {
 
   "[SOURCE GENERATION]" - {
 
-    "metre_squared should have the proper symbol and some aliases" in {
+    "square_metre should have the proper symbol and some aliases" in {
       // SetUp
       val expected = m.squared
       // Exercise
       val conversions =
         Table(
           "area unit",
-          AreaUnitObjects.metre_squared,
+          AreaUnitObjects.square_metre,
           m2,
           `m²`
         )
@@ -139,14 +139,14 @@ class AreaSpec extends MultiverseCustomSpec {
       }
     }
 
-    "micrometre_squared should have the proper symbol and some aliases" in {
+    "square_micrometre should have the proper symbol and some aliases" in {
       // SetUp
       val expected = mcm.squared
       // Exercise
       val conversions =
         Table(
           "area unit",
-          AreaUnitObjects.micrometre_squared,
+          AreaUnitObjects.square_micrometre,
           μm2,
           mcm2,
           `μm²`,

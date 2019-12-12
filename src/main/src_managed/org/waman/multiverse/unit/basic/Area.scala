@@ -4,20 +4,30 @@ import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
+
+import org.waman.multiverse.unit.fluid.KinematicViscosity
+import org.waman.multiverse.unit.fluid.KinematicViscosityUnit
+
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
     extends LinearQuantity[Area[A], A, AreaUnit] {
 
   override protected def newQuantity(value: A, unit: AreaUnit): Area[A] = new Area(value, unit)
-             def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
+  def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
+
+  def /(time: Time[A]): KinematicViscosity[A] = new KinematicViscosity(this.value / time.value, this.unit / time.unit)
 
 }
 
 trait AreaUnit extends LinearUnit[AreaUnit]{
+
   override def getSIUnit: AreaUnit = AreaUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = AreaUnit.dimension
 
   def *(lengthUnit: LengthUnit): VolumeUnit =
     new ProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
+
+  def /(timeUnit: TimeUnit): KinematicViscosityUnit =
+    new QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit](AreaUnit.this, timeUnit) with KinematicViscosityUnit
 
 }
 
@@ -28,9 +38,9 @@ object AreaUnit{
 
   val getSIUnit: AreaUnit = LengthUnit.getSIUnit * LengthUnit.getSIUnit
 
-import AreaUnitObjects._
+  import AreaUnitObjects._
   def getUnits: Seq[AreaUnit] =
-    Seq(metre_squared, yoctometre_squared, zeptometre_squared, attometre_squared, femtometre_squared, picometre_squared, nanometre_squared, micrometre_squared, millimetre_squared, centimetre_squared, decimetre_squared, decametre_squared, hectometre_squared, kilometre_squared, megametre_squared, gigametre_squared, terametre_squared, petametre_squared, exametre_squared, zettametre_squared, yottametre_squared, foot_squared, are, hectare)
+    Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, square_foot, square_inch, are, hectare)
 }
 
 
@@ -40,81 +50,84 @@ class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[Str
 
 object AreaUnitObjects{
 
-  val metre_squared: AreaUnit = LengthUnitObjects.metre.squared
-  val yoctometre_squared: AreaUnit = LengthUnitObjects.yoctometre.squared
-  val zeptometre_squared: AreaUnit = LengthUnitObjects.zeptometre.squared
-  val attometre_squared: AreaUnit = LengthUnitObjects.attometre.squared
-  val femtometre_squared: AreaUnit = LengthUnitObjects.femtometre.squared
-  val picometre_squared: AreaUnit = LengthUnitObjects.picometre.squared
-  val nanometre_squared: AreaUnit = LengthUnitObjects.nanometre.squared
-  val micrometre_squared: AreaUnit = LengthUnitObjects.micrometre.squared
-  val millimetre_squared: AreaUnit = LengthUnitObjects.millimetre.squared
-  val centimetre_squared: AreaUnit = LengthUnitObjects.centimetre.squared
-  val decimetre_squared: AreaUnit = LengthUnitObjects.decimetre.squared
-  val decametre_squared: AreaUnit = LengthUnitObjects.decametre.squared
-  val hectometre_squared: AreaUnit = LengthUnitObjects.hectometre.squared
-  val kilometre_squared: AreaUnit = LengthUnitObjects.kilometre.squared
-  val megametre_squared: AreaUnit = LengthUnitObjects.megametre.squared
-  val gigametre_squared: AreaUnit = LengthUnitObjects.gigametre.squared
-  val terametre_squared: AreaUnit = LengthUnitObjects.terametre.squared
-  val petametre_squared: AreaUnit = LengthUnitObjects.petametre.squared
-  val exametre_squared: AreaUnit = LengthUnitObjects.exametre.squared
-  val zettametre_squared: AreaUnit = LengthUnitObjects.zettametre.squared
-  val yottametre_squared: AreaUnit = LengthUnitObjects.yottametre.squared
-  val foot_squared: AreaUnit = LengthUnitObjects.foot.squared
+  val square_metre: AreaUnit = LengthUnitObjects.metre.squared
+  val square_yoctometre: AreaUnit = LengthUnitObjects.yoctometre.squared
+  val square_zeptometre: AreaUnit = LengthUnitObjects.zeptometre.squared
+  val square_attometre: AreaUnit = LengthUnitObjects.attometre.squared
+  val square_femtometre: AreaUnit = LengthUnitObjects.femtometre.squared
+  val square_picometre: AreaUnit = LengthUnitObjects.picometre.squared
+  val square_nanometre: AreaUnit = LengthUnitObjects.nanometre.squared
+  val square_micrometre: AreaUnit = LengthUnitObjects.micrometre.squared
+  val square_millimetre: AreaUnit = LengthUnitObjects.millimetre.squared
+  val square_centimetre: AreaUnit = LengthUnitObjects.centimetre.squared
+  val square_decimetre: AreaUnit = LengthUnitObjects.decimetre.squared
+  val square_decametre: AreaUnit = LengthUnitObjects.decametre.squared
+  val square_hectometre: AreaUnit = LengthUnitObjects.hectometre.squared
+  val square_kilometre: AreaUnit = LengthUnitObjects.kilometre.squared
+  val square_megametre: AreaUnit = LengthUnitObjects.megametre.squared
+  val square_gigametre: AreaUnit = LengthUnitObjects.gigametre.squared
+  val square_terametre: AreaUnit = LengthUnitObjects.terametre.squared
+  val square_petametre: AreaUnit = LengthUnitObjects.petametre.squared
+  val square_exametre: AreaUnit = LengthUnitObjects.exametre.squared
+  val square_zettametre: AreaUnit = LengthUnitObjects.zettametre.squared
+  val square_yottametre: AreaUnit = LengthUnitObjects.yottametre.squared
+  val square_foot: AreaUnit = LengthUnitObjects.foot.squared
+  val square_inch: AreaUnit = LengthUnitObjects.inch.squared
   final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
   final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
 }
 
 object AreaUnits{
-  def `m²`: AreaUnit = AreaUnitObjects.metre_squared
-  def m2: AreaUnit = AreaUnitObjects.metre_squared
-  def `ym²`: AreaUnit = AreaUnitObjects.yoctometre_squared
-  def ym2: AreaUnit = AreaUnitObjects.yoctometre_squared
-  def `zm²`: AreaUnit = AreaUnitObjects.zeptometre_squared
-  def zm2: AreaUnit = AreaUnitObjects.zeptometre_squared
-  def `am²`: AreaUnit = AreaUnitObjects.attometre_squared
-  def am2: AreaUnit = AreaUnitObjects.attometre_squared
-  def `fm²`: AreaUnit = AreaUnitObjects.femtometre_squared
-  def fm2: AreaUnit = AreaUnitObjects.femtometre_squared
-  def `pm²`: AreaUnit = AreaUnitObjects.picometre_squared
-  def pm2: AreaUnit = AreaUnitObjects.picometre_squared
-  def `nm²`: AreaUnit = AreaUnitObjects.nanometre_squared
-  def nm2: AreaUnit = AreaUnitObjects.nanometre_squared
-  def `μm²`: AreaUnit = AreaUnitObjects.micrometre_squared
-  def μm2: AreaUnit = AreaUnitObjects.micrometre_squared
-  def `mcm²`: AreaUnit = AreaUnitObjects.micrometre_squared
-  def mcm2: AreaUnit = AreaUnitObjects.micrometre_squared
-  def `mm²`: AreaUnit = AreaUnitObjects.millimetre_squared
-  def mm2: AreaUnit = AreaUnitObjects.millimetre_squared
-  def `cm²`: AreaUnit = AreaUnitObjects.centimetre_squared
-  def cm2: AreaUnit = AreaUnitObjects.centimetre_squared
-  def `dm²`: AreaUnit = AreaUnitObjects.decimetre_squared
-  def dm2: AreaUnit = AreaUnitObjects.decimetre_squared
-  def `dam²`: AreaUnit = AreaUnitObjects.decametre_squared
-  def dam2: AreaUnit = AreaUnitObjects.decametre_squared
-  def `hm²`: AreaUnit = AreaUnitObjects.hectometre_squared
-  def hm2: AreaUnit = AreaUnitObjects.hectometre_squared
-  def `km²`: AreaUnit = AreaUnitObjects.kilometre_squared
-  def km2: AreaUnit = AreaUnitObjects.kilometre_squared
-  def `Km²`: AreaUnit = AreaUnitObjects.kilometre_squared
-  def Km2: AreaUnit = AreaUnitObjects.kilometre_squared
-  def `Mm²`: AreaUnit = AreaUnitObjects.megametre_squared
-  def Mm2: AreaUnit = AreaUnitObjects.megametre_squared
-  def `Gm²`: AreaUnit = AreaUnitObjects.gigametre_squared
-  def Gm2: AreaUnit = AreaUnitObjects.gigametre_squared
-  def `Tm²`: AreaUnit = AreaUnitObjects.terametre_squared
-  def Tm2: AreaUnit = AreaUnitObjects.terametre_squared
-  def `Pm²`: AreaUnit = AreaUnitObjects.petametre_squared
-  def Pm2: AreaUnit = AreaUnitObjects.petametre_squared
-  def `Em²`: AreaUnit = AreaUnitObjects.exametre_squared
-  def Em2: AreaUnit = AreaUnitObjects.exametre_squared
-  def `Zm²`: AreaUnit = AreaUnitObjects.zettametre_squared
-  def Zm2: AreaUnit = AreaUnitObjects.zettametre_squared
-  def `Ym²`: AreaUnit = AreaUnitObjects.yottametre_squared
-  def Ym2: AreaUnit = AreaUnitObjects.yottametre_squared
-  def `ft²`: AreaUnit = AreaUnitObjects.foot_squared
-  def ft2: AreaUnit = AreaUnitObjects.foot_squared
+  def `m²`: AreaUnit = AreaUnitObjects.square_metre
+  def m2: AreaUnit = AreaUnitObjects.square_metre
+  def `ym²`: AreaUnit = AreaUnitObjects.square_yoctometre
+  def ym2: AreaUnit = AreaUnitObjects.square_yoctometre
+  def `zm²`: AreaUnit = AreaUnitObjects.square_zeptometre
+  def zm2: AreaUnit = AreaUnitObjects.square_zeptometre
+  def `am²`: AreaUnit = AreaUnitObjects.square_attometre
+  def am2: AreaUnit = AreaUnitObjects.square_attometre
+  def `fm²`: AreaUnit = AreaUnitObjects.square_femtometre
+  def fm2: AreaUnit = AreaUnitObjects.square_femtometre
+  def `pm²`: AreaUnit = AreaUnitObjects.square_picometre
+  def pm2: AreaUnit = AreaUnitObjects.square_picometre
+  def `nm²`: AreaUnit = AreaUnitObjects.square_nanometre
+  def nm2: AreaUnit = AreaUnitObjects.square_nanometre
+  def `μm²`: AreaUnit = AreaUnitObjects.square_micrometre
+  def μm2: AreaUnit = AreaUnitObjects.square_micrometre
+  def `mcm²`: AreaUnit = AreaUnitObjects.square_micrometre
+  def mcm2: AreaUnit = AreaUnitObjects.square_micrometre
+  def `mm²`: AreaUnit = AreaUnitObjects.square_millimetre
+  def mm2: AreaUnit = AreaUnitObjects.square_millimetre
+  def `cm²`: AreaUnit = AreaUnitObjects.square_centimetre
+  def cm2: AreaUnit = AreaUnitObjects.square_centimetre
+  def `dm²`: AreaUnit = AreaUnitObjects.square_decimetre
+  def dm2: AreaUnit = AreaUnitObjects.square_decimetre
+  def `dam²`: AreaUnit = AreaUnitObjects.square_decametre
+  def dam2: AreaUnit = AreaUnitObjects.square_decametre
+  def `hm²`: AreaUnit = AreaUnitObjects.square_hectometre
+  def hm2: AreaUnit = AreaUnitObjects.square_hectometre
+  def `km²`: AreaUnit = AreaUnitObjects.square_kilometre
+  def km2: AreaUnit = AreaUnitObjects.square_kilometre
+  def `Km²`: AreaUnit = AreaUnitObjects.square_kilometre
+  def Km2: AreaUnit = AreaUnitObjects.square_kilometre
+  def `Mm²`: AreaUnit = AreaUnitObjects.square_megametre
+  def Mm2: AreaUnit = AreaUnitObjects.square_megametre
+  def `Gm²`: AreaUnit = AreaUnitObjects.square_gigametre
+  def Gm2: AreaUnit = AreaUnitObjects.square_gigametre
+  def `Tm²`: AreaUnit = AreaUnitObjects.square_terametre
+  def Tm2: AreaUnit = AreaUnitObjects.square_terametre
+  def `Pm²`: AreaUnit = AreaUnitObjects.square_petametre
+  def Pm2: AreaUnit = AreaUnitObjects.square_petametre
+  def `Em²`: AreaUnit = AreaUnitObjects.square_exametre
+  def Em2: AreaUnit = AreaUnitObjects.square_exametre
+  def `Zm²`: AreaUnit = AreaUnitObjects.square_zettametre
+  def Zm2: AreaUnit = AreaUnitObjects.square_zettametre
+  def `Ym²`: AreaUnit = AreaUnitObjects.square_yottametre
+  def Ym2: AreaUnit = AreaUnitObjects.square_yottametre
+  def `ft²`: AreaUnit = AreaUnitObjects.square_foot
+  def ft2: AreaUnit = AreaUnitObjects.square_foot
+  def `in²`: AreaUnit = AreaUnitObjects.square_inch
+  def in2: AreaUnit = AreaUnitObjects.square_inch
   def a: AreaUnit = AreaUnitObjects.are
   def ha: AreaUnit = AreaUnitObjects.hectare
 }

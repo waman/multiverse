@@ -4,6 +4,7 @@ import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
+
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
 
@@ -14,7 +15,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
 
   override protected def newQuantity(value: A, unit: LengthUnit): Length[A] = new Length(value, unit)
-             def *(length: Length[A]): Area[A] = new Area(this.value * length.value, this.unit * length.unit)
+  def *(length: Length[A]): Area[A] = new Area(this.value * length.value, this.unit * length.unit)
 
   def squared: Area[A] = this * this
   def cubic: Volume[A] = this * this * this
@@ -26,19 +27,20 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 }
 
 trait LengthUnit extends LinearUnit[LengthUnit]{
+
   override def getSIUnit: LengthUnit = LengthUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = LengthUnit.dimension
 
   def squared: AreaUnit =
     new AreaUnit{
-      override val name: String = LengthUnit.this.name + " squared"
+      override val name: String = "square " + LengthUnit.this.name
       override val symbol: String = LengthUnit.this.symbol + "²"
       override val interval: Real = LengthUnit.this.interval**2
       override def aliases: Seq[String] = {
         val heads = if (LengthUnit.this.name == "metre") Seq("m2") else Nil
 
         val symbols = LengthUnit.this.symbol +: LengthUnit.this.aliases
-        val squares = symbols.map(_+".square")
+        val squares = symbols.map(_+".squared")
         val prods = symbols.map(a => a+"*"+a)
 
         heads ++: squares ++: prods
@@ -55,7 +57,7 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
 
   def cubic: VolumeUnit =
     new VolumeUnit{
-      override val name: String = LengthUnit.this.name + " cubic"
+      override val name: String = "cubic " + LengthUnit.this.name
       override val symbol: String = LengthUnit.this.symbol + "³"
       override val interval: Real = LengthUnit.this.interval**3
       override def aliases: Seq[String] = {
@@ -90,14 +92,13 @@ object LengthUnit{
 
   def getSIUnit: LengthUnit = LengthUnitObjects.metre
 
-import LengthUnitObjects._
+  import LengthUnitObjects._
   def getUnits: Seq[LengthUnit] =
     Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, foot, yard, ell, fathom, rod, rope, chain, mile, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
 }
 
 
 sealed trait xunitAttribute
-
 sealed trait nautical_mileAttribute
 
 object LengthAttributes{
@@ -111,27 +112,27 @@ class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[S
 
 object LengthUnitObjects{
 
-  final object metre extends DefaultLengthUnit("metre", "m", Nil, r"1")
-  final object yoctometre extends DefaultLengthUnit("yoctometre", "ym", Nil, r"1" * r"1e-24")
-  final object zeptometre extends DefaultLengthUnit("zeptometre", "zm", Nil, r"1" * r"1e-21")
-  final object attometre extends DefaultLengthUnit("attometre", "am", Nil, r"1" * r"1e-18")
-  final object femtometre extends DefaultLengthUnit("femtometre", "fm", Nil, r"1" * r"1e-15")
-  final object picometre extends DefaultLengthUnit("picometre", "pm", Nil, r"1" * r"1e-12")
-  final object nanometre extends DefaultLengthUnit("nanometre", "nm", Nil, r"1" * r"1e-9")
-  final object micrometre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), r"1" * r"1e-6")
-  final object millimetre extends DefaultLengthUnit("millimetre", "mm", Nil, r"1" * r"1e-3")
-  final object centimetre extends DefaultLengthUnit("centimetre", "cm", Nil, r"1" * r"1e-2")
-  final object decimetre extends DefaultLengthUnit("decimetre", "dm", Nil, r"1" * r"1e-1")
-  final object decametre extends DefaultLengthUnit("decametre", "dam", Nil, r"1" * r"1e1")
-  final object hectometre extends DefaultLengthUnit("hectometre", "hm", Nil, r"1" * r"1e2")
-  final object kilometre extends DefaultLengthUnit("kilometre", "km", Seq("Km"), r"1" * r"1e3")
-  final object megametre extends DefaultLengthUnit("megametre", "Mm", Nil, r"1" * r"1e6")
-  final object gigametre extends DefaultLengthUnit("gigametre", "Gm", Nil, r"1" * r"1e9")
-  final object terametre extends DefaultLengthUnit("terametre", "Tm", Nil, r"1" * r"1e12")
-  final object petametre extends DefaultLengthUnit("petametre", "Pm", Nil, r"1" * r"1e15")
-  final object exametre extends DefaultLengthUnit("exametre", "Em", Nil, r"1" * r"1e18")
-  final object zettametre extends DefaultLengthUnit("zettametre", "Zm", Nil, r"1" * r"1e21")
-  final object yottametre extends DefaultLengthUnit("yottametre", "Ym", Nil, r"1" * r"1e24")
+  final object metre extends DefaultLengthUnit("metre", "m", Nil, 1)
+  final object yoctometre extends DefaultLengthUnit("yoctometre", "ym", Nil, 1 * r"1e-24")
+  final object zeptometre extends DefaultLengthUnit("zeptometre", "zm", Nil, 1 * r"1e-21")
+  final object attometre extends DefaultLengthUnit("attometre", "am", Nil, 1 * r"1e-18")
+  final object femtometre extends DefaultLengthUnit("femtometre", "fm", Nil, 1 * r"1e-15")
+  final object picometre extends DefaultLengthUnit("picometre", "pm", Nil, 1 * r"1e-12")
+  final object nanometre extends DefaultLengthUnit("nanometre", "nm", Nil, 1 * r"1e-9")
+  final object micrometre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), 1 * r"1e-6")
+  final object millimetre extends DefaultLengthUnit("millimetre", "mm", Nil, 1 * r"1e-3")
+  final object centimetre extends DefaultLengthUnit("centimetre", "cm", Nil, 1 * r"1e-2")
+  final object decimetre extends DefaultLengthUnit("decimetre", "dm", Nil, 1 * r"1e-1")
+  final object decametre extends DefaultLengthUnit("decametre", "dam", Nil, 1 * r"1e1")
+  final object hectometre extends DefaultLengthUnit("hectometre", "hm", Nil, 1 * r"1e2")
+  final object kilometre extends DefaultLengthUnit("kilometre", "km", Seq("Km"), 1 * r"1e3")
+  final object megametre extends DefaultLengthUnit("megametre", "Mm", Nil, 1 * r"1e6")
+  final object gigametre extends DefaultLengthUnit("gigametre", "Gm", Nil, 1 * r"1e9")
+  final object terametre extends DefaultLengthUnit("terametre", "Tm", Nil, 1 * r"1e12")
+  final object petametre extends DefaultLengthUnit("petametre", "Pm", Nil, 1 * r"1e15")
+  final object exametre extends DefaultLengthUnit("exametre", "Em", Nil, 1 * r"1e18")
+  final object zettametre extends DefaultLengthUnit("zettametre", "Zm", Nil, 1 * r"1e21")
+  final object yottametre extends DefaultLengthUnit("yottametre", "Ym", Nil, 1 * r"1e24")
   final object micron extends DefaultLengthUnit("micron", "µ", Nil, r"1e-6")
   final object Angstrom extends DefaultLengthUnit("Angstrom", "Å", Nil, r"1e-10")
   final object atomic_unit_of_length extends DefaultLengthUnit("atomic unit of length", "a_0", Nil, r"5.291772109217e-11") with NotExact

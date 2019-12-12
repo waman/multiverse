@@ -4,6 +4,7 @@ import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
@@ -11,11 +12,12 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     extends LinearQuantity[Angle[A], A, AngleUnit] {
 
   override protected def newQuantity(value: A, unit: AngleUnit): Angle[A] = new Angle(value, unit)
-             def /(time: Time[A]): AngularVelocity[A] = new AngularVelocity(this.value / time.value, this.unit / time.unit)
+  def /(time: Time[A]): AngularVelocity[A] = new AngularVelocity(this.value / time.value, this.unit / time.unit)
 
 }
 
 trait AngleUnit extends LinearUnit[AngleUnit]{
+
   override def getSIUnit: AngleUnit = AngleUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = AngleUnit.dimension
 
@@ -30,7 +32,7 @@ object AngleUnit{
 
   def getSIUnit: AngleUnit = AngleUnitObjects.radian
 
-import AngleUnitObjects._
+  import AngleUnitObjects._
   def getUnits: Seq[AngleUnit] =
     Seq(radian, degree, arcmin, arcsec, gradian, turn, sign, octant, sextant, quadrant)
 }
@@ -43,7 +45,7 @@ class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[St
 object AngleUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object radian extends DefaultAngleUnit("radian", "rad", Nil, r"1")
+  final object radian extends DefaultAngleUnit("radian", "rad", Nil, 1)
   final object degree extends DefaultAngleUnit("degree", "°", Seq("deg"), r"2" * Constants.Pi / r"360")
   final object arcmin extends DefaultAngleUnit("arcmin", "arcmin", Seq("MOA"), r"1"/r"60" * degree.interval)
   final object arcsec extends DefaultAngleUnit("arcsec", "arcsec", Seq("as"), r"1"/r"60" * arcmin.interval)

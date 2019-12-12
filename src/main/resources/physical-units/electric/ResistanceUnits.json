@@ -1,15 +1,11 @@
 {
-  "SIUnit":"ohm",
-  "dimension":{"M": 1, "L": 2, "T": -3, "I": -2},
+  "SIUnit": "ohm",
+  "dimension": {"M": 1, "L": 2, "T": -3, "I": -2},
 
   "composites": ["Voltage / Current"],
 
-  "quotients":[
-    {"numeratorUnit": "Voltage", "denominatorUnit":"Current"}
-  ],
-
   "units":[
-    {"name":"ohm", "symbol":"Ω", "aliases": ["ohm"], "interval":"1", "scalePrefixes":true},
-    {"name":"abohm", "symbol":"abΩ", "aliases": ["abohm"], "interval":"1e-9"}
+    {"name": "ohm", "symbol": "Ω", "aliases": ["ohm"], "scalePrefixes": true},
+    {"name": "abohm", "symbol": "abΩ", "aliases": ["abohm"], "interval": "1e-9"}
   ]
 }
