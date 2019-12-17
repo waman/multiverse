@@ -16,7 +16,7 @@
     {"name": "electron mass", "symbol": "m_e", "interval": "9.1093829140e-31", "notExact":true},
 
     {"name": "ounce", "symbol": "oz", "interval": "28", "baseUnit":"gram"},
-    {"name": "pound", "symbol": "lb", "aliases": "lb_av", "interval": "0.45359237"},
+    {"name": "pound", "symbol": "lb", "aliases": ["lb_av"], "interval": "0.45359237"},
     {"name": "long ton", "symbol": "long_tn", "interval": "2240", "baseUnit":"pound"},
     {"name": "short ton", "symbol": "sh_tn", "interval": "2000", "baseUnit": "pound"},
     {"name": "scruple", "symbol": "s_ap", "interval": "20", "baseUnit": "grain"},

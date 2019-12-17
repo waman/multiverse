@@ -11,7 +11,7 @@
 
     {"name": "byte", "symbol": "B", "interval": "8", "baseUnit": "bit", "scalePrefixes": true,
       "excludePrefixes":["y", "z", "a", "f", "p", "n", "μ", "m", "c", "d"]},
-    {"name": "kibibyte", "symbol": "KiB", "aliases": ["KB"], "interval": "1024", "baseUnit": "byte"},
+    {"name": "kibibyte", "symbol": "KiB", "interval": "1024", "baseUnit": "byte"},
     {"name": "mebibyte", "symbol": "MiB", "interval": "1024", "baseUnit": "kibibyte"},
     {"name": "gibibyte", "symbol": "GiB", "interval": "1024", "baseUnit": "mebibyte"},
     {"name": "tebibyte", "symbol": "TiB", "interval": "1024", "baseUnit": "gibibyte"},

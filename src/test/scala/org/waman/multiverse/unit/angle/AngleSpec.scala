@@ -10,7 +10,7 @@ class AngleSpec extends MultiverseCustomSpec {
 
     "The degree unit should return the proper string (in the case that the interval is an irrational value π/180)" in {
       // SetUp
-      val expected = "degree (°) [1(°) = 0.0174532925...(rad)]"
+      val expected = "degree (°) [1(°) = 0.0174532925...(rad)] aliases: [deg] dim: -"
       // Exercise
       val sut = deg.toString
       // Verify

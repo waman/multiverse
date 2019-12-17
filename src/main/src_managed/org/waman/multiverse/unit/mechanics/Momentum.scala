@@ -2,6 +2,7 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
+import spire.implicits._
 import org.waman.multiverse._
 
 import org.waman.multiverse.unit.basic.Area

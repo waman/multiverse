@@ -37,6 +37,7 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
         Table(
           ("time squared unit", "expected"),
           (s2 , "s²"),
+          (s.squared, "s²"),
           (ms*ms, "ms²"),
           (s*ms, "s*ms")
         )
@@ -51,9 +52,10 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("time squared unit", "expected"),
-          (s2 , Seq("s2", "sec²", "sec2", "s.square", "sec.square", "s*s", "sec*sec")),
-          (ms*ms, Seq("ms.square", "msec.square", "ms*ms", "msec*msec")),
-          (s*ms, Seq("s*msec", "sec*ms", "sec*msec"))
+          (s2 , Seq("s2", "sec²", "sec2")),
+          (s.squared, Seq("s.squared", "sec.squared")),
+          (ms*ms, Seq("ms.squared", "msec.squared")),
+          (s*ms, Seq("sec*ms", "s*msec", "sec*msec"))
         )
       // Verify
       forAll(conversions){ (sut: TimeSquaredUnit, expected: Seq[String]) =>

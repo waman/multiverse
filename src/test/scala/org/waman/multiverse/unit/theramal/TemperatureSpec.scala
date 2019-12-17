@@ -14,9 +14,9 @@ class TemperatureSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("TemperatureUnit", "expected"),
-          (K, "kelvin (K)"),
-          (degC, "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)]"),
-          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)]")
+          (K, "kelvin (K) dim: Θ"),
+          (degC, "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)] aliases: [degC, ℃] dim: Θ"),
+          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)] aliases: [degF, ℉] dim: Θ")
         )
       // Verify
       forAll(conversions){ (sut: TemperatureUnit, expected: String) =>

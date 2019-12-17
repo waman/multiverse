@@ -22,10 +22,10 @@ class ScalePrefixJson(jsonFile: File, destDir: File, mainDir: File)
       gson.fromJson(reader, scalePrefixType).asInstanceOf[Array[ScalePrefix]].toSeq
   }
 
-  override protected def doGenerate(jsons: Seq[JsonResource]): Unit =
+  override protected def doGenerate(jsons: JsonResources): Unit =
     IO.writer(destFile, "", utf8, append = false) { writer =>
       writer.write(
-        s"""package ${rootPackage}
+        s"""package $rootPackage
            |
            |import spire.math._
            |import spire.implicits._

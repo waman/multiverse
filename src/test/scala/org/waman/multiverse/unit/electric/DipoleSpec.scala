@@ -47,7 +47,7 @@ class DipoleSpec extends MultiverseCustomSpec {
       sut should equal (r"1e-20" * statcoulomb.interval)
     }
 
-    "Product unit 'statC*NM' should have combinated aliases" in {
+    "Product unit 'statC*NM' should have the combinated aliases" in {
       // SetUp
       val expected = Seq("statC*nmi", "Fr*NM", "Fr*nmi", "esu*NM", "esu*nmi")
       // Exercise

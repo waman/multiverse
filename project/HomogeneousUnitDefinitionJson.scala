@@ -65,11 +65,11 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File
 
   val composites: Composites = Composites(Nil, Nil)
 
-  override protected def doGenerate(jsons: Seq[JsonResource]): Unit = {
+  override protected def doGenerate(jsons: JsonResources): Unit = {
 
     IO.writer(this.destFile, "", utf8, append = false) { writer: io.BufferedWriter =>
-      val spj = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
-      val units = this.unitCategory._units.flatMap(_.canonicalizeAndExpandScalePrefixes(spj.scalePrefixes))
+      val sps = jsons.scalePrefixJson.scalePrefixes
+      val units = this.unitCategory._units.flatMap(_.canonicalizeAndExpandScalePrefixes(sps))
 
       writer.write(
         s"""package $packageName

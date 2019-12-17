@@ -5,6 +5,9 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
 
@@ -18,6 +21,8 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
     extends LinearQuantity[Force[A], A, ForceUnit] {
 
   override protected def newQuantity(value: A, unit: ForceUnit): Force[A] = new Force(value, unit)
+  def *(time: Time[A]): Momentum[A] = new Momentum(this.value * time.value, this.unit * time.unit)
+
   def *(length: Length[A]): Torque[A] = new Torque(this.value * length.value, this.unit * length.unit)
 
   def /(area: Area[A]): Pressure[A] = new Pressure(this.value / area.value, this.unit / area.unit)
@@ -28,6 +33,9 @@ trait ForceUnit extends LinearUnit[ForceUnit]{
 
   override def getSIUnit: ForceUnit = ForceUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = ForceUnit.dimension
+
+  def *(timeUnit: TimeUnit): MomentumUnit =
+    new ProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
 
   def *(lengthUnit: LengthUnit): TorqueUnit =
     new ProductUnit[TorqueUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with TorqueUnit
@@ -56,6 +64,7 @@ class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[St
 
 object ForceUnitObjects{
   import org.waman.multiverse.unit.basic.MassUnitObjects
+  import org.waman.multiverse.unit.basic.LengthUnitObjects
 
   final object newton extends DefaultForceUnit("newton", "N", Nil, 1)
   final object yoctonewton extends DefaultForceUnit("yoctonewton", "yN", Nil, 1 * r"1e-24")
@@ -83,7 +92,7 @@ object ForceUnitObjects{
   final object milligrave_force extends DefaultForceUnit("milligrave force", "mGf", Seq("gf"), r"1e-3" * AccelerationUnitObjects.standard_gravity.interval) with NotExact
   final object ounce_force extends DefaultForceUnit("ounce force", "ozf", Nil, MassUnitObjects.ounce.interval * AccelerationUnitObjects.standard_gravity.interval)
   final object pound_force extends DefaultForceUnit("pound force", "lbf", Nil, MassUnitObjects.pound.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final object poundal extends DefaultForceUnit("poundal", "pdl", Nil, MassUnitObjects.pound.interval * AccelerationUnitObjects.foot_per_second_squared.interval)
+  final object poundal extends DefaultForceUnit("poundal", "pdl", Nil, MassUnitObjects.pound.interval * LengthUnitObjects.foot.interval)
   final object kip_force extends DefaultForceUnit("kip force", "kipf", Seq("klbf"), r"1000" * MassUnitObjects.pound.interval * AccelerationUnitObjects.standard_gravity.interval)
   final object short_ton_force extends DefaultForceUnit("short ton force", "sh_tnf", Nil, MassUnitObjects.short_ton.interval * AccelerationUnitObjects.standard_gravity.interval)
   final object long_ton_force extends DefaultForceUnit("long ton force", "tnf", Seq("long_tnf"), MassUnitObjects.long_ton.interval * AccelerationUnitObjects.standard_gravity.interval)

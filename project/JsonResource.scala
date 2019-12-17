@@ -1,7 +1,5 @@
 import java.io.File
-import java.nio.charset.Charset
 
-import com.google.gson.Gson
 import sbt.io.IO
 
 class JsonResourceFactory(info: File, srcManaged: File, src: File, destPath: File){
@@ -35,7 +33,7 @@ abstract class SourceGeneratorJson(jsonFile: File, destDir: File, mainDir: File)
   lazy val destFile: File = IO.resolve(destDir, new File(destFilename))
   def packageName: String
 
-  def generate(jsons: Seq[JsonResource]): Seq[File] = {
+  def generate(jsons: JsonResources): Seq[File] = {
     if (!IO.resolve(mainDir, new File(destFilename)).exists()){
       doGenerate(jsons)
       println("[GENERATE] " + this.destFilename)
@@ -45,7 +43,7 @@ abstract class SourceGeneratorJson(jsonFile: File, destDir: File, mainDir: File)
     }
   }
 
-  protected def doGenerate(jsons: Seq[JsonResource]): Unit
+  protected def doGenerate(jsons: JsonResources): Unit
 }
 
 abstract class UnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, val subpackage: String)

@@ -41,9 +41,9 @@ object VolumeFlowUnitObjects{
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
   final object litre_per_minute extends DefaultVolumeFlowUnit("litre per minute", "LPM", Nil, VolumeUnitObjects.litre.interval / TimeUnitObjects.minute.interval)
-  final object gallon_per_minute extends DefaultVolumeFlowUnit("gallon per minute", "GPM", Nil, VolumeUnitObjects.`gallon(US_fluid)`.interval / TimeUnitObjects.minute.interval)
-  final object gallon_per_hour extends DefaultVolumeFlowUnit("gallon per hour", "GPH", Nil, VolumeUnitObjects.`gallon(US_fluid)`.interval / TimeUnitObjects.hour.interval)
-  final object gallon_per_day extends DefaultVolumeFlowUnit("gallon per day", "GPD", Nil, VolumeUnitObjects.`gallon(US_fluid)`.interval / TimeUnitObjects.day.interval)
+  final object gallon_per_minute extends DefaultVolumeFlowUnit("gallon per minute", "GPM", Nil, VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.minute.interval)
+  final object gallon_per_hour extends DefaultVolumeFlowUnit("gallon per hour", "GPH", Nil, VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.hour.interval)
+  final object gallon_per_day extends DefaultVolumeFlowUnit("gallon per day", "GPD", Nil, VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.day.interval)
   final object cubic_centimetre_per_second extends DefaultVolumeFlowUnit("cubic_centimetre per second", "ccs", Nil, VolumeUnitObjects.cubic_centimetre.interval / TimeUnitObjects.second.interval)
   final object cubic_centimetre_per_minute extends DefaultVolumeFlowUnit("cubic_centimetre per minute", "ccm", Nil, VolumeUnitObjects.cubic_centimetre.interval / TimeUnitObjects.minute.interval)
   final object cubic_foot_per_second extends DefaultVolumeFlowUnit("cubic_foot per second", "cfs", Nil, VolumeUnitObjects.cubic_foot.interval / TimeUnitObjects.second.interval)

@@ -53,7 +53,7 @@ object EntropyUnitObjects{
   final object exabyte extends DefaultEntropyUnit("exabyte", "EB", Nil, r"8" * bit.interval * r"1e18")
   final object zettabyte extends DefaultEntropyUnit("zettabyte", "ZB", Nil, r"8" * bit.interval * r"1e21")
   final object yottabyte extends DefaultEntropyUnit("yottabyte", "YB", Nil, r"8" * bit.interval * r"1e24")
-  final object kibibyte extends DefaultEntropyUnit("kibibyte", "KiB", Seq("KB"), r"1024" * byte.interval)
+  final object kibibyte extends DefaultEntropyUnit("kibibyte", "KiB", Nil, r"1024" * byte.interval)
   final object mebibyte extends DefaultEntropyUnit("mebibyte", "MiB", Nil, r"1024" * kibibyte.interval)
   final object gibibyte extends DefaultEntropyUnit("gibibyte", "GiB", Nil, r"1024" * mebibyte.interval)
   final object tebibyte extends DefaultEntropyUnit("tebibyte", "TiB", Nil, r"1024" * gibibyte.interval)
@@ -83,7 +83,6 @@ object EntropyUnits{
   def ZB: EntropyUnit = EntropyUnitObjects.zettabyte
   def YB: EntropyUnit = EntropyUnitObjects.yottabyte
   def KiB: EntropyUnit = EntropyUnitObjects.kibibyte
-  def KB: EntropyUnit = EntropyUnitObjects.kibibyte
   def MiB: EntropyUnit = EntropyUnitObjects.mebibyte
   def GiB: EntropyUnit = EntropyUnitObjects.gibibyte
   def TiB: EntropyUnit = EntropyUnitObjects.tebibyte

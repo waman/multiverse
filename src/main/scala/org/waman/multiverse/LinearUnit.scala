@@ -27,11 +27,11 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
     val dim = DimensionSymbol.toStringWithSymbol(this.dimension)
     this match {
       case _ if this == getSIUnit =>
-        s"$name ($symbol)$ali dim:$dim"
+        s"$name ($symbol)$ali dim: $dim"
       case _: NotExact =>
-        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali dim:$dim"
+        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali dim: $dim"
       case _ =>
-        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali dim:$dim"
+        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali dim: $dim"
     }
   }
 
@@ -67,7 +67,7 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
   override val name: String = s"${firstUnit.name} times ${secondUnit.name}"
   override val symbol: String = s"${firstUnit.symbol}*${secondUnit.symbol}"
   override def aliases: Seq[String] =
-    secondUnit.symbols.flatMap(s => firstUnit.symbols.map(f => s"$f*$s")).tail
+     secondUnit.symbols.flatMap(s => firstUnit.symbols.map(f => s"$f*$s")).tail
 
   override val interval: Real = firstUnit.interval * secondUnit.interval
 

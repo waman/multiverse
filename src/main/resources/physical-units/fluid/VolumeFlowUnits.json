@@ -6,9 +6,9 @@
 
   "units": [
     {"name": "litre per minute", "symbol": "LPM", "baseUnit": "Volume.litre / Time.minute"},
-    {"name": "gallon per minute", "symbol": "GPM", "baseUnit": "Volume.gallon(US_fluid) / Time.minute"},
-    {"name": "gallon per hour", "symbol": "GPH", "baseUnit": "Volume.gallon(US_fluid) / Time.hour"},
-    {"name": "gallon per day", "symbol": "GPD", "baseUnit": "Volume.gallon(US_fluid) / Time.day"},
+    {"name": "gallon per minute", "symbol": "GPM", "baseUnit": "Volume.gallon(US_fl) / Time.minute"},
+    {"name": "gallon per hour", "symbol": "GPH", "baseUnit": "Volume.gallon(US_fl) / Time.hour"},
+    {"name": "gallon per day", "symbol": "GPD", "baseUnit": "Volume.gallon(US_fl) / Time.day"},
 
     {"name": "cubic_centimetre per second", "symbol": "ccs", "baseUnit": "Volume.cubic_centimetre / Time.second"},
     {"name": "cubic_centimetre per minute", "symbol": "ccm", "baseUnit": "Volume.cubic_centimetre / Time.minute"},

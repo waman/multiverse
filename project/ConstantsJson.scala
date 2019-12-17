@@ -17,7 +17,7 @@ class ConstantsJson(json: File, destDir: File, mainDir: File)
     gson.fromJson(reader, constantsType).asInstanceOf[Array[Constant]]
   }
 
-  override protected def doGenerate(jsons: Seq[JsonResource]): Unit =
+  override protected def doGenerate(jsons: JsonResources): Unit =
     IO.writer(destFile, "", utf8, append = false) { writer =>
       writer.write(
         s"""package $packageName

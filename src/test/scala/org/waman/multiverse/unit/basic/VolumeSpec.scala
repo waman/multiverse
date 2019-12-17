@@ -22,9 +22,10 @@ class VolumeSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("volume unit", "expected"),
-          (m3 , "metre cubic"),
-          (mm*mm*mm, "millimetre cubic"),
-          (m2*mm, "metre squared times millimetre")
+          (m3 , "cubic metre"),
+          (mm3, "cubic millimetre"),
+          (mm*mm*mm, "cubic millimetre"),
+          (m2*mm, "square metre times millimetre")
         )
       // Verify
       forAll(conversions){ (sut: VolumeUnit, expected: String) =>
@@ -38,6 +39,7 @@ class VolumeSpec extends MultiverseCustomSpec {
         Table(
           ("volume unit", "expected"),
           (m3 , "m³"),
+          (m.cubic, "m³"),
           (mm*mm*mm, "mm³"),
           (m*mm*nm, "m*mm*nm")
         )
@@ -52,8 +54,9 @@ class VolumeSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("volume unit", "expected"),
-          (m3 , Seq("m3", "m.cubic", "m*m*m")),
-          (mm*mm*mm, Seq("mm.cubic", "mm*mm*mm")),
+          (m3 , Seq("m3")),
+          (m.cubic, Seq("m.cubic")),
+          (mm*mm*mm, Seq("mm.cubic")),
           (m*mm*nm, Nil)
         )
       // Verify
@@ -130,7 +133,7 @@ class VolumeSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           "cubic unit",
-          VolumeUnitObjects.metre_cubic,
+          VolumeUnitObjects.cubic_metre,
           m3,
           `m³`
         )
@@ -147,7 +150,7 @@ class VolumeSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           "volume unit",
-          VolumeUnitObjects.micrometre_cubic,
+          VolumeUnitObjects.cubic_micrometre,
           μm3,
           mcm3,
           `μm³`,

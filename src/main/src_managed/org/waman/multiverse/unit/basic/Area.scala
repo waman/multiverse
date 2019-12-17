@@ -40,41 +40,84 @@ object AreaUnit{
 
   import AreaUnitObjects._
   def getUnits: Seq[AreaUnit] =
-    Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, square_foot, square_inch, are, hectare)
+    Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, are, hectare, barn, yoctobarn, zeptobarn, attobarn, femtobarn, picobarn, nanobarn, microbarn, millibarn, kilobarn, megabarn, gigabarn, terabarn, petabarn, exabarn, zettabarn, yottabarn, square_mil, square_inch, square_link, `square_link(US)`, square_foot, `square_foot(US)`, square_chain, `square_chain(US)`, square_yard, square_rod, square_mile, `square_mile(US)`, acre, `acre(US)`, rood, circular_mil, circular_inch, board)
 }
 
 
+sealed trait square_linkAttribute
+sealed trait square_footAttribute
+sealed trait square_chainAttribute
+sealed trait square_mileAttribute
+sealed trait acreAttribute
+
+object AreaAttributes{
+  final object US extends square_linkAttribute with square_footAttribute with square_chainAttribute with square_mileAttribute with acreAttribute
+}
 
 class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AreaUnit
 
 object AreaUnitObjects{
+  import org.waman.multiverse.unit.Constants
 
-  val square_metre: AreaUnit = LengthUnitObjects.metre.squared
-  val square_yoctometre: AreaUnit = LengthUnitObjects.yoctometre.squared
-  val square_zeptometre: AreaUnit = LengthUnitObjects.zeptometre.squared
-  val square_attometre: AreaUnit = LengthUnitObjects.attometre.squared
-  val square_femtometre: AreaUnit = LengthUnitObjects.femtometre.squared
-  val square_picometre: AreaUnit = LengthUnitObjects.picometre.squared
-  val square_nanometre: AreaUnit = LengthUnitObjects.nanometre.squared
-  val square_micrometre: AreaUnit = LengthUnitObjects.micrometre.squared
-  val square_millimetre: AreaUnit = LengthUnitObjects.millimetre.squared
-  val square_centimetre: AreaUnit = LengthUnitObjects.centimetre.squared
-  val square_decimetre: AreaUnit = LengthUnitObjects.decimetre.squared
-  val square_decametre: AreaUnit = LengthUnitObjects.decametre.squared
-  val square_hectometre: AreaUnit = LengthUnitObjects.hectometre.squared
-  val square_kilometre: AreaUnit = LengthUnitObjects.kilometre.squared
-  val square_megametre: AreaUnit = LengthUnitObjects.megametre.squared
-  val square_gigametre: AreaUnit = LengthUnitObjects.gigametre.squared
-  val square_terametre: AreaUnit = LengthUnitObjects.terametre.squared
-  val square_petametre: AreaUnit = LengthUnitObjects.petametre.squared
-  val square_exametre: AreaUnit = LengthUnitObjects.exametre.squared
-  val square_zettametre: AreaUnit = LengthUnitObjects.zettametre.squared
-  val square_yottametre: AreaUnit = LengthUnitObjects.yottametre.squared
-  val square_foot: AreaUnit = LengthUnitObjects.foot.squared
-  val square_inch: AreaUnit = LengthUnitObjects.inch.squared
+  final object square_metre extends DefaultAreaUnit("square metre", "m²", Seq("m2"), LengthUnitObjects.metre.interval**2)
+  final object square_yoctometre extends DefaultAreaUnit("square yoctometre", "ym²", Seq("ym2"), LengthUnitObjects.yoctometre.interval**2)
+  final object square_zeptometre extends DefaultAreaUnit("square zeptometre", "zm²", Seq("zm2"), LengthUnitObjects.zeptometre.interval**2)
+  final object square_attometre extends DefaultAreaUnit("square attometre", "am²", Seq("am2"), LengthUnitObjects.attometre.interval**2)
+  final object square_femtometre extends DefaultAreaUnit("square femtometre", "fm²", Seq("fm2"), LengthUnitObjects.femtometre.interval**2)
+  final object square_picometre extends DefaultAreaUnit("square picometre", "pm²", Seq("pm2"), LengthUnitObjects.picometre.interval**2)
+  final object square_nanometre extends DefaultAreaUnit("square nanometre", "nm²", Seq("nm2"), LengthUnitObjects.nanometre.interval**2)
+  final object square_micrometre extends DefaultAreaUnit("square micrometre", "μm²", Seq("μm2", "mcm²", "mcm2"), LengthUnitObjects.micrometre.interval**2)
+  final object square_millimetre extends DefaultAreaUnit("square millimetre", "mm²", Seq("mm2"), LengthUnitObjects.millimetre.interval**2)
+  final object square_centimetre extends DefaultAreaUnit("square centimetre", "cm²", Seq("cm2"), LengthUnitObjects.centimetre.interval**2)
+  final object square_decimetre extends DefaultAreaUnit("square decimetre", "dm²", Seq("dm2"), LengthUnitObjects.decimetre.interval**2)
+  final object square_decametre extends DefaultAreaUnit("square decametre", "dam²", Seq("dam2"), LengthUnitObjects.decametre.interval**2)
+  final object square_hectometre extends DefaultAreaUnit("square hectometre", "hm²", Seq("hm2"), LengthUnitObjects.hectometre.interval**2)
+  final object square_kilometre extends DefaultAreaUnit("square kilometre", "km²", Seq("km2", "Km²", "Km2"), LengthUnitObjects.kilometre.interval**2)
+  final object square_megametre extends DefaultAreaUnit("square megametre", "Mm²", Seq("Mm2"), LengthUnitObjects.megametre.interval**2)
+  final object square_gigametre extends DefaultAreaUnit("square gigametre", "Gm²", Seq("Gm2"), LengthUnitObjects.gigametre.interval**2)
+  final object square_terametre extends DefaultAreaUnit("square terametre", "Tm²", Seq("Tm2"), LengthUnitObjects.terametre.interval**2)
+  final object square_petametre extends DefaultAreaUnit("square petametre", "Pm²", Seq("Pm2"), LengthUnitObjects.petametre.interval**2)
+  final object square_exametre extends DefaultAreaUnit("square exametre", "Em²", Seq("Em2"), LengthUnitObjects.exametre.interval**2)
+  final object square_zettametre extends DefaultAreaUnit("square zettametre", "Zm²", Seq("Zm2"), LengthUnitObjects.zettametre.interval**2)
+  final object square_yottametre extends DefaultAreaUnit("square yottametre", "Ym²", Seq("Ym2"), LengthUnitObjects.yottametre.interval**2)
   final object are extends DefaultAreaUnit("are", "a", Nil, r"1e2")
   final object hectare extends DefaultAreaUnit("hectare", "ha", Nil, r"1e4")
+  final object barn extends DefaultAreaUnit("barn", "b", Nil, r"1e-28")
+  final object yoctobarn extends DefaultAreaUnit("yoctobarn", "yb", Nil, r"1e-28" * r"1e-24")
+  final object zeptobarn extends DefaultAreaUnit("zeptobarn", "zb", Nil, r"1e-28" * r"1e-21")
+  final object attobarn extends DefaultAreaUnit("attobarn", "ab", Nil, r"1e-28" * r"1e-18")
+  final object femtobarn extends DefaultAreaUnit("femtobarn", "fb", Nil, r"1e-28" * r"1e-15")
+  final object picobarn extends DefaultAreaUnit("picobarn", "pb", Nil, r"1e-28" * r"1e-12")
+  final object nanobarn extends DefaultAreaUnit("nanobarn", "nb", Nil, r"1e-28" * r"1e-9")
+  final object microbarn extends DefaultAreaUnit("microbarn", "μb", Seq("mcb"), r"1e-28" * r"1e-6")
+  final object millibarn extends DefaultAreaUnit("millibarn", "mb", Nil, r"1e-28" * r"1e-3")
+  final object kilobarn extends DefaultAreaUnit("kilobarn", "kb", Seq("Kb"), r"1e-28" * r"1e3")
+  final object megabarn extends DefaultAreaUnit("megabarn", "Mb", Nil, r"1e-28" * r"1e6")
+  final object gigabarn extends DefaultAreaUnit("gigabarn", "Gb", Nil, r"1e-28" * r"1e9")
+  final object terabarn extends DefaultAreaUnit("terabarn", "Tb", Nil, r"1e-28" * r"1e12")
+  final object petabarn extends DefaultAreaUnit("petabarn", "Pb", Nil, r"1e-28" * r"1e15")
+  final object exabarn extends DefaultAreaUnit("exabarn", "Eb", Nil, r"1e-28" * r"1e18")
+  final object zettabarn extends DefaultAreaUnit("zettabarn", "Zb", Nil, r"1e-28" * r"1e21")
+  final object yottabarn extends DefaultAreaUnit("yottabarn", "Yb", Nil, r"1e-28" * r"1e24")
+  final object square_mil extends DefaultAreaUnit("square mil", "mil²", Seq("mil2", "sq_mil"), LengthUnitObjects.mil.interval**2)
+  final object square_inch extends DefaultAreaUnit("square inch", "in²", Seq("in2", "sq_in"), LengthUnitObjects.inch.interval**2)
+  final object square_link extends DefaultAreaUnit("square link", "li²", Seq("li2", "lnk²", "lnk2", "sq_li", "sq_lnk"), LengthUnitObjects.link.interval**2)
+  final object `square_link(US)` extends DefaultAreaUnit("square link(US)", "li²(US)", Seq("li2(US)", "lnk²(US)", "lnk2(US)", "sq_li(US)", "sq_lnk(US)"), LengthUnitObjects.`link(US)`.interval**2)
+  final object square_foot extends DefaultAreaUnit("square foot", "ft²", Seq("ft2", "sq_ft"), LengthUnitObjects.foot.interval**2)
+  final object `square_foot(US)` extends DefaultAreaUnit("square foot(US)", "ft²(US)", Seq("ft2(US)", "sq_ft(US)"), LengthUnitObjects.`foot(US)`.interval**2)
+  final object square_chain extends DefaultAreaUnit("square chain", "ch²", Seq("ch2", "sq_ch"), LengthUnitObjects.chain.interval**2)
+  final object `square_chain(US)` extends DefaultAreaUnit("square chain(US)", "ch²(US)", Seq("ch2(US)", "sq_ch(US)"), LengthUnitObjects.`chain(US)`.interval**2)
+  final object square_yard extends DefaultAreaUnit("square yard", "yd²", Seq("yd2", "sq_yd"), LengthUnitObjects.yard.interval**2)
+  final object square_rod extends DefaultAreaUnit("square rod", "rd²", Seq("rd2", "sq_rd"), LengthUnitObjects.rod.interval**2)
+  final object square_mile extends DefaultAreaUnit("square mile", "mi²", Seq("mi2", "sq_mi"), LengthUnitObjects.mile.interval**2)
+  final object `square_mile(US)` extends DefaultAreaUnit("square mile(US)", "mi²(US)", Seq("mi2(US)", "sq_mi(US)"), LengthUnitObjects.`mile(US)`.interval**2)
+  final object acre extends DefaultAreaUnit("acre", "ac", Nil, r"10" * square_chain.interval)
+  final object `acre(US)` extends DefaultAreaUnit("acre(US)", "ac(US)", Nil, r"10" * `square_chain(US)`.interval)
+  final object rood extends DefaultAreaUnit("rood", "ro", Nil, r"1"/r"4" * acre.interval)
+  final object circular_mil extends DefaultAreaUnit("circular mil", "circ_mil", Nil, Constants.Pi / r"4" * square_mil.interval)
+  final object circular_inch extends DefaultAreaUnit("circular inch", "circ_in", Nil, Constants.Pi / r"4" * square_inch.interval)
+  final object board extends DefaultAreaUnit("board", "bd", Nil, LengthUnitObjects.inch.interval * LengthUnitObjects.foot.interval)
 }
 
 object AreaUnits{
@@ -124,10 +167,84 @@ object AreaUnits{
   def Zm2: AreaUnit = AreaUnitObjects.square_zettametre
   def `Ym²`: AreaUnit = AreaUnitObjects.square_yottametre
   def Ym2: AreaUnit = AreaUnitObjects.square_yottametre
-  def `ft²`: AreaUnit = AreaUnitObjects.square_foot
-  def ft2: AreaUnit = AreaUnitObjects.square_foot
-  def `in²`: AreaUnit = AreaUnitObjects.square_inch
-  def in2: AreaUnit = AreaUnitObjects.square_inch
   def a: AreaUnit = AreaUnitObjects.are
   def ha: AreaUnit = AreaUnitObjects.hectare
+  def b: AreaUnit = AreaUnitObjects.barn
+  def yb: AreaUnit = AreaUnitObjects.yoctobarn
+  def zb: AreaUnit = AreaUnitObjects.zeptobarn
+  def ab: AreaUnit = AreaUnitObjects.attobarn
+  def fb: AreaUnit = AreaUnitObjects.femtobarn
+  def pb: AreaUnit = AreaUnitObjects.picobarn
+  def nb: AreaUnit = AreaUnitObjects.nanobarn
+  def μb: AreaUnit = AreaUnitObjects.microbarn
+  def mcb: AreaUnit = AreaUnitObjects.microbarn
+  def mb: AreaUnit = AreaUnitObjects.millibarn
+  def kb: AreaUnit = AreaUnitObjects.kilobarn
+  def Kb: AreaUnit = AreaUnitObjects.kilobarn
+  def Mb: AreaUnit = AreaUnitObjects.megabarn
+  def Gb: AreaUnit = AreaUnitObjects.gigabarn
+  def Tb: AreaUnit = AreaUnitObjects.terabarn
+  def Pb: AreaUnit = AreaUnitObjects.petabarn
+  def Eb: AreaUnit = AreaUnitObjects.exabarn
+  def Zb: AreaUnit = AreaUnitObjects.zettabarn
+  def Yb: AreaUnit = AreaUnitObjects.yottabarn
+  def `mil²`: AreaUnit = AreaUnitObjects.square_mil
+  def mil2: AreaUnit = AreaUnitObjects.square_mil
+  def sq_mil: AreaUnit = AreaUnitObjects.square_mil
+  def `in²`: AreaUnit = AreaUnitObjects.square_inch
+  def in2: AreaUnit = AreaUnitObjects.square_inch
+  def sq_in: AreaUnit = AreaUnitObjects.square_inch
+  def `li²`: AreaUnit = AreaUnitObjects.square_link
+  def `li²`(a: square_linkAttribute): AreaUnit = a match { 
+    case AreaAttributes.US => AreaUnitObjects.`square_link(US)`
+  }
+  def li2: AreaUnit = AreaUnitObjects.square_link
+  def li2(a: square_linkAttribute): AreaUnit = `li²`(a)
+
+  def `lnk²`: AreaUnit = AreaUnitObjects.square_link
+  def `lnk²`(a: square_linkAttribute): AreaUnit = `li²`(a)
+
+  def lnk2: AreaUnit = AreaUnitObjects.square_link
+  def lnk2(a: square_linkAttribute): AreaUnit = `li²`(a)
+
+  def sq_li: AreaUnit = AreaUnitObjects.square_link
+  def sq_lnk: AreaUnit = AreaUnitObjects.square_link
+  def `ft²`: AreaUnit = AreaUnitObjects.square_foot
+  def `ft²`(a: square_footAttribute): AreaUnit = a match { 
+    case AreaAttributes.US => AreaUnitObjects.`square_foot(US)`
+  }
+  def ft2: AreaUnit = AreaUnitObjects.square_foot
+  def ft2(a: square_footAttribute): AreaUnit = `ft²`(a)
+
+  def sq_ft: AreaUnit = AreaUnitObjects.square_foot
+  def `ch²`: AreaUnit = AreaUnitObjects.square_chain
+  def `ch²`(a: square_chainAttribute): AreaUnit = a match { 
+    case AreaAttributes.US => AreaUnitObjects.`square_chain(US)`
+  }
+  def ch2: AreaUnit = AreaUnitObjects.square_chain
+  def ch2(a: square_chainAttribute): AreaUnit = `ch²`(a)
+
+  def sq_ch: AreaUnit = AreaUnitObjects.square_chain
+  def `yd²`: AreaUnit = AreaUnitObjects.square_yard
+  def yd2: AreaUnit = AreaUnitObjects.square_yard
+  def sq_yd: AreaUnit = AreaUnitObjects.square_yard
+  def `rd²`: AreaUnit = AreaUnitObjects.square_rod
+  def rd2: AreaUnit = AreaUnitObjects.square_rod
+  def sq_rd: AreaUnit = AreaUnitObjects.square_rod
+  def `mi²`: AreaUnit = AreaUnitObjects.square_mile
+  def `mi²`(a: square_mileAttribute): AreaUnit = a match { 
+    case AreaAttributes.US => AreaUnitObjects.`square_mile(US)`
+  }
+  def mi2: AreaUnit = AreaUnitObjects.square_mile
+  def mi2(a: square_mileAttribute): AreaUnit = `mi²`(a)
+
+  def sq_mi: AreaUnit = AreaUnitObjects.square_mile
+  def ac: AreaUnit = AreaUnitObjects.acre
+  def ac(a: acreAttribute): AreaUnit = a match { 
+    case AreaAttributes.US => AreaUnitObjects.`acre(US)`
+  }
+  def ro: AreaUnit = AreaUnitObjects.rood
+  def circ_mil: AreaUnit = AreaUnitObjects.circular_mil
+  def circ_in: AreaUnit = AreaUnitObjects.circular_inch
+  def bd: AreaUnit = AreaUnitObjects.board
 }

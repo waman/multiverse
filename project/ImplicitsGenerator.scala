@@ -1,4 +1,5 @@
 import java.io.File
+
 import sbt.io.IO
 
 object ImplicitsGenerator {
@@ -12,7 +13,7 @@ object ImplicitsGenerator {
     val destFile = IO.resolve(destDir, new File("package.scala"))
     IO.writer(destFile, "", utf8, append=false){ writer =>
       writer.write(
-        s"""package ${rootPackage}
+        s"""package $rootPackage
            |
            |import scala.language.implicitConversions
            |import spire.math._
@@ -20,7 +21,7 @@ object ImplicitsGenerator {
            |""".stripMargin)
 
       jsons.map(_.subpackage).distinct.foreach{ sp =>
-        writer.write(s"""import ${rootPackage}.unit.$sp._\n""")
+        writer.write(s"""import $rootPackage.unit.$sp._\n""")
       }
 
       writer.write(
@@ -32,7 +33,7 @@ object ImplicitsGenerator {
            |""".stripMargin)
 
       jsons.map(_.id).foreach{ id =>
-        writer.write(s"""    def apply(unit: ${id}Unit): ${id}[A] = new ${id}(value, unit)\n""")
+        writer.write(s"""    def apply(unit: ${id}Unit): $id[A] = new $id(value, unit)\n""")
       }
 
       writer.write(

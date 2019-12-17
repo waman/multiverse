@@ -3,12 +3,10 @@ import java.nio.charset.Charset
 
 import com.google.gson.Gson
 import sbt.io.IO
-import sbt.util.Tracked
 
 import scala.util.matching.Regex
 
 object MultiverseSourceGenerator {
-  import GenerationUtil._
 
   private val destPath = new File("org/waman/multiverse/unit")
 
@@ -40,14 +38,30 @@ object MultiverseSourceGenerator {
         acc
       }
 
-    val jsons = walk(info, Nil)
-    val generated = extractResources(jsons, classOf[SourceGeneratorJson]).flatMap(_.generate(jsons))
+    val jsons = new JsonResources(walk(info, Nil))
+    val generated = jsons.generate()
 
-    val unitDefs = extractResources(jsons, classOf[UnitDefinitionJson])
-    val implicits = ImplicitsGenerator.generate(srcManaged, unitDefs)
+    val implicits = ImplicitsGenerator.generate(srcManaged, jsons.unitDefs)
 
     implicits +: generated
   }
+}
+
+class JsonResources(val jsons: Seq[JsonResource]){
+
+  def extractResources[U <: JsonResource](jsons: Seq[JsonResource], cls: Class[U]): Seq[U] =
+    jsons.filter(cls.isInstance(_)).map(cls.cast(_))
+
+  def searchUnitDefinition(id: String): UnitDefinitionJson =
+    unitDefs.find(_.id == id) match {
+      case Some(ud) => ud
+      case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
+    }
+
+  val scalePrefixJson: ScalePrefixJson = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
+  val unitDefs: Seq[UnitDefinitionJson] = extractResources(jsons, classOf[UnitDefinitionJson])
+
+  def generate(): Seq[File] = extractResources(jsons, classOf[SourceGeneratorJson]).flatMap(_.generate(this))
 }
 
 object GenerationUtil{
@@ -57,18 +71,18 @@ object GenerationUtil{
   val utf8: Charset = Charset.forName("UTF-8")
 
   val regexId: Regex = """[a-zA-z.]+""".r
-  val regexCompositeUnit: Regex = """(\w+)\s*        ([*/])\s*(\w+)""".r
+  val regexCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
 
   private val regexNum: Regex = """(-)?\d+(\.\d+)?(e(-)?\d+)?""".r
   def refineNumbers(s: String): String = s match {
     // TODO
     case "log(2)" => "Real(2).log()"  // Entropy.bit
     case "log(10)" => "Real(10).log()"  // Entropy.ban
-    case "sqrt(1/10)" => """Real("1/10").sqrt()"""  // Length.
+    case "sqrt(1/10)" => """Real("1/10").sqrt()"""  // Length.metric_foot
     case _ => regexNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
   }
 
-  private val regexUnitName: Regex = """[\w.()]+""".r
+  private val regexUnitName: Regex = """[\w.()^\d]+""".r
   def refineUnitNames(s: String): String = regexUnitName.replaceAllIn(s, m => {
     val str = s.substring(m.start, m.end)
     val (prefix, unitName) = str.indexOf('.') match {
@@ -76,8 +90,17 @@ object GenerationUtil{
       case i => (str.substring(0, i)+"UnitObjects.", str.substring(i+1))
     }
 
-    val escapedUnitName = if (unitName.contains('(')) s"`$unitName`" else unitName
-    prefix + escapedUnitName + ".interval"
+    val (baseUN, power) =
+      if (unitName.endsWith("^2")) (unitName.substring(0, unitName.length-2), 2)
+      else if (unitName.endsWith("^3")) (unitName.substring(0, unitName.length-2), 3)
+      else (unitName, 1)
+
+    val escapedUN = if (baseUN.contains('(')) s"`$baseUN`" else baseUN
+
+    power match {
+      case 2 | 3 => s"$prefix$escapedUN.interval**$power"
+      case _ => s"$prefix$escapedUN.interval"
+    }
   })
 
   def extraUnitsInBaseUnit(s: String): Seq[String] = regexUnitName.findAllMatchIn(s).map{ m =>
@@ -93,15 +116,6 @@ object GenerationUtil{
     if (ss.contains("(")) s"""`$ss`"""
     else ss
   }
-
-  def extractResources[U <: JsonResource](jsons: Seq[JsonResource], cls: Class[U]): Seq[U] =
-    jsons.filter(cls.isInstance(_)).map(cls.cast(_))
-
-  def searchUnitDefinition[U <: UnitDefinitionJson](id: String, unitDefs: Seq[U]): U =
-    unitDefs.find(_.id == id) match {
-      case Some(ud) => ud
-      case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
-    }
 
   def headToLower(s: String): String = Character.toLowerCase(s.charAt(0)) + s.substring(1)
 }

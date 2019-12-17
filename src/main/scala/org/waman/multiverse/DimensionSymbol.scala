@@ -36,8 +36,10 @@ object DimensionSymbol{
   def toStringWithSymbol(d: Map[DimensionSymbol, Int]): String = toString(d, _.toString, "")
 
   private def toString(d: Map[DimensionSymbol, Int], f: DimensionSymbol => String, sep: String): String =
-    values.map(s => (s, d(s))).filter(_._2 != 0).map{
-      case (s, 1) => f(s)
-      case (s, n) => f(s) + n.toString.map(toUppers).mkString("")
-    }.mkString(sep)
+    if (d.isEmpty) "-"
+    else
+      values.map(s => (s, d(s))).filter(_._2 != 0).map{
+        case (s, 1) => f(s)
+        case (s, n) => f(s) + n.toString.map(toUppers).mkString("")
+      }.mkString(sep)
 }

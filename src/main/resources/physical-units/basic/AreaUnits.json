@@ -49,6 +49,6 @@
     {"name": "circular mil", "symbol": "circ_mil", "interval": "Constants.Pi / 4", "baseUnit": "square_mil"},
     {"name": "circular inch", "symbol": "circ_in", "interval": "Constants.Pi / 4", "baseUnit": "square_inch"},
     
-    {"name": "board", "symbol": "bd", "interval": "Length.inch * Length.foot"}
+    {"name": "board", "symbol": "bd", "baseUnit": "Length.inch * Length.foot"}
   ]
 }

@@ -6,22 +6,21 @@
 
   "units": [
     {"name": "cubic metre", "symbol": "m³", "aliases": ["m3"],
-      "baseUnit": "Length.metre^2", "scalePrefixes": true},
+      "baseUnit": "Length.metre^3", "scalePrefixes": true},
 
     {"name": "litre", "symbol": "L", "interval": "1e-3", "scalePrefixes": true},
 
     {"name": "lambda", "symbol": "λ", "interval": "1e-9"},
 
-    {"name": "cubic inch", "symbol": "in³", "aliases": ["in3", "cu_in"], "interval": "Length.inch^3"},
-    {"name": "cubic foot", "symbol": "ft³", "aliases": ["ft3", "cu_ft"], "interval": "Length.foot^3"},
-    {"name": "cubic yard", "symbol": "yd³", "aliases": ["yd3", "cu_yd"], "interval": "Length.yard^3"},
-    {"name": "cubic fathom", "symbol": "ftm³", "aliases": ["ftm3", "cu_fm"], "interval": "Length.fathom^3"},
-    {"name": "cubic mile", "symbol": "mi³", "aliases": ["mi3", "cu_mi"], "interval": "Length.mile^3"},
+    {"name": "cubic inch", "symbol": "in³", "aliases": ["in3", "cu_in"], "baseUnit": "Length.inch^3"},
+    {"name": "cubic foot", "symbol": "ft³", "aliases": ["ft3", "cu_ft"], "baseUnit": "Length.foot^3"},
+    {"name": "cubic yard", "symbol": "yd³", "aliases": ["yd3", "cu_yd"], "baseUnit": "Length.yard^3"},
+    {"name": "cubic fathom", "symbol": "ftm³", "aliases": ["ftm3", "cu_fm"], "baseUnit": "Length.fathom^3"},
+    {"name": "cubic mile", "symbol": "mi³", "aliases": ["mi3", "cu_mi"], "baseUnit": "Length.mile^3"},
 
     {"name": "board foot", "symbol": "fbm", "interval": "144", "baseUnit": "cubic_inch"},
     {"name": "gallon_beer", "symbol": "beer_gal", "interval": "282", "baseUnit": "cubic_inch"},
     {"name": "perch", "symbol": "per", "interval": "33/2 * 3/2", "baseUnit": "cubic_foot"},
-    {"name": "barrel", "symbol": "bl", "aliases": ["bbl"], "interval": "42", "baseUnit": "gallon(US_fl)"},
 
     {"name": "minim", "symbol": "minim", "baseUnit": "minim(US)",
       "attributes": [
@@ -66,7 +65,7 @@
       ]
     },
 
-    {"name": "peck", "symbol": "pk", "interval": "r\"\", ",
+    {"name": "peck", "symbol": "pk", "baseUnit": "peck(US_dry)",
       "attributes": [
         {"name": "US_dry", "interval": "1/4", "baseUnit": "bushel(US_lvl)"},
         {"name": "imp", "interval": "2", "baseUnit": "gallon(imp)"}
@@ -81,7 +80,7 @@
       ]
     },
 
-    {"name": "barrel", "symbol": "bl",
+    {"name": "barrel", "symbol": "bl", "aliases": ["bbl"], "interval": "42", "baseUnit": "gallon(US_fl)",
       "attributes": [
         {"name": "US_fl", "aliases": ["fl_bl"], "interval": "31.5", "baseUnit": "gallon(US_fl)"},
         {"name": "US_dry", "interval": "105", "baseUnit": "quart(US_dry)"},

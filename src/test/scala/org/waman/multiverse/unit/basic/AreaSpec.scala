@@ -21,8 +21,9 @@ class AreaSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("area unit", "expected"),
-          (m2 , "metre squared"),
-          (mm*mm, "millimetre squared"),
+          (m2 , "square metre"),
+          (mm2 , "square millimetre"),
+          (mm*mm, "square millimetre"),
           (m*mm, "metre times millimetre")
         )
       // Verify
@@ -51,8 +52,9 @@ class AreaSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("area unit", "expected"),
-          (m2 , Seq("m2", "m.square", "m*m")),
-          (mm*mm, Seq("mm.square", "mm*mm")),
+          (m2 , Seq("m2")),
+          (m.squared, Seq("m.squared")),
+          (mm*mm, Seq("mm.squared")),
           (m*mm, Nil)
         )
       // Verify

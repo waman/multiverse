@@ -43,7 +43,7 @@ object MassUnit{
 
   import MassUnitObjects._
   def getUnits: Seq[MassUnit] =
-    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal)
+    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, atomic_mass_unit, electron_mass, ounce, pound, long_ton, short_ton, scruple, carat, metric_carat, stone, dram_avoirdupois, grain, long_hundred_weight, short_hundred_weight, kip, ounce_avoirdupois, dram_troy, ounce_troy, pound_troy, pennyweight, long_assay_ton, short_assay_ton, slug)
 }
 
 
@@ -52,6 +52,7 @@ class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[Str
   extends MassUnit
 
 object MassUnitObjects{
+  import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects
 
   final object kilogram extends DefaultMassUnit("kilogram", "kg", Seq("Kg"), 1)
   final object gram extends DefaultMassUnit("gram", "g", Nil, r"1e-3")
@@ -78,6 +79,29 @@ object MassUnitObjects{
   final object grave extends DefaultMassUnit("grave", "gv", Nil, 1)
   final object gamma extends DefaultMassUnit("gamma", "γ", Nil, microgram.interval)
   final object quintal extends DefaultMassUnit("quintal", "q", Nil, r"100" * kilogram.interval)
+  final object atomic_mass_unit extends DefaultMassUnit("atomic mass unit", "u", Seq("AMU", "Da"), r"1.66053892173e-27") with NotExact
+  final object electron_mass extends DefaultMassUnit("electron mass", "m_e", Nil, r"9.1093829140e-31") with NotExact
+  final object ounce extends DefaultMassUnit("ounce", "oz", Nil, r"28" * gram.interval)
+  final object pound extends DefaultMassUnit("pound", "lb", Seq("lb_av"), r"0.45359237")
+  final object long_ton extends DefaultMassUnit("long ton", "long_tn", Nil, r"2240" * pound.interval)
+  final object short_ton extends DefaultMassUnit("short ton", "sh_tn", Nil, r"2000" * pound.interval)
+  final object scruple extends DefaultMassUnit("scruple", "s_ap", Nil, r"20" * grain.interval)
+  final object carat extends DefaultMassUnit("carat", "kt", Nil, r"19"/r"6" * grain.interval)
+  final object metric_carat extends DefaultMassUnit("metric carat", "ct", Nil, r"200" * milligram.interval)
+  final object stone extends DefaultMassUnit("stone", "st", Nil, r"14" * pound.interval)
+  final object dram_avoirdupois extends DefaultMassUnit("dram avoirdupois", "dr_av", Nil, r"875"/r"32" * grain.interval)
+  final object grain extends DefaultMassUnit("grain", "gr", Nil, r"1"/r"7000" * pound.interval)
+  final object long_hundred_weight extends DefaultMassUnit("long hundred weight", "cwt", Seq("long_cwt"), r"112" * dram_avoirdupois.interval)
+  final object short_hundred_weight extends DefaultMassUnit("short hundred weight", "sh_cwt", Nil, r"100" * dram_avoirdupois.interval)
+  final object kip extends DefaultMassUnit("kip", "kip", Nil, r"1000" * dram_avoirdupois.interval)
+  final object ounce_avoirdupois extends DefaultMassUnit("ounce avoirdupois", "oz_av", Nil, r"1"/r"16" * pound.interval)
+  final object dram_troy extends DefaultMassUnit("dram troy", "dr_t", Nil, r"60" * grain.interval)
+  final object ounce_troy extends DefaultMassUnit("ounce troy", "oz_t", Nil, r"1"/r"12" * pound_troy.interval)
+  final object pound_troy extends DefaultMassUnit("pound troy", "lb_t", Nil, r"5760" * grain.interval)
+  final object pennyweight extends DefaultMassUnit("pennyweight", "dwt", Seq("pwt"), r"1"/r"20" * ounce_troy.interval)
+  final object long_assay_ton extends DefaultMassUnit("long assay ton", "long_AT", Seq("AT"), r"98"/r"3" * gram.interval)
+  final object short_assay_ton extends DefaultMassUnit("short assay ton", "sh_AT", Nil, r"175"/r"6" * gram.interval)
+  final object slug extends DefaultMassUnit("slug", "slug", Nil, pound.interval * AccelerationUnitObjects.standard_gravity.interval / LengthUnitObjects.foot.interval)
 }
 
 object MassUnits{
@@ -108,4 +132,33 @@ object MassUnits{
   def gv: MassUnit = MassUnitObjects.grave
   def γ: MassUnit = MassUnitObjects.gamma
   def q: MassUnit = MassUnitObjects.quintal
+  def u: MassUnit = MassUnitObjects.atomic_mass_unit
+  def AMU: MassUnit = MassUnitObjects.atomic_mass_unit
+  def Da: MassUnit = MassUnitObjects.atomic_mass_unit
+  def m_e: MassUnit = MassUnitObjects.electron_mass
+  def oz: MassUnit = MassUnitObjects.ounce
+  def lb: MassUnit = MassUnitObjects.pound
+  def lb_av: MassUnit = MassUnitObjects.pound
+  def long_tn: MassUnit = MassUnitObjects.long_ton
+  def sh_tn: MassUnit = MassUnitObjects.short_ton
+  def s_ap: MassUnit = MassUnitObjects.scruple
+  def kt: MassUnit = MassUnitObjects.carat
+  def ct: MassUnit = MassUnitObjects.metric_carat
+  def st: MassUnit = MassUnitObjects.stone
+  def dr_av: MassUnit = MassUnitObjects.dram_avoirdupois
+  def gr: MassUnit = MassUnitObjects.grain
+  def cwt: MassUnit = MassUnitObjects.long_hundred_weight
+  def long_cwt: MassUnit = MassUnitObjects.long_hundred_weight
+  def sh_cwt: MassUnit = MassUnitObjects.short_hundred_weight
+  def kip: MassUnit = MassUnitObjects.kip
+  def oz_av: MassUnit = MassUnitObjects.ounce_avoirdupois
+  def dr_t: MassUnit = MassUnitObjects.dram_troy
+  def oz_t: MassUnit = MassUnitObjects.ounce_troy
+  def lb_t: MassUnit = MassUnitObjects.pound_troy
+  def dwt: MassUnit = MassUnitObjects.pennyweight
+  def pwt: MassUnit = MassUnitObjects.pennyweight
+  def long_AT: MassUnit = MassUnitObjects.long_assay_ton
+  def AT: MassUnit = MassUnitObjects.long_assay_ton
+  def sh_AT: MassUnit = MassUnitObjects.short_assay_ton
+  def slug: MassUnit = MassUnitObjects.slug
 }
