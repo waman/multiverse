@@ -9,11 +9,19 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
 
   "Unit" - {
 
-    "All of s2, s*s, and s.square should return equivalent objects" in {
-      s2 should equal (s*s)
-      s2 should equal (s.squared)
-
-      ms*ms should equal (ms.squared)
+    "All of s2, s.squared, and s*s should return equivalent objects" in {
+      // Exercise
+      val conversions =
+        Table(
+          ("first", "second", "therd"),
+          (s2 , s.squared, s*s),
+          (ms2, ms.squared, ms*ms)
+        )
+      // Verify
+      forAll(conversions){ (first: TimeSquaredUnit, second: TimeSquaredUnit, third: TimeSquaredUnit) =>
+        first should equal(second)
+        first should equal (third)
+      }
     }
 
     "The name property of TimeSquared unit object should return the proper string" in {
@@ -22,6 +30,7 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
         Table(
           ("time squared unit", "expected"),
           (s2 , "second squared"),
+          (s.squared , "second squared"),
           (ms*ms, "millisecond squared"),
           (s*ms, "second times millisecond")
         )

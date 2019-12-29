@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUnit)
     extends LinearQuantity[DynamicViscosity[A], A, DynamicViscosityUnit] {
 
   override protected def newQuantity(value: A, unit: DynamicViscosityUnit): DynamicViscosity[A] = new DynamicViscosity(value, unit)
+
 }
 
 trait DynamicViscosityUnit extends LinearUnit[DynamicViscosityUnit]{
@@ -30,8 +32,6 @@ object DynamicViscosityUnit{
   def getUnits: Seq[DynamicViscosityUnit] =
     Seq(poise)
 }
-
-
 
 class DefaultDynamicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends DynamicViscosityUnit

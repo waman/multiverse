@@ -5,16 +5,22 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
+
+
+
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
 
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
 
+
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
 
   override protected def newQuantity(value: A, unit: LengthUnit): Length[A] = new Length(value, unit)
+
   def *(length: Length[A]): Area[A] = new Area(this.value * length.value, this.unit * length.unit)
 
   def squared: Area[A] = this * this
@@ -59,13 +65,13 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
     if(this == lengthUnit)
       this.squared
     else
-      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
+      new AbstractProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
 
   def /(timeUnit: TimeUnit): VelocityUnit =
-    new QuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
+    new AbstractQuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
 
   def /(timeSquaredUnit: TimeSquaredUnit): AccelerationUnit =
-    new QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit](LengthUnit.this, timeSquaredUnit) with AccelerationUnit
+    new AbstractQuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit](LengthUnit.this, timeSquaredUnit) with AccelerationUnit
 
 }
 
@@ -80,7 +86,6 @@ object LengthUnit{
   def getUnits: Seq[LengthUnit] =
     Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, link, `link(US)`, foot, `foot(US)`, yard, ell, fathom, rod, rope, chain, `chain(US)`, mile, `mile(US)`, cable, `cable(US)`, `cable(imp)`, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
 }
-
 
 sealed trait xunitAttribute
 sealed trait linkAttribute

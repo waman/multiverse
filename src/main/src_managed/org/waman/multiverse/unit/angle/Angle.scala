@@ -8,10 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
+
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     extends LinearQuantity[Angle[A], A, AngleUnit] {
 
   override protected def newQuantity(value: A, unit: AngleUnit): Angle[A] = new Angle(value, unit)
+
   def /(time: Time[A]): AngularVelocity[A] = new AngularVelocity(this.value / time.value, this.unit / time.unit)
 
 }
@@ -22,7 +25,7 @@ trait AngleUnit extends LinearUnit[AngleUnit]{
   override def dimension: Map[DimensionSymbol, Int] = AngleUnit.dimension
 
   def /(timeUnit: TimeUnit): AngularVelocityUnit =
-    new QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit](AngleUnit.this, timeUnit) with AngularVelocityUnit
+    new AbstractQuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit](AngleUnit.this, timeUnit) with AngularVelocityUnit
 
 }
 
@@ -36,8 +39,6 @@ object AngleUnit{
   def getUnits: Seq[AngleUnit] =
     Seq(radian, degree, arcmin, arcsec, gradian, turn, sign, octant, sextant, quadrant)
 }
-
-
 
 class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AngleUnit

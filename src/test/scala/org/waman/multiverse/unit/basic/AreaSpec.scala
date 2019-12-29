@@ -10,10 +10,18 @@ class AreaSpec extends MultiverseCustomSpec {
   "Unit" - {
 
     "All of m2, m*m, and s.square should return equivalent objects" in {
-      m2 should equal (m*m)
-      m2 should equal (m.squared)
-
-      mm*mm should equal (mm.squared)
+      // Exercise
+      val conversions =
+        Table(
+          ("first", "second", "therd"),
+          (m2 , m.squared, m*m),
+          (mm2, mm.squared, mm*mm)
+        )
+      // Verify
+      forAll(conversions){ (first: AreaUnit, second: AreaUnit, third: AreaUnit) =>
+        first should equal(second)
+        first should equal (third)
+      }
     }
 
     "The name property of area unit object should return the proper string" in {
@@ -22,8 +30,9 @@ class AreaSpec extends MultiverseCustomSpec {
         Table(
           ("area unit", "expected"),
           (m2 , "square metre"),
+          (m.squared, "square metre"),
           (mm2 , "square millimetre"),
-          (mm*mm, "square millimetre"),
+          (mm.squared, "square millimetre"),
           (m*mm, "metre times millimetre")
         )
       // Verify
@@ -38,6 +47,7 @@ class AreaSpec extends MultiverseCustomSpec {
         Table(
           ("area unit", "expected"),
           (m2 , "m²"),
+          (m.squared, "m²"),
           (mm*mm, "mm²"),
           (m*mm, "m*mm")
         )

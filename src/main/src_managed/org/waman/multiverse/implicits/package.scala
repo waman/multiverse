@@ -20,6 +20,7 @@ package object implicits {
 
     def apply(unit: AngleUnit): Angle[A] = new Angle(value, unit)
     def apply(unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
+    def apply(unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
     def apply(unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
     def apply(unit: AreaUnit): Area[A] = new Area(value, unit)
     def apply(unit: DensityUnit): Density[A] = new Density(value, unit)
@@ -33,7 +34,6 @@ package object implicits {
     def apply(unit: ChargeUnit): Charge[A] = new Charge(value, unit)
     def apply(unit: CurrentUnit): Current[A] = new Current(value, unit)
     def apply(unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
-    def apply(unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
     def apply(unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
     def apply(unit: VoltageUnit): Voltage[A] = new Voltage(value, unit)
     def apply(unit: DynamicViscosityUnit): DynamicViscosity[A] = new DynamicViscosity(value, unit)
@@ -65,7 +65,7 @@ package object implicits {
     def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)
 }
 
-  // Integral value (like 1(m), not 1.0(m)) create a Quantity[Real] instance
+  // An integral value (like 1(m), not 1.0(m)) create a Quantity[Real] instance
   implicit def convertIntToQuantityFactory(value: Int): QuantityFactory[Real] =
     new QuantityFactory(Real(value))
 
@@ -77,4 +77,24 @@ package object implicits {
 
   implicit def convertBigIntToQuantityFactory(value: BigInt): QuantityFactory[Real] =
     new QuantityFactory(Real(value))
+
+  // Implicit conversions between unrelated units (like energy and absolute temperature)
+  implicit def convertAngularVelocityToFrequency[A: Fractional](q: AngularVelocity[A]): Frequency[A] =
+    q.toFrequency
+
+  implicit def convertFrequencyToAngularVelocity[A: Fractional](q: Frequency[A]): AngularVelocity[A] =
+    q.toAngularVelocity
+
+  implicit def convertMassToEnergy[A: Fractional](q: Mass[A]): Energy[A] =
+    q.toEnergy
+
+  implicit def convertEnergyToAbsoluteTemperature[A: Fractional](q: Energy[A]): AbsoluteTemperature[A] =
+    q.toAbsoluteTemperature
+
+  implicit def convertEnergyToMass[A: Fractional](q: Energy[A]): Mass[A] =
+    q.toMass
+
+  implicit def convertAbsoluteTemperatureToEnergy[A: Fractional](q: AbsoluteTemperature[A]): Energy[A] =
+    q.toEnergy
+
 }

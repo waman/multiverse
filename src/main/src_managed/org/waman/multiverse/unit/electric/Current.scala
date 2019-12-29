@@ -8,10 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
+
 class Current[A: Fractional](val value: A, val unit: CurrentUnit)
     extends LinearQuantity[Current[A], A, CurrentUnit] {
 
   override protected def newQuantity(value: A, unit: CurrentUnit): Current[A] = new Current(value, unit)
+
   def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
 
 }
@@ -22,7 +25,7 @@ trait CurrentUnit extends LinearUnit[CurrentUnit]{
   override def dimension: Map[DimensionSymbol, Int] = CurrentUnit.dimension
 
   def *(timeUnit: TimeUnit): ChargeUnit =
-    new ProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
+    new AbstractProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
 
 }
 
@@ -37,8 +40,6 @@ object CurrentUnit{
   def getUnits: Seq[CurrentUnit] =
     Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere)
 }
-
-
 
 class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends CurrentUnit

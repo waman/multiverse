@@ -39,12 +39,28 @@ class EnergySpec extends MultiverseCustomSpec {
         sut should equal (%%%%(expected))
       }
     }
+
+    "Energy should be implicitly converted to AbsoluteTemperature" in {
+      // SetUp
+      import org.waman.multiverse.unit.Constants._
+      import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnits._
+      // Exercise
+      val conversions =
+        Table(
+          ("sut", "expected"),
+          (3.0(J)(K), 3.0 / BoltzmannConstant.toDouble),
+          (3.0(eV)(K), 3.0 * ElementaryCharge.toDouble / BoltzmannConstant.toDouble)
+        )
+      forAll(conversions){ (sut: Double, expected: Double) =>
+        // Verify
+        sut should equal (%%%%(expected))
+      }
+    }
   }
 
   "[SOURCE GENERATION]" - {
-
     "cal_IT(IT) should not compile" in {
-      import EnergyAttributes.IT
+      import org.waman.multiverse.unit.mechanics.EnergyAttributes.IT
       "EnergyUnits.cal_IT" should compile
       "EnergyUnits.cal(IT)" should compile
       "EnergyUnits.cal_IT(IT)" shouldNot compile

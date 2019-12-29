@@ -1,8 +1,0 @@
-{
-  "SIUnit": "heltz",
-  "dimension": {"T": -1},
-
-  "units": [
-    {"name": "heltz", "symbol": "Hz", "scalePrefixes": true}
-  ]
-}

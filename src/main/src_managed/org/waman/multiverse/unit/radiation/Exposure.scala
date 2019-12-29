@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
     extends LinearQuantity[Exposure[A], A, ExposureUnit] {
 
   override protected def newQuantity(value: A, unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
+
 }
 
 trait ExposureUnit extends LinearUnit[ExposureUnit]{
@@ -31,8 +33,6 @@ object ExposureUnit{
   def getUnits: Seq[ExposureUnit] =
     Seq(roentgen)
 }
-
-
 
 class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ExposureUnit

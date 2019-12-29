@@ -11,13 +11,27 @@ import org.waman.multiverse.unit.mechanics.AccelerationUnit
 import org.waman.multiverse.unit.mechanics.Force
 import org.waman.multiverse.unit.mechanics.ForceUnit
 
+
+
+
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
     extends LinearQuantity[Mass[A], A, MassUnit] {
 
   override protected def newQuantity(value: A, unit: MassUnit): Mass[A] = new Mass(value, unit)
+
   def *(acceleration: Acceleration[A]): Force[A] = new Force(this.value * acceleration.value, this.unit * acceleration.unit)
 
   def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
+
+  import org.waman.multiverse.unit.Constants
+  import MassUnitObjects._
+  import org.waman.multiverse.unit.mechanics.Energy
+  import org.waman.multiverse.unit.mechanics.EnergyUnitObjects._
+
+  def toEnergy: Energy[A] =
+    new Energy(
+      apply(kilogram) * implicitly[Fractional[A]].fromReal(Constants.SpeedOfLight * Constants.SpeedOfLight),
+      joule)
 
 }
 
@@ -27,10 +41,10 @@ trait MassUnit extends LinearUnit[MassUnit]{
   override def dimension: Map[DimensionSymbol, Int] = MassUnit.dimension
 
   def *(accelerationUnit: AccelerationUnit): ForceUnit =
-    new ProductUnit[ForceUnit, MassUnit, AccelerationUnit](MassUnit.this, accelerationUnit) with ForceUnit
+    new AbstractProductUnit[ForceUnit, MassUnit, AccelerationUnit](MassUnit.this, accelerationUnit) with ForceUnit
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
-    new QuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
+    new AbstractQuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
 
 }
 
@@ -45,8 +59,6 @@ object MassUnit{
   def getUnits: Seq[MassUnit] =
     Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, atomic_mass_unit, electron_mass, ounce, pound, long_ton, short_ton, scruple, carat, metric_carat, stone, dram_avoirdupois, grain, long_hundred_weight, short_hundred_weight, kip, ounce_avoirdupois, dram_troy, ounce_troy, pound_troy, pennyweight, long_assay_ton, short_assay_ton, slug)
 }
-
-
 
 class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends MassUnit

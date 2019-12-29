@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class FluxDensity[A: Fractional](val value: A, val unit: FluxDensityUnit)
     extends LinearQuantity[FluxDensity[A], A, FluxDensityUnit] {
 
   override protected def newQuantity(value: A, unit: FluxDensityUnit): FluxDensity[A] = new FluxDensity(value, unit)
+
 }
 
 trait FluxDensityUnit extends LinearUnit[FluxDensityUnit]{
@@ -29,8 +31,6 @@ object FluxDensityUnit{
   def getUnits: Seq[FluxDensityUnit] =
     Seq(tesla, yoctotesla, zeptotesla, attotesla, femtotesla, picotesla, nanotesla, microtesla, millitesla, centitesla, decitesla, decatesla, hectotesla, kilotesla, megatesla, gigatesla, teratesla, petatesla, exatesla, zettatesla, yottatesla, gauss, yoctogauss, zeptogauss, attogauss, femtogauss, picogauss, nanogauss, microgauss, milligauss, centigauss, decigauss, decagauss, hectogauss, kilogauss, megagauss, gigagauss, teragauss, petagauss, exagauss, zettagauss, yottagauss)
 }
-
-
 
 class DefaultFluxDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends FluxDensityUnit

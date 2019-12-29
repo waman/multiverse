@@ -11,10 +11,18 @@ class VolumeSpec extends MultiverseCustomSpec {
   "Unit" - {
 
     "All of m3, m*m*m, and s.cubic should return equivalent objects" in {
-      m3 should equal (m*m*m)
-      m3 should equal (m.cubic)
-
-      mm*mm*mm should equal (mm.cubic)
+      // Exercise
+      val conversions =
+        Table(
+          ("first", "second", "therd"),
+          (m3 , m.cubic, m*m*m),
+          (mm3, mm.cubic, mm*mm*mm)
+        )
+      // Verify
+      forAll(conversions){ (first: VolumeUnit, second: VolumeUnit, third: VolumeUnit) =>
+        first should equal(second)
+        first should equal (third)
+      }
     }
 
     "The name property of volume unit object should return the proper string" in {
@@ -23,6 +31,7 @@ class VolumeSpec extends MultiverseCustomSpec {
         Table(
           ("volume unit", "expected"),
           (m3 , "cubic metre"),
+          (m.cubic , "cubic metre"),
           (mm3, "cubic millimetre"),
           (mm*mm*mm, "cubic millimetre"),
           (m2*mm, "square metre times millimetre")
@@ -39,6 +48,7 @@ class VolumeSpec extends MultiverseCustomSpec {
         Table(
           ("volume unit", "expected"),
           (m3 , "m³"),
+          (m.cubic , "m³"),
           (m.cubic, "m³"),
           (mm*mm*mm, "mm³"),
           (m*mm*nm, "m*mm*nm")

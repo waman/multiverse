@@ -11,10 +11,12 @@ import org.waman.multiverse.unit.basic.AreaUnit
 import org.waman.multiverse.unit.fluid.DynamicViscosity
 import org.waman.multiverse.unit.fluid.DynamicViscosityUnit
 
+
 class Momentum[A: Fractional](val value: A, val unit: MomentumUnit)
     extends LinearQuantity[Momentum[A], A, MomentumUnit] {
 
   override protected def newQuantity(value: A, unit: MomentumUnit): Momentum[A] = new Momentum(value, unit)
+
   def /(area: Area[A]): DynamicViscosity[A] = new DynamicViscosity(this.value / area.value, this.unit / area.unit)
 
 }
@@ -25,7 +27,7 @@ trait MomentumUnit extends LinearUnit[MomentumUnit]{
   override def dimension: Map[DimensionSymbol, Int] = MomentumUnit.dimension
 
   def /(areaUnit: AreaUnit): DynamicViscosityUnit =
-    new QuotientUnit[DynamicViscosityUnit, MomentumUnit, AreaUnit](MomentumUnit.this, areaUnit) with DynamicViscosityUnit
+    new AbstractQuotientUnit[DynamicViscosityUnit, MomentumUnit, AreaUnit](MomentumUnit.this, areaUnit) with DynamicViscosityUnit
 
 }
 
@@ -40,8 +42,6 @@ object MomentumUnit{
   def getUnits: Seq[MomentumUnit] =
     Seq()
 }
-
-
 
 class DefaultMomentumUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends MomentumUnit

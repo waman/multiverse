@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Action[A: Fractional](val value: A, val unit: ActionUnit)
     extends LinearQuantity[Action[A], A, ActionUnit] {
 
   override protected def newQuantity(value: A, unit: ActionUnit): Action[A] = new Action(value, unit)
+
 }
 
 trait ActionUnit extends LinearUnit[ActionUnit]{
@@ -30,8 +32,6 @@ object ActionUnit{
   def getUnits: Seq[ActionUnit] =
     Seq(planck_constant, reduced_planck_constant)
 }
-
-
 
 class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ActionUnit

@@ -8,10 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
 
+
+
 class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
     extends LinearQuantity[LuminousFlux[A], A, LuminousFluxUnit] {
 
   override protected def newQuantity(value: A, unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
+
   def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
 
 }
@@ -22,7 +25,7 @@ trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
   override def dimension: Map[DimensionSymbol, Int] = LuminousFluxUnit.dimension
 
   def /(areaUnit: AreaUnit): IlluminanceUnit =
-    new QuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit](LuminousFluxUnit.this, areaUnit) with IlluminanceUnit
+    new AbstractQuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit](LuminousFluxUnit.this, areaUnit) with IlluminanceUnit
 
 }
 
@@ -37,8 +40,6 @@ object LuminousFluxUnit{
   def getUnits: Seq[LuminousFluxUnit] =
     Seq(lumen, yoctolumen, zeptolumen, attolumen, femtolumen, picolumen, nanolumen, microlumen, millilumen, centilumen, decilumen, decalumen, hectolumen, kilolumen, megalumen, gigalumen, teralumen, petalumen, exalumen, zettalumen, yottalumen)
 }
-
-
 
 class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminousFluxUnit

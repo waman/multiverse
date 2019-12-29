@@ -5,10 +5,21 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
     extends LinearQuantity[AngularVelocity[A], A, AngularVelocityUnit] {
 
   override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
+
+  import org.waman.multiverse.unit.Constants
+  import org.waman.multiverse.unit.angle.FrequencyUnitObjects._
+  import org.waman.multiverse.unit.basic.TimeUnitObjects
+
+  def toFrequency: Frequency[A] =
+    new Frequency(
+      apply(AngleUnitObjects.radian / TimeUnitObjects.second) * implicitly[Fractional[A]].fromReal(r"1" / (r"2" * Constants.Pi)),
+      heltz)
+
 }
 
 trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{
@@ -30,8 +41,6 @@ object AngularVelocityUnit{
   def getUnits: Seq[AngularVelocityUnit] =
     Seq(cycle_per_second, revolution_per_minute)
 }
-
-
 
 class DefaultAngularVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AngularVelocityUnit

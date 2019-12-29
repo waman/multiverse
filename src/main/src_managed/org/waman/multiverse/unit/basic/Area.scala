@@ -5,13 +5,18 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
+
+
 import org.waman.multiverse.unit.fluid.KinematicViscosity
 import org.waman.multiverse.unit.fluid.KinematicViscosityUnit
+
 
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
     extends LinearQuantity[Area[A], A, AreaUnit] {
 
   override protected def newQuantity(value: A, unit: AreaUnit): Area[A] = new Area(value, unit)
+
   def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
 
   def /(time: Time[A]): KinematicViscosity[A] = new KinematicViscosity(this.value / time.value, this.unit / time.unit)
@@ -24,10 +29,10 @@ trait AreaUnit extends LinearUnit[AreaUnit]{
   override def dimension: Map[DimensionSymbol, Int] = AreaUnit.dimension
 
   def *(lengthUnit: LengthUnit): VolumeUnit =
-    new ProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
+    new AbstractProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
 
   def /(timeUnit: TimeUnit): KinematicViscosityUnit =
-    new QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit](AreaUnit.this, timeUnit) with KinematicViscosityUnit
+    new AbstractQuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit](AreaUnit.this, timeUnit) with KinematicViscosityUnit
 
 }
 
@@ -42,7 +47,6 @@ object AreaUnit{
   def getUnits: Seq[AreaUnit] =
     Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, are, hectare, barn, yoctobarn, zeptobarn, attobarn, femtobarn, picobarn, nanobarn, microbarn, millibarn, kilobarn, megabarn, gigabarn, terabarn, petabarn, exabarn, zettabarn, yottabarn, square_mil, square_inch, square_link, `square_link(US)`, square_foot, `square_foot(US)`, square_chain, `square_chain(US)`, square_yard, square_rod, square_mile, `square_mile(US)`, acre, `acre(US)`, rood, circular_mil, circular_inch, board)
 }
-
 
 sealed trait square_linkAttribute
 sealed trait square_footAttribute

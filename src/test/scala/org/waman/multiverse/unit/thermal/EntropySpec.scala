@@ -1,8 +1,7 @@
-package org.waman.multiverse.unit.theramal
+package org.waman.multiverse.unit.thermal
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.unit.Constants
-import org.waman.multiverse.unit.thermal.EntropyUnit
 import org.waman.multiverse.unit.thermal.EntropyUnitObjects._
 import spire.implicits._
 import spire.math.Real

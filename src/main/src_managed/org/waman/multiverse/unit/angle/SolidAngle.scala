@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
     extends LinearQuantity[SolidAngle[A], A, SolidAngleUnit] {
 
   override protected def newQuantity(value: A, unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
+
 }
 
 trait SolidAngleUnit extends LinearUnit[SolidAngleUnit]{
@@ -28,8 +30,6 @@ object SolidAngleUnit{
   def getUnits: Seq[SolidAngleUnit] =
     Seq(steradian, yoctosteradian, zeptosteradian, attosteradian, femtosteradian, picosteradian, nanosteradian, microsteradian, millisteradian, centisteradian, decisteradian, decasteradian, spat, square_degree)
 }
-
-
 
 class DefaultSolidAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends SolidAngleUnit

@@ -46,11 +46,11 @@ class LinearUnitSpec extends MultiverseCustomSpec{
       val conversions =
         Table(
           ("length unit", "expected"),
-          (mm, "millimetre (mm) [1(mm) = 0.001(m)] dim: L"),
-          (m , "metre (m) dim: L"),  // SI unit
-          (km, "kilometre (km) [1(km) = 1,000(m)] aliases: [Km] dim: L"),
-          (km/s, "kilometre per second (km/s) [1(km/s) = 1,000(m/s)] aliases: [Km/s, km/sec, Km/sec] dim: LT⁻¹"),  // quotient unit
-          (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 0.00000000005291772109217(m)] dim: L")  // NotExact unit
+          (mm, "millimetre (mm) [1(mm) = 0.001(m)], dim: L"),
+          (m , "metre (m), dim: L"),  // SI unit
+          (km, "kilometre (km) [1(km) = 1,000(m)], aliases: [Km], dim: L"),
+          (km/s, "kilometre per second (km/s) [1(km/s) = 1,000(m/s)], aliases: [Km/s, km/sec, Km/sec], dim: LT⁻¹"),  // quotient unit
+          (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 0.00000000005291772109217(m)], dim: L")  // NotExact unit
         )
 
       forAll(conversions){ (unit: PhysicalUnit[_], expected: String) =>
@@ -96,7 +96,7 @@ class LinearUnitSpec extends MultiverseCustomSpec{
       val unit: LinearUnit[_] = m
       val sut = unit/s
       // Verify
-      sut.isInstanceOf[QUnit[_, _]] should be (true)
+      sut.isInstanceOf[QuotientUnit[_, _]] should be (true)
       sut.isEquivalentTo(v) should be (true)
     }
   }

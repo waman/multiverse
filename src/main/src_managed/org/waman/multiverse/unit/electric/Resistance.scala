@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
     extends LinearQuantity[Resistance[A], A, ResistanceUnit] {
 
   override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
+
 }
 
 trait ResistanceUnit extends LinearUnit[ResistanceUnit]{
@@ -29,8 +31,6 @@ object ResistanceUnit{
   def getUnits: Seq[ResistanceUnit] =
     Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm)
 }
-
-
 
 class DefaultResistanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ResistanceUnit

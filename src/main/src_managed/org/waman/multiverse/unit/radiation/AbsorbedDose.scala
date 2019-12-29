@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
     extends LinearQuantity[AbsorbedDose[A], A, AbsorbedDoseUnit] {
 
   override protected def newQuantity(value: A, unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
+
 }
 
 trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{
@@ -29,8 +31,6 @@ object AbsorbedDoseUnit{
   def getUnits: Seq[AbsorbedDoseUnit] =
     Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray)
 }
-
-
 
 class DefaultAbsorbedDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AbsorbedDoseUnit

@@ -4,10 +4,12 @@ import spire.math.Real
 import spire.math.Fractional
 import org.waman.multiverse._
 
+
 class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit)
     extends LinearQuantity[VolumeFlow[A], A, VolumeFlowUnit] {
 
   override protected def newQuantity(value: A, unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
+
 }
 
 trait VolumeFlowUnit extends LinearUnit[VolumeFlowUnit]{
@@ -30,8 +32,6 @@ object VolumeFlowUnit{
   def getUnits: Seq[VolumeFlowUnit] =
     Seq(litre_per_minute, gallon_per_minute, gallon_per_hour, gallon_per_day, cubic_centimetre_per_second, cubic_centimetre_per_minute, cubic_foot_per_second, cubic_foot_per_minute, cubic_foot_per_hour)
 }
-
-
 
 class DefaultVolumeFlowUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends VolumeFlowUnit

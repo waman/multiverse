@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Illuminance[A: Fractional](val value: A, val unit: IlluminanceUnit)
     extends LinearQuantity[Illuminance[A], A, IlluminanceUnit] {
 
   override protected def newQuantity(value: A, unit: IlluminanceUnit): Illuminance[A] = new Illuminance(value, unit)
+
 }
 
 trait IlluminanceUnit extends LinearUnit[IlluminanceUnit]{
@@ -29,8 +31,6 @@ object IlluminanceUnit{
   def getUnits: Seq[IlluminanceUnit] =
     Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot, foot_candle)
 }
-
-
 
 class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends IlluminanceUnit

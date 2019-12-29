@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
     extends LinearQuantity[Inductance[A], A, InductanceUnit] {
 
   override protected def newQuantity(value: A, unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
+
 }
 
 trait InductanceUnit extends LinearUnit[InductanceUnit]{
@@ -29,8 +31,6 @@ object InductanceUnit{
   def getUnits: Seq[InductanceUnit] =
     Seq(henry, yoctohenry, zeptohenry, attohenry, femtohenry, picohenry, nanohenry, microhenry, millihenry, centihenry, decihenry, decahenry, hectohenry, kilohenry, megahenry, gigahenry, terahenry, petahenry, exahenry, zettahenry, yottahenry)
 }
-
-
 
 class DefaultInductanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends InductanceUnit

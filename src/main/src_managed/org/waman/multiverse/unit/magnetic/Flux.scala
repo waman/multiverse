@@ -8,13 +8,17 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
 
+
 import org.waman.multiverse.unit.electric.Current
 import org.waman.multiverse.unit.electric.CurrentUnit
+
+
 
 class Flux[A: Fractional](val value: A, val unit: FluxUnit)
     extends LinearQuantity[Flux[A], A, FluxUnit] {
 
   override protected def newQuantity(value: A, unit: FluxUnit): Flux[A] = new Flux(value, unit)
+
   def /(area: Area[A]): FluxDensity[A] = new FluxDensity(this.value / area.value, this.unit / area.unit)
 
   def /(current: Current[A]): Inductance[A] = new Inductance(this.value / current.value, this.unit / current.unit)
@@ -27,10 +31,10 @@ trait FluxUnit extends LinearUnit[FluxUnit]{
   override def dimension: Map[DimensionSymbol, Int] = FluxUnit.dimension
 
   def /(areaUnit: AreaUnit): FluxDensityUnit =
-    new QuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit](FluxUnit.this, areaUnit) with FluxDensityUnit
+    new AbstractQuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit](FluxUnit.this, areaUnit) with FluxDensityUnit
 
   def /(currentUnit: CurrentUnit): InductanceUnit =
-    new QuotientUnit[InductanceUnit, FluxUnit, CurrentUnit](FluxUnit.this, currentUnit) with InductanceUnit
+    new AbstractQuotientUnit[InductanceUnit, FluxUnit, CurrentUnit](FluxUnit.this, currentUnit) with InductanceUnit
 
 }
 
@@ -45,8 +49,6 @@ object FluxUnit{
   def getUnits: Seq[FluxUnit] =
     Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell)
 }
-
-
 
 class DefaultFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends FluxUnit

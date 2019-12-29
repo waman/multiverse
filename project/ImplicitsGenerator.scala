@@ -6,7 +6,7 @@ object ImplicitsGenerator {
 
   import GenerationUtil._
 
-  def generate(srcManaged: File, jsons: Seq[UnitDefinitionJson]): File = {
+  def generate(srcManaged: File, jsons: JsonResources): File = {
     val destDir = IO.resolve(srcManaged, new File("org/waman/multiverse/implicits"))
     if (!destDir.exists()) IO.createDirectory(destDir)
 
@@ -20,7 +20,7 @@ object ImplicitsGenerator {
            |
            |""".stripMargin)
 
-      jsons.map(_.subpackage).distinct.foreach{ sp =>
+      jsons.unitDefs.map(_.subpackage).distinct.foreach{ sp =>
         writer.write(s"""import $rootPackage.unit.$sp._\n""")
       }
 
@@ -32,14 +32,14 @@ object ImplicitsGenerator {
            |
            |""".stripMargin)
 
-      jsons.map(_.id).foreach{ id =>
+      jsons.unitDefs.map(_.id).foreach{ id =>
         writer.write(s"""    def apply(unit: ${id}Unit): $id[A] = new $id(value, unit)\n""")
       }
 
       writer.write(
         s"""}
            |
-           |  // Integral value (like 1(m), not 1.0(m)) create a Quantity[Real] instance
+           |  // An integral value (like 1(m), not 1.0(m)) create a Quantity[Real] instance
            |  implicit def convertIntToQuantityFactory(value: Int): QuantityFactory[Real] =
            |    new QuantityFactory(Real(value))
            |
@@ -51,8 +51,21 @@ object ImplicitsGenerator {
            |
            |  implicit def convertBigIntToQuantityFactory(value: BigInt): QuantityFactory[Real] =
            |    new QuantityFactory(Real(value))
-           |}
+           |
            |""".stripMargin)
+
+      writer.write("  // Implicit conversions between unrelated units (like energy and absolute temperature)\n")
+      jsons.extractResources(classOf[LinearUnitDefinitionJson]).filter(_.unitCategory._convertibles.nonEmpty).foreach{ ud =>
+        ud.unitCategory._convertibles.foreach{ conv =>
+          writer.write(
+            s"""  implicit def convert${ud.id}To${conv.target}[A: Fractional](q: ${ud.id}[A]): ${conv.target}[A] =
+               |    q.to${conv.target}
+               |
+               |""".stripMargin)
+        }
+      }
+
+      writer.write("}\n")
     }
 
     println("[GENERATE] " + destFile)

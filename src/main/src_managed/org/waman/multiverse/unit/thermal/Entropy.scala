@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Entropy[A: Fractional](val value: A, val unit: EntropyUnit)
     extends LinearQuantity[Entropy[A], A, EntropyUnit] {
 
   override protected def newQuantity(value: A, unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
+
 }
 
 trait EntropyUnit extends LinearUnit[EntropyUnit]{
@@ -30,8 +32,6 @@ object EntropyUnit{
   def getUnits: Seq[EntropyUnit] =
     Seq(nat, bit, ban, byte, decabyte, hectobyte, kilobyte, megabyte, gigabyte, terabyte, petabyte, exabyte, zettabyte, yottabyte, kibibyte, mebibyte, gibibyte, tebibyte, pebibyte, exbibyte, zebibyte, yobibyte)
 }
-
-
 
 class DefaultEntropyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends EntropyUnit

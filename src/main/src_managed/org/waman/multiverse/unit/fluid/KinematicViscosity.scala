@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosityUnit)
     extends LinearQuantity[KinematicViscosity[A], A, KinematicViscosityUnit] {
 
   override protected def newQuantity(value: A, unit: KinematicViscosityUnit): KinematicViscosity[A] = new KinematicViscosity(value, unit)
+
 }
 
 trait KinematicViscosityUnit extends LinearUnit[KinematicViscosityUnit]{
@@ -31,8 +33,6 @@ object KinematicViscosityUnit{
   def getUnits: Seq[KinematicViscosityUnit] =
     Seq(stokes)
 }
-
-
 
 class DefaultKinematicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends KinematicViscosityUnit

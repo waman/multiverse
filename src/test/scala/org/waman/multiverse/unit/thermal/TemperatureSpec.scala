@@ -1,9 +1,8 @@
-package org.waman.multiverse.unit.theramal
+package org.waman.multiverse.unit.thermal
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.thermal.TemperatureUnits._
-import org.waman.multiverse.unit.thermal.{Temperature, TemperatureUnit}
 
 class TemperatureSpec extends MultiverseCustomSpec {
 
@@ -14,9 +13,9 @@ class TemperatureSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("TemperatureUnit", "expected"),
-          (K, "kelvin (K) dim: Θ"),
-          (degC, "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)] aliases: [degC, ℃] dim: Θ"),
-          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)] aliases: [degF, ℉] dim: Θ")
+          (K, "kelvin (K), dim: Θ"),
+          (degC, "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)], aliases: [degC, ℃], dim: Θ"),
+          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)], aliases: [degF, ℉], dim: Θ")
         )
       // Verify
       forAll(conversions){ (sut: TemperatureUnit, expected: String) =>

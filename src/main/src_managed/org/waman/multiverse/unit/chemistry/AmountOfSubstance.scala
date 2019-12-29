@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class AmountOfSubstance[A: Fractional](val value: A, val unit: AmountOfSubstanceUnit)
     extends LinearQuantity[AmountOfSubstance[A], A, AmountOfSubstanceUnit] {
 
   override protected def newQuantity(value: A, unit: AmountOfSubstanceUnit): AmountOfSubstance[A] = new AmountOfSubstance(value, unit)
+
 }
 
 trait AmountOfSubstanceUnit extends LinearUnit[AmountOfSubstanceUnit]{
@@ -29,8 +31,6 @@ object AmountOfSubstanceUnit{
   def getUnits: Seq[AmountOfSubstanceUnit] =
     Seq(mole)
 }
-
-
 
 class DefaultAmountOfSubstanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AmountOfSubstanceUnit

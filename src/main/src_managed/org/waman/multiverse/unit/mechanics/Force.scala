@@ -8,8 +8,10 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
+
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
@@ -17,10 +19,12 @@ import org.waman.multiverse.unit.basic.AreaUnit
 import org.waman.multiverse.unit.fluid.Pressure
 import org.waman.multiverse.unit.fluid.PressureUnit
 
+
 class Force[A: Fractional](val value: A, val unit: ForceUnit)
     extends LinearQuantity[Force[A], A, ForceUnit] {
 
   override protected def newQuantity(value: A, unit: ForceUnit): Force[A] = new Force(value, unit)
+
   def *(time: Time[A]): Momentum[A] = new Momentum(this.value * time.value, this.unit * time.unit)
 
   def *(length: Length[A]): Torque[A] = new Torque(this.value * length.value, this.unit * length.unit)
@@ -35,13 +39,13 @@ trait ForceUnit extends LinearUnit[ForceUnit]{
   override def dimension: Map[DimensionSymbol, Int] = ForceUnit.dimension
 
   def *(timeUnit: TimeUnit): MomentumUnit =
-    new ProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
+    new AbstractProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
 
   def *(lengthUnit: LengthUnit): TorqueUnit =
-    new ProductUnit[TorqueUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with TorqueUnit
+    new AbstractProductUnit[TorqueUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with TorqueUnit
 
   def /(areaUnit: AreaUnit): PressureUnit =
-    new QuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit
+    new AbstractQuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit
 
 }
 
@@ -56,8 +60,6 @@ object ForceUnit{
   def getUnits: Seq[ForceUnit] =
     Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, kilogram_force, milligrave_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
 }
-
-
 
 class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ForceUnit

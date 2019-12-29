@@ -11,9 +11,9 @@ class HomogeneousUnitSpec extends MultiverseCustomSpec{
       val conversions =
         Table(
           ("temperature unit", "expected"),
-          (K, "kelvin (K) dim: Θ"),  // SI unit
-          (degC , "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)] aliases: [degC, ℃] dim: Θ"),
-          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)] aliases: [degF, ℉] dim: Θ"),
+          (K, "kelvin (K), dim: Θ"),  // SI unit
+          (degC , "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)], aliases: [degC, ℃], dim: Θ"),
+          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)], aliases: [degF, ℉], dim: Θ"),
         )
 
       forAll(conversions){ (unit: TemperatureUnit, expected: String) =>

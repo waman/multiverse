@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
     extends LinearQuantity[Acceleration[A], A, AccelerationUnit] {
 
   override protected def newQuantity(value: A, unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
+
 }
 
 trait AccelerationUnit extends LinearUnit[AccelerationUnit]{
@@ -30,8 +32,6 @@ object AccelerationUnit{
   def getUnits: Seq[AccelerationUnit] =
     Seq(standard_gravity)
 }
-
-
 
 class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AccelerationUnit

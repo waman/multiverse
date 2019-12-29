@@ -4,10 +4,12 @@ import spire.math.Real
 import spire.math.Fractional
 import org.waman.multiverse._
 
+
 class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
     extends LinearQuantity[TimeSquared[A], A, TimeSquaredUnit] {
 
   override protected def newQuantity(value: A, unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
+
 }
 
 trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit]{
@@ -29,8 +31,6 @@ object TimeSquaredUnit{
   def getUnits: Seq[TimeSquaredUnit] =
     Seq(second_squared, yoctosecond_squared, zeptosecond_squared, attosecond_squared, femtosecond_squared, picosecond_squared, nanosecond_squared, microsecond_squared, millisecond_squared, centisecond_squared, decisecond_squared)
 }
-
-
 
 class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends TimeSquaredUnit

@@ -2,6 +2,11 @@
   "SIUnit": "joule",
   "dimension": {"M": 1, "L": 2, "T": -2},
 
+  "convertibles": [
+    {"target": "AbsoluteTemperature", "from": "joule", "to": "kelvin", "factor": "1 / Constants.BoltzmannConstant"},
+    {"target": "Mass", "from": "joule", "to": "kilogram", "factor": "1 / (Constants.SpeedOfLight * Constants.SpeedOfLight)"}
+  ],
+
   "units": [
     {"name": "joule", "symbol": "J", "scalePrefixes": true},
     {"name": "erg", "symbol": "erg", "interval": "1e-7"},

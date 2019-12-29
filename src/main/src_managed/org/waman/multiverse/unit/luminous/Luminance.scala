@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
     extends LinearQuantity[Luminance[A], A, LuminanceUnit] {
 
   override protected def newQuantity(value: A, unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
+
 }
 
 trait LuminanceUnit extends LinearUnit[LuminanceUnit]{
@@ -30,8 +32,6 @@ object LuminanceUnit{
   def getUnits: Seq[LuminanceUnit] =
     Seq(stilb, lambert, apo_stilb, skot, bril, foot_lambert)
 }
-
-
 
 class DefaultLuminanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminanceUnit

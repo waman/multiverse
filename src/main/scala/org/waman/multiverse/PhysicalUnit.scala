@@ -37,22 +37,22 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ this : U
   override def hashCode: Int = (name, zero, interval, dimension).##
 
   override def toString: String = {
-    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(" aliases: [", ", ", "]") else ""
+    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
     val dim = DimensionSymbol.toStringWithSymbol(this.dimension)
 
     if(this == getSIUnit) {
-      s"$name ($symbol)$ali dim: $dim"
+      s"$name ($symbol)$ali, dim: $dim"
     }else{
       val symbolSI = getSIUnit.symbol
       val sZero = toReadableString(zero)
       this.interval match {
         case i if i.isOne =>
-          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = Δ($symbolSI)]$ali dim: $dim"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = Δ($symbolSI)]$ali, dim: $dim"
         case i if (-i).isOne =>
-          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = -Δ($symbolSI)]$ali dim: $dim"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = -Δ($symbolSI)]$ali, dim: $dim"
         case _ =>
           val sInterval = toReadableString(interval)
-          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]$ali dim: $dim"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]$ali, dim: $dim"
       }
   }
   }

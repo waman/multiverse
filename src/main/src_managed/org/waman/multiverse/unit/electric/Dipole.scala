@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
     extends LinearQuantity[Dipole[A], A, DipoleUnit] {
 
   override protected def newQuantity(value: A, unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
+
 }
 
 trait DipoleUnit extends LinearUnit[DipoleUnit]{
@@ -30,8 +32,6 @@ object DipoleUnit{
   def getUnits: Seq[DipoleUnit] =
     Seq(debye, atomic_unit_of_electric_dipole_moment)
 }
-
-
 
 class DefaultDipoleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends DipoleUnit

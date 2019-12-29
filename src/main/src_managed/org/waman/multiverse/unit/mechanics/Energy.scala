@@ -8,6 +8,8 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
+
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
 
@@ -20,10 +22,12 @@ import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnit
 import org.waman.multiverse.unit.thermal.Entropy
 import org.waman.multiverse.unit.thermal.EntropyUnit
 
+
 class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     extends LinearQuantity[Energy[A], A, EnergyUnit] {
 
   override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
+
   def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
 
   def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
@@ -31,6 +35,24 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   def /(mass: Mass[A]): AbsorbedDose[A] = new AbsorbedDose(this.value / mass.value, this.unit / mass.unit)
 
   def /(absoluteTemperature: AbsoluteTemperature[A]): Entropy[A] = new Entropy(this.value / absoluteTemperature.value, this.unit / absoluteTemperature.unit)
+
+  import org.waman.multiverse.unit.Constants
+  import EnergyUnitObjects._
+  import org.waman.multiverse.unit.thermal.AbsoluteTemperature
+  import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnitObjects._
+
+  def toAbsoluteTemperature: AbsoluteTemperature[A] =
+    new AbsoluteTemperature(
+      apply(joule) * implicitly[Fractional[A]].fromReal(r"1" / Constants.BoltzmannConstant),
+      kelvin)
+
+  import org.waman.multiverse.unit.basic.Mass
+  import org.waman.multiverse.unit.basic.MassUnitObjects._
+
+  def toMass: Mass[A] =
+    new Mass(
+      apply(joule) * implicitly[Fractional[A]].fromReal(r"1" / (Constants.SpeedOfLight * Constants.SpeedOfLight)),
+      kilogram)
 
 }
 
@@ -40,16 +62,16 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
   override def dimension: Map[DimensionSymbol, Int] = EnergyUnit.dimension
 
   def *(timeUnit: TimeUnit): ActionUnit =
-    new ProductUnit[ActionUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with ActionUnit
+    new AbstractProductUnit[ActionUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with ActionUnit
 
   def /(timeUnit: TimeUnit): PowerUnit =
-    new QuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
+    new AbstractQuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
 
   def /(massUnit: MassUnit): AbsorbedDoseUnit =
-    new QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
+    new AbstractQuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
 
   def /(absoluteTemperatureUnit: AbsoluteTemperatureUnit): EntropyUnit =
-    new QuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
+    new AbstractQuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
 
 }
 
@@ -64,7 +86,6 @@ object EnergyUnit{
   def getUnits: Seq[EnergyUnit] =
     Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(IT)`)
 }
-
 
 sealed trait calorieAttribute
 

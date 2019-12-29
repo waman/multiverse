@@ -2,6 +2,10 @@
   "SIUnit": "kilogram",
   "dimension": {"M":1},
 
+  "convertibles": [
+    {"target": "Energy", "from": "kilogram", "to": "joule", "factor": "Constants.SpeedOfLight * Constants.SpeedOfLight"}
+  ],
+
   "units": [
     {"name": "kilogram", "symbol": "kg", "aliases": ["Kg"]},
 

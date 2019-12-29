@@ -5,10 +5,22 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTemperatureUnit)
     extends LinearQuantity[AbsoluteTemperature[A], A, AbsoluteTemperatureUnit] {
 
   override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
+
+  import org.waman.multiverse.unit.Constants
+  import AbsoluteTemperatureUnitObjects._
+  import org.waman.multiverse.unit.mechanics.Energy
+  import org.waman.multiverse.unit.mechanics.EnergyUnitObjects._
+
+  def toEnergy: Energy[A] =
+    new Energy(
+      apply(kelvin) * implicitly[Fractional[A]].fromReal(Constants.BoltzmannConstant),
+      joule)
+
 }
 
 trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{
@@ -29,8 +41,6 @@ object AbsoluteTemperatureUnit{
   def getUnits: Seq[AbsoluteTemperatureUnit] =
     Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin)
 }
-
-
 
 class DefaultAbsoluteTemperatureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AbsoluteTemperatureUnit

@@ -1,6 +1,10 @@
 {
   "SIUnit": "kelvin",
   "dimension": {"Θ": 1},
+
+  "convertibles": [
+    {"target": "Energy", "from": "kelvin", "to": "joule", "factor": "Constants.BoltzmannConstant"}
+  ],
   
   "units": [
     {"name": "kelvin", "symbol": "K", "scalePrefixes": true}

@@ -5,13 +5,16 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
 
   override protected def newQuantity(value: A, unit: TimeUnit): Time[A] = new Time(value, unit)
+
   def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
 
   def squared: TimeSquared[A] = this * this
@@ -34,7 +37,7 @@ trait TimeUnit extends LinearUnit[TimeUnit]{
     if(this == timeUnit)
       this.squared
     else
-      new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
+      new AbstractProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
 }
 
 object TimeUnit{
@@ -48,7 +51,6 @@ object TimeUnit{
   def getUnits: Seq[TimeUnit] =
     Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, planck_time)
 }
-
 
 sealed trait dayAttribute
 sealed trait monthAttribute

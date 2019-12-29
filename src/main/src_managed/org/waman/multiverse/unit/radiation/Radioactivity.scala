@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
+
 }
 
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
@@ -29,8 +31,6 @@ object RadioactivityUnit{
   def getUnits: Seq[RadioactivityUnit] =
     Seq(becquerel, yoctobecquerel, zeptobecquerel, attobecquerel, femtobecquerel, picobecquerel, nanobecquerel, microbecquerel, millibecquerel, centibecquerel, decibecquerel, decabecquerel, hectobecquerel, kilobecquerel, megabecquerel, gigabecquerel, terabecquerel, petabecquerel, exabecquerel, zettabecquerel, yottabecquerel, curie, yoctocurie, zeptocurie, attocurie, femtocurie, picocurie, nanocurie, microcurie, millicurie, centicurie, decicurie, decacurie, hectocurie, kilocurie, megacurie, gigacurie, teracurie, petacurie, exacurie, zettacurie, yottacurie, rutherford)
 }
-
-
 
 class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends RadioactivityUnit

@@ -8,10 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
+
 class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
     extends LinearQuantity[Pressure[A], A, PressureUnit] {
 
   override protected def newQuantity(value: A, unit: PressureUnit): Pressure[A] = new Pressure(value, unit)
+
   def *(time: Time[A]): DynamicViscosity[A] = new DynamicViscosity(this.value * time.value, this.unit * time.unit)
 
 }
@@ -22,7 +25,7 @@ trait PressureUnit extends LinearUnit[PressureUnit]{
   override def dimension: Map[DimensionSymbol, Int] = PressureUnit.dimension
 
   def *(timeUnit: TimeUnit): DynamicViscosityUnit =
-    new ProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit](PressureUnit.this, timeUnit) with DynamicViscosityUnit
+    new AbstractProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit](PressureUnit.this, timeUnit) with DynamicViscosityUnit
 
 }
 
@@ -37,8 +40,6 @@ object PressureUnit{
   def getUnits: Seq[PressureUnit] =
     Seq(pascal, yoctopascal, zeptopascal, attopascal, femtopascal, picopascal, nanopascal, micropascal, millipascal, centipascal, decipascal, decapascal, hectopascal, kilopascal, megapascal, gigapascal, terapascal, petapascal, exapascal, zettapascal, yottapascal, barye, atmosphere, atmosphere_technical, bar, pieze, torr, kip_per_square_inch, pound_per_square_foot, pound_per_square_inch, micrometre_of_mercury, millimetre_of_mercury, centimetre_of_mercury, inch_of_mercury, foot_of_mercury, millimetre_of_water, centimetre_of_water, inch_of_water, foot_of_water)
 }
-
-
 
 class DefaultPressureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends PressureUnit

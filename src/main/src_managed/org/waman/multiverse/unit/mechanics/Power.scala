@@ -11,10 +11,12 @@ import org.waman.multiverse.unit.electric.CurrentUnit
 import org.waman.multiverse.unit.electric.Voltage
 import org.waman.multiverse.unit.electric.VoltageUnit
 
+
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
 
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
+
   def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
 
 }
@@ -25,7 +27,7 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
   override def dimension: Map[DimensionSymbol, Int] = PowerUnit.dimension
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
-    new QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
+    new AbstractQuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
 
 }
 
@@ -40,8 +42,6 @@ object PowerUnit{
   def getUnits: Seq[PowerUnit] =
     Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
 }
-
-
 
 class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends PowerUnit

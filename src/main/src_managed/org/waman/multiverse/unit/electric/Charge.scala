@@ -8,8 +8,12 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
 
+
+
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
@@ -17,10 +21,12 @@ import org.waman.multiverse.unit.basic.MassUnit
 import org.waman.multiverse.unit.radiation.Exposure
 import org.waman.multiverse.unit.radiation.ExposureUnit
 
+
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
     extends LinearQuantity[Charge[A], A, ChargeUnit] {
 
   override protected def newQuantity(value: A, unit: ChargeUnit): Charge[A] = new Charge(value, unit)
+
   def *(length: Length[A]): Dipole[A] = new Dipole(this.value * length.value, this.unit * length.unit)
 
   def /(voltage: Voltage[A]): Capacitance[A] = new Capacitance(this.value / voltage.value, this.unit / voltage.unit)
@@ -37,16 +43,16 @@ trait ChargeUnit extends LinearUnit[ChargeUnit]{
   override def dimension: Map[DimensionSymbol, Int] = ChargeUnit.dimension
 
   def *(lengthUnit: LengthUnit): DipoleUnit =
-    new ProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
+    new AbstractProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
 
   def /(voltageUnit: VoltageUnit): CapacitanceUnit =
-    new QuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit](ChargeUnit.this, voltageUnit) with CapacitanceUnit
+    new AbstractQuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit](ChargeUnit.this, voltageUnit) with CapacitanceUnit
 
   def /(timeUnit: TimeUnit): CurrentUnit =
-    new QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
+    new AbstractQuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
 
   def /(massUnit: MassUnit): ExposureUnit =
-    new QuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
+    new AbstractQuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
 
 }
 
@@ -61,8 +67,6 @@ object ChargeUnit{
   def getUnits: Seq[ChargeUnit] =
     Seq(coulomb, yoctocoulomb, zeptocoulomb, attocoulomb, femtocoulomb, picocoulomb, nanocoulomb, microcoulomb, millicoulomb, centicoulomb, decicoulomb, decacoulomb, hectocoulomb, kilocoulomb, megacoulomb, gigacoulomb, teracoulomb, petacoulomb, exacoulomb, zettacoulomb, yottacoulomb, abcoulomb, statcoulomb, atomic_unit_of_charge)
 }
-
-
 
 class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ChargeUnit

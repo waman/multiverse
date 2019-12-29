@@ -4,10 +4,12 @@ import spire.math.Real
 import spire.math.Fractional
 import org.waman.multiverse._
 
+
 class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRateUnit)
     extends LinearQuantity[EquivalentDoseRate[A], A, EquivalentDoseRateUnit] {
 
   override protected def newQuantity(value: A, unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
+
 }
 
 trait EquivalentDoseRateUnit extends LinearUnit[EquivalentDoseRateUnit]{
@@ -28,8 +30,6 @@ object EquivalentDoseRateUnit{
   def getUnits: Seq[EquivalentDoseRateUnit] =
     Seq()
 }
-
-
 
 class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends EquivalentDoseRateUnit

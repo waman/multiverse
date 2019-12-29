@@ -11,10 +11,14 @@ import org.waman.multiverse.unit.basic.TimeUnit
 import org.waman.multiverse.unit.magnetic.Flux
 import org.waman.multiverse.unit.magnetic.FluxUnit
 
+
+
+
 class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
     extends LinearQuantity[Voltage[A], A, VoltageUnit] {
 
   override protected def newQuantity(value: A, unit: VoltageUnit): Voltage[A] = new Voltage(value, unit)
+
   def *(time: Time[A]): Flux[A] = new Flux(this.value * time.value, this.unit * time.unit)
 
   def /(current: Current[A]): Resistance[A] = new Resistance(this.value / current.value, this.unit / current.unit)
@@ -27,10 +31,10 @@ trait VoltageUnit extends LinearUnit[VoltageUnit]{
   override def dimension: Map[DimensionSymbol, Int] = VoltageUnit.dimension
 
   def *(timeUnit: TimeUnit): FluxUnit =
-    new ProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
+    new AbstractProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
 
   def /(currentUnit: CurrentUnit): ResistanceUnit =
-    new QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
+    new AbstractQuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
 
 }
 
@@ -45,8 +49,6 @@ object VoltageUnit{
   def getUnits: Seq[VoltageUnit] =
     Seq(volt, yoctovolt, zeptovolt, attovolt, femtovolt, picovolt, nanovolt, microvolt, millivolt, centivolt, decivolt, decavolt, hectovolt, kilovolt, megavolt, gigavolt, teravolt, petavolt, exavolt, zettavolt, yottavolt, statvolt, abvolt)
 }
-
-
 
 class DefaultVoltageUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends VoltageUnit

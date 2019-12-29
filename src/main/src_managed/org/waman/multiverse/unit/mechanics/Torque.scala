@@ -4,10 +4,12 @@ import spire.math.Real
 import spire.math.Fractional
 import org.waman.multiverse._
 
+
 class Torque[A: Fractional](val value: A, val unit: TorqueUnit)
     extends LinearQuantity[Torque[A], A, TorqueUnit] {
 
   override protected def newQuantity(value: A, unit: TorqueUnit): Torque[A] = new Torque(value, unit)
+
 }
 
 trait TorqueUnit extends LinearUnit[TorqueUnit]{
@@ -28,8 +30,6 @@ object TorqueUnit{
   def getUnits: Seq[TorqueUnit] =
     Seq()
 }
-
-
 
 class DefaultTorqueUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends TorqueUnit

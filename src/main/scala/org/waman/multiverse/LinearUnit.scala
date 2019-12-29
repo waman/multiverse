@@ -23,15 +23,15 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 
   override def toString: String = {
     val sInterval = toReadableString(interval)
-    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(" aliases: [", ", ", "]") else ""
+    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
     val dim = DimensionSymbol.toStringWithSymbol(this.dimension)
     this match {
       case _ if this == getSIUnit =>
-        s"$name ($symbol)$ali dim: $dim"
+        s"$name ($symbol)$ali, dim: $dim"
       case _: NotExact =>
-        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali dim: $dim"
+        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali, dim: $dim"
       case _ =>
-        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali dim: $dim"
+        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali, dim: $dim"
     }
   }
 
@@ -39,11 +39,11 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
     * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
   override def compare(that: U): Int = this.interval.compare(that.interval)
 
-  def *[V <: LinearUnit[V]](secondUnit: V): PUnit[U, V] =
-    new PUnit[U, V](LinearUnit.this, secondUnit)
+  def *[V <: LinearUnit[V]](secondUnit: V): ProductUnit[U, V] =
+    new ProductUnit[U, V](LinearUnit.this, secondUnit)
 
-  def /[V <: LinearUnit[V]](denominatorUnit: V): QUnit[U, V] =
-    new QUnit[U, V](LinearUnit.this, denominatorUnit)
+  def /[V <: LinearUnit[V]](denominatorUnit: V): QuotientUnit[U, V] =
+    new QuotientUnit[U, V](LinearUnit.this, denominatorUnit)
 
   def max(that: U): U = if((this compare that) >= 0) this else that
   def min(that: U): U = if((this compare that) <= 0) this else that
@@ -60,7 +60,7 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 // Tests are written in AccelerationSpec
 private[multiverse] trait LiteralComposite
 
-abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
+abstract class AbstractProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
   (val firstUnit: A, val secondUnit: B)
   extends LinearUnit[U] with LiteralComposite { this: U =>
 
@@ -75,30 +75,31 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
     DimensionSymbol.values.map(s => (s, firstUnit.dimension(s) + secondUnit.dimension(s))).toMap
 
   override def equals(other: Any): Boolean = other match {
-    case that: ProductUnit[_, _, _] =>
+    case that: AbstractProductUnit[_, _, _] =>
       (that canEqual this) &&
         firstUnit == that.firstUnit &&
         secondUnit == that.secondUnit
     case _ => false
   }
 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[ProductUnit[_, _, _]]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[AbstractProductUnit[_, _, _]]
 
   override def hashCode: Int = (firstUnit, "*", secondUnit).##
 }
 
-class PUnit[A <: LinearUnit[A], B <: LinearUnit[B]](firstUnit: A, secondUnit: B)
-  extends ProductUnit[PUnit[A, B], A, B](firstUnit, secondUnit){ this: PUnit[A, B] =>
+class ProductUnit[A <: LinearUnit[A], B <: LinearUnit[B]](firstUnit: A, secondUnit: B)
+  extends AbstractProductUnit[ProductUnit[A, B], A, B](firstUnit, secondUnit){ this: ProductUnit[A, B] =>
 
-  override def getSIUnit: PUnit[A, B] = this.firstUnit.getSIUnit * this.secondUnit.getSIUnit
+  override def getSIUnit: ProductUnit[A, B] = this.firstUnit.getSIUnit * this.secondUnit.getSIUnit
   override lazy val dimension: Map[DimensionSymbol, Int] = super.dimension.filter(_._2 != 0).withDefaultValue(0)
 }
 
-abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
+abstract class AbstractQuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
   (val numeratorUnit: A, val denominatorUnit: B)
   extends LinearUnit[U] with LiteralComposite { this: U =>
 
   override val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
+
   override val symbol: String =
     if(denominatorUnit.isInstanceOf[LiteralComposite])
       s"${numeratorUnit.symbol}/(${denominatorUnit.symbol})"
@@ -114,21 +115,21 @@ abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearU
     DimensionSymbol.values.map(s => (s, numeratorUnit.dimension(s) - denominatorUnit.dimension(s))).toMap
 
   override def equals(other: Any): Boolean = other match {
-    case that: QuotientUnit[_, _, _] =>
+    case that: AbstractQuotientUnit[_, _, _] =>
       (that canEqual this) &&
         numeratorUnit == that.numeratorUnit &&
         denominatorUnit == that.denominatorUnit
     case _ => false
   }
 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[QuotientUnit[_, _, _]]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[AbstractQuotientUnit[_, _, _]]
 
   override def hashCode: Int = (numeratorUnit, "/", denominatorUnit).##
 }
 
-class QUnit[A <: LinearUnit[A], B <: LinearUnit[B]](numeratorUnit: A, denominatorUnit: B)
-  extends QuotientUnit[QUnit[A, B], A, B](numeratorUnit, denominatorUnit){ this: QUnit[A, B] =>
+class QuotientUnit[A <: LinearUnit[A], B <: LinearUnit[B]](numeratorUnit: A, denominatorUnit: B)
+  extends AbstractQuotientUnit[QuotientUnit[A, B], A, B](numeratorUnit, denominatorUnit){ this: QuotientUnit[A, B] =>
 
-  override def getSIUnit: QUnit[A, B] = this.numeratorUnit.getSIUnit / this.denominatorUnit.getSIUnit
+  override def getSIUnit: QuotientUnit[A, B] = this.numeratorUnit.getSIUnit / this.denominatorUnit.getSIUnit
   override lazy val dimension: Map[DimensionSymbol, Int] = super.dimension.filter(_._2 != 0).withDefaultValue(0)
 }

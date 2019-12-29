@@ -41,7 +41,7 @@ object MultiverseSourceGenerator {
     val jsons = new JsonResources(walk(info, Nil))
     val generated = jsons.generate()
 
-    val implicits = ImplicitsGenerator.generate(srcManaged, jsons.unitDefs)
+    val implicits = ImplicitsGenerator.generate(srcManaged, jsons)
 
     implicits +: generated
   }
@@ -49,7 +49,7 @@ object MultiverseSourceGenerator {
 
 class JsonResources(val jsons: Seq[JsonResource]){
 
-  def extractResources[U <: JsonResource](jsons: Seq[JsonResource], cls: Class[U]): Seq[U] =
+  def extractResources[U <: JsonResource](cls: Class[U]): Seq[U] =
     jsons.filter(cls.isInstance(_)).map(cls.cast(_))
 
   def searchUnitDefinition(id: String): UnitDefinitionJson =
@@ -59,9 +59,9 @@ class JsonResources(val jsons: Seq[JsonResource]){
     }
 
   val scalePrefixJson: ScalePrefixJson = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
-  val unitDefs: Seq[UnitDefinitionJson] = extractResources(jsons, classOf[UnitDefinitionJson])
+  val unitDefs: Seq[UnitDefinitionJson] = extractResources(classOf[UnitDefinitionJson])
 
-  def generate(): Seq[File] = extractResources(jsons, classOf[SourceGeneratorJson]).flatMap(_.generate(this))
+  def generate(): Seq[File] = extractResources(classOf[SourceGeneratorJson]).flatMap(_.generate(this))
 }
 
 object GenerationUtil{
@@ -83,13 +83,16 @@ object GenerationUtil{
   }
 
   private val regexUnitName: Regex = """[\w.()^\d]+""".r
-  def refineUnitNames(s: String): String = regexUnitName.replaceAllIn(s, m => {
-    val str = s.substring(m.start, m.end)
-    val (prefix, unitName) = str.indexOf('.') match {
-      case -1 => ("", str)
-      case i => (str.substring(0, i)+"UnitObjects.", str.substring(i+1))
-    }
 
+  def extractUnitTypes(s: String): Seq[String] = regexUnitName.findAllMatchIn(s).map{ m =>
+    val str = s.substring(m.start, m.end)
+    str.indexOf('.') match {
+      case -1 => Nil
+      case i => Seq(str.substring(0, i))
+    }
+  }.toSeq.flatten
+
+  def refineUnitNamesInBaseUnit(s: String): String = refineUnitNames(s, (prefix, unitName) => {
     val (baseUN, power) =
       if (unitName.endsWith("^2")) (unitName.substring(0, unitName.length-2), 2)
       else if (unitName.endsWith("^3")) (unitName.substring(0, unitName.length-2), 3)
@@ -103,13 +106,20 @@ object GenerationUtil{
     }
   })
 
-  def extraUnitsInBaseUnit(s: String): Seq[String] = regexUnitName.findAllMatchIn(s).map{ m =>
-    val str = s.substring(m.start, m.end)
-    str.indexOf('.') match {
-      case -1 => Nil
-      case i => Seq(str.substring(0, i))
-    }
-  }.toSeq.flatten
+  def refineUnitNamesInConvertible(s: String): String = refineUnitNames(s, (prefix, unitName) => {
+    val escapedUN = if (unitName.contains('(')) s"`$unitName`" else unitName
+    s"$prefix$escapedUN"
+  })
+
+  private def refineUnitNames(s: String, extraOperation: (String, String) => String): String =
+    regexUnitName.replaceAllIn(s, m => {
+      val str = s.substring(m.start, m.end)
+      val (prefix, unitName) = str.indexOf('.') match {
+        case -1 => ("", str)
+        case i => (str.substring(0, i) + "UnitObjects.", str.substring(i + 1))
+      }
+      extraOperation(prefix, unitName)
+    })
 
   def toObjectName(s: String): String = {
     val ss = s.replace(' ', '_')

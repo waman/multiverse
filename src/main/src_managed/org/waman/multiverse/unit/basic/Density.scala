@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
     extends LinearQuantity[Density[A], A, DensityUnit] {
 
   override protected def newQuantity(value: A, unit: DensityUnit): Density[A] = new Density(value, unit)
+
 }
 
 trait DensityUnit extends LinearUnit[DensityUnit]{
@@ -29,8 +31,6 @@ object DensityUnit{
   def getUnits: Seq[DensityUnit] =
     Seq(water, mercury)
 }
-
-
 
 class DefaultDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends DensityUnit

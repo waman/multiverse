@@ -5,10 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
     extends LinearQuantity[Capacitance[A], A, CapacitanceUnit] {
 
   override protected def newQuantity(value: A, unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
+
 }
 
 trait CapacitanceUnit extends LinearUnit[CapacitanceUnit]{
@@ -29,8 +31,6 @@ object CapacitanceUnit{
   def getUnits: Seq[CapacitanceUnit] =
     Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad)
 }
-
-
 
 class DefaultCapacitanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends CapacitanceUnit

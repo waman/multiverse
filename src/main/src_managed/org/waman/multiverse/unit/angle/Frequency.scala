@@ -1,14 +1,25 @@
-package org.waman.multiverse.unit.electric
+package org.waman.multiverse.unit.angle
 
 import spire.math.Real
 import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+
 class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
     extends LinearQuantity[Frequency[A], A, FrequencyUnit] {
 
   override protected def newQuantity(value: A, unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
+
+  import org.waman.multiverse.unit.Constants
+  import FrequencyUnitObjects._
+  import org.waman.multiverse.unit.basic.TimeUnitObjects
+
+  def toAngularVelocity: AngularVelocity[A] =
+    new AngularVelocity(
+      apply(heltz) * implicitly[Fractional[A]].fromReal(r"2" * Constants.Pi),
+      AngleUnitObjects.radian / TimeUnitObjects.second)
+
 }
 
 trait FrequencyUnit extends LinearUnit[FrequencyUnit]{
@@ -29,8 +40,6 @@ object FrequencyUnit{
   def getUnits: Seq[FrequencyUnit] =
     Seq(heltz, yoctoheltz, zeptoheltz, attoheltz, femtoheltz, picoheltz, nanoheltz, microheltz, milliheltz, centiheltz, deciheltz, decaheltz, hectoheltz, kiloheltz, megaheltz, gigaheltz, teraheltz, petaheltz, exaheltz, zettaheltz, yottaheltz)
 }
-
-
 
 class DefaultFrequencyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends FrequencyUnit

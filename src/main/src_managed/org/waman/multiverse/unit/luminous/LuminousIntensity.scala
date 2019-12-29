@@ -8,10 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
 
+
+
 class LuminousIntensity[A: Fractional](val value: A, val unit: LuminousIntensityUnit)
     extends LinearQuantity[LuminousIntensity[A], A, LuminousIntensityUnit] {
 
   override protected def newQuantity(value: A, unit: LuminousIntensityUnit): LuminousIntensity[A] = new LuminousIntensity(value, unit)
+
   def /(area: Area[A]): Luminance[A] = new Luminance(this.value / area.value, this.unit / area.unit)
 
 }
@@ -22,7 +25,7 @@ trait LuminousIntensityUnit extends LinearUnit[LuminousIntensityUnit]{
   override def dimension: Map[DimensionSymbol, Int] = LuminousIntensityUnit.dimension
 
   def /(areaUnit: AreaUnit): LuminanceUnit =
-    new QuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit](LuminousIntensityUnit.this, areaUnit) with LuminanceUnit
+    new AbstractQuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit](LuminousIntensityUnit.this, areaUnit) with LuminanceUnit
 
 }
 
@@ -37,8 +40,6 @@ object LuminousIntensityUnit{
   def getUnits: Seq[LuminousIntensityUnit] =
     Seq(candela, yoctocandela, zeptocandela, attocandela, femtocandela, picocandela, nanocandela, microcandela, millicandela, centicandela, decicandela, decacandela, hectocandela, kilocandela, megacandela, gigacandela, teracandela, petacandela, exacandela, zettacandela, yottacandela)
 }
-
-
 
 class DefaultLuminousIntensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminousIntensityUnit
