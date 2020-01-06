@@ -7,10 +7,8 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
-
 import org.waman.multiverse.unit.fluid.DynamicViscosity
 import org.waman.multiverse.unit.fluid.DynamicViscosityUnit
-
 
 class Momentum[A: Fractional](val value: A, val unit: MomentumUnit)
     extends LinearQuantity[Momentum[A], A, MomentumUnit] {
@@ -31,6 +29,14 @@ trait MomentumUnit extends LinearUnit[MomentumUnit]{
 
 }
 
+/** For user defined units */
+class SimpleMomentumUnit(val name: String, val symbol: String, val interval: Real) extends MomentumUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultMomentumUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends MomentumUnit
+
 object MomentumUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -42,9 +48,6 @@ object MomentumUnit{
   def getUnits: Seq[MomentumUnit] =
     Seq()
 }
-
-class DefaultMomentumUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends MomentumUnit
 
 object MomentumUnitObjects{
 

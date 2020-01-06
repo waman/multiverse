@@ -1,4 +1,4 @@
-import java.io.File
+import java.io.{BufferedWriter => BW, File}
 
 import sbt.io.IO
 
@@ -23,6 +23,24 @@ class JsonResourceFactory(info: File, srcManaged: File, src: File, destPath: Fil
   }
 }
 
+class JsonResources(val jsons: Seq[JsonResource]){
+
+  def extractResources[U <: JsonResource](cls: Class[U]): Seq[U] =
+    jsons.filter(cls.isInstance(_)).map(cls.cast(_))
+
+  def searchUnitDefinition(id: String): UnitDefinitionJson =
+    unitDefs.find(_.id == id) match {
+      case Some(ud) => ud
+      case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
+    }
+
+  val scalePrefixJson: ScalePrefixJson = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
+  val unitDefs: Seq[UnitDefinitionJson] = extractResources(classOf[UnitDefinitionJson])
+  val linearUnitDefs: Seq[LinearUnitDefinitionJson] = extractResources(classOf[LinearUnitDefinitionJson])
+
+  def generate(): Seq[File] = extractResources(classOf[SourceGeneratorJson]).flatMap(_.generate(this))
+}
+
 abstract class JsonResource(val jsonFile: File)
 
 abstract class SourceGeneratorJson(jsonFile: File, destDir: File, mainDir: File)
@@ -44,16 +62,4 @@ abstract class SourceGeneratorJson(jsonFile: File, destDir: File, mainDir: File)
   }
 
   protected def doGenerate(jsons: JsonResources): Unit
-}
-
-abstract class UnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, val subpackage: String)
-    extends SourceGeneratorJson(jsonFile, destDir, mainDir){
-
-  val id: String = jsonFile.getName.replace("Units.json", "")  // Length
-  val destFilename: String =  id + ".scala"// Length.scala
-  val packageName: String = GenerationUtil.rootPackage + ".unit." + subpackage
-
-  case class Composites(products: Seq[(String, String)], quotients: Seq[(String, String)])
-
-  def composites: Composites
 }

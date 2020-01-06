@@ -20,6 +20,14 @@ trait AccelerationUnit extends LinearUnit[AccelerationUnit]{
 
 }
 
+/** For user defined units */
+class SimpleAccelerationUnit(val name: String, val symbol: String, val interval: Real) extends AccelerationUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AccelerationUnit
+
 object AccelerationUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -33,12 +41,9 @@ object AccelerationUnit{
     Seq(standard_gravity)
 }
 
-class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AccelerationUnit
-
 object AccelerationUnitObjects{
 
-  final object standard_gravity extends DefaultAccelerationUnit("standard gravity", "g_0", Nil, r"9.80665")
+  final case object standard_gravity extends DefaultAccelerationUnit("standard gravity", "g_0", Nil, r"9.80665")
 }
 
 object AccelerationUnits{

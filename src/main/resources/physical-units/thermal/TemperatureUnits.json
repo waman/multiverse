@@ -1,6 +1,10 @@
 {
   "SIUnit": "kelvin",
   "dimension": {"Θ": 1},
+
+  "convertibles": [
+    {"target": "AbsoluteTemperature", "from": "kelvin", "to": "kelvin", "factor": "1"}
+  ],
   
   "units": [
     {"name": "kelvin", "symbol": "K", "scalePrefixes": true},

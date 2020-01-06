@@ -5,10 +5,8 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
-
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
-
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends LinearQuantity[Velocity[A], A, VelocityUnit] {
@@ -29,6 +27,14 @@ trait VelocityUnit extends LinearUnit[VelocityUnit]{
 
 }
 
+/** For user defined units */
+class SimpleVelocityUnit(val name: String, val symbol: String, val interval: Real) extends VelocityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends VelocityUnit
+
 object VelocityUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -41,14 +47,11 @@ object VelocityUnit{
     Seq(speed_of_light, mach_number)
 }
 
-class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends VelocityUnit
-
 object VelocityUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object speed_of_light extends DefaultVelocityUnit("speed of light", "c", Nil, Constants.SpeedOfLight)
-  final object mach_number extends DefaultVelocityUnit("mach number", "M", Nil, r"340") with NotExact
+  final case object speed_of_light extends DefaultVelocityUnit("speed of light", "c", Nil, Constants.SpeedOfLight)
+  final case object mach_number extends DefaultVelocityUnit("mach number", "M", Nil, r"340") with NotExact
 }
 
 object VelocityUnits{

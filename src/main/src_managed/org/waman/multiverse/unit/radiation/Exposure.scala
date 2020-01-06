@@ -20,6 +20,14 @@ trait ExposureUnit extends LinearUnit[ExposureUnit]{
 
 }
 
+/** For user defined units */
+class SimpleExposureUnit(val name: String, val symbol: String, val interval: Real) extends ExposureUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends ExposureUnit
+
 object ExposureUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -34,12 +42,9 @@ object ExposureUnit{
     Seq(roentgen)
 }
 
-class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends ExposureUnit
-
 object ExposureUnitObjects{
 
-  final object roentgen extends DefaultExposureUnit("roentgen", "R", Nil, r"2.58e-4")
+  final case object roentgen extends DefaultExposureUnit("roentgen", "R", Nil, r"2.58e-4")
 }
 
 object ExposureUnits{

@@ -20,6 +20,14 @@ trait DynamicViscosityUnit extends LinearUnit[DynamicViscosityUnit]{
 
 }
 
+/** For user defined units */
+class SimpleDynamicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends DynamicViscosityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultDynamicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends DynamicViscosityUnit
+
 object DynamicViscosityUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -33,12 +41,9 @@ object DynamicViscosityUnit{
     Seq(poise)
 }
 
-class DefaultDynamicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends DynamicViscosityUnit
-
 object DynamicViscosityUnitObjects{
 
-  final object poise extends DefaultDynamicViscosityUnit("poise", "P", Nil, r"0.1")
+  final case object poise extends DefaultDynamicViscosityUnit("poise", "P", Nil, r"0.1")
 }
 
 object DynamicViscosityUnits{

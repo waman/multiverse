@@ -12,12 +12,10 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
   override protected def newQuantity(value: A, unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
 
   import org.waman.multiverse.unit.Constants
-  import FrequencyUnitObjects._
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
-  def toAngularVelocity: AngularVelocity[A] =
-    new AngularVelocity(
-      apply(heltz) * implicitly[Fractional[A]].fromReal(r"2" * Constants.Pi),
+  def toAngularVelocity: AngularVelocity[A] = new AngularVelocity(
+      apply(FrequencyUnitObjects.heltz) * implicitly[Fractional[A]].fromReal(r"2" * Constants.Pi),
       AngleUnitObjects.radian / TimeUnitObjects.second)
 
 }
@@ -28,6 +26,14 @@ trait FrequencyUnit extends LinearUnit[FrequencyUnit]{
   override def dimension: Map[DimensionSymbol, Int] = FrequencyUnit.dimension
 
 }
+
+/** For user defined units */
+class SimpleFrequencyUnit(val name: String, val symbol: String, val interval: Real) extends FrequencyUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultFrequencyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends FrequencyUnit
 
 object FrequencyUnit{
   import DimensionSymbol._
@@ -41,32 +47,29 @@ object FrequencyUnit{
     Seq(heltz, yoctoheltz, zeptoheltz, attoheltz, femtoheltz, picoheltz, nanoheltz, microheltz, milliheltz, centiheltz, deciheltz, decaheltz, hectoheltz, kiloheltz, megaheltz, gigaheltz, teraheltz, petaheltz, exaheltz, zettaheltz, yottaheltz)
 }
 
-class DefaultFrequencyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends FrequencyUnit
-
 object FrequencyUnitObjects{
 
-  final object heltz extends DefaultFrequencyUnit("heltz", "Hz", Nil, 1)
-  final object yoctoheltz extends DefaultFrequencyUnit("yoctoheltz", "yHz", Nil, 1 * r"1e-24")
-  final object zeptoheltz extends DefaultFrequencyUnit("zeptoheltz", "zHz", Nil, 1 * r"1e-21")
-  final object attoheltz extends DefaultFrequencyUnit("attoheltz", "aHz", Nil, 1 * r"1e-18")
-  final object femtoheltz extends DefaultFrequencyUnit("femtoheltz", "fHz", Nil, 1 * r"1e-15")
-  final object picoheltz extends DefaultFrequencyUnit("picoheltz", "pHz", Nil, 1 * r"1e-12")
-  final object nanoheltz extends DefaultFrequencyUnit("nanoheltz", "nHz", Nil, 1 * r"1e-9")
-  final object microheltz extends DefaultFrequencyUnit("microheltz", "μHz", Seq("mcHz"), 1 * r"1e-6")
-  final object milliheltz extends DefaultFrequencyUnit("milliheltz", "mHz", Nil, 1 * r"1e-3")
-  final object centiheltz extends DefaultFrequencyUnit("centiheltz", "cHz", Nil, 1 * r"1e-2")
-  final object deciheltz extends DefaultFrequencyUnit("deciheltz", "dHz", Nil, 1 * r"1e-1")
-  final object decaheltz extends DefaultFrequencyUnit("decaheltz", "daHz", Nil, 1 * r"1e1")
-  final object hectoheltz extends DefaultFrequencyUnit("hectoheltz", "hHz", Nil, 1 * r"1e2")
-  final object kiloheltz extends DefaultFrequencyUnit("kiloheltz", "kHz", Seq("KHz"), 1 * r"1e3")
-  final object megaheltz extends DefaultFrequencyUnit("megaheltz", "MHz", Nil, 1 * r"1e6")
-  final object gigaheltz extends DefaultFrequencyUnit("gigaheltz", "GHz", Nil, 1 * r"1e9")
-  final object teraheltz extends DefaultFrequencyUnit("teraheltz", "THz", Nil, 1 * r"1e12")
-  final object petaheltz extends DefaultFrequencyUnit("petaheltz", "PHz", Nil, 1 * r"1e15")
-  final object exaheltz extends DefaultFrequencyUnit("exaheltz", "EHz", Nil, 1 * r"1e18")
-  final object zettaheltz extends DefaultFrequencyUnit("zettaheltz", "ZHz", Nil, 1 * r"1e21")
-  final object yottaheltz extends DefaultFrequencyUnit("yottaheltz", "YHz", Nil, 1 * r"1e24")
+  final case object heltz extends DefaultFrequencyUnit("heltz", "Hz", Nil, 1)
+  final case object yoctoheltz extends DefaultFrequencyUnit("yoctoheltz", "yHz", Nil, r"1e-24")
+  final case object zeptoheltz extends DefaultFrequencyUnit("zeptoheltz", "zHz", Nil, r"1e-21")
+  final case object attoheltz extends DefaultFrequencyUnit("attoheltz", "aHz", Nil, r"1e-18")
+  final case object femtoheltz extends DefaultFrequencyUnit("femtoheltz", "fHz", Nil, r"1e-15")
+  final case object picoheltz extends DefaultFrequencyUnit("picoheltz", "pHz", Nil, r"1e-12")
+  final case object nanoheltz extends DefaultFrequencyUnit("nanoheltz", "nHz", Nil, r"1e-9")
+  final case object microheltz extends DefaultFrequencyUnit("microheltz", "μHz", Seq("mcHz"), r"1e-6")
+  final case object milliheltz extends DefaultFrequencyUnit("milliheltz", "mHz", Nil, r"1e-3")
+  final case object centiheltz extends DefaultFrequencyUnit("centiheltz", "cHz", Nil, r"1e-2")
+  final case object deciheltz extends DefaultFrequencyUnit("deciheltz", "dHz", Nil, r"1e-1")
+  final case object decaheltz extends DefaultFrequencyUnit("decaheltz", "daHz", Nil, r"1e1")
+  final case object hectoheltz extends DefaultFrequencyUnit("hectoheltz", "hHz", Nil, r"1e2")
+  final case object kiloheltz extends DefaultFrequencyUnit("kiloheltz", "kHz", Seq("KHz"), r"1e3")
+  final case object megaheltz extends DefaultFrequencyUnit("megaheltz", "MHz", Nil, r"1e6")
+  final case object gigaheltz extends DefaultFrequencyUnit("gigaheltz", "GHz", Nil, r"1e9")
+  final case object teraheltz extends DefaultFrequencyUnit("teraheltz", "THz", Nil, r"1e12")
+  final case object petaheltz extends DefaultFrequencyUnit("petaheltz", "PHz", Nil, r"1e15")
+  final case object exaheltz extends DefaultFrequencyUnit("exaheltz", "EHz", Nil, r"1e18")
+  final case object zettaheltz extends DefaultFrequencyUnit("zettaheltz", "ZHz", Nil, r"1e21")
+  final case object yottaheltz extends DefaultFrequencyUnit("yottaheltz", "YHz", Nil, r"1e24")
 }
 
 object FrequencyUnits{
@@ -77,7 +80,7 @@ object FrequencyUnits{
   def fHz: FrequencyUnit = FrequencyUnitObjects.femtoheltz
   def pHz: FrequencyUnit = FrequencyUnitObjects.picoheltz
   def nHz: FrequencyUnit = FrequencyUnitObjects.nanoheltz
-  def μHz: FrequencyUnit = FrequencyUnitObjects.microheltz
+  def `μHz`: FrequencyUnit = FrequencyUnitObjects.microheltz
   def mcHz: FrequencyUnit = FrequencyUnitObjects.microheltz
   def mHz: FrequencyUnit = FrequencyUnitObjects.milliheltz
   def cHz: FrequencyUnit = FrequencyUnitObjects.centiheltz

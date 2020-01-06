@@ -20,6 +20,14 @@ trait AmountOfSubstanceUnit extends LinearUnit[AmountOfSubstanceUnit]{
 
 }
 
+/** For user defined units */
+class SimpleAmountOfSubstanceUnit(val name: String, val symbol: String, val interval: Real) extends AmountOfSubstanceUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultAmountOfSubstanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AmountOfSubstanceUnit
+
 object AmountOfSubstanceUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -32,12 +40,9 @@ object AmountOfSubstanceUnit{
     Seq(mole)
 }
 
-class DefaultAmountOfSubstanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AmountOfSubstanceUnit
-
 object AmountOfSubstanceUnitObjects{
 
-  final object mole extends DefaultAmountOfSubstanceUnit("mole", "mol", Nil, 1)
+  final case object mole extends DefaultAmountOfSubstanceUnit("mole", "mol", Nil, 1)
 }
 
 object AmountOfSubstanceUnits{

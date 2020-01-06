@@ -20,6 +20,14 @@ trait DipoleUnit extends LinearUnit[DipoleUnit]{
 
 }
 
+/** For user defined units */
+class SimpleDipoleUnit(val name: String, val symbol: String, val interval: Real) extends DipoleUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultDipoleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends DipoleUnit
+
 object DipoleUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -33,14 +41,11 @@ object DipoleUnit{
     Seq(debye, atomic_unit_of_electric_dipole_moment)
 }
 
-class DefaultDipoleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends DipoleUnit
-
 object DipoleUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object debye extends DefaultDipoleUnit("debye", "D", Nil, r"1e-20" * ChargeUnitObjects.statcoulomb.interval)
-  final object atomic_unit_of_electric_dipole_moment extends DefaultDipoleUnit("atomic unit of electric dipole moment", "ea_0", Nil, Constants.BohrRadius) with NotExact
+  final case object debye extends DefaultDipoleUnit("debye", "D", Nil, r"1e-20" * ChargeUnitObjects.statcoulomb.interval)
+  final case object atomic_unit_of_electric_dipole_moment extends DefaultDipoleUnit("atomic unit of electric dipole moment", "ea_0", Nil, Constants.BohrRadius) with NotExact
 }
 
 object DipoleUnits{

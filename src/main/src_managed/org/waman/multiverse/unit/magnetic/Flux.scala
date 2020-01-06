@@ -7,12 +7,8 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
-
-
 import org.waman.multiverse.unit.electric.Current
 import org.waman.multiverse.unit.electric.CurrentUnit
-
-
 
 class Flux[A: Fractional](val value: A, val unit: FluxUnit)
     extends LinearQuantity[Flux[A], A, FluxUnit] {
@@ -38,6 +34,14 @@ trait FluxUnit extends LinearUnit[FluxUnit]{
 
 }
 
+/** For user defined units */
+class SimpleFluxUnit(val name: String, val symbol: String, val interval: Real) extends FluxUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends FluxUnit
+
 object FluxUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -50,53 +54,50 @@ object FluxUnit{
     Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell)
 }
 
-class DefaultFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends FluxUnit
-
 object FluxUnitObjects{
 
-  final object weber extends DefaultFluxUnit("weber", "Wb", Nil, 1)
-  final object yoctoweber extends DefaultFluxUnit("yoctoweber", "yWb", Nil, 1 * r"1e-24")
-  final object zeptoweber extends DefaultFluxUnit("zeptoweber", "zWb", Nil, 1 * r"1e-21")
-  final object attoweber extends DefaultFluxUnit("attoweber", "aWb", Nil, 1 * r"1e-18")
-  final object femtoweber extends DefaultFluxUnit("femtoweber", "fWb", Nil, 1 * r"1e-15")
-  final object picoweber extends DefaultFluxUnit("picoweber", "pWb", Nil, 1 * r"1e-12")
-  final object nanoweber extends DefaultFluxUnit("nanoweber", "nWb", Nil, 1 * r"1e-9")
-  final object microweber extends DefaultFluxUnit("microweber", "μWb", Seq("mcWb"), 1 * r"1e-6")
-  final object milliweber extends DefaultFluxUnit("milliweber", "mWb", Nil, 1 * r"1e-3")
-  final object centiweber extends DefaultFluxUnit("centiweber", "cWb", Nil, 1 * r"1e-2")
-  final object deciweber extends DefaultFluxUnit("deciweber", "dWb", Nil, 1 * r"1e-1")
-  final object decaweber extends DefaultFluxUnit("decaweber", "daWb", Nil, 1 * r"1e1")
-  final object hectoweber extends DefaultFluxUnit("hectoweber", "hWb", Nil, 1 * r"1e2")
-  final object kiloweber extends DefaultFluxUnit("kiloweber", "kWb", Seq("KWb"), 1 * r"1e3")
-  final object megaweber extends DefaultFluxUnit("megaweber", "MWb", Nil, 1 * r"1e6")
-  final object gigaweber extends DefaultFluxUnit("gigaweber", "GWb", Nil, 1 * r"1e9")
-  final object teraweber extends DefaultFluxUnit("teraweber", "TWb", Nil, 1 * r"1e12")
-  final object petaweber extends DefaultFluxUnit("petaweber", "PWb", Nil, 1 * r"1e15")
-  final object exaweber extends DefaultFluxUnit("exaweber", "EWb", Nil, 1 * r"1e18")
-  final object zettaweber extends DefaultFluxUnit("zettaweber", "ZWb", Nil, 1 * r"1e21")
-  final object yottaweber extends DefaultFluxUnit("yottaweber", "YWb", Nil, 1 * r"1e24")
-  final object maxwell extends DefaultFluxUnit("maxwell", "Mx", Nil, r"1e-8")
-  final object yoctomaxwell extends DefaultFluxUnit("yoctomaxwell", "yMx", Nil, r"1e-8" * r"1e-24")
-  final object zeptomaxwell extends DefaultFluxUnit("zeptomaxwell", "zMx", Nil, r"1e-8" * r"1e-21")
-  final object attomaxwell extends DefaultFluxUnit("attomaxwell", "aMx", Nil, r"1e-8" * r"1e-18")
-  final object femtomaxwell extends DefaultFluxUnit("femtomaxwell", "fMx", Nil, r"1e-8" * r"1e-15")
-  final object picomaxwell extends DefaultFluxUnit("picomaxwell", "pMx", Nil, r"1e-8" * r"1e-12")
-  final object nanomaxwell extends DefaultFluxUnit("nanomaxwell", "nMx", Nil, r"1e-8" * r"1e-9")
-  final object micromaxwell extends DefaultFluxUnit("micromaxwell", "μMx", Seq("mcMx"), r"1e-8" * r"1e-6")
-  final object millimaxwell extends DefaultFluxUnit("millimaxwell", "mMx", Nil, r"1e-8" * r"1e-3")
-  final object centimaxwell extends DefaultFluxUnit("centimaxwell", "cMx", Nil, r"1e-8" * r"1e-2")
-  final object decimaxwell extends DefaultFluxUnit("decimaxwell", "dMx", Nil, r"1e-8" * r"1e-1")
-  final object decamaxwell extends DefaultFluxUnit("decamaxwell", "daMx", Nil, r"1e-8" * r"1e1")
-  final object hectomaxwell extends DefaultFluxUnit("hectomaxwell", "hMx", Nil, r"1e-8" * r"1e2")
-  final object kilomaxwell extends DefaultFluxUnit("kilomaxwell", "kMx", Seq("KMx"), r"1e-8" * r"1e3")
-  final object megamaxwell extends DefaultFluxUnit("megamaxwell", "MMx", Nil, r"1e-8" * r"1e6")
-  final object gigamaxwell extends DefaultFluxUnit("gigamaxwell", "GMx", Nil, r"1e-8" * r"1e9")
-  final object teramaxwell extends DefaultFluxUnit("teramaxwell", "TMx", Nil, r"1e-8" * r"1e12")
-  final object petamaxwell extends DefaultFluxUnit("petamaxwell", "PMx", Nil, r"1e-8" * r"1e15")
-  final object examaxwell extends DefaultFluxUnit("examaxwell", "EMx", Nil, r"1e-8" * r"1e18")
-  final object zettamaxwell extends DefaultFluxUnit("zettamaxwell", "ZMx", Nil, r"1e-8" * r"1e21")
-  final object yottamaxwell extends DefaultFluxUnit("yottamaxwell", "YMx", Nil, r"1e-8" * r"1e24")
+  final case object weber extends DefaultFluxUnit("weber", "Wb", Nil, 1)
+  final case object yoctoweber extends DefaultFluxUnit("yoctoweber", "yWb", Nil, r"1e-24")
+  final case object zeptoweber extends DefaultFluxUnit("zeptoweber", "zWb", Nil, r"1e-21")
+  final case object attoweber extends DefaultFluxUnit("attoweber", "aWb", Nil, r"1e-18")
+  final case object femtoweber extends DefaultFluxUnit("femtoweber", "fWb", Nil, r"1e-15")
+  final case object picoweber extends DefaultFluxUnit("picoweber", "pWb", Nil, r"1e-12")
+  final case object nanoweber extends DefaultFluxUnit("nanoweber", "nWb", Nil, r"1e-9")
+  final case object microweber extends DefaultFluxUnit("microweber", "μWb", Seq("mcWb"), r"1e-6")
+  final case object milliweber extends DefaultFluxUnit("milliweber", "mWb", Nil, r"1e-3")
+  final case object centiweber extends DefaultFluxUnit("centiweber", "cWb", Nil, r"1e-2")
+  final case object deciweber extends DefaultFluxUnit("deciweber", "dWb", Nil, r"1e-1")
+  final case object decaweber extends DefaultFluxUnit("decaweber", "daWb", Nil, r"1e1")
+  final case object hectoweber extends DefaultFluxUnit("hectoweber", "hWb", Nil, r"1e2")
+  final case object kiloweber extends DefaultFluxUnit("kiloweber", "kWb", Seq("KWb"), r"1e3")
+  final case object megaweber extends DefaultFluxUnit("megaweber", "MWb", Nil, r"1e6")
+  final case object gigaweber extends DefaultFluxUnit("gigaweber", "GWb", Nil, r"1e9")
+  final case object teraweber extends DefaultFluxUnit("teraweber", "TWb", Nil, r"1e12")
+  final case object petaweber extends DefaultFluxUnit("petaweber", "PWb", Nil, r"1e15")
+  final case object exaweber extends DefaultFluxUnit("exaweber", "EWb", Nil, r"1e18")
+  final case object zettaweber extends DefaultFluxUnit("zettaweber", "ZWb", Nil, r"1e21")
+  final case object yottaweber extends DefaultFluxUnit("yottaweber", "YWb", Nil, r"1e24")
+  final case object maxwell extends DefaultFluxUnit("maxwell", "Mx", Nil, r"1e-8")
+  final case object yoctomaxwell extends DefaultFluxUnit("yoctomaxwell", "yMx", Nil, r"1e-8" * r"1e-24")
+  final case object zeptomaxwell extends DefaultFluxUnit("zeptomaxwell", "zMx", Nil, r"1e-8" * r"1e-21")
+  final case object attomaxwell extends DefaultFluxUnit("attomaxwell", "aMx", Nil, r"1e-8" * r"1e-18")
+  final case object femtomaxwell extends DefaultFluxUnit("femtomaxwell", "fMx", Nil, r"1e-8" * r"1e-15")
+  final case object picomaxwell extends DefaultFluxUnit("picomaxwell", "pMx", Nil, r"1e-8" * r"1e-12")
+  final case object nanomaxwell extends DefaultFluxUnit("nanomaxwell", "nMx", Nil, r"1e-8" * r"1e-9")
+  final case object micromaxwell extends DefaultFluxUnit("micromaxwell", "μMx", Seq("mcMx"), r"1e-8" * r"1e-6")
+  final case object millimaxwell extends DefaultFluxUnit("millimaxwell", "mMx", Nil, r"1e-8" * r"1e-3")
+  final case object centimaxwell extends DefaultFluxUnit("centimaxwell", "cMx", Nil, r"1e-8" * r"1e-2")
+  final case object decimaxwell extends DefaultFluxUnit("decimaxwell", "dMx", Nil, r"1e-8" * r"1e-1")
+  final case object decamaxwell extends DefaultFluxUnit("decamaxwell", "daMx", Nil, r"1e-8" * r"1e1")
+  final case object hectomaxwell extends DefaultFluxUnit("hectomaxwell", "hMx", Nil, r"1e-8" * r"1e2")
+  final case object kilomaxwell extends DefaultFluxUnit("kilomaxwell", "kMx", Seq("KMx"), r"1e-8" * r"1e3")
+  final case object megamaxwell extends DefaultFluxUnit("megamaxwell", "MMx", Nil, r"1e-8" * r"1e6")
+  final case object gigamaxwell extends DefaultFluxUnit("gigamaxwell", "GMx", Nil, r"1e-8" * r"1e9")
+  final case object teramaxwell extends DefaultFluxUnit("teramaxwell", "TMx", Nil, r"1e-8" * r"1e12")
+  final case object petamaxwell extends DefaultFluxUnit("petamaxwell", "PMx", Nil, r"1e-8" * r"1e15")
+  final case object examaxwell extends DefaultFluxUnit("examaxwell", "EMx", Nil, r"1e-8" * r"1e18")
+  final case object zettamaxwell extends DefaultFluxUnit("zettamaxwell", "ZMx", Nil, r"1e-8" * r"1e21")
+  final case object yottamaxwell extends DefaultFluxUnit("yottamaxwell", "YMx", Nil, r"1e-8" * r"1e24")
 }
 
 object FluxUnits{
@@ -107,7 +108,7 @@ object FluxUnits{
   def fWb: FluxUnit = FluxUnitObjects.femtoweber
   def pWb: FluxUnit = FluxUnitObjects.picoweber
   def nWb: FluxUnit = FluxUnitObjects.nanoweber
-  def μWb: FluxUnit = FluxUnitObjects.microweber
+  def `μWb`: FluxUnit = FluxUnitObjects.microweber
   def mcWb: FluxUnit = FluxUnitObjects.microweber
   def mWb: FluxUnit = FluxUnitObjects.milliweber
   def cWb: FluxUnit = FluxUnitObjects.centiweber
@@ -130,7 +131,7 @@ object FluxUnits{
   def fMx: FluxUnit = FluxUnitObjects.femtomaxwell
   def pMx: FluxUnit = FluxUnitObjects.picomaxwell
   def nMx: FluxUnit = FluxUnitObjects.nanomaxwell
-  def μMx: FluxUnit = FluxUnitObjects.micromaxwell
+  def `μMx`: FluxUnit = FluxUnitObjects.micromaxwell
   def mcMx: FluxUnit = FluxUnitObjects.micromaxwell
   def mMx: FluxUnit = FluxUnitObjects.millimaxwell
   def cMx: FluxUnit = FluxUnitObjects.centimaxwell

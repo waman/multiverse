@@ -97,4 +97,7 @@ package object implicits {
   implicit def convertAbsoluteTemperatureToEnergy[A: Fractional](q: AbsoluteTemperature[A]): Energy[A] =
     q.toEnergy
 
+  implicit def convertAbsoluteTemperatureToTemperature[A: Fractional](q: AbsoluteTemperature[A]): Temperature[A] =
+    q.toTemperature
+
 }

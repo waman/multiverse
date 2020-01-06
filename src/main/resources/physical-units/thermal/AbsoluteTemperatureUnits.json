@@ -3,7 +3,8 @@
   "dimension": {"Θ": 1},
 
   "convertibles": [
-    {"target": "Energy", "from": "kelvin", "to": "joule", "factor": "Constants.BoltzmannConstant"}
+    {"target": "Energy", "from": "kelvin", "to": "joule", "factor": "Constants.BoltzmannConstant"},
+    {"target": "Temperature", "from": "kelvin", "to": "kelvin", "factor": "1"}
   ],
   
   "units": [

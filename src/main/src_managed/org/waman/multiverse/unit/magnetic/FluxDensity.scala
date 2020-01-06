@@ -20,6 +20,14 @@ trait FluxDensityUnit extends LinearUnit[FluxDensityUnit]{
 
 }
 
+/** For user defined units */
+class SimpleFluxDensityUnit(val name: String, val symbol: String, val interval: Real) extends FluxDensityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultFluxDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends FluxDensityUnit
+
 object FluxDensityUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -32,53 +40,50 @@ object FluxDensityUnit{
     Seq(tesla, yoctotesla, zeptotesla, attotesla, femtotesla, picotesla, nanotesla, microtesla, millitesla, centitesla, decitesla, decatesla, hectotesla, kilotesla, megatesla, gigatesla, teratesla, petatesla, exatesla, zettatesla, yottatesla, gauss, yoctogauss, zeptogauss, attogauss, femtogauss, picogauss, nanogauss, microgauss, milligauss, centigauss, decigauss, decagauss, hectogauss, kilogauss, megagauss, gigagauss, teragauss, petagauss, exagauss, zettagauss, yottagauss)
 }
 
-class DefaultFluxDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends FluxDensityUnit
-
 object FluxDensityUnitObjects{
 
-  final object tesla extends DefaultFluxDensityUnit("tesla", "T", Nil, 1)
-  final object yoctotesla extends DefaultFluxDensityUnit("yoctotesla", "yT", Nil, 1 * r"1e-24")
-  final object zeptotesla extends DefaultFluxDensityUnit("zeptotesla", "zT", Nil, 1 * r"1e-21")
-  final object attotesla extends DefaultFluxDensityUnit("attotesla", "aT", Nil, 1 * r"1e-18")
-  final object femtotesla extends DefaultFluxDensityUnit("femtotesla", "fT", Nil, 1 * r"1e-15")
-  final object picotesla extends DefaultFluxDensityUnit("picotesla", "pT", Nil, 1 * r"1e-12")
-  final object nanotesla extends DefaultFluxDensityUnit("nanotesla", "nT", Nil, 1 * r"1e-9")
-  final object microtesla extends DefaultFluxDensityUnit("microtesla", "μT", Seq("mcT"), 1 * r"1e-6")
-  final object millitesla extends DefaultFluxDensityUnit("millitesla", "mT", Nil, 1 * r"1e-3")
-  final object centitesla extends DefaultFluxDensityUnit("centitesla", "cT", Nil, 1 * r"1e-2")
-  final object decitesla extends DefaultFluxDensityUnit("decitesla", "dT", Nil, 1 * r"1e-1")
-  final object decatesla extends DefaultFluxDensityUnit("decatesla", "daT", Nil, 1 * r"1e1")
-  final object hectotesla extends DefaultFluxDensityUnit("hectotesla", "hT", Nil, 1 * r"1e2")
-  final object kilotesla extends DefaultFluxDensityUnit("kilotesla", "kT", Seq("KT"), 1 * r"1e3")
-  final object megatesla extends DefaultFluxDensityUnit("megatesla", "MT", Nil, 1 * r"1e6")
-  final object gigatesla extends DefaultFluxDensityUnit("gigatesla", "GT", Nil, 1 * r"1e9")
-  final object teratesla extends DefaultFluxDensityUnit("teratesla", "TT", Nil, 1 * r"1e12")
-  final object petatesla extends DefaultFluxDensityUnit("petatesla", "PT", Nil, 1 * r"1e15")
-  final object exatesla extends DefaultFluxDensityUnit("exatesla", "ET", Nil, 1 * r"1e18")
-  final object zettatesla extends DefaultFluxDensityUnit("zettatesla", "ZT", Nil, 1 * r"1e21")
-  final object yottatesla extends DefaultFluxDensityUnit("yottatesla", "YT", Nil, 1 * r"1e24")
-  final object gauss extends DefaultFluxDensityUnit("gauss", "G", Nil, r"1e-4")
-  final object yoctogauss extends DefaultFluxDensityUnit("yoctogauss", "yG", Nil, r"1e-4" * r"1e-24")
-  final object zeptogauss extends DefaultFluxDensityUnit("zeptogauss", "zG", Nil, r"1e-4" * r"1e-21")
-  final object attogauss extends DefaultFluxDensityUnit("attogauss", "aG", Nil, r"1e-4" * r"1e-18")
-  final object femtogauss extends DefaultFluxDensityUnit("femtogauss", "fG", Nil, r"1e-4" * r"1e-15")
-  final object picogauss extends DefaultFluxDensityUnit("picogauss", "pG", Nil, r"1e-4" * r"1e-12")
-  final object nanogauss extends DefaultFluxDensityUnit("nanogauss", "nG", Nil, r"1e-4" * r"1e-9")
-  final object microgauss extends DefaultFluxDensityUnit("microgauss", "μG", Seq("mcG"), r"1e-4" * r"1e-6")
-  final object milligauss extends DefaultFluxDensityUnit("milligauss", "mG", Nil, r"1e-4" * r"1e-3")
-  final object centigauss extends DefaultFluxDensityUnit("centigauss", "cG", Nil, r"1e-4" * r"1e-2")
-  final object decigauss extends DefaultFluxDensityUnit("decigauss", "dG", Nil, r"1e-4" * r"1e-1")
-  final object decagauss extends DefaultFluxDensityUnit("decagauss", "daG", Nil, r"1e-4" * r"1e1")
-  final object hectogauss extends DefaultFluxDensityUnit("hectogauss", "hG", Nil, r"1e-4" * r"1e2")
-  final object kilogauss extends DefaultFluxDensityUnit("kilogauss", "kG", Seq("KG"), r"1e-4" * r"1e3")
-  final object megagauss extends DefaultFluxDensityUnit("megagauss", "MG", Nil, r"1e-4" * r"1e6")
-  final object gigagauss extends DefaultFluxDensityUnit("gigagauss", "GG", Nil, r"1e-4" * r"1e9")
-  final object teragauss extends DefaultFluxDensityUnit("teragauss", "TG", Nil, r"1e-4" * r"1e12")
-  final object petagauss extends DefaultFluxDensityUnit("petagauss", "PG", Nil, r"1e-4" * r"1e15")
-  final object exagauss extends DefaultFluxDensityUnit("exagauss", "EG", Nil, r"1e-4" * r"1e18")
-  final object zettagauss extends DefaultFluxDensityUnit("zettagauss", "ZG", Nil, r"1e-4" * r"1e21")
-  final object yottagauss extends DefaultFluxDensityUnit("yottagauss", "YG", Nil, r"1e-4" * r"1e24")
+  final case object tesla extends DefaultFluxDensityUnit("tesla", "T", Nil, 1)
+  final case object yoctotesla extends DefaultFluxDensityUnit("yoctotesla", "yT", Nil, r"1e-24")
+  final case object zeptotesla extends DefaultFluxDensityUnit("zeptotesla", "zT", Nil, r"1e-21")
+  final case object attotesla extends DefaultFluxDensityUnit("attotesla", "aT", Nil, r"1e-18")
+  final case object femtotesla extends DefaultFluxDensityUnit("femtotesla", "fT", Nil, r"1e-15")
+  final case object picotesla extends DefaultFluxDensityUnit("picotesla", "pT", Nil, r"1e-12")
+  final case object nanotesla extends DefaultFluxDensityUnit("nanotesla", "nT", Nil, r"1e-9")
+  final case object microtesla extends DefaultFluxDensityUnit("microtesla", "μT", Seq("mcT"), r"1e-6")
+  final case object millitesla extends DefaultFluxDensityUnit("millitesla", "mT", Nil, r"1e-3")
+  final case object centitesla extends DefaultFluxDensityUnit("centitesla", "cT", Nil, r"1e-2")
+  final case object decitesla extends DefaultFluxDensityUnit("decitesla", "dT", Nil, r"1e-1")
+  final case object decatesla extends DefaultFluxDensityUnit("decatesla", "daT", Nil, r"1e1")
+  final case object hectotesla extends DefaultFluxDensityUnit("hectotesla", "hT", Nil, r"1e2")
+  final case object kilotesla extends DefaultFluxDensityUnit("kilotesla", "kT", Seq("KT"), r"1e3")
+  final case object megatesla extends DefaultFluxDensityUnit("megatesla", "MT", Nil, r"1e6")
+  final case object gigatesla extends DefaultFluxDensityUnit("gigatesla", "GT", Nil, r"1e9")
+  final case object teratesla extends DefaultFluxDensityUnit("teratesla", "TT", Nil, r"1e12")
+  final case object petatesla extends DefaultFluxDensityUnit("petatesla", "PT", Nil, r"1e15")
+  final case object exatesla extends DefaultFluxDensityUnit("exatesla", "ET", Nil, r"1e18")
+  final case object zettatesla extends DefaultFluxDensityUnit("zettatesla", "ZT", Nil, r"1e21")
+  final case object yottatesla extends DefaultFluxDensityUnit("yottatesla", "YT", Nil, r"1e24")
+  final case object gauss extends DefaultFluxDensityUnit("gauss", "G", Nil, r"1e-4")
+  final case object yoctogauss extends DefaultFluxDensityUnit("yoctogauss", "yG", Nil, r"1e-4" * r"1e-24")
+  final case object zeptogauss extends DefaultFluxDensityUnit("zeptogauss", "zG", Nil, r"1e-4" * r"1e-21")
+  final case object attogauss extends DefaultFluxDensityUnit("attogauss", "aG", Nil, r"1e-4" * r"1e-18")
+  final case object femtogauss extends DefaultFluxDensityUnit("femtogauss", "fG", Nil, r"1e-4" * r"1e-15")
+  final case object picogauss extends DefaultFluxDensityUnit("picogauss", "pG", Nil, r"1e-4" * r"1e-12")
+  final case object nanogauss extends DefaultFluxDensityUnit("nanogauss", "nG", Nil, r"1e-4" * r"1e-9")
+  final case object microgauss extends DefaultFluxDensityUnit("microgauss", "μG", Seq("mcG"), r"1e-4" * r"1e-6")
+  final case object milligauss extends DefaultFluxDensityUnit("milligauss", "mG", Nil, r"1e-4" * r"1e-3")
+  final case object centigauss extends DefaultFluxDensityUnit("centigauss", "cG", Nil, r"1e-4" * r"1e-2")
+  final case object decigauss extends DefaultFluxDensityUnit("decigauss", "dG", Nil, r"1e-4" * r"1e-1")
+  final case object decagauss extends DefaultFluxDensityUnit("decagauss", "daG", Nil, r"1e-4" * r"1e1")
+  final case object hectogauss extends DefaultFluxDensityUnit("hectogauss", "hG", Nil, r"1e-4" * r"1e2")
+  final case object kilogauss extends DefaultFluxDensityUnit("kilogauss", "kG", Seq("KG"), r"1e-4" * r"1e3")
+  final case object megagauss extends DefaultFluxDensityUnit("megagauss", "MG", Nil, r"1e-4" * r"1e6")
+  final case object gigagauss extends DefaultFluxDensityUnit("gigagauss", "GG", Nil, r"1e-4" * r"1e9")
+  final case object teragauss extends DefaultFluxDensityUnit("teragauss", "TG", Nil, r"1e-4" * r"1e12")
+  final case object petagauss extends DefaultFluxDensityUnit("petagauss", "PG", Nil, r"1e-4" * r"1e15")
+  final case object exagauss extends DefaultFluxDensityUnit("exagauss", "EG", Nil, r"1e-4" * r"1e18")
+  final case object zettagauss extends DefaultFluxDensityUnit("zettagauss", "ZG", Nil, r"1e-4" * r"1e21")
+  final case object yottagauss extends DefaultFluxDensityUnit("yottagauss", "YG", Nil, r"1e-4" * r"1e24")
 }
 
 object FluxDensityUnits{
@@ -89,7 +94,7 @@ object FluxDensityUnits{
   def fT: FluxDensityUnit = FluxDensityUnitObjects.femtotesla
   def pT: FluxDensityUnit = FluxDensityUnitObjects.picotesla
   def nT: FluxDensityUnit = FluxDensityUnitObjects.nanotesla
-  def μT: FluxDensityUnit = FluxDensityUnitObjects.microtesla
+  def `μT`: FluxDensityUnit = FluxDensityUnitObjects.microtesla
   def mcT: FluxDensityUnit = FluxDensityUnitObjects.microtesla
   def mT: FluxDensityUnit = FluxDensityUnitObjects.millitesla
   def cT: FluxDensityUnit = FluxDensityUnitObjects.centitesla
@@ -112,7 +117,7 @@ object FluxDensityUnits{
   def fG: FluxDensityUnit = FluxDensityUnitObjects.femtogauss
   def pG: FluxDensityUnit = FluxDensityUnitObjects.picogauss
   def nG: FluxDensityUnit = FluxDensityUnitObjects.nanogauss
-  def μG: FluxDensityUnit = FluxDensityUnitObjects.microgauss
+  def `μG`: FluxDensityUnit = FluxDensityUnitObjects.microgauss
   def mcG: FluxDensityUnit = FluxDensityUnitObjects.microgauss
   def mG: FluxDensityUnit = FluxDensityUnitObjects.milligauss
   def cG: FluxDensityUnit = FluxDensityUnitObjects.centigauss

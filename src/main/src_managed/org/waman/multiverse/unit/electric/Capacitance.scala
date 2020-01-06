@@ -20,6 +20,14 @@ trait CapacitanceUnit extends LinearUnit[CapacitanceUnit]{
 
 }
 
+/** For user defined units */
+class SimpleCapacitanceUnit(val name: String, val symbol: String, val interval: Real) extends CapacitanceUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultCapacitanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends CapacitanceUnit
+
 object CapacitanceUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -32,32 +40,29 @@ object CapacitanceUnit{
     Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad)
 }
 
-class DefaultCapacitanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends CapacitanceUnit
-
 object CapacitanceUnitObjects{
 
-  final object farad extends DefaultCapacitanceUnit("farad", "F", Nil, 1)
-  final object yoctofarad extends DefaultCapacitanceUnit("yoctofarad", "yF", Nil, 1 * r"1e-24")
-  final object zeptofarad extends DefaultCapacitanceUnit("zeptofarad", "zF", Nil, 1 * r"1e-21")
-  final object attofarad extends DefaultCapacitanceUnit("attofarad", "aF", Nil, 1 * r"1e-18")
-  final object femtofarad extends DefaultCapacitanceUnit("femtofarad", "fF", Nil, 1 * r"1e-15")
-  final object picofarad extends DefaultCapacitanceUnit("picofarad", "pF", Nil, 1 * r"1e-12")
-  final object nanofarad extends DefaultCapacitanceUnit("nanofarad", "nF", Nil, 1 * r"1e-9")
-  final object microfarad extends DefaultCapacitanceUnit("microfarad", "μF", Seq("mcF"), 1 * r"1e-6")
-  final object millifarad extends DefaultCapacitanceUnit("millifarad", "mF", Nil, 1 * r"1e-3")
-  final object centifarad extends DefaultCapacitanceUnit("centifarad", "cF", Nil, 1 * r"1e-2")
-  final object decifarad extends DefaultCapacitanceUnit("decifarad", "dF", Nil, 1 * r"1e-1")
-  final object decafarad extends DefaultCapacitanceUnit("decafarad", "daF", Nil, 1 * r"1e1")
-  final object hectofarad extends DefaultCapacitanceUnit("hectofarad", "hF", Nil, 1 * r"1e2")
-  final object kilofarad extends DefaultCapacitanceUnit("kilofarad", "kF", Seq("KF"), 1 * r"1e3")
-  final object megafarad extends DefaultCapacitanceUnit("megafarad", "MF", Nil, 1 * r"1e6")
-  final object gigafarad extends DefaultCapacitanceUnit("gigafarad", "GF", Nil, 1 * r"1e9")
-  final object terafarad extends DefaultCapacitanceUnit("terafarad", "TF", Nil, 1 * r"1e12")
-  final object petafarad extends DefaultCapacitanceUnit("petafarad", "PF", Nil, 1 * r"1e15")
-  final object exafarad extends DefaultCapacitanceUnit("exafarad", "EF", Nil, 1 * r"1e18")
-  final object zettafarad extends DefaultCapacitanceUnit("zettafarad", "ZF", Nil, 1 * r"1e21")
-  final object yottafarad extends DefaultCapacitanceUnit("yottafarad", "YF", Nil, 1 * r"1e24")
+  final case object farad extends DefaultCapacitanceUnit("farad", "F", Nil, 1)
+  final case object yoctofarad extends DefaultCapacitanceUnit("yoctofarad", "yF", Nil, r"1e-24")
+  final case object zeptofarad extends DefaultCapacitanceUnit("zeptofarad", "zF", Nil, r"1e-21")
+  final case object attofarad extends DefaultCapacitanceUnit("attofarad", "aF", Nil, r"1e-18")
+  final case object femtofarad extends DefaultCapacitanceUnit("femtofarad", "fF", Nil, r"1e-15")
+  final case object picofarad extends DefaultCapacitanceUnit("picofarad", "pF", Nil, r"1e-12")
+  final case object nanofarad extends DefaultCapacitanceUnit("nanofarad", "nF", Nil, r"1e-9")
+  final case object microfarad extends DefaultCapacitanceUnit("microfarad", "μF", Seq("mcF"), r"1e-6")
+  final case object millifarad extends DefaultCapacitanceUnit("millifarad", "mF", Nil, r"1e-3")
+  final case object centifarad extends DefaultCapacitanceUnit("centifarad", "cF", Nil, r"1e-2")
+  final case object decifarad extends DefaultCapacitanceUnit("decifarad", "dF", Nil, r"1e-1")
+  final case object decafarad extends DefaultCapacitanceUnit("decafarad", "daF", Nil, r"1e1")
+  final case object hectofarad extends DefaultCapacitanceUnit("hectofarad", "hF", Nil, r"1e2")
+  final case object kilofarad extends DefaultCapacitanceUnit("kilofarad", "kF", Seq("KF"), r"1e3")
+  final case object megafarad extends DefaultCapacitanceUnit("megafarad", "MF", Nil, r"1e6")
+  final case object gigafarad extends DefaultCapacitanceUnit("gigafarad", "GF", Nil, r"1e9")
+  final case object terafarad extends DefaultCapacitanceUnit("terafarad", "TF", Nil, r"1e12")
+  final case object petafarad extends DefaultCapacitanceUnit("petafarad", "PF", Nil, r"1e15")
+  final case object exafarad extends DefaultCapacitanceUnit("exafarad", "EF", Nil, r"1e18")
+  final case object zettafarad extends DefaultCapacitanceUnit("zettafarad", "ZF", Nil, r"1e21")
+  final case object yottafarad extends DefaultCapacitanceUnit("yottafarad", "YF", Nil, r"1e24")
 }
 
 object CapacitanceUnits{
@@ -68,7 +73,7 @@ object CapacitanceUnits{
   def fF: CapacitanceUnit = CapacitanceUnitObjects.femtofarad
   def pF: CapacitanceUnit = CapacitanceUnitObjects.picofarad
   def nF: CapacitanceUnit = CapacitanceUnitObjects.nanofarad
-  def μF: CapacitanceUnit = CapacitanceUnitObjects.microfarad
+  def `μF`: CapacitanceUnit = CapacitanceUnitObjects.microfarad
   def mcF: CapacitanceUnit = CapacitanceUnitObjects.microfarad
   def mF: CapacitanceUnit = CapacitanceUnitObjects.millifarad
   def cF: CapacitanceUnit = CapacitanceUnitObjects.centifarad

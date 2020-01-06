@@ -20,6 +20,14 @@ trait IlluminanceUnit extends LinearUnit[IlluminanceUnit]{
 
 }
 
+/** For user defined units */
+class SimpleIlluminanceUnit(val name: String, val symbol: String, val interval: Real) extends IlluminanceUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends IlluminanceUnit
+
 object IlluminanceUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -32,35 +40,32 @@ object IlluminanceUnit{
     Seq(lux, yoctolux, zeptolux, attolux, femtolux, picolux, nanolux, microlux, millilux, centilux, decilux, decalux, hectolux, kilolux, megalux, gigalux, teralux, petalux, exalux, zettalux, yottalux, phot, foot_candle)
 }
 
-class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends IlluminanceUnit
-
 object IlluminanceUnitObjects{
   import org.waman.multiverse.unit.basic.AreaUnitObjects
 
-  final object lux extends DefaultIlluminanceUnit("lux", "lx", Nil, 1)
-  final object yoctolux extends DefaultIlluminanceUnit("yoctolux", "ylx", Nil, 1 * r"1e-24")
-  final object zeptolux extends DefaultIlluminanceUnit("zeptolux", "zlx", Nil, 1 * r"1e-21")
-  final object attolux extends DefaultIlluminanceUnit("attolux", "alx", Nil, 1 * r"1e-18")
-  final object femtolux extends DefaultIlluminanceUnit("femtolux", "flx", Nil, 1 * r"1e-15")
-  final object picolux extends DefaultIlluminanceUnit("picolux", "plx", Nil, 1 * r"1e-12")
-  final object nanolux extends DefaultIlluminanceUnit("nanolux", "nlx", Nil, 1 * r"1e-9")
-  final object microlux extends DefaultIlluminanceUnit("microlux", "μlx", Seq("mclx"), 1 * r"1e-6")
-  final object millilux extends DefaultIlluminanceUnit("millilux", "mlx", Nil, 1 * r"1e-3")
-  final object centilux extends DefaultIlluminanceUnit("centilux", "clx", Nil, 1 * r"1e-2")
-  final object decilux extends DefaultIlluminanceUnit("decilux", "dlx", Nil, 1 * r"1e-1")
-  final object decalux extends DefaultIlluminanceUnit("decalux", "dalx", Nil, 1 * r"1e1")
-  final object hectolux extends DefaultIlluminanceUnit("hectolux", "hlx", Nil, 1 * r"1e2")
-  final object kilolux extends DefaultIlluminanceUnit("kilolux", "klx", Seq("Klx"), 1 * r"1e3")
-  final object megalux extends DefaultIlluminanceUnit("megalux", "Mlx", Nil, 1 * r"1e6")
-  final object gigalux extends DefaultIlluminanceUnit("gigalux", "Glx", Nil, 1 * r"1e9")
-  final object teralux extends DefaultIlluminanceUnit("teralux", "Tlx", Nil, 1 * r"1e12")
-  final object petalux extends DefaultIlluminanceUnit("petalux", "Plx", Nil, 1 * r"1e15")
-  final object exalux extends DefaultIlluminanceUnit("exalux", "Elx", Nil, 1 * r"1e18")
-  final object zettalux extends DefaultIlluminanceUnit("zettalux", "Zlx", Nil, 1 * r"1e21")
-  final object yottalux extends DefaultIlluminanceUnit("yottalux", "Ylx", Nil, 1 * r"1e24")
-  final object phot extends DefaultIlluminanceUnit("phot", "ph", Nil, r"1e4")
-  final object foot_candle extends DefaultIlluminanceUnit("foot candle", "fc", Nil, r"1" * LuminousIntensityUnitObjects.candela.interval / AreaUnitObjects.square_foot.interval)
+  final case object lux extends DefaultIlluminanceUnit("lux", "lx", Nil, 1)
+  final case object yoctolux extends DefaultIlluminanceUnit("yoctolux", "ylx", Nil, r"1e-24")
+  final case object zeptolux extends DefaultIlluminanceUnit("zeptolux", "zlx", Nil, r"1e-21")
+  final case object attolux extends DefaultIlluminanceUnit("attolux", "alx", Nil, r"1e-18")
+  final case object femtolux extends DefaultIlluminanceUnit("femtolux", "flx", Nil, r"1e-15")
+  final case object picolux extends DefaultIlluminanceUnit("picolux", "plx", Nil, r"1e-12")
+  final case object nanolux extends DefaultIlluminanceUnit("nanolux", "nlx", Nil, r"1e-9")
+  final case object microlux extends DefaultIlluminanceUnit("microlux", "μlx", Seq("mclx"), r"1e-6")
+  final case object millilux extends DefaultIlluminanceUnit("millilux", "mlx", Nil, r"1e-3")
+  final case object centilux extends DefaultIlluminanceUnit("centilux", "clx", Nil, r"1e-2")
+  final case object decilux extends DefaultIlluminanceUnit("decilux", "dlx", Nil, r"1e-1")
+  final case object decalux extends DefaultIlluminanceUnit("decalux", "dalx", Nil, r"1e1")
+  final case object hectolux extends DefaultIlluminanceUnit("hectolux", "hlx", Nil, r"1e2")
+  final case object kilolux extends DefaultIlluminanceUnit("kilolux", "klx", Seq("Klx"), r"1e3")
+  final case object megalux extends DefaultIlluminanceUnit("megalux", "Mlx", Nil, r"1e6")
+  final case object gigalux extends DefaultIlluminanceUnit("gigalux", "Glx", Nil, r"1e9")
+  final case object teralux extends DefaultIlluminanceUnit("teralux", "Tlx", Nil, r"1e12")
+  final case object petalux extends DefaultIlluminanceUnit("petalux", "Plx", Nil, r"1e15")
+  final case object exalux extends DefaultIlluminanceUnit("exalux", "Elx", Nil, r"1e18")
+  final case object zettalux extends DefaultIlluminanceUnit("zettalux", "Zlx", Nil, r"1e21")
+  final case object yottalux extends DefaultIlluminanceUnit("yottalux", "Ylx", Nil, r"1e24")
+  final case object phot extends DefaultIlluminanceUnit("phot", "ph", Nil, r"1e4")
+  final case object foot_candle extends DefaultIlluminanceUnit("foot candle", "fc", Nil, r"1" * LuminousIntensityUnitObjects.candela.interval / AreaUnitObjects.square_foot.interval)
 }
 
 object IlluminanceUnits{
@@ -71,7 +76,7 @@ object IlluminanceUnits{
   def flx: IlluminanceUnit = IlluminanceUnitObjects.femtolux
   def plx: IlluminanceUnit = IlluminanceUnitObjects.picolux
   def nlx: IlluminanceUnit = IlluminanceUnitObjects.nanolux
-  def μlx: IlluminanceUnit = IlluminanceUnitObjects.microlux
+  def `μlx`: IlluminanceUnit = IlluminanceUnitObjects.microlux
   def mclx: IlluminanceUnit = IlluminanceUnitObjects.microlux
   def mlx: IlluminanceUnit = IlluminanceUnitObjects.millilux
   def clx: IlluminanceUnit = IlluminanceUnitObjects.centilux

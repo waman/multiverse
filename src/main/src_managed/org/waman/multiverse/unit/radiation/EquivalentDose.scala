@@ -8,8 +8,6 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
-
-
 class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
     extends LinearQuantity[EquivalentDose[A], A, EquivalentDoseUnit] {
 
@@ -29,6 +27,14 @@ trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
 
 }
 
+/** For user defined units */
+class SimpleEquivalentDoseUnit(val name: String, val symbol: String, val interval: Real) extends EquivalentDoseUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends EquivalentDoseUnit
+
 object EquivalentDoseUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -41,53 +47,50 @@ object EquivalentDoseUnit{
     Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, rem, yoctorem, zeptorem, attorem, femtorem, picorem, nanorem, microrem, millirem, centirem, decirem, decarem, hectorem, kilorem, megarem, gigarem, terarem, petarem, exarem, zettarem, yottarem)
 }
 
-class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends EquivalentDoseUnit
-
 object EquivalentDoseUnitObjects{
 
-  final object sievert extends DefaultEquivalentDoseUnit("sievert", "Sv", Nil, 1)
-  final object yoctosievert extends DefaultEquivalentDoseUnit("yoctosievert", "ySv", Nil, 1 * r"1e-24")
-  final object zeptosievert extends DefaultEquivalentDoseUnit("zeptosievert", "zSv", Nil, 1 * r"1e-21")
-  final object attosievert extends DefaultEquivalentDoseUnit("attosievert", "aSv", Nil, 1 * r"1e-18")
-  final object femtosievert extends DefaultEquivalentDoseUnit("femtosievert", "fSv", Nil, 1 * r"1e-15")
-  final object picosievert extends DefaultEquivalentDoseUnit("picosievert", "pSv", Nil, 1 * r"1e-12")
-  final object nanosievert extends DefaultEquivalentDoseUnit("nanosievert", "nSv", Nil, 1 * r"1e-9")
-  final object microsievert extends DefaultEquivalentDoseUnit("microsievert", "μSv", Seq("mcSv"), 1 * r"1e-6")
-  final object millisievert extends DefaultEquivalentDoseUnit("millisievert", "mSv", Nil, 1 * r"1e-3")
-  final object centisievert extends DefaultEquivalentDoseUnit("centisievert", "cSv", Nil, 1 * r"1e-2")
-  final object decisievert extends DefaultEquivalentDoseUnit("decisievert", "dSv", Nil, 1 * r"1e-1")
-  final object decasievert extends DefaultEquivalentDoseUnit("decasievert", "daSv", Nil, 1 * r"1e1")
-  final object hectosievert extends DefaultEquivalentDoseUnit("hectosievert", "hSv", Nil, 1 * r"1e2")
-  final object kilosievert extends DefaultEquivalentDoseUnit("kilosievert", "kSv", Seq("KSv"), 1 * r"1e3")
-  final object megasievert extends DefaultEquivalentDoseUnit("megasievert", "MSv", Nil, 1 * r"1e6")
-  final object gigasievert extends DefaultEquivalentDoseUnit("gigasievert", "GSv", Nil, 1 * r"1e9")
-  final object terasievert extends DefaultEquivalentDoseUnit("terasievert", "TSv", Nil, 1 * r"1e12")
-  final object petasievert extends DefaultEquivalentDoseUnit("petasievert", "PSv", Nil, 1 * r"1e15")
-  final object exasievert extends DefaultEquivalentDoseUnit("exasievert", "ESv", Nil, 1 * r"1e18")
-  final object zettasievert extends DefaultEquivalentDoseUnit("zettasievert", "ZSv", Nil, 1 * r"1e21")
-  final object yottasievert extends DefaultEquivalentDoseUnit("yottasievert", "YSv", Nil, 1 * r"1e24")
-  final object rem extends DefaultEquivalentDoseUnit("rem", "rem", Nil, r"1e-2")
-  final object yoctorem extends DefaultEquivalentDoseUnit("yoctorem", "yrem", Nil, r"1e-2" * r"1e-24")
-  final object zeptorem extends DefaultEquivalentDoseUnit("zeptorem", "zrem", Nil, r"1e-2" * r"1e-21")
-  final object attorem extends DefaultEquivalentDoseUnit("attorem", "arem", Nil, r"1e-2" * r"1e-18")
-  final object femtorem extends DefaultEquivalentDoseUnit("femtorem", "frem", Nil, r"1e-2" * r"1e-15")
-  final object picorem extends DefaultEquivalentDoseUnit("picorem", "prem", Nil, r"1e-2" * r"1e-12")
-  final object nanorem extends DefaultEquivalentDoseUnit("nanorem", "nrem", Nil, r"1e-2" * r"1e-9")
-  final object microrem extends DefaultEquivalentDoseUnit("microrem", "μrem", Seq("mcrem"), r"1e-2" * r"1e-6")
-  final object millirem extends DefaultEquivalentDoseUnit("millirem", "mrem", Nil, r"1e-2" * r"1e-3")
-  final object centirem extends DefaultEquivalentDoseUnit("centirem", "crem", Nil, r"1e-2" * r"1e-2")
-  final object decirem extends DefaultEquivalentDoseUnit("decirem", "drem", Nil, r"1e-2" * r"1e-1")
-  final object decarem extends DefaultEquivalentDoseUnit("decarem", "darem", Nil, r"1e-2" * r"1e1")
-  final object hectorem extends DefaultEquivalentDoseUnit("hectorem", "hrem", Nil, r"1e-2" * r"1e2")
-  final object kilorem extends DefaultEquivalentDoseUnit("kilorem", "krem", Seq("Krem"), r"1e-2" * r"1e3")
-  final object megarem extends DefaultEquivalentDoseUnit("megarem", "Mrem", Nil, r"1e-2" * r"1e6")
-  final object gigarem extends DefaultEquivalentDoseUnit("gigarem", "Grem", Nil, r"1e-2" * r"1e9")
-  final object terarem extends DefaultEquivalentDoseUnit("terarem", "Trem", Nil, r"1e-2" * r"1e12")
-  final object petarem extends DefaultEquivalentDoseUnit("petarem", "Prem", Nil, r"1e-2" * r"1e15")
-  final object exarem extends DefaultEquivalentDoseUnit("exarem", "Erem", Nil, r"1e-2" * r"1e18")
-  final object zettarem extends DefaultEquivalentDoseUnit("zettarem", "Zrem", Nil, r"1e-2" * r"1e21")
-  final object yottarem extends DefaultEquivalentDoseUnit("yottarem", "Yrem", Nil, r"1e-2" * r"1e24")
+  final case object sievert extends DefaultEquivalentDoseUnit("sievert", "Sv", Nil, 1)
+  final case object yoctosievert extends DefaultEquivalentDoseUnit("yoctosievert", "ySv", Nil, r"1e-24")
+  final case object zeptosievert extends DefaultEquivalentDoseUnit("zeptosievert", "zSv", Nil, r"1e-21")
+  final case object attosievert extends DefaultEquivalentDoseUnit("attosievert", "aSv", Nil, r"1e-18")
+  final case object femtosievert extends DefaultEquivalentDoseUnit("femtosievert", "fSv", Nil, r"1e-15")
+  final case object picosievert extends DefaultEquivalentDoseUnit("picosievert", "pSv", Nil, r"1e-12")
+  final case object nanosievert extends DefaultEquivalentDoseUnit("nanosievert", "nSv", Nil, r"1e-9")
+  final case object microsievert extends DefaultEquivalentDoseUnit("microsievert", "μSv", Seq("mcSv"), r"1e-6")
+  final case object millisievert extends DefaultEquivalentDoseUnit("millisievert", "mSv", Nil, r"1e-3")
+  final case object centisievert extends DefaultEquivalentDoseUnit("centisievert", "cSv", Nil, r"1e-2")
+  final case object decisievert extends DefaultEquivalentDoseUnit("decisievert", "dSv", Nil, r"1e-1")
+  final case object decasievert extends DefaultEquivalentDoseUnit("decasievert", "daSv", Nil, r"1e1")
+  final case object hectosievert extends DefaultEquivalentDoseUnit("hectosievert", "hSv", Nil, r"1e2")
+  final case object kilosievert extends DefaultEquivalentDoseUnit("kilosievert", "kSv", Seq("KSv"), r"1e3")
+  final case object megasievert extends DefaultEquivalentDoseUnit("megasievert", "MSv", Nil, r"1e6")
+  final case object gigasievert extends DefaultEquivalentDoseUnit("gigasievert", "GSv", Nil, r"1e9")
+  final case object terasievert extends DefaultEquivalentDoseUnit("terasievert", "TSv", Nil, r"1e12")
+  final case object petasievert extends DefaultEquivalentDoseUnit("petasievert", "PSv", Nil, r"1e15")
+  final case object exasievert extends DefaultEquivalentDoseUnit("exasievert", "ESv", Nil, r"1e18")
+  final case object zettasievert extends DefaultEquivalentDoseUnit("zettasievert", "ZSv", Nil, r"1e21")
+  final case object yottasievert extends DefaultEquivalentDoseUnit("yottasievert", "YSv", Nil, r"1e24")
+  final case object rem extends DefaultEquivalentDoseUnit("rem", "rem", Nil, r"1e-2")
+  final case object yoctorem extends DefaultEquivalentDoseUnit("yoctorem", "yrem", Nil, r"1e-2" * r"1e-24")
+  final case object zeptorem extends DefaultEquivalentDoseUnit("zeptorem", "zrem", Nil, r"1e-2" * r"1e-21")
+  final case object attorem extends DefaultEquivalentDoseUnit("attorem", "arem", Nil, r"1e-2" * r"1e-18")
+  final case object femtorem extends DefaultEquivalentDoseUnit("femtorem", "frem", Nil, r"1e-2" * r"1e-15")
+  final case object picorem extends DefaultEquivalentDoseUnit("picorem", "prem", Nil, r"1e-2" * r"1e-12")
+  final case object nanorem extends DefaultEquivalentDoseUnit("nanorem", "nrem", Nil, r"1e-2" * r"1e-9")
+  final case object microrem extends DefaultEquivalentDoseUnit("microrem", "μrem", Seq("mcrem"), r"1e-2" * r"1e-6")
+  final case object millirem extends DefaultEquivalentDoseUnit("millirem", "mrem", Nil, r"1e-2" * r"1e-3")
+  final case object centirem extends DefaultEquivalentDoseUnit("centirem", "crem", Nil, r"1e-2" * r"1e-2")
+  final case object decirem extends DefaultEquivalentDoseUnit("decirem", "drem", Nil, r"1e-2" * r"1e-1")
+  final case object decarem extends DefaultEquivalentDoseUnit("decarem", "darem", Nil, r"1e-2" * r"1e1")
+  final case object hectorem extends DefaultEquivalentDoseUnit("hectorem", "hrem", Nil, r"1e-2" * r"1e2")
+  final case object kilorem extends DefaultEquivalentDoseUnit("kilorem", "krem", Seq("Krem"), r"1e-2" * r"1e3")
+  final case object megarem extends DefaultEquivalentDoseUnit("megarem", "Mrem", Nil, r"1e-2" * r"1e6")
+  final case object gigarem extends DefaultEquivalentDoseUnit("gigarem", "Grem", Nil, r"1e-2" * r"1e9")
+  final case object terarem extends DefaultEquivalentDoseUnit("terarem", "Trem", Nil, r"1e-2" * r"1e12")
+  final case object petarem extends DefaultEquivalentDoseUnit("petarem", "Prem", Nil, r"1e-2" * r"1e15")
+  final case object exarem extends DefaultEquivalentDoseUnit("exarem", "Erem", Nil, r"1e-2" * r"1e18")
+  final case object zettarem extends DefaultEquivalentDoseUnit("zettarem", "Zrem", Nil, r"1e-2" * r"1e21")
+  final case object yottarem extends DefaultEquivalentDoseUnit("yottarem", "Yrem", Nil, r"1e-2" * r"1e24")
 }
 
 object EquivalentDoseUnits{
@@ -98,7 +101,7 @@ object EquivalentDoseUnits{
   def fSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.femtosievert
   def pSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.picosievert
   def nSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.nanosievert
-  def μSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.microsievert
+  def `μSv`: EquivalentDoseUnit = EquivalentDoseUnitObjects.microsievert
   def mcSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.microsievert
   def mSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.millisievert
   def cSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.centisievert
@@ -121,7 +124,7 @@ object EquivalentDoseUnits{
   def frem: EquivalentDoseUnit = EquivalentDoseUnitObjects.femtorem
   def prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.picorem
   def nrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.nanorem
-  def μrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.microrem
+  def `μrem`: EquivalentDoseUnit = EquivalentDoseUnitObjects.microrem
   def mcrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.microrem
   def mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.millirem
   def crem: EquivalentDoseUnit = EquivalentDoseUnitObjects.centirem

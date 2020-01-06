@@ -20,6 +20,14 @@ trait ActionUnit extends LinearUnit[ActionUnit]{
 
 }
 
+/** For user defined units */
+class SimpleActionUnit(val name: String, val symbol: String, val interval: Real) extends ActionUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends ActionUnit
+
 object ActionUnit{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
@@ -33,17 +41,14 @@ object ActionUnit{
     Seq(planck_constant, reduced_planck_constant)
 }
 
-class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends ActionUnit
-
 object ActionUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final object planck_constant extends DefaultActionUnit("planck constant", "h", Nil, Constants.PlanckConstant)
-  final object reduced_planck_constant extends DefaultActionUnit("reduced planck constant", "ħ", Nil, Constants.PlanckConstant / r"2.0" / Constants.Pi)
+  final case object planck_constant extends DefaultActionUnit("planck constant", "h", Nil, Constants.PlanckConstant)
+  final case object reduced_planck_constant extends DefaultActionUnit("reduced planck constant", "ħ", Nil, Constants.PlanckConstant / r"2.0" / Constants.Pi)
 }
 
 object ActionUnits{
   def h: ActionUnit = ActionUnitObjects.planck_constant
-  def ħ: ActionUnit = ActionUnitObjects.reduced_planck_constant
+  def `ħ`: ActionUnit = ActionUnitObjects.reduced_planck_constant
 }
