@@ -1,56 +1,58 @@
-name := "multiverse"
+//lazy val scala213 = "2.13.1"
+lazy val scala212 = "2.12.10"
+//lazy val scala211 = "2.11.12"
+//lazy val supportedScalaVersions = List(scala213, scala212, scala211)
 
-version := "0.4"
-
-organization := "org.waman"
-
-scalaVersion := "2.12.8"
+ThisBuild / name := "multiverse"
+ThisBuild / version := "0.5"
+ThisBuild / organization := "org.waman"
+ThisBuild / scalaVersion := scala212
 
 //***** Custom settings *****
 val javaVersion = settingKey[String]("javac source/target version")
-
 val encoding = settingKey[String]("source encoding")
 
-javaVersion := "10"
+ThisBuild / javaVersion := "11"
+ThisBuild / encoding := "UTF-8"
 
-encoding := "UTF-8"
+lazy val root = (project in file("."))
+    .settings(
+      name := "multiverse",
+      libraryDependencies ++= Seq(
+        "org.typelevel" %% "spire" % "0.17.0-M1",
+        "org.scalatest" %% "scalatest" % "3.2.0-M2" % Test,
+        "org.scalacheck" %% "scalacheck" % "1.14.3" % Test
+      ),
+      javacOptions ++= Seq(
+        "-source", javaVersion.value,
+        "-target", javaVersion.value,
+        "-encoding", encoding.value
+      ),
+      scalacOptions ++= Seq(
+        "-Xlint",
+        "-deprecation",
+        "-unchecked",
+        "-feature",
+        "-encoding", encoding.value
+      ),
+      crossScalaVersions := Nil,
+      publish / skip := true
+    )
 
-libraryDependencies ++= Seq(
-  "org.typelevel" %% "spire" % "0.16.2",
-  "org.scalatest" %% "scalatest" % "3.0.8" % Test,
-  "org.scalacheck" %% "scalacheck" % "1.14.0" % Test
-)
+//***** Source Generation *****
+Compile / sourceManaged := file((Compile / sourceDirectory).value.getAbsolutePath + "/src_managed")
+//       Compile / sourceManaged := file("src/main/src_managed")
 
-//***** Options & Dependencies *****
-javacOptions ++= Seq(
-  "-source", javaVersion.value,
-  "-target", javaVersion.value,
-  "-encoding", encoding.value
-)
+Compile / sourceGenerators += Def.task {
+  val info = (Compile / resourceDirectory).value / "physical-units"
+  val destDir = (Compile / sourceManaged).value
+  MultiverseSourceGenerator.generate(info, destDir)
+}.taskValue
 
-scalacOptions ++= Seq(
-  "-Xlint",
-  "-deprecation",
-  "-unchecked",
-  "-feature",
-  "-encoding", encoding.value
-)
+cleanFiles += (Compile / sourceManaged).value
 
 //***** Running *****
 fork := true
-
-//***** Source Generation *****
-sourceManaged in Compile := file((sourceDirectory in Compile).value.getAbsolutePath + "/src_managed")
-//sourceManaged in Compile := file("src/main/src_managed")
-
-sourceGenerators in Compile += Def.task {
-  val info = (resourceDirectory in Compile).value / "physical-units"
-  val destDir = (sourceManaged in Compile).value
-  val scalaMain = (sourceDirectory in Compile).value / "scala"
-  MultiverseSourceGenerator.generate(info, destDir, scalaMain)
-}.taskValue
-
-cleanFiles += (sourceManaged in Compile).value
 
 //initialCommands in console :=
 //  """import org.waman.multiverse._

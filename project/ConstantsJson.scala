@@ -3,8 +3,7 @@ import java.io.File
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-class ConstantsJson(json: File, destDir: File, mainDir: File)
-    extends SourceGeneratorJson(json, destDir, mainDir) {
+class ConstantsJson(json: File, destDir: File) extends SourceGeneratorJson(json, destDir) {
 
   import GenerationUtil._
 

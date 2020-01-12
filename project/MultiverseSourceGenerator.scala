@@ -1,33 +1,27 @@
 import java.io.File
-import java.nio.charset.Charset
 
-import com.google.gson.Gson
 import sbt.io.IO
-
-import scala.util.matching.Regex
+import sbt.util.Tracked
+import sbt.util.Tracked
 
 object MultiverseSourceGenerator {
 
   private val destPath = new File("org/waman/multiverse/unit")
 
-  def generate(info: File, srcManaged: File, src: File): Seq[File] = {
-    // info: src/main/resources/physical-units
-    // srcManaged: src/main/src_managed
-    // src: src/main/scala
+  // info: src/main/resources/physical-units
+  // srcManaged: src/main/src_managed
+  def generate(info: File, srcManaged: File): Seq[File] =
+    if (!srcManaged.exists() || info.lastModified() > srcManaged.lastModified())
+      doGenerate(info, srcManaged)
+    else
+      allFiles(srcManaged)
 
-//    Tracked.inputChanged(info){ f: (Boolean, File) =>
-//      Tracked.outputChanged(srcManaged){ f: (Boolean, File) =>
-//
-//      }
-//    }
-
+  private def doGenerate(info: File, srcManaged: File): Seq[File] = {
     IO.createDirectory(srcManaged)
-    val factory = new JsonResourceFactory(info, srcManaged, src, destPath)
+    val factory = new JsonResourceFactory(info, srcManaged, destPath)
 
     def walk(f: File, acc: Seq[JsonResource]): Seq[JsonResource] =
       if (f.isFile) {
-        // f: src/main/resources/physical-units/basic/LengthUnits.json
-
         // ex) src/main/resources/physical-units/basic/LengthUnits.json
         //         -> src/main/src_managed/org/waman/multiverse/unit/basic/Length.scala
         factory(f) +: acc
@@ -44,5 +38,17 @@ object MultiverseSourceGenerator {
     val implicits = ImplicitsGenerator.generate(srcManaged, jsons)
 
     implicits +: generated
+  }
+
+  private def allFiles(srcManaged: File): Seq[File] = {
+    def allFiles(f: File, acc: Seq[File]): Seq[File] =
+      if (f.isFile)
+        f +: acc
+      else if (f.isDirectory)
+        IO.listFiles(f).toList.flatMap(allFiles(_, acc))
+      else
+        acc
+
+    allFiles(srcManaged, Nil)
   }
 }

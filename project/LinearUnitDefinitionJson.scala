@@ -127,9 +127,9 @@ class OperationInfo(id: String, jsons: JsonResources){
   def ops: Seq[(UnitDefinitionJson, UnitDefinitionJson)] = Seq.concat(this.mul, this.div)
 }
 
-class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpackage: String)
+class LinearUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     extends UnitDefinitionJsonAdapter[LinearUnitCategory, RawLinearUnit, LinearUnit, OperationInfo](
-      "Linear", jsonFile, destDir, mainDir, subpackage) {
+      "Linear", jsonFile, destDir, subpackage) {
 
   import GenerationUtil._
 
@@ -260,8 +260,8 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
   }
 }
 
-class LengthUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpackage: String)
-    extends LinearUnitDefinitionJson(jsonFile, destDir, mainDir, subpackage){
+class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
+    extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
 
   override protected def generateQuantityMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
 
@@ -313,8 +313,8 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, sub
     }
 }
 
-class TimeUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpackage: String)
-    extends LinearUnitDefinitionJson(jsonFile, destDir, mainDir, subpackage){
+class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
+    extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
 
   override protected def generateQuantityMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
     super.generateQuantityMultiplication(writer, p)

@@ -8,8 +8,8 @@ case class ScalePrefix(name: String, prefix: String, aliases: Array[String], sca
     if (aliases != null) aliases else Nil
 }
 
-class ScalePrefixJson(jsonFile: File, destDir: File, mainDir: File)
-    extends SourceGeneratorJson(jsonFile, destDir, mainDir){
+class ScalePrefixJson(jsonFile: File, destDir: File)
+    extends SourceGeneratorJson(jsonFile, destDir){
 
   import GenerationUtil._
 

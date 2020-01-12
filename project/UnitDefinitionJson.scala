@@ -2,7 +2,7 @@ import java.io.{File, BufferedWriter => BW}
 
 import sbt.io.IO
 
-trait RawUnitInfo[CUI <: UnitInfo]{
+trait RawUnitInfo[U <: UnitInfo]{
   def symbol: String
   def aliases: Array[String]
   def excludePrefixes: Array[String]
@@ -11,7 +11,7 @@ trait RawUnitInfo[CUI <: UnitInfo]{
   lazy val _aliases: Seq[String] = GenerationUtil.toSeq(this.aliases)
   lazy val _excludePrefixes: Seq[String] = GenerationUtil.toSeq(this.excludePrefixes)
 
-  def expandScalePrefixes(jsons: JsonResources): Seq[CUI]
+  def expandScalePrefixes(jsons: JsonResources): Seq[U]
 }
 
 trait UnitInfo{
@@ -41,8 +41,8 @@ case class Dimension(M: Int, L: Int, T: Int, I: Int, Θ: Int, N: Int, J: Int){
 
 case class Convertible(target: String, from: String, to: String, factor: String)
 
-abstract class UnitDefinitionJson(val unitType: String, jsonFile: File, destDir: File, mainDir: File, val subpackage: String)
-  extends SourceGeneratorJson(jsonFile, destDir, mainDir){
+abstract class UnitDefinitionJson(val unitType: String, jsonFile: File, destDir: File, val subpackage: String)
+  extends SourceGeneratorJson(jsonFile, destDir){
 
   val id: String = jsonFile.getName.replace("Units.json", "")  // Length
   val destFilename: String =  id + ".scala"// Length.scala
@@ -50,8 +50,8 @@ abstract class UnitDefinitionJson(val unitType: String, jsonFile: File, destDir:
 }
 
 abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUnitInfo[U], U <: UnitInfo, OP]
-(unitType: String, jsonFile: File, destDir: File, mainDir: File, subpackage: String)
-  extends UnitDefinitionJson(unitType, jsonFile, destDir, mainDir, subpackage){
+    (unitType: String, jsonFile: File, destDir: File, subpackage: String)
+    extends UnitDefinitionJson(unitType, jsonFile, destDir, subpackage){
 
   import GenerationUtil._
 
@@ -59,7 +59,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
   protected def generateImportsOfExtraUnitTypes(writer: BW, jsons: JsonResources,
                                                 types: Seq[String], indentCount: Int, imported: String*): Unit = {
-    val indent = " "*indentCount
+    val indent = " " * indentCount
     types.distinct.map(jsons.searchUnitDefinition).foreach{ ud =>
       imported.filterNot(!_.contains("._") && ud.subpackage == this.subpackage)
         .map(s => s"""${indent}import $rootPackage.unit.${ud.subpackage}.${ud.id}$s\n""").foreach(writer.write)

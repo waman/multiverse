@@ -42,9 +42,9 @@ case class HomogeneousUnit(name: String, objectName: String, symbol: String, ali
   override def baseUnit: String = null
 }
 
-class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, mainDir: File, subpackage: String)
+class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
   extends UnitDefinitionJsonAdapter[HomogeneousUnitCategory, RawHomogeneousUnit, HomogeneousUnit, Unit](
-    "Homogeneous", jsonFile, destDir, mainDir, subpackage){
+    "Homogeneous", jsonFile, destDir, subpackage){
 
   import GenerationUtil._
 
