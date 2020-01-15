@@ -47,26 +47,6 @@ object VolumeUnit{
     Seq(cubic_metre, cubic_yoctometre, cubic_zeptometre, cubic_attometre, cubic_femtometre, cubic_picometre, cubic_nanometre, cubic_micrometre, cubic_millimetre, cubic_centimetre, cubic_decimetre, cubic_decametre, cubic_hectometre, cubic_kilometre, cubic_megametre, cubic_gigametre, cubic_terametre, cubic_petametre, cubic_exametre, cubic_zettametre, cubic_yottametre, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda, cubic_inch, cubic_foot, cubic_yard, cubic_fathom, cubic_mile, board_foot, gallon_beer, perch, minim, `minim(US)`, `minim(imp)`, fluid_ounce, `fluid_ounce(US)`, `fluid_ounce(imp)`, gill, `gill(US)`, `gill(imp)`, pint, `pint(US_fl)`, `pint(US_dry)`, `pint(imp)`, quart, `quart(US_fl)`, `quart(US_dry)`, `quart(imp)`, gallon, `gallon(US)`, `gallon(US_fl)`, `gallon(US_dry)`, `gallon(imp)`, peck, `peck(US_dry)`, `peck(imp)`, bushel, `bushel(US)`, `bushel(US_lvl)`, `bushel(imp)`, barrel, `barrel(US_fl)`, `barrel(US_dry)`, `barrel(imp)`, fluid_barrel, hogshead, `hogshead(US)`, `hogshead(imp)`, fluid_dram, `fluid_dram(US)`, `fluid_dram(imp)`, fluid_scruple, bucket)
 }
 
-sealed trait minimAttribute
-sealed trait fluid_ounceAttribute
-sealed trait gillAttribute
-sealed trait pintAttribute
-sealed trait quartAttribute
-sealed trait gallonAttribute
-sealed trait peckAttribute
-sealed trait bushelAttribute
-sealed trait barrelAttribute
-sealed trait hogsheadAttribute
-sealed trait fluid_dramAttribute
-
-object VolumeAttributes{
-  final object US extends minimAttribute with fluid_ounceAttribute with gillAttribute with gallonAttribute with bushelAttribute with hogsheadAttribute with fluid_dramAttribute
-  final object US_fl extends pintAttribute with quartAttribute with gallonAttribute with barrelAttribute
-  final object US_dry extends pintAttribute with quartAttribute with gallonAttribute with peckAttribute with barrelAttribute
-  final object imp extends minimAttribute with fluid_ounceAttribute with gillAttribute with pintAttribute with quartAttribute with gallonAttribute with peckAttribute with bushelAttribute with barrelAttribute with hogsheadAttribute with fluid_dramAttribute
-  final object US_lvl extends bushelAttribute
-}
-
 object VolumeUnitObjects{
 
   final case object cubic_metre extends DefaultVolumeUnit("cubic metre", "m³", Seq("m3"), LengthUnitObjects.metre.interval**3)
@@ -124,11 +104,11 @@ object VolumeUnitObjects{
   final case object `minim(US)` extends DefaultVolumeUnit("minim(US)", "minim(US)", Nil, r"1"/r"480" * `fluid_ounce(US)`.interval)
   final case object `minim(imp)` extends DefaultVolumeUnit("minim(imp)", "minim(imp)", Nil, r"1"/r"480" * `fluid_ounce(imp)`.interval)
   final case object fluid_ounce extends DefaultVolumeUnit("fluid ounce", "fl_oz", Nil, 1)
-  final case object `fluid_ounce(US)` extends DefaultVolumeUnit("fluid ounce(US)", "fl_oz(US)", Nil, r"1"/r"128" * `gallon(US_fl)`.interval)
+  final case object `fluid_ounce(US)` extends DefaultVolumeUnit("fluid ounce(US)", "fl_oz(US)", Seq("US_fl_oz"), r"1"/r"128" * `gallon(US_fl)`.interval)
   final case object `fluid_ounce(imp)` extends DefaultVolumeUnit("fluid ounce(imp)", "fl_oz(imp)", Nil, r"1"/r"160" * `gallon(imp)`.interval)
   final case object gill extends DefaultVolumeUnit("gill", "gi", Nil, 1)
   final case object `gill(US)` extends DefaultVolumeUnit("gill(US)", "gi(US)", Nil, r"4" * `fluid_ounce(US)`.interval)
-  final case object `gill(imp)` extends DefaultVolumeUnit("gill(imp)", "gi(imp)", Nil, r"5" * `fluid_ounce(imp)`.interval)
+  final case object `gill(imp)` extends DefaultVolumeUnit("gill(imp)", "gi(imp)", Seq("nog"), r"5" * `fluid_ounce(imp)`.interval)
   final case object pint extends DefaultVolumeUnit("pint", "pt", Nil, 1)
   final case object `pint(US_fl)` extends DefaultVolumeUnit("pint(US_fl)", "pt(US_fl)", Nil, r"1"/r"8" * `gallon(US_fl)`.interval)
   final case object `pint(US_dry)` extends DefaultVolumeUnit("pint(US_dry)", "pt(US_dry)", Nil, r"1"/r"8" * `gallon(US_dry)`.interval)
@@ -139,9 +119,9 @@ object VolumeUnitObjects{
   final case object `quart(imp)` extends DefaultVolumeUnit("quart(imp)", "qt(imp)", Nil, r"1"/r"4" * `gallon(imp)`.interval)
   final case object gallon extends DefaultVolumeUnit("gallon", "gal", Nil, `gallon(US_fl)`.interval)
   final case object `gallon(US)` extends DefaultVolumeUnit("gallon(US)", "gal(US)", Nil, `gallon(US_fl)`.interval)
-  final case object `gallon(US_fl)` extends DefaultVolumeUnit("gallon(US_fl)", "gal(US_fl)", Nil, r"231" * cubic_inch.interval)
+  final case object `gallon(US_fl)` extends DefaultVolumeUnit("gallon(US_fl)", "gal(US_fl)", Seq("US_gal"), r"231" * cubic_inch.interval)
   final case object `gallon(US_dry)` extends DefaultVolumeUnit("gallon(US_dry)", "gal(US_dry)", Nil, r"1"/r"8" * `bushel(US_lvl)`.interval)
-  final case object `gallon(imp)` extends DefaultVolumeUnit("gallon(imp)", "gal(imp)", Nil, r"4.54609" * litre.interval)
+  final case object `gallon(imp)` extends DefaultVolumeUnit("gallon(imp)", "gal(imp)", Seq("imp_gal"), r"4.54609" * litre.interval)
   final case object peck extends DefaultVolumeUnit("peck", "pk", Nil, `peck(US_dry)`.interval)
   final case object `peck(US_dry)` extends DefaultVolumeUnit("peck(US_dry)", "pk(US_dry)", Nil, r"1"/r"4" * `bushel(US_lvl)`.interval)
   final case object `peck(imp)` extends DefaultVolumeUnit("peck(imp)", "pk(imp)", Nil, r"2" * `gallon(imp)`.interval)
@@ -150,7 +130,7 @@ object VolumeUnitObjects{
   final case object `bushel(US_lvl)` extends DefaultVolumeUnit("bushel(US_lvl)", "bu(US_lvl)", Seq("bsh(US_lvl)"), r"2150.42" * cubic_inch.interval)
   final case object `bushel(imp)` extends DefaultVolumeUnit("bushel(imp)", "bu(imp)", Seq("bsh(imp)"), r"8" * `gallon(imp)`.interval)
   final case object barrel extends DefaultVolumeUnit("barrel", "bl", Seq("bbl"), r"42" * `gallon(US_fl)`.interval)
-  final case object `barrel(US_fl)` extends DefaultVolumeUnit("barrel(US_fl)", "bl(US_fl)", Seq("bbl(US_fl)"), r"31.5" * `gallon(US_fl)`.interval)
+  final case object `barrel(US_fl)` extends DefaultVolumeUnit("barrel(US_fl)", "bl(US_fl)", Seq("bbl(US_fl)", "fl_bl"), r"31.5" * `gallon(US_fl)`.interval)
   final case object `barrel(US_dry)` extends DefaultVolumeUnit("barrel(US_dry)", "bl(US_dry)", Seq("bbl(US_dry)"), r"105" * `quart(US_dry)`.interval)
   final case object `barrel(imp)` extends DefaultVolumeUnit("barrel(imp)", "bl(imp)", Seq("bbl(imp)"), r"36" * `gallon(imp)`.interval)
   final case object fluid_barrel extends DefaultVolumeUnit("fluid barrel", "fl_bl", Nil, `barrel(US_fl)`.interval)
@@ -255,57 +235,57 @@ object VolumeUnits{
   def per: VolumeUnit = VolumeUnitObjects.perch
   def minim: VolumeUnit = VolumeUnitObjects.minim
   def minim(a: minimAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`minim(US)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`minim(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`minim(US)`
+    case LengthAttributes.imp => VolumeUnitObjects.`minim(imp)`
   }
   def fl_oz: VolumeUnit = VolumeUnitObjects.fluid_ounce
   def fl_oz(a: fluid_ounceAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`fluid_ounce(US)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`fluid_ounce(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`fluid_ounce(US)`
+    case LengthAttributes.imp => VolumeUnitObjects.`fluid_ounce(imp)`
   }
   def gi: VolumeUnit = VolumeUnitObjects.gill
   def gi(a: gillAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`gill(US)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`gill(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`gill(US)`
+    case LengthAttributes.imp => VolumeUnitObjects.`gill(imp)`
   }
   def pt: VolumeUnit = VolumeUnitObjects.pint
   def pt(a: pintAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US_fl => VolumeUnitObjects.`pint(US_fl)`
-    case VolumeAttributes.US_dry => VolumeUnitObjects.`pint(US_dry)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`pint(imp)`
+    case LengthAttributes.US_fl => VolumeUnitObjects.`pint(US_fl)`
+    case LengthAttributes.US_dry => VolumeUnitObjects.`pint(US_dry)`
+    case LengthAttributes.imp => VolumeUnitObjects.`pint(imp)`
   }
   def qt: VolumeUnit = VolumeUnitObjects.quart
   def qt(a: quartAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US_fl => VolumeUnitObjects.`quart(US_fl)`
-    case VolumeAttributes.US_dry => VolumeUnitObjects.`quart(US_dry)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`quart(imp)`
+    case LengthAttributes.US_fl => VolumeUnitObjects.`quart(US_fl)`
+    case LengthAttributes.US_dry => VolumeUnitObjects.`quart(US_dry)`
+    case LengthAttributes.imp => VolumeUnitObjects.`quart(imp)`
   }
   def gal: VolumeUnit = VolumeUnitObjects.gallon
   def gal(a: gallonAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`gallon(US)`
-    case VolumeAttributes.US_fl => VolumeUnitObjects.`gallon(US_fl)`
-    case VolumeAttributes.US_dry => VolumeUnitObjects.`gallon(US_dry)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`gallon(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`gallon(US)`
+    case LengthAttributes.US_fl => VolumeUnitObjects.`gallon(US_fl)`
+    case LengthAttributes.US_dry => VolumeUnitObjects.`gallon(US_dry)`
+    case LengthAttributes.imp => VolumeUnitObjects.`gallon(imp)`
   }
   def pk: VolumeUnit = VolumeUnitObjects.peck
   def pk(a: peckAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US_dry => VolumeUnitObjects.`peck(US_dry)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`peck(imp)`
+    case LengthAttributes.US_dry => VolumeUnitObjects.`peck(US_dry)`
+    case LengthAttributes.imp => VolumeUnitObjects.`peck(imp)`
   }
   def bu: VolumeUnit = VolumeUnitObjects.bushel
   def bu(a: bushelAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`bushel(US)`
-    case VolumeAttributes.US_lvl => VolumeUnitObjects.`bushel(US_lvl)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`bushel(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`bushel(US)`
+    case LengthAttributes.US_lvl => VolumeUnitObjects.`bushel(US_lvl)`
+    case LengthAttributes.imp => VolumeUnitObjects.`bushel(imp)`
   }
   def bsh: VolumeUnit = VolumeUnitObjects.bushel
   def bsh(a: bushelAttribute): VolumeUnit = bu(a)
 
   def bl: VolumeUnit = VolumeUnitObjects.barrel
   def bl(a: barrelAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US_fl => VolumeUnitObjects.`barrel(US_fl)`
-    case VolumeAttributes.US_dry => VolumeUnitObjects.`barrel(US_dry)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`barrel(imp)`
+    case LengthAttributes.US_fl => VolumeUnitObjects.`barrel(US_fl)`
+    case LengthAttributes.US_dry => VolumeUnitObjects.`barrel(US_dry)`
+    case LengthAttributes.imp => VolumeUnitObjects.`barrel(imp)`
   }
   def bbl: VolumeUnit = VolumeUnitObjects.barrel
   def bbl(a: barrelAttribute): VolumeUnit = bl(a)
@@ -313,13 +293,13 @@ object VolumeUnits{
   def fl_bl: VolumeUnit = VolumeUnitObjects.fluid_barrel
   def hhd: VolumeUnit = VolumeUnitObjects.hogshead
   def hhd(a: hogsheadAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`hogshead(US)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`hogshead(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`hogshead(US)`
+    case LengthAttributes.imp => VolumeUnitObjects.`hogshead(imp)`
   }
   def fl_dr: VolumeUnit = VolumeUnitObjects.fluid_dram
   def fl_dr(a: fluid_dramAttribute): VolumeUnit = a match { 
-    case VolumeAttributes.US => VolumeUnitObjects.`fluid_dram(US)`
-    case VolumeAttributes.imp => VolumeUnitObjects.`fluid_dram(imp)`
+    case LengthAttributes.US => VolumeUnitObjects.`fluid_dram(US)`
+    case LengthAttributes.imp => VolumeUnitObjects.`fluid_dram(imp)`
   }
   def fl_s: VolumeUnit = VolumeUnitObjects.fluid_scruple
   def bkt: VolumeUnit = VolumeUnitObjects.bucket

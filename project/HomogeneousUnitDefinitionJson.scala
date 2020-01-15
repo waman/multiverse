@@ -13,7 +13,7 @@ case class RawHomogeneousUnit(name: String, symbol: String, aliases: Array[Strin
 
   import GenerationUtil._
 
-  override def expandScalePrefixes(jsons: JsonResources): Seq[HomogeneousUnit] = {
+  override def expandScalePrefixesAndAttributes(jsons: JsonResources): Seq[HomogeneousUnit] = {
     val prefixes = jsons.scalePrefixJson.scalePrefixes
 
     val _zero = if (this.zero != null) refineNumbers(this.zero) else "0"
@@ -55,7 +55,7 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: S
   }
 
   override protected def getUnits(jsons: JsonResources): Seq[HomogeneousUnit] = {
-    this.unitCategory._units.flatMap(_.expandScalePrefixes(jsons))
+    this.unitCategory._units.flatMap(_.expandScalePrefixesAndAttributes(jsons))
   }
 
   override protected def createOptions(jsons: JsonResources): Unit = ()

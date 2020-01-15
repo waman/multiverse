@@ -4,7 +4,9 @@ import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.basic.LengthUnits._
 import org.waman.multiverse.unit.basic.AreaUnits._
+import org.waman.multiverse.unit.basic.LengthAttributes._
 import org.waman.multiverse.unit.basic.VolumeUnits._
+import spire.implicits._
 
 class VolumeSpec extends MultiverseCustomSpec {
 
@@ -34,7 +36,11 @@ class VolumeSpec extends MultiverseCustomSpec {
           (m.cubic , "cubic metre"),
           (mm3, "cubic millimetre"),
           (mm*mm*mm, "cubic millimetre"),
-          (m2*mm, "square metre times millimetre")
+          (m2*mm, "square metre times millimetre"),
+
+          (gal, "gallon"),
+          (gal(US_fl), "gallon(US_fl)"),
+          (gal(US_dry), "gallon(US_dry)")
         )
       // Verify
       forAll(conversions){ (sut: VolumeUnit, expected: String) =>
@@ -51,7 +57,11 @@ class VolumeSpec extends MultiverseCustomSpec {
           (m.cubic , "m³"),
           (m.cubic, "m³"),
           (mm*mm*mm, "mm³"),
-          (m*mm*nm, "m*mm*nm")
+          (m*mm*nm, "m*mm*nm"),
+
+          (gal, "gal"),
+          (gal(US_fl), "gal(US_fl)"),
+          (gal(US_dry), "gal(US_dry)")
         )
       // Verify
       forAll(conversions){ (sut: VolumeUnit, expected: String) =>
@@ -67,7 +77,11 @@ class VolumeSpec extends MultiverseCustomSpec {
           (m3 , Seq("m3")),
           (m.cubic, Seq("m.cubic")),
           (mm*mm*mm, Seq("mm.cubic")),
-          (m*mm*nm, Nil)
+          (m*mm*nm, Nil),
+
+          (gal, Nil),
+          (gal(US_fl), Seq("US_gal")),
+          (gal(US_dry), Nil)
         )
       // Verify
       forAll(conversions){ (sut: VolumeUnit, expected: Seq[String]) =>
@@ -86,6 +100,7 @@ class VolumeSpec extends MultiverseCustomSpec {
   }
 
   "Quantity" - {
+    val cu_in = 2.54e-2**3
 
     "3.0 <<volume unit>> should be converted to the equivalent value in metre cubic" in {
       // Exercise
@@ -97,7 +112,11 @@ class VolumeSpec extends MultiverseCustomSpec {
           (3.0(m.cubic), 3.0),
           (3.0(mm*mm*mm), 3.0*1e-9),
           (3.0(mm.cubic), 3.0*1e-9),
-          (3.0(m*mm*nm), 3.0*1e-12)
+          (3.0(m*mm*nm), 3.0*1e-12),
+
+          (3.0(gal), 3.0*231.0*cu_in),
+          (3.0(gal(US_fl)), 3.0*231.0*cu_in),
+          (3.0(gal(US_dry)), 3.0*1.0/8.0*2150.42*cu_in)
         )
       // Verify
       forAll(conversions){ (sut: Volume[Double], expected: Double) =>
@@ -115,7 +134,11 @@ class VolumeSpec extends MultiverseCustomSpec {
           (q(m3) , 3.0),
           (q(m*m*m), 3.0),
           (q(mm*mm*mm), 3.0*1e9),
-          (q(m*mm*nm), 3.0*1e12)
+          (q(m*mm*nm), 3.0*1e12),
+
+          (q(gal), 3.0/(231.0*cu_in)),
+          (q(gal(US_fl)), 3.0/(231.0*cu_in)),
+          (q(gal(US_dry)), 3.0/(1.0/8.0*2150.42*cu_in))
         )
       // Verify
       forAll(conversions){ (sut: Double, expected: Double) =>

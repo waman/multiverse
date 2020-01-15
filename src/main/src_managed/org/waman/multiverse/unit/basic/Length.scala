@@ -89,6 +89,11 @@ object LengthUnit{
     Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, link, `link(US)`, foot, `foot(US)`, yard, ell, fathom, rod, rope, chain, `chain(US)`, mile, `mile(US)`, cable, `cable(US)`, `cable(imp)`, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
 }
 
+sealed trait square_linkAttribute
+sealed trait square_footAttribute
+sealed trait square_chainAttribute
+sealed trait square_mileAttribute
+sealed trait acreAttribute
 sealed trait xunitAttribute
 sealed trait linkAttribute
 sealed trait footAttribute
@@ -96,13 +101,27 @@ sealed trait chainAttribute
 sealed trait mileAttribute
 sealed trait cableAttribute
 sealed trait nautical_mileAttribute
+sealed trait minimAttribute
+sealed trait fluid_ounceAttribute
+sealed trait gillAttribute
+sealed trait pintAttribute
+sealed trait quartAttribute
+sealed trait gallonAttribute
+sealed trait peckAttribute
+sealed trait bushelAttribute
+sealed trait barrelAttribute
+sealed trait hogsheadAttribute
+sealed trait fluid_dramAttribute
 
 object LengthAttributes{
   final object MoKα1 extends xunitAttribute
   final object Adm extends nautical_mileAttribute
-  final object US extends linkAttribute with footAttribute with chainAttribute with mileAttribute with cableAttribute
+  final object US extends square_linkAttribute with square_footAttribute with square_chainAttribute with square_mileAttribute with acreAttribute with linkAttribute with footAttribute with chainAttribute with mileAttribute with cableAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with gallonAttribute with bushelAttribute with hogsheadAttribute with fluid_dramAttribute
+  final object US_fl extends pintAttribute with quartAttribute with gallonAttribute with barrelAttribute
+  final object US_dry extends pintAttribute with quartAttribute with gallonAttribute with peckAttribute with barrelAttribute
   final object CuKα1 extends xunitAttribute
-  final object imp extends cableAttribute
+  final object imp extends cableAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with pintAttribute with quartAttribute with gallonAttribute with peckAttribute with bushelAttribute with barrelAttribute with hogsheadAttribute with fluid_dramAttribute
+  final object US_lvl extends bushelAttribute
 }
 
 object LengthUnitObjects{

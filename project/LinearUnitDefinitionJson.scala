@@ -30,7 +30,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
 
   lazy val _attributes: Seq[Attribute] = GenerationUtil.toSeq(this.attributes)
 
-  override def expandScalePrefixes(jsons: JsonResources): Seq[LinearUnit] = {
+  override def expandScalePrefixesAndAttributes(jsons: JsonResources): Seq[LinearUnit] = {
     val prefixes = jsons.scalePrefixJson.scalePrefixes
 
     if(scalePrefixes){
@@ -90,22 +90,28 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
       head +: builder.build()
 
     } else{
-      val u = LinearUnit(this.name, toObjectName(this.name), this.symbol, this._aliases,
-                                 this.interval, this.baseUnit, this.notExact, this._attributes)
+      val u = toLinearUnit
 
       val us = this._attributes.map{ a =>
         val _name = s"${u.name}(${a.name})"
+        val _aliases = this._aliases.map(al => s"$al(${a.name})") ++: a._aliases
         LinearUnit(
-          _name, toObjectName(_name), s"${u.symbol}(${a.name})", this._aliases.map(al => s"$al(${a.name})"),
+          _name, toObjectName(_name), s"${u.symbol}(${a.name})", _aliases,
           a.interval, a.baseUnit, a.notExact, Nil)
       }
 
       u +: us
     }
   }
+
+  def toLinearUnit: LinearUnit =
+    LinearUnit(this.name, toObjectName(this.name), this.symbol, this._aliases,
+      this.interval, this.baseUnit, this.notExact, this._attributes)
 }
 
-case class Attribute(name: String, interval: String, baseUnit: String, notExact: Boolean)
+case class Attribute(name: String, aliases: Array[String], interval: String, baseUnit: String, notExact: Boolean){
+  lazy val _aliases: Seq[String] = GenerationUtil.toSeq(this.aliases)
+}
 
 case class LinearUnit(name: String, objectName: String, symbol: String, aliases: Seq[String],
                       interval: String, baseUnit: String, notExact: Boolean, attributes: Seq[Attribute]) extends UnitInfo{
@@ -124,7 +130,7 @@ class OperationInfo(id: String, jsons: JsonResources){
       .map(p => (jsons.searchUnitDefinition(p._2), lud))
   }
 
-  def ops: Seq[(UnitDefinitionJson, UnitDefinitionJson)] = Seq.concat(this.mul, this.div)
+  def ops: Seq[(UnitDefinitionJson, UnitDefinitionJson)] = this.mul ++: this.div
 }
 
 class LinearUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
@@ -140,7 +146,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
   }
 
   override protected def getUnits(jsons: JsonResources): Seq[LinearUnit] =
-    this.unitCategory._units.flatMap(_.expandScalePrefixes(jsons))
+    this.unitCategory._units.flatMap(_.expandScalePrefixesAndAttributes(jsons))
 
   override protected def createOptions(jsons: JsonResources): OperationInfo = new OperationInfo(this.id, jsons)
 
@@ -221,7 +227,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
   }
 
   override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = {
-    val attUnits = units.filter(_.attributes.nonEmpty)
+    val attUnits = getUnitsWithAttributes(jsons, units)
     if (attUnits.isEmpty) return
 
     attUnits.foreach { u =>
@@ -235,12 +241,15 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
     val map = attUnits.flatMap(u => u.attributes.map(a => (u.objectName, a.name)))
       .groupBy(_._2)
       .mapValues(v => v.map(_._1))
-    writer.write(s"object ${id}Attributes{\n")
+    writer.write(s"object ${attributeId}Attributes{\n")
     map.foreach { u =>
       writer.write(s"""  final object ${u._1} extends ${u._2.map(_ + "Attribute").mkString(" with ")}\n""")
     }
     writer.write("}\n\n")
   }
+
+  protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[LinearUnit]): Seq[LinearUnit] =
+    units.filter(_.attributes.nonEmpty)
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
     val aliases =
@@ -311,6 +320,17 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
     }else{
       super.generateUnitMultiplication(writer, p)
     }
+
+  override protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[LinearUnit]): Seq[LinearUnit] =
+    jsons.linearUnitDefs.filter(lud => lud.id == "Length" || lud.id == "Area" || lud.id == "Volume")
+      .flatMap(_.unitCategory._units.filter(_._attributes.nonEmpty).map(_.toLinearUnit))
+}
+
+class LengthPoweredUnitDefinitionJson(id: String, jsonFile: File, destDir: File, subpackage: String)
+    extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
+
+  override protected def attributeId: String = "Length"
+  override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 }
 
 class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)

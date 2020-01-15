@@ -3,6 +3,7 @@ package org.waman.multiverse.unit.mechanics
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.mechanics.EnergyUnits._
+import org.waman.multiverse.unit.mechanics.EnergyAttributes.IT
 
 class EnergySpec extends MultiverseCustomSpec {
 
@@ -15,7 +16,8 @@ class EnergySpec extends MultiverseCustomSpec {
           ("energy", "expected"),
           (3.0(J), 3.0),
           (3.0(kJ) , 3000.0),
-          (3.0(cal) , 3.0*4.1868)
+          (3.0(cal) , 3.0*4.1868),
+          (3.0(cal(IT)), 3.0*4.1868)
         )
       // Verify
       forAll(conversions){ (sut: Energy[Double], expected: Double) =>
@@ -32,7 +34,8 @@ class EnergySpec extends MultiverseCustomSpec {
           ("energy", "expected"),
           (q(J), 3.0),
           (q(kJ) , 0.003),
-          (q(cal), 3.0/4.1868)
+          (q(cal), 3.0/4.1868),
+          (q(cal(IT)), 3.0/4.1868)
         )
       // Verify
       forAll(conversions){ (sut: Double, expected: Double) =>
@@ -60,7 +63,6 @@ class EnergySpec extends MultiverseCustomSpec {
 
   "[SOURCE GENERATION]" - {
     "cal_IT(IT) should not compile" in {
-      import org.waman.multiverse.unit.mechanics.EnergyAttributes.IT
       "EnergyUnits.cal_IT" should compile
       "EnergyUnits.cal(IT)" should compile
       "EnergyUnits.cal_IT(IT)" shouldNot compile

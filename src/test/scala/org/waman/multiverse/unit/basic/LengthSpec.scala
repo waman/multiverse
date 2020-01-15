@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.basic
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.BasicUnits._
+import org.waman.multiverse.unit.basic.LengthUnits._
 import spire.math.Real
 
 class LengthSpec extends MultiverseCustomSpec {
@@ -11,20 +11,38 @@ class LengthSpec extends MultiverseCustomSpec {
 
     "Units with attributes" - {
       import org.waman.multiverse.unit.basic.LengthAttributes._
-      import org.waman.multiverse.unit.basic.LengthUnits.xu
 
-      "symbol property should return the proper string" in {
+      "The name property should return the proper string" in {
+        // Exercise
+        val conversions =
+          Table(
+            ("length", "expected"),
+            (xu, "xunit"),
+            (xu(CuKα1) , "xunit(CuKα1)"),
+            (xu(MoKα1), "xunit(MoKα1)"),
+            (ft, "foot"),
+            (ft(US), "foot(US)")
+          )
+        // Verify
+        forAll(conversions){ (sut: LengthUnit, expected: String) =>
+          sut.name should equal (expected)
+        }
+      }
+
+      "The symbol property should return the proper string" in {
         // Exercise
         val conversions =
           Table(
             ("length", "expected"),
             (xu, "xu"),
-            (xu(CuKα1) , "xu(CuKα1)"),
-            (xu(MoKα1), "xu(MoKα1)")
+            (xu(CuKα1), "xu(CuKα1)"),
+            (xu(MoKα1), "xu(MoKα1)"),
+            (ft, "ft"),
+            (ft(US), "ft(US)")
           )
         // Verify
-        forAll(conversions){ (sut: LengthUnit, expected: String) =>
-          sut.symbol should equal (expected)
+        forAll(conversions) { (sut: LengthUnit, expected: String) =>
+          sut.symbol should equal(expected)
         }
       }
     }
@@ -44,13 +62,21 @@ class LengthSpec extends MultiverseCustomSpec {
   "Quantity" - {
 
     "3.0 <<length unit>> should be converted to the equivalent value in metre" in {
+      // SetUp
+      import org.waman.multiverse.unit.basic.LengthAttributes._
       // Exercise
       val conversions =
         Table(
           ("length", "expected"),
           (3.0(mm), 3e-3),
           (3.0(m) , 3.0),
-          (3.0(km), 3e3)
+          (3.0(km), 3e3),
+
+          (3.0(xu), 3.0*1.0021e-13),
+          (3.0(xu(CuKα1)) , 3.0*1.0020769928e-13),
+          (3.0(xu(MoKα1)), 3.0*1.0020995553e-13),
+          (3.0(ft), 3.0*12*2.54*0.01),
+          (3.0(ft(US)), 3.0*1200.0/3937.0)
         )
       // Verify
       forAll(conversions){ (sut: Length[Double], expected: Double) =>
@@ -60,6 +86,7 @@ class LengthSpec extends MultiverseCustomSpec {
 
     "3.0(m) should be converted to the equivalent value in other length units" in {
       // SetUp
+      import org.waman.multiverse.unit.basic.LengthAttributes._
       val q = 3.0 (m)
       // Exercise
       val conversions =
@@ -67,32 +94,17 @@ class LengthSpec extends MultiverseCustomSpec {
           ("length", "expected"),
           (q(mm), 3e3),
           (q(m) , 3.0),
-          (q(km), 3e-3)
+          (q(km), 3e-3),
+
+          (q(xu), 3.0/1.0021e-13),
+          (q(xu(CuKα1)) , 3.0/1.0020769928e-13),
+          (q(xu(MoKα1)), 3.0/1.0020995553e-13),
+          (q(ft), 3.0/(12*2.54*0.01)),
+          (q(ft(US)), 3.0/(1200.0/3937.0))
         )
       // Verify
       forAll(conversions){ (sut: Double, expected: Double) =>
         sut should equal (%%%%(expected))
-      }
-    }
-
-    "Units with attributes" - {
-
-      "3.0 <<length unit>> should be converted to the equivalent value in metre" in {
-        // SetUp
-        import org.waman.multiverse.unit.basic.LengthAttributes._
-        import org.waman.multiverse.unit.basic.LengthUnits.xu
-        // Exercise
-        val conversions =
-          Table(
-            ("length", "expected"),
-            (3.0(xu), 3.0*1.0021e-13),
-            (3.0(xu(CuKα1)) , 3.0*1.0020769928e-13),
-            (3.0(xu(MoKα1)), 3.0*1.0020995553e-13)
-          )
-        // Verify
-        forAll(conversions){ (sut: Length[Double], expected: Double) =>
-          sut(m) should equal (%%%%(expected))
-        }
       }
     }
   }

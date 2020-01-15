@@ -8,16 +8,20 @@ class JsonResourceFactory(info: File, srcManaged: File, destPath: File){
   // src: src/main/scala
 
   def apply(json: File): JsonResource = {
-    val subpackage = IO.relativizeFile(info, json.getParentFile).get // basic
-    val destDir = IO.resolve(IO.resolve(srcManaged, destPath), subpackage) // src/main/src_managed/org/waman/multiverse/unit/basic
+    val subpackageDir = IO.relativizeFile(info, json.getParentFile).get // basic
+    val destDir = IO.resolve(IO.resolve(srcManaged, destPath), subpackageDir) // src/main/src_managed/org/waman/multiverse/unit/basic
+    val subpackage = subpackageDir.toString
 
     json.getName match {
       case "Constants.json" => new ConstantsJson(json, destDir)
       case "ScalePrefixes.json" => new ScalePrefixJson(json, destDir.getParentFile)  // org.waman.multiverse
-      case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage.toString)
-      case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, subpackage.toString)
-      case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, subpackage.toString)
-      case _ => new LinearUnitDefinitionJson(json, destDir, subpackage.toString)
+      case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
+      case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
+      case "AreaUnits.json" | "VolumeUnits.json" =>
+        val s = json.getName.replace("Units.json", "")
+        new LengthPoweredUnitDefinitionJson(s, json, destDir, subpackage)
+      case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
+      case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
     }
   }
 }

@@ -14,7 +14,7 @@
     {"name": "rydberg", "symbol": "Ry", "interval": "13.6056925330", "baseUnit": "electronvolt", "notExact": true},
     {"name": "atomic unit of energy", "symbol": "E_h", "interval": "2", "baseUnit": "rydberg", "notExact": true},
 
-    {"name": "calorie", "symbol": "cal", "aliases": ["cal_IT"], "interval": "4.1868",
+    {"name": "calorie", "symbol": "cal", "aliases": ["cal_IT"], "baseUnit": "calorie(IT)",
       "attributes": [
         {"name": "IT", "interval": "4.1868"}
       ]

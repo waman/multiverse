@@ -4,6 +4,8 @@ import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.basic.LengthUnits._
 import org.waman.multiverse.unit.basic.AreaUnits._
+import org.waman.multiverse.unit.basic.LengthAttributes._
+import spire.implicits._
 
 class AreaSpec extends MultiverseCustomSpec {
 
@@ -33,7 +35,10 @@ class AreaSpec extends MultiverseCustomSpec {
           (m.squared, "square metre"),
           (mm2 , "square millimetre"),
           (mm.squared, "square millimetre"),
-          (m*mm, "metre times millimetre")
+          (m*mm, "metre times millimetre"),
+
+          (ft2, "square foot"),
+          (ft2(US), "square foot(US)")
         )
       // Verify
       forAll(conversions){ (sut: AreaUnit, expected: String) =>
@@ -49,7 +54,10 @@ class AreaSpec extends MultiverseCustomSpec {
           (m2 , "m²"),
           (m.squared, "m²"),
           (mm*mm, "mm²"),
-          (m*mm, "m*mm")
+          (m*mm, "m*mm"),
+
+          (ft2, "ft²"),
+          (ft2(US), "ft²(US)")
         )
       // Verify
       forAll(conversions){ (sut: AreaUnit, expected: String) =>
@@ -65,7 +73,10 @@ class AreaSpec extends MultiverseCustomSpec {
           (m2 , Seq("m2")),
           (m.squared, Seq("m.squared")),
           (mm*mm, Seq("mm.squared")),
-          (m*mm, Nil)
+          (m*mm, Nil),
+
+          (ft2, Seq("ft2", "sq_ft")),
+          (ft2(US), Seq("ft2(US)", "sq_ft(US)"))
         )
       // Verify
       forAll(conversions){ (sut: AreaUnit, expected: Seq[String]) =>
@@ -93,9 +104,12 @@ class AreaSpec extends MultiverseCustomSpec {
           (3.0(m2) , 3.0),
           (3.0(m*m), 3.0),
           (3.0(m.squared), 3.0),
-          (3.0(mm*mm), 3.0*0.000001),
-          (3.0(mm.squared), 3.0*0.000001),
-          (3.0(m*mm), 3.0*0.001)
+          (3.0(mm*mm), 3.0e-6),
+          (3.0(mm.squared), 3.0e-6),
+          (3.0(m*mm), 3.0e-3),
+
+          (3.0(ft2), 3.0*((12.0*2.54*0.01)**2)),
+          (3.0(ft2(US)), 3.0*((1200.0/3937)**2))
         )
       // Verify
       forAll(conversions){ (sut: Area[Double], expected: Double) =>
@@ -112,8 +126,11 @@ class AreaSpec extends MultiverseCustomSpec {
           ("area", "expected"),
           (q(m2) , 3.0),
           (q(m*m), 3.0),
-          (q(mm*mm), 3.0*1000000.0),
-          (q(m*mm), 3.0*1000.0)
+          (q(mm*mm), 3.0e6),
+          (q(m*mm), 3.0e3),
+
+          (q(ft2), 3.0/((12.0*2.54*0.01)**2)),
+          (q(ft2(US)), 3.0/((1200.0/3937)**2))
         )
       // Verify
       forAll(conversions){ (sut: Double, expected: Double) =>

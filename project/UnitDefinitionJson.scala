@@ -11,7 +11,7 @@ trait RawUnitInfo[U <: UnitInfo]{
   lazy val _aliases: Seq[String] = GenerationUtil.toSeq(this.aliases)
   lazy val _excludePrefixes: Seq[String] = GenerationUtil.toSeq(this.excludePrefixes)
 
-  def expandScalePrefixes(jsons: JsonResources): Seq[U]
+  def expandScalePrefixesAndAttributes(jsons: JsonResources): Seq[U]
 }
 
 trait UnitInfo{
@@ -221,6 +221,8 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
   protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = ()
 
+  protected def attributeId: String = this.id
+
   private def generateUnitObjects(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
     writer.write(s"object ${id}UnitObjects{\n")
 
@@ -263,13 +265,13 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       writer.write(s"""  def $sym: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
 
       // def xu(a: xunitAttribute): LengthUnit = a match {
-      //   case CuKα1 => LengthUnitObjects.`xunit(CuKα1)`
-      //   case MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
+      //   case MetricAttributes.CuKα1 => LengthUnitObjects.`xunit(CuKα1)`
+      //   case MetricAttributes.MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
       // }
       if (u.attributes.nonEmpty) {
         writer.write(s"""  def $sym(a: ${u.objectName}Attribute): ${id}Unit = a match { \n""")
         u.attributes.foreach { a =>
-          writer.write(s"""    case ${id}Attributes.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
+          writer.write(s"""    case ${attributeId}Attributes.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
         }
         writer.write("  }\n")
       }
