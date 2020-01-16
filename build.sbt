@@ -44,7 +44,7 @@ Compile / sourceManaged := file((Compile / sourceDirectory).value.getAbsolutePat
 //       Compile / sourceManaged := file("src/main/src_managed")
 
 Compile / sourceGenerators += Def.task {
-  val info = (Compile / resourceDirectory).value / "physical-units"
+  val info = (Compile / resourceDirectory).value / "unitdefs"
   val destDir = (Compile / sourceManaged).value
   MultiverseSourceGenerator.generate(info, destDir)
 }.taskValue

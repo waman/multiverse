@@ -3,6 +3,8 @@ import java.io.File
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
+case class Constant(name: String, value: String)
+
 class ConstantsJson(json: File, destDir: File) extends SourceGeneratorJson(json, destDir) {
 
   import GenerationUtil._
@@ -37,5 +39,3 @@ class ConstantsJson(json: File, destDir: File) extends SourceGeneratorJson(json,
       writer.write("}")
     }
 }
-
-case class Constant(name: String, value: String)

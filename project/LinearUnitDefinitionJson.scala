@@ -133,7 +133,7 @@ class OperationInfo(id: String, jsons: JsonResources){
   def ops: Seq[(UnitDefinitionJson, UnitDefinitionJson)] = this.mul ++: this.div
 }
 
-class LinearUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
+class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: String)
     extends UnitDefinitionJsonAdapter[LinearUnitCategory, RawLinearUnit, LinearUnit, OperationInfo](
       "Linear", jsonFile, destDir, subpackage) {
 

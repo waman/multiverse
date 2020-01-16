@@ -5,7 +5,7 @@ import spire.math._
 
 import org.waman.multiverse.unit.angle._
 import org.waman.multiverse.unit.basic._
-import org.waman.multiverse.unit.chemistry._
+import org.waman.multiverse.unit.chemical._
 import org.waman.multiverse.unit.electric._
 import org.waman.multiverse.unit.fluid._
 import org.waman.multiverse.unit.luminous._

@@ -3,10 +3,13 @@ package org.waman
 import spire.math._
 import spire.implicits._
 import spire.math.Real.Exact
+import org.waman.multiverse.unit.UnitdefsProperties
 
 import scala.annotation.tailrec
 
 package object multiverse {
+
+  def unitdefsVersion: String = UnitdefsProperties.version
 
 //  def help(): Unit = {
 //    println("***** Supported Quantities *****")

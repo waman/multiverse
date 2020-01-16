@@ -139,7 +139,7 @@ object EnergyUnitObjects{
   final case object yottaelectronvolt extends DefaultEnergyUnit("yottaelectronvolt", "YeV", Nil, Constants.ElementaryCharge * r"1e24") with NotExact
   final case object rydberg extends DefaultEnergyUnit("rydberg", "Ry", Nil, r"13.6056925330" * electronvolt.interval) with NotExact
   final case object atomic_unit_of_energy extends DefaultEnergyUnit("atomic unit of energy", "E_h", Nil, r"2" * rydberg.interval) with NotExact
-  final case object calorie extends DefaultEnergyUnit("calorie", "cal", Seq("cal_IT"), r"4.1868")
+  final case object calorie extends DefaultEnergyUnit("calorie", "cal", Seq("cal_IT"), `calorie(IT)`.interval)
   final case object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT(IT)"), r"4.1868")
 }
 

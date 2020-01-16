@@ -1,14 +1,12 @@
 import java.io.File
 
 import sbt.io.IO
-import sbt.util.Tracked
-import sbt.util.Tracked
 
 object MultiverseSourceGenerator {
 
   private val destPath = new File("org/waman/multiverse/unit")
 
-  // info: src/main/resources/physical-units
+  // info: src/main/resources/unitdefs
   // srcManaged: src/main/src_managed
   def generate(info: File, srcManaged: File): Seq[File] =
     if (!srcManaged.exists() || info.lastModified() > srcManaged.lastModified())
@@ -22,7 +20,7 @@ object MultiverseSourceGenerator {
 
     def walk(f: File, acc: Seq[JsonResource]): Seq[JsonResource] =
       if (f.isFile) {
-        // ex) src/main/resources/physical-units/basic/LengthUnits.json
+        // ex) src/main/resources/unitdefs/basic/LengthUnits.json
         //         -> src/main/src_managed/org/waman/multiverse/unit/basic/Length.scala
         factory(f) +: acc
 

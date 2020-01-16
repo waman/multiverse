@@ -13,6 +13,7 @@ class JsonResourceFactory(info: File, srcManaged: File, destPath: File){
     val subpackage = subpackageDir.toString
 
     json.getName match {
+      case "Properties.json" => new PropertiesJson(json, destDir)
       case "Constants.json" => new ConstantsJson(json, destDir)
       case "ScalePrefixes.json" => new ScalePrefixJson(json, destDir.getParentFile)  // org.waman.multiverse
       case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)

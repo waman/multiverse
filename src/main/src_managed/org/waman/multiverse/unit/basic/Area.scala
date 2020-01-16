@@ -52,16 +52,6 @@ object AreaUnit{
     Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, are, hectare, barn, yoctobarn, zeptobarn, attobarn, femtobarn, picobarn, nanobarn, microbarn, millibarn, kilobarn, megabarn, gigabarn, terabarn, petabarn, exabarn, zettabarn, yottabarn, square_mil, square_inch, square_link, `square_link(US)`, square_foot, `square_foot(US)`, square_chain, `square_chain(US)`, square_yard, square_rod, square_mile, `square_mile(US)`, acre, `acre(US)`, rood, circular_mil, circular_inch, board)
 }
 
-sealed trait square_linkAttribute
-sealed trait square_footAttribute
-sealed trait square_chainAttribute
-sealed trait square_mileAttribute
-sealed trait acreAttribute
-
-object AreaAttributes{
-  final object US extends square_linkAttribute with square_footAttribute with square_chainAttribute with square_mileAttribute with acreAttribute
-}
-
 object AreaUnitObjects{
   import org.waman.multiverse.unit.Constants
 
@@ -201,7 +191,7 @@ object AreaUnits{
   def sq_in: AreaUnit = AreaUnitObjects.square_inch
   def `li²`: AreaUnit = AreaUnitObjects.square_link
   def `li²`(a: square_linkAttribute): AreaUnit = a match { 
-    case AreaAttributes.US => AreaUnitObjects.`square_link(US)`
+    case LengthAttributes.US => AreaUnitObjects.`square_link(US)`
   }
   def li2: AreaUnit = AreaUnitObjects.square_link
   def li2(a: square_linkAttribute): AreaUnit = `li²`(a)
@@ -216,7 +206,7 @@ object AreaUnits{
   def sq_lnk: AreaUnit = AreaUnitObjects.square_link
   def `ft²`: AreaUnit = AreaUnitObjects.square_foot
   def `ft²`(a: square_footAttribute): AreaUnit = a match { 
-    case AreaAttributes.US => AreaUnitObjects.`square_foot(US)`
+    case LengthAttributes.US => AreaUnitObjects.`square_foot(US)`
   }
   def ft2: AreaUnit = AreaUnitObjects.square_foot
   def ft2(a: square_footAttribute): AreaUnit = `ft²`(a)
@@ -224,7 +214,7 @@ object AreaUnits{
   def sq_ft: AreaUnit = AreaUnitObjects.square_foot
   def `ch²`: AreaUnit = AreaUnitObjects.square_chain
   def `ch²`(a: square_chainAttribute): AreaUnit = a match { 
-    case AreaAttributes.US => AreaUnitObjects.`square_chain(US)`
+    case LengthAttributes.US => AreaUnitObjects.`square_chain(US)`
   }
   def ch2: AreaUnit = AreaUnitObjects.square_chain
   def ch2(a: square_chainAttribute): AreaUnit = `ch²`(a)
@@ -238,7 +228,7 @@ object AreaUnits{
   def sq_rd: AreaUnit = AreaUnitObjects.square_rod
   def `mi²`: AreaUnit = AreaUnitObjects.square_mile
   def `mi²`(a: square_mileAttribute): AreaUnit = a match { 
-    case AreaAttributes.US => AreaUnitObjects.`square_mile(US)`
+    case LengthAttributes.US => AreaUnitObjects.`square_mile(US)`
   }
   def mi2: AreaUnit = AreaUnitObjects.square_mile
   def mi2(a: square_mileAttribute): AreaUnit = `mi²`(a)
@@ -246,7 +236,7 @@ object AreaUnits{
   def sq_mi: AreaUnit = AreaUnitObjects.square_mile
   def ac: AreaUnit = AreaUnitObjects.acre
   def ac(a: acreAttribute): AreaUnit = a match { 
-    case AreaAttributes.US => AreaUnitObjects.`acre(US)`
+    case LengthAttributes.US => AreaUnitObjects.`acre(US)`
   }
   def ro: AreaUnit = AreaUnitObjects.rood
   def circ_mil: AreaUnit = AreaUnitObjects.circular_mil
