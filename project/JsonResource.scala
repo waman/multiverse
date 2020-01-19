@@ -2,27 +2,47 @@ import java.io.File
 
 import sbt.io.IO
 
-class JsonResourceFactory(info: File, srcManaged: File, destPath: File){
-  // info: src/main/resources/physical-units
+class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
+  // unitdefs: src/main/resources/unitdefs
   // srcManaged: src/main/src_managed
-  // src: src/main/scala
+
+  private val unitDir = "unit"+File.separator
+  private val unitsystemDir = "unitsystem"+File.separator
 
   def apply(json: File): JsonResource = {
-    val subpackageDir = IO.relativizeFile(info, json.getParentFile).get // basic
-    val destDir = IO.resolve(IO.resolve(srcManaged, destPath), subpackageDir) // src/main/src_managed/org/waman/multiverse/unit/basic
-    val subpackage = subpackageDir.toString
+    val destRoot = IO.resolve(srcManaged, destPath)  // src/main/src_managed/org/waman/multiverse
+    IO.relativize(unitdefs, json.getParentFile) match {
+      case Some("") =>
+        json.getName match {
+          case "ScalePrefixes.json" => new ScalePrefixJson(json, destRoot)
+          case "Properties.json" => new PropertiesJson(json, destRoot)
+          case x => throw new RuntimeException(s"Unknown json file appears: $x")
+        }
 
-    json.getName match {
-      case "Properties.json" => new PropertiesJson(json, destDir)
-      case "Constants.json" => new ConstantsJson(json, destDir)
-      case "ScalePrefixes.json" => new ScalePrefixJson(json, destDir.getParentFile)  // org.waman.multiverse
-      case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
-      case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
-      case "AreaUnits.json" | "VolumeUnits.json" =>
-        val s = json.getName.replace("Units.json", "")
-        new LengthPoweredUnitDefinitionJson(s, json, destDir, subpackage)
-      case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
-      case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
+      case Some("unit") =>
+        json.getName match {
+          case "Constants.json" => new ConstantsJson(json, IO.resolve(destRoot, new File("unit")))
+          case x => throw new RuntimeException(s"Unknown json file appears: $x")
+        }
+
+      case Some(s) if s.contains(unitDir) =>
+        val subpackage = s.replace(unitDir, "") // basic
+        val destDir = IO.resolve(destRoot, new File(s)) // src/main/src_managed/org/waman/multiverse/unit/basic
+
+        json.getName match {
+          case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
+          case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
+          case "AreaUnits.json" | "VolumeUnits.json" =>
+            val s = json.getName.replace("Units.json", "")
+            new LengthPoweredUnitDefinitionJson(s, json, destDir, subpackage)
+          case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
+          case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
+        }
+
+      case Some(s) if s.contains(unitsystemDir) =>
+        throw new RuntimeException(s"""Unknown json file appears: $s""")
+
+      case x => throw new RuntimeException(s"""Unknown json file appears: $x""")
     }
   }
 }

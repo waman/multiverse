@@ -11,8 +11,8 @@ class PropertiesJson(json: File, destDir: File) extends SourceGeneratorJson(json
 
   val PropertiesType: Class[_ >: Properties] = new TypeToken[Properties]() {}.getRawType
 
-  val destFilename: String = "Properties.scala"
-  val packageName: String = GenerationUtil.rootPackage + ".unit"
+  val destFilename: String = "UnitdefsProperties.scala"
+  val packageName: String = GenerationUtil.rootPackage
 
   val properties: Properties = IO.reader(jsonFile, utf8) { reader =>
     gson.fromJson(reader, PropertiesType).asInstanceOf[Properties]

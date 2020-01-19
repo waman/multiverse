@@ -17,6 +17,8 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 
   protected def applyInDifferentUnit(evalUnit: U): A
 
+  def getSIValue: A = this(unit.getSIUnit)
+
   override def equals(other: Any): Boolean = other match {
     case that: Quantity[A, U] =>
       if(!(that canEqual this))
@@ -39,9 +41,7 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 
   override lazy val hashCode: Int = {
     val siUnit = unit.getSIUnit
-    41 * (
-      41 + this(siUnit).hashCode
-      ) + siUnit.hashCode
+    (this(siUnit), siUnit).##
   }
 
   override def toString: String = toString("(", ")")
@@ -59,20 +59,18 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
       compareInDifferentUnit(that)
   }
 
-  protected def compareInDifferentUnit(that: Quantity[A, U]): Int
+  protected def compareInDifferentUnit(that: Quantity[A, U]): Int = {
+    val siUnit = unit.getSIUnit
+    implicitly[Fractional[A]].compare(this(siUnit), that(siUnit))
+  }
 }
 
 abstract class HomogeneousQuantity[A: Fractional, U <: HomogeneousUnit[U]] extends Quantity[A, U]{
 
-  protected def applyInDifferentUnit(evalUnit: U): A = {
+  override protected def applyInDifferentUnit(evalUnit: U): A = {
     val algebra = implicitly[Fractional[A]]
     def real(r: Real): A = algebra.fromReal(r)
     (value * real(unit.interval) + real(unit.zero) - real(evalUnit.zero)) / real(evalUnit.interval)
-  }
-
-  protected def compareInDifferentUnit(that: Quantity[A, U]): Int = {
-    val siUnit = unit.getSIUnit
-    implicitly[Fractional[A]].compare(this(siUnit), that(siUnit))
   }
 }
 

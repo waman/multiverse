@@ -20,4 +20,4 @@ trait CGS extends UnitSystem{
   implicit def convertAccelerationToFractional[A: Fractional](q: Acceleration[A]): A = q(cm/s2)
 }
 
-object CGSUnitSystem extends CGS
+object CGS extends CGS

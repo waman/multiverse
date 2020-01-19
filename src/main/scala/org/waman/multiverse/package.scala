@@ -3,7 +3,6 @@ package org.waman
 import spire.math._
 import spire.implicits._
 import spire.math.Real.Exact
-import org.waman.multiverse.unit.UnitdefsProperties
 
 import scala.annotation.tailrec
 

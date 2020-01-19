@@ -1,6 +1,4 @@
-package org.waman.multiverse.unit
-
-import org.waman.multiverse.MultiverseCustomSpec
+package org.waman.multiverse
 
 class UnitdefsPropertiesSpec extends MultiverseCustomSpec {
 
