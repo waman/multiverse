@@ -50,7 +50,7 @@ object PressureUnit{
 object PressureUnitObjects{
   import org.waman.multiverse.unit.mechanics.ForceUnitObjects
   import org.waman.multiverse.unit.basic.AreaUnitObjects
-  import org.waman.multiverse.unit.basic.DensityUnitObjects
+  import org.waman.multiverse.unit.density.DensityUnitObjects
   import org.waman.multiverse.unit.basic.LengthUnitObjects
   import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects
 

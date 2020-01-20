@@ -17,7 +17,7 @@
     
       {"name": "planck length", "symbol": "l_p", "interval": "1.61624e-35", "notExact": true},
 
-      {"name": "astronomical unit", "symbol": "au", "interval": "149597870700"},
+      {"name": "astronomical unit", "symbol": "AU", "aliases": ["ua"], "interval": "149597870700"},
       {"name": "light year", "symbol": "ly", "interval": "9.4607304725808e15"},
       {"name": "parsec", "symbol": "pc", "interval": "3.08567782e16", "notExact": true},
 

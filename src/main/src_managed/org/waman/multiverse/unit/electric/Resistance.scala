@@ -11,6 +11,10 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
 
   override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
 
+
+  def toConductance: Conductance[A] =
+    new Conductance(apply(ResistanceUnitObjects.ohm).reciprocal, ConductanceUnitObjects.siemens)
+
 }
 
 trait ResistanceUnit extends LinearUnit[ResistanceUnit]{

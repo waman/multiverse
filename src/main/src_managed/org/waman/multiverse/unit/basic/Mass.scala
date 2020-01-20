@@ -9,6 +9,10 @@ import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
 import org.waman.multiverse.unit.mechanics.Force
 import org.waman.multiverse.unit.mechanics.ForceUnit
+import org.waman.multiverse.unit.density.Density
+import org.waman.multiverse.unit.density.DensityUnit
+import org.waman.multiverse.unit.density.LineDensity
+import org.waman.multiverse.unit.density.LineDensityUnit
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
     extends LinearQuantity[Mass[A], A, MassUnit] {
@@ -18,6 +22,8 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
   def *(acceleration: Acceleration[A]): Force[A] = new Force(this.value * acceleration.value, this.unit * acceleration.unit)
 
   def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
+
+  def /(length: Length[A]): LineDensity[A] = new LineDensity(this.value / length.value, this.unit / length.unit)
 
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.mechanics.Energy
@@ -39,6 +45,9 @@ trait MassUnit extends LinearUnit[MassUnit]{
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
     new AbstractQuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
+
+  def /(lengthUnit: LengthUnit): LineDensityUnit =
+    new AbstractQuotientUnit[LineDensityUnit, MassUnit, LengthUnit](MassUnit.this, lengthUnit) with LineDensityUnit
 
 }
 

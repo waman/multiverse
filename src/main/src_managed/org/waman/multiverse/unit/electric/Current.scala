@@ -15,6 +15,8 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
 
   def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
 
+  def /(voltage: Voltage[A]): Conductance[A] = new Conductance(this.value / voltage.value, this.unit / voltage.unit)
+
 }
 
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
@@ -24,6 +26,9 @@ trait CurrentUnit extends LinearUnit[CurrentUnit]{
 
   def *(timeUnit: TimeUnit): ChargeUnit =
     new AbstractProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
+
+  def /(voltageUnit: VoltageUnit): ConductanceUnit =
+    new AbstractQuotientUnit[ConductanceUnit, CurrentUnit, VoltageUnit](CurrentUnit.this, voltageUnit) with ConductanceUnit
 
 }
 

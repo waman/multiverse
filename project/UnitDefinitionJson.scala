@@ -39,7 +39,10 @@ case class Dimension(M: Int, L: Int, T: Int, I: Int, Θ: Int, N: Int, J: Int){
     Map("M" -> M, "L" -> L, "T" -> T, "I" -> I, "Θ" -> Θ, "N" -> N, "J" -> J).filter(_._2 != 0)
 }
 
-case class Convertible(target: String, from: String, to: String, factor: String)
+case class Convertible(target: String, from: String, to: String, algorithm: String, factor: String){
+  require(algorithm != null || factor != null)
+  require(algorithm == null || factor == null)
+}
 
 abstract class UnitDefinitionJson(val unitType: String, jsonFile: File, destDir: File, val subpackage: String)
   extends SourceGeneratorJson(jsonFile, destDir){
@@ -121,7 +124,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
     generateQuantityExtraContents(writer, jsons, op)
 
-    if (this.unitCategory._convertibles.exists(_.factor.contains("Constants")))
+    if (this.unitCategory._convertibles.filterNot(_.factor == null).exists(_.factor.contains("Constants")))
       writer.write(s"""  import $rootPackage.unit.Constants\n""")
 
     this.unitCategory._convertibles.foreach{ conv =>
@@ -133,10 +136,6 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       val extraTypes = Seq(conv.from, conv.to).flatMap(extractUnitTypes)
       generateImportsOfExtraUnitTypes(writer, jsons, extraTypes, 2, "UnitObjects")
 
-      val factor =
-        if (conv.factor == "1") ""  // for Temperature <-> AbsoluteTemperature
-        else s""" * implicitly[Fractional[A]].fromReal(${refineNumbers(conv.factor)})"""
-
       val from =
         if (conv.from.contains('.')) refineUnitNamesInConvertible(conv.from)
         else s"""${id}UnitObjects.${conv.from}"""
@@ -145,13 +144,27 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
         if (conv.to.contains('.')) refineUnitNamesInConvertible(conv.to)
         else s"""${conv.target}UnitObjects.${conv.to}"""
 
-      writer.write(
-        s"""
-           |  def to${conv.target}: ${conv.target}[A] = new ${conv.target}(
-           |      apply($from)$factor,
-           |      $to)
-           |
-           |""".stripMargin)
+      if (conv.algorithm != null && conv.algorithm == "reciprocal"){
+        writer.write(
+          s"""
+             |  def to${conv.target}: ${conv.target}[A] =
+             |    new ${conv.target}(apply($from).reciprocal, $to)
+             |
+             |""".stripMargin)
+
+      } else {
+        val factor =
+          if (conv.factor == "1") ""  // for Temperature <-> AbsoluteTemperature
+          else s""" * implicitly[Fractional[A]].fromReal(${refineNumbers(conv.factor)})"""
+
+        writer.write(
+          s"""
+             |  def to${conv.target}: ${conv.target}[A] = new ${conv.target}(
+             |      apply($from)$factor,
+             |      $to)
+             |
+             |""".stripMargin)
+      }
     }
     writer.write("}\n\n")
   }

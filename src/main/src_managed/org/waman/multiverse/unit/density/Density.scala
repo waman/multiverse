@@ -1,4 +1,4 @@
-package org.waman.multiverse.unit.basic
+package org.waman.multiverse.unit.density
 
 import spire.math.Real
 import spire.math.Fractional
@@ -33,6 +33,8 @@ object DensityUnit{
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](M -> 1, L -> -3).withDefaultValue(0)
 
+  import org.waman.multiverse.unit.basic.MassUnit
+  import org.waman.multiverse.unit.basic.VolumeUnit
   val getSIUnit: DensityUnit = MassUnit.getSIUnit / VolumeUnit.getSIUnit
 
   import DensityUnitObjects._

@@ -1,0 +1,14 @@
+{
+  "SIUnit": "siemens",
+  "dimension": {"M": -1, "L": -2, "T": 3, "I": 2},
+
+  "composites": ["Current / Voltage"],
+
+  "convertibles": [
+    {"target": "Resistance", "from": "siemens", "to": "ohm", "algorithm": "reciprocal"}
+  ],
+
+  "units":[
+    {"name": "siemens", "symbol": "S", "aliases": ["mho", "℧"], "scalePrefixes": true}
+  ]
+}

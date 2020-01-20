@@ -4,6 +4,10 @@
 
   "composites": ["Voltage / Current"],
 
+  "convertibles": [
+    {"target": "Conductance", "from": "ohm", "to": "siemens", "algorithm": "reciprocal"}
+  ],
+
   "units":[
     {"name": "ohm", "symbol": "Ω", "aliases": ["ohm"], "scalePrefixes": true},
     {"name": "abohm", "symbol": "abΩ", "aliases": ["abohm"], "interval": "1e-9"}

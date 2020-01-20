@@ -6,6 +6,7 @@ import spire.math._
 import org.waman.multiverse.unit.angle._
 import org.waman.multiverse.unit.basic._
 import org.waman.multiverse.unit.chemical._
+import org.waman.multiverse.unit.density._
 import org.waman.multiverse.unit.electric._
 import org.waman.multiverse.unit.fluid._
 import org.waman.multiverse.unit.luminous._
@@ -23,15 +24,18 @@ package object implicits {
     def apply(unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
     def apply(unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
     def apply(unit: AreaUnit): Area[A] = new Area(value, unit)
-    def apply(unit: DensityUnit): Density[A] = new Density(value, unit)
     def apply(unit: LengthUnit): Length[A] = new Length(value, unit)
     def apply(unit: MassUnit): Mass[A] = new Mass(value, unit)
     def apply(unit: TimeUnit): Time[A] = new Time(value, unit)
     def apply(unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
     def apply(unit: VolumeUnit): Volume[A] = new Volume(value, unit)
     def apply(unit: AmountOfSubstanceUnit): AmountOfSubstance[A] = new AmountOfSubstance(value, unit)
+    def apply(unit: CatalysisUnit): Catalysis[A] = new Catalysis(value, unit)
+    def apply(unit: DensityUnit): Density[A] = new Density(value, unit)
+    def apply(unit: LineDensityUnit): LineDensity[A] = new LineDensity(value, unit)
     def apply(unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
     def apply(unit: ChargeUnit): Charge[A] = new Charge(value, unit)
+    def apply(unit: ConductanceUnit): Conductance[A] = new Conductance(value, unit)
     def apply(unit: CurrentUnit): Current[A] = new Current(value, unit)
     def apply(unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
     def apply(unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
@@ -87,6 +91,12 @@ package object implicits {
 
   implicit def convertMassToEnergy[A: Fractional](q: Mass[A]): Energy[A] =
     q.toEnergy
+
+  implicit def convertConductanceToResistance[A: Fractional](q: Conductance[A]): Resistance[A] =
+    q.toResistance
+
+  implicit def convertResistanceToConductance[A: Fractional](q: Resistance[A]): Conductance[A] =
+    q.toConductance
 
   implicit def convertEnergyToAbsoluteTemperature[A: Fractional](q: Energy[A]): AbsoluteTemperature[A] =
     q.toAbsoluteTemperature

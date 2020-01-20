@@ -154,7 +154,7 @@ object LengthUnitObjects{
   final case object `xunit(CuKα1)` extends DefaultLengthUnit("xunit(CuKα1)", "xu(CuKα1)", Nil, r"1.0020769928e-13") with NotExact
   final case object `xunit(MoKα1)` extends DefaultLengthUnit("xunit(MoKα1)", "xu(MoKα1)", Nil, r"1.0020995553e-13") with NotExact
   final case object planck_length extends DefaultLengthUnit("planck length", "l_p", Nil, r"1.61624e-35") with NotExact
-  final case object astronomical_unit extends DefaultLengthUnit("astronomical unit", "au", Nil, r"149597870700")
+  final case object astronomical_unit extends DefaultLengthUnit("astronomical unit", "AU", Seq("ua"), r"149597870700")
   final case object light_year extends DefaultLengthUnit("light year", "ly", Nil, r"9.4607304725808e15")
   final case object parsec extends DefaultLengthUnit("parsec", "pc", Nil, r"3.08567782e16") with NotExact
   final case object mil extends DefaultLengthUnit("mil", "mil", Seq("thou"), r"1"/r"1000" * inch.interval)
@@ -222,7 +222,8 @@ object LengthUnits{
     case LengthAttributes.MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
   }
   def l_p: LengthUnit = LengthUnitObjects.planck_length
-  def au: LengthUnit = LengthUnitObjects.astronomical_unit
+  def AU: LengthUnit = LengthUnitObjects.astronomical_unit
+  def ua: LengthUnit = LengthUnitObjects.astronomical_unit
   def ly: LengthUnit = LengthUnitObjects.light_year
   def pc: LengthUnit = LengthUnitObjects.parsec
   def mil: LengthUnit = LengthUnitObjects.mil

@@ -5,7 +5,7 @@ import scala.reflect.runtime.{universe => ru}
 
 object AstronomicalUnits extends PhysicalUnitPredefProxy {
 
-  def au: LengthUnit = LengthUnits.au
+  def AU: LengthUnit = LengthUnits.AU
   def ly: LengthUnit = LengthUnits.ly
   def pc: LengthUnit = LengthUnits.pc
 
