@@ -20,15 +20,7 @@ trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{
 
 }
 
-/** For user defined units */
-class SimpleAbsorbedDoseUnit(val name: String, val symbol: String, val interval: Real) extends AbsorbedDoseUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultAbsorbedDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AbsorbedDoseUnit
-
-object AbsorbedDoseUnit{
+object AbsorbedDoseUnit extends UnitInfo[AbsorbedDoseUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -2, L -> 2).withDefaultValue(0)
@@ -39,6 +31,14 @@ object AbsorbedDoseUnit{
   def getUnits: Seq[AbsorbedDoseUnit] =
     Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray)
 }
+
+/** For user defined units */
+class SimpleAbsorbedDoseUnit(val name: String, val symbol: String, val interval: Real) extends AbsorbedDoseUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultAbsorbedDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AbsorbedDoseUnit
 
 object AbsorbedDoseUnitObjects{
 

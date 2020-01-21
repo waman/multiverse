@@ -38,15 +38,7 @@ trait TimeUnit extends LinearUnit[TimeUnit]{
       new AbstractProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
 }
 
-/** For user defined units */
-class SimpleTimeUnit(val name: String, val symbol: String, val interval: Real) extends TimeUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultTimeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends TimeUnit
-
-object TimeUnit{
+object TimeUnit extends UnitInfo[TimeUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> 1).withDefaultValue(0)
@@ -57,6 +49,14 @@ object TimeUnit{
   def getUnits: Seq[TimeUnit] =
     Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, planck_time)
 }
+
+/** For user defined units */
+class SimpleTimeUnit(val name: String, val symbol: String, val interval: Real) extends TimeUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultTimeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends TimeUnit
 
 sealed trait dayAttribute
 sealed trait monthAttribute

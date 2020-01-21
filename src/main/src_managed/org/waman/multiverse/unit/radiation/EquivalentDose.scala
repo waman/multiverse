@@ -27,15 +27,7 @@ trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
 
 }
 
-/** For user defined units */
-class SimpleEquivalentDoseUnit(val name: String, val symbol: String, val interval: Real) extends EquivalentDoseUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends EquivalentDoseUnit
-
-object EquivalentDoseUnit{
+object EquivalentDoseUnit extends UnitInfo[EquivalentDoseUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -2, L -> 2).withDefaultValue(0)
@@ -46,6 +38,14 @@ object EquivalentDoseUnit{
   def getUnits: Seq[EquivalentDoseUnit] =
     Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, rem, yoctorem, zeptorem, attorem, femtorem, picorem, nanorem, microrem, millirem, centirem, decirem, decarem, hectorem, kilorem, megarem, gigarem, terarem, petarem, exarem, zettarem, yottarem)
 }
+
+/** For user defined units */
+class SimpleEquivalentDoseUnit(val name: String, val symbol: String, val interval: Real) extends EquivalentDoseUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends EquivalentDoseUnit
 
 object EquivalentDoseUnitObjects{
 

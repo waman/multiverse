@@ -27,15 +27,7 @@ trait VelocityUnit extends LinearUnit[VelocityUnit]{
 
 }
 
-/** For user defined units */
-class SimpleVelocityUnit(val name: String, val symbol: String, val interval: Real) extends VelocityUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends VelocityUnit
-
-object VelocityUnit{
+object VelocityUnit extends UnitInfo[VelocityUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1, L -> 1).withDefaultValue(0)
@@ -46,6 +38,14 @@ object VelocityUnit{
   def getUnits: Seq[VelocityUnit] =
     Seq(speed_of_light, mach_number)
 }
+
+/** For user defined units */
+class SimpleVelocityUnit(val name: String, val symbol: String, val interval: Real) extends VelocityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends VelocityUnit
 
 object VelocityUnitObjects{
   import org.waman.multiverse.unit.Constants

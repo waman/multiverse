@@ -19,15 +19,7 @@ trait TorqueUnit extends LinearUnit[TorqueUnit]{
 
 }
 
-/** For user defined units */
-class SimpleTorqueUnit(val name: String, val symbol: String, val interval: Real) extends TorqueUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultTorqueUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends TorqueUnit
-
-object TorqueUnit{
+object TorqueUnit extends UnitInfo[TorqueUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> 2).withDefaultValue(0)
@@ -38,6 +30,14 @@ object TorqueUnit{
   def getUnits: Seq[TorqueUnit] =
     Seq()
 }
+
+/** For user defined units */
+class SimpleTorqueUnit(val name: String, val symbol: String, val interval: Real) extends TorqueUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultTorqueUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends TorqueUnit
 
 object TorqueUnitObjects{
 

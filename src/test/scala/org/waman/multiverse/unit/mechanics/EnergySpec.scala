@@ -46,7 +46,7 @@ class EnergySpec extends MultiverseCustomSpec {
     "Energy should be implicitly converted to AbsoluteTemperature" in {
       // SetUp
       import org.waman.multiverse.unit.Constants._
-      import org.waman.multiverse.unit.thermal.AbsoluteTemperatureUnits._
+      import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnits._
       // Exercise
       val conversions =
         Table(

@@ -27,15 +27,7 @@ trait AngleUnit extends LinearUnit[AngleUnit]{
 
 }
 
-/** For user defined units */
-class SimpleAngleUnit(val name: String, val symbol: String, val interval: Real) extends AngleUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AngleUnit
-
-object AngleUnit{
+object AngleUnit extends UnitInfo[AngleUnit]{
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int]().withDefaultValue(0)
 
@@ -45,6 +37,14 @@ object AngleUnit{
   def getUnits: Seq[AngleUnit] =
     Seq(radian, degree, arcmin, arcsec, gradian, turn, sign, octant, sextant, quadrant)
 }
+
+/** For user defined units */
+class SimpleAngleUnit(val name: String, val symbol: String, val interval: Real) extends AngleUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AngleUnit
 
 object AngleUnitObjects{
   import org.waman.multiverse.unit.Constants

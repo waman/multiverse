@@ -25,6 +25,14 @@ class PropertiesJson(json: File, destDir: File) extends SourceGeneratorJson(json
            |
            |object UnitdefsProperties{
            |  val version: String = "${properties.version}"
+           |
+           |  def getUnitInfo: Seq[UnitInfo[_]] = Seq(
+           |""".stripMargin)
+
+      writer.write(jsons.unitDefs.map(ud => s"    unit.${ud.subpackage}.${ud.id}Unit").mkString(",\n"))
+      writer.write(
+        s"""
+           |  )
            |}
            |""".stripMargin)
     }

@@ -27,15 +27,7 @@ trait PressureUnit extends LinearUnit[PressureUnit]{
 
 }
 
-/** For user defined units */
-class SimplePressureUnit(val name: String, val symbol: String, val interval: Real) extends PressureUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultPressureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends PressureUnit
-
-object PressureUnit{
+object PressureUnit extends UnitInfo[PressureUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> -1).withDefaultValue(0)
@@ -46,6 +38,14 @@ object PressureUnit{
   def getUnits: Seq[PressureUnit] =
     Seq(pascal, yoctopascal, zeptopascal, attopascal, femtopascal, picopascal, nanopascal, micropascal, millipascal, centipascal, decipascal, decapascal, hectopascal, kilopascal, megapascal, gigapascal, terapascal, petapascal, exapascal, zettapascal, yottapascal, barye, atmosphere, atmosphere_technical, bar, pieze, torr, kip_per_square_inch, pound_per_square_foot, pound_per_square_inch, micrometre_of_mercury, millimetre_of_mercury, centimetre_of_mercury, inch_of_mercury, foot_of_mercury, millimetre_of_water, centimetre_of_water, inch_of_water, foot_of_water)
 }
+
+/** For user defined units */
+class SimplePressureUnit(val name: String, val symbol: String, val interval: Real) extends PressureUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultPressureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends PressureUnit
 
 object PressureUnitObjects{
   import org.waman.multiverse.unit.mechanics.ForceUnitObjects

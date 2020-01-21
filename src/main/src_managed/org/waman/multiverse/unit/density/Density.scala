@@ -20,15 +20,7 @@ trait DensityUnit extends LinearUnit[DensityUnit]{
 
 }
 
-/** For user defined units */
-class SimpleDensityUnit(val name: String, val symbol: String, val interval: Real) extends DensityUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends DensityUnit
-
-object DensityUnit{
+object DensityUnit extends UnitInfo[DensityUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](M -> 1, L -> -3).withDefaultValue(0)
@@ -41,6 +33,14 @@ object DensityUnit{
   def getUnits: Seq[DensityUnit] =
     Seq(water, mercury)
 }
+
+/** For user defined units */
+class SimpleDensityUnit(val name: String, val symbol: String, val interval: Real) extends DensityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends DensityUnit
 
 object DensityUnitObjects{
 

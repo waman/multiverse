@@ -69,15 +69,7 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
 
 }
 
-/** For user defined units */
-class SimpleLengthUnit(val name: String, val symbol: String, val interval: Real) extends LengthUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends LengthUnit
-
-object LengthUnit{
+object LengthUnit extends UnitInfo[LengthUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](L -> 1).withDefaultValue(0)
@@ -88,6 +80,14 @@ object LengthUnit{
   def getUnits: Seq[LengthUnit] =
     Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, link, `link(US)`, foot, `foot(US)`, yard, ell, fathom, rod, rope, chain, `chain(US)`, mile, `mile(US)`, cable, `cable(US)`, `cable(imp)`, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
 }
+
+/** For user defined units */
+class SimpleLengthUnit(val name: String, val symbol: String, val interval: Real) extends LengthUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends LengthUnit
 
 sealed trait square_linkAttribute
 sealed trait square_footAttribute

@@ -5,15 +5,15 @@ import spire.math._
 
 import org.waman.multiverse.unit.angle._
 import org.waman.multiverse.unit.basic._
-import org.waman.multiverse.unit.chemical._
+import org.waman.multiverse.unit.chemistry._
 import org.waman.multiverse.unit.density._
-import org.waman.multiverse.unit.electric._
+import org.waman.multiverse.unit.electrics._
 import org.waman.multiverse.unit.fluid._
-import org.waman.multiverse.unit.luminous._
-import org.waman.multiverse.unit.magnetic._
+import org.waman.multiverse.unit.magnetics._
 import org.waman.multiverse.unit.mechanics._
+import org.waman.multiverse.unit.optics._
 import org.waman.multiverse.unit.radiation._
-import org.waman.multiverse.unit.thermal._
+import org.waman.multiverse.unit.thermodynamics._
 
 package object implicits {
 
@@ -44,10 +44,6 @@ package object implicits {
     def apply(unit: KinematicViscosityUnit): KinematicViscosity[A] = new KinematicViscosity(value, unit)
     def apply(unit: PressureUnit): Pressure[A] = new Pressure(value, unit)
     def apply(unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
-    def apply(unit: IlluminanceUnit): Illuminance[A] = new Illuminance(value, unit)
-    def apply(unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
-    def apply(unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
-    def apply(unit: LuminousIntensityUnit): LuminousIntensity[A] = new LuminousIntensity(value, unit)
     def apply(unit: FluxDensityUnit): FluxDensity[A] = new FluxDensity(value, unit)
     def apply(unit: FluxUnit): Flux[A] = new Flux(value, unit)
     def apply(unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
@@ -59,6 +55,10 @@ package object implicits {
     def apply(unit: PowerUnit): Power[A] = new Power(value, unit)
     def apply(unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
     def apply(unit: TorqueUnit): Torque[A] = new Torque(value, unit)
+    def apply(unit: IlluminanceUnit): Illuminance[A] = new Illuminance(value, unit)
+    def apply(unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
+    def apply(unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
+    def apply(unit: LuminousIntensityUnit): LuminousIntensity[A] = new LuminousIntensity(value, unit)
     def apply(unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
     def apply(unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
     def apply(unit: EquivalentDoseUnit): EquivalentDose[A] = new EquivalentDose(value, unit)

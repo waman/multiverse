@@ -27,15 +27,7 @@ trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{
 
 }
 
-/** For user defined units */
-class SimpleAngularVelocityUnit(val name: String, val symbol: String, val interval: Real) extends AngularVelocityUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultAngularVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AngularVelocityUnit
-
-object AngularVelocityUnit{
+object AngularVelocityUnit extends UnitInfo[AngularVelocityUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
@@ -47,6 +39,14 @@ object AngularVelocityUnit{
   def getUnits: Seq[AngularVelocityUnit] =
     Seq(cycle_per_second, revolution_per_minute)
 }
+
+/** For user defined units */
+class SimpleAngularVelocityUnit(val name: String, val symbol: String, val interval: Real) extends AngularVelocityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultAngularVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AngularVelocityUnit
 
 object AngularVelocityUnitObjects{
   import org.waman.multiverse.unit.Constants

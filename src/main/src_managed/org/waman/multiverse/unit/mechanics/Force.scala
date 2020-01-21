@@ -43,15 +43,7 @@ trait ForceUnit extends LinearUnit[ForceUnit]{
 
 }
 
-/** For user defined units */
-class SimpleForceUnit(val name: String, val symbol: String, val interval: Real) extends ForceUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends ForceUnit
-
-object ForceUnit{
+object ForceUnit extends UnitInfo[ForceUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> 1).withDefaultValue(0)
@@ -62,6 +54,14 @@ object ForceUnit{
   def getUnits: Seq[ForceUnit] =
     Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, kilogram_force, milligrave_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
 }
+
+/** For user defined units */
+class SimpleForceUnit(val name: String, val symbol: String, val interval: Real) extends ForceUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends ForceUnit
 
 object ForceUnitObjects{
   import org.waman.multiverse.unit.basic.MassUnitObjects

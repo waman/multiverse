@@ -20,20 +20,12 @@ trait ExposureUnit extends LinearUnit[ExposureUnit]{
 
 }
 
-/** For user defined units */
-class SimpleExposureUnit(val name: String, val symbol: String, val interval: Real) extends ExposureUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends ExposureUnit
-
-object ExposureUnit{
+object ExposureUnit extends UnitInfo[ExposureUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> 1, M -> -1, I -> 1).withDefaultValue(0)
 
-  import org.waman.multiverse.unit.electric.ChargeUnit
+  import org.waman.multiverse.unit.electrics.ChargeUnit
   import org.waman.multiverse.unit.basic.MassUnit
   val getSIUnit: ExposureUnit = ChargeUnit.getSIUnit / MassUnit.getSIUnit
 
@@ -41,6 +33,14 @@ object ExposureUnit{
   def getUnits: Seq[ExposureUnit] =
     Seq(roentgen)
 }
+
+/** For user defined units */
+class SimpleExposureUnit(val name: String, val symbol: String, val interval: Real) extends ExposureUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends ExposureUnit
 
 object ExposureUnitObjects{
 

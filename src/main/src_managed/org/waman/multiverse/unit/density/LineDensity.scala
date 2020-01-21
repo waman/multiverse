@@ -20,15 +20,7 @@ trait LineDensityUnit extends LinearUnit[LineDensityUnit]{
 
 }
 
-/** For user defined units */
-class SimpleLineDensityUnit(val name: String, val symbol: String, val interval: Real) extends LineDensityUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultLineDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends LineDensityUnit
-
-object LineDensityUnit{
+object LineDensityUnit extends UnitInfo[LineDensityUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](M -> 1, L -> -1).withDefaultValue(0)
@@ -41,6 +33,14 @@ object LineDensityUnit{
   def getUnits: Seq[LineDensityUnit] =
     Seq(denier, tex)
 }
+
+/** For user defined units */
+class SimpleLineDensityUnit(val name: String, val symbol: String, val interval: Real) extends LineDensityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultLineDensityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends LineDensityUnit
 
 object LineDensityUnitObjects{
 

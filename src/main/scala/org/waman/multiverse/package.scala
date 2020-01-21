@@ -8,37 +8,12 @@ import scala.annotation.tailrec
 
 package object multiverse {
 
-  def unitdefsVersion: String = UnitdefsProperties.version
+  def printUnitdefsVersion(): Unit = println(UnitdefsProperties.version)
 
-//  def help(): Unit = {
-//    println("***** Supported Quantities *****")
-//    printSupportedQuantities()
-//    println()
-//    println("For more info, execute the following command:")
-//    println("""  printSupportedUnits("<<Length etc.>>")""")
-//  }
-//
-//  def printSupportedQuantities(): Unit =
-//    UnitSystem.supportedQuantities.map(_.getSimpleName).foreach(println)
-//
-//  def printSupportedUnits(quantityName: String): Unit = {
-//    UnitSystem.supportedQuantities.find(_.getSimpleName == quantityName) match {
-//      case None => println(s"'$quantityName' is not supported")
-//
-//      case Some(c) =>
-//        val unitObjectClass = Class.forName(c.getName + "Unit$")
-//        val unitObject = unitObjectClass.getField("MODULE$").get(null)
-//        unitObject match {
-//          case cd: ConstantsDefined[_] =>
-//            cd.values
-//              .map(_.asInstanceOf[PhysicalUnit[_]])
-//              .map(_.toDetailString)
-//              .foreach(println)
-//
-//          case _ => println("No constant is defined: " + quantityName)
-//        }
-//    }
-//  }
+  def help(): Unit = {
+    println("Predefined Units:")
+    UnitdefsProperties.getUnitInfo.map(_.getClass.getName.replace("$", "")).foreach(println)
+  }
 
   def toReadableString(r: Real): String = r match {
     case _ if r.isWhole() => String.format("%,d", r.toRational.toBigInt.bigInteger)

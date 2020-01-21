@@ -20,15 +20,7 @@ trait SolidAngleUnit extends LinearUnit[SolidAngleUnit]{
 
 }
 
-/** For user defined units */
-class SimpleSolidAngleUnit(val name: String, val symbol: String, val interval: Real) extends SolidAngleUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultSolidAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends SolidAngleUnit
-
-object SolidAngleUnit{
+object SolidAngleUnit extends UnitInfo[SolidAngleUnit]{
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int]().withDefaultValue(0)
 
@@ -38,6 +30,14 @@ object SolidAngleUnit{
   def getUnits: Seq[SolidAngleUnit] =
     Seq(steradian, yoctosteradian, zeptosteradian, attosteradian, femtosteradian, picosteradian, nanosteradian, microsteradian, millisteradian, centisteradian, decisteradian, decasteradian, spat, square_degree)
 }
+
+/** For user defined units */
+class SimpleSolidAngleUnit(val name: String, val symbol: String, val interval: Real) extends SolidAngleUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultSolidAngleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends SolidAngleUnit
 
 object SolidAngleUnitObjects{
   import org.waman.multiverse.unit.Constants

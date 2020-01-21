@@ -20,15 +20,7 @@ trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
 
 }
 
-/** For user defined units */
-class SimpleRadioactivityUnit(val name: String, val symbol: String, val interval: Real) extends RadioactivityUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends RadioactivityUnit
-
-object RadioactivityUnit{
+object RadioactivityUnit extends UnitInfo[RadioactivityUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
@@ -39,6 +31,14 @@ object RadioactivityUnit{
   def getUnits: Seq[RadioactivityUnit] =
     Seq(becquerel, yoctobecquerel, zeptobecquerel, attobecquerel, femtobecquerel, picobecquerel, nanobecquerel, microbecquerel, millibecquerel, centibecquerel, decibecquerel, decabecquerel, hectobecquerel, kilobecquerel, megabecquerel, gigabecquerel, terabecquerel, petabecquerel, exabecquerel, zettabecquerel, yottabecquerel, curie, yoctocurie, zeptocurie, attocurie, femtocurie, picocurie, nanocurie, microcurie, millicurie, centicurie, decicurie, decacurie, hectocurie, kilocurie, megacurie, gigacurie, teracurie, petacurie, exacurie, zettacurie, yottacurie, rutherford)
 }
+
+/** For user defined units */
+class SimpleRadioactivityUnit(val name: String, val symbol: String, val interval: Real) extends RadioactivityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends RadioactivityUnit
 
 object RadioactivityUnitObjects{
 

@@ -51,15 +51,7 @@ trait MassUnit extends LinearUnit[MassUnit]{
 
 }
 
-/** For user defined units */
-class SimpleMassUnit(val name: String, val symbol: String, val interval: Real) extends MassUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends MassUnit
-
-object MassUnit{
+object MassUnit extends UnitInfo[MassUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](M -> 1).withDefaultValue(0)
@@ -70,6 +62,14 @@ object MassUnit{
   def getUnits: Seq[MassUnit] =
     Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, atomic_mass_unit, electron_mass, ounce, pound, long_ton, short_ton, scruple, carat, metric_carat, stone, dram_avoirdupois, grain, long_hundred_weight, short_hundred_weight, kip, ounce_avoirdupois, dram_troy, ounce_troy, pound_troy, pennyweight, long_assay_ton, short_assay_ton, slug)
 }
+
+/** For user defined units */
+class SimpleMassUnit(val name: String, val symbol: String, val interval: Real) extends MassUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends MassUnit
 
 object MassUnitObjects{
   import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects

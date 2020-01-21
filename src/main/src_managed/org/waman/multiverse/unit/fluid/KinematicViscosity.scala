@@ -20,15 +20,7 @@ trait KinematicViscosityUnit extends LinearUnit[KinematicViscosityUnit]{
 
 }
 
-/** For user defined units */
-class SimpleKinematicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends KinematicViscosityUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultKinematicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends KinematicViscosityUnit
-
-object KinematicViscosityUnit{
+object KinematicViscosityUnit extends UnitInfo[KinematicViscosityUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1, L -> 2).withDefaultValue(0)
@@ -41,6 +33,14 @@ object KinematicViscosityUnit{
   def getUnits: Seq[KinematicViscosityUnit] =
     Seq(stokes)
 }
+
+/** For user defined units */
+class SimpleKinematicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends KinematicViscosityUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultKinematicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends KinematicViscosityUnit
 
 object KinematicViscosityUnitObjects{
 

@@ -78,8 +78,8 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       generateGlobalImports(writer, jsons, op)
       generateQuantity(writer, jsons, op)
       generateUnitTrait(writer, jsons, op)
-      generateImplsOfUnitTrait(writer)
       generateUnitCompanionObject(writer, jsons, units)
+      generateImplsOfUnitTrait(writer)
       generateAttributes(writer, jsons, units)
       generateUnitObjects(writer, jsons, units)
       generateUnits(writer, jsons, units)
@@ -191,7 +191,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
   protected def generateImplsOfUnitTrait(writer: BW): Unit
 
   private def generateUnitCompanionObject(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
-    writer.write(s"""object ${id}Unit{\n""")
+    writer.write(s"""object ${id}Unit extends UnitInfo[${id}Unit]{\n""")
 
     //***** Dimension *****
     val entries = this.unitCategory.dimension.getEntries

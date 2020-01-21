@@ -27,15 +27,7 @@ trait VolumeUnit extends LinearUnit[VolumeUnit]{
 
 }
 
-/** For user defined units */
-class SimpleVolumeUnit(val name: String, val symbol: String, val interval: Real) extends VolumeUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends VolumeUnit
-
-object VolumeUnit{
+object VolumeUnit extends UnitInfo[VolumeUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](L -> 3).withDefaultValue(0)
@@ -46,6 +38,14 @@ object VolumeUnit{
   def getUnits: Seq[VolumeUnit] =
     Seq(cubic_metre, cubic_yoctometre, cubic_zeptometre, cubic_attometre, cubic_femtometre, cubic_picometre, cubic_nanometre, cubic_micrometre, cubic_millimetre, cubic_centimetre, cubic_decimetre, cubic_decametre, cubic_hectometre, cubic_kilometre, cubic_megametre, cubic_gigametre, cubic_terametre, cubic_petametre, cubic_exametre, cubic_zettametre, cubic_yottametre, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda, cubic_inch, cubic_foot, cubic_yard, cubic_fathom, cubic_mile, board_foot, gallon_beer, perch, minim, `minim(US)`, `minim(imp)`, fluid_ounce, `fluid_ounce(US)`, `fluid_ounce(imp)`, gill, `gill(US)`, `gill(imp)`, pint, `pint(US_fl)`, `pint(US_dry)`, `pint(imp)`, quart, `quart(US_fl)`, `quart(US_dry)`, `quart(imp)`, gallon, `gallon(US)`, `gallon(US_fl)`, `gallon(US_dry)`, `gallon(imp)`, peck, `peck(US_dry)`, `peck(imp)`, bushel, `bushel(US)`, `bushel(US_lvl)`, `bushel(imp)`, barrel, `barrel(US_fl)`, `barrel(US_dry)`, `barrel(imp)`, fluid_barrel, hogshead, `hogshead(US)`, `hogshead(imp)`, fluid_dram, `fluid_dram(US)`, `fluid_dram(imp)`, fluid_scruple, bucket)
 }
+
+/** For user defined units */
+class SimpleVolumeUnit(val name: String, val symbol: String, val interval: Real) extends VolumeUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends VolumeUnit
 
 object VolumeUnitObjects{
 

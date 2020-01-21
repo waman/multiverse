@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.unit.thermal.TemperatureUnit
-import org.waman.multiverse.unit.thermal.TemperatureUnits._
+import org.waman.multiverse.unit.thermodynamics.TemperatureUnit
+import org.waman.multiverse.unit.thermodynamics.TemperatureUnits._
 
 class HomogeneousUnitSpec extends MultiverseCustomSpec{
 

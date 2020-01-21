@@ -27,15 +27,7 @@ trait FrequencyUnit extends LinearUnit[FrequencyUnit]{
 
 }
 
-/** For user defined units */
-class SimpleFrequencyUnit(val name: String, val symbol: String, val interval: Real) extends FrequencyUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultFrequencyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends FrequencyUnit
-
-object FrequencyUnit{
+object FrequencyUnit extends UnitInfo[FrequencyUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
@@ -46,6 +38,14 @@ object FrequencyUnit{
   def getUnits: Seq[FrequencyUnit] =
     Seq(heltz, yoctoheltz, zeptoheltz, attoheltz, femtoheltz, picoheltz, nanoheltz, microheltz, milliheltz, centiheltz, deciheltz, decaheltz, hectoheltz, kiloheltz, megaheltz, gigaheltz, teraheltz, petaheltz, exaheltz, zettaheltz, yottaheltz)
 }
+
+/** For user defined units */
+class SimpleFrequencyUnit(val name: String, val symbol: String, val interval: Real) extends FrequencyUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultFrequencyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends FrequencyUnit
 
 object FrequencyUnitObjects{
 

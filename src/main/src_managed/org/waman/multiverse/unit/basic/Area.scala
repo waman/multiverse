@@ -32,15 +32,7 @@ trait AreaUnit extends LinearUnit[AreaUnit]{
 
 }
 
-/** For user defined units */
-class SimpleAreaUnit(val name: String, val symbol: String, val interval: Real) extends AreaUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends AreaUnit
-
-object AreaUnit{
+object AreaUnit extends UnitInfo[AreaUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](L -> 2).withDefaultValue(0)
@@ -51,6 +43,14 @@ object AreaUnit{
   def getUnits: Seq[AreaUnit] =
     Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, are, hectare, barn, yoctobarn, zeptobarn, attobarn, femtobarn, picobarn, nanobarn, microbarn, millibarn, kilobarn, megabarn, gigabarn, terabarn, petabarn, exabarn, zettabarn, yottabarn, square_mil, square_inch, square_link, `square_link(US)`, square_foot, `square_foot(US)`, square_chain, `square_chain(US)`, square_yard, square_rod, square_mile, `square_mile(US)`, acre, `acre(US)`, rood, circular_mil, circular_inch, board)
 }
+
+/** For user defined units */
+class SimpleAreaUnit(val name: String, val symbol: String, val interval: Real) extends AreaUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends AreaUnit
 
 object AreaUnitObjects{
   import org.waman.multiverse.unit.Constants

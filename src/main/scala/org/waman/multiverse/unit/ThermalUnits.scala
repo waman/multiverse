@@ -1,6 +1,6 @@
 package org.waman.multiverse.unit
 
-import org.waman.multiverse.unit.thermal._
+import org.waman.multiverse.unit.thermodynamics._
 import scala.reflect.runtime.{universe => ru}
 
 object ThermalUnits extends PhysicalUnitPredefProxy {

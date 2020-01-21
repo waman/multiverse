@@ -19,15 +19,7 @@ trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit]{
 
 }
 
-/** For user defined units */
-class SimpleTimeSquaredUnit(val name: String, val symbol: String, val interval: Real) extends TimeSquaredUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends TimeSquaredUnit
-
-object TimeSquaredUnit{
+object TimeSquaredUnit extends UnitInfo[TimeSquaredUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> 2).withDefaultValue(0)
@@ -39,6 +31,14 @@ object TimeSquaredUnit{
   def getUnits: Seq[TimeSquaredUnit] =
     Seq(second_squared, yoctosecond_squared, zeptosecond_squared, attosecond_squared, femtosecond_squared, picosecond_squared, nanosecond_squared, microsecond_squared, millisecond_squared, centisecond_squared, decisecond_squared)
 }
+
+/** For user defined units */
+class SimpleTimeSquaredUnit(val name: String, val symbol: String, val interval: Real) extends TimeSquaredUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends TimeSquaredUnit
 
 object TimeSquaredUnitObjects{
   import org.waman.multiverse.unit.basic.TimeUnitObjects

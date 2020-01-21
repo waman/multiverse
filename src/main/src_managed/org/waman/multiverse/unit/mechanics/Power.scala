@@ -5,10 +5,10 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
-import org.waman.multiverse.unit.electric.Current
-import org.waman.multiverse.unit.electric.CurrentUnit
-import org.waman.multiverse.unit.electric.Voltage
-import org.waman.multiverse.unit.electric.VoltageUnit
+import org.waman.multiverse.unit.electrics.Current
+import org.waman.multiverse.unit.electrics.CurrentUnit
+import org.waman.multiverse.unit.electrics.Voltage
+import org.waman.multiverse.unit.electrics.VoltageUnit
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
@@ -29,15 +29,7 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
 
 }
 
-/** For user defined units */
-class SimplePowerUnit(val name: String, val symbol: String, val interval: Real) extends PowerUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends PowerUnit
-
-object PowerUnit{
+object PowerUnit extends UnitInfo[PowerUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -3, M -> 1, L -> 2).withDefaultValue(0)
@@ -48,6 +40,14 @@ object PowerUnit{
   def getUnits: Seq[PowerUnit] =
     Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
 }
+
+/** For user defined units */
+class SimplePowerUnit(val name: String, val symbol: String, val interval: Real) extends PowerUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends PowerUnit
 
 object PowerUnitObjects{
 

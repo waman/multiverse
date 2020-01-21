@@ -19,15 +19,7 @@ trait EquivalentDoseRateUnit extends LinearUnit[EquivalentDoseRateUnit]{
 
 }
 
-/** For user defined units */
-class SimpleEquivalentDoseRateUnit(val name: String, val symbol: String, val interval: Real) extends EquivalentDoseRateUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends EquivalentDoseRateUnit
-
-object EquivalentDoseRateUnit{
+object EquivalentDoseRateUnit extends UnitInfo[EquivalentDoseRateUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -3, L -> 2).withDefaultValue(0)
@@ -38,6 +30,14 @@ object EquivalentDoseRateUnit{
   def getUnits: Seq[EquivalentDoseRateUnit] =
     Seq()
 }
+
+/** For user defined units */
+class SimpleEquivalentDoseRateUnit(val name: String, val symbol: String, val interval: Real) extends EquivalentDoseRateUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends EquivalentDoseRateUnit
 
 object EquivalentDoseRateUnitObjects{
 

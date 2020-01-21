@@ -20,15 +20,7 @@ trait ActionUnit extends LinearUnit[ActionUnit]{
 
 }
 
-/** For user defined units */
-class SimpleActionUnit(val name: String, val symbol: String, val interval: Real) extends ActionUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends ActionUnit
-
-object ActionUnit{
+object ActionUnit extends UnitInfo[ActionUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1, M -> 1, L -> 2).withDefaultValue(0)
@@ -40,6 +32,14 @@ object ActionUnit{
   def getUnits: Seq[ActionUnit] =
     Seq(planck_constant, reduced_planck_constant)
 }
+
+/** For user defined units */
+class SimpleActionUnit(val name: String, val symbol: String, val interval: Real) extends ActionUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends ActionUnit
 
 object ActionUnitObjects{
   import org.waman.multiverse.unit.Constants

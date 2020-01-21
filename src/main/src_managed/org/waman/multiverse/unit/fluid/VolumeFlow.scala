@@ -19,15 +19,7 @@ trait VolumeFlowUnit extends LinearUnit[VolumeFlowUnit]{
 
 }
 
-/** For user defined units */
-class SimpleVolumeFlowUnit(val name: String, val symbol: String, val interval: Real) extends VolumeFlowUnit {
-  override def aliases: Seq[String] = Nil
-}
-
-class DefaultVolumeFlowUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-  extends VolumeFlowUnit
-
-object VolumeFlowUnit{
+object VolumeFlowUnit extends UnitInfo[VolumeFlowUnit]{
   import DimensionSymbol._
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -1, L -> 3).withDefaultValue(0)
@@ -40,6 +32,14 @@ object VolumeFlowUnit{
   def getUnits: Seq[VolumeFlowUnit] =
     Seq(litre_per_minute, gallon_per_minute, gallon_per_hour, gallon_per_day, cubic_centimetre_per_second, cubic_centimetre_per_minute, cubic_foot_per_second, cubic_foot_per_minute, cubic_foot_per_hour)
 }
+
+/** For user defined units */
+class SimpleVolumeFlowUnit(val name: String, val symbol: String, val interval: Real) extends VolumeFlowUnit {
+  override def aliases: Seq[String] = Nil
+}
+
+class DefaultVolumeFlowUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+  extends VolumeFlowUnit
 
 object VolumeFlowUnitObjects{
   import org.waman.multiverse.unit.basic.VolumeUnitObjects
