@@ -47,7 +47,7 @@ case class Convertible(target: String, from: String, to: String, algorithm: Stri
 abstract class UnitDefinitionJson(val unitType: String, jsonFile: File, destDir: File, val subpackage: String)
   extends SourceGeneratorJson(jsonFile, destDir){
 
-  val id: String = jsonFile.getName.replace("Units.json", "")  // Length
+  val id: String = jsonFile.getName.replace(".json", "")  // Length
   val destFilename: String =  id + ".scala"// Length.scala
   val packageName: String = GenerationUtil.rootPackage + ".unit." + subpackage
 }
