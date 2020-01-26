@@ -64,11 +64,12 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: S
 
   override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
     writer.write(
-      s"""/** For user defined units */
+      s"""/** For no aliase or user defined units */
          |class Simple${id}Unit(val name: String, val symbol: String, val zero: Real, val interval: Real) extends ${id}Unit {
          |  override def aliases: Seq[String] = Nil
          |}
          |
+         |/** For units which has aliases */
          |class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val zero: Real, val interval: Real)
          |  extends ${id}Unit
          |
@@ -76,13 +77,18 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: S
   }
 
   override protected def generateUnitCaseObject(writer: BW, unit: HomogeneousUnit): Unit = {
-    val aliases =
-      if (unit.aliases.isEmpty) "Nil"
-      else unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+    if (unit.aliases.isEmpty){
+      // final case object kelvin extends SimpleTemperatureUnit("kelvin", "K", r"0", r"1")
+      writer.write(
+        s"""  final case object ${unit.objectName} extends Simple${id}Unit""" +
+          s"""("${unit.name}", "${unit.symbol}", ${unit.zero}, ${unit.interval})\n""")
 
-    // final case object kelvin extends DefaultTemperatureUnit("kelvin", "K", Nil, r"0", r"1")
-    writer.write(
-      s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
-        s"""("${unit.name}", "${unit.symbol}", $aliases, ${unit.zero}, ${unit.interval})\n""")
+    } else {
+      val aliases = unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+      // final case object kelvin extends DefaultTemperatureUnit("celsius", "°C", Seq("degC", "℃"), r"273.15", r"1")
+      writer.write(
+        s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
+          s"""("${unit.name}", "${unit.symbol}", $aliases, ${unit.zero}, ${unit.interval})\n""")
+    }
   }
 }

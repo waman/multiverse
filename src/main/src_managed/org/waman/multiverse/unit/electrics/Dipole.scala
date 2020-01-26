@@ -10,14 +10,12 @@ class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
     extends LinearQuantity[Dipole[A], A, DipoleUnit] {
 
   override protected def newQuantity(value: A, unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
-
 }
 
 trait DipoleUnit extends LinearUnit[DipoleUnit]{
 
   override def getSIUnit: DipoleUnit = DipoleUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = DipoleUnit.dimension
-
 }
 
 object DipoleUnit extends UnitInfo[DipoleUnit]{
@@ -33,19 +31,21 @@ object DipoleUnit extends UnitInfo[DipoleUnit]{
     Seq(debye, atomic_unit_of_electric_dipole_moment)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleDipoleUnit(val name: String, val symbol: String, val interval: Real) extends DipoleUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultDipoleUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends DipoleUnit
 
 object DipoleUnitObjects{
   import org.waman.multiverse.unit.Constants
+  import org.waman.multiverse.unit.electrics.ChargeUnitObjects._
 
-  final case object debye extends DefaultDipoleUnit("debye", "D", Nil, r"1e-20" * ChargeUnitObjects.statcoulomb.interval)
-  final case object atomic_unit_of_electric_dipole_moment extends DefaultDipoleUnit("atomic unit of electric dipole moment", "ea_0", Nil, Constants.BohrRadius) with NotExact
+  final case object debye extends SimpleDipoleUnit("debye", "D", r"1e-20" * statcoulomb.interval)
+  final case object atomic_unit_of_electric_dipole_moment extends SimpleDipoleUnit("atomic unit of electric dipole moment", "ea_0", Constants.BohrRadius) with NotExact
 }
 
 object DipoleUnits{

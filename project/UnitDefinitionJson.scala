@@ -60,15 +60,6 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
   def unitCategory: UC
 
-  protected def generateImportsOfExtraUnitTypes(writer: BW, jsons: JsonResources,
-                                                types: Seq[String], indentCount: Int, imported: String*): Unit = {
-    val indent = " " * indentCount
-    types.distinct.map(jsons.searchUnitDefinition).foreach{ ud =>
-      imported.filterNot(!_.contains("._") && ud.subpackage == this.subpackage)
-        .map(s => s"""${indent}import $rootPackage.unit.${ud.subpackage}.${ud.id}$s\n""").foreach(writer.write)
-    }
-  }
-
   protected def doGenerate(jsons: JsonResources): Unit = {
     IO.writer(this.destFile, "", utf8, append = false) { writer: BW =>
 
@@ -124,17 +115,24 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
     generateQuantityExtraContents(writer, jsons, op)
 
-    if (this.unitCategory._convertibles.filterNot(_.factor == null).exists(_.factor.contains("Constants")))
+    if (this.unitCategory._convertibles.filter(_.factor != null).exists(_.factor.contains("Constants")))
       writer.write(s"""  import $rootPackage.unit.Constants\n""")
 
     this.unitCategory._convertibles.foreach{ conv =>
-      generateImportsOfExtraUnitTypes(writer, jsons, Seq(conv.target), 2, "")
+      val targetUD = jsons.searchUnitDefinition(conv.target)
 
-      if (!conv.to.contains('.'))
-        generateImportsOfExtraUnitTypes(writer, jsons, Seq(conv.target), 2, "UnitObjects")
+      if (targetUD.subpackage != this.subpackage) {
+        writer.write(s"""  import $rootPackage.unit.${targetUD.subpackage}.${targetUD.id}\n""")
+
+        if (!conv.to.contains('.'))
+          writer.write(s"""  import $rootPackage.unit.${targetUD.subpackage}.${targetUD.id}UnitObjects\n""")
+      }
 
       val extraTypes = Seq(conv.from, conv.to).flatMap(extractUnitTypes)
-      generateImportsOfExtraUnitTypes(writer, jsons, extraTypes, 2, "UnitObjects")
+      foreachUnitDefinition(extraTypes.map(_._1), jsons){ ud =>
+        if (ud.subpackage != this.subpackage)
+          writer.write(s"""  import $rootPackage.unit.${ud.subpackage}.${ud.id}UnitObjects\n""")
+      }
 
       val from =
         if (conv.from.contains('.')) refineUnitNamesInConvertible(conv.from)
@@ -178,7 +176,6 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
          |
          |  override def getSIUnit: ${id}Unit = ${id}Unit.getSIUnit
          |  override def dimension: Map[DimensionSymbol, Int] = ${id}Unit.dimension
-         |
          |""".stripMargin)
 
     generateUnitTraitExtraContents(writer, jsons,op)
@@ -206,10 +203,12 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
     //***** SI Unit *****
     val siUnit = this.unitCategory.SIUnit
-    if (siUnit.contains('*') || siUnit.contains('/')) {
+    if (isCompositeUnit(siUnit)) {
       val regexCompositeUnit(first, op, second) = siUnit
-
-      generateImportsOfExtraUnitTypes(writer, jsons, List(first, second), 2, "Unit")
+      foreachUnitDefinition(List(first, second), jsons){ ud =>
+        if (ud.subpackage != this.subpackage)
+          writer.write(s"""  import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit\n""")
+      }
 
       writer.write(
         s"""  val getSIUnit: ${id}Unit = ${first}Unit.getSIUnit $op ${second}Unit.getSIUnit
@@ -243,10 +242,9 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       writer.write(s"""  import $rootPackage.unit.Constants\n""")
 
     val types = units.filter(_.baseUnit != null).map(_.baseUnit).flatMap(extractUnitTypes)
-    generateImportsOfExtraUnitTypes(writer, jsons, types, 2, "UnitObjects")
-
-    //    if (id == "TimeSquared")
-    //      writer.write(s"""  import $rootPackage.unit.basic.TimeUnitObjects\n""")
+    foreachUnitDefinition(types.map(_._1), jsons){ ud =>
+      writer.write(s"""  import $rootPackage.unit.${ud.subpackage}.${ud.id}UnitObjects._\n""")
+    }
 
     writer.write("\n")
 

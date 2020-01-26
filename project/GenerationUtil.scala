@@ -24,42 +24,51 @@ object GenerationUtil{
 
   private val regexUnitName: Regex = """[\w.()^\d]+""".r
 
-  def extractUnitTypes(s: String): Seq[String] = regexUnitName.findAllMatchIn(s).map{ m =>
+  def foreachUnitDefinition(ids: Seq[String], jsons: JsonResources)(f: UnitDefinitionJson => Unit): Unit =
+    ids.distinct.map(jsons.searchUnitDefinition).foreach(f)
+
+  /** "Length.metre / Time.second" => Seq((Length, metre), (Time, second)) */
+  def extractUnitTypes(s: String): Seq[(String, String)] = regexUnitName.findAllMatchIn(s).map{ m =>
     val str = s.substring(m.start, m.end)
     str.indexOf('.') match {
       case -1 => Nil
-      case i => Seq(str.substring(0, i))
+      case i => Seq((str.substring(0, i), str.substring(i+1)))
     }
   }.toSeq.flatten
 
-  def refineUnitNamesInBaseUnit(s: String): String = refineUnitNames(s, (prefix, unitName) => {
+  /** "Length.metre / Time.second" => "LengthUnitObjects.metre.interval / TimeUnitObjects.second.interval" */
+  def refineUnitNamesInBaseUnit(s: String): String = refineUnitNames(s, (id, unit) => {
     val (baseUN, power) =
-      if (unitName.endsWith("^2")) (unitName.substring(0, unitName.length-2), 2)
-      else if (unitName.endsWith("^3")) (unitName.substring(0, unitName.length-2), 3)
-      else (unitName, 1)
+      if (unit.endsWith("^2")) (unit.substring(0, unit.length-2), 2)
+      else if (unit.endsWith("^3")) (unit.substring(0, unit.length-2), 3)
+      else (unit, 1)
 
     val escapedUN = if (baseUN.contains('(')) s"`$baseUN`" else baseUN
 
     power match {
-      case 2 | 3 => s"$prefix$escapedUN.interval**$power"
-      case _ => s"$prefix$escapedUN.interval"
+      case 2 | 3 => s"$escapedUN.interval**$power"
+      case _ => s"$escapedUN.interval"
     }
   })
 
-  def refineUnitNamesInConvertible(s: String): String = refineUnitNames(s, (prefix, unitName) => {
-    val escapedUN = if (unitName.contains('(')) s"`$unitName`" else unitName
-    s"$prefix$escapedUN"
+  def refineUnitNamesInConvertible(s: String): String = refineUnitNames(s, (id, unit) => {
+    val escapedUN = if (unit.contains('(')) s"`$unit`" else unit
+    s"${id}UnitObjects.$escapedUN"
   })
+
+  def refineUnitNamesInUnitSystem(s: String): String = refineUnitNames(s, (_, unit) => unit)
 
   private def refineUnitNames(s: String, extraOperation: (String, String) => String): String =
     regexUnitName.replaceAllIn(s, m => {
       val str = s.substring(m.start, m.end)
-      val (prefix, unitName) = str.indexOf('.') match {
+      val (id, unit) = str.indexOf('.') match {
         case -1 => ("", str)
-        case i => (str.substring(0, i) + "UnitObjects.", str.substring(i + 1))
+        case i => (str.substring(0, i), str.substring(i + 1))
       }
-      extraOperation(prefix, unitName)
+      extraOperation(id, unit)
     })
+
+  def isCompositeUnit(s: String): Boolean = s.contains('*') || s.contains('/')
 
   def toSeq[A](array: Array[A]): Seq[A] = if (array != null) array.toList else Nil
 

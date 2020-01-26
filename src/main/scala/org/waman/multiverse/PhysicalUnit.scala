@@ -5,12 +5,16 @@ import spire.math.Real
 
 trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   def name: String
-  def dimension: Map[DimensionSymbol, Int]
+
   def symbol: String
   def aliases: Seq[String]
   /** Return <code>this.symbol +: this.aliases </code>*/
   def symbols: Seq[String] = symbol +: aliases
+
   def getSIUnit: U
+
+  /** Returen the unit dimension in SI unit */
+  def dimension: Map[DimensionSymbol, Int]
 }
 
 // Maybe only temperature

@@ -10,14 +10,12 @@ class Action[A: Fractional](val value: A, val unit: ActionUnit)
     extends LinearQuantity[Action[A], A, ActionUnit] {
 
   override protected def newQuantity(value: A, unit: ActionUnit): Action[A] = new Action(value, unit)
-
 }
 
 trait ActionUnit extends LinearUnit[ActionUnit]{
 
   override def getSIUnit: ActionUnit = ActionUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = ActionUnit.dimension
-
 }
 
 object ActionUnit extends UnitInfo[ActionUnit]{
@@ -33,19 +31,20 @@ object ActionUnit extends UnitInfo[ActionUnit]{
     Seq(planck_constant, reduced_planck_constant)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleActionUnit(val name: String, val symbol: String, val interval: Real) extends ActionUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultActionUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ActionUnit
 
 object ActionUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final case object planck_constant extends DefaultActionUnit("planck constant", "h", Nil, Constants.PlanckConstant)
-  final case object reduced_planck_constant extends DefaultActionUnit("reduced planck constant", "ħ", Nil, Constants.PlanckConstant / r"2.0" / Constants.Pi)
+  final case object planck_constant extends SimpleActionUnit("planck constant", "h", Constants.PlanckConstant)
+  final case object reduced_planck_constant extends SimpleActionUnit("reduced planck constant", "ħ", Constants.PlanckConstant / r"2.0" / Constants.Pi)
 }
 
 object ActionUnits{

@@ -10,14 +10,12 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
     extends LinearQuantity[Acceleration[A], A, AccelerationUnit] {
 
   override protected def newQuantity(value: A, unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
-
 }
 
 trait AccelerationUnit extends LinearUnit[AccelerationUnit]{
 
   override def getSIUnit: AccelerationUnit = AccelerationUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = AccelerationUnit.dimension
-
 }
 
 object AccelerationUnit extends UnitInfo[AccelerationUnit]{
@@ -33,17 +31,18 @@ object AccelerationUnit extends UnitInfo[AccelerationUnit]{
     Seq(standard_gravity)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleAccelerationUnit(val name: String, val symbol: String, val interval: Real) extends AccelerationUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AccelerationUnit
 
 object AccelerationUnitObjects{
 
-  final case object standard_gravity extends DefaultAccelerationUnit("standard gravity", "g_0", Nil, r"9.80665")
+  final case object standard_gravity extends SimpleAccelerationUnit("standard gravity", "g_0", r"9.80665")
 }
 
 object AccelerationUnits{

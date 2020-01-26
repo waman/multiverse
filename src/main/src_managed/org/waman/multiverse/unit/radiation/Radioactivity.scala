@@ -10,14 +10,12 @@ class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
-
 }
 
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
 
   override def getSIUnit: RadioactivityUnit = RadioactivityUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = RadioactivityUnit.dimension
-
 }
 
 object RadioactivityUnit extends UnitInfo[RadioactivityUnit]{
@@ -32,59 +30,60 @@ object RadioactivityUnit extends UnitInfo[RadioactivityUnit]{
     Seq(becquerel, yoctobecquerel, zeptobecquerel, attobecquerel, femtobecquerel, picobecquerel, nanobecquerel, microbecquerel, millibecquerel, centibecquerel, decibecquerel, decabecquerel, hectobecquerel, kilobecquerel, megabecquerel, gigabecquerel, terabecquerel, petabecquerel, exabecquerel, zettabecquerel, yottabecquerel, curie, yoctocurie, zeptocurie, attocurie, femtocurie, picocurie, nanocurie, microcurie, millicurie, centicurie, decicurie, decacurie, hectocurie, kilocurie, megacurie, gigacurie, teracurie, petacurie, exacurie, zettacurie, yottacurie, rutherford)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleRadioactivityUnit(val name: String, val symbol: String, val interval: Real) extends RadioactivityUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends RadioactivityUnit
 
 object RadioactivityUnitObjects{
 
-  final case object becquerel extends DefaultRadioactivityUnit("becquerel", "Bq", Nil, 1)
-  final case object yoctobecquerel extends DefaultRadioactivityUnit("yoctobecquerel", "yBq", Nil, r"1e-24")
-  final case object zeptobecquerel extends DefaultRadioactivityUnit("zeptobecquerel", "zBq", Nil, r"1e-21")
-  final case object attobecquerel extends DefaultRadioactivityUnit("attobecquerel", "aBq", Nil, r"1e-18")
-  final case object femtobecquerel extends DefaultRadioactivityUnit("femtobecquerel", "fBq", Nil, r"1e-15")
-  final case object picobecquerel extends DefaultRadioactivityUnit("picobecquerel", "pBq", Nil, r"1e-12")
-  final case object nanobecquerel extends DefaultRadioactivityUnit("nanobecquerel", "nBq", Nil, r"1e-9")
+  final case object becquerel extends SimpleRadioactivityUnit("becquerel", "Bq", 1)
+  final case object yoctobecquerel extends SimpleRadioactivityUnit("yoctobecquerel", "yBq", r"1e-24")
+  final case object zeptobecquerel extends SimpleRadioactivityUnit("zeptobecquerel", "zBq", r"1e-21")
+  final case object attobecquerel extends SimpleRadioactivityUnit("attobecquerel", "aBq", r"1e-18")
+  final case object femtobecquerel extends SimpleRadioactivityUnit("femtobecquerel", "fBq", r"1e-15")
+  final case object picobecquerel extends SimpleRadioactivityUnit("picobecquerel", "pBq", r"1e-12")
+  final case object nanobecquerel extends SimpleRadioactivityUnit("nanobecquerel", "nBq", r"1e-9")
   final case object microbecquerel extends DefaultRadioactivityUnit("microbecquerel", "μBq", Seq("mcBq"), r"1e-6")
-  final case object millibecquerel extends DefaultRadioactivityUnit("millibecquerel", "mBq", Nil, r"1e-3")
-  final case object centibecquerel extends DefaultRadioactivityUnit("centibecquerel", "cBq", Nil, r"1e-2")
-  final case object decibecquerel extends DefaultRadioactivityUnit("decibecquerel", "dBq", Nil, r"1e-1")
-  final case object decabecquerel extends DefaultRadioactivityUnit("decabecquerel", "daBq", Nil, r"1e1")
-  final case object hectobecquerel extends DefaultRadioactivityUnit("hectobecquerel", "hBq", Nil, r"1e2")
+  final case object millibecquerel extends SimpleRadioactivityUnit("millibecquerel", "mBq", r"1e-3")
+  final case object centibecquerel extends SimpleRadioactivityUnit("centibecquerel", "cBq", r"1e-2")
+  final case object decibecquerel extends SimpleRadioactivityUnit("decibecquerel", "dBq", r"1e-1")
+  final case object decabecquerel extends SimpleRadioactivityUnit("decabecquerel", "daBq", r"1e1")
+  final case object hectobecquerel extends SimpleRadioactivityUnit("hectobecquerel", "hBq", r"1e2")
   final case object kilobecquerel extends DefaultRadioactivityUnit("kilobecquerel", "kBq", Seq("KBq"), r"1e3")
-  final case object megabecquerel extends DefaultRadioactivityUnit("megabecquerel", "MBq", Nil, r"1e6")
-  final case object gigabecquerel extends DefaultRadioactivityUnit("gigabecquerel", "GBq", Nil, r"1e9")
-  final case object terabecquerel extends DefaultRadioactivityUnit("terabecquerel", "TBq", Nil, r"1e12")
-  final case object petabecquerel extends DefaultRadioactivityUnit("petabecquerel", "PBq", Nil, r"1e15")
-  final case object exabecquerel extends DefaultRadioactivityUnit("exabecquerel", "EBq", Nil, r"1e18")
-  final case object zettabecquerel extends DefaultRadioactivityUnit("zettabecquerel", "ZBq", Nil, r"1e21")
-  final case object yottabecquerel extends DefaultRadioactivityUnit("yottabecquerel", "YBq", Nil, r"1e24")
-  final case object curie extends DefaultRadioactivityUnit("curie", "Ci", Nil, r"3.7e10")
-  final case object yoctocurie extends DefaultRadioactivityUnit("yoctocurie", "yCi", Nil, r"3.7e10" * r"1e-24")
-  final case object zeptocurie extends DefaultRadioactivityUnit("zeptocurie", "zCi", Nil, r"3.7e10" * r"1e-21")
-  final case object attocurie extends DefaultRadioactivityUnit("attocurie", "aCi", Nil, r"3.7e10" * r"1e-18")
-  final case object femtocurie extends DefaultRadioactivityUnit("femtocurie", "fCi", Nil, r"3.7e10" * r"1e-15")
-  final case object picocurie extends DefaultRadioactivityUnit("picocurie", "pCi", Nil, r"3.7e10" * r"1e-12")
-  final case object nanocurie extends DefaultRadioactivityUnit("nanocurie", "nCi", Nil, r"3.7e10" * r"1e-9")
+  final case object megabecquerel extends SimpleRadioactivityUnit("megabecquerel", "MBq", r"1e6")
+  final case object gigabecquerel extends SimpleRadioactivityUnit("gigabecquerel", "GBq", r"1e9")
+  final case object terabecquerel extends SimpleRadioactivityUnit("terabecquerel", "TBq", r"1e12")
+  final case object petabecquerel extends SimpleRadioactivityUnit("petabecquerel", "PBq", r"1e15")
+  final case object exabecquerel extends SimpleRadioactivityUnit("exabecquerel", "EBq", r"1e18")
+  final case object zettabecquerel extends SimpleRadioactivityUnit("zettabecquerel", "ZBq", r"1e21")
+  final case object yottabecquerel extends SimpleRadioactivityUnit("yottabecquerel", "YBq", r"1e24")
+  final case object curie extends SimpleRadioactivityUnit("curie", "Ci", r"3.7e10")
+  final case object yoctocurie extends SimpleRadioactivityUnit("yoctocurie", "yCi", r"3.7e10" * r"1e-24")
+  final case object zeptocurie extends SimpleRadioactivityUnit("zeptocurie", "zCi", r"3.7e10" * r"1e-21")
+  final case object attocurie extends SimpleRadioactivityUnit("attocurie", "aCi", r"3.7e10" * r"1e-18")
+  final case object femtocurie extends SimpleRadioactivityUnit("femtocurie", "fCi", r"3.7e10" * r"1e-15")
+  final case object picocurie extends SimpleRadioactivityUnit("picocurie", "pCi", r"3.7e10" * r"1e-12")
+  final case object nanocurie extends SimpleRadioactivityUnit("nanocurie", "nCi", r"3.7e10" * r"1e-9")
   final case object microcurie extends DefaultRadioactivityUnit("microcurie", "μCi", Seq("mcCi"), r"3.7e10" * r"1e-6")
-  final case object millicurie extends DefaultRadioactivityUnit("millicurie", "mCi", Nil, r"3.7e10" * r"1e-3")
-  final case object centicurie extends DefaultRadioactivityUnit("centicurie", "cCi", Nil, r"3.7e10" * r"1e-2")
-  final case object decicurie extends DefaultRadioactivityUnit("decicurie", "dCi", Nil, r"3.7e10" * r"1e-1")
-  final case object decacurie extends DefaultRadioactivityUnit("decacurie", "daCi", Nil, r"3.7e10" * r"1e1")
-  final case object hectocurie extends DefaultRadioactivityUnit("hectocurie", "hCi", Nil, r"3.7e10" * r"1e2")
+  final case object millicurie extends SimpleRadioactivityUnit("millicurie", "mCi", r"3.7e10" * r"1e-3")
+  final case object centicurie extends SimpleRadioactivityUnit("centicurie", "cCi", r"3.7e10" * r"1e-2")
+  final case object decicurie extends SimpleRadioactivityUnit("decicurie", "dCi", r"3.7e10" * r"1e-1")
+  final case object decacurie extends SimpleRadioactivityUnit("decacurie", "daCi", r"3.7e10" * r"1e1")
+  final case object hectocurie extends SimpleRadioactivityUnit("hectocurie", "hCi", r"3.7e10" * r"1e2")
   final case object kilocurie extends DefaultRadioactivityUnit("kilocurie", "kCi", Seq("KCi"), r"3.7e10" * r"1e3")
-  final case object megacurie extends DefaultRadioactivityUnit("megacurie", "MCi", Nil, r"3.7e10" * r"1e6")
-  final case object gigacurie extends DefaultRadioactivityUnit("gigacurie", "GCi", Nil, r"3.7e10" * r"1e9")
-  final case object teracurie extends DefaultRadioactivityUnit("teracurie", "TCi", Nil, r"3.7e10" * r"1e12")
-  final case object petacurie extends DefaultRadioactivityUnit("petacurie", "PCi", Nil, r"3.7e10" * r"1e15")
-  final case object exacurie extends DefaultRadioactivityUnit("exacurie", "ECi", Nil, r"3.7e10" * r"1e18")
-  final case object zettacurie extends DefaultRadioactivityUnit("zettacurie", "ZCi", Nil, r"3.7e10" * r"1e21")
-  final case object yottacurie extends DefaultRadioactivityUnit("yottacurie", "YCi", Nil, r"3.7e10" * r"1e24")
-  final case object rutherford extends DefaultRadioactivityUnit("rutherford", "Rd", Nil, megabecquerel.interval)
+  final case object megacurie extends SimpleRadioactivityUnit("megacurie", "MCi", r"3.7e10" * r"1e6")
+  final case object gigacurie extends SimpleRadioactivityUnit("gigacurie", "GCi", r"3.7e10" * r"1e9")
+  final case object teracurie extends SimpleRadioactivityUnit("teracurie", "TCi", r"3.7e10" * r"1e12")
+  final case object petacurie extends SimpleRadioactivityUnit("petacurie", "PCi", r"3.7e10" * r"1e15")
+  final case object exacurie extends SimpleRadioactivityUnit("exacurie", "ECi", r"3.7e10" * r"1e18")
+  final case object zettacurie extends SimpleRadioactivityUnit("zettacurie", "ZCi", r"3.7e10" * r"1e21")
+  final case object yottacurie extends SimpleRadioactivityUnit("yottacurie", "YCi", r"3.7e10" * r"1e24")
+  final case object rutherford extends SimpleRadioactivityUnit("rutherford", "Rd", megabecquerel.interval)
 }
 
 object RadioactivityUnits{

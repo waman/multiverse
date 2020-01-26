@@ -152,7 +152,15 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
 
   override def generateExtraGlobalImports(writer: BW, jsons: JsonResources, op: OperationInfo): Unit = {
     val ops = op.ops.flatMap(p => Seq(p._1, p._2)).map(_.id)
-    generateImportsOfExtraUnitTypes(writer, jsons, ops, 0, "", "Unit")
+    foreachUnitDefinition(ops, jsons){ ud =>
+      if (ud.subpackage != this.subpackage) {
+        writer.write(
+          s"""import $rootPackage.unit.${ud.subpackage}.${ud.id}
+             |import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit
+             |
+             |""".stripMargin)
+      }
+    }
   }
 
   override protected def parentQuantityDecl: String = s"""LinearQuantity[$id[A], A, ${id}Unit]"""
@@ -160,7 +168,6 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
   override protected def generateQuantityExtraContents(writer: BW, jsons: JsonResources, op: OperationInfo): Unit = {
     writer.write(
       s"""  override protected def newQuantity(value: A, unit: ${id}Unit): $id[A] = new $id(value, unit)
-         |
          |""".stripMargin)
 
     op.mul.foreach(generateQuantityMultiplication(writer, _))
@@ -170,8 +177,8 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
       val resultType = p._2.id
       val denoId = headToLower(denoType)
       writer.write(
-        s"""  def /($denoId: $denoType[A]): $resultType[A] = new $resultType(this.value / $denoId.value, this.unit / $denoId.unit)
-           |
+        s"""
+           |  def /($denoId: $denoType[A]): $resultType[A] = new $resultType(this.value / $denoId.value, this.unit / $denoId.unit)
            |""".stripMargin)
     }
   }
@@ -181,8 +188,8 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
     val resultType = p._2.id
     val secondId = headToLower(secondType)
     writer.write(
-      s"""  def *($secondId: $secondType[A]): $resultType[A] = new $resultType(this.value * $secondId.value, this.unit * $secondId.unit)
-         |
+      s"""
+         |  def *($secondId: $secondType[A]): $resultType[A] = new $resultType(this.value * $secondId.value, this.unit * $secondId.unit)
          |""".stripMargin)
   }
 
@@ -195,24 +202,11 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
       val resultType = p._2.id
       val denoId = headToLower(denoType)
       writer.write(
-        s"""  def /(${denoId}Unit: ${denoType}Unit): ${resultType}Unit =
+        s"""
+           |  def /(${denoId}Unit: ${denoType}Unit): ${resultType}Unit =
            |    new AbstractQuotientUnit[${resultType}Unit, ${id}Unit, ${denoType}Unit](${id}Unit.this, ${denoId}Unit) with ${resultType}Unit
-           |
            |""".stripMargin)
     }
-  }
-
-  override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
-    writer.write(
-      s"""/** For user defined units */
-         |class Simple${id}Unit(val name: String, val symbol: String, val interval: Real) extends ${id}Unit {
-         |  override def aliases: Seq[String] = Nil
-         |}
-         |
-         |class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
-         |  extends ${id}Unit
-         |
-         |""".stripMargin)
   }
 
   protected def generateUnitMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
@@ -220,8 +214,22 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
     val resultType = p._2.id
     val secondId = headToLower(secondType)
     writer.write(
-      s"""  def *(${secondId}Unit: ${secondType}Unit): ${resultType}Unit =
+      s"""
+         |  def *(${secondId}Unit: ${secondType}Unit): ${resultType}Unit =
          |    new AbstractProductUnit[${resultType}Unit, ${id}Unit, ${secondType}Unit](${id}Unit.this, ${secondId}Unit) with ${resultType}Unit
+         |""".stripMargin)
+  }
+
+  override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
+    writer.write(
+      s"""/** For no aliase or user defined units */
+         |class Simple${id}Unit(val name: String, val symbol: String, val interval: Real) extends ${id}Unit {
+         |  override def aliases: Seq[String] = Nil
+         |}
+         |
+         |/** For units which has aliases */
+         |class Default${id}Unit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
+         |  extends ${id}Unit
          |
          |""".stripMargin)
   }
@@ -252,20 +260,21 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
     units.filter(_.attributes.nonEmpty)
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
-    val aliases =
-      if (unit.aliases.isEmpty) "Nil"
-      else unit.aliases.mkString("Seq(\"", "\", \"", "\")")
-
     val interval = makeIntervalExpression(unit.interval, unit.baseUnit)
+    val notExact = if (!unit.notExact) "" else " with NotExact"
 
-    val notExact =
-      if (!unit.notExact) ""
-      else " with NotExact"
-
-    // final case object metre extends DefaultLengthUnit("metre", "m", Nil, r"1")
-    writer.write(
-      s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
-        s"""("${unit.name}", "${unit.symbol}", $aliases, $interval)$notExact\n""")
+    if (unit.aliases.isEmpty){
+      // final case object metre extends SimpleLengthUnit("metre", "m", Nil, r"1")
+      writer.write(
+        s"""  final case object ${unit.objectName} extends Simple${id}Unit""" +
+          s"""("${unit.name}", "${unit.symbol}", $interval)$notExact\n""")
+    }else{
+      // final case object metre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), r"1e-6")
+      val aliases = unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+      writer.write(
+        s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
+          s"""("${unit.name}", "${unit.symbol}", $aliases, $interval)$notExact\n""")
+    }
   }
 }
 
@@ -294,11 +303,10 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
           |      override def aliases: Seq[String] = LengthUnit.this.symbols.map(_+".squared")
           |
           |      override def *(lengthUnit: LengthUnit): VolumeUnit = {
-          |        if (lengthUnit == LengthUnit.this){
+          |        if (lengthUnit == LengthUnit.this)
           |          LengthUnit.this.cubic
-          |        } else {
+          |        else
           |          super.*(lengthUnit)
-          |        }
           |      }
           |    }
           |
@@ -322,7 +330,7 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
     }
 
   override protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[LinearUnit]): Seq[LinearUnit] =
-    jsons.linearUnitDefs.filter(lud => lud.id == "Length" || lud.id == "Area" || lud.id == "Volume")
+    jsons.linearUnitDefs.filter(ud => ud.id == "Length" || ud.id == "Area" || ud.id == "Volume")
       .flatMap(_.unitCategory._units.filter(_._attributes.nonEmpty).map(_.toLinearUnit))
 }
 

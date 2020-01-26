@@ -8,13 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
 
+
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends LinearQuantity[Velocity[A], A, VelocityUnit] {
 
   override protected def newQuantity(value: A, unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
 
   def /(time: Time[A]): Acceleration[A] = new Acceleration(this.value / time.value, this.unit / time.unit)
-
 }
 
 trait VelocityUnit extends LinearUnit[VelocityUnit]{
@@ -24,7 +24,6 @@ trait VelocityUnit extends LinearUnit[VelocityUnit]{
 
   def /(timeUnit: TimeUnit): AccelerationUnit =
     new AbstractQuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit](VelocityUnit.this, timeUnit) with AccelerationUnit
-
 }
 
 object VelocityUnit extends UnitInfo[VelocityUnit]{
@@ -39,19 +38,20 @@ object VelocityUnit extends UnitInfo[VelocityUnit]{
     Seq(speed_of_light, mach_number)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleVelocityUnit(val name: String, val symbol: String, val interval: Real) extends VelocityUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends VelocityUnit
 
 object VelocityUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final case object speed_of_light extends DefaultVelocityUnit("speed of light", "c", Nil, Constants.SpeedOfLight)
-  final case object mach_number extends DefaultVelocityUnit("mach number", "M", Nil, r"340") with NotExact
+  final case object speed_of_light extends SimpleVelocityUnit("speed of light", "c", Constants.SpeedOfLight)
+  final case object mach_number extends SimpleVelocityUnit("mach number", "M", r"340") with NotExact
 }
 
 object VelocityUnits{

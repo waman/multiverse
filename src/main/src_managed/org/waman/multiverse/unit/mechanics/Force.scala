@@ -7,12 +7,16 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
+
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
+
 import org.waman.multiverse.unit.fluid.Pressure
 import org.waman.multiverse.unit.fluid.PressureUnit
+
 
 class Force[A: Fractional](val value: A, val unit: ForceUnit)
     extends LinearQuantity[Force[A], A, ForceUnit] {
@@ -24,7 +28,6 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
   def *(length: Length[A]): Torque[A] = new Torque(this.value * length.value, this.unit * length.unit)
 
   def /(area: Area[A]): Pressure[A] = new Pressure(this.value / area.value, this.unit / area.unit)
-
 }
 
 trait ForceUnit extends LinearUnit[ForceUnit]{
@@ -40,7 +43,6 @@ trait ForceUnit extends LinearUnit[ForceUnit]{
 
   def /(areaUnit: AreaUnit): PressureUnit =
     new AbstractQuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit
-
 }
 
 object ForceUnit extends UnitInfo[ForceUnit]{
@@ -55,49 +57,51 @@ object ForceUnit extends UnitInfo[ForceUnit]{
     Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, kilogram_force, milligrave_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleForceUnit(val name: String, val symbol: String, val interval: Real) extends ForceUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ForceUnit
 
 object ForceUnitObjects{
-  import org.waman.multiverse.unit.basic.MassUnitObjects
-  import org.waman.multiverse.unit.basic.LengthUnitObjects
+  import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects._
+  import org.waman.multiverse.unit.basic.MassUnitObjects._
+  import org.waman.multiverse.unit.basic.LengthUnitObjects._
 
-  final case object newton extends DefaultForceUnit("newton", "N", Nil, 1)
-  final case object yoctonewton extends DefaultForceUnit("yoctonewton", "yN", Nil, r"1e-24")
-  final case object zeptonewton extends DefaultForceUnit("zeptonewton", "zN", Nil, r"1e-21")
-  final case object attonewton extends DefaultForceUnit("attonewton", "aN", Nil, r"1e-18")
-  final case object femtonewton extends DefaultForceUnit("femtonewton", "fN", Nil, r"1e-15")
-  final case object piconewton extends DefaultForceUnit("piconewton", "pN", Nil, r"1e-12")
-  final case object nanonewton extends DefaultForceUnit("nanonewton", "nN", Nil, r"1e-9")
+  final case object newton extends SimpleForceUnit("newton", "N", 1)
+  final case object yoctonewton extends SimpleForceUnit("yoctonewton", "yN", r"1e-24")
+  final case object zeptonewton extends SimpleForceUnit("zeptonewton", "zN", r"1e-21")
+  final case object attonewton extends SimpleForceUnit("attonewton", "aN", r"1e-18")
+  final case object femtonewton extends SimpleForceUnit("femtonewton", "fN", r"1e-15")
+  final case object piconewton extends SimpleForceUnit("piconewton", "pN", r"1e-12")
+  final case object nanonewton extends SimpleForceUnit("nanonewton", "nN", r"1e-9")
   final case object micronewton extends DefaultForceUnit("micronewton", "μN", Seq("mcN"), r"1e-6")
-  final case object millinewton extends DefaultForceUnit("millinewton", "mN", Nil, r"1e-3")
-  final case object centinewton extends DefaultForceUnit("centinewton", "cN", Nil, r"1e-2")
-  final case object decinewton extends DefaultForceUnit("decinewton", "dN", Nil, r"1e-1")
-  final case object decanewton extends DefaultForceUnit("decanewton", "daN", Nil, r"1e1")
-  final case object hectonewton extends DefaultForceUnit("hectonewton", "hN", Nil, r"1e2")
+  final case object millinewton extends SimpleForceUnit("millinewton", "mN", r"1e-3")
+  final case object centinewton extends SimpleForceUnit("centinewton", "cN", r"1e-2")
+  final case object decinewton extends SimpleForceUnit("decinewton", "dN", r"1e-1")
+  final case object decanewton extends SimpleForceUnit("decanewton", "daN", r"1e1")
+  final case object hectonewton extends SimpleForceUnit("hectonewton", "hN", r"1e2")
   final case object kilonewton extends DefaultForceUnit("kilonewton", "kN", Seq("KN"), r"1e3")
-  final case object meganewton extends DefaultForceUnit("meganewton", "MN", Nil, r"1e6")
-  final case object giganewton extends DefaultForceUnit("giganewton", "GN", Nil, r"1e9")
-  final case object teranewton extends DefaultForceUnit("teranewton", "TN", Nil, r"1e12")
-  final case object petanewton extends DefaultForceUnit("petanewton", "PN", Nil, r"1e15")
-  final case object exanewton extends DefaultForceUnit("exanewton", "EN", Nil, r"1e18")
-  final case object zettanewton extends DefaultForceUnit("zettanewton", "ZN", Nil, r"1e21")
-  final case object yottanewton extends DefaultForceUnit("yottanewton", "YN", Nil, r"1e24")
-  final case object dyne extends DefaultForceUnit("dyne", "dyn", Nil, r"1e-5")
-  final case object kilogram_force extends DefaultForceUnit("kilogram force", "kgf", Seq("kp", "Gf"), AccelerationUnitObjects.standard_gravity.interval) with NotExact
-  final case object milligrave_force extends DefaultForceUnit("milligrave force", "mGf", Seq("gf"), r"1e-3" * AccelerationUnitObjects.standard_gravity.interval) with NotExact
-  final case object ounce_force extends DefaultForceUnit("ounce force", "ozf", Nil, MassUnitObjects.ounce.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object pound_force extends DefaultForceUnit("pound force", "lbf", Nil, MassUnitObjects.pound.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object poundal extends DefaultForceUnit("poundal", "pdl", Nil, MassUnitObjects.pound.interval * LengthUnitObjects.foot.interval)
-  final case object kip_force extends DefaultForceUnit("kip force", "kipf", Seq("klbf"), r"1000" * MassUnitObjects.pound.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object short_ton_force extends DefaultForceUnit("short ton force", "sh_tnf", Nil, MassUnitObjects.short_ton.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object long_ton_force extends DefaultForceUnit("long ton force", "tnf", Seq("long_tnf"), MassUnitObjects.long_ton.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object sthene extends DefaultForceUnit("sthene", "sn", Nil, r"1e3")
+  final case object meganewton extends SimpleForceUnit("meganewton", "MN", r"1e6")
+  final case object giganewton extends SimpleForceUnit("giganewton", "GN", r"1e9")
+  final case object teranewton extends SimpleForceUnit("teranewton", "TN", r"1e12")
+  final case object petanewton extends SimpleForceUnit("petanewton", "PN", r"1e15")
+  final case object exanewton extends SimpleForceUnit("exanewton", "EN", r"1e18")
+  final case object zettanewton extends SimpleForceUnit("zettanewton", "ZN", r"1e21")
+  final case object yottanewton extends SimpleForceUnit("yottanewton", "YN", r"1e24")
+  final case object dyne extends SimpleForceUnit("dyne", "dyn", r"1e-5")
+  final case object kilogram_force extends DefaultForceUnit("kilogram force", "kgf", Seq("kp", "Gf"), standard_gravity.interval) with NotExact
+  final case object milligrave_force extends DefaultForceUnit("milligrave force", "mGf", Seq("gf"), r"1e-3" * standard_gravity.interval) with NotExact
+  final case object ounce_force extends SimpleForceUnit("ounce force", "ozf", ounce.interval * standard_gravity.interval)
+  final case object pound_force extends SimpleForceUnit("pound force", "lbf", pound.interval * standard_gravity.interval)
+  final case object poundal extends SimpleForceUnit("poundal", "pdl", pound.interval * foot.interval)
+  final case object kip_force extends DefaultForceUnit("kip force", "kipf", Seq("klbf"), r"1000" * pound.interval * standard_gravity.interval)
+  final case object short_ton_force extends SimpleForceUnit("short ton force", "sh_tnf", short_ton.interval * standard_gravity.interval)
+  final case object long_ton_force extends DefaultForceUnit("long ton force", "tnf", Seq("long_tnf"), long_ton.interval * standard_gravity.interval)
+  final case object sthene extends SimpleForceUnit("sthene", "sn", r"1e3")
 }
 
 object ForceUnits{

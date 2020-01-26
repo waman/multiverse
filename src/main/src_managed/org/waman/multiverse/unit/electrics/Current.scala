@@ -8,6 +8,7 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
 class Current[A: Fractional](val value: A, val unit: CurrentUnit)
     extends LinearQuantity[Current[A], A, CurrentUnit] {
 
@@ -16,7 +17,6 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
   def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
 
   def /(voltage: Voltage[A]): Conductance[A] = new Conductance(this.value / voltage.value, this.unit / voltage.unit)
-
 }
 
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
@@ -29,7 +29,6 @@ trait CurrentUnit extends LinearUnit[CurrentUnit]{
 
   def /(voltageUnit: VoltageUnit): ConductanceUnit =
     new AbstractQuotientUnit[ConductanceUnit, CurrentUnit, VoltageUnit](CurrentUnit.this, voltageUnit) with ConductanceUnit
-
 }
 
 object CurrentUnit extends UnitInfo[CurrentUnit]{
@@ -44,38 +43,39 @@ object CurrentUnit extends UnitInfo[CurrentUnit]{
     Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleCurrentUnit(val name: String, val symbol: String, val interval: Real) extends CurrentUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends CurrentUnit
 
 object CurrentUnitObjects{
 
-  final case object ampere extends DefaultCurrentUnit("ampere", "A", Nil, 1)
-  final case object yoctoampere extends DefaultCurrentUnit("yoctoampere", "yA", Nil, r"1e-24")
-  final case object zeptoampere extends DefaultCurrentUnit("zeptoampere", "zA", Nil, r"1e-21")
-  final case object attoampere extends DefaultCurrentUnit("attoampere", "aA", Nil, r"1e-18")
-  final case object femtoampere extends DefaultCurrentUnit("femtoampere", "fA", Nil, r"1e-15")
-  final case object picoampere extends DefaultCurrentUnit("picoampere", "pA", Nil, r"1e-12")
-  final case object nanoampere extends DefaultCurrentUnit("nanoampere", "nA", Nil, r"1e-9")
+  final case object ampere extends SimpleCurrentUnit("ampere", "A", 1)
+  final case object yoctoampere extends SimpleCurrentUnit("yoctoampere", "yA", r"1e-24")
+  final case object zeptoampere extends SimpleCurrentUnit("zeptoampere", "zA", r"1e-21")
+  final case object attoampere extends SimpleCurrentUnit("attoampere", "aA", r"1e-18")
+  final case object femtoampere extends SimpleCurrentUnit("femtoampere", "fA", r"1e-15")
+  final case object picoampere extends SimpleCurrentUnit("picoampere", "pA", r"1e-12")
+  final case object nanoampere extends SimpleCurrentUnit("nanoampere", "nA", r"1e-9")
   final case object microampere extends DefaultCurrentUnit("microampere", "μA", Seq("mcA"), r"1e-6")
-  final case object milliampere extends DefaultCurrentUnit("milliampere", "mA", Nil, r"1e-3")
-  final case object centiampere extends DefaultCurrentUnit("centiampere", "cA", Nil, r"1e-2")
-  final case object deciampere extends DefaultCurrentUnit("deciampere", "dA", Nil, r"1e-1")
-  final case object decaampere extends DefaultCurrentUnit("decaampere", "daA", Nil, r"1e1")
-  final case object hectoampere extends DefaultCurrentUnit("hectoampere", "hA", Nil, r"1e2")
+  final case object milliampere extends SimpleCurrentUnit("milliampere", "mA", r"1e-3")
+  final case object centiampere extends SimpleCurrentUnit("centiampere", "cA", r"1e-2")
+  final case object deciampere extends SimpleCurrentUnit("deciampere", "dA", r"1e-1")
+  final case object decaampere extends SimpleCurrentUnit("decaampere", "daA", r"1e1")
+  final case object hectoampere extends SimpleCurrentUnit("hectoampere", "hA", r"1e2")
   final case object kiloampere extends DefaultCurrentUnit("kiloampere", "kA", Seq("KA"), r"1e3")
-  final case object megaampere extends DefaultCurrentUnit("megaampere", "MA", Nil, r"1e6")
-  final case object gigaampere extends DefaultCurrentUnit("gigaampere", "GA", Nil, r"1e9")
-  final case object teraampere extends DefaultCurrentUnit("teraampere", "TA", Nil, r"1e12")
-  final case object petaampere extends DefaultCurrentUnit("petaampere", "PA", Nil, r"1e15")
-  final case object exaampere extends DefaultCurrentUnit("exaampere", "EA", Nil, r"1e18")
-  final case object zettaampere extends DefaultCurrentUnit("zettaampere", "ZA", Nil, r"1e21")
-  final case object yottaampere extends DefaultCurrentUnit("yottaampere", "YA", Nil, r"1e24")
-  final case object abampere extends DefaultCurrentUnit("abampere", "abamp", Nil, r"10")
+  final case object megaampere extends SimpleCurrentUnit("megaampere", "MA", r"1e6")
+  final case object gigaampere extends SimpleCurrentUnit("gigaampere", "GA", r"1e9")
+  final case object teraampere extends SimpleCurrentUnit("teraampere", "TA", r"1e12")
+  final case object petaampere extends SimpleCurrentUnit("petaampere", "PA", r"1e15")
+  final case object exaampere extends SimpleCurrentUnit("exaampere", "EA", r"1e18")
+  final case object zettaampere extends SimpleCurrentUnit("zettaampere", "ZA", r"1e21")
+  final case object yottaampere extends SimpleCurrentUnit("yottaampere", "YA", r"1e24")
+  final case object abampere extends SimpleCurrentUnit("abampere", "abamp", r"10")
 }
 
 object CurrentUnits{

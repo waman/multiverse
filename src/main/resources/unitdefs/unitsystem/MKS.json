@@ -1,0 +1,8 @@
+{
+  "entries": [
+    {"quantity": "Mass", "unit": "kilogram"},
+    {"quantity": "Length", "unit": "metre"},
+    {"quantity": "Time", "unit": "second"},
+    {"quantity": "Velocity", "unit": "Length.metre / Time.second"}
+  ]
+}

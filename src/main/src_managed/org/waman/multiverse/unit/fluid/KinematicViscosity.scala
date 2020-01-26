@@ -10,14 +10,12 @@ class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosi
     extends LinearQuantity[KinematicViscosity[A], A, KinematicViscosityUnit] {
 
   override protected def newQuantity(value: A, unit: KinematicViscosityUnit): KinematicViscosity[A] = new KinematicViscosity(value, unit)
-
 }
 
 trait KinematicViscosityUnit extends LinearUnit[KinematicViscosityUnit]{
 
   override def getSIUnit: KinematicViscosityUnit = KinematicViscosityUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = KinematicViscosityUnit.dimension
-
 }
 
 object KinematicViscosityUnit extends UnitInfo[KinematicViscosityUnit]{
@@ -34,17 +32,18 @@ object KinematicViscosityUnit extends UnitInfo[KinematicViscosityUnit]{
     Seq(stokes)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleKinematicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends KinematicViscosityUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultKinematicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends KinematicViscosityUnit
 
 object KinematicViscosityUnitObjects{
 
-  final case object stokes extends DefaultKinematicViscosityUnit("stokes", "St", Nil, r"1e-4")
+  final case object stokes extends SimpleKinematicViscosityUnit("stokes", "St", r"1e-4")
 }
 
 object KinematicViscosityUnits{

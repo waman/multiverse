@@ -11,7 +11,6 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
 
   override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
 
-
   def toConductance: Conductance[A] =
     new Conductance(apply(ResistanceUnitObjects.ohm).reciprocal, ConductanceUnitObjects.siemens)
 
@@ -21,7 +20,6 @@ trait ResistanceUnit extends LinearUnit[ResistanceUnit]{
 
   override def getSIUnit: ResistanceUnit = ResistanceUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = ResistanceUnit.dimension
-
 }
 
 object ResistanceUnit extends UnitInfo[ResistanceUnit]{
@@ -36,11 +34,12 @@ object ResistanceUnit extends UnitInfo[ResistanceUnit]{
     Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleResistanceUnit(val name: String, val symbol: String, val interval: Real) extends ResistanceUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultResistanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ResistanceUnit
 

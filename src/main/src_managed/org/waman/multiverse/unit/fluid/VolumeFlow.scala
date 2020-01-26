@@ -9,14 +9,12 @@ class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit)
     extends LinearQuantity[VolumeFlow[A], A, VolumeFlowUnit] {
 
   override protected def newQuantity(value: A, unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
-
 }
 
 trait VolumeFlowUnit extends LinearUnit[VolumeFlowUnit]{
 
   override def getSIUnit: VolumeFlowUnit = VolumeFlowUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = VolumeFlowUnit.dimension
-
 }
 
 object VolumeFlowUnit extends UnitInfo[VolumeFlowUnit]{
@@ -33,27 +31,28 @@ object VolumeFlowUnit extends UnitInfo[VolumeFlowUnit]{
     Seq(litre_per_minute, gallon_per_minute, gallon_per_hour, gallon_per_day, cubic_centimetre_per_second, cubic_centimetre_per_minute, cubic_foot_per_second, cubic_foot_per_minute, cubic_foot_per_hour)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleVolumeFlowUnit(val name: String, val symbol: String, val interval: Real) extends VolumeFlowUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultVolumeFlowUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends VolumeFlowUnit
 
 object VolumeFlowUnitObjects{
-  import org.waman.multiverse.unit.basic.VolumeUnitObjects
-  import org.waman.multiverse.unit.basic.TimeUnitObjects
+  import org.waman.multiverse.unit.basic.VolumeUnitObjects._
+  import org.waman.multiverse.unit.basic.TimeUnitObjects._
 
-  final case object litre_per_minute extends DefaultVolumeFlowUnit("litre per minute", "LPM", Nil, VolumeUnitObjects.litre.interval / TimeUnitObjects.minute.interval)
-  final case object gallon_per_minute extends DefaultVolumeFlowUnit("gallon per minute", "GPM", Nil, VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.minute.interval)
-  final case object gallon_per_hour extends DefaultVolumeFlowUnit("gallon per hour", "GPH", Nil, VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.hour.interval)
-  final case object gallon_per_day extends DefaultVolumeFlowUnit("gallon per day", "GPD", Nil, VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.day.interval)
-  final case object cubic_centimetre_per_second extends DefaultVolumeFlowUnit("cubic_centimetre per second", "ccs", Nil, VolumeUnitObjects.cubic_centimetre.interval / TimeUnitObjects.second.interval)
-  final case object cubic_centimetre_per_minute extends DefaultVolumeFlowUnit("cubic_centimetre per minute", "ccm", Nil, VolumeUnitObjects.cubic_centimetre.interval / TimeUnitObjects.minute.interval)
-  final case object cubic_foot_per_second extends DefaultVolumeFlowUnit("cubic_foot per second", "cfs", Nil, VolumeUnitObjects.cubic_foot.interval / TimeUnitObjects.second.interval)
-  final case object cubic_foot_per_minute extends DefaultVolumeFlowUnit("cubic_foot per minute", "cfm", Seq("CFM"), VolumeUnitObjects.cubic_foot.interval / TimeUnitObjects.minute.interval)
-  final case object cubic_foot_per_hour extends DefaultVolumeFlowUnit("cubic_foot per hour", "cfh", Nil, VolumeUnitObjects.cubic_foot.interval / TimeUnitObjects.hour.interval)
+  final case object litre_per_minute extends SimpleVolumeFlowUnit("litre per minute", "LPM", litre.interval / minute.interval)
+  final case object gallon_per_minute extends SimpleVolumeFlowUnit("gallon per minute", "GPM", `gallon(US_fl)`.interval / minute.interval)
+  final case object gallon_per_hour extends SimpleVolumeFlowUnit("gallon per hour", "GPH", `gallon(US_fl)`.interval / hour.interval)
+  final case object gallon_per_day extends SimpleVolumeFlowUnit("gallon per day", "GPD", `gallon(US_fl)`.interval / day.interval)
+  final case object cubic_centimetre_per_second extends SimpleVolumeFlowUnit("cubic_centimetre per second", "ccs", cubic_centimetre.interval / second.interval)
+  final case object cubic_centimetre_per_minute extends SimpleVolumeFlowUnit("cubic_centimetre per minute", "ccm", cubic_centimetre.interval / minute.interval)
+  final case object cubic_foot_per_second extends SimpleVolumeFlowUnit("cubic_foot per second", "cfs", cubic_foot.interval / second.interval)
+  final case object cubic_foot_per_minute extends DefaultVolumeFlowUnit("cubic_foot per minute", "cfm", Seq("CFM"), cubic_foot.interval / minute.interval)
+  final case object cubic_foot_per_hour extends SimpleVolumeFlowUnit("cubic_foot per hour", "cfh", cubic_foot.interval / hour.interval)
 }
 
 object VolumeFlowUnits{

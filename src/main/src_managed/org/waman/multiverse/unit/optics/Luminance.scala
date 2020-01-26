@@ -10,14 +10,12 @@ class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
     extends LinearQuantity[Luminance[A], A, LuminanceUnit] {
 
   override protected def newQuantity(value: A, unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
-
 }
 
 trait LuminanceUnit extends LinearUnit[LuminanceUnit]{
 
   override def getSIUnit: LuminanceUnit = LuminanceUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = LuminanceUnit.dimension
-
 }
 
 object LuminanceUnit extends UnitInfo[LuminanceUnit]{
@@ -33,24 +31,26 @@ object LuminanceUnit extends UnitInfo[LuminanceUnit]{
     Seq(stilb, lambert, apo_stilb, skot, bril, foot_lambert)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleLuminanceUnit(val name: String, val symbol: String, val interval: Real) extends LuminanceUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultLuminanceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminanceUnit
 
 object LuminanceUnitObjects{
   import org.waman.multiverse.unit.Constants
-  import org.waman.multiverse.unit.basic.AreaUnitObjects
+  import org.waman.multiverse.unit.optics.LuminousIntensityUnitObjects._
+  import org.waman.multiverse.unit.basic.AreaUnitObjects._
 
-  final case object stilb extends DefaultLuminanceUnit("stilb", "sb", Nil, r"1e4")
-  final case object lambert extends DefaultLuminanceUnit("lambert", "Lb", Nil, r"1e4" / Constants.Pi)
-  final case object apo_stilb extends DefaultLuminanceUnit("apo stilb", "asb", Nil, r"1" / Constants.Pi)
-  final case object skot extends DefaultLuminanceUnit("skot", "sk", Nil, r"1e-3" / Constants.Pi)
-  final case object bril extends DefaultLuminanceUnit("bril", "bril", Nil, r"1e-7" / Constants.Pi)
-  final case object foot_lambert extends DefaultLuminanceUnit("foot lambert", "fLb", Nil, r"1" / Constants.Pi * LuminousIntensityUnitObjects.candela.interval / AreaUnitObjects.square_foot.interval)
+  final case object stilb extends SimpleLuminanceUnit("stilb", "sb", r"1e4")
+  final case object lambert extends SimpleLuminanceUnit("lambert", "Lb", r"1e4" / Constants.Pi)
+  final case object apo_stilb extends SimpleLuminanceUnit("apo stilb", "asb", r"1" / Constants.Pi)
+  final case object skot extends SimpleLuminanceUnit("skot", "sk", r"1e-3" / Constants.Pi)
+  final case object bril extends SimpleLuminanceUnit("bril", "bril", r"1e-7" / Constants.Pi)
+  final case object foot_lambert extends SimpleLuminanceUnit("foot lambert", "fLb", r"1" / Constants.Pi * candela.interval / square_foot.interval)
 }
 
 object LuminanceUnits{

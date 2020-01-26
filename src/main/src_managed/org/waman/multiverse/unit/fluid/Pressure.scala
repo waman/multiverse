@@ -8,13 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
 class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
     extends LinearQuantity[Pressure[A], A, PressureUnit] {
 
   override protected def newQuantity(value: A, unit: PressureUnit): Pressure[A] = new Pressure(value, unit)
 
   def *(time: Time[A]): DynamicViscosity[A] = new DynamicViscosity(this.value * time.value, this.unit * time.unit)
-
 }
 
 trait PressureUnit extends LinearUnit[PressureUnit]{
@@ -24,7 +24,6 @@ trait PressureUnit extends LinearUnit[PressureUnit]{
 
   def *(timeUnit: TimeUnit): DynamicViscosityUnit =
     new AbstractProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit](PressureUnit.this, timeUnit) with DynamicViscosityUnit
-
 }
 
 object PressureUnit extends UnitInfo[PressureUnit]{
@@ -39,60 +38,61 @@ object PressureUnit extends UnitInfo[PressureUnit]{
     Seq(pascal, yoctopascal, zeptopascal, attopascal, femtopascal, picopascal, nanopascal, micropascal, millipascal, centipascal, decipascal, decapascal, hectopascal, kilopascal, megapascal, gigapascal, terapascal, petapascal, exapascal, zettapascal, yottapascal, barye, atmosphere, atmosphere_technical, bar, pieze, torr, kip_per_square_inch, pound_per_square_foot, pound_per_square_inch, micrometre_of_mercury, millimetre_of_mercury, centimetre_of_mercury, inch_of_mercury, foot_of_mercury, millimetre_of_water, centimetre_of_water, inch_of_water, foot_of_water)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimplePressureUnit(val name: String, val symbol: String, val interval: Real) extends PressureUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultPressureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends PressureUnit
 
 object PressureUnitObjects{
-  import org.waman.multiverse.unit.mechanics.ForceUnitObjects
-  import org.waman.multiverse.unit.basic.AreaUnitObjects
-  import org.waman.multiverse.unit.density.DensityUnitObjects
-  import org.waman.multiverse.unit.basic.LengthUnitObjects
-  import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects
+  import org.waman.multiverse.unit.mechanics.ForceUnitObjects._
+  import org.waman.multiverse.unit.basic.AreaUnitObjects._
+  import org.waman.multiverse.unit.density.DensityUnitObjects._
+  import org.waman.multiverse.unit.basic.LengthUnitObjects._
+  import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects._
 
-  final case object pascal extends DefaultPressureUnit("pascal", "Pa", Nil, 1)
-  final case object yoctopascal extends DefaultPressureUnit("yoctopascal", "yPa", Nil, r"1e-24")
-  final case object zeptopascal extends DefaultPressureUnit("zeptopascal", "zPa", Nil, r"1e-21")
-  final case object attopascal extends DefaultPressureUnit("attopascal", "aPa", Nil, r"1e-18")
-  final case object femtopascal extends DefaultPressureUnit("femtopascal", "fPa", Nil, r"1e-15")
-  final case object picopascal extends DefaultPressureUnit("picopascal", "pPa", Nil, r"1e-12")
-  final case object nanopascal extends DefaultPressureUnit("nanopascal", "nPa", Nil, r"1e-9")
+  final case object pascal extends SimplePressureUnit("pascal", "Pa", 1)
+  final case object yoctopascal extends SimplePressureUnit("yoctopascal", "yPa", r"1e-24")
+  final case object zeptopascal extends SimplePressureUnit("zeptopascal", "zPa", r"1e-21")
+  final case object attopascal extends SimplePressureUnit("attopascal", "aPa", r"1e-18")
+  final case object femtopascal extends SimplePressureUnit("femtopascal", "fPa", r"1e-15")
+  final case object picopascal extends SimplePressureUnit("picopascal", "pPa", r"1e-12")
+  final case object nanopascal extends SimplePressureUnit("nanopascal", "nPa", r"1e-9")
   final case object micropascal extends DefaultPressureUnit("micropascal", "μPa", Seq("mcPa"), r"1e-6")
-  final case object millipascal extends DefaultPressureUnit("millipascal", "mPa", Nil, r"1e-3")
-  final case object centipascal extends DefaultPressureUnit("centipascal", "cPa", Nil, r"1e-2")
-  final case object decipascal extends DefaultPressureUnit("decipascal", "dPa", Nil, r"1e-1")
-  final case object decapascal extends DefaultPressureUnit("decapascal", "daPa", Nil, r"1e1")
-  final case object hectopascal extends DefaultPressureUnit("hectopascal", "hPa", Nil, r"1e2")
+  final case object millipascal extends SimplePressureUnit("millipascal", "mPa", r"1e-3")
+  final case object centipascal extends SimplePressureUnit("centipascal", "cPa", r"1e-2")
+  final case object decipascal extends SimplePressureUnit("decipascal", "dPa", r"1e-1")
+  final case object decapascal extends SimplePressureUnit("decapascal", "daPa", r"1e1")
+  final case object hectopascal extends SimplePressureUnit("hectopascal", "hPa", r"1e2")
   final case object kilopascal extends DefaultPressureUnit("kilopascal", "kPa", Seq("KPa"), r"1e3")
-  final case object megapascal extends DefaultPressureUnit("megapascal", "MPa", Nil, r"1e6")
-  final case object gigapascal extends DefaultPressureUnit("gigapascal", "GPa", Nil, r"1e9")
-  final case object terapascal extends DefaultPressureUnit("terapascal", "TPa", Nil, r"1e12")
-  final case object petapascal extends DefaultPressureUnit("petapascal", "PPa", Nil, r"1e15")
-  final case object exapascal extends DefaultPressureUnit("exapascal", "EPa", Nil, r"1e18")
-  final case object zettapascal extends DefaultPressureUnit("zettapascal", "ZPa", Nil, r"1e21")
-  final case object yottapascal extends DefaultPressureUnit("yottapascal", "YPa", Nil, r"1e24")
-  final case object barye extends DefaultPressureUnit("barye", "Ba", Nil, ForceUnitObjects.dyne.interval / AreaUnitObjects.square_centimetre.interval)
-  final case object atmosphere extends DefaultPressureUnit("atmosphere", "atm", Nil, r"101325")
-  final case object atmosphere_technical extends DefaultPressureUnit("atmosphere technical", "at", Nil, ForceUnitObjects.kilogram_force.interval / AreaUnitObjects.square_centimetre.interval)
-  final case object bar extends DefaultPressureUnit("bar", "bar", Nil, r"1e5")
-  final case object pieze extends DefaultPressureUnit("pieze", "pz", Nil, r"1000")
-  final case object torr extends DefaultPressureUnit("torr", "torr", Nil, r"1"/r"760" * atmosphere.interval)
-  final case object kip_per_square_inch extends DefaultPressureUnit("kip per square_inch", "ksi", Nil, ForceUnitObjects.kip_force.interval / AreaUnitObjects.square_inch.interval)
-  final case object pound_per_square_foot extends DefaultPressureUnit("pound per square foot", "psf", Nil, ForceUnitObjects.pound_force.interval / AreaUnitObjects.square_foot.interval)
-  final case object pound_per_square_inch extends DefaultPressureUnit("pound per square inch", "psi", Nil, ForceUnitObjects.pound_force.interval / AreaUnitObjects.square_inch.interval)
-  final case object micrometre_of_mercury extends DefaultPressureUnit("micrometre of mercury", "μmHg", Seq("microMetreHg"), DensityUnitObjects.mercury.interval * LengthUnitObjects.micrometre.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object millimetre_of_mercury extends DefaultPressureUnit("millimetre of mercury", "mmHg", Nil, DensityUnitObjects.mercury.interval * LengthUnitObjects.millimetre.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object centimetre_of_mercury extends DefaultPressureUnit("centimetre of mercury", "cmHg", Nil, DensityUnitObjects.mercury.interval * LengthUnitObjects.centimetre.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object inch_of_mercury extends DefaultPressureUnit("inch of mercury", "inHg", Nil, DensityUnitObjects.mercury.interval * LengthUnitObjects.inch.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object foot_of_mercury extends DefaultPressureUnit("foot of mercury", "ftHg", Nil, DensityUnitObjects.mercury.interval * LengthUnitObjects.foot.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object millimetre_of_water extends DefaultPressureUnit("millimetre of water", "mmH2O", Nil, DensityUnitObjects.water.interval * LengthUnitObjects.millimetre.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object centimetre_of_water extends DefaultPressureUnit("centimetre of water", "cmH2O", Nil, DensityUnitObjects.water.interval * LengthUnitObjects.centimetre.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object inch_of_water extends DefaultPressureUnit("inch of water", "inH2O", Nil, DensityUnitObjects.water.interval * LengthUnitObjects.inch.interval * AccelerationUnitObjects.standard_gravity.interval)
-  final case object foot_of_water extends DefaultPressureUnit("foot of water", "ftH2O", Nil, DensityUnitObjects.water.interval * LengthUnitObjects.foot.interval * AccelerationUnitObjects.standard_gravity.interval)
+  final case object megapascal extends SimplePressureUnit("megapascal", "MPa", r"1e6")
+  final case object gigapascal extends SimplePressureUnit("gigapascal", "GPa", r"1e9")
+  final case object terapascal extends SimplePressureUnit("terapascal", "TPa", r"1e12")
+  final case object petapascal extends SimplePressureUnit("petapascal", "PPa", r"1e15")
+  final case object exapascal extends SimplePressureUnit("exapascal", "EPa", r"1e18")
+  final case object zettapascal extends SimplePressureUnit("zettapascal", "ZPa", r"1e21")
+  final case object yottapascal extends SimplePressureUnit("yottapascal", "YPa", r"1e24")
+  final case object barye extends SimplePressureUnit("barye", "Ba", dyne.interval / square_centimetre.interval)
+  final case object atmosphere extends SimplePressureUnit("atmosphere", "atm", r"101325")
+  final case object atmosphere_technical extends SimplePressureUnit("atmosphere technical", "at", kilogram_force.interval / square_centimetre.interval)
+  final case object bar extends SimplePressureUnit("bar", "bar", r"1e5")
+  final case object pieze extends SimplePressureUnit("pieze", "pz", r"1000")
+  final case object torr extends SimplePressureUnit("torr", "torr", r"1"/r"760" * atmosphere.interval)
+  final case object kip_per_square_inch extends SimplePressureUnit("kip per square_inch", "ksi", kip_force.interval / square_inch.interval)
+  final case object pound_per_square_foot extends SimplePressureUnit("pound per square foot", "psf", pound_force.interval / square_foot.interval)
+  final case object pound_per_square_inch extends SimplePressureUnit("pound per square inch", "psi", pound_force.interval / square_inch.interval)
+  final case object micrometre_of_mercury extends DefaultPressureUnit("micrometre of mercury", "μmHg", Seq("microMetreHg"), mercury.interval * micrometre.interval * standard_gravity.interval)
+  final case object millimetre_of_mercury extends SimplePressureUnit("millimetre of mercury", "mmHg", mercury.interval * millimetre.interval * standard_gravity.interval)
+  final case object centimetre_of_mercury extends SimplePressureUnit("centimetre of mercury", "cmHg", mercury.interval * centimetre.interval * standard_gravity.interval)
+  final case object inch_of_mercury extends SimplePressureUnit("inch of mercury", "inHg", mercury.interval * inch.interval * standard_gravity.interval)
+  final case object foot_of_mercury extends SimplePressureUnit("foot of mercury", "ftHg", mercury.interval * foot.interval * standard_gravity.interval)
+  final case object millimetre_of_water extends SimplePressureUnit("millimetre of water", "mmH2O", water.interval * millimetre.interval * standard_gravity.interval)
+  final case object centimetre_of_water extends SimplePressureUnit("centimetre of water", "cmH2O", water.interval * centimetre.interval * standard_gravity.interval)
+  final case object inch_of_water extends SimplePressureUnit("inch of water", "inH2O", water.interval * inch.interval * standard_gravity.interval)
+  final case object foot_of_water extends SimplePressureUnit("foot of water", "ftH2O", water.interval * foot.interval * standard_gravity.interval)
 }
 
 object PressureUnits{

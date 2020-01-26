@@ -10,14 +10,12 @@ class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUn
     extends LinearQuantity[DynamicViscosity[A], A, DynamicViscosityUnit] {
 
   override protected def newQuantity(value: A, unit: DynamicViscosityUnit): DynamicViscosity[A] = new DynamicViscosity(value, unit)
-
 }
 
 trait DynamicViscosityUnit extends LinearUnit[DynamicViscosityUnit]{
 
   override def getSIUnit: DynamicViscosityUnit = DynamicViscosityUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = DynamicViscosityUnit.dimension
-
 }
 
 object DynamicViscosityUnit extends UnitInfo[DynamicViscosityUnit]{
@@ -33,17 +31,18 @@ object DynamicViscosityUnit extends UnitInfo[DynamicViscosityUnit]{
     Seq(poise)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleDynamicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends DynamicViscosityUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultDynamicViscosityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends DynamicViscosityUnit
 
 object DynamicViscosityUnitObjects{
 
-  final case object poise extends DefaultDynamicViscosityUnit("poise", "P", Nil, r"0.1")
+  final case object poise extends SimpleDynamicViscosityUnit("poise", "P", r"0.1")
 }
 
 object DynamicViscosityUnits{

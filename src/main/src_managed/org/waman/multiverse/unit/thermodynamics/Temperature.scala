@@ -20,7 +20,6 @@ trait TemperatureUnit extends HomogeneousUnit[TemperatureUnit]{
 
   override def getSIUnit: TemperatureUnit = TemperatureUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = TemperatureUnit.dimension
-
 }
 
 object TemperatureUnit extends UnitInfo[TemperatureUnit]{
@@ -35,37 +34,38 @@ object TemperatureUnit extends UnitInfo[TemperatureUnit]{
     Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin, celsius, fahrenheit, rankine, delisle, newton, réaumur, rømer, regulo_gas_mark)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleTemperatureUnit(val name: String, val symbol: String, val zero: Real, val interval: Real) extends TemperatureUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultTemperatureUnit(val name: String, val symbol: String, val aliases: Seq[String], val zero: Real, val interval: Real)
   extends TemperatureUnit
 
 object TemperatureUnitObjects{
 
-  final case object kelvin extends DefaultTemperatureUnit("kelvin", "K", Nil, 0, 1)
-  final case object yoctokelvin extends DefaultTemperatureUnit("yoctokelvin", "yK", Nil, 0, 1 * r"1e-24")
-  final case object zeptokelvin extends DefaultTemperatureUnit("zeptokelvin", "zK", Nil, 0, 1 * r"1e-21")
-  final case object attokelvin extends DefaultTemperatureUnit("attokelvin", "aK", Nil, 0, 1 * r"1e-18")
-  final case object femtokelvin extends DefaultTemperatureUnit("femtokelvin", "fK", Nil, 0, 1 * r"1e-15")
-  final case object picokelvin extends DefaultTemperatureUnit("picokelvin", "pK", Nil, 0, 1 * r"1e-12")
-  final case object nanokelvin extends DefaultTemperatureUnit("nanokelvin", "nK", Nil, 0, 1 * r"1e-9")
+  final case object kelvin extends SimpleTemperatureUnit("kelvin", "K", 0, 1)
+  final case object yoctokelvin extends SimpleTemperatureUnit("yoctokelvin", "yK", 0, 1 * r"1e-24")
+  final case object zeptokelvin extends SimpleTemperatureUnit("zeptokelvin", "zK", 0, 1 * r"1e-21")
+  final case object attokelvin extends SimpleTemperatureUnit("attokelvin", "aK", 0, 1 * r"1e-18")
+  final case object femtokelvin extends SimpleTemperatureUnit("femtokelvin", "fK", 0, 1 * r"1e-15")
+  final case object picokelvin extends SimpleTemperatureUnit("picokelvin", "pK", 0, 1 * r"1e-12")
+  final case object nanokelvin extends SimpleTemperatureUnit("nanokelvin", "nK", 0, 1 * r"1e-9")
   final case object microkelvin extends DefaultTemperatureUnit("microkelvin", "μK", Seq("mcK"), 0, 1 * r"1e-6")
-  final case object millikelvin extends DefaultTemperatureUnit("millikelvin", "mK", Nil, 0, 1 * r"1e-3")
-  final case object centikelvin extends DefaultTemperatureUnit("centikelvin", "cK", Nil, 0, 1 * r"1e-2")
-  final case object decikelvin extends DefaultTemperatureUnit("decikelvin", "dK", Nil, 0, 1 * r"1e-1")
-  final case object decakelvin extends DefaultTemperatureUnit("decakelvin", "daK", Nil, 0, 1 * r"1e1")
-  final case object hectokelvin extends DefaultTemperatureUnit("hectokelvin", "hK", Nil, 0, 1 * r"1e2")
+  final case object millikelvin extends SimpleTemperatureUnit("millikelvin", "mK", 0, 1 * r"1e-3")
+  final case object centikelvin extends SimpleTemperatureUnit("centikelvin", "cK", 0, 1 * r"1e-2")
+  final case object decikelvin extends SimpleTemperatureUnit("decikelvin", "dK", 0, 1 * r"1e-1")
+  final case object decakelvin extends SimpleTemperatureUnit("decakelvin", "daK", 0, 1 * r"1e1")
+  final case object hectokelvin extends SimpleTemperatureUnit("hectokelvin", "hK", 0, 1 * r"1e2")
   final case object kilokelvin extends DefaultTemperatureUnit("kilokelvin", "kK", Seq("KK"), 0, 1 * r"1e3")
-  final case object megakelvin extends DefaultTemperatureUnit("megakelvin", "MK", Nil, 0, 1 * r"1e6")
-  final case object gigakelvin extends DefaultTemperatureUnit("gigakelvin", "GK", Nil, 0, 1 * r"1e9")
-  final case object terakelvin extends DefaultTemperatureUnit("terakelvin", "TK", Nil, 0, 1 * r"1e12")
-  final case object petakelvin extends DefaultTemperatureUnit("petakelvin", "PK", Nil, 0, 1 * r"1e15")
-  final case object exakelvin extends DefaultTemperatureUnit("exakelvin", "EK", Nil, 0, 1 * r"1e18")
-  final case object zettakelvin extends DefaultTemperatureUnit("zettakelvin", "ZK", Nil, 0, 1 * r"1e21")
-  final case object yottakelvin extends DefaultTemperatureUnit("yottakelvin", "YK", Nil, 0, 1 * r"1e24")
+  final case object megakelvin extends SimpleTemperatureUnit("megakelvin", "MK", 0, 1 * r"1e6")
+  final case object gigakelvin extends SimpleTemperatureUnit("gigakelvin", "GK", 0, 1 * r"1e9")
+  final case object terakelvin extends SimpleTemperatureUnit("terakelvin", "TK", 0, 1 * r"1e12")
+  final case object petakelvin extends SimpleTemperatureUnit("petakelvin", "PK", 0, 1 * r"1e15")
+  final case object exakelvin extends SimpleTemperatureUnit("exakelvin", "EK", 0, 1 * r"1e18")
+  final case object zettakelvin extends SimpleTemperatureUnit("zettakelvin", "ZK", 0, 1 * r"1e21")
+  final case object yottakelvin extends SimpleTemperatureUnit("yottakelvin", "YK", 0, 1 * r"1e24")
   final case object celsius extends DefaultTemperatureUnit("celsius", "°C", Seq("degC", "℃"), r"273.15", 1)
   final case object fahrenheit extends DefaultTemperatureUnit("fahrenheit", "°F", Seq("degF", "℉"), r"273.15" - r"5"/r"9" * r"32", r"5"/r"9")
   final case object rankine extends DefaultTemperatureUnit("rankine", "°R", Seq("degR"), 0, r"5"/r"9")
@@ -73,7 +73,7 @@ object TemperatureUnitObjects{
   final case object newton extends DefaultTemperatureUnit("newton", "°N", Seq("degN"), r"273.15", r"100"/r"33")
   final case object réaumur extends DefaultTemperatureUnit("réaumur", "°Ré", Seq("degRe"), r"273.15", r"5"/r"4")
   final case object rømer extends DefaultTemperatureUnit("rømer", "°Rø", Seq("degRo"), r"273.15" - r"7.5" * r"40"/r"21", r"40"/r"21")
-  final case object regulo_gas_mark extends DefaultTemperatureUnit("regulo gas mark", "GM", Nil, r"422.038", r"125"/r"9")
+  final case object regulo_gas_mark extends SimpleTemperatureUnit("regulo gas mark", "GM", r"422.038", r"125"/r"9")
 }
 
 object TemperatureUnits{

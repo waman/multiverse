@@ -10,14 +10,12 @@ class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
     extends LinearQuantity[Exposure[A], A, ExposureUnit] {
 
   override protected def newQuantity(value: A, unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
-
 }
 
 trait ExposureUnit extends LinearUnit[ExposureUnit]{
 
   override def getSIUnit: ExposureUnit = ExposureUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = ExposureUnit.dimension
-
 }
 
 object ExposureUnit extends UnitInfo[ExposureUnit]{
@@ -34,17 +32,18 @@ object ExposureUnit extends UnitInfo[ExposureUnit]{
     Seq(roentgen)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleExposureUnit(val name: String, val symbol: String, val interval: Real) extends ExposureUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ExposureUnit
 
 object ExposureUnitObjects{
 
-  final case object roentgen extends DefaultExposureUnit("roentgen", "R", Nil, r"2.58e-4")
+  final case object roentgen extends SimpleExposureUnit("roentgen", "R", r"2.58e-4")
 }
 
 object ExposureUnits{

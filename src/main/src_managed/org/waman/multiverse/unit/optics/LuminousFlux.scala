@@ -8,13 +8,13 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
 
+
 class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
     extends LinearQuantity[LuminousFlux[A], A, LuminousFluxUnit] {
 
   override protected def newQuantity(value: A, unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
 
   def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
-
 }
 
 trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
@@ -24,7 +24,6 @@ trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
 
   def /(areaUnit: AreaUnit): IlluminanceUnit =
     new AbstractQuotientUnit[IlluminanceUnit, LuminousFluxUnit, AreaUnit](LuminousFluxUnit.this, areaUnit) with IlluminanceUnit
-
 }
 
 object LuminousFluxUnit extends UnitInfo[LuminousFluxUnit]{
@@ -39,37 +38,38 @@ object LuminousFluxUnit extends UnitInfo[LuminousFluxUnit]{
     Seq(lumen, yoctolumen, zeptolumen, attolumen, femtolumen, picolumen, nanolumen, microlumen, millilumen, centilumen, decilumen, decalumen, hectolumen, kilolumen, megalumen, gigalumen, teralumen, petalumen, exalumen, zettalumen, yottalumen)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleLuminousFluxUnit(val name: String, val symbol: String, val interval: Real) extends LuminousFluxUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends LuminousFluxUnit
 
 object LuminousFluxUnitObjects{
 
-  final case object lumen extends DefaultLuminousFluxUnit("lumen", "lm", Nil, 1)
-  final case object yoctolumen extends DefaultLuminousFluxUnit("yoctolumen", "ylm", Nil, r"1e-24")
-  final case object zeptolumen extends DefaultLuminousFluxUnit("zeptolumen", "zlm", Nil, r"1e-21")
-  final case object attolumen extends DefaultLuminousFluxUnit("attolumen", "alm", Nil, r"1e-18")
-  final case object femtolumen extends DefaultLuminousFluxUnit("femtolumen", "flm", Nil, r"1e-15")
-  final case object picolumen extends DefaultLuminousFluxUnit("picolumen", "plm", Nil, r"1e-12")
-  final case object nanolumen extends DefaultLuminousFluxUnit("nanolumen", "nlm", Nil, r"1e-9")
+  final case object lumen extends SimpleLuminousFluxUnit("lumen", "lm", 1)
+  final case object yoctolumen extends SimpleLuminousFluxUnit("yoctolumen", "ylm", r"1e-24")
+  final case object zeptolumen extends SimpleLuminousFluxUnit("zeptolumen", "zlm", r"1e-21")
+  final case object attolumen extends SimpleLuminousFluxUnit("attolumen", "alm", r"1e-18")
+  final case object femtolumen extends SimpleLuminousFluxUnit("femtolumen", "flm", r"1e-15")
+  final case object picolumen extends SimpleLuminousFluxUnit("picolumen", "plm", r"1e-12")
+  final case object nanolumen extends SimpleLuminousFluxUnit("nanolumen", "nlm", r"1e-9")
   final case object microlumen extends DefaultLuminousFluxUnit("microlumen", "μlm", Seq("mclm"), r"1e-6")
-  final case object millilumen extends DefaultLuminousFluxUnit("millilumen", "mlm", Nil, r"1e-3")
-  final case object centilumen extends DefaultLuminousFluxUnit("centilumen", "clm", Nil, r"1e-2")
-  final case object decilumen extends DefaultLuminousFluxUnit("decilumen", "dlm", Nil, r"1e-1")
-  final case object decalumen extends DefaultLuminousFluxUnit("decalumen", "dalm", Nil, r"1e1")
-  final case object hectolumen extends DefaultLuminousFluxUnit("hectolumen", "hlm", Nil, r"1e2")
+  final case object millilumen extends SimpleLuminousFluxUnit("millilumen", "mlm", r"1e-3")
+  final case object centilumen extends SimpleLuminousFluxUnit("centilumen", "clm", r"1e-2")
+  final case object decilumen extends SimpleLuminousFluxUnit("decilumen", "dlm", r"1e-1")
+  final case object decalumen extends SimpleLuminousFluxUnit("decalumen", "dalm", r"1e1")
+  final case object hectolumen extends SimpleLuminousFluxUnit("hectolumen", "hlm", r"1e2")
   final case object kilolumen extends DefaultLuminousFluxUnit("kilolumen", "klm", Seq("Klm"), r"1e3")
-  final case object megalumen extends DefaultLuminousFluxUnit("megalumen", "Mlm", Nil, r"1e6")
-  final case object gigalumen extends DefaultLuminousFluxUnit("gigalumen", "Glm", Nil, r"1e9")
-  final case object teralumen extends DefaultLuminousFluxUnit("teralumen", "Tlm", Nil, r"1e12")
-  final case object petalumen extends DefaultLuminousFluxUnit("petalumen", "Plm", Nil, r"1e15")
-  final case object exalumen extends DefaultLuminousFluxUnit("exalumen", "Elm", Nil, r"1e18")
-  final case object zettalumen extends DefaultLuminousFluxUnit("zettalumen", "Zlm", Nil, r"1e21")
-  final case object yottalumen extends DefaultLuminousFluxUnit("yottalumen", "Ylm", Nil, r"1e24")
+  final case object megalumen extends SimpleLuminousFluxUnit("megalumen", "Mlm", r"1e6")
+  final case object gigalumen extends SimpleLuminousFluxUnit("gigalumen", "Glm", r"1e9")
+  final case object teralumen extends SimpleLuminousFluxUnit("teralumen", "Tlm", r"1e12")
+  final case object petalumen extends SimpleLuminousFluxUnit("petalumen", "Plm", r"1e15")
+  final case object exalumen extends SimpleLuminousFluxUnit("exalumen", "Elm", r"1e18")
+  final case object zettalumen extends SimpleLuminousFluxUnit("zettalumen", "Zlm", r"1e21")
+  final case object yottalumen extends SimpleLuminousFluxUnit("yottalumen", "Ylm", r"1e24")
 }
 
 object LuminousFluxUnits{

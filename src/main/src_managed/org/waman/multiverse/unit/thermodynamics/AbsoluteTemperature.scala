@@ -10,7 +10,6 @@ class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTempera
     extends LinearQuantity[AbsoluteTemperature[A], A, AbsoluteTemperatureUnit] {
 
   override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
-
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.mechanics.Energy
   import org.waman.multiverse.unit.mechanics.EnergyUnitObjects
@@ -30,7 +29,6 @@ trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{
 
   override def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = AbsoluteTemperatureUnit.dimension
-
 }
 
 object AbsoluteTemperatureUnit extends UnitInfo[AbsoluteTemperatureUnit]{
@@ -45,37 +43,38 @@ object AbsoluteTemperatureUnit extends UnitInfo[AbsoluteTemperatureUnit]{
     Seq(kelvin, yoctokelvin, zeptokelvin, attokelvin, femtokelvin, picokelvin, nanokelvin, microkelvin, millikelvin, centikelvin, decikelvin, decakelvin, hectokelvin, kilokelvin, megakelvin, gigakelvin, terakelvin, petakelvin, exakelvin, zettakelvin, yottakelvin)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleAbsoluteTemperatureUnit(val name: String, val symbol: String, val interval: Real) extends AbsoluteTemperatureUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultAbsoluteTemperatureUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AbsoluteTemperatureUnit
 
 object AbsoluteTemperatureUnitObjects{
 
-  final case object kelvin extends DefaultAbsoluteTemperatureUnit("kelvin", "K", Nil, 1)
-  final case object yoctokelvin extends DefaultAbsoluteTemperatureUnit("yoctokelvin", "yK", Nil, r"1e-24")
-  final case object zeptokelvin extends DefaultAbsoluteTemperatureUnit("zeptokelvin", "zK", Nil, r"1e-21")
-  final case object attokelvin extends DefaultAbsoluteTemperatureUnit("attokelvin", "aK", Nil, r"1e-18")
-  final case object femtokelvin extends DefaultAbsoluteTemperatureUnit("femtokelvin", "fK", Nil, r"1e-15")
-  final case object picokelvin extends DefaultAbsoluteTemperatureUnit("picokelvin", "pK", Nil, r"1e-12")
-  final case object nanokelvin extends DefaultAbsoluteTemperatureUnit("nanokelvin", "nK", Nil, r"1e-9")
+  final case object kelvin extends SimpleAbsoluteTemperatureUnit("kelvin", "K", 1)
+  final case object yoctokelvin extends SimpleAbsoluteTemperatureUnit("yoctokelvin", "yK", r"1e-24")
+  final case object zeptokelvin extends SimpleAbsoluteTemperatureUnit("zeptokelvin", "zK", r"1e-21")
+  final case object attokelvin extends SimpleAbsoluteTemperatureUnit("attokelvin", "aK", r"1e-18")
+  final case object femtokelvin extends SimpleAbsoluteTemperatureUnit("femtokelvin", "fK", r"1e-15")
+  final case object picokelvin extends SimpleAbsoluteTemperatureUnit("picokelvin", "pK", r"1e-12")
+  final case object nanokelvin extends SimpleAbsoluteTemperatureUnit("nanokelvin", "nK", r"1e-9")
   final case object microkelvin extends DefaultAbsoluteTemperatureUnit("microkelvin", "μK", Seq("mcK"), r"1e-6")
-  final case object millikelvin extends DefaultAbsoluteTemperatureUnit("millikelvin", "mK", Nil, r"1e-3")
-  final case object centikelvin extends DefaultAbsoluteTemperatureUnit("centikelvin", "cK", Nil, r"1e-2")
-  final case object decikelvin extends DefaultAbsoluteTemperatureUnit("decikelvin", "dK", Nil, r"1e-1")
-  final case object decakelvin extends DefaultAbsoluteTemperatureUnit("decakelvin", "daK", Nil, r"1e1")
-  final case object hectokelvin extends DefaultAbsoluteTemperatureUnit("hectokelvin", "hK", Nil, r"1e2")
+  final case object millikelvin extends SimpleAbsoluteTemperatureUnit("millikelvin", "mK", r"1e-3")
+  final case object centikelvin extends SimpleAbsoluteTemperatureUnit("centikelvin", "cK", r"1e-2")
+  final case object decikelvin extends SimpleAbsoluteTemperatureUnit("decikelvin", "dK", r"1e-1")
+  final case object decakelvin extends SimpleAbsoluteTemperatureUnit("decakelvin", "daK", r"1e1")
+  final case object hectokelvin extends SimpleAbsoluteTemperatureUnit("hectokelvin", "hK", r"1e2")
   final case object kilokelvin extends DefaultAbsoluteTemperatureUnit("kilokelvin", "kK", Seq("KK"), r"1e3")
-  final case object megakelvin extends DefaultAbsoluteTemperatureUnit("megakelvin", "MK", Nil, r"1e6")
-  final case object gigakelvin extends DefaultAbsoluteTemperatureUnit("gigakelvin", "GK", Nil, r"1e9")
-  final case object terakelvin extends DefaultAbsoluteTemperatureUnit("terakelvin", "TK", Nil, r"1e12")
-  final case object petakelvin extends DefaultAbsoluteTemperatureUnit("petakelvin", "PK", Nil, r"1e15")
-  final case object exakelvin extends DefaultAbsoluteTemperatureUnit("exakelvin", "EK", Nil, r"1e18")
-  final case object zettakelvin extends DefaultAbsoluteTemperatureUnit("zettakelvin", "ZK", Nil, r"1e21")
-  final case object yottakelvin extends DefaultAbsoluteTemperatureUnit("yottakelvin", "YK", Nil, r"1e24")
+  final case object megakelvin extends SimpleAbsoluteTemperatureUnit("megakelvin", "MK", r"1e6")
+  final case object gigakelvin extends SimpleAbsoluteTemperatureUnit("gigakelvin", "GK", r"1e9")
+  final case object terakelvin extends SimpleAbsoluteTemperatureUnit("terakelvin", "TK", r"1e12")
+  final case object petakelvin extends SimpleAbsoluteTemperatureUnit("petakelvin", "PK", r"1e15")
+  final case object exakelvin extends SimpleAbsoluteTemperatureUnit("exakelvin", "EK", r"1e18")
+  final case object zettakelvin extends SimpleAbsoluteTemperatureUnit("zettakelvin", "ZK", r"1e21")
+  final case object yottakelvin extends SimpleAbsoluteTemperatureUnit("yottakelvin", "YK", r"1e24")
 }
 
 object AbsoluteTemperatureUnits{

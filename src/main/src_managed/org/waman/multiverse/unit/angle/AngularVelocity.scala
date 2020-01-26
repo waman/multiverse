@@ -10,7 +10,6 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
     extends LinearQuantity[AngularVelocity[A], A, AngularVelocityUnit] {
 
   override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
-
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
@@ -24,7 +23,6 @@ trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{
 
   override def getSIUnit: AngularVelocityUnit = AngularVelocityUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = AngularVelocityUnit.dimension
-
 }
 
 object AngularVelocityUnit extends UnitInfo[AngularVelocityUnit]{
@@ -40,19 +38,20 @@ object AngularVelocityUnit extends UnitInfo[AngularVelocityUnit]{
     Seq(cycle_per_second, revolution_per_minute)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleAngularVelocityUnit(val name: String, val symbol: String, val interval: Real) extends AngularVelocityUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultAngularVelocityUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AngularVelocityUnit
 
 object AngularVelocityUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final case object cycle_per_second extends DefaultAngularVelocityUnit("cycle per second", "cps", Nil, r"2" * Constants.Pi)
-  final case object revolution_per_minute extends DefaultAngularVelocityUnit("revolution per minute", "rpm", Nil, r"2" * Constants.Pi / r"60")
+  final case object cycle_per_second extends SimpleAngularVelocityUnit("cycle per second", "cps", r"2" * Constants.Pi)
+  final case object revolution_per_minute extends SimpleAngularVelocityUnit("revolution per minute", "rpm", r"2" * Constants.Pi / r"60")
 }
 
 object AngularVelocityUnits{

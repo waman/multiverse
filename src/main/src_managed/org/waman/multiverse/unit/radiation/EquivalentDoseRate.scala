@@ -9,14 +9,12 @@ class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRa
     extends LinearQuantity[EquivalentDoseRate[A], A, EquivalentDoseRateUnit] {
 
   override protected def newQuantity(value: A, unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
-
 }
 
 trait EquivalentDoseRateUnit extends LinearUnit[EquivalentDoseRateUnit]{
 
   override def getSIUnit: EquivalentDoseRateUnit = EquivalentDoseRateUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = EquivalentDoseRateUnit.dimension
-
 }
 
 object EquivalentDoseRateUnit extends UnitInfo[EquivalentDoseRateUnit]{
@@ -31,11 +29,12 @@ object EquivalentDoseRateUnit extends UnitInfo[EquivalentDoseRateUnit]{
     Seq()
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleEquivalentDoseRateUnit(val name: String, val symbol: String, val interval: Real) extends EquivalentDoseRateUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends EquivalentDoseRateUnit
 

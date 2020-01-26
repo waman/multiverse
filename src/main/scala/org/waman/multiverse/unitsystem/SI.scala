@@ -8,11 +8,7 @@ import scala.language.implicitConversions
 //***** SI Unit System *****
 trait SI extends UnitSystem{
 
-  implicit def convertQuantityToFractional[A: Fractional, U <: PhysicalUnit[U]](q: Quantity[A, U]): A = q.getSIValue
+  implicit def evaluateQuantity[A: Fractional, U <: PhysicalUnit[U]](q: Quantity[A, U]): A = q.getSIValue
 }
 
 object SI extends SI
-
-//***** MKSA Unit System  *****
-trait MKSA extends SI
-object MKSA extends MKSA

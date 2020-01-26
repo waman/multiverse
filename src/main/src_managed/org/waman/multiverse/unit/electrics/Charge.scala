@@ -7,12 +7,16 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
+
 import org.waman.multiverse.unit.radiation.Exposure
 import org.waman.multiverse.unit.radiation.ExposureUnit
+
 
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
     extends LinearQuantity[Charge[A], A, ChargeUnit] {
@@ -26,7 +30,6 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
   def /(time: Time[A]): Current[A] = new Current(this.value / time.value, this.unit / time.unit)
 
   def /(mass: Mass[A]): Exposure[A] = new Exposure(this.value / mass.value, this.unit / mass.unit)
-
 }
 
 trait ChargeUnit extends LinearUnit[ChargeUnit]{
@@ -45,7 +48,6 @@ trait ChargeUnit extends LinearUnit[ChargeUnit]{
 
   def /(massUnit: MassUnit): ExposureUnit =
     new AbstractQuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
-
 }
 
 object ChargeUnit extends UnitInfo[ChargeUnit]{
@@ -60,39 +62,40 @@ object ChargeUnit extends UnitInfo[ChargeUnit]{
     Seq(coulomb, yoctocoulomb, zeptocoulomb, attocoulomb, femtocoulomb, picocoulomb, nanocoulomb, microcoulomb, millicoulomb, centicoulomb, decicoulomb, decacoulomb, hectocoulomb, kilocoulomb, megacoulomb, gigacoulomb, teracoulomb, petacoulomb, exacoulomb, zettacoulomb, yottacoulomb, abcoulomb, statcoulomb, atomic_unit_of_charge)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleChargeUnit(val name: String, val symbol: String, val interval: Real) extends ChargeUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends ChargeUnit
 
 object ChargeUnitObjects{
   import org.waman.multiverse.unit.Constants
 
-  final case object coulomb extends DefaultChargeUnit("coulomb", "C", Nil, 1)
-  final case object yoctocoulomb extends DefaultChargeUnit("yoctocoulomb", "yC", Nil, r"1e-24")
-  final case object zeptocoulomb extends DefaultChargeUnit("zeptocoulomb", "zC", Nil, r"1e-21")
-  final case object attocoulomb extends DefaultChargeUnit("attocoulomb", "aC", Nil, r"1e-18")
-  final case object femtocoulomb extends DefaultChargeUnit("femtocoulomb", "fC", Nil, r"1e-15")
-  final case object picocoulomb extends DefaultChargeUnit("picocoulomb", "pC", Nil, r"1e-12")
-  final case object nanocoulomb extends DefaultChargeUnit("nanocoulomb", "nC", Nil, r"1e-9")
+  final case object coulomb extends SimpleChargeUnit("coulomb", "C", 1)
+  final case object yoctocoulomb extends SimpleChargeUnit("yoctocoulomb", "yC", r"1e-24")
+  final case object zeptocoulomb extends SimpleChargeUnit("zeptocoulomb", "zC", r"1e-21")
+  final case object attocoulomb extends SimpleChargeUnit("attocoulomb", "aC", r"1e-18")
+  final case object femtocoulomb extends SimpleChargeUnit("femtocoulomb", "fC", r"1e-15")
+  final case object picocoulomb extends SimpleChargeUnit("picocoulomb", "pC", r"1e-12")
+  final case object nanocoulomb extends SimpleChargeUnit("nanocoulomb", "nC", r"1e-9")
   final case object microcoulomb extends DefaultChargeUnit("microcoulomb", "μC", Seq("mcC"), r"1e-6")
-  final case object millicoulomb extends DefaultChargeUnit("millicoulomb", "mC", Nil, r"1e-3")
-  final case object centicoulomb extends DefaultChargeUnit("centicoulomb", "cC", Nil, r"1e-2")
-  final case object decicoulomb extends DefaultChargeUnit("decicoulomb", "dC", Nil, r"1e-1")
-  final case object decacoulomb extends DefaultChargeUnit("decacoulomb", "daC", Nil, r"1e1")
-  final case object hectocoulomb extends DefaultChargeUnit("hectocoulomb", "hC", Nil, r"1e2")
+  final case object millicoulomb extends SimpleChargeUnit("millicoulomb", "mC", r"1e-3")
+  final case object centicoulomb extends SimpleChargeUnit("centicoulomb", "cC", r"1e-2")
+  final case object decicoulomb extends SimpleChargeUnit("decicoulomb", "dC", r"1e-1")
+  final case object decacoulomb extends SimpleChargeUnit("decacoulomb", "daC", r"1e1")
+  final case object hectocoulomb extends SimpleChargeUnit("hectocoulomb", "hC", r"1e2")
   final case object kilocoulomb extends DefaultChargeUnit("kilocoulomb", "kC", Seq("KC"), r"1e3")
-  final case object megacoulomb extends DefaultChargeUnit("megacoulomb", "MC", Nil, r"1e6")
-  final case object gigacoulomb extends DefaultChargeUnit("gigacoulomb", "GC", Nil, r"1e9")
-  final case object teracoulomb extends DefaultChargeUnit("teracoulomb", "TC", Nil, r"1e12")
-  final case object petacoulomb extends DefaultChargeUnit("petacoulomb", "PC", Nil, r"1e15")
-  final case object exacoulomb extends DefaultChargeUnit("exacoulomb", "EC", Nil, r"1e18")
-  final case object zettacoulomb extends DefaultChargeUnit("zettacoulomb", "ZC", Nil, r"1e21")
-  final case object yottacoulomb extends DefaultChargeUnit("yottacoulomb", "YC", Nil, r"1e24")
-  final case object abcoulomb extends DefaultChargeUnit("abcoulomb", "abC", Nil, r"10")
+  final case object megacoulomb extends SimpleChargeUnit("megacoulomb", "MC", r"1e6")
+  final case object gigacoulomb extends SimpleChargeUnit("gigacoulomb", "GC", r"1e9")
+  final case object teracoulomb extends SimpleChargeUnit("teracoulomb", "TC", r"1e12")
+  final case object petacoulomb extends SimpleChargeUnit("petacoulomb", "PC", r"1e15")
+  final case object exacoulomb extends SimpleChargeUnit("exacoulomb", "EC", r"1e18")
+  final case object zettacoulomb extends SimpleChargeUnit("zettacoulomb", "ZC", r"1e21")
+  final case object yottacoulomb extends SimpleChargeUnit("yottacoulomb", "YC", r"1e24")
+  final case object abcoulomb extends SimpleChargeUnit("abcoulomb", "abC", r"10")
   final case object statcoulomb extends DefaultChargeUnit("statcoulomb", "statC", Seq("Fr", "esu"), Constants.SpeedOfLight) with NotExact
   final case object atomic_unit_of_charge extends DefaultChargeUnit("atomic unit of charge", "au", Seq("e"), Constants.ElementaryCharge)
 }

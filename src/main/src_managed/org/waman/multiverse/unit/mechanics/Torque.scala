@@ -9,14 +9,12 @@ class Torque[A: Fractional](val value: A, val unit: TorqueUnit)
     extends LinearQuantity[Torque[A], A, TorqueUnit] {
 
   override protected def newQuantity(value: A, unit: TorqueUnit): Torque[A] = new Torque(value, unit)
-
 }
 
 trait TorqueUnit extends LinearUnit[TorqueUnit]{
 
   override def getSIUnit: TorqueUnit = TorqueUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = TorqueUnit.dimension
-
 }
 
 object TorqueUnit extends UnitInfo[TorqueUnit]{
@@ -31,11 +29,12 @@ object TorqueUnit extends UnitInfo[TorqueUnit]{
     Seq()
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimpleTorqueUnit(val name: String, val symbol: String, val interval: Real) extends TorqueUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultTorqueUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends TorqueUnit
 

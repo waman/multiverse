@@ -7,8 +7,10 @@ import org.waman.multiverse._
 
 import org.waman.multiverse.unit.electrics.Current
 import org.waman.multiverse.unit.electrics.CurrentUnit
+
 import org.waman.multiverse.unit.electrics.Voltage
 import org.waman.multiverse.unit.electrics.VoltageUnit
+
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
@@ -16,7 +18,6 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
 
   def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
-
 }
 
 trait PowerUnit extends LinearUnit[PowerUnit]{
@@ -26,7 +27,6 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
     new AbstractQuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
-
 }
 
 object PowerUnit extends UnitInfo[PowerUnit]{
@@ -41,37 +41,38 @@ object PowerUnit extends UnitInfo[PowerUnit]{
     Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
 }
 
-/** For user defined units */
+/** For no aliase or user defined units */
 class SimplePowerUnit(val name: String, val symbol: String, val interval: Real) extends PowerUnit {
   override def aliases: Seq[String] = Nil
 }
 
+/** For units which has aliases */
 class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends PowerUnit
 
 object PowerUnitObjects{
 
-  final case object watt extends DefaultPowerUnit("watt", "W", Nil, 1)
-  final case object yoctowatt extends DefaultPowerUnit("yoctowatt", "yW", Nil, r"1e-24")
-  final case object zeptowatt extends DefaultPowerUnit("zeptowatt", "zW", Nil, r"1e-21")
-  final case object attowatt extends DefaultPowerUnit("attowatt", "aW", Nil, r"1e-18")
-  final case object femtowatt extends DefaultPowerUnit("femtowatt", "fW", Nil, r"1e-15")
-  final case object picowatt extends DefaultPowerUnit("picowatt", "pW", Nil, r"1e-12")
-  final case object nanowatt extends DefaultPowerUnit("nanowatt", "nW", Nil, r"1e-9")
+  final case object watt extends SimplePowerUnit("watt", "W", 1)
+  final case object yoctowatt extends SimplePowerUnit("yoctowatt", "yW", r"1e-24")
+  final case object zeptowatt extends SimplePowerUnit("zeptowatt", "zW", r"1e-21")
+  final case object attowatt extends SimplePowerUnit("attowatt", "aW", r"1e-18")
+  final case object femtowatt extends SimplePowerUnit("femtowatt", "fW", r"1e-15")
+  final case object picowatt extends SimplePowerUnit("picowatt", "pW", r"1e-12")
+  final case object nanowatt extends SimplePowerUnit("nanowatt", "nW", r"1e-9")
   final case object microwatt extends DefaultPowerUnit("microwatt", "μW", Seq("mcW"), r"1e-6")
-  final case object milliwatt extends DefaultPowerUnit("milliwatt", "mW", Nil, r"1e-3")
-  final case object centiwatt extends DefaultPowerUnit("centiwatt", "cW", Nil, r"1e-2")
-  final case object deciwatt extends DefaultPowerUnit("deciwatt", "dW", Nil, r"1e-1")
-  final case object decawatt extends DefaultPowerUnit("decawatt", "daW", Nil, r"1e1")
-  final case object hectowatt extends DefaultPowerUnit("hectowatt", "hW", Nil, r"1e2")
+  final case object milliwatt extends SimplePowerUnit("milliwatt", "mW", r"1e-3")
+  final case object centiwatt extends SimplePowerUnit("centiwatt", "cW", r"1e-2")
+  final case object deciwatt extends SimplePowerUnit("deciwatt", "dW", r"1e-1")
+  final case object decawatt extends SimplePowerUnit("decawatt", "daW", r"1e1")
+  final case object hectowatt extends SimplePowerUnit("hectowatt", "hW", r"1e2")
   final case object kilowatt extends DefaultPowerUnit("kilowatt", "kW", Seq("KW"), r"1e3")
-  final case object megawatt extends DefaultPowerUnit("megawatt", "MW", Nil, r"1e6")
-  final case object gigawatt extends DefaultPowerUnit("gigawatt", "GW", Nil, r"1e9")
-  final case object terawatt extends DefaultPowerUnit("terawatt", "TW", Nil, r"1e12")
-  final case object petawatt extends DefaultPowerUnit("petawatt", "PW", Nil, r"1e15")
-  final case object exawatt extends DefaultPowerUnit("exawatt", "EW", Nil, r"1e18")
-  final case object zettawatt extends DefaultPowerUnit("zettawatt", "ZW", Nil, r"1e21")
-  final case object yottawatt extends DefaultPowerUnit("yottawatt", "YW", Nil, r"1e24")
+  final case object megawatt extends SimplePowerUnit("megawatt", "MW", r"1e6")
+  final case object gigawatt extends SimplePowerUnit("gigawatt", "GW", r"1e9")
+  final case object terawatt extends SimplePowerUnit("terawatt", "TW", r"1e12")
+  final case object petawatt extends SimplePowerUnit("petawatt", "PW", r"1e15")
+  final case object exawatt extends SimplePowerUnit("exawatt", "EW", r"1e18")
+  final case object zettawatt extends SimplePowerUnit("zettawatt", "ZW", r"1e21")
+  final case object yottawatt extends SimplePowerUnit("yottawatt", "YW", r"1e24")
 }
 
 object PowerUnits{

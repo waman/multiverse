@@ -7,7 +7,6 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
   // srcManaged: src/main/src_managed
 
   private val unitDir = "unit"+File.separator
-  private val unitsystemDir = "unitsystem"+File.separator
 
   def apply(json: File): JsonResource = {
     val destRoot = IO.resolve(srcManaged, destPath)  // src/main/src_managed/org/waman/multiverse
@@ -30,17 +29,17 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
         val destDir = IO.resolve(destRoot, new File(s)) // src/main/src_managed/org/waman/multiverse/unit/basic
 
         json.getName match {
-          case "TemperatureUnits.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
-          case "LengthUnits.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
-          case "AreaUnits.json" | "VolumeUnits.json" =>
-            val s = json.getName.replace("Units.json", "")
+          case "Temperature.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
+          case "Length.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
+          case "Area.json" | "Volume.json" =>
+            val s = json.getName.replace(".json", "")
             new LengthPoweredUnitDefinitionJson(s, json, destDir, subpackage)
-          case "TimeUnits.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
+          case "Time.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
           case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
         }
 
-      case Some(s) if s.contains(unitsystemDir) =>
-        throw new RuntimeException(s"""Unknown json file appears: $s""")
+      case Some("unitsystem") =>
+        new UnitSystemJson(json, IO.resolve(destRoot, new File("unitsystem")))
 
       case x => throw new RuntimeException(s"""Unknown json file appears: $x""")
     }
