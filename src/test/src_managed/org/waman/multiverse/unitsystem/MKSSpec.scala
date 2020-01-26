@@ -8,11 +8,11 @@ class MKSSpec extends MultiverseCustomSpec{
 
   "Length object is implicitly converted to the Double value in metre" in {
     // SetUp
-    import org.waman.multiverse.unit.basic.LengthUnits.m
-    val expected = 3.0(m)(m)
+    import org.waman.multiverse.unit.basic.LengthUnits._
+    val expected = 7.0(m)(m)
     // Exercise
-    val sut: Double = 3.0(m)
+    val sut: Double = 7.0(m)
     // Verify
-    sut should equal (expected)
+    sut should equal (%%%%(expected))
   }
 }

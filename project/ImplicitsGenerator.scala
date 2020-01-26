@@ -6,7 +6,7 @@ object ImplicitsGenerator {
 
   import GenerationUtil._
 
-  def generate(srcManaged: File, jsons: JsonResources): File = {
+  def generate(jsons: JsonResources, srcManaged: File): File = {
     val destDir = IO.resolve(srcManaged, new File("org/waman/multiverse/implicits"))
     if (!destDir.exists()) IO.createDirectory(destDir)
 

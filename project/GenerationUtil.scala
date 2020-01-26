@@ -1,6 +1,8 @@
+import java.io.File
 import java.nio.charset.Charset
 
 import com.google.gson.Gson
+import sbt.io.IO
 
 import scala.util.matching.Regex
 
@@ -23,6 +25,20 @@ object GenerationUtil{
   }
 
   private val regexUnitName: Regex = """[\w.()^\d]+""".r
+
+  def allFiles(dir: File): Seq[File] = {
+    def allFiles(f: File, acc: Seq[File]): Seq[File] =
+      if (f.isFile)
+        f +: acc
+      else if (f.isDirectory)
+        IO.listFiles(f).toList.flatMap(allFiles(_, acc))
+      else
+        acc
+
+    allFiles(dir, Nil)
+  }
+
+  def lastModifiedIn(dir: File): Long = allFiles(dir).map(_.lastModified).max
 
   def foreachUnitDefinition(ids: Seq[String], jsons: JsonResources)(f: UnitDefinitionJson => Unit): Unit =
     ids.distinct.map(jsons.searchUnitDefinition).foreach(f)

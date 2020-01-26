@@ -41,15 +41,21 @@ lazy val root = (project in file("."))
 
 //***** Source Generation *****
 Compile / sourceManaged := file((Compile / sourceDirectory).value.getAbsolutePath + "/src_managed")
-//       Compile / sourceManaged := file("src/main/src_managed")
 
 Compile / sourceGenerators += Def.task {
   val info = (Compile / resourceDirectory).value / "unitdefs"
-  val destDir = (Compile / sourceManaged).value
-  MultiverseSourceGenerator.generate(info, destDir)
+  val srcManaged = (Compile / sourceManaged).value
+  val srcManagedTest = (Test / sourceManaged).value
+  MultiverseSourceGenerator.generate(info, srcManaged, srcManagedTest)  // this actually generate test codes
 }.taskValue
 
-cleanFiles += (Compile / sourceManaged).value
+Test / sourceManaged := file((Test / sourceDirectory).value.getAbsolutePath + "/src_managed")
+
+Test / sourceGenerators += Def.task {
+  GenerationUtil.allFiles((Test / sourceManaged).value)
+}.taskValue
+
+cleanFiles ++= Seq((Compile / sourceManaged).value, (Test / sourceManaged).value)
 
 //***** Running *****
 fork := true
