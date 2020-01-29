@@ -1,4 +1,5 @@
 {
+  "description": "This can be used as a unit of action.",
   "SIUnit": "Energy * Time",
   "dimension": {"M": 1, "L": 2, "T": -1},
 

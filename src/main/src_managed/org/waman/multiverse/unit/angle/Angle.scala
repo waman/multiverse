@@ -17,6 +17,7 @@ class Angle[A: Fractional](val value: A, val unit: AngleUnit)
   def /(time: Time[A]): AngularVelocity[A] = new AngularVelocity(this.value / time.value, this.unit / time.unit)
 }
 
+/** null */
 trait AngleUnit extends LinearUnit[AngleUnit]{
 
   override def getSIUnit: AngleUnit = AngleUnit.getSIUnit

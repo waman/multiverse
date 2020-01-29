@@ -38,7 +38,10 @@ object GenerationUtil{
     allFiles(dir, Nil)
   }
 
-  def lastModifiedIn(dir: File): Long = allFiles(dir).map(_.lastModified).max
+  def lastModifiedIn(dir: File): Long = allFiles(dir) match {
+    case Nil => -1
+    case files => files.map(_.lastModified).max
+  }
 
   def foreachUnitDefinition(ids: Seq[String], jsons: JsonResources)(f: UnitDefinitionJson => Unit): Unit =
     ids.distinct.map(jsons.searchUnitDefinition).foreach(f)

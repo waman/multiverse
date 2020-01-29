@@ -22,6 +22,7 @@ class Flux[A: Fractional](val value: A, val unit: FluxUnit)
   def /(current: Current[A]): Inductance[A] = new Inductance(this.value / current.value, this.unit / current.unit)
 }
 
+/** null */
 trait FluxUnit extends LinearUnit[FluxUnit]{
 
   override def getSIUnit: FluxUnit = FluxUnit.getSIUnit

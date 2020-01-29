@@ -12,6 +12,7 @@ class LineDensity[A: Fractional](val value: A, val unit: LineDensityUnit)
   override protected def newQuantity(value: A, unit: LineDensityUnit): LineDensity[A] = new LineDensity(value, unit)
 }
 
+/** null */
 trait LineDensityUnit extends LinearUnit[LineDensityUnit]{
 
   override def getSIUnit: LineDensityUnit = LineDensityUnit.getSIUnit

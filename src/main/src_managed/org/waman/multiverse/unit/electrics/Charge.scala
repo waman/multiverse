@@ -32,6 +32,7 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
   def /(mass: Mass[A]): Exposure[A] = new Exposure(this.value / mass.value, this.unit / mass.unit)
 }
 
+/** null */
 trait ChargeUnit extends LinearUnit[ChargeUnit]{
 
   override def getSIUnit: ChargeUnit = ChargeUnit.getSIUnit

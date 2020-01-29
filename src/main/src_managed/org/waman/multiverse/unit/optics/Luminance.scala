@@ -12,6 +12,7 @@ class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
   override protected def newQuantity(value: A, unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
 }
 
+/** null */
 trait LuminanceUnit extends LinearUnit[LuminanceUnit]{
 
   override def getSIUnit: LuminanceUnit = LuminanceUnit.getSIUnit

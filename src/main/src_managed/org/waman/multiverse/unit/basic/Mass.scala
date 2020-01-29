@@ -11,6 +11,9 @@ import org.waman.multiverse.unit.mechanics.AccelerationUnit
 import org.waman.multiverse.unit.mechanics.Force
 import org.waman.multiverse.unit.mechanics.ForceUnit
 
+import org.waman.multiverse.unit.mechanics.MassTorque
+import org.waman.multiverse.unit.mechanics.MassTorqueUnit
+
 import org.waman.multiverse.unit.density.Density
 import org.waman.multiverse.unit.density.DensityUnit
 
@@ -25,6 +28,8 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 
   def *(acceleration: Acceleration[A]): Force[A] = new Force(this.value * acceleration.value, this.unit * acceleration.unit)
 
+  def *(length: Length[A]): MassTorque[A] = new MassTorque(this.value * length.value, this.unit * length.unit)
+
   def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
 
   def /(length: Length[A]): LineDensity[A] = new LineDensity(this.value / length.value, this.unit / length.unit)
@@ -38,6 +43,7 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
 
 }
 
+/** null */
 trait MassUnit extends LinearUnit[MassUnit]{
 
   override def getSIUnit: MassUnit = MassUnit.getSIUnit
@@ -45,6 +51,9 @@ trait MassUnit extends LinearUnit[MassUnit]{
 
   def *(accelerationUnit: AccelerationUnit): ForceUnit =
     new AbstractProductUnit[ForceUnit, MassUnit, AccelerationUnit](MassUnit.this, accelerationUnit) with ForceUnit
+
+  def *(lengthUnit: LengthUnit): MassTorqueUnit =
+    new AbstractProductUnit[MassTorqueUnit, MassUnit, LengthUnit](MassUnit.this, lengthUnit) with MassTorqueUnit
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
     new AbstractQuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit

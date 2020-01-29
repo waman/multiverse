@@ -4,7 +4,7 @@
 
   "convertibles": [
     {"target": "Energy", "from": "kelvin", "to": "joule", "factor": "Constants.BoltzmannConstant"},
-    {"target": "Temperature", "from": "kelvin", "to": "kelvin", "factor": "1"}
+    {"target": "Temperature", "from": "kelvin", "to": "kelvin"}
   ],
   
   "units": [

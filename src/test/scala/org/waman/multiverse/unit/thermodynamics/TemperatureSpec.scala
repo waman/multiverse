@@ -73,5 +73,21 @@ class TemperatureSpec extends MultiverseCustomSpec {
         sut should equal (%%%%(expected))
       }
     }
+
+    "Temperature should be implicitly converted to AbsoluteTemperature" in {
+      // SetUp
+      import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnits.{K => KA, mK => mKA}
+      // Exercise
+      val conversions =
+        Table(
+          ("sut", "expected"),
+          (3.0(degC)(KA), 276.15),
+          (3.0(degC)(mKA), 276150.0)
+        )
+      forAll(conversions) { (sut: Double, expected: Double) =>
+        // Verify
+        sut should equal(%%%%(expected))
+      }
+    }
   }
 }

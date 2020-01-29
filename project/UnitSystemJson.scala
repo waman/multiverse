@@ -3,7 +3,8 @@ import java.io.{File, BufferedWriter => BW}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class UnitSystemInfo(extend: String, entries: Array[Entry]){
+case class UnitSystemInfo(parent: String, entries: Array[Entry]){
+  def _parent: String = if (this.parent != null) this.parent else "UnitSystem"
   lazy val _entries: Seq[Entry] = GenerationUtil.toSeq(entries)
 }
 
@@ -51,7 +52,7 @@ class UnitSystemJson(jsonFile: File, destDir: File)
 
       writer.write(
         s"""
-           |trait $id {
+           |trait $id extends ${this.unitsystemInfo._parent}{
            |""".stripMargin)
 
       this.unitsystemInfo._entries.foreach{ e =>

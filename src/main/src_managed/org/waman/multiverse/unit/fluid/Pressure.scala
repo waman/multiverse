@@ -17,6 +17,7 @@ class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
   def *(time: Time[A]): DynamicViscosity[A] = new DynamicViscosity(this.value * time.value, this.unit * time.unit)
 }
 
+/** null */
 trait PressureUnit extends LinearUnit[PressureUnit]{
 
   override def getSIUnit: PressureUnit = PressureUnit.getSIUnit

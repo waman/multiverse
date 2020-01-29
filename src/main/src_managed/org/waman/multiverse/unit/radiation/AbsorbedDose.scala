@@ -12,6 +12,7 @@ class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
   override protected def newQuantity(value: A, unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
 }
 
+/** null */
 trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{
 
   override def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnit.getSIUnit
@@ -27,7 +28,7 @@ object AbsorbedDoseUnit extends UnitInfo[AbsorbedDoseUnit]{
 
   import AbsorbedDoseUnitObjects._
   def getUnits: Seq[AbsorbedDoseUnit] =
-    Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray)
+    Seq(gray, yoctogray, zeptogray, attogray, femtogray, picogray, nanogray, microgray, milligray, centigray, decigray, decagray, hectogray, kilogray, megagray, gigagray, teragray, petagray, exagray, zettagray, yottagray, rad, yoctorad, zeptorad, attorad, femtorad, picorad, nanorad, microrad, millirad, centirad, decirad, decarad, hectorad, kilorad, megarad, gigarad, terarad, petarad, exarad, zettarad, yottarad)
 }
 
 /** For no aliase or user defined units */
@@ -62,6 +63,27 @@ object AbsorbedDoseUnitObjects{
   final case object exagray extends SimpleAbsorbedDoseUnit("exagray", "EGy", r"1e18")
   final case object zettagray extends SimpleAbsorbedDoseUnit("zettagray", "ZGy", r"1e21")
   final case object yottagray extends SimpleAbsorbedDoseUnit("yottagray", "YGy", r"1e24")
+  final case object rad extends SimpleAbsorbedDoseUnit("rad", "rad", r"1e-2")
+  final case object yoctorad extends SimpleAbsorbedDoseUnit("yoctorad", "yrad", r"1e-2" * r"1e-24")
+  final case object zeptorad extends SimpleAbsorbedDoseUnit("zeptorad", "zrad", r"1e-2" * r"1e-21")
+  final case object attorad extends SimpleAbsorbedDoseUnit("attorad", "arad", r"1e-2" * r"1e-18")
+  final case object femtorad extends SimpleAbsorbedDoseUnit("femtorad", "frad", r"1e-2" * r"1e-15")
+  final case object picorad extends SimpleAbsorbedDoseUnit("picorad", "prad", r"1e-2" * r"1e-12")
+  final case object nanorad extends SimpleAbsorbedDoseUnit("nanorad", "nrad", r"1e-2" * r"1e-9")
+  final case object microrad extends DefaultAbsorbedDoseUnit("microrad", "μrad", Seq("mcrad"), r"1e-2" * r"1e-6")
+  final case object millirad extends SimpleAbsorbedDoseUnit("millirad", "mrad", r"1e-2" * r"1e-3")
+  final case object centirad extends SimpleAbsorbedDoseUnit("centirad", "crad", r"1e-2" * r"1e-2")
+  final case object decirad extends SimpleAbsorbedDoseUnit("decirad", "drad", r"1e-2" * r"1e-1")
+  final case object decarad extends SimpleAbsorbedDoseUnit("decarad", "darad", r"1e-2" * r"1e1")
+  final case object hectorad extends SimpleAbsorbedDoseUnit("hectorad", "hrad", r"1e-2" * r"1e2")
+  final case object kilorad extends DefaultAbsorbedDoseUnit("kilorad", "krad", Seq("Krad"), r"1e-2" * r"1e3")
+  final case object megarad extends SimpleAbsorbedDoseUnit("megarad", "Mrad", r"1e-2" * r"1e6")
+  final case object gigarad extends SimpleAbsorbedDoseUnit("gigarad", "Grad", r"1e-2" * r"1e9")
+  final case object terarad extends SimpleAbsorbedDoseUnit("terarad", "Trad", r"1e-2" * r"1e12")
+  final case object petarad extends SimpleAbsorbedDoseUnit("petarad", "Prad", r"1e-2" * r"1e15")
+  final case object exarad extends SimpleAbsorbedDoseUnit("exarad", "Erad", r"1e-2" * r"1e18")
+  final case object zettarad extends SimpleAbsorbedDoseUnit("zettarad", "Zrad", r"1e-2" * r"1e21")
+  final case object yottarad extends SimpleAbsorbedDoseUnit("yottarad", "Yrad", r"1e-2" * r"1e24")
 }
 
 object AbsorbedDoseUnits{
@@ -88,4 +110,27 @@ object AbsorbedDoseUnits{
   def EGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.exagray
   def ZGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zettagray
   def YGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yottagray
+  def rad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.rad
+  def yrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yoctorad
+  def zrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zeptorad
+  def arad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.attorad
+  def frad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.femtorad
+  def prad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.picorad
+  def nrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.nanorad
+  def `μrad`: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
+  def mcrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
+  def mrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.millirad
+  def crad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.centirad
+  def drad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decirad
+  def darad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decarad
+  def hrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.hectorad
+  def krad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
+  def Krad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
+  def Mrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.megarad
+  def Grad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gigarad
+  def Trad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.terarad
+  def Prad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.petarad
+  def Erad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.exarad
+  def Zrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zettarad
+  def Yrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yottarad
 }

@@ -1,6 +1,0 @@
-{
-  "SIUnit": "Force * Length",
-  "dimension": {"M": 1, "L": 2, "T": -2},
-
-  "composites": ["Force * Length"]
-}

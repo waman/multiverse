@@ -9,15 +9,16 @@ object MultiverseSourceGenerator {
 
   // unitdefs: src/main/resources/unitdefs
   // srcManaged: src/main/src_managed
-  def generate(unitdefs: File, srcManaged: File, srcManagedTest: File): Seq[File] =
-    if ((!srcManaged.exists() || !srcManagedTest.exists())
-        || lastModifiedIn(unitdefs) > (lastModifiedIn(srcManaged) max lastModifiedIn(srcManagedTest)))
-      doGenerate(unitdefs, srcManaged, srcManagedTest)
+  def generate(unitdefs: File, srcManaged: File): Seq[File] = {
+    IO.createDirectory(srcManaged)
+    if (lastModifiedIn(unitdefs) > lastModifiedIn(srcManaged))
+      doGenerate(unitdefs, srcManaged)
     else
       GenerationUtil.allFiles(srcManaged)
+  }
 
-  private def doGenerate(unitdefs: File, srcManaged: File, srcManagedTest: File): Seq[File] = {
-    IO.createDirectory(srcManaged)
+  private def doGenerate(unitdefs: File, srcManaged: File): Seq[File] = {
+
     val factory = new JsonResourceFactory(unitdefs, srcManaged, destPath)
 
     def walk(f: File, acc: Seq[JsonResource]): Seq[JsonResource] =
@@ -33,12 +34,10 @@ object MultiverseSourceGenerator {
       }
 
     val jsons = new JsonResources(walk(unitdefs, Nil))
+    UnitdefsConsistencyChecker.test(jsons)
+
     val generated = jsons.generate()
-
     val implicits = ImplicitsGenerator.generate(jsons, srcManaged)
-
-    UnitSystemTestsGenerator.generate(jsons, srcManagedTest)
-
     implicits +: generated
   }
 }

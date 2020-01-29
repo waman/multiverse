@@ -12,6 +12,7 @@ class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
   override protected def newQuantity(value: A, unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
 }
 
+/** null */
 trait InductanceUnit extends LinearUnit[InductanceUnit]{
 
   override def getSIUnit: InductanceUnit = InductanceUnit.getSIUnit

@@ -5,11 +5,11 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
-import org.waman.multiverse.unit.basic.Time
-import org.waman.multiverse.unit.basic.TimeUnit
-
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
+
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
@@ -23,23 +23,24 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
 
   override protected def newQuantity(value: A, unit: ForceUnit): Force[A] = new Force(value, unit)
 
-  def *(time: Time[A]): Momentum[A] = new Momentum(this.value * time.value, this.unit * time.unit)
+  def *(length: Length[A]): Energy[A] = new Energy(this.value * length.value, this.unit * length.unit)
 
-  def *(length: Length[A]): Torque[A] = new Torque(this.value * length.value, this.unit * length.unit)
+  def *(time: Time[A]): Momentum[A] = new Momentum(this.value * time.value, this.unit * time.unit)
 
   def /(area: Area[A]): Pressure[A] = new Pressure(this.value / area.value, this.unit / area.unit)
 }
 
+/** null */
 trait ForceUnit extends LinearUnit[ForceUnit]{
 
   override def getSIUnit: ForceUnit = ForceUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = ForceUnit.dimension
 
+  def *(lengthUnit: LengthUnit): EnergyUnit =
+    new AbstractProductUnit[EnergyUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with EnergyUnit
+
   def *(timeUnit: TimeUnit): MomentumUnit =
     new AbstractProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
-
-  def *(lengthUnit: LengthUnit): TorqueUnit =
-    new AbstractProductUnit[TorqueUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with TorqueUnit
 
   def /(areaUnit: AreaUnit): PressureUnit =
     new AbstractQuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit

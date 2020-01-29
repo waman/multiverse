@@ -12,6 +12,7 @@ class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
   override protected def newQuantity(value: A, unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
 }
 
+/** null */
 trait ExposureUnit extends LinearUnit[ExposureUnit]{
 
   override def getSIUnit: ExposureUnit = ExposureUnit.getSIUnit

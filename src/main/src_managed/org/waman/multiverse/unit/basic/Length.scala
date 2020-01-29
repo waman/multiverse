@@ -27,6 +27,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   def /(timeSquared: TimeSquared[A]): Acceleration[A] = new Acceleration(this.value / timeSquared.value, this.unit / timeSquared.unit)
 }
 
+/** null */
 trait LengthUnit extends LinearUnit[LengthUnit]{
 
   override def getSIUnit: LengthUnit = LengthUnit.getSIUnit

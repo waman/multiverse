@@ -12,6 +12,7 @@ class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosi
   override protected def newQuantity(value: A, unit: KinematicViscosityUnit): KinematicViscosity[A] = new KinematicViscosity(value, unit)
 }
 
+/** null */
 trait KinematicViscosityUnit extends LinearUnit[KinematicViscosityUnit]{
 
   override def getSIUnit: KinematicViscosityUnit = KinematicViscosityUnit.getSIUnit

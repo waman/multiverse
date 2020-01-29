@@ -25,6 +25,7 @@ trait UnitInfo{
 }
 
 trait UnitCategory[RU <: RawUnitInfo[U], U <: UnitInfo]{
+  def description: String
   def SIUnit: String
   def dimension: Dimension
   def units: Array[RU]
@@ -90,7 +91,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
          |""".stripMargin)
 
     this.id match {
-      case "TimeSquared" | "VolumeFlow" | "Torque" | "EquivalentDoseRate" =>
+      case "TimeSquared" | "Torque" | "VolumeFlow" | "EquivalentDoseRate" =>
       case _ => writer.write("import spire.implicits._\n")
     }
 
@@ -152,7 +153,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
       } else {
         val factor =
-          if (conv.factor == "1") ""  // for Temperature <-> AbsoluteTemperature
+          if (conv.factor == null) ""  // for Temperature <-> AbsoluteTemperature or AngularMomentum <-> Action
           else s""" * implicitly[Fractional[A]].fromReal(${refineNumbers(conv.factor)})"""
 
         writer.write(
@@ -172,7 +173,8 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
   private def generateUnitTrait(writer: BW, jsons: JsonResources, op: OP): Unit = {
     writer.write(
-      s"""trait ${id}Unit extends ${unitType}Unit[${id}Unit]{
+      s"""/** ${this.unitCategory.description} */
+         |trait ${id}Unit extends ${unitType}Unit[${id}Unit]{
          |
          |  override def getSIUnit: ${id}Unit = ${id}Unit.getSIUnit
          |  override def dimension: Map[DimensionSymbol, Int] = ${id}Unit.dimension

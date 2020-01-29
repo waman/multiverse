@@ -48,13 +48,13 @@ package object implicits {
     def apply(unit: FluxDensityUnit): FluxDensity[A] = new FluxDensity(value, unit)
     def apply(unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
     def apply(unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
-    def apply(unit: ActionUnit): Action[A] = new Action(value, unit)
+    def apply(unit: AngularMomentumUnit): AngularMomentum[A] = new AngularMomentum(value, unit)
     def apply(unit: EnergyUnit): Energy[A] = new Energy(value, unit)
     def apply(unit: ForceUnit): Force[A] = new Force(value, unit)
+    def apply(unit: MassTorqueUnit): MassTorque[A] = new MassTorque(value, unit)
     def apply(unit: MomentumUnit): Momentum[A] = new Momentum(value, unit)
     def apply(unit: PowerUnit): Power[A] = new Power(value, unit)
     def apply(unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
-    def apply(unit: TorqueUnit): Torque[A] = new Torque(value, unit)
     def apply(unit: IlluminanceUnit): Illuminance[A] = new Illuminance(value, unit)
     def apply(unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
     def apply(unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
@@ -82,32 +82,11 @@ package object implicits {
   implicit def convertBigIntToQuantityFactory(value: BigInt): QuantityFactory[Real] =
     new QuantityFactory(Real(value))
 
-  // Implicit conversions between unrelated units (like energy and absolute temperature)
-  implicit def convertAngularVelocityToFrequency[A: Fractional](q: AngularVelocity[A]): Frequency[A] =
-    q.toFrequency
-
-  implicit def convertFrequencyToAngularVelocity[A: Fractional](q: Frequency[A]): AngularVelocity[A] =
-    q.toAngularVelocity
-
-  implicit def convertMassToEnergy[A: Fractional](q: Mass[A]): Energy[A] =
-    q.toEnergy
-
-  implicit def convertConductanceToResistance[A: Fractional](q: Conductance[A]): Resistance[A] =
-    q.toResistance
-
-  implicit def convertResistanceToConductance[A: Fractional](q: Resistance[A]): Conductance[A] =
-    q.toConductance
-
-  implicit def convertEnergyToAbsoluteTemperature[A: Fractional](q: Energy[A]): AbsoluteTemperature[A] =
-    q.toAbsoluteTemperature
-
-  implicit def convertEnergyToMass[A: Fractional](q: Energy[A]): Mass[A] =
-    q.toMass
-
-  implicit def convertAbsoluteTemperatureToEnergy[A: Fractional](q: AbsoluteTemperature[A]): Energy[A] =
-    q.toEnergy
-
+  // Implicit conversions between Temperature and AbsoluteTemperature)
   implicit def convertAbsoluteTemperatureToTemperature[A: Fractional](q: AbsoluteTemperature[A]): Temperature[A] =
     q.toTemperature
+
+  implicit def convertTemperatureToAbsoluteTemperature[A: Fractional](q: Temperature[A]): AbsoluteTemperature[A] =
+    q.toAbsoluteTemperature
 
 }

@@ -60,6 +60,7 @@ class JsonResources(val jsons: Seq[JsonResource]){
   val scalePrefixJson: ScalePrefixJson = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
   val unitDefs: Seq[UnitDefinitionJson] = extractResources(classOf[UnitDefinitionJson])
   val linearUnitDefs: Seq[LinearUnitDefinitionJson] = extractResources(classOf[LinearUnitDefinitionJson])
+  val unitsystems: Seq[UnitSystemJson] = extractResources(classOf[UnitSystemJson])
 
   def generate(): Seq[File] = extractResources(classOf[SourceGeneratorJson]).map(_.generate(this))
 }

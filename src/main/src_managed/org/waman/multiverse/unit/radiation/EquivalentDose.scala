@@ -17,6 +17,7 @@ class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
   def /(time: Time[A]): EquivalentDoseRate[A] = new EquivalentDoseRate(this.value / time.value, this.unit / time.unit)
 }
 
+/** null */
 trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
 
   override def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnit.getSIUnit
@@ -35,7 +36,7 @@ object EquivalentDoseUnit extends UnitInfo[EquivalentDoseUnit]{
 
   import EquivalentDoseUnitObjects._
   def getUnits: Seq[EquivalentDoseUnit] =
-    Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, rem, yoctorem, zeptorem, attorem, femtorem, picorem, nanorem, microrem, millirem, centirem, decirem, decarem, hectorem, kilorem, megarem, gigarem, terarem, petarem, exarem, zettarem, yottarem)
+    Seq(sievert, yoctosievert, zeptosievert, attosievert, femtosievert, picosievert, nanosievert, microsievert, millisievert, centisievert, decisievert, decasievert, hectosievert, kilosievert, megasievert, gigasievert, terasievert, petasievert, exasievert, zettasievert, yottasievert, roentgen_equivalent_man, yoctoroentgen_equivalent_man, zeptoroentgen_equivalent_man, attoroentgen_equivalent_man, femtoroentgen_equivalent_man, picoroentgen_equivalent_man, nanoroentgen_equivalent_man, microroentgen_equivalent_man, milliroentgen_equivalent_man, centiroentgen_equivalent_man, deciroentgen_equivalent_man, decaroentgen_equivalent_man, hectoroentgen_equivalent_man, kiloroentgen_equivalent_man, megaroentgen_equivalent_man, gigaroentgen_equivalent_man, teraroentgen_equivalent_man, petaroentgen_equivalent_man, exaroentgen_equivalent_man, zettaroentgen_equivalent_man, yottaroentgen_equivalent_man)
 }
 
 /** For no aliase or user defined units */
@@ -70,27 +71,27 @@ object EquivalentDoseUnitObjects{
   final case object exasievert extends SimpleEquivalentDoseUnit("exasievert", "ESv", r"1e18")
   final case object zettasievert extends SimpleEquivalentDoseUnit("zettasievert", "ZSv", r"1e21")
   final case object yottasievert extends SimpleEquivalentDoseUnit("yottasievert", "YSv", r"1e24")
-  final case object rem extends SimpleEquivalentDoseUnit("rem", "rem", r"1e-2")
-  final case object yoctorem extends SimpleEquivalentDoseUnit("yoctorem", "yrem", r"1e-2" * r"1e-24")
-  final case object zeptorem extends SimpleEquivalentDoseUnit("zeptorem", "zrem", r"1e-2" * r"1e-21")
-  final case object attorem extends SimpleEquivalentDoseUnit("attorem", "arem", r"1e-2" * r"1e-18")
-  final case object femtorem extends SimpleEquivalentDoseUnit("femtorem", "frem", r"1e-2" * r"1e-15")
-  final case object picorem extends SimpleEquivalentDoseUnit("picorem", "prem", r"1e-2" * r"1e-12")
-  final case object nanorem extends SimpleEquivalentDoseUnit("nanorem", "nrem", r"1e-2" * r"1e-9")
-  final case object microrem extends DefaultEquivalentDoseUnit("microrem", "μrem", Seq("mcrem"), r"1e-2" * r"1e-6")
-  final case object millirem extends SimpleEquivalentDoseUnit("millirem", "mrem", r"1e-2" * r"1e-3")
-  final case object centirem extends SimpleEquivalentDoseUnit("centirem", "crem", r"1e-2" * r"1e-2")
-  final case object decirem extends SimpleEquivalentDoseUnit("decirem", "drem", r"1e-2" * r"1e-1")
-  final case object decarem extends SimpleEquivalentDoseUnit("decarem", "darem", r"1e-2" * r"1e1")
-  final case object hectorem extends SimpleEquivalentDoseUnit("hectorem", "hrem", r"1e-2" * r"1e2")
-  final case object kilorem extends DefaultEquivalentDoseUnit("kilorem", "krem", Seq("Krem"), r"1e-2" * r"1e3")
-  final case object megarem extends SimpleEquivalentDoseUnit("megarem", "Mrem", r"1e-2" * r"1e6")
-  final case object gigarem extends SimpleEquivalentDoseUnit("gigarem", "Grem", r"1e-2" * r"1e9")
-  final case object terarem extends SimpleEquivalentDoseUnit("terarem", "Trem", r"1e-2" * r"1e12")
-  final case object petarem extends SimpleEquivalentDoseUnit("petarem", "Prem", r"1e-2" * r"1e15")
-  final case object exarem extends SimpleEquivalentDoseUnit("exarem", "Erem", r"1e-2" * r"1e18")
-  final case object zettarem extends SimpleEquivalentDoseUnit("zettarem", "Zrem", r"1e-2" * r"1e21")
-  final case object yottarem extends SimpleEquivalentDoseUnit("yottarem", "Yrem", r"1e-2" * r"1e24")
+  final case object roentgen_equivalent_man extends SimpleEquivalentDoseUnit("roentgen equivalent man", "rem", r"1e-2")
+  final case object yoctoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("yoctoroentgen equivalent man", "yrem", r"1e-2" * r"1e-24")
+  final case object zeptoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("zeptoroentgen equivalent man", "zrem", r"1e-2" * r"1e-21")
+  final case object attoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("attoroentgen equivalent man", "arem", r"1e-2" * r"1e-18")
+  final case object femtoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("femtoroentgen equivalent man", "frem", r"1e-2" * r"1e-15")
+  final case object picoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("picoroentgen equivalent man", "prem", r"1e-2" * r"1e-12")
+  final case object nanoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("nanoroentgen equivalent man", "nrem", r"1e-2" * r"1e-9")
+  final case object microroentgen_equivalent_man extends DefaultEquivalentDoseUnit("microroentgen equivalent man", "μrem", Seq("mcrem"), r"1e-2" * r"1e-6")
+  final case object milliroentgen_equivalent_man extends SimpleEquivalentDoseUnit("milliroentgen equivalent man", "mrem", r"1e-2" * r"1e-3")
+  final case object centiroentgen_equivalent_man extends SimpleEquivalentDoseUnit("centiroentgen equivalent man", "crem", r"1e-2" * r"1e-2")
+  final case object deciroentgen_equivalent_man extends SimpleEquivalentDoseUnit("deciroentgen equivalent man", "drem", r"1e-2" * r"1e-1")
+  final case object decaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("decaroentgen equivalent man", "darem", r"1e-2" * r"1e1")
+  final case object hectoroentgen_equivalent_man extends SimpleEquivalentDoseUnit("hectoroentgen equivalent man", "hrem", r"1e-2" * r"1e2")
+  final case object kiloroentgen_equivalent_man extends DefaultEquivalentDoseUnit("kiloroentgen equivalent man", "krem", Seq("Krem"), r"1e-2" * r"1e3")
+  final case object megaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("megaroentgen equivalent man", "Mrem", r"1e-2" * r"1e6")
+  final case object gigaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("gigaroentgen equivalent man", "Grem", r"1e-2" * r"1e9")
+  final case object teraroentgen_equivalent_man extends SimpleEquivalentDoseUnit("teraroentgen equivalent man", "Trem", r"1e-2" * r"1e12")
+  final case object petaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("petaroentgen equivalent man", "Prem", r"1e-2" * r"1e15")
+  final case object exaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("exaroentgen equivalent man", "Erem", r"1e-2" * r"1e18")
+  final case object zettaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("zettaroentgen equivalent man", "Zrem", r"1e-2" * r"1e21")
+  final case object yottaroentgen_equivalent_man extends SimpleEquivalentDoseUnit("yottaroentgen equivalent man", "Yrem", r"1e-2" * r"1e24")
 }
 
 object EquivalentDoseUnits{
@@ -117,27 +118,27 @@ object EquivalentDoseUnits{
   def ESv: EquivalentDoseUnit = EquivalentDoseUnitObjects.exasievert
   def ZSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.zettasievert
   def YSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.yottasievert
-  def rem: EquivalentDoseUnit = EquivalentDoseUnitObjects.rem
-  def yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yoctorem
-  def zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zeptorem
-  def arem: EquivalentDoseUnit = EquivalentDoseUnitObjects.attorem
-  def frem: EquivalentDoseUnit = EquivalentDoseUnitObjects.femtorem
-  def prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.picorem
-  def nrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.nanorem
-  def `μrem`: EquivalentDoseUnit = EquivalentDoseUnitObjects.microrem
-  def mcrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.microrem
-  def mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.millirem
-  def crem: EquivalentDoseUnit = EquivalentDoseUnitObjects.centirem
-  def drem: EquivalentDoseUnit = EquivalentDoseUnitObjects.decirem
-  def darem: EquivalentDoseUnit = EquivalentDoseUnitObjects.decarem
-  def hrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.hectorem
-  def krem: EquivalentDoseUnit = EquivalentDoseUnitObjects.kilorem
-  def Krem: EquivalentDoseUnit = EquivalentDoseUnitObjects.kilorem
-  def Mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.megarem
-  def Grem: EquivalentDoseUnit = EquivalentDoseUnitObjects.gigarem
-  def Trem: EquivalentDoseUnit = EquivalentDoseUnitObjects.terarem
-  def Prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.petarem
-  def Erem: EquivalentDoseUnit = EquivalentDoseUnitObjects.exarem
-  def Zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zettarem
-  def Yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yottarem
+  def rem: EquivalentDoseUnit = EquivalentDoseUnitObjects.roentgen_equivalent_man
+  def yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yoctoroentgen_equivalent_man
+  def zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zeptoroentgen_equivalent_man
+  def arem: EquivalentDoseUnit = EquivalentDoseUnitObjects.attoroentgen_equivalent_man
+  def frem: EquivalentDoseUnit = EquivalentDoseUnitObjects.femtoroentgen_equivalent_man
+  def prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.picoroentgen_equivalent_man
+  def nrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.nanoroentgen_equivalent_man
+  def `μrem`: EquivalentDoseUnit = EquivalentDoseUnitObjects.microroentgen_equivalent_man
+  def mcrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.microroentgen_equivalent_man
+  def mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.milliroentgen_equivalent_man
+  def crem: EquivalentDoseUnit = EquivalentDoseUnitObjects.centiroentgen_equivalent_man
+  def drem: EquivalentDoseUnit = EquivalentDoseUnitObjects.deciroentgen_equivalent_man
+  def darem: EquivalentDoseUnit = EquivalentDoseUnitObjects.decaroentgen_equivalent_man
+  def hrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.hectoroentgen_equivalent_man
+  def krem: EquivalentDoseUnit = EquivalentDoseUnitObjects.kiloroentgen_equivalent_man
+  def Krem: EquivalentDoseUnit = EquivalentDoseUnitObjects.kiloroentgen_equivalent_man
+  def Mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.megaroentgen_equivalent_man
+  def Grem: EquivalentDoseUnit = EquivalentDoseUnitObjects.gigaroentgen_equivalent_man
+  def Trem: EquivalentDoseUnit = EquivalentDoseUnitObjects.teraroentgen_equivalent_man
+  def Prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.petaroentgen_equivalent_man
+  def Erem: EquivalentDoseUnit = EquivalentDoseUnitObjects.exaroentgen_equivalent_man
+  def Zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zettaroentgen_equivalent_man
+  def Yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yottaroentgen_equivalent_man
 }

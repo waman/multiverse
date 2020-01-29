@@ -3,7 +3,7 @@ import java.io.{BufferedWriter => BW, File}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class HomogeneousUnitCategory(SIUnit: String, dimension: Dimension, composites: Array[String],
+case class HomogeneousUnitCategory(description: String, SIUnit: String, dimension: Dimension, composites: Array[String],
                                                      convertibles: Array[Convertible], units: Array[RawHomogeneousUnit])
     extends UnitCategory[RawHomogeneousUnit, HomogeneousUnit]
 

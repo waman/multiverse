@@ -22,6 +22,7 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
   def /(current: Current[A]): Resistance[A] = new Resistance(this.value / current.value, this.unit / current.unit)
 }
 
+/** null */
 trait VoltageUnit extends LinearUnit[VoltageUnit]{
 
   override def getSIUnit: VoltageUnit = VoltageUnit.getSIUnit

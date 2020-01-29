@@ -16,6 +16,7 @@ class Conductance[A: Fractional](val value: A, val unit: ConductanceUnit)
 
 }
 
+/** null */
 trait ConductanceUnit extends LinearUnit[ConductanceUnit]{
 
   override def getSIUnit: ConductanceUnit = ConductanceUnit.getSIUnit

@@ -25,6 +25,7 @@ class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTempera
 
 }
 
+/** null */
 trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{
 
   override def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnit.getSIUnit

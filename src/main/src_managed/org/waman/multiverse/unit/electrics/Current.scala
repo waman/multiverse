@@ -19,6 +19,7 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
   def /(voltage: Voltage[A]): Conductance[A] = new Conductance(this.value / voltage.value, this.unit / voltage.unit)
 }
 
+/** null */
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
 
   override def getSIUnit: CurrentUnit = CurrentUnit.getSIUnit

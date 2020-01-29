@@ -19,6 +19,7 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
   def /(time: Time[A]): KinematicViscosity[A] = new KinematicViscosity(this.value / time.value, this.unit / time.unit)
 }
 
+/** null */
 trait AreaUnit extends LinearUnit[AreaUnit]{
 
   override def getSIUnit: AreaUnit = AreaUnit.getSIUnit

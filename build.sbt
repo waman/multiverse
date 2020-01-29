@@ -45,17 +45,10 @@ Compile / sourceManaged := file((Compile / sourceDirectory).value.getAbsolutePat
 Compile / sourceGenerators += Def.task {
   val info = (Compile / resourceDirectory).value / "unitdefs"
   val srcManaged = (Compile / sourceManaged).value
-  val srcManagedTest = (Test / sourceManaged).value
-  MultiverseSourceGenerator.generate(info, srcManaged, srcManagedTest)  // this actually generate test codes
+  MultiverseSourceGenerator.generate(info, srcManaged)
 }.taskValue
 
-Test / sourceManaged := file((Test / sourceDirectory).value.getAbsolutePath + "/src_managed")
-
-Test / sourceGenerators += Def.task {
-  GenerationUtil.allFiles((Test / sourceManaged).value)
-}.taskValue
-
-cleanFiles ++= Seq((Compile / sourceManaged).value, (Test / sourceManaged).value)
+cleanFiles += (Compile / sourceManaged).value
 
 //***** Running *****
 fork := true

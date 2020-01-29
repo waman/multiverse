@@ -16,6 +16,7 @@ class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
 
 }
 
+/** null */
 trait ResistanceUnit extends LinearUnit[ResistanceUnit]{
 
   override def getSIUnit: ResistanceUnit = ResistanceUnit.getSIUnit

@@ -52,18 +52,14 @@ object ImplicitsGenerator {
            |  implicit def convertBigIntToQuantityFactory(value: BigInt): QuantityFactory[Real] =
            |    new QuantityFactory(Real(value))
            |
+           |  // Implicit conversions between Temperature and AbsoluteTemperature)
+           |  implicit def convertAbsoluteTemperatureToTemperature[A: Fractional](q: AbsoluteTemperature[A]): Temperature[A] =
+           |    q.toTemperature
+           |
+           |  implicit def convertTemperatureToAbsoluteTemperature[A: Fractional](q: Temperature[A]): AbsoluteTemperature[A] =
+           |    q.toAbsoluteTemperature
+           |
            |""".stripMargin)
-
-      writer.write("  // Implicit conversions between unrelated units (like energy and absolute temperature)\n")
-      jsons.extractResources(classOf[LinearUnitDefinitionJson]).filter(_.unitCategory._convertibles.nonEmpty).foreach{ ud =>
-        ud.unitCategory._convertibles.foreach{ conv =>
-          writer.write(
-            s"""  implicit def convert${ud.id}To${conv.target}[A: Fractional](q: ${ud.id}[A]): ${conv.target}[A] =
-               |    q.to${conv.target}
-               |
-               |""".stripMargin)
-        }
-      }
 
       writer.write("}\n")
     }

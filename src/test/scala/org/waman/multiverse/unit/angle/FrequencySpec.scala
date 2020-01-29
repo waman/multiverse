@@ -48,7 +48,7 @@ class FrequencySpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("sut", "expected"),
-          (3.0(Hz)(rad/s), 3.0 * 2.0 * Math.PI)
+          (3.0(Hz).toAngularVelocity(rad/s), 3.0 * 2.0 * Math.PI)
         )
       forAll(conversions){ (sut: Double, expected: Double) =>
         // Verify

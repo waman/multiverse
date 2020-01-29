@@ -17,6 +17,7 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
   def /(time: Time[A]): VolumeFlow[A] = new VolumeFlow(this.value / time.value, this.unit / time.unit)
 }
 
+/** null */
 trait VolumeUnit extends LinearUnit[VolumeUnit]{
 
   override def getSIUnit: VolumeUnit = VolumeUnit.getSIUnit

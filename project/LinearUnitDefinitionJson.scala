@@ -3,7 +3,7 @@ import java.io.{File, BufferedWriter => BW}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class LinearUnitCategory(SIUnit: String, dimension: Dimension, composites: Array[String],
+case class LinearUnitCategory(description: String, SIUnit: String, dimension: Dimension, composites: Array[String],
                                            convertibles: Array[Convertible], units: Array[RawLinearUnit])
     extends UnitCategory[RawLinearUnit, LinearUnit]{
 

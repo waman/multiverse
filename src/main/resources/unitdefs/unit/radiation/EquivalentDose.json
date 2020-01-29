@@ -4,6 +4,6 @@
 
   "units": [
     {"name": "sievert", "symbol": "Sv", "scalePrefixes": true},
-    {"name": "rem", "symbol": "rem", "interval": "1e-2", "scalePrefixes": true}
+    {"name": "roentgen equivalent man", "symbol": "rem", "interval": "1e-2", "scalePrefixes": true}
   ]
 }

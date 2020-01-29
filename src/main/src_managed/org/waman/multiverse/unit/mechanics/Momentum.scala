@@ -20,6 +20,7 @@ class Momentum[A: Fractional](val value: A, val unit: MomentumUnit)
   def /(area: Area[A]): DynamicViscosity[A] = new DynamicViscosity(this.value / area.value, this.unit / area.unit)
 }
 
+/** null */
 trait MomentumUnit extends LinearUnit[MomentumUnit]{
 
   override def getSIUnit: MomentumUnit = MomentumUnit.getSIUnit

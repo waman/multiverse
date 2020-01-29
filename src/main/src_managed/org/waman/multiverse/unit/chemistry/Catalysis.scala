@@ -12,6 +12,7 @@ class Catalysis[A: Fractional](val value: A, val unit: CatalysisUnit)
   override protected def newQuantity(value: A, unit: CatalysisUnit): Catalysis[A] = new Catalysis(value, unit)
 }
 
+/** null */
 trait CatalysisUnit extends LinearUnit[CatalysisUnit]{
 
   override def getSIUnit: CatalysisUnit = CatalysisUnit.getSIUnit

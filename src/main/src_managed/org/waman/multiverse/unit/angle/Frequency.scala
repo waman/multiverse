@@ -19,6 +19,7 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
 
 }
 
+/** null */
 trait FrequencyUnit extends LinearUnit[FrequencyUnit]{
 
   override def getSIUnit: FrequencyUnit = FrequencyUnit.getSIUnit

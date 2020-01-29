@@ -19,6 +19,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
 }
 
+/** null */
 trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{
 
   override def getSIUnit: AngularVelocityUnit = AngularVelocityUnit.getSIUnit

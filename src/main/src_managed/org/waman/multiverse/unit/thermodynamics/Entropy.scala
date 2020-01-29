@@ -12,6 +12,7 @@ class Entropy[A: Fractional](val value: A, val unit: EntropyUnit)
   override protected def newQuantity(value: A, unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
 }
 
+/** null */
 trait EntropyUnit extends LinearUnit[EntropyUnit]{
 
   override def getSIUnit: EntropyUnit = EntropyUnit.getSIUnit

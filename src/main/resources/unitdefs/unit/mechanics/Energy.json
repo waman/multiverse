@@ -1,6 +1,9 @@
 {
+  "description": "This can be used as a unit of torque.",
   "SIUnit": "joule",
   "dimension": {"M": 1, "L": 2, "T": -2},
+
+  "composites": ["Force * Length"],
 
   "convertibles": [
     {"target": "AbsoluteTemperature", "from": "joule", "to": "kelvin", "factor": "1 / Constants.BoltzmannConstant"},

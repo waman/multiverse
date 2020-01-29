@@ -2,5 +2,5 @@
   "SIUnit": "Force * Time",
   "dimension": {"M": 1, "L": 1, "T": 1},
 
-  "composites": ["Force * Time"]
+  "composites": ["Force * Time", "MassTorque / Time"]
 }

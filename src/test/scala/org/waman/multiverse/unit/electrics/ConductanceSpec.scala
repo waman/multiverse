@@ -14,10 +14,10 @@ class ConductanceSpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("sut", "expected"),
-          (3.0(S)(ohm), 1.0 / 3.0),
-          (3.0(mS)(mohm), 1.0e6 / 3.0),
-          (3.0(ohm)(S), 1.0 / 3.0),
-          (3.0(kohm)(kS), 1.0e-6 / 3.0)
+          (3.0(S).toResistance(ohm), 1.0 / 3.0),
+          (3.0(mS).toResistance(mohm), 1.0e6 / 3.0),
+          (3.0(ohm).toConductance(S), 1.0 / 3.0),
+          (3.0(kohm).toConductance(kS), 1.0e-6 / 3.0)
         )
       forAll(conversions){ (sut: Double, expected: Double) =>
         // Verify

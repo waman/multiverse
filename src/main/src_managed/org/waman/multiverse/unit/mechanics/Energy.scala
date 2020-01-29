@@ -26,7 +26,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
   override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
 
-  def *(time: Time[A]): Action[A] = new Action(this.value * time.value, this.unit * time.unit)
+  def *(time: Time[A]): AngularMomentum[A] = new AngularMomentum(this.value * time.value, this.unit * time.unit)
 
   def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
 
@@ -50,13 +50,14 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
 }
 
+/** This can be used as a unit of torque. */
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = EnergyUnit.dimension
 
-  def *(timeUnit: TimeUnit): ActionUnit =
-    new AbstractProductUnit[ActionUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with ActionUnit
+  def *(timeUnit: TimeUnit): AngularMomentumUnit =
+    new AbstractProductUnit[AngularMomentumUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with AngularMomentumUnit
 
   def /(timeUnit: TimeUnit): PowerUnit =
     new AbstractQuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit

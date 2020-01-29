@@ -18,6 +18,7 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   def squared: TimeSquared[A] = this * this
 }
 
+/** null */
 trait TimeUnit extends LinearUnit[TimeUnit]{
 
   override def getSIUnit: TimeUnit = TimeUnit.getSIUnit

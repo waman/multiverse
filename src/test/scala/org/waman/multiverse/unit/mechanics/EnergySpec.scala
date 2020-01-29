@@ -51,8 +51,8 @@ class EnergySpec extends MultiverseCustomSpec {
       val conversions =
         Table(
           ("sut", "expected"),
-          (3.0(J)(K), 3.0 / BoltzmannConstant.toDouble),
-          (3.0(eV)(K), 3.0 * ElementaryCharge.toDouble / BoltzmannConstant.toDouble)
+          (3.0(J).toAbsoluteTemperature(K), 3.0 / BoltzmannConstant.toDouble),
+          (3.0(eV).toAbsoluteTemperature(K), 3.0 * ElementaryCharge.toDouble / BoltzmannConstant.toDouble)
         )
       forAll(conversions){ (sut: Double, expected: Double) =>
         // Verify

@@ -11,11 +11,12 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
 
 
   def toAbsoluteTemperature: AbsoluteTemperature[A] = new AbsoluteTemperature(
-      apply(TemperatureUnitObjects.kelvin),
+      apply(TemperatureUnitObjects.kelvin) * implicitly[Fractional[A]].fromReal(r"1"),
       AbsoluteTemperatureUnitObjects.kelvin)
 
 }
 
+/** null */
 trait TemperatureUnit extends HomogeneousUnit[TemperatureUnit]{
 
   override def getSIUnit: TemperatureUnit = TemperatureUnit.getSIUnit

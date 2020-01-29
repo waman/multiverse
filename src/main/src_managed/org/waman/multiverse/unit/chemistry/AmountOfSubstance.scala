@@ -17,6 +17,7 @@ class AmountOfSubstance[A: Fractional](val value: A, val unit: AmountOfSubstance
   def /(time: Time[A]): Catalysis[A] = new Catalysis(this.value / time.value, this.unit / time.unit)
 }
 
+/** null */
 trait AmountOfSubstanceUnit extends LinearUnit[AmountOfSubstanceUnit]{
 
   override def getSIUnit: AmountOfSubstanceUnit = AmountOfSubstanceUnit.getSIUnit
