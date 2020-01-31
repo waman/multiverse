@@ -28,13 +28,21 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
                          attributes: Array[Attribute]) extends RawUnitInfo[LinearUnit]{ self =>
   import GenerationUtil._
 
+  lazy val _symbol: String =
+    if (this.symbol == null) {
+      toObjectName(this.name)
+    } else {
+      if (this.symbol == this.name) println(s"symbol attribute is reduntant: $name")
+      this.symbol
+    }
+
   lazy val _attributes: Seq[Attribute] = GenerationUtil.toSeq(this.attributes)
 
   override def expandScalePrefixesAndAttributes(jsons: JsonResources): Seq[LinearUnit] = {
     val prefixes = jsons.scalePrefixJson.scalePrefixes
 
     if(scalePrefixes){
-      val head = LinearUnit(this.name, toObjectName(this.name), this.symbol, this._aliases,
+      val head = LinearUnit(this.name, toObjectName(this.name), this._symbol, this._aliases,
                                       this.interval, this.baseUnit, this.notExact, Nil)
 
       abstract class PrefixedUnitsBuilder{
@@ -46,7 +54,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
           prefixes.filterNot(p => _excludePrefixes.contains(p.prefix)).map { p =>
             val al = (p.prefix +: p._aliases).flatMap(ps => symbols.map(ps + _)).tail
             val pname = prefixedName(name, p)
-            LinearUnit(pname, toObjectName(pname), p.prefix+symbol, al,
+            LinearUnit(pname, toObjectName(pname), p.prefix+_symbol, al,
               prefixedInterval(self.interval, p), prefixedBaseUnit(self.baseUnit, p), self.notExact, Nil)
           }
       }
@@ -105,7 +113,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
   }
 
   def toLinearUnit: LinearUnit =
-    LinearUnit(this.name, toObjectName(this.name), this.symbol, this._aliases,
+    LinearUnit(this.name, toObjectName(this.name), this._symbol, this._aliases,
       this.interval, this.baseUnit, this.notExact, this._attributes)
 }
 

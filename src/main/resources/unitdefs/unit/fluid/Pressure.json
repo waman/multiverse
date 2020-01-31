@@ -10,10 +10,10 @@
 
     {"name": "atmosphere", "symbol": "atm", "interval": "101325"},
     {"name": "atmosphere technical", "symbol": "at", "baseUnit": "Force.kilogram_force / Area.square_centimetre"},
-    {"name": "bar", "symbol": "bar", "interval": "1e5"},
+    {"name": "bar", "interval": "1e5"},
     {"name": "pieze", "symbol": "pz", "interval": "1000"},
 
-    {"name": "torr", "symbol": "torr", "interval": "1/760", "baseUnit": "atmosphere"},
+    {"name": "torr", "interval": "1/760", "baseUnit": "atmosphere"},
 
     {"name": "kip per square_inch", "symbol": "ksi", "baseUnit": "Force.kip_force / Area.square_inch"},
     {"name": "pound per square foot", "symbol": "psf", "baseUnit": "Force.pound_force / Area.square_foot"},

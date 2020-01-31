@@ -22,7 +22,7 @@
     {"name": "gallon_beer", "symbol": "beer_gal", "interval": "282", "baseUnit": "cubic_inch"},
     {"name": "perch", "symbol": "per", "interval": "33/2 * 3/2", "baseUnit": "cubic_foot"},
 
-    {"name": "minim", "symbol": "minim", "baseUnit": "minim(US)",
+    {"name": "minim", "baseUnit": "minim(US)",
       "attributes": [
         {"name": "US", "interval": "1/480", "baseUnit": "fluid_ounce(US)"},
         {"name": "imp", "interval": "1/480", "baseUnit": "fluid_ounce(imp)"}

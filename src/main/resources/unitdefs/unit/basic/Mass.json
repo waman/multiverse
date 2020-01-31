@@ -32,7 +32,7 @@
     {"name": "grain", "symbol": "gr", "interval": "1/7000", "baseUnit": "pound"},
     {"name": "long hundred weight", "symbol": "cwt", "aliases": ["long_cwt"], "interval": "112", "baseUnit": "dram_avoirdupois"},
     {"name": "short hundred weight", "symbol": "sh_cwt", "interval": "100", "baseUnit": "dram_avoirdupois"},
-    {"name": "kip", "symbol": "kip", "interval": "1000", "baseUnit": "dram_avoirdupois"},
+    {"name": "kip", "interval": "1000", "baseUnit": "dram_avoirdupois"},
     {"name": "ounce avoirdupois", "symbol": "oz_av", "interval": "1/16", "baseUnit": "pound"},
 
     {"name": "dram troy", "symbol": "dr_t", "interval": "60", "baseUnit": "grain"},
@@ -43,6 +43,6 @@
     {"name": "long assay ton", "symbol": "long_AT", "aliases": ["AT"], "interval": "98/3", "baseUnit": "gram"},
     {"name": "short assay ton", "symbol": "sh_AT", "interval": "175/6", "baseUnit": "gram"},
 
-    {"name": "slug", "symbol": "slug", "baseUnit": "pound * Acceleration.standard_gravity / Length.foot"}
+    {"name": "slug", "baseUnit": "pound * Acceleration.standard_gravity / Length.foot"}
   ]
 }

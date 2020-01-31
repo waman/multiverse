@@ -21,7 +21,7 @@
       {"name": "light year", "symbol": "ly", "interval": "9.4607304725808e15"},
       {"name": "parsec", "symbol": "pc", "interval": "3.08567782e16", "notExact": true},
 
-      {"name": "mil", "symbol": "mil", "aliases":["thou"], "interval": "1/1000", "baseUnit": "inch"},
+      {"name": "mil", "aliases":["thou"], "interval": "1/1000", "baseUnit": "inch"},
       {"name": "twip", "symbol": "twp", "interval": "1/20", "baseUnit": "point"},
       {"name": "point", "symbol": "pt", "interval": "1/72", "baseUnit": "inch"},
       {"name": "line", "symbol": "ln", "interval": "1/12", "baseUnit": "inch"},
@@ -38,10 +38,10 @@
         ]
       },
       {"name": "yard", "symbol": "yd", "interval": "3", "baseUnit": "foot"},
-      {"name": "ell", "symbol": "ell", "interval": "45", "baseUnit": "inch"},
+      {"name": "ell", "interval": "45", "baseUnit": "inch"},
       {"name": "fathom", "symbol": "ftm", "interval": "6", "baseUnit": "foot"},
       {"name": "rod", "symbol": "rd", "interval": "16.5", "baseUnit": "foot"},
-      {"name": "rope", "symbol": "rope", "interval": "20", "baseUnit": "foot"},
+      {"name": "rope", "interval": "20", "baseUnit": "foot"},
       {"name": "chain", "symbol": "ch", "interval": "66", "baseUnit": "foot",
         "attributes": [
           {"name": "US", "interval": "66", "baseUnit": "foot(US)"}

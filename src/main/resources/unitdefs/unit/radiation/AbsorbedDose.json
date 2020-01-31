@@ -6,7 +6,7 @@
 
   "units": [
     {"name": "gray", "symbol": "Gy", "scalePrefixes": true},
-    {"name": "rad", "symbol": "rad", "interval": "1e-2", "scalePrefixes": true}
+    {"name": "rad", "interval": "1e-2", "scalePrefixes": true}
   ]
 
 }

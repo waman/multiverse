@@ -5,9 +5,9 @@
   "composites": ["Energy / AbsoluteTemperature"],
 
   "units": [
-    {"name": "nat", "symbol": "nat", "aliases": ["k_B"], "interval": "Constants.BoltzmannConstant"},
-    {"name": "bit", "symbol": "bit", "aliases": ["Sh"], "interval": "log(2)", "baseUnit": "nat"},
-    {"name": "ban", "symbol": "ban", "aliases": ["Hart"], "interval": "log(10)", "baseUnit": "nat"},
+    {"name": "nat", "aliases": ["k_B"], "interval": "Constants.BoltzmannConstant"},
+    {"name": "bit", "aliases": ["Sh"], "interval": "log(2)", "baseUnit": "nat"},
+    {"name": "ban", "aliases": ["Hart"], "interval": "log(10)", "baseUnit": "nat"},
 
     {"name": "byte", "symbol": "B", "interval": "8", "baseUnit": "bit", "scalePrefixes": true,
       "excludePrefixes":["y", "z", "a", "f", "p", "n", "μ", "m", "c", "d"]},

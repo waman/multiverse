@@ -12,7 +12,7 @@
 
   "units": [
     {"name": "joule", "symbol": "J", "scalePrefixes": true},
-    {"name": "erg", "symbol": "erg", "interval": "1e-7"},
+    {"name": "erg", "interval": "1e-7"},
     {"name": "electronvolt", "symbol": "eV", "interval": "Constants.ElementaryCharge", "scalePrefixes": true, "notExact": true},
     {"name": "rydberg", "symbol": "Ry", "interval": "13.6056925330", "baseUnit": "electronvolt", "notExact": true},
     {"name": "atomic unit of energy", "symbol": "E_h", "interval": "2", "baseUnit": "rydberg", "notExact": true},

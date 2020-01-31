@@ -70,13 +70,13 @@ object AbsorbedDoseUnitObjects{
   final case object femtorad extends SimpleAbsorbedDoseUnit("femtorad", "frad", r"1e-2" * r"1e-15")
   final case object picorad extends SimpleAbsorbedDoseUnit("picorad", "prad", r"1e-2" * r"1e-12")
   final case object nanorad extends SimpleAbsorbedDoseUnit("nanorad", "nrad", r"1e-2" * r"1e-9")
-  final case object microrad extends DefaultAbsorbedDoseUnit("microrad", "μrad", Seq("mcrad"), r"1e-2" * r"1e-6")
+  final case object microrad extends DefaultAbsorbedDoseUnit("microrad", "μrad", Seq("mcnull"), r"1e-2" * r"1e-6")
   final case object millirad extends SimpleAbsorbedDoseUnit("millirad", "mrad", r"1e-2" * r"1e-3")
   final case object centirad extends SimpleAbsorbedDoseUnit("centirad", "crad", r"1e-2" * r"1e-2")
   final case object decirad extends SimpleAbsorbedDoseUnit("decirad", "drad", r"1e-2" * r"1e-1")
   final case object decarad extends SimpleAbsorbedDoseUnit("decarad", "darad", r"1e-2" * r"1e1")
   final case object hectorad extends SimpleAbsorbedDoseUnit("hectorad", "hrad", r"1e-2" * r"1e2")
-  final case object kilorad extends DefaultAbsorbedDoseUnit("kilorad", "krad", Seq("Krad"), r"1e-2" * r"1e3")
+  final case object kilorad extends DefaultAbsorbedDoseUnit("kilorad", "krad", Seq("Knull"), r"1e-2" * r"1e3")
   final case object megarad extends SimpleAbsorbedDoseUnit("megarad", "Mrad", r"1e-2" * r"1e6")
   final case object gigarad extends SimpleAbsorbedDoseUnit("gigarad", "Grad", r"1e-2" * r"1e9")
   final case object terarad extends SimpleAbsorbedDoseUnit("terarad", "Trad", r"1e-2" * r"1e12")
@@ -118,14 +118,14 @@ object AbsorbedDoseUnits{
   def prad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.picorad
   def nrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.nanorad
   def `μrad`: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
-  def mcrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
+  def mcnull: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
   def mrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.millirad
   def crad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.centirad
   def drad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decirad
   def darad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decarad
   def hrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.hectorad
   def krad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
-  def Krad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
+  def Knull: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
   def Mrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.megarad
   def Grad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gigarad
   def Trad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.terarad

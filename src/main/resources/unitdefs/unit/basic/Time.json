@@ -44,7 +44,7 @@
       ]
     },
 
-    {"name": "century", "symbol": "century", "baseUnit": "century(gregorian)",
+    {"name": "century", "baseUnit": "century(gregorian)",
       "attributes": [
         {"name": "gregorian", "interval": "100", "baseUnit": "year(gregorian)"},
         {"name": "sidereal", "interval": "100", "baseUnit": "year(sidereal)"},

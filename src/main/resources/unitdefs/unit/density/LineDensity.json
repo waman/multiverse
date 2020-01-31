@@ -6,6 +6,6 @@
 
   "units": [
     {"name": "denier", "symbol": "D", "interval": "1/9e6"},
-    {"name": "tex", "symbol": "tex", "interval": "1e-6"}
+    {"name": "tex", "interval": "1e-6"}
   ]
 }
