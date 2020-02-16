@@ -29,6 +29,10 @@
     {"quantity": "Power", "unit": "watt"},
     {"quantity": "TimeSquared", "unit": "second_squared"},
 
+    {"quantity": "Radiance", "unit": "Power.watt / SolidAngle.steradian / Area.square_metre"},
+    {"quantity": "RadiantEnergyDensity", "unit": "Energy.joule / Volume.cubic_metre"},
+    {"quantity": "RadiantIntensity", "unit": "Power.watt / SolidAngle.steradian"},
+
     {"quantity": "AbsorbedDose", "unit": "gray"},
     {"quantity": "EquivalentDose", "unit": "sievert"},
     {"quantity": "EquivalentDoseRate", "unit": "EquivalentDose.sievert / Time.second"},

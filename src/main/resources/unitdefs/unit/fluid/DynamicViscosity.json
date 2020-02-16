@@ -5,6 +5,6 @@
   "composites": ["Pressure * Time", "Momentum / Area"],
 
   "units": [
-    {"name": "poise", "symbol": "P", "interval": "0.1"}
+    {"name": "poise", "symbol": "P", "interval": "0.1", "scalePrefixes": true}
   ]
 }

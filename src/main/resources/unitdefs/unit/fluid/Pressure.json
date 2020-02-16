@@ -19,7 +19,7 @@
     {"name": "pound per square foot", "symbol": "psf", "baseUnit": "Force.pound_force / Area.square_foot"},
     {"name": "pound per square inch", "symbol": "psi", "baseUnit": "Force.pound_force / Area.square_inch"},
 
-    {"name": "micrometre of mercury", "symbol": "μmHg", "aliases": ["microMetreHg"],
+    {"name": "micrometre of mercury", "symbol": "μmHg", "aliases": ["mcmHg"],
       "baseUnit": "Density.mercury * Length.micrometre * Acceleration.standard_gravity"},
     {"name": "millimetre of mercury", "symbol": "mmHg",
       "baseUnit": "Density.mercury * Length.millimetre * Acceleration.standard_gravity"},
@@ -30,13 +30,13 @@
     {"name": "foot of mercury", "symbol": "ftHg",
       "baseUnit": "Density.mercury * Length.foot * Acceleration.standard_gravity"},
 
-    {"name": "millimetre of water", "symbol": "mmH2O",
+    {"name": "millimetre of water", "symbol": "mmH₂O", "aliases": ["mmH2O", "mmAq"],
       "baseUnit": "Density.water * Length.millimetre * Acceleration.standard_gravity"},
-    {"name": "centimetre of water", "symbol": "cmH2O",
+    {"name": "centimetre of water", "symbol": "cmH₂O", "aliases": ["cmH2O", "cmAq"],
       "baseUnit": "Density.water * Length.centimetre * Acceleration.standard_gravity"},
-    {"name": "inch of water", "symbol": "inH2O",
+    {"name": "inch of water", "symbol": "inH₂O", "aliases": ["inH2O"],
       "baseUnit": "Density.water * Length.inch * Acceleration.standard_gravity"},
-    {"name": "foot of water", "symbol": "ftH2O",
+    {"name": "foot of water", "symbol": "ftH₂O", "aliases": ["ftH2O"],
       "baseUnit": "Density.water * Length.foot * Acceleration.standard_gravity"}
   ]
 }

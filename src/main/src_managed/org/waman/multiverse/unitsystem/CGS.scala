@@ -26,10 +26,13 @@ import org.waman.multiverse.unit.mechanics.MassTorque
 import org.waman.multiverse.unit.mechanics.Momentum
 import org.waman.multiverse.unit.mechanics.Power
 import org.waman.multiverse.unit.mechanics.TimeSquared
-import org.waman.multiverse.unit.radiation.AbsorbedDose
-import org.waman.multiverse.unit.radiation.EquivalentDose
-import org.waman.multiverse.unit.radiation.EquivalentDoseRate
-import org.waman.multiverse.unit.radiation.Radioactivity
+import org.waman.multiverse.unit.radiation.Radiance
+import org.waman.multiverse.unit.radiation.RadiantEnergyDensity
+import org.waman.multiverse.unit.radiation.RadiantIntensity
+import org.waman.multiverse.unit.radioactivity.AbsorbedDose
+import org.waman.multiverse.unit.radioactivity.EquivalentDose
+import org.waman.multiverse.unit.radioactivity.EquivalentDoseRate
+import org.waman.multiverse.unit.radioactivity.Radioactivity
 
 import org.waman.multiverse.unit.angle.AngleUnitObjects.radian
 import org.waman.multiverse.unit.basic.TimeUnitObjects.second
@@ -46,9 +49,9 @@ import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects.gal
 import org.waman.multiverse.unit.mechanics.ForceUnitObjects.dyne
 import org.waman.multiverse.unit.mechanics.EnergyUnitObjects.erg
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnitObjects.second_squared
-import org.waman.multiverse.unit.radiation.AbsorbedDoseUnitObjects.rad
-import org.waman.multiverse.unit.radiation.EquivalentDoseUnitObjects.roentgen_equivalent_man
-import org.waman.multiverse.unit.radiation.RadioactivityUnitObjects.curie
+import org.waman.multiverse.unit.radioactivity.AbsorbedDoseUnitObjects.rad
+import org.waman.multiverse.unit.radioactivity.EquivalentDoseUnitObjects.roentgen_equivalent_man
+import org.waman.multiverse.unit.radioactivity.RadioactivityUnitObjects.curie
 
 trait CGS extends UnitSystem{
   implicit def evaluateAngle[A: Fractional](q: Angle[A]): A = q(radian)
@@ -75,6 +78,9 @@ trait CGS extends UnitSystem{
   implicit def evaluateMomentum[A: Fractional](q: Momentum[A]): A = q(dyne * second)
   implicit def evaluatePower[A: Fractional](q: Power[A]): A = q(erg / second)
   implicit def evaluateTimeSquared[A: Fractional](q: TimeSquared[A]): A = q(second_squared)
+  implicit def evaluateRadiance[A: Fractional](q: Radiance[A]): A = q(erg / second / steradian / square_centimetre)
+  implicit def evaluateRadiantEnergyDensity[A: Fractional](q: RadiantEnergyDensity[A]): A = q(erg / cubic_centimetre)
+  implicit def evaluateRadiantIntensity[A: Fractional](q: RadiantIntensity[A]): A = q(erg / second / steradian)
   implicit def evaluateAbsorbedDose[A: Fractional](q: AbsorbedDose[A]): A = q(rad)
   implicit def evaluateEquivalentDose[A: Fractional](q: EquivalentDose[A]): A = q(roentgen_equivalent_man)
   implicit def evaluateEquivalentDoseRate[A: Fractional](q: EquivalentDoseRate[A]): A = q(roentgen_equivalent_man / second)

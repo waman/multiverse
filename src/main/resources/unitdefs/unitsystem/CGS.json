@@ -29,6 +29,10 @@
     {"quantity": "Power", "unit": "Energy.erg / Time.second"},
     {"quantity": "TimeSquared", "unit": "second_squared"},
 
+    {"quantity": "Radiance", "unit": "Energy.erg / Time.second / SolidAngle.steradian / Area.square_centimetre"},
+    {"quantity": "RadiantEnergyDensity", "unit": "Energy.erg / Volume.cubic_centimetre"},
+    {"quantity": "RadiantIntensity", "unit": "Energy.erg / Time.second / SolidAngle.steradian"},
+
     {"quantity": "AbsorbedDose", "unit": "rad"},
     {"quantity": "EquivalentDose", "unit": "roentgen_equivalent_man"},
     {"quantity": "EquivalentDoseRate", "unit": "EquivalentDose.roentgen_equivalent_man / Time.second"},

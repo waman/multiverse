@@ -85,15 +85,15 @@ object PressureUnitObjects{
   final case object kip_per_square_inch extends SimplePressureUnit("kip per square_inch", "ksi", kip_force.interval / square_inch.interval)
   final case object pound_per_square_foot extends SimplePressureUnit("pound per square foot", "psf", pound_force.interval / square_foot.interval)
   final case object pound_per_square_inch extends SimplePressureUnit("pound per square inch", "psi", pound_force.interval / square_inch.interval)
-  final case object micrometre_of_mercury extends DefaultPressureUnit("micrometre of mercury", "μmHg", Seq("microMetreHg"), mercury.interval * micrometre.interval * standard_gravity.interval)
+  final case object micrometre_of_mercury extends DefaultPressureUnit("micrometre of mercury", "μmHg", Seq("mcmHg"), mercury.interval * micrometre.interval * standard_gravity.interval)
   final case object millimetre_of_mercury extends SimplePressureUnit("millimetre of mercury", "mmHg", mercury.interval * millimetre.interval * standard_gravity.interval)
   final case object centimetre_of_mercury extends SimplePressureUnit("centimetre of mercury", "cmHg", mercury.interval * centimetre.interval * standard_gravity.interval)
   final case object inch_of_mercury extends SimplePressureUnit("inch of mercury", "inHg", mercury.interval * inch.interval * standard_gravity.interval)
   final case object foot_of_mercury extends SimplePressureUnit("foot of mercury", "ftHg", mercury.interval * foot.interval * standard_gravity.interval)
-  final case object millimetre_of_water extends SimplePressureUnit("millimetre of water", "mmH2O", water.interval * millimetre.interval * standard_gravity.interval)
-  final case object centimetre_of_water extends SimplePressureUnit("centimetre of water", "cmH2O", water.interval * centimetre.interval * standard_gravity.interval)
-  final case object inch_of_water extends SimplePressureUnit("inch of water", "inH2O", water.interval * inch.interval * standard_gravity.interval)
-  final case object foot_of_water extends SimplePressureUnit("foot of water", "ftH2O", water.interval * foot.interval * standard_gravity.interval)
+  final case object millimetre_of_water extends DefaultPressureUnit("millimetre of water", "mmH₂O", Seq("mmH2O", "mmAq"), water.interval * millimetre.interval * standard_gravity.interval)
+  final case object centimetre_of_water extends DefaultPressureUnit("centimetre of water", "cmH₂O", Seq("cmH2O", "cmAq"), water.interval * centimetre.interval * standard_gravity.interval)
+  final case object inch_of_water extends DefaultPressureUnit("inch of water", "inH₂O", Seq("inH2O"), water.interval * inch.interval * standard_gravity.interval)
+  final case object foot_of_water extends DefaultPressureUnit("foot of water", "ftH₂O", Seq("ftH2O"), water.interval * foot.interval * standard_gravity.interval)
 }
 
 object PressureUnits{
@@ -130,13 +130,19 @@ object PressureUnits{
   def psf: PressureUnit = PressureUnitObjects.pound_per_square_foot
   def psi: PressureUnit = PressureUnitObjects.pound_per_square_inch
   def `μmHg`: PressureUnit = PressureUnitObjects.micrometre_of_mercury
-  def microMetreHg: PressureUnit = PressureUnitObjects.micrometre_of_mercury
+  def mcmHg: PressureUnit = PressureUnitObjects.micrometre_of_mercury
   def mmHg: PressureUnit = PressureUnitObjects.millimetre_of_mercury
   def cmHg: PressureUnit = PressureUnitObjects.centimetre_of_mercury
   def inHg: PressureUnit = PressureUnitObjects.inch_of_mercury
   def ftHg: PressureUnit = PressureUnitObjects.foot_of_mercury
+  def `mmH₂O`: PressureUnit = PressureUnitObjects.millimetre_of_water
   def mmH2O: PressureUnit = PressureUnitObjects.millimetre_of_water
+  def mmAq: PressureUnit = PressureUnitObjects.millimetre_of_water
+  def `cmH₂O`: PressureUnit = PressureUnitObjects.centimetre_of_water
   def cmH2O: PressureUnit = PressureUnitObjects.centimetre_of_water
+  def cmAq: PressureUnit = PressureUnitObjects.centimetre_of_water
+  def `inH₂O`: PressureUnit = PressureUnitObjects.inch_of_water
   def inH2O: PressureUnit = PressureUnitObjects.inch_of_water
+  def `ftH₂O`: PressureUnit = PressureUnitObjects.foot_of_water
   def ftH2O: PressureUnit = PressureUnitObjects.foot_of_water
 }

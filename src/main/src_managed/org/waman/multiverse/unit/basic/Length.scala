@@ -5,6 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+import org.waman.multiverse.unit.mechanics.Force
+import org.waman.multiverse.unit.mechanics.ForceUnit
+
+import org.waman.multiverse.unit.mechanics.Energy
+import org.waman.multiverse.unit.mechanics.EnergyUnit
+
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
 
@@ -21,6 +27,8 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   def squared: Area[A] = this * this
   def cubic: Volume[A] = this * this * this
 
+
+  def *(force: Force[A]): Energy[A] = new Energy(this.value * force.value, this.unit * force.unit)
 
   def /(time: Time[A]): Velocity[A] = new Velocity(this.value / time.value, this.unit / time.unit)
 
@@ -61,6 +69,9 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
     else
       new AbstractProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
 
+
+  def *(forceUnit: ForceUnit): EnergyUnit =
+    new AbstractProductUnit[EnergyUnit, LengthUnit, ForceUnit](LengthUnit.this, forceUnit) with EnergyUnit
 
   def /(timeUnit: TimeUnit): VelocityUnit =
     new AbstractQuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit

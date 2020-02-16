@@ -15,7 +15,7 @@ import org.waman.multiverse.unit.magnetics.Inductance
 import org.waman.multiverse.unit.radioactivity.Exposure
 
 import org.waman.multiverse.unit.electrics.CapacitanceUnitObjects.farad
-import org.waman.multiverse.unit.electrics.ChargeUnitObjects.coulomb
+import org.waman.multiverse.unit.electrics.ChargeUnitObjects.statcoulomb
 import org.waman.multiverse.unit.electrics.ConductanceUnitObjects.siemens
 import org.waman.multiverse.unit.electrics.CurrentUnitObjects.ampere
 import org.waman.multiverse.unit.electrics.DipoleUnitObjects.debye
@@ -24,11 +24,12 @@ import org.waman.multiverse.unit.electrics.VoltageUnitObjects.volt
 import org.waman.multiverse.unit.magnetics.FluxUnitObjects.weber
 import org.waman.multiverse.unit.magnetics.FluxDensityUnitObjects.tesla
 import org.waman.multiverse.unit.magnetics.InductanceUnitObjects.henry
+import org.waman.multiverse.unit.electrics.ChargeUnitObjects.coulomb
 import org.waman.multiverse.unit.basic.MassUnitObjects.kilogram
 
-trait MKSA extends MKS{
+trait Gaussian extends CGS{
   implicit def evaluateCapacitance[A: Fractional](q: Capacitance[A]): A = q(farad)
-  implicit def evaluateCharge[A: Fractional](q: Charge[A]): A = q(coulomb)
+  implicit def evaluateCharge[A: Fractional](q: Charge[A]): A = q(statcoulomb)
   implicit def evaluateConductance[A: Fractional](q: Conductance[A]): A = q(siemens)
   implicit def evaluateCurrent[A: Fractional](q: Current[A]): A = q(ampere)
   implicit def evaluateDipole[A: Fractional](q: Dipole[A]): A = q(debye)
@@ -40,4 +41,4 @@ trait MKSA extends MKS{
   implicit def evaluateExposure[A: Fractional](q: Exposure[A]): A = q(coulomb / kilogram)
 }
 
-object MKSA extends MKSA
+object Gaussian extends Gaussian

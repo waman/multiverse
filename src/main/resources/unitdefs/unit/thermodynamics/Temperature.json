@@ -8,8 +8,8 @@
   
   "units": [
     {"name": "kelvin", "symbol": "K", "scalePrefixes": true},
-    {"name": "celsius", "symbol": "°C", "aliases": ["degC", "℃"], "zero": "273.15"},
-    {"name": "fahrenheit", "symbol": "°F", "aliases": ["degF", "℉"], "zero": "273.15 - 5/9 * 32", "interval": "5/9"},
+    {"name": "celsius", "symbol": "℃", "aliases": ["°C", "degC"], "zero": "273.15"},
+    {"name": "fahrenheit", "symbol": "℉", "aliases": ["°F", "degF"], "zero": "273.15 - 5/9 * 32", "interval": "5/9"},
     {"name": "rankine", "symbol": "°R", "aliases": ["degR"], "interval": "5/9"},
     {"name": "delisle", "symbol": "°De", "aliases": ["degDe"], "zero": "373.15", "interval": "-2/3"},
     {"name": "newton", "symbol": "°N", "aliases": ["degN"], "zero": "273.15", "interval": "100/33"},

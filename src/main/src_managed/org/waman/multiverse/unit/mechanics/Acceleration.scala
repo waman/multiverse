@@ -43,11 +43,12 @@ class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases:
 
 object AccelerationUnitObjects{
 
-  final case object standard_gravity extends SimpleAccelerationUnit("standard gravity", "g_0", r"9.80665")
+  final case object standard_gravity extends DefaultAccelerationUnit("standard gravity", "G", Seq("g_0"), r"9.80665")
   final case object gal extends SimpleAccelerationUnit("gal", "Gal", r"1e-2")
 }
 
 object AccelerationUnits{
+  def G: AccelerationUnit = AccelerationUnitObjects.standard_gravity
   def g_0: AccelerationUnit = AccelerationUnitObjects.standard_gravity
   def Gal: AccelerationUnit = AccelerationUnitObjects.gal
 }

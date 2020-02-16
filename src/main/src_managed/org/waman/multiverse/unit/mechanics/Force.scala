@@ -55,7 +55,7 @@ object ForceUnit extends UnitInfo[ForceUnit]{
 
   import ForceUnitObjects._
   def getUnits: Seq[ForceUnit] =
-    Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, kilogram_force, milligrave_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
+    Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, yoctodyne, zeptodyne, attodyne, femtodyne, picodyne, nanodyne, microdyne, millidyne, centidyne, decidyne, decadyne, hectodyne, kilodyne, megadyne, gigadyne, teradyne, petadyne, exadyne, zettadyne, yottadyne, kilogram_force, milligrave_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
 }
 
 /** For no aliase or user defined units */
@@ -94,6 +94,26 @@ object ForceUnitObjects{
   final case object zettanewton extends SimpleForceUnit("zettanewton", "ZN", r"1e21")
   final case object yottanewton extends SimpleForceUnit("yottanewton", "YN", r"1e24")
   final case object dyne extends SimpleForceUnit("dyne", "dyn", r"1e-5")
+  final case object yoctodyne extends SimpleForceUnit("yoctodyne", "ydyn", r"1e-5" * r"1e-24")
+  final case object zeptodyne extends SimpleForceUnit("zeptodyne", "zdyn", r"1e-5" * r"1e-21")
+  final case object attodyne extends SimpleForceUnit("attodyne", "adyn", r"1e-5" * r"1e-18")
+  final case object femtodyne extends SimpleForceUnit("femtodyne", "fdyn", r"1e-5" * r"1e-15")
+  final case object picodyne extends SimpleForceUnit("picodyne", "pdyn", r"1e-5" * r"1e-12")
+  final case object nanodyne extends SimpleForceUnit("nanodyne", "ndyn", r"1e-5" * r"1e-9")
+  final case object microdyne extends DefaultForceUnit("microdyne", "μdyn", Seq("mcdyn"), r"1e-5" * r"1e-6")
+  final case object millidyne extends SimpleForceUnit("millidyne", "mdyn", r"1e-5" * r"1e-3")
+  final case object centidyne extends SimpleForceUnit("centidyne", "cdyn", r"1e-5" * r"1e-2")
+  final case object decidyne extends SimpleForceUnit("decidyne", "ddyn", r"1e-5" * r"1e-1")
+  final case object decadyne extends SimpleForceUnit("decadyne", "dadyn", r"1e-5" * r"1e1")
+  final case object hectodyne extends SimpleForceUnit("hectodyne", "hdyn", r"1e-5" * r"1e2")
+  final case object kilodyne extends DefaultForceUnit("kilodyne", "kdyn", Seq("Kdyn"), r"1e-5" * r"1e3")
+  final case object megadyne extends SimpleForceUnit("megadyne", "Mdyn", r"1e-5" * r"1e6")
+  final case object gigadyne extends SimpleForceUnit("gigadyne", "Gdyn", r"1e-5" * r"1e9")
+  final case object teradyne extends SimpleForceUnit("teradyne", "Tdyn", r"1e-5" * r"1e12")
+  final case object petadyne extends SimpleForceUnit("petadyne", "Pdyn", r"1e-5" * r"1e15")
+  final case object exadyne extends SimpleForceUnit("exadyne", "Edyn", r"1e-5" * r"1e18")
+  final case object zettadyne extends SimpleForceUnit("zettadyne", "Zdyn", r"1e-5" * r"1e21")
+  final case object yottadyne extends SimpleForceUnit("yottadyne", "Ydyn", r"1e-5" * r"1e24")
   final case object kilogram_force extends DefaultForceUnit("kilogram force", "kgf", Seq("kp", "Gf"), standard_gravity.interval) with NotExact
   final case object milligrave_force extends DefaultForceUnit("milligrave force", "mGf", Seq("gf"), r"1e-3" * standard_gravity.interval) with NotExact
   final case object ounce_force extends SimpleForceUnit("ounce force", "ozf", ounce.interval * standard_gravity.interval)
@@ -130,6 +150,28 @@ object ForceUnits{
   def ZN: ForceUnit = ForceUnitObjects.zettanewton
   def YN: ForceUnit = ForceUnitObjects.yottanewton
   def dyn: ForceUnit = ForceUnitObjects.dyne
+  def ydyn: ForceUnit = ForceUnitObjects.yoctodyne
+  def zdyn: ForceUnit = ForceUnitObjects.zeptodyne
+  def adyn: ForceUnit = ForceUnitObjects.attodyne
+  def fdyn: ForceUnit = ForceUnitObjects.femtodyne
+  def pdyn: ForceUnit = ForceUnitObjects.picodyne
+  def ndyn: ForceUnit = ForceUnitObjects.nanodyne
+  def `μdyn`: ForceUnit = ForceUnitObjects.microdyne
+  def mcdyn: ForceUnit = ForceUnitObjects.microdyne
+  def mdyn: ForceUnit = ForceUnitObjects.millidyne
+  def cdyn: ForceUnit = ForceUnitObjects.centidyne
+  def ddyn: ForceUnit = ForceUnitObjects.decidyne
+  def dadyn: ForceUnit = ForceUnitObjects.decadyne
+  def hdyn: ForceUnit = ForceUnitObjects.hectodyne
+  def kdyn: ForceUnit = ForceUnitObjects.kilodyne
+  def Kdyn: ForceUnit = ForceUnitObjects.kilodyne
+  def Mdyn: ForceUnit = ForceUnitObjects.megadyne
+  def Gdyn: ForceUnit = ForceUnitObjects.gigadyne
+  def Tdyn: ForceUnit = ForceUnitObjects.teradyne
+  def Pdyn: ForceUnit = ForceUnitObjects.petadyne
+  def Edyn: ForceUnit = ForceUnitObjects.exadyne
+  def Zdyn: ForceUnit = ForceUnitObjects.zettadyne
+  def Ydyn: ForceUnit = ForceUnitObjects.yottadyne
   def kgf: ForceUnit = ForceUnitObjects.kilogram_force
   def kp: ForceUnit = ForceUnitObjects.kilogram_force
   def Gf: ForceUnit = ForceUnitObjects.kilogram_force

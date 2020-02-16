@@ -1,0 +1,19 @@
+{
+  "parent": "CGS",
+
+  "entries": [
+    {"quantity":  "Capacitance", "unit": "farad"},
+    {"quantity":  "Charge", "unit": "statcoulomb"},
+    {"quantity":  "Conductance", "unit": "siemens"},
+    {"quantity":  "Current", "unit": "ampere"},
+    {"quantity":  "Dipole", "unit": "debye"},
+    {"quantity":  "Resistance", "unit": "ohm"},
+    {"quantity":  "Voltage", "unit": "volt"},
+
+    {"quantity":  "Flux", "unit": "weber"},
+    {"quantity":  "FluxDensity", "unit": "tesla"},
+    {"quantity":  "Inductance", "unit": "henry"},
+
+    {"quantity":  "Exposure", "unit": "Charge.coulomb / Mass.kilogram"}
+  ]
+}

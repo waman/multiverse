@@ -8,11 +8,17 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+import org.waman.multiverse.unit.basic.Volume
+import org.waman.multiverse.unit.basic.VolumeUnit
+
+import org.waman.multiverse.unit.radiation.RadiantEnergyDensity
+import org.waman.multiverse.unit.radiation.RadiantEnergyDensityUnit
+
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
 
-import org.waman.multiverse.unit.radiation.AbsorbedDose
-import org.waman.multiverse.unit.radiation.AbsorbedDoseUnit
+import org.waman.multiverse.unit.radioactivity.AbsorbedDose
+import org.waman.multiverse.unit.radioactivity.AbsorbedDoseUnit
 
 import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperature
 import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnit
@@ -29,6 +35,8 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   def *(time: Time[A]): AngularMomentum[A] = new AngularMomentum(this.value * time.value, this.unit * time.unit)
 
   def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
+
+  def /(volume: Volume[A]): RadiantEnergyDensity[A] = new RadiantEnergyDensity(this.value / volume.value, this.unit / volume.unit)
 
   def /(mass: Mass[A]): AbsorbedDose[A] = new AbsorbedDose(this.value / mass.value, this.unit / mass.unit)
 
@@ -62,6 +70,9 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
   def /(timeUnit: TimeUnit): PowerUnit =
     new AbstractQuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
 
+  def /(volumeUnit: VolumeUnit): RadiantEnergyDensityUnit =
+    new AbstractQuotientUnit[RadiantEnergyDensityUnit, EnergyUnit, VolumeUnit](EnergyUnit.this, volumeUnit) with RadiantEnergyDensityUnit
+
   def /(massUnit: MassUnit): AbsorbedDoseUnit =
     new AbstractQuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
 
@@ -78,7 +89,7 @@ object EnergyUnit extends UnitInfo[EnergyUnit]{
 
   import EnergyUnitObjects._
   def getUnits: Seq[EnergyUnit] =
-    Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(IT)`)
+    Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(th)`, `calorie(IT)`, `calorie(mean)`, `calorie_4℃`, `calorie_15℃`, `calorie_20℃`, kilocalorie, british_thermal_unit, `british_thermal_unit(ISO)`, `british_thermal_unit(IT)`, `british_thermal_unit(mean)`, `british_thermal_unit(th)`, `british_thermal_unit_59℉`)
 }
 
 /** For no aliase or user defined units */
@@ -91,9 +102,13 @@ class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends EnergyUnit
 
 sealed trait calorieAttribute
+sealed trait british_thermal_unitAttribute
 
 object EnergyAttributes{
-  final object IT extends calorieAttribute
+  final object mean extends calorieAttribute with british_thermal_unitAttribute
+  final object IT extends calorieAttribute with british_thermal_unitAttribute
+  final object ISO extends british_thermal_unitAttribute
+  final object th extends calorieAttribute with british_thermal_unitAttribute
 }
 
 object EnergyUnitObjects{
@@ -144,8 +159,20 @@ object EnergyUnitObjects{
   final case object yottaelectronvolt extends SimpleEnergyUnit("yottaelectronvolt", "YeV", Constants.ElementaryCharge * r"1e24") with NotExact
   final case object rydberg extends SimpleEnergyUnit("rydberg", "Ry", r"13.6056925330" * electronvolt.interval) with NotExact
   final case object atomic_unit_of_energy extends SimpleEnergyUnit("atomic unit of energy", "E_h", r"2" * rydberg.interval) with NotExact
-  final case object calorie extends DefaultEnergyUnit("calorie", "cal", Seq("cal_IT"), `calorie(IT)`.interval)
-  final case object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT(IT)"), r"4.1868")
+  final case object calorie extends SimpleEnergyUnit("calorie", "cal", `calorie(th)`.interval)
+  final case object `calorie(th)` extends DefaultEnergyUnit("calorie(th)", "cal(th)", Seq("cal_th"), r"4.184")
+  final case object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT"), r"4.1868")
+  final case object `calorie(mean)` extends DefaultEnergyUnit("calorie(mean)", "cal(mean)", Seq("cal_mean"), r"4.190") with NotExact
+  final case object `calorie_4℃` extends SimpleEnergyUnit("calorie 4℃", "cal_4℃", r"4.204") with NotExact
+  final case object `calorie_15℃` extends SimpleEnergyUnit("calorie 15℃", "cal_15℃", r"4.1855")
+  final case object `calorie_20℃` extends SimpleEnergyUnit("calorie 20℃", "cal_20℃", r"4.182") with NotExact
+  final case object kilocalorie extends DefaultEnergyUnit("kilocalorie", "kcal", Seq("Cal"), r"1000" * calorie.interval)
+  final case object british_thermal_unit extends SimpleEnergyUnit("british thermal unit", "BTU", `british_thermal_unit(IT)`.interval)
+  final case object `british_thermal_unit(ISO)` extends DefaultEnergyUnit("british thermal unit(ISO)", "BTU(ISO)", Seq("BTU_ISO"), r"1.0545e3")
+  final case object `british_thermal_unit(IT)` extends DefaultEnergyUnit("british thermal unit(IT)", "BTU(IT)", Seq("BTU_IT"), r"1.05505585262e3")
+  final case object `british_thermal_unit(mean)` extends DefaultEnergyUnit("british thermal unit(mean)", "BTU(mean)", Seq("BTU_mean"), r"1.05587e3") with NotExact
+  final case object `british_thermal_unit(th)` extends DefaultEnergyUnit("british thermal unit(th)", "BTU(th)", Seq("BTU_th"), r"1.054350e3") with NotExact
+  final case object `british_thermal_unit_59℉` extends SimpleEnergyUnit("british thermal unit 59℉", "BTU_59℉", r"1.054804e3")
 }
 
 object EnergyUnits{
@@ -200,7 +227,21 @@ object EnergyUnits{
   def E_h: EnergyUnit = EnergyUnitObjects.atomic_unit_of_energy
   def cal: EnergyUnit = EnergyUnitObjects.calorie
   def cal(a: calorieAttribute): EnergyUnit = a match { 
+    case EnergyAttributes.th => EnergyUnitObjects.`calorie(th)`
     case EnergyAttributes.IT => EnergyUnitObjects.`calorie(IT)`
+    case EnergyAttributes.mean => EnergyUnitObjects.`calorie(mean)`
   }
-  def cal_IT: EnergyUnit = EnergyUnitObjects.calorie
+  def `cal_4℃`: EnergyUnit = EnergyUnitObjects.`calorie_4℃`
+  def `cal_15℃`: EnergyUnit = EnergyUnitObjects.`calorie_15℃`
+  def `cal_20℃`: EnergyUnit = EnergyUnitObjects.`calorie_20℃`
+  def kcal: EnergyUnit = EnergyUnitObjects.kilocalorie
+  def Cal: EnergyUnit = EnergyUnitObjects.kilocalorie
+  def BTU: EnergyUnit = EnergyUnitObjects.british_thermal_unit
+  def BTU(a: british_thermal_unitAttribute): EnergyUnit = a match { 
+    case EnergyAttributes.ISO => EnergyUnitObjects.`british_thermal_unit(ISO)`
+    case EnergyAttributes.IT => EnergyUnitObjects.`british_thermal_unit(IT)`
+    case EnergyAttributes.mean => EnergyUnitObjects.`british_thermal_unit(mean)`
+    case EnergyAttributes.th => EnergyUnitObjects.`british_thermal_unit(th)`
+  }
+  def `BTU_59℉`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit_59℉`
 }

@@ -14,8 +14,8 @@ import org.waman.multiverse.unit.basic.TimeUnit
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
 
-import org.waman.multiverse.unit.radiation.Exposure
-import org.waman.multiverse.unit.radiation.ExposureUnit
+import org.waman.multiverse.unit.radioactivity.Exposure
+import org.waman.multiverse.unit.radioactivity.ExposureUnit
 
 
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)

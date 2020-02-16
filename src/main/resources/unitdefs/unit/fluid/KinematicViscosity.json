@@ -5,6 +5,6 @@
   "composites": ["Area / Time"],
 
   "units": [
-    {"name": "stokes", "symbol": "St", "interval": "1e-4"}
+    {"name": "stokes", "symbol": "St", "interval": "1e-4", "scalePrefixes": true}
   ]
 }

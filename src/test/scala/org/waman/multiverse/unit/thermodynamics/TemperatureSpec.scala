@@ -14,8 +14,8 @@ class TemperatureSpec extends MultiverseCustomSpec {
         Table(
           ("TemperatureUnit", "expected"),
           (K, "kelvin (K), dim: Θ"),
-          (degC, "celsius (°C) [0(°C) = 273.15(K), Δ(°C) = Δ(K)], aliases: [degC, ℃], dim: Θ"),
-          (degF, "fahrenheit (°F) [0(°F) = 45967/180(K), Δ(°F) = 5/9*Δ(K)], aliases: [degF, ℉], dim: Θ")
+          (degC, "celsius (℃) [0(℃) = 273.15(K), Δ(℃) = Δ(K)], aliases: [°C, degC], dim: Θ"),
+          (degF, "fahrenheit (℉) [0(℉) = 45967/180(K), Δ(℉) = 5/9*Δ(K)], aliases: [°F, degF], dim: Θ")
         )
       // Verify
       forAll(conversions){ (sut: TemperatureUnit, expected: String) =>

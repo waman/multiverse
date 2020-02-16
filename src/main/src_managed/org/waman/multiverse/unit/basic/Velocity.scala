@@ -36,7 +36,7 @@ object VelocityUnit extends UnitInfo[VelocityUnit]{
 
   import VelocityUnitObjects._
   def getUnits: Seq[VelocityUnit] =
-    Seq(speed_of_light, mach_number)
+    Seq(speed_of_light, mach_number, knot, kine)
 }
 
 /** For no aliase or user defined units */
@@ -50,12 +50,19 @@ class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq
 
 object VelocityUnitObjects{
   import org.waman.multiverse.unit.Constants
+  import org.waman.multiverse.unit.basic.LengthUnitObjects._
+  import org.waman.multiverse.unit.basic.TimeUnitObjects._
 
   final case object speed_of_light extends SimpleVelocityUnit("speed of light", "c", Constants.SpeedOfLight)
   final case object mach_number extends SimpleVelocityUnit("mach number", "M", r"340") with NotExact
+  final case object knot extends DefaultVelocityUnit("knot", "kn", Seq("kt"), nautical_mile.interval / hour.interval)
+  final case object kine extends SimpleVelocityUnit("kine", "kine", centimetre.interval / second.interval)
 }
 
 object VelocityUnits{
   def c: VelocityUnit = VelocityUnitObjects.speed_of_light
   def M: VelocityUnit = VelocityUnitObjects.mach_number
+  def kn: VelocityUnit = VelocityUnitObjects.knot
+  def kt: VelocityUnit = VelocityUnitObjects.knot
+  def kine: VelocityUnit = VelocityUnitObjects.kine
 }

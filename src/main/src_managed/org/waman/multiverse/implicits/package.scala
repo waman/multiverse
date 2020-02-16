@@ -13,6 +13,7 @@ import org.waman.multiverse.unit.magnetics._
 import org.waman.multiverse.unit.mechanics._
 import org.waman.multiverse.unit.optics._
 import org.waman.multiverse.unit.radiation._
+import org.waman.multiverse.unit.radioactivity._
 import org.waman.multiverse.unit.thermodynamics._
 
 package object implicits {
@@ -59,6 +60,9 @@ package object implicits {
     def apply(unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
     def apply(unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
     def apply(unit: LuminousIntensityUnit): LuminousIntensity[A] = new LuminousIntensity(value, unit)
+    def apply(unit: RadianceUnit): Radiance[A] = new Radiance(value, unit)
+    def apply(unit: RadiantEnergyDensityUnit): RadiantEnergyDensity[A] = new RadiantEnergyDensity(value, unit)
+    def apply(unit: RadiantIntensityUnit): RadiantIntensity[A] = new RadiantIntensity(value, unit)
     def apply(unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
     def apply(unit: EquivalentDoseUnit): EquivalentDose[A] = new EquivalentDose(value, unit)
     def apply(unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)

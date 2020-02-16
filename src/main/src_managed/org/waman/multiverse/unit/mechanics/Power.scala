@@ -11,6 +11,12 @@ import org.waman.multiverse.unit.electrics.CurrentUnit
 import org.waman.multiverse.unit.electrics.Voltage
 import org.waman.multiverse.unit.electrics.VoltageUnit
 
+import org.waman.multiverse.unit.angle.SolidAngle
+import org.waman.multiverse.unit.angle.SolidAngleUnit
+
+import org.waman.multiverse.unit.radiation.RadiantIntensity
+import org.waman.multiverse.unit.radiation.RadiantIntensityUnit
+
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
@@ -18,6 +24,8 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
 
   def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
+
+  def /(solidAngle: SolidAngle[A]): RadiantIntensity[A] = new RadiantIntensity(this.value / solidAngle.value, this.unit / solidAngle.unit)
 }
 
 /** null */
@@ -28,6 +36,9 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
     new AbstractQuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
+
+  def /(solidAngleUnit: SolidAngleUnit): RadiantIntensityUnit =
+    new AbstractQuotientUnit[RadiantIntensityUnit, PowerUnit, SolidAngleUnit](PowerUnit.this, solidAngleUnit) with RadiantIntensityUnit
 }
 
 object PowerUnit extends UnitInfo[PowerUnit]{
@@ -39,7 +50,7 @@ object PowerUnit extends UnitInfo[PowerUnit]{
 
   import PowerUnitObjects._
   def getUnits: Seq[PowerUnit] =
-    Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt)
+    Seq(watt, yoctowatt, zeptowatt, attowatt, femtowatt, picowatt, nanowatt, microwatt, milliwatt, centiwatt, deciwatt, decawatt, hectowatt, kilowatt, megawatt, gigawatt, terawatt, petawatt, exawatt, zettawatt, yottawatt, horsepower, `horsepower(mechanical)`, `horsepower(metric)`, `horsepower(electrical)`, `horsepower(boiler)`, lusec, poncelet, square_foot_equivalent_direct_radiation)
 }
 
 /** For no aliase or user defined units */
@@ -51,7 +62,22 @@ class SimplePowerUnit(val name: String, val symbol: String, val interval: Real) 
 class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends PowerUnit
 
+sealed trait horsepowerAttribute
+
+object PowerAttributes{
+  final object boiler extends horsepowerAttribute
+  final object mechanical extends horsepowerAttribute
+  final object metric extends horsepowerAttribute
+  final object electrical extends horsepowerAttribute
+}
+
 object PowerUnitObjects{
+  import org.waman.multiverse.unit.basic.LengthUnitObjects._
+  import org.waman.multiverse.unit.mechanics.ForceUnitObjects._
+  import org.waman.multiverse.unit.basic.TimeUnitObjects._
+  import org.waman.multiverse.unit.basic.VolumeUnitObjects._
+  import org.waman.multiverse.unit.fluid.PressureUnitObjects._
+  import org.waman.multiverse.unit.mechanics.EnergyUnitObjects._
 
   final case object watt extends SimplePowerUnit("watt", "W", 1)
   final case object yoctowatt extends SimplePowerUnit("yoctowatt", "yW", r"1e-24")
@@ -74,6 +100,14 @@ object PowerUnitObjects{
   final case object exawatt extends SimplePowerUnit("exawatt", "EW", r"1e18")
   final case object zettawatt extends SimplePowerUnit("zettawatt", "ZW", r"1e21")
   final case object yottawatt extends SimplePowerUnit("yottawatt", "YW", r"1e24")
+  final case object horsepower extends DefaultPowerUnit("horsepower", "hp", Seq("HP"), `horsepower(mechanical)`.interval)
+  final case object `horsepower(mechanical)` extends DefaultPowerUnit("horsepower(mechanical)", "hp(mechanical)", Seq("HP(mechanical)"), r"33000" * foot.interval * pound_force.interval / minute.interval)
+  final case object `horsepower(metric)` extends DefaultPowerUnit("horsepower(metric)", "hp(metric)", Seq("HP(metric)", "PS"), r"75" * kilogram_force.interval * metre.interval / second.interval)
+  final case object `horsepower(electrical)` extends DefaultPowerUnit("horsepower(electrical)", "hp(electrical)", Seq("HP(electrical)"), r"746")
+  final case object `horsepower(boiler)` extends DefaultPowerUnit("horsepower(boiler)", "hp(boiler)", Seq("HP(boiler)"), r"9812.5")
+  final case object lusec extends SimplePowerUnit("lusec", "lusec", litre.interval * micrometre_of_mercury.interval / second.interval)
+  final case object poncelet extends SimplePowerUnit("poncelet", "p", r"100" * metre.interval * kilogram_force.interval / second.interval)
+  final case object square_foot_equivalent_direct_radiation extends SimplePowerUnit("square foot equivalent direct radiation", "sq_ft_EDR", r"240" * `british_thermal_unit(IT)`.interval / hour.interval)
 }
 
 object PowerUnits{
@@ -100,4 +134,17 @@ object PowerUnits{
   def EW: PowerUnit = PowerUnitObjects.exawatt
   def ZW: PowerUnit = PowerUnitObjects.zettawatt
   def YW: PowerUnit = PowerUnitObjects.yottawatt
+  def hp: PowerUnit = PowerUnitObjects.horsepower
+  def hp(a: horsepowerAttribute): PowerUnit = a match { 
+    case PowerAttributes.mechanical => PowerUnitObjects.`horsepower(mechanical)`
+    case PowerAttributes.metric => PowerUnitObjects.`horsepower(metric)`
+    case PowerAttributes.electrical => PowerUnitObjects.`horsepower(electrical)`
+    case PowerAttributes.boiler => PowerUnitObjects.`horsepower(boiler)`
+  }
+  def HP: PowerUnit = PowerUnitObjects.horsepower
+  def HP(a: horsepowerAttribute): PowerUnit = hp(a)
+
+  def lusec: PowerUnit = PowerUnitObjects.lusec
+  def p: PowerUnit = PowerUnitObjects.poncelet
+  def sq_ft_EDR: PowerUnit = PowerUnitObjects.square_foot_equivalent_direct_radiation
 }

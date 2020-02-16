@@ -93,8 +93,9 @@ object GenerationUtil{
 
   def toObjectName(s: String): String = {
     val ss = s.replace(' ', '_')
-    if (ss.contains("(")) s"""`$ss`"""
-    else ss
+//    if (ss.contains("(")) s"""`$ss`"""
+//    else ss
+    escapeSymbol(ss)
   }
 
   def escapeSymbol(s: String): String =

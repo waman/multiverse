@@ -2,7 +2,9 @@ package org.waman.multiverse.unit.basic
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.BasicUnits._
+import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.basic.TimeUnits._
+import org.waman.multiverse.unit.basic.VelocityUnits._
 
 class VelocitySpec extends MultiverseCustomSpec {
 
@@ -15,7 +17,8 @@ class VelocitySpec extends MultiverseCustomSpec {
           ("velocity", "expected"),
           (3.0(mm/s), 3e-3),
           (3.0(m/s) , 3.0),
-          (3.0(km/h), 3e3/3600.0)
+          (3.0(km/h), 3e3/3600.0),
+          (3.0(kn), 3.0*1852.0/3600.0)
         )
       // Verify
       forAll(conversions){ (sut: Velocity[Double], expected: Double) =>
@@ -32,7 +35,8 @@ class VelocitySpec extends MultiverseCustomSpec {
           ("velocity", "expected"),
           (q(mm/s), 3e3),
           (q(m/s) , 3.0),
-          (q(km/h), 3e-3*3600.0)
+          (q(km/h), 3e-3*3600.0),
+          (q(kn), 3.0*3600.0/1852.0)
         )
       // Verify
       forAll(conversions){ (sut: Double, expected: Double) =>
@@ -77,7 +81,7 @@ class VelocitySpec extends MultiverseCustomSpec {
       // Exercise
       val sut = VelocityUnit.getUnits
       // Verify
-      sut should contain theSameElementsInOrderAs Seq(c, M)
+      sut should contain theSameElementsInOrderAs Seq(c, M, kt, kine)
     }
   }
 }

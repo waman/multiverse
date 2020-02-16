@@ -16,7 +16,7 @@ class EnergySpec extends MultiverseCustomSpec {
           ("energy", "expected"),
           (3.0(J), 3.0),
           (3.0(kJ) , 3000.0),
-          (3.0(cal) , 3.0*4.1868),
+          (3.0(cal) , 3.0*4.184),
           (3.0(cal(IT)), 3.0*4.1868)
         )
       // Verify
@@ -34,7 +34,7 @@ class EnergySpec extends MultiverseCustomSpec {
           ("energy", "expected"),
           (q(J), 3.0),
           (q(kJ) , 0.003),
-          (q(cal), 3.0/4.1868),
+          (q(cal), 3.0/4.184),
           (q(cal(IT)), 3.0/4.1868)
         )
       // Verify
@@ -58,14 +58,6 @@ class EnergySpec extends MultiverseCustomSpec {
         // Verify
         sut should equal (%%%%(expected))
       }
-    }
-  }
-
-  "[SOURCE GENERATION]" - {
-    "cal_IT(IT) should not compile" in {
-      "EnergyUnits.cal_IT" should compile
-      "EnergyUnits.cal(IT)" should compile
-      "EnergyUnits.cal_IT(IT)" shouldNot compile
     }
   }
 }

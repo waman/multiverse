@@ -91,8 +91,9 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
          |""".stripMargin)
 
     this.id match {
-      case "TimeSquared" | "Torque" | "VolumeFlow" | "EquivalentDoseRate" =>
-      case _ => writer.write("import spire.implicits._\n")
+      case "TimeSquared" | "Torque" | "VolumeFlow" | "EquivalentDoseRate" | "Radiance" | "RadiantEnergyDensity" =>
+      case _ =>
+        writer.write("import spire.implicits._\n")
     }
 
     writer.write(

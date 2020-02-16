@@ -6,7 +6,7 @@
 
   "units": [
     {"name": "newton", "symbol": "N", "scalePrefixes": true},
-    {"name": "dyne", "symbol": "dyn", "interval": "1e-5"},
+    {"name": "dyne", "symbol": "dyn", "interval": "1e-5", "scalePrefixes": true},
     {"name": "kilogram force", "symbol": "kgf", "aliases": ["kp", "Gf"], "baseUnit": "Acceleration.standard_gravity", "notExact": true},
     {"name": "milligrave force", "symbol": "mGf", "aliases": ["gf"], "interval": "1e-3",
       "baseUnit": "Acceleration.standard_gravity", "notExact": true},

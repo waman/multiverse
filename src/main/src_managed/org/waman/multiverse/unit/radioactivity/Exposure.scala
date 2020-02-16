@@ -1,4 +1,4 @@
-package org.waman.multiverse.unit.radiation
+package org.waman.multiverse.unit.radioactivity
 
 import spire.math.Real
 import spire.math.Fractional
