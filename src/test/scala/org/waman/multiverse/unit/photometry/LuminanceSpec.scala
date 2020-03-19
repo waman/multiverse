@@ -1,8 +1,8 @@
-package org.waman.multiverse.unit.optics
+package org.waman.multiverse.unit.photometry
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.unit.basic.AreaUnits._
-import org.waman.multiverse.unit.optics.LuminanceUnitObjects.foot_lambert
+import org.waman.multiverse.unit.photometry.LuminanceUnitObjects.foot_lambert
 import spire.implicits._
 import spire.math.Real
 

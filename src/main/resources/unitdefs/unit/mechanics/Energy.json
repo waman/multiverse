@@ -1,5 +1,5 @@
 {
-  "description": "This can be used as a unit of torque.",
+  "description": "This can be used as a unit of torque and radiant energy (radiation).",
   "SIUnit": "joule",
   "dimension": {"M": 1, "L": 2, "T": -2},
 

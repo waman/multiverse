@@ -1,4 +1,4 @@
-package org.waman.multiverse.unit.optics
+package org.waman.multiverse.unit.photometry
 
 import spire.math.Real
 import spire.math.Fractional
@@ -41,7 +41,7 @@ class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: 
   extends IlluminanceUnit
 
 object IlluminanceUnitObjects{
-  import org.waman.multiverse.unit.optics.LuminousIntensityUnitObjects._
+  import org.waman.multiverse.unit.photometry.LuminousIntensityUnitObjects._
   import org.waman.multiverse.unit.basic.AreaUnitObjects._
 
   final case object lux extends SimpleIlluminanceUnit("lux", "lx", 1)

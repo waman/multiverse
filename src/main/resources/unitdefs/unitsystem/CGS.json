@@ -29,9 +29,9 @@
     {"quantity": "Power", "unit": "Energy.erg / Time.second"},
     {"quantity": "TimeSquared", "unit": "second_squared"},
 
-    {"quantity": "Radiance", "unit": "Energy.erg / Time.second / SolidAngle.steradian / Area.square_centimetre"},
-    {"quantity": "RadiantEnergyDensity", "unit": "Energy.erg / Volume.cubic_centimetre"},
-    {"quantity": "RadiantIntensity", "unit": "Energy.erg / Time.second / SolidAngle.steradian"},
+    {"quantity": "Irradiance", "unit": "Energy.erg / Time.second / Area.square_centimetre"},
+    {"quantity": "AreaFrequency", "unit": "Area.square_centimetre * Frequency.heltz"},
+    {"quantity": "SpectralIrradiance", "unit": "Energy.erg / Time.second / Area.square_centimetre / Frequency.heltz"},
 
     {"quantity": "AbsorbedDose", "unit": "rad"},
     {"quantity": "EquivalentDose", "unit": "roentgen_equivalent_man"},

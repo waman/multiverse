@@ -1,6 +1,0 @@
-{
-  "SIUnit": "Power / SolidAngle",
-  "dimension": {"M": 1, "L": 2, "T": -3},
-
-  "composites": ["Power / SolidAngle"]
-}

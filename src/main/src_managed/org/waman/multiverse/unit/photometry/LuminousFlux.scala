@@ -1,4 +1,4 @@
-package org.waman.multiverse.unit.optics
+package org.waman.multiverse.unit.photometry
 
 import spire.math.Real
 import spire.math.Fractional

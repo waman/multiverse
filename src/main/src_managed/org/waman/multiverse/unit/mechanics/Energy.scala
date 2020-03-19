@@ -8,12 +8,6 @@ import org.waman.multiverse._
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
-import org.waman.multiverse.unit.basic.Volume
-import org.waman.multiverse.unit.basic.VolumeUnit
-
-import org.waman.multiverse.unit.radiation.RadiantEnergyDensity
-import org.waman.multiverse.unit.radiation.RadiantEnergyDensityUnit
-
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
 
@@ -36,8 +30,6 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
   def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
 
-  def /(volume: Volume[A]): RadiantEnergyDensity[A] = new RadiantEnergyDensity(this.value / volume.value, this.unit / volume.unit)
-
   def /(mass: Mass[A]): AbsorbedDose[A] = new AbsorbedDose(this.value / mass.value, this.unit / mass.unit)
 
   def /(absoluteTemperature: AbsoluteTemperature[A]): Entropy[A] = new Entropy(this.value / absoluteTemperature.value, this.unit / absoluteTemperature.unit)
@@ -58,7 +50,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
 }
 
-/** This can be used as a unit of torque. */
+/** This can be used as a unit of torque and radiant energy (radiation). */
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
@@ -69,9 +61,6 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   def /(timeUnit: TimeUnit): PowerUnit =
     new AbstractQuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
-
-  def /(volumeUnit: VolumeUnit): RadiantEnergyDensityUnit =
-    new AbstractQuotientUnit[RadiantEnergyDensityUnit, EnergyUnit, VolumeUnit](EnergyUnit.this, volumeUnit) with RadiantEnergyDensityUnit
 
   def /(massUnit: MassUnit): AbsorbedDoseUnit =
     new AbstractQuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit

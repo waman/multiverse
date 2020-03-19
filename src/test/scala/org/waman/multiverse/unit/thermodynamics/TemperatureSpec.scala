@@ -12,7 +12,7 @@ class TemperatureSpec extends MultiverseCustomSpec {
       // Exercise
       val conversions =
         Table(
-          ("TemperatureUnit", "expected"),
+          ("t emperature unit", "expected"),
           (K, "kelvin (K), dim: Θ"),
           (degC, "celsius (℃) [0(℃) = 273.15(K), Δ(℃) = Δ(K)], aliases: [°C, degC], dim: Θ"),
           (degF, "fahrenheit (℉) [0(℉) = 45967/180(K), Δ(℉) = 5/9*Δ(K)], aliases: [°F, degF], dim: Θ")

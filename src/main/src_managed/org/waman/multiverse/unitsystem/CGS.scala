@@ -26,9 +26,9 @@ import org.waman.multiverse.unit.mechanics.MassTorque
 import org.waman.multiverse.unit.mechanics.Momentum
 import org.waman.multiverse.unit.mechanics.Power
 import org.waman.multiverse.unit.mechanics.TimeSquared
-import org.waman.multiverse.unit.radiation.Radiance
-import org.waman.multiverse.unit.radiation.RadiantEnergyDensity
-import org.waman.multiverse.unit.radiation.RadiantIntensity
+import org.waman.multiverse.unit.radiometry.Irradiance
+import org.waman.multiverse.unit.radiometry.AreaFrequency
+import org.waman.multiverse.unit.radiometry.SpectralIrradiance
 import org.waman.multiverse.unit.radioactivity.AbsorbedDose
 import org.waman.multiverse.unit.radioactivity.EquivalentDose
 import org.waman.multiverse.unit.radioactivity.EquivalentDoseRate
@@ -78,9 +78,9 @@ trait CGS extends UnitSystem{
   implicit def evaluateMomentum[A: Fractional](q: Momentum[A]): A = q(dyne * second)
   implicit def evaluatePower[A: Fractional](q: Power[A]): A = q(erg / second)
   implicit def evaluateTimeSquared[A: Fractional](q: TimeSquared[A]): A = q(second_squared)
-  implicit def evaluateRadiance[A: Fractional](q: Radiance[A]): A = q(erg / second / steradian / square_centimetre)
-  implicit def evaluateRadiantEnergyDensity[A: Fractional](q: RadiantEnergyDensity[A]): A = q(erg / cubic_centimetre)
-  implicit def evaluateRadiantIntensity[A: Fractional](q: RadiantIntensity[A]): A = q(erg / second / steradian)
+  implicit def evaluateIrradiance[A: Fractional](q: Irradiance[A]): A = q(erg / second / square_centimetre)
+  implicit def evaluateAreaFrequency[A: Fractional](q: AreaFrequency[A]): A = q(square_centimetre * heltz)
+  implicit def evaluateSpectralIrradiance[A: Fractional](q: SpectralIrradiance[A]): A = q(erg / second / square_centimetre / heltz)
   implicit def evaluateAbsorbedDose[A: Fractional](q: AbsorbedDose[A]): A = q(rad)
   implicit def evaluateEquivalentDose[A: Fractional](q: EquivalentDose[A]): A = q(roentgen_equivalent_man)
   implicit def evaluateEquivalentDoseRate[A: Fractional](q: EquivalentDoseRate[A]): A = q(roentgen_equivalent_man / second)

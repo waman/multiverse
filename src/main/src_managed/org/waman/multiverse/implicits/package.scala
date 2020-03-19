@@ -11,9 +11,9 @@ import org.waman.multiverse.unit.electrics._
 import org.waman.multiverse.unit.fluid._
 import org.waman.multiverse.unit.magnetics._
 import org.waman.multiverse.unit.mechanics._
-import org.waman.multiverse.unit.optics._
-import org.waman.multiverse.unit.radiation._
+import org.waman.multiverse.unit.photometry._
 import org.waman.multiverse.unit.radioactivity._
+import org.waman.multiverse.unit.radiometry._
 import org.waman.multiverse.unit.thermodynamics._
 
 package object implicits {
@@ -60,14 +60,14 @@ package object implicits {
     def apply(unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
     def apply(unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
     def apply(unit: LuminousIntensityUnit): LuminousIntensity[A] = new LuminousIntensity(value, unit)
-    def apply(unit: RadianceUnit): Radiance[A] = new Radiance(value, unit)
-    def apply(unit: RadiantEnergyDensityUnit): RadiantEnergyDensity[A] = new RadiantEnergyDensity(value, unit)
-    def apply(unit: RadiantIntensityUnit): RadiantIntensity[A] = new RadiantIntensity(value, unit)
     def apply(unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
     def apply(unit: EquivalentDoseUnit): EquivalentDose[A] = new EquivalentDose(value, unit)
     def apply(unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
     def apply(unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
     def apply(unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
+    def apply(unit: AreaFrequencyUnit): AreaFrequency[A] = new AreaFrequency(value, unit)
+    def apply(unit: IrradianceUnit): Irradiance[A] = new Irradiance(value, unit)
+    def apply(unit: SpectralIrradianceUnit): SpectralIrradiance[A] = new SpectralIrradiance(value, unit)
     def apply(unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
     def apply(unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
     def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)

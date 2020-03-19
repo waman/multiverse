@@ -29,6 +29,7 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
         val destDir = IO.resolve(destRoot, new File(s)) // src/main/src_managed/org/waman/multiverse/unit/basic
 
         json.getName match {
+//          case "aliases.json" => new AliasesJson(json, destDir, subpackage)
           case "Temperature.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
           case "Length.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
           case "Area.json" | "Volume.json" =>
@@ -77,7 +78,7 @@ abstract class SourceGeneratorJson(jsonFile: File, destDir: File)
 
   def generate(jsons: JsonResources): File = {
     doGenerate(jsons)
-    println("[GENERATE] " + this.destFilename)
+    println("[GENERATE] " + this.destFile)
     this.destFile
   }
 

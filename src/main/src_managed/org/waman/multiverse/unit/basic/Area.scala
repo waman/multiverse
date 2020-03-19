@@ -5,6 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+import org.waman.multiverse.unit.angle.Frequency
+import org.waman.multiverse.unit.angle.FrequencyUnit
+
+import org.waman.multiverse.unit.radiometry.AreaFrequency
+import org.waman.multiverse.unit.radiometry.AreaFrequencyUnit
+
 import org.waman.multiverse.unit.fluid.KinematicViscosity
 import org.waman.multiverse.unit.fluid.KinematicViscosityUnit
 
@@ -15,6 +21,8 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
   override protected def newQuantity(value: A, unit: AreaUnit): Area[A] = new Area(value, unit)
 
   def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
+
+  def *(frequency: Frequency[A]): AreaFrequency[A] = new AreaFrequency(this.value * frequency.value, this.unit * frequency.unit)
 
   def /(time: Time[A]): KinematicViscosity[A] = new KinematicViscosity(this.value / time.value, this.unit / time.unit)
 }
@@ -27,6 +35,9 @@ trait AreaUnit extends LinearUnit[AreaUnit]{
 
   def *(lengthUnit: LengthUnit): VolumeUnit =
     new AbstractProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
+
+  def *(frequencyUnit: FrequencyUnit): AreaFrequencyUnit =
+    new AbstractProductUnit[AreaFrequencyUnit, AreaUnit, FrequencyUnit](AreaUnit.this, frequencyUnit) with AreaFrequencyUnit
 
   def /(timeUnit: TimeUnit): KinematicViscosityUnit =
     new AbstractQuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit](AreaUnit.this, timeUnit) with KinematicViscosityUnit

@@ -11,11 +11,17 @@ import org.waman.multiverse.unit.electrics.CurrentUnit
 import org.waman.multiverse.unit.electrics.Voltage
 import org.waman.multiverse.unit.electrics.VoltageUnit
 
-import org.waman.multiverse.unit.angle.SolidAngle
-import org.waman.multiverse.unit.angle.SolidAngleUnit
+import org.waman.multiverse.unit.basic.Area
+import org.waman.multiverse.unit.basic.AreaUnit
 
-import org.waman.multiverse.unit.radiation.RadiantIntensity
-import org.waman.multiverse.unit.radiation.RadiantIntensityUnit
+import org.waman.multiverse.unit.radiometry.Irradiance
+import org.waman.multiverse.unit.radiometry.IrradianceUnit
+
+import org.waman.multiverse.unit.radiometry.AreaFrequency
+import org.waman.multiverse.unit.radiometry.AreaFrequencyUnit
+
+import org.waman.multiverse.unit.radiometry.SpectralIrradiance
+import org.waman.multiverse.unit.radiometry.SpectralIrradianceUnit
 
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
@@ -25,10 +31,12 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
 
   def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
 
-  def /(solidAngle: SolidAngle[A]): RadiantIntensity[A] = new RadiantIntensity(this.value / solidAngle.value, this.unit / solidAngle.unit)
+  def /(area: Area[A]): Irradiance[A] = new Irradiance(this.value / area.value, this.unit / area.unit)
+
+  def /(areaFrequency: AreaFrequency[A]): SpectralIrradiance[A] = new SpectralIrradiance(this.value / areaFrequency.value, this.unit / areaFrequency.unit)
 }
 
-/** null */
+/** This can be used as a unit of radiant flux (radiation). */
 trait PowerUnit extends LinearUnit[PowerUnit]{
 
   override def getSIUnit: PowerUnit = PowerUnit.getSIUnit
@@ -37,8 +45,11 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
   def /(currentUnit: CurrentUnit): VoltageUnit =
     new AbstractQuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
 
-  def /(solidAngleUnit: SolidAngleUnit): RadiantIntensityUnit =
-    new AbstractQuotientUnit[RadiantIntensityUnit, PowerUnit, SolidAngleUnit](PowerUnit.this, solidAngleUnit) with RadiantIntensityUnit
+  def /(areaUnit: AreaUnit): IrradianceUnit =
+    new AbstractQuotientUnit[IrradianceUnit, PowerUnit, AreaUnit](PowerUnit.this, areaUnit) with IrradianceUnit
+
+  def /(areaFrequencyUnit: AreaFrequencyUnit): SpectralIrradianceUnit =
+    new AbstractQuotientUnit[SpectralIrradianceUnit, PowerUnit, AreaFrequencyUnit](PowerUnit.this, areaFrequencyUnit) with SpectralIrradianceUnit
 }
 
 object PowerUnit extends UnitInfo[PowerUnit]{

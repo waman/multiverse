@@ -1,8 +1,8 @@
-package org.waman.multiverse.unit.optics
+package org.waman.multiverse.unit.photometry
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.unit.basic.AreaUnits._
-import org.waman.multiverse.unit.optics.IlluminanceUnitObjects.foot_candle
+import org.waman.multiverse.unit.photometry.IlluminanceUnitObjects.foot_candle
 import spire.implicits._
 
 class IlluminanceSpec extends MultiverseCustomSpec {

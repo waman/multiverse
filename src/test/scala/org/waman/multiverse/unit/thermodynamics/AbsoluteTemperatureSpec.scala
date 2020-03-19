@@ -12,7 +12,7 @@ class AbsoluteTemperatureSpec extends MultiverseCustomSpec {
       // Exercise
       val conversions =
         Table(
-          ("TemperatureUnit", "expected"),
+          ("absolute temperature unit", "expected"),
           (K, "kelvin (K), dim: Θ")
         )
       // Verify

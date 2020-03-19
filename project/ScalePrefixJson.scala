@@ -18,8 +18,8 @@ class ScalePrefixJson(jsonFile: File, destDir: File)
 
   private val scalePrefixType: Class[_ >: Array[ScalePrefix]] = new TypeToken[Array[ScalePrefix]]() {}.getRawType
 
-    val scalePrefixes: Seq[ScalePrefix] = IO.reader(jsonFile, utf8) { reader =>
-      gson.fromJson(reader, scalePrefixType).asInstanceOf[Array[ScalePrefix]].toSeq
+  val scalePrefixes: Seq[ScalePrefix] = IO.reader(jsonFile, utf8) { reader =>
+    gson.fromJson(reader, scalePrefixType).asInstanceOf[Array[ScalePrefix]].toSeq
   }
 
   override protected def doGenerate(jsons: JsonResources): Unit =

@@ -1,6 +1,0 @@
-{
-  "SIUnit": "RadiantIntensity / Area",
-  "dimension": {"M": 1, "T": -3},
-
-  "composites": ["RadiantIntensity / Area"]
-}

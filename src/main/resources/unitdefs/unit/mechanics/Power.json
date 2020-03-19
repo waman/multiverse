@@ -1,4 +1,5 @@
 {
+  "description": "This can be used as a unit of radiant flux (radiation).",
   "SIUnit": "watt",
   "dimension": {"M": 1, "L": 2, "T": -3},
 
@@ -16,7 +17,7 @@
       ]
     },
 
-    {"name": "lusec", "symbol": "lusec", "baseUnit":"Volume.litre * Pressure.micrometre_of_mercury / Time.second"},
+    {"name": "lusec", "baseUnit":"Volume.litre * Pressure.micrometre_of_mercury / Time.second"},
     {"name": "poncelet", "symbol": "p", "interval": "100", "baseUnit": "Length.metre * Force.kilogram_force / Time.second"},
     {"name": "square foot equivalent direct radiation", "symbol": "sq_ft_EDR",
       "interval":"240", "baseUnit": "Energy.british_thermal_unit(IT) / Time.hour"}
