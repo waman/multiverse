@@ -55,33 +55,4 @@ class VelocitySpec extends MultiverseCustomSpec {
       sut should equal (expected)
     }
   }
-
-  "[SOURCE GENERATION] " - {
-
-    "Quotient unit 'km/s' should have combinated aliases" in {
-      // SetUp
-      val expected = Seq("Km/s", "Km/sec", "km/sec")
-      // Exercise
-      val sut = km/s
-      // Verify
-      sut.aliases should contain theSameElementsAs expected
-      sut.symbol should be ("km/s")
-    }
-
-    "The getSIUnit method return the composite (quotient) unit m/s" in {
-      // SetUp
-      val expected = m/s
-      // Exercise
-      val sut = VelocityUnit.getSIUnit
-      // Verify
-      sut should be (expected)
-    }
-
-    "The getUnits method of VelocityUnits should return Seq(c, M)" in {
-      // Exercise
-      val sut = VelocityUnit.getUnits
-      // Verify
-      sut should contain theSameElementsInOrderAs Seq(c, M, kt, kine)
-    }
-  }
 }

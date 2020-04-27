@@ -1,14 +1,13 @@
 package org.waman.multiverse.unit.thermodynamics
 
-import org.waman.multiverse.implicits._
-import org.waman.multiverse.MultiverseCustomSpec
-import org.waman.multiverse.unit.Constants
-import org.waman.multiverse.unit.thermodynamics.EntropyUnits._
-import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnits._
-import org.waman.multiverse.unit.mechanics.EnergyUnits._
-import spire.implicits._
-import spire.math.Real
 import java.lang.Math.log
+
+import org.waman.multiverse.MultiverseCustomSpec
+import org.waman.multiverse.implicits._
+import org.waman.multiverse.unit.Constants
+import org.waman.multiverse.unit.mechanics.EnergyUnits._
+import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnits._
+import org.waman.multiverse.unit.thermodynamics.EntropyUnits._
 
 class EntropySpec extends MultiverseCustomSpec {
 
@@ -68,29 +67,6 @@ class EntropySpec extends MultiverseCustomSpec {
       forAll(conversions){ (sut: Double, expected: Double) =>
         sut should equal (%%%%(expected))
       }
-    }
-  }
-
-  "[SOURCE GENERATION]" - {
-
-    "nat, bit, and ban should have the proper interval values" in {
-      // Exercise
-      val conversions =
-        Table(
-          ("entropy unit", "expected"),
-          (nat, Constants.BoltzmannConstant),
-          (bit, Real(2).log() * Constants.BoltzmannConstant),
-          (ban, Real(10).log() * Constants.BoltzmannConstant)
-        )
-      // Verify
-      forAll(conversions){ (sut: EntropyUnit, expected: Real) =>
-        sut.interval should equal (expected)
-      }
-    }
-
-    "millibyte unit should not be defined (excludePrefixes should work well)" in {
-      "EntropyUnitObjects.kilobyte" should compile
-      "EntropyUnitObjects.millibyte" shouldNot compile
     }
   }
 }

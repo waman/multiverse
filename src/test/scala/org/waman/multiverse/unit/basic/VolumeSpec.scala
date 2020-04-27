@@ -156,43 +156,4 @@ class VolumeSpec extends MultiverseCustomSpec {
       sut should equal (expected)
     }
   }
-
-  "[SOURCE GENERATION]" - {
-
-    "metre_cubic should have the proper symbol and some aliases" in {
-      // SetUp
-      val expected = m.cubic
-      // Exercise
-      val conversions =
-        Table(
-          "cubic unit",
-          VolumeUnitObjects.cubic_metre,
-          m3,
-          `m³`
-        )
-      // Verify
-      forAll(conversions){ sut: VolumeUnit =>
-        sut should equal (expected)
-      }
-    }
-
-    "micrometre_cubic should have the proper symbol and some aliases" in {
-      // SetUp
-      val expected = mcm.cubic
-      // Exercise
-      val conversions =
-        Table(
-          "volume unit",
-          VolumeUnitObjects.cubic_micrometre,
-          μm3,
-          mcm3,
-          `μm³`,
-          `mcm³`
-        )
-      // Verify
-      forAll(conversions){ sut: VolumeUnit =>
-        sut should equal (expected)
-      }
-    }
-  }
 }

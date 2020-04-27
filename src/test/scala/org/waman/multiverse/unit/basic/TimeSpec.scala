@@ -52,39 +52,4 @@ class TimeSpec extends MultiverseCustomSpec {
       }
     }
   }
-
-  "[SOURCE GENERATION]" - {
-
-    "The baseUnit property that refers its child attribute should provide the proper interval" in {
-//      {"name":"year", "symbol":"yr", ..., "baseUnit":"year(gregorian)",
-//        "attributes": [
-//          ...
-//          {"name":"gregorian", "interval":"365.2425", "baseUnit":"day"},
-//          ...
-//         ]}
-      // Exercise
-      val conversions =
-        Table(
-          ("parent", "expected"),
-          (mo, mo(gregorian)),
-          (yr, yr(gregorian)),
-          (dec, dec(gregorian)),
-          (century, century(gregorian))
-        )
-      // Verify
-      forAll(conversions){ (sut: TimeUnit, expected: TimeUnit) =>
-        sut.interval should equal (expected.interval)
-      }
-    }
-
-    "prefixed unit 'microsecond' should have combinated aliases of a base unit and prefix" in {
-      // SetUp
-      val expected = Seq("μsec", "mcs", "mcsec")
-      // Exercise
-      val sut = TimeUnitObjects.microsecond
-      // Verify
-      sut.aliases should contain theSameElementsAs expected
-      sut.symbol should be ("μs")
-    }
-  }
 }

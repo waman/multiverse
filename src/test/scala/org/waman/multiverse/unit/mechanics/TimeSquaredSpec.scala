@@ -130,49 +130,4 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
       sut should equal (expected)
     }
   }
-
-  "[SOURCE GENERATION]" - {
-
-    "second_squared should have the proper symbol and some aliases" in {
-      // SetUp
-      val expected = s.squared
-      // Exercise
-      val conversions =
-        Table(
-          "time squared unit",
-          TimeSquaredUnitObjects.second_squared,
-          s2,
-          `s²`,
-          sec2,
-          `sec²`
-        )
-      // Verify
-      forAll(conversions){ sut: TimeSquaredUnit =>
-        sut should equal (expected)
-      }
-    }
-
-    "microsecond_squared should have the proper symbol and some aliases" in {
-      // SetUp
-      val expected = mcs.squared
-      // Exercise
-      val conversions =
-        Table(
-          "time squared unit",
-          TimeSquaredUnitObjects.microsecond_squared,
-          μs2,
-          mcs2,
-          `μs²`,
-          `mcs²`,
-          μsec2,
-          mcsec2,
-          `μsec²`,
-          `mcsec²`
-        )
-      // Verify
-      forAll(conversions){ sut: TimeSquaredUnit =>
-        sut should equal (expected)
-      }
-    }
-  }
 }

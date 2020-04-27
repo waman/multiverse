@@ -1,14 +1,10 @@
 package org.waman.multiverse.unit.electrics
 
-import spire.implicits._
-
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.electrics
-import electrics.ChargeUnitObjects.statcoulomb
-import electrics.DipoleUnitObjects.debye
-import electrics.ChargeUnits._
 import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.electrics
+import org.waman.multiverse.unit.electrics.ChargeUnits._
 
 class DipoleSpec extends MultiverseCustomSpec {
 
@@ -35,26 +31,6 @@ class DipoleSpec extends MultiverseCustomSpec {
       val sut = q*x
       // Verify
       sut should equal (expected)
-    }
-  }
-
-  "[SOURCE GENERATION] " - {
-
-    "The unit value of stat should be collect value (the interval string is a product of constant and number)" in {
-      // Exercise
-      val sut = debye.interval
-      // Verify
-      sut should equal (r"1e-20" * statcoulomb.interval)
-    }
-
-    "Product unit 'statC*NM' should have the combinated aliases" in {
-      // SetUp
-      val expected = Seq("statC*nmi", "Fr*NM", "Fr*nmi", "esu*NM", "esu*nmi")
-      // Exercise
-      val sut = statC * NM
-      // Verify
-      sut.aliases should contain theSameElementsAs expected
-      sut.symbol should be ("statC*NM")
     }
   }
 }

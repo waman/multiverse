@@ -148,43 +148,4 @@ class AreaSpec extends MultiverseCustomSpec {
       sut should equal (expected)
     }
   }
-
-  "[SOURCE GENERATION]" - {
-
-    "square_metre should have the proper symbol and some aliases" in {
-      // SetUp
-      val expected = m.squared
-      // Exercise
-      val conversions =
-        Table(
-          "area unit",
-          AreaUnitObjects.square_metre,
-          m2,
-          `m²`
-        )
-      // Verify
-      forAll(conversions){ sut: AreaUnit =>
-        sut should equal (expected)
-      }
-    }
-
-    "square_micrometre should have the proper symbol and some aliases" in {
-      // SetUp
-      val expected = mcm.squared
-      // Exercise
-      val conversions =
-        Table(
-          "area unit",
-          AreaUnitObjects.square_micrometre,
-          μm2,
-          mcm2,
-          `μm²`,
-          `mcm²`
-        )
-      // Verify
-      forAll(conversions){ sut: AreaUnit =>
-        sut should equal (expected)
-      }
-    }
-  }
 }
