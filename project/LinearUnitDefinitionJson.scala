@@ -25,7 +25,7 @@ case class Composites(products: Seq[(String, String)], quotients: Seq[(String, S
 //   scalePrefixes":true, "notExact":true},
 case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], interval: String, baseUnit: String,
                          scalePrefixes: Boolean, excludePrefixes: Array[String], notExact: Boolean,
-                         attributes: Array[Attribute]) extends RawUnitInfo[LinearUnit]{ self =>
+                         attributes: Array[Attribute], description: String) extends RawUnitInfo[LinearUnit]{ self =>
   import GenerationUtil._
 
   lazy val _symbol: String =
@@ -43,7 +43,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
 
     if(scalePrefixes){
       val head = LinearUnit(this.name, toObjectName(this.name), this._symbol, this._aliases,
-                                      this.interval, this.baseUnit, this.notExact, Nil)
+                                      this.interval, this.baseUnit, this.notExact, Nil, this._description)
 
       abstract class PrefixedUnitsBuilder{
         def prefixedName(name: String, p: ScalePrefix): String
@@ -55,7 +55,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
             val al = (p.prefix +: p._aliases).flatMap(ps => symbols.map(ps + _)).tail
             val pname = prefixedName(name, p)
             LinearUnit(pname, toObjectName(pname), p.prefix+_symbol, al,
-              prefixedInterval(self.interval, p), prefixedBaseUnit(self.baseUnit, p), self.notExact, Nil)
+              prefixedInterval(self.interval, p), prefixedBaseUnit(self.baseUnit, p), self.notExact, Nil, self._description)
           }
       }
 
@@ -105,7 +105,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
         val _aliases = this._aliases.map(al => s"$al(${a.name})") ++: a._aliases
         LinearUnit(
           _name, toObjectName(_name), s"${u.symbol}(${a.name})", _aliases,
-          a.interval, a.baseUnit, a.notExact, Nil)
+          a.interval, a.baseUnit, a.notExact, Nil, this._description)
       }
 
       u +: us
@@ -114,7 +114,7 @@ case class RawLinearUnit(name: String, symbol: String, aliases: Array[String], i
 
   def toLinearUnit: LinearUnit =
     LinearUnit(this.name, toObjectName(this.name), this._symbol, this._aliases,
-      this.interval, this.baseUnit, this.notExact, this._attributes)
+      this.interval, this.baseUnit, this.notExact, this._attributes, this._description)
 }
 
 case class Attribute(name: String, aliases: Array[String], interval: String, baseUnit: String, notExact: Boolean){
@@ -122,7 +122,8 @@ case class Attribute(name: String, aliases: Array[String], interval: String, bas
 }
 
 case class LinearUnit(name: String, objectName: String, symbol: String, aliases: Seq[String],
-                      interval: String, baseUnit: String, notExact: Boolean, attributes: Seq[Attribute]) extends UnitInfo{
+                      interval: String, baseUnit: String, notExact: Boolean, attributes: Seq[Attribute], description: String)
+    extends UnitInfo{
   require(this.attributes != null)
 }
 
@@ -278,7 +279,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
           s"""("${unit.name}", "${unit.symbol}", $interval)$notExact\n""")
     }else{
       // final case object metre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), r"1e-6")
-      val aliases = unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+      val aliases = unit.aliases.filterNot(isOptionalAliase).mkString("Seq(\"", "\", \"", "\")")
       writer.write(
         s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
           s"""("${unit.name}", "${unit.symbol}", $aliases, $interval)$notExact\n""")

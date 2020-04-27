@@ -52,7 +52,7 @@ object AreaUnit extends UnitInfo[AreaUnit]{
 
   import AreaUnitObjects._
   def getUnits: Seq[AreaUnit] =
-    Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, are, hectare, barn, yoctobarn, zeptobarn, attobarn, femtobarn, picobarn, nanobarn, microbarn, millibarn, kilobarn, megabarn, gigabarn, terabarn, petabarn, exabarn, zettabarn, yottabarn, square_mil, square_inch, square_link, `square_link(US)`, square_foot, `square_foot(US)`, square_chain, `square_chain(US)`, square_yard, square_rod, square_mile, `square_mile(US)`, acre, `acre(US)`, rood, circular_mil, circular_inch, board)
+    Seq(square_metre, square_yoctometre, square_zeptometre, square_attometre, square_femtometre, square_picometre, square_nanometre, square_micrometre, square_millimetre, square_centimetre, square_decimetre, square_decametre, square_hectometre, square_kilometre, square_megametre, square_gigametre, square_terametre, square_petametre, square_exametre, square_zettametre, square_yottametre, are, hectare, barn, yoctobarn, zeptobarn, attobarn, femtobarn, picobarn, nanobarn, microbarn, millibarn, kilobarn, megabarn, gigabarn, terabarn, petabarn, exabarn, zettabarn, yottabarn, square_mil, square_inch, square_link, `square_link(US)`, square_foot, `square_foot(US)`, square_chain, `square_chain(US)`, square_yard, square_rod, `square_rod(US)`, square_mile, `square_mile(US)`, acre, `acre(US)`, rood, circular_mil, circular_inch, board, section, `section(US)`, township)
 }
 
 /** For no aliase or user defined units */
@@ -118,6 +118,7 @@ object AreaUnitObjects{
   final case object `square_chain(US)` extends DefaultAreaUnit("square chain(US)", "ch²(US)", Seq("ch2(US)", "sq_ch(US)"), `chain(US)`.interval**2)
   final case object square_yard extends DefaultAreaUnit("square yard", "yd²", Seq("yd2", "sq_yd"), yard.interval**2)
   final case object square_rod extends DefaultAreaUnit("square rod", "rd²", Seq("rd2", "sq_rd"), rod.interval**2)
+  final case object `square_rod(US)` extends DefaultAreaUnit("square rod(US)", "rd²(US)", Seq("rd2(US)", "sq_rd(US)"), `rod(US)`.interval**2)
   final case object square_mile extends DefaultAreaUnit("square mile", "mi²", Seq("mi2", "sq_mi"), mile.interval**2)
   final case object `square_mile(US)` extends DefaultAreaUnit("square mile(US)", "mi²(US)", Seq("mi2(US)", "sq_mi(US)"), `mile(US)`.interval**2)
   final case object acre extends SimpleAreaUnit("acre", "ac", r"10" * square_chain.interval)
@@ -126,6 +127,9 @@ object AreaUnitObjects{
   final case object circular_mil extends SimpleAreaUnit("circular mil", "circ_mil", Constants.Pi / r"4" * square_mil.interval)
   final case object circular_inch extends SimpleAreaUnit("circular inch", "circ_in", Constants.Pi / r"4" * square_inch.interval)
   final case object board extends SimpleAreaUnit("board", "bd", inch.interval * foot.interval)
+  final case object section extends SimpleAreaUnit("section", "section", r"640" * acre.interval)
+  final case object `section(US)` extends SimpleAreaUnit("section(US)", "section(US)", r"640" * `acre(US)`.interval)
+  final case object township extends SimpleAreaUnit("township", "twp", r"36" * `section(US)`.interval)
 }
 
 object AreaUnits{
@@ -216,7 +220,11 @@ object AreaUnits{
   def lnk2(a: square_linkAttribute): AreaUnit = `li²`(a)
 
   def sq_li: AreaUnit = AreaUnitObjects.square_link
+  def sq_li(a: square_linkAttribute): AreaUnit = `li²`(a)
+
   def sq_lnk: AreaUnit = AreaUnitObjects.square_link
+  def sq_lnk(a: square_linkAttribute): AreaUnit = `li²`(a)
+
   def `ft²`: AreaUnit = AreaUnitObjects.square_foot
   def `ft²`(a: square_footAttribute): AreaUnit = a match { 
     case LengthAttributes.US => AreaUnitObjects.`square_foot(US)`
@@ -225,6 +233,8 @@ object AreaUnits{
   def ft2(a: square_footAttribute): AreaUnit = `ft²`(a)
 
   def sq_ft: AreaUnit = AreaUnitObjects.square_foot
+  def sq_ft(a: square_footAttribute): AreaUnit = `ft²`(a)
+
   def `ch²`: AreaUnit = AreaUnitObjects.square_chain
   def `ch²`(a: square_chainAttribute): AreaUnit = a match { 
     case LengthAttributes.US => AreaUnitObjects.`square_chain(US)`
@@ -233,12 +243,21 @@ object AreaUnits{
   def ch2(a: square_chainAttribute): AreaUnit = `ch²`(a)
 
   def sq_ch: AreaUnit = AreaUnitObjects.square_chain
+  def sq_ch(a: square_chainAttribute): AreaUnit = `ch²`(a)
+
   def `yd²`: AreaUnit = AreaUnitObjects.square_yard
   def yd2: AreaUnit = AreaUnitObjects.square_yard
   def sq_yd: AreaUnit = AreaUnitObjects.square_yard
   def `rd²`: AreaUnit = AreaUnitObjects.square_rod
+  def `rd²`(a: square_rodAttribute): AreaUnit = a match { 
+    case LengthAttributes.US => AreaUnitObjects.`square_rod(US)`
+  }
   def rd2: AreaUnit = AreaUnitObjects.square_rod
+  def rd2(a: square_rodAttribute): AreaUnit = `rd²`(a)
+
   def sq_rd: AreaUnit = AreaUnitObjects.square_rod
+  def sq_rd(a: square_rodAttribute): AreaUnit = `rd²`(a)
+
   def `mi²`: AreaUnit = AreaUnitObjects.square_mile
   def `mi²`(a: square_mileAttribute): AreaUnit = a match { 
     case LengthAttributes.US => AreaUnitObjects.`square_mile(US)`
@@ -247,6 +266,8 @@ object AreaUnits{
   def mi2(a: square_mileAttribute): AreaUnit = `mi²`(a)
 
   def sq_mi: AreaUnit = AreaUnitObjects.square_mile
+  def sq_mi(a: square_mileAttribute): AreaUnit = `mi²`(a)
+
   def ac: AreaUnit = AreaUnitObjects.acre
   def ac(a: acreAttribute): AreaUnit = a match { 
     case LengthAttributes.US => AreaUnitObjects.`acre(US)`
@@ -255,4 +276,9 @@ object AreaUnits{
   def circ_mil: AreaUnit = AreaUnitObjects.circular_mil
   def circ_in: AreaUnit = AreaUnitObjects.circular_inch
   def bd: AreaUnit = AreaUnitObjects.board
+  def section: AreaUnit = AreaUnitObjects.section
+  def section(a: sectionAttribute): AreaUnit = a match { 
+    case LengthAttributes.US => AreaUnitObjects.`section(US)`
+  }
+  def twp: AreaUnit = AreaUnitObjects.township
 }

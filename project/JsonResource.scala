@@ -21,7 +21,7 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
       case Some("unit") =>
         json.getName match {
           case "Constants.json" => new ConstantsJson(json, IO.resolve(destRoot, new File("unit")))
-          case x => throw new RuntimeException(s"Unknown json file appears: $x")
+          case _ => new UnitsJson(json, IO.resolve(destRoot, new File("unit")))
         }
 
       case Some(s) if s.contains(unitDir) =>

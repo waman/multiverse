@@ -50,7 +50,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
 
 }
 
-/** This can be used as a unit of torque and radiant energy (radiation). */
+/** null */
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
@@ -78,7 +78,7 @@ object EnergyUnit extends UnitInfo[EnergyUnit]{
 
   import EnergyUnitObjects._
   def getUnits: Seq[EnergyUnit] =
-    Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, calorie, `calorie(th)`, `calorie(IT)`, `calorie(mean)`, `calorie_4℃`, `calorie_15℃`, `calorie_20℃`, kilocalorie, british_thermal_unit, `british_thermal_unit(ISO)`, `british_thermal_unit(IT)`, `british_thermal_unit(mean)`, `british_thermal_unit(th)`, `british_thermal_unit_59℉`)
+    Seq(joule, yoctojoule, zeptojoule, attojoule, femtojoule, picojoule, nanojoule, microjoule, millijoule, centijoule, decijoule, decajoule, hectojoule, kilojoule, megajoule, gigajoule, terajoule, petajoule, exajoule, zettajoule, yottajoule, erg, electronvolt, yoctoelectronvolt, zeptoelectronvolt, attoelectronvolt, femtoelectronvolt, picoelectronvolt, nanoelectronvolt, microelectronvolt, millielectronvolt, centielectronvolt, decielectronvolt, decaelectronvolt, hectoelectronvolt, kiloelectronvolt, megaelectronvolt, gigaelectronvolt, teraelectronvolt, petaelectronvolt, exaelectronvolt, zettaelectronvolt, yottaelectronvolt, rydberg, atomic_unit_of_energy, watt_hour, kilowatt_hour, litre_atmosphere, calorie, `calorie(th)`, `calorie(IT)`, `calorie(mean)`, `calorie_4℃`, `calorie_15℃`, `calorie_20℃`, kilocalorie, tonne_of_coal_equivalent, tonne_of_oil_equivalent, ton_of_TNT, british_thermal_unit, `british_thermal_unit(ISO)`, `british_thermal_unit(IT)`, `british_thermal_unit(mean)`, `british_thermal_unit(th)`, `british_thermal_unit_59℉`, quad)
 }
 
 /** For no aliase or user defined units */
@@ -102,6 +102,10 @@ object EnergyAttributes{
 
 object EnergyUnitObjects{
   import org.waman.multiverse.unit.Constants
+  import org.waman.multiverse.unit.mechanics.PowerUnitObjects._
+  import org.waman.multiverse.unit.basic.TimeUnitObjects._
+  import org.waman.multiverse.unit.basic.VolumeUnitObjects._
+  import org.waman.multiverse.unit.fluid.PressureUnitObjects._
 
   final case object joule extends SimpleEnergyUnit("joule", "J", 1)
   final case object yoctojoule extends SimpleEnergyUnit("yoctojoule", "yJ", r"1e-24")
@@ -148,6 +152,9 @@ object EnergyUnitObjects{
   final case object yottaelectronvolt extends SimpleEnergyUnit("yottaelectronvolt", "YeV", Constants.ElementaryCharge * r"1e24") with NotExact
   final case object rydberg extends SimpleEnergyUnit("rydberg", "Ry", r"13.6056925330" * electronvolt.interval) with NotExact
   final case object atomic_unit_of_energy extends SimpleEnergyUnit("atomic unit of energy", "E_h", r"2" * rydberg.interval) with NotExact
+  final case object watt_hour extends SimpleEnergyUnit("watt hour", "Wh", watt.interval * hour.interval)
+  final case object kilowatt_hour extends SimpleEnergyUnit("kilowatt hour", "kWh", kilowatt.interval * hour.interval)
+  final case object litre_atmosphere extends SimpleEnergyUnit("litre atmosphere", "sl", litre.interval * atmosphere.interval)
   final case object calorie extends SimpleEnergyUnit("calorie", "cal", `calorie(th)`.interval)
   final case object `calorie(th)` extends DefaultEnergyUnit("calorie(th)", "cal(th)", Seq("cal_th"), r"4.184")
   final case object `calorie(IT)` extends DefaultEnergyUnit("calorie(IT)", "cal(IT)", Seq("cal_IT"), r"4.1868")
@@ -156,12 +163,16 @@ object EnergyUnitObjects{
   final case object `calorie_15℃` extends SimpleEnergyUnit("calorie 15℃", "cal_15℃", r"4.1855")
   final case object `calorie_20℃` extends SimpleEnergyUnit("calorie 20℃", "cal_20℃", r"4.182") with NotExact
   final case object kilocalorie extends DefaultEnergyUnit("kilocalorie", "kcal", Seq("Cal"), r"1000" * calorie.interval)
+  final case object tonne_of_coal_equivalent extends SimpleEnergyUnit("tonne of coal equivalent", "TCE", r"7e9" * `calorie(th)`.interval)
+  final case object tonne_of_oil_equivalent extends SimpleEnergyUnit("tonne of oil equivalent", "toe", r"1e10" * `calorie(IT)`.interval)
+  final case object ton_of_TNT extends SimpleEnergyUnit("ton of TNT", "tTNT", r"1e9" * `calorie(th)`.interval)
   final case object british_thermal_unit extends SimpleEnergyUnit("british thermal unit", "BTU", `british_thermal_unit(IT)`.interval)
   final case object `british_thermal_unit(ISO)` extends DefaultEnergyUnit("british thermal unit(ISO)", "BTU(ISO)", Seq("BTU_ISO"), r"1.0545e3")
   final case object `british_thermal_unit(IT)` extends DefaultEnergyUnit("british thermal unit(IT)", "BTU(IT)", Seq("BTU_IT"), r"1.05505585262e3")
   final case object `british_thermal_unit(mean)` extends DefaultEnergyUnit("british thermal unit(mean)", "BTU(mean)", Seq("BTU_mean"), r"1.05587e3") with NotExact
   final case object `british_thermal_unit(th)` extends DefaultEnergyUnit("british thermal unit(th)", "BTU(th)", Seq("BTU_th"), r"1.054350e3") with NotExact
   final case object `british_thermal_unit_59℉` extends SimpleEnergyUnit("british thermal unit 59℉", "BTU_59℉", r"1.054804e3")
+  final case object quad extends SimpleEnergyUnit("quad", "quad", r"1e15" * `british_thermal_unit(IT)`.interval)
 }
 
 object EnergyUnits{
@@ -214,6 +225,9 @@ object EnergyUnits{
   def YeV: EnergyUnit = EnergyUnitObjects.yottaelectronvolt
   def Ry: EnergyUnit = EnergyUnitObjects.rydberg
   def E_h: EnergyUnit = EnergyUnitObjects.atomic_unit_of_energy
+  def Wh: EnergyUnit = EnergyUnitObjects.watt_hour
+  def kWh: EnergyUnit = EnergyUnitObjects.kilowatt_hour
+  def sl: EnergyUnit = EnergyUnitObjects.litre_atmosphere
   def cal: EnergyUnit = EnergyUnitObjects.calorie
   def cal(a: calorieAttribute): EnergyUnit = a match { 
     case EnergyAttributes.th => EnergyUnitObjects.`calorie(th)`
@@ -225,6 +239,9 @@ object EnergyUnits{
   def `cal_20℃`: EnergyUnit = EnergyUnitObjects.`calorie_20℃`
   def kcal: EnergyUnit = EnergyUnitObjects.kilocalorie
   def Cal: EnergyUnit = EnergyUnitObjects.kilocalorie
+  def TCE: EnergyUnit = EnergyUnitObjects.tonne_of_coal_equivalent
+  def toe: EnergyUnit = EnergyUnitObjects.tonne_of_oil_equivalent
+  def tTNT: EnergyUnit = EnergyUnitObjects.ton_of_TNT
   def BTU: EnergyUnit = EnergyUnitObjects.british_thermal_unit
   def BTU(a: british_thermal_unitAttribute): EnergyUnit = a match { 
     case EnergyAttributes.ISO => EnergyUnitObjects.`british_thermal_unit(ISO)`
@@ -233,4 +250,5 @@ object EnergyUnits{
     case EnergyAttributes.th => EnergyUnitObjects.`british_thermal_unit(th)`
   }
   def `BTU_59℉`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit_59℉`
+  def quad: EnergyUnit = EnergyUnitObjects.quad
 }

@@ -51,6 +51,9 @@ import org.waman.multiverse.unit.radioactivity.AbsorbedDoseUnitObjects.gray
 import org.waman.multiverse.unit.radioactivity.EquivalentDoseUnitObjects.sievert
 import org.waman.multiverse.unit.radioactivity.RadioactivityUnitObjects.becquerel
 
+/**
+ * Evaluate quantities by metre, kilogram, and second.
+ */
 trait MKS extends UnitSystem{
   implicit def evaluateAngle[A: Fractional](q: Angle[A]): A = q(radian)
   implicit def evaluateAngularVelocity[A: Fractional](q: AngularVelocity[A]): A = q(radian / second)

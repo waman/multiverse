@@ -103,4 +103,6 @@ object GenerationUtil{
     else s"""`$s`"""
 
   def headToLower(s: String): String = Character.toLowerCase(s.charAt(0)) + s.substring(1)
+
+  def isOptionalAliase(a: String): Boolean = a.startsWith("(") && a.endsWith(")")
 }

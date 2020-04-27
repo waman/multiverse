@@ -8,7 +8,7 @@ case class HomogeneousUnitCategory(description: String, SIUnit: String, dimensio
     extends UnitCategory[RawHomogeneousUnit, HomogeneousUnit]
 
 case class RawHomogeneousUnit(name: String, symbol: String, aliases: Array[String],
-                              zero: String, interval: String, scalePrefixes: Boolean, excludePrefixes: Array[String])
+                              zero: String, interval: String, scalePrefixes: Boolean, excludePrefixes: Array[String], description: String)
   extends RawUnitInfo[HomogeneousUnit]{
 
   import GenerationUtil._
@@ -23,21 +23,21 @@ case class RawHomogeneousUnit(name: String, symbol: String, aliases: Array[Strin
       val nm = this.symbol +: _aliases
 
       // In this case, always name == objectName
-      HomogeneousUnit(this.name, this.name, this.symbol, _aliases, _zero, _interval) +:
+      HomogeneousUnit(this.name, this.name, this.symbol, _aliases, _zero, _interval, this._description) +:
         prefixes.map{ p =>
           val al = (p.prefix +: p._aliases).flatMap(ps => nm.map(ns => ps + ns)).tail
           val name = p.name + this.name
-          HomogeneousUnit(name, name, p.prefix + this.symbol, al, _zero, s"""${_interval} * r"${p.scale}"""")
+          HomogeneousUnit(name, name, p.prefix + this.symbol, al, _zero, s"""${_interval} * r"${p.scale}"""", this._description)
         }
     }else{
       Seq(
-        HomogeneousUnit(this.name, toObjectName(this.name), this.symbol, _aliases, _zero, _interval))
+        HomogeneousUnit(this.name, toObjectName(this.name), this.symbol, _aliases, _zero, _interval, this._description))
     }
   }
 }
 
 case class HomogeneousUnit(name: String, objectName: String, symbol: String, aliases: Seq[String],
-                           zero: String, interval: String) extends UnitInfo{
+                           zero: String, interval: String, description: String) extends UnitInfo{
   override def attributes: Seq[Attribute] = Nil
   override def baseUnit: String = null
 }
@@ -84,7 +84,7 @@ class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: S
           s"""("${unit.name}", "${unit.symbol}", ${unit.zero}, ${unit.interval})\n""")
 
     } else {
-      val aliases = unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+      val aliases = unit.aliases.filterNot(isOptionalAliase).mkString("Seq(\"", "\", \"", "\")")
       // final case object kelvin extends DefaultTemperatureUnit("celsius", "°C", Seq("degC", "℃"), r"273.15", r"1")
       writer.write(
         s"""  final case object ${unit.objectName} extends Default${id}Unit""" +

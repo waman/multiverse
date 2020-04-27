@@ -35,7 +35,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   def /(timeSquared: TimeSquared[A]): Acceleration[A] = new Acceleration(this.value / timeSquared.value, this.unit / timeSquared.unit)
 }
 
-/** null */
+/** 'US' attribute contains 'US Survey' metric. */
 trait LengthUnit extends LinearUnit[LengthUnit]{
 
   override def getSIUnit: LengthUnit = LengthUnit.getSIUnit
@@ -89,7 +89,7 @@ object LengthUnit extends UnitInfo[LengthUnit]{
 
   import LengthUnitObjects._
   def getUnits: Seq[LengthUnit] =
-    Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, Angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, line, inch, link, `link(US)`, foot, `foot(US)`, yard, ell, fathom, rod, rope, chain, `chain(US)`, mile, `mile(US)`, cable, `cable(US)`, `cable(imp)`, league, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong)
+    Seq(metre, yoctometre, zeptometre, attometre, femtometre, picometre, nanometre, micrometre, millimetre, centimetre, decimetre, decametre, hectometre, kilometre, megametre, gigametre, terametre, petametre, exametre, zettametre, yottametre, micron, angstrom, atomic_unit_of_length, xunit, `xunit(CuKα1)`, `xunit(MoKα1)`, planck_length, astronomical_unit, light_year, parsec, mil, twip, point, pica, line, inch, link, `link(US)`, foot, `foot(US)`, yard, ell, fathom, rod, `rod(US)`, rope, chain, `chain(US)`, mile, `mile(US)`, cable, `cable(US)`, `cable(imp)`, league, `league(US)`, nautical_mile, `nautical_mile(Adm)`, nautical_league, metric_foot, short_metric_foot, long_metric_foot, french, furlong, `furlong(US)`)
 }
 
 /** For no aliase or user defined units */
@@ -104,20 +104,27 @@ class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[S
 sealed trait square_linkAttribute
 sealed trait square_footAttribute
 sealed trait square_chainAttribute
+sealed trait square_rodAttribute
 sealed trait square_mileAttribute
 sealed trait acreAttribute
+sealed trait sectionAttribute
 sealed trait xunitAttribute
 sealed trait linkAttribute
 sealed trait footAttribute
+sealed trait rodAttribute
 sealed trait chainAttribute
 sealed trait mileAttribute
 sealed trait cableAttribute
+sealed trait leagueAttribute
 sealed trait nautical_mileAttribute
+sealed trait furlongAttribute
 sealed trait minimAttribute
 sealed trait fluid_ounceAttribute
 sealed trait gillAttribute
+sealed trait cupAttribute
 sealed trait pintAttribute
 sealed trait quartAttribute
+sealed trait pottleAttribute
 sealed trait gallonAttribute
 sealed trait peckAttribute
 sealed trait bushelAttribute
@@ -128,11 +135,12 @@ sealed trait fluid_dramAttribute
 object LengthAttributes{
   final object MoKα1 extends xunitAttribute
   final object Adm extends nautical_mileAttribute
-  final object US extends square_linkAttribute with square_footAttribute with square_chainAttribute with square_mileAttribute with acreAttribute with linkAttribute with footAttribute with chainAttribute with mileAttribute with cableAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with gallonAttribute with bushelAttribute with hogsheadAttribute with fluid_dramAttribute
+  final object US extends square_linkAttribute with square_footAttribute with square_chainAttribute with square_rodAttribute with square_mileAttribute with acreAttribute with sectionAttribute with linkAttribute with footAttribute with rodAttribute with chainAttribute with mileAttribute with cableAttribute with leagueAttribute with furlongAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with cupAttribute with pottleAttribute with gallonAttribute with bushelAttribute with hogsheadAttribute with fluid_dramAttribute
   final object US_fl extends pintAttribute with quartAttribute with gallonAttribute with barrelAttribute
   final object US_dry extends pintAttribute with quartAttribute with gallonAttribute with peckAttribute with barrelAttribute
   final object CuKα1 extends xunitAttribute
-  final object imp extends cableAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with pintAttribute with quartAttribute with gallonAttribute with peckAttribute with bushelAttribute with barrelAttribute with hogsheadAttribute with fluid_dramAttribute
+  final object metric extends cupAttribute
+  final object imp extends cableAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with pintAttribute with quartAttribute with pottleAttribute with gallonAttribute with peckAttribute with bushelAttribute with barrelAttribute with hogsheadAttribute with fluid_dramAttribute
   final object US_lvl extends bushelAttribute
 }
 
@@ -160,7 +168,7 @@ object LengthUnitObjects{
   final case object zettametre extends SimpleLengthUnit("zettametre", "Zm", r"1e21")
   final case object yottametre extends SimpleLengthUnit("yottametre", "Ym", r"1e24")
   final case object micron extends SimpleLengthUnit("micron", "µ", r"1e-6")
-  final case object Angstrom extends SimpleLengthUnit("Angstrom", "Å", r"1e-10")
+  final case object angstrom extends SimpleLengthUnit("angstrom", "Å", r"1e-10")
   final case object atomic_unit_of_length extends SimpleLengthUnit("atomic unit of length", "a_0", r"5.291772109217e-11") with NotExact
   final case object xunit extends SimpleLengthUnit("xunit", "xu", r"1.0021e-13") with NotExact
   final case object `xunit(CuKα1)` extends SimpleLengthUnit("xunit(CuKα1)", "xu(CuKα1)", r"1.0020769928e-13") with NotExact
@@ -171,7 +179,8 @@ object LengthUnitObjects{
   final case object parsec extends SimpleLengthUnit("parsec", "pc", r"3.08567782e16") with NotExact
   final case object mil extends DefaultLengthUnit("mil", "mil", Seq("thou"), r"1"/r"1000" * inch.interval)
   final case object twip extends SimpleLengthUnit("twip", "twp", r"1"/r"20" * point.interval)
-  final case object point extends SimpleLengthUnit("point", "pt", r"1"/r"72" * inch.interval)
+  final case object point extends DefaultLengthUnit("point", "pt", Seq("p"), r"1"/r"72" * inch.interval)
+  final case object pica extends DefaultLengthUnit("pica", "pica", Seq("P"), r"12" * point.interval)
   final case object line extends SimpleLengthUnit("line", "ln", r"1"/r"12" * inch.interval)
   final case object inch extends SimpleLengthUnit("inch", "in", r"2.54" * centimetre.interval)
   final case object link extends DefaultLengthUnit("link", "li", Seq("lnk"), r"0.66" * foot.interval)
@@ -180,17 +189,19 @@ object LengthUnitObjects{
   final case object `foot(US)` extends SimpleLengthUnit("foot(US)", "ft(US)", r"1200"/r"3937")
   final case object yard extends SimpleLengthUnit("yard", "yd", r"3" * foot.interval)
   final case object ell extends SimpleLengthUnit("ell", "ell", r"45" * inch.interval)
-  final case object fathom extends SimpleLengthUnit("fathom", "ftm", r"6" * foot.interval)
+  final case object fathom extends SimpleLengthUnit("fathom", "ftm", r"2" * yard.interval)
   final case object rod extends SimpleLengthUnit("rod", "rd", r"16.5" * foot.interval)
+  final case object `rod(US)` extends SimpleLengthUnit("rod(US)", "rd(US)", r"16.5" * `foot(US)`.interval)
   final case object rope extends SimpleLengthUnit("rope", "rope", r"20" * foot.interval)
   final case object chain extends SimpleLengthUnit("chain", "ch", r"66" * foot.interval)
   final case object `chain(US)` extends SimpleLengthUnit("chain(US)", "ch(US)", r"66" * `foot(US)`.interval)
   final case object mile extends SimpleLengthUnit("mile", "mi", r"1760" * yard.interval)
   final case object `mile(US)` extends SimpleLengthUnit("mile(US)", "mi(US)", r"5280" * `foot(US)`.interval)
-  final case object cable extends SimpleLengthUnit("cable", "cb", r"1"/r"10" * nautical_mile.interval)
+  final case object cable extends SimpleLengthUnit("cable", "cb", r"120" * fathom.interval)
   final case object `cable(US)` extends SimpleLengthUnit("cable(US)", "cb(US)", r"720" * foot.interval)
   final case object `cable(imp)` extends SimpleLengthUnit("cable(imp)", "cb(imp)", r"608" * foot.interval)
   final case object league extends SimpleLengthUnit("league", "lea", r"3" * mile.interval)
+  final case object `league(US)` extends SimpleLengthUnit("league(US)", "lea(US)", r"3" * `mile(US)`.interval)
   final case object nautical_mile extends DefaultLengthUnit("nautical mile", "NM", Seq("nmi"), r"1852")
   final case object `nautical_mile(Adm)` extends DefaultLengthUnit("nautical mile(Adm)", "NM(Adm)", Seq("nmi(Adm)"), r"6080" * foot.interval)
   final case object nautical_league extends DefaultLengthUnit("nautical league", "NL", Seq("nl"), r"3" * nautical_mile.interval)
@@ -198,7 +209,8 @@ object LengthUnitObjects{
   final case object short_metric_foot extends SimpleLengthUnit("short metric foot", "smf", r"0.3")
   final case object long_metric_foot extends SimpleLengthUnit("long metric foot", "lmf", r"1"/r"3")
   final case object french extends SimpleLengthUnit("french", "Fr", r"1"/r"3" * millimetre.interval)
-  final case object furlong extends SimpleLengthUnit("furlong", "fur", r"660" * foot.interval)
+  final case object furlong extends SimpleLengthUnit("furlong", "fur", r"10" * chain.interval)
+  final case object `furlong(US)` extends SimpleLengthUnit("furlong(US)", "fur(US)", r"10" * `chain(US)`.interval)
 }
 
 object LengthUnits{
@@ -226,7 +238,7 @@ object LengthUnits{
   def Zm: LengthUnit = LengthUnitObjects.zettametre
   def Ym: LengthUnit = LengthUnitObjects.yottametre
   def `µ`: LengthUnit = LengthUnitObjects.micron
-  def `Å`: LengthUnit = LengthUnitObjects.Angstrom
+  def `Å`: LengthUnit = LengthUnitObjects.angstrom
   def a_0: LengthUnit = LengthUnitObjects.atomic_unit_of_length
   def xu: LengthUnit = LengthUnitObjects.xunit
   def xu(a: xunitAttribute): LengthUnit = a match { 
@@ -242,6 +254,9 @@ object LengthUnits{
   def thou: LengthUnit = LengthUnitObjects.mil
   def twp: LengthUnit = LengthUnitObjects.twip
   def pt: LengthUnit = LengthUnitObjects.point
+  def p: LengthUnit = LengthUnitObjects.point
+  def pica: LengthUnit = LengthUnitObjects.pica
+  def P: LengthUnit = LengthUnitObjects.pica
   def ln: LengthUnit = LengthUnitObjects.line
   def in: LengthUnit = LengthUnitObjects.inch
   def li: LengthUnit = LengthUnitObjects.link
@@ -259,6 +274,9 @@ object LengthUnits{
   def ell: LengthUnit = LengthUnitObjects.ell
   def ftm: LengthUnit = LengthUnitObjects.fathom
   def rd: LengthUnit = LengthUnitObjects.rod
+  def rd(a: rodAttribute): LengthUnit = a match { 
+    case LengthAttributes.US => LengthUnitObjects.`rod(US)`
+  }
   def rope: LengthUnit = LengthUnitObjects.rope
   def ch: LengthUnit = LengthUnitObjects.chain
   def ch(a: chainAttribute): LengthUnit = a match { 
@@ -274,6 +292,9 @@ object LengthUnits{
     case LengthAttributes.imp => LengthUnitObjects.`cable(imp)`
   }
   def lea: LengthUnit = LengthUnitObjects.league
+  def lea(a: leagueAttribute): LengthUnit = a match { 
+    case LengthAttributes.US => LengthUnitObjects.`league(US)`
+  }
   def NM: LengthUnit = LengthUnitObjects.nautical_mile
   def NM(a: nautical_mileAttribute): LengthUnit = a match { 
     case LengthAttributes.Adm => LengthUnitObjects.`nautical_mile(Adm)`
@@ -288,4 +309,7 @@ object LengthUnits{
   def lmf: LengthUnit = LengthUnitObjects.long_metric_foot
   def Fr: LengthUnit = LengthUnitObjects.french
   def fur: LengthUnit = LengthUnitObjects.furlong
+  def fur(a: furlongAttribute): LengthUnit = a match { 
+    case LengthAttributes.US => LengthUnitObjects.`furlong(US)`
+  }
 }

@@ -3,9 +3,9 @@ import java.io.{File, BufferedWriter => BW}
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class UnitSystemInfo(parent: String, entries: Array[Entry]){
+case class UnitSystemInfo(description: String, parent: String, evalEntries: Array[Entry]){
   def _parent: String = if (this.parent != null) this.parent else "UnitSystem"
-  lazy val _entries: Seq[Entry] = GenerationUtil.toSeq(entries)
+  lazy val _evalEntries: Seq[Entry] = GenerationUtil.toSeq(evalEntries)
 }
 
 case class Entry(quantity: String, unit: String)
@@ -34,7 +34,7 @@ class UnitSystemJson(jsonFile: File, destDir: File)
            |
            |""".stripMargin)
 
-      this.unitsystemInfo._entries.foreach{ e =>
+      this.unitsystemInfo._evalEntries.foreach{ e =>
         val ud = jsons.searchUnitDefinition(e.quantity)
         writer.write(
           s"""import $rootPackage.unit.${ud.subpackage}.${e.quantity}\n""")
@@ -42,7 +42,7 @@ class UnitSystemJson(jsonFile: File, destDir: File)
 
       writer.write("\n")
 
-      this.unitsystemInfo._entries.flatMap {
+      this.unitsystemInfo._evalEntries.flatMap {
         case e if isCompositeUnit(e.unit) => extractUnitTypes(e.unit)
         case e => Seq((e.quantity, e.unit))
       }.distinct.foreach{ e =>
@@ -50,12 +50,21 @@ class UnitSystemJson(jsonFile: File, destDir: File)
         writer.write(s"""import $rootPackage.unit.${ud.subpackage}.${e._1}UnitObjects.${e._2}\n""")
       }
 
+      writer.write("\n")
+
+      if (this.unitsystemInfo.description != null) {
+        writer.write(
+          s"""/**
+             | * ${this.unitsystemInfo.description}
+             | */
+             |""".stripMargin)
+      }
+
       writer.write(
-        s"""
-           |trait $id extends ${this.unitsystemInfo._parent}{
+        s"""trait $id extends ${this.unitsystemInfo._parent}{
            |""".stripMargin)
 
-      this.unitsystemInfo._entries.foreach{ e =>
+      this.unitsystemInfo._evalEntries.foreach{ e =>
         val evalUnit =
           if (isCompositeUnit(e.unit)) refineUnitNamesInUnitSystem(e.unit)
           else e.unit

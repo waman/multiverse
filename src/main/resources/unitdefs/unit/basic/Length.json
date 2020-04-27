@@ -1,4 +1,5 @@
  {
+   "description": "'US' attribute contains 'US Survey' metric.",
   "SIUnit": "metre",
   "dimension": {"L":1},
 
@@ -6,7 +7,7 @@
       {"name": "metre", "symbol": "m", "scalePrefixes": true},
 
       {"name": "micron", "symbol": "µ", "interval": "1e-6"},
-      {"name": "Angstrom", "symbol": "Å", "interval": "1e-10"},
+      {"name": "angstrom", "symbol": "Å", "interval": "1e-10"},
       {"name": "atomic unit of length", "symbol": "a_0", "interval": "5.291772109217e-11", "notExact": true},
       {"name": "xunit", "symbol": "xu", "interval": "1.0021e-13", "notExact": true,
         "attributes": [
@@ -23,7 +24,8 @@
 
       {"name": "mil", "aliases":["thou"], "interval": "1/1000", "baseUnit": "inch"},
       {"name": "twip", "symbol": "twp", "interval": "1/20", "baseUnit": "point"},
-      {"name": "point", "symbol": "pt", "interval": "1/72", "baseUnit": "inch"},
+      {"name": "point", "symbol": "pt", "aliases": ["p"] ,"interval": "1/72", "baseUnit": "inch"},
+      {"name": "pica", "aliases": ["P", "(pc)"], "interval": "12", "baseUnit": "point"},
       {"name": "line", "symbol": "ln", "interval": "1/12", "baseUnit": "inch"},
       {"name": "inch", "symbol": "in", "interval": "2.54", "baseUnit": "centimetre"},
 
@@ -39,8 +41,11 @@
       },
       {"name": "yard", "symbol": "yd", "interval": "3", "baseUnit": "foot"},
       {"name": "ell", "interval": "45", "baseUnit": "inch"},
-      {"name": "fathom", "symbol": "ftm", "interval": "6", "baseUnit": "foot"},
-      {"name": "rod", "symbol": "rd", "interval": "16.5", "baseUnit": "foot"},
+      {"name": "fathom", "symbol": "ftm", "interval": "2", "baseUnit": "yard"},
+      {"name": "rod", "symbol": "rd", "interval": "16.5", "baseUnit": "foot",
+        "attributes": [
+          {"name": "US", "interval": "16.5", "baseUnit": "foot(US)"}
+        ]},
       {"name": "rope", "interval": "20", "baseUnit": "foot"},
       {"name": "chain", "symbol": "ch", "interval": "66", "baseUnit": "foot",
         "attributes": [
@@ -52,16 +57,20 @@
           {"name": "US", "interval": "5280", "baseUnit": "foot(US)"}
         ]
       },
-      {"name": "cable", "symbol": "cb", "interval": "1/10", "baseUnit": "nautical_mile",
+      {"name": "cable", "symbol": "cb", "interval": "120", "baseUnit": "fathom",
         "attributes": [
           {"name": "US", "interval":"720", "baseUnit":"foot"},
           {"name": "imp", "interval":"608", "baseUnit":"foot"}
         ]
       },
 
-      {"name": "league", "symbol": "lea", "interval": "3", "baseUnit": "mile"},
+      {"name": "league", "symbol": "lea", "interval": "3", "baseUnit": "mile",
+        "attributes": [
+          {"name": "US", "interval": "3", "baseUnit": "mile(US)"}
+        ]
+      },
 
-      {"name": "nautical mile", "symbol": "NM", "aliases": ["nmi"], "interval": "1852",
+      {"name": "nautical mile", "symbol": "NM", "aliases": ["nmi", "(M)"], "interval": "1852",
         "attributes": [
           {"name": "Adm", "interval": "6080", "baseUnit": "foot"}
         ]
@@ -74,6 +83,10 @@
       {"name": "long metric foot", "symbol": "lmf", "interval": "1/3"},
 
       {"name": "french", "symbol": "Fr", "interval": "1/3", "baseUnit": "millimetre"},
-      {"name": "furlong", "symbol": "fur", "interval": "660", "baseUnit": "foot"}
+      {"name": "furlong", "symbol": "fur", "interval": "10", "baseUnit": "chain",
+        "attributes": [
+          {"name": "US", "interval": "10", "baseUnit": "chain(US)"}
+        ]
+      }
   ]
 }

@@ -23,15 +23,20 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 
   override def toString: String = {
     val sInterval = toReadableString(interval)
-    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
-    val dim = DimensionSymbol.toStringWithSymbol(this.dimension)
+    val ali: String = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
+    val dim: String = DimensionSymbol.toStringWithSymbol(this.dimension)
+    val desc: String = this match {
+      case d: Description => ", description: " + d.description
+      case _ => ""
+    }
+
     this match {
       case _ if this == getSIUnit =>
-        s"$name ($symbol)$ali, dim: $dim"
+        s"$name ($symbol)$ali, dim: $dim$desc"
       case _: NotExact =>
-        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali, dim: $dim"
+        s"$name ($symbol) [1($symbol) ≈ $sInterval(${getSIUnit.symbol})]$ali, dim: $dim$desc"
       case _ =>
-        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali, dim: $dim"
+        s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali, dim: $dim$desc"
     }
   }
 

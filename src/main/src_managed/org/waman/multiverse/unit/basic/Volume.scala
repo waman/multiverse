@@ -5,6 +5,12 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+import org.waman.multiverse.unit.fluid.Pressure
+import org.waman.multiverse.unit.fluid.PressureUnit
+
+import org.waman.multiverse.unit.mechanics.Energy
+import org.waman.multiverse.unit.mechanics.EnergyUnit
+
 import org.waman.multiverse.unit.fluid.VolumeFlow
 import org.waman.multiverse.unit.fluid.VolumeFlowUnit
 
@@ -14,6 +20,8 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
 
   override protected def newQuantity(value: A, unit: VolumeUnit): Volume[A] = new Volume(value, unit)
 
+  def *(pressure: Pressure[A]): Energy[A] = new Energy(this.value * pressure.value, this.unit * pressure.unit)
+
   def /(time: Time[A]): VolumeFlow[A] = new VolumeFlow(this.value / time.value, this.unit / time.unit)
 }
 
@@ -22,6 +30,9 @@ trait VolumeUnit extends LinearUnit[VolumeUnit]{
 
   override def getSIUnit: VolumeUnit = VolumeUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = VolumeUnit.dimension
+
+  def *(pressureUnit: PressureUnit): EnergyUnit =
+    new AbstractProductUnit[EnergyUnit, VolumeUnit, PressureUnit](VolumeUnit.this, pressureUnit) with EnergyUnit
 
   def /(timeUnit: TimeUnit): VolumeFlowUnit =
     new AbstractQuotientUnit[VolumeFlowUnit, VolumeUnit, TimeUnit](VolumeUnit.this, timeUnit) with VolumeFlowUnit
@@ -36,7 +47,7 @@ object VolumeUnit extends UnitInfo[VolumeUnit]{
 
   import VolumeUnitObjects._
   def getUnits: Seq[VolumeUnit] =
-    Seq(cubic_metre, cubic_yoctometre, cubic_zeptometre, cubic_attometre, cubic_femtometre, cubic_picometre, cubic_nanometre, cubic_micrometre, cubic_millimetre, cubic_centimetre, cubic_decimetre, cubic_decametre, cubic_hectometre, cubic_kilometre, cubic_megametre, cubic_gigametre, cubic_terametre, cubic_petametre, cubic_exametre, cubic_zettametre, cubic_yottametre, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda, cubic_inch, cubic_foot, cubic_yard, cubic_fathom, cubic_mile, board_foot, gallon_beer, perch, minim, `minim(US)`, `minim(imp)`, fluid_ounce, `fluid_ounce(US)`, `fluid_ounce(imp)`, gill, `gill(US)`, `gill(imp)`, pint, `pint(US_fl)`, `pint(US_dry)`, `pint(imp)`, quart, `quart(US_fl)`, `quart(US_dry)`, `quart(imp)`, gallon, `gallon(US)`, `gallon(US_fl)`, `gallon(US_dry)`, `gallon(imp)`, peck, `peck(US_dry)`, `peck(imp)`, bushel, `bushel(US)`, `bushel(US_lvl)`, `bushel(imp)`, barrel, `barrel(US_fl)`, `barrel(US_dry)`, `barrel(imp)`, fluid_barrel, hogshead, `hogshead(US)`, `hogshead(imp)`, fluid_dram, `fluid_dram(US)`, `fluid_dram(imp)`, fluid_scruple, bucket)
+    Seq(cubic_metre, cubic_yoctometre, cubic_zeptometre, cubic_attometre, cubic_femtometre, cubic_picometre, cubic_nanometre, cubic_micrometre, cubic_millimetre, cubic_centimetre, cubic_decimetre, cubic_decametre, cubic_hectometre, cubic_kilometre, cubic_megametre, cubic_gigametre, cubic_terametre, cubic_petametre, cubic_exametre, cubic_zettametre, cubic_yottametre, litre, yoctolitre, zeptolitre, attolitre, femtolitre, picolitre, nanolitre, microlitre, millilitre, centilitre, decilitre, decalitre, hectolitre, kilolitre, megalitre, gigalitre, teralitre, petalitre, exalitre, zettalitre, yottalitre, lambda, cubic_inch, cubic_foot, cubic_yard, cubic_fathom, cubic_mile, acre_foot, board_foot, gallon_beer, perch, minim, `minim(US)`, `minim(imp)`, teaspoon, tablespoon, fluid_ounce, `fluid_ounce(US)`, `fluid_ounce(imp)`, shot, gill, `gill(US)`, `gill(imp)`, cup, `cup(metric)`, `cup(US)`, pint, `pint(US_fl)`, `pint(US_dry)`, `pint(imp)`, quart, `quart(US_fl)`, `quart(US_dry)`, `quart(imp)`, pottle, `pottle(US)`, `pottle(imp)`, gallon, `gallon(US)`, `gallon(US_fl)`, `gallon(US_dry)`, `gallon(imp)`, peck, `peck(US_dry)`, `peck(imp)`, bushel, `bushel(US)`, `bushel(US_lvl)`, `bushel(imp)`, barrel, `barrel(US_fl)`, `barrel(US_dry)`, `barrel(imp)`, fluid_barrel, hogshead, `hogshead(US)`, `hogshead(imp)`, fluid_dram, `fluid_dram(US)`, `fluid_dram(imp)`, fluid_scruple, bucket)
 }
 
 /** For no aliase or user defined units */
@@ -50,6 +61,7 @@ class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[S
 
 object VolumeUnitObjects{
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
+  import org.waman.multiverse.unit.basic.AreaUnitObjects._
 
   final case object cubic_metre extends DefaultVolumeUnit("cubic metre", "m³", Seq("m3"), metre.interval**3)
   final case object cubic_yoctometre extends DefaultVolumeUnit("cubic yoctometre", "ym³", Seq("ym3"), yoctometre.interval**3)
@@ -99,18 +111,25 @@ object VolumeUnitObjects{
   final case object cubic_yard extends DefaultVolumeUnit("cubic yard", "yd³", Seq("yd3", "cu_yd"), yard.interval**3)
   final case object cubic_fathom extends DefaultVolumeUnit("cubic fathom", "ftm³", Seq("ftm3", "cu_fm"), fathom.interval**3)
   final case object cubic_mile extends DefaultVolumeUnit("cubic mile", "mi³", Seq("mi3", "cu_mi"), mile.interval**3)
+  final case object acre_foot extends SimpleVolumeUnit("acre foot", "acre_ft", acre.interval * foot.interval)
   final case object board_foot extends SimpleVolumeUnit("board foot", "fbm", r"144" * cubic_inch.interval)
   final case object gallon_beer extends SimpleVolumeUnit("gallon_beer", "beer_gal", r"282" * cubic_inch.interval)
   final case object perch extends SimpleVolumeUnit("perch", "per", r"33"/r"2" * r"3"/r"2" * cubic_foot.interval)
-  final case object minim extends SimpleVolumeUnit("minim", "minim", `minim(US)`.interval)
-  final case object `minim(US)` extends SimpleVolumeUnit("minim(US)", "minim(US)", r"1"/r"480" * `fluid_ounce(US)`.interval)
-  final case object `minim(imp)` extends SimpleVolumeUnit("minim(imp)", "minim(imp)", r"1"/r"480" * `fluid_ounce(imp)`.interval)
+  final case object minim extends DefaultVolumeUnit("minim", "minim", Seq(""), `minim(US)`.interval)
+  final case object `minim(US)` extends DefaultVolumeUnit("minim(US)", "minim(US)", Seq(""), r"1"/r"480" * `fluid_ounce(US)`.interval)
+  final case object `minim(imp)` extends DefaultVolumeUnit("minim(imp)", "minim(imp)", Seq(""), r"1"/r"480" * `fluid_ounce(imp)`.interval)
+  final case object teaspoon extends SimpleVolumeUnit("teaspoon", "tsp", r"80" * minim.interval)
+  final case object tablespoon extends SimpleVolumeUnit("tablespoon", "Tbsp", r"3" * teaspoon.interval)
   final case object fluid_ounce extends SimpleVolumeUnit("fluid ounce", "fl_oz", 1)
   final case object `fluid_ounce(US)` extends DefaultVolumeUnit("fluid ounce(US)", "fl_oz(US)", Seq("US_fl_oz"), r"1"/r"128" * `gallon(US_fl)`.interval)
   final case object `fluid_ounce(imp)` extends SimpleVolumeUnit("fluid ounce(imp)", "fl_oz(imp)", r"1"/r"160" * `gallon(imp)`.interval)
+  final case object shot extends SimpleVolumeUnit("shot", "jig", r"3" * tablespoon.interval)
   final case object gill extends SimpleVolumeUnit("gill", "gi", 1)
   final case object `gill(US)` extends SimpleVolumeUnit("gill(US)", "gi(US)", r"4" * `fluid_ounce(US)`.interval)
   final case object `gill(imp)` extends DefaultVolumeUnit("gill(imp)", "gi(imp)", Seq("nog"), r"5" * `fluid_ounce(imp)`.interval)
+  final case object cup extends SimpleVolumeUnit("cup", "cp", 1)
+  final case object `cup(metric)` extends SimpleVolumeUnit("cup(metric)", "cp(metric)", r"250e-6")
+  final case object `cup(US)` extends SimpleVolumeUnit("cup(US)", "cp(US)", r"2" * `gill(US)`.interval)
   final case object pint extends SimpleVolumeUnit("pint", "pt", 1)
   final case object `pint(US_fl)` extends SimpleVolumeUnit("pint(US_fl)", "pt(US_fl)", r"1"/r"8" * `gallon(US_fl)`.interval)
   final case object `pint(US_dry)` extends SimpleVolumeUnit("pint(US_dry)", "pt(US_dry)", r"1"/r"8" * `gallon(US_dry)`.interval)
@@ -119,6 +138,9 @@ object VolumeUnitObjects{
   final case object `quart(US_fl)` extends SimpleVolumeUnit("quart(US_fl)", "qt(US_fl)", r"1"/r"4" * `gallon(US_fl)`.interval)
   final case object `quart(US_dry)` extends SimpleVolumeUnit("quart(US_dry)", "qt(US_dry)", r"1"/r"4" * `gallon(US_dry)`.interval)
   final case object `quart(imp)` extends SimpleVolumeUnit("quart(imp)", "qt(imp)", r"1"/r"4" * `gallon(imp)`.interval)
+  final case object pottle extends SimpleVolumeUnit("pottle", "pot", 1)
+  final case object `pottle(US)` extends SimpleVolumeUnit("pottle(US)", "pot(US)", r"1"/r"2" * `gallon(US_fl)`.interval)
+  final case object `pottle(imp)` extends SimpleVolumeUnit("pottle(imp)", "pot(imp)", r"1"/r"2" * `gallon(imp)`.interval)
   final case object gallon extends SimpleVolumeUnit("gallon", "gal", `gallon(US_fl)`.interval)
   final case object `gallon(US)` extends SimpleVolumeUnit("gallon(US)", "gal(US)", `gallon(US_fl)`.interval)
   final case object `gallon(US_fl)` extends DefaultVolumeUnit("gallon(US_fl)", "gal(US_fl)", Seq("US_gal"), r"231" * cubic_inch.interval)
@@ -127,14 +149,14 @@ object VolumeUnitObjects{
   final case object peck extends SimpleVolumeUnit("peck", "pk", `peck(US_dry)`.interval)
   final case object `peck(US_dry)` extends SimpleVolumeUnit("peck(US_dry)", "pk(US_dry)", r"1"/r"4" * `bushel(US_lvl)`.interval)
   final case object `peck(imp)` extends SimpleVolumeUnit("peck(imp)", "pk(imp)", r"2" * `gallon(imp)`.interval)
-  final case object bushel extends DefaultVolumeUnit("bushel", "bu", Seq("bsh"), 1)
+  final case object bushel extends DefaultVolumeUnit("bushel", "bu", Seq("bsh"), `bushel(US_lvl)`.interval)
   final case object `bushel(US)` extends DefaultVolumeUnit("bushel(US)", "bu(US)", Seq("bsh(US)"), r"5"/r"4" * `bushel(US_lvl)`.interval)
   final case object `bushel(US_lvl)` extends DefaultVolumeUnit("bushel(US_lvl)", "bu(US_lvl)", Seq("bsh(US_lvl)"), r"2150.42" * cubic_inch.interval)
   final case object `bushel(imp)` extends DefaultVolumeUnit("bushel(imp)", "bu(imp)", Seq("bsh(imp)"), r"8" * `gallon(imp)`.interval)
-  final case object barrel extends DefaultVolumeUnit("barrel", "bl", Seq("bbl"), r"42" * `gallon(US_fl)`.interval)
-  final case object `barrel(US_fl)` extends DefaultVolumeUnit("barrel(US_fl)", "bl(US_fl)", Seq("bbl(US_fl)", "fl_bl"), r"31.5" * `gallon(US_fl)`.interval)
-  final case object `barrel(US_dry)` extends DefaultVolumeUnit("barrel(US_dry)", "bl(US_dry)", Seq("bbl(US_dry)"), r"105" * `quart(US_dry)`.interval)
-  final case object `barrel(imp)` extends DefaultVolumeUnit("barrel(imp)", "bl(imp)", Seq("bbl(imp)"), r"36" * `gallon(imp)`.interval)
+  final case object barrel extends DefaultVolumeUnit("barrel", "bbl", Seq("bl"), r"42" * `gallon(US_fl)`.interval)
+  final case object `barrel(US_fl)` extends DefaultVolumeUnit("barrel(US_fl)", "bbl(US_fl)", Seq("bl(US_fl)", "fl_bl"), r"31.5" * `gallon(US_fl)`.interval)
+  final case object `barrel(US_dry)` extends DefaultVolumeUnit("barrel(US_dry)", "bbl(US_dry)", Seq("bl(US_dry)"), r"105" * `quart(US_dry)`.interval)
+  final case object `barrel(imp)` extends DefaultVolumeUnit("barrel(imp)", "bbl(imp)", Seq("bl(imp)"), r"36" * `gallon(imp)`.interval)
   final case object fluid_barrel extends SimpleVolumeUnit("fluid barrel", "fl_bl", `barrel(US_fl)`.interval)
   final case object hogshead extends SimpleVolumeUnit("hogshead", "hhd", 1)
   final case object `hogshead(US)` extends SimpleVolumeUnit("hogshead(US)", "hhd(US)", r"2" * `barrel(US_fl)`.interval)
@@ -232,6 +254,7 @@ object VolumeUnits{
   def `mi³`: VolumeUnit = VolumeUnitObjects.cubic_mile
   def mi3: VolumeUnit = VolumeUnitObjects.cubic_mile
   def cu_mi: VolumeUnit = VolumeUnitObjects.cubic_mile
+  def acre_ft: VolumeUnit = VolumeUnitObjects.acre_foot
   def fbm: VolumeUnit = VolumeUnitObjects.board_foot
   def beer_gal: VolumeUnit = VolumeUnitObjects.gallon_beer
   def per: VolumeUnit = VolumeUnitObjects.perch
@@ -240,15 +263,23 @@ object VolumeUnits{
     case LengthAttributes.US => VolumeUnitObjects.`minim(US)`
     case LengthAttributes.imp => VolumeUnitObjects.`minim(imp)`
   }
+  def tsp: VolumeUnit = VolumeUnitObjects.teaspoon
+  def Tbsp: VolumeUnit = VolumeUnitObjects.tablespoon
   def fl_oz: VolumeUnit = VolumeUnitObjects.fluid_ounce
   def fl_oz(a: fluid_ounceAttribute): VolumeUnit = a match { 
     case LengthAttributes.US => VolumeUnitObjects.`fluid_ounce(US)`
     case LengthAttributes.imp => VolumeUnitObjects.`fluid_ounce(imp)`
   }
+  def jig: VolumeUnit = VolumeUnitObjects.shot
   def gi: VolumeUnit = VolumeUnitObjects.gill
   def gi(a: gillAttribute): VolumeUnit = a match { 
     case LengthAttributes.US => VolumeUnitObjects.`gill(US)`
     case LengthAttributes.imp => VolumeUnitObjects.`gill(imp)`
+  }
+  def cp: VolumeUnit = VolumeUnitObjects.cup
+  def cp(a: cupAttribute): VolumeUnit = a match { 
+    case LengthAttributes.metric => VolumeUnitObjects.`cup(metric)`
+    case LengthAttributes.US => VolumeUnitObjects.`cup(US)`
   }
   def pt: VolumeUnit = VolumeUnitObjects.pint
   def pt(a: pintAttribute): VolumeUnit = a match { 
@@ -261,6 +292,11 @@ object VolumeUnits{
     case LengthAttributes.US_fl => VolumeUnitObjects.`quart(US_fl)`
     case LengthAttributes.US_dry => VolumeUnitObjects.`quart(US_dry)`
     case LengthAttributes.imp => VolumeUnitObjects.`quart(imp)`
+  }
+  def pot: VolumeUnit = VolumeUnitObjects.pottle
+  def pot(a: pottleAttribute): VolumeUnit = a match { 
+    case LengthAttributes.US => VolumeUnitObjects.`pottle(US)`
+    case LengthAttributes.imp => VolumeUnitObjects.`pottle(imp)`
   }
   def gal: VolumeUnit = VolumeUnitObjects.gallon
   def gal(a: gallonAttribute): VolumeUnit = a match { 
@@ -283,14 +319,14 @@ object VolumeUnits{
   def bsh: VolumeUnit = VolumeUnitObjects.bushel
   def bsh(a: bushelAttribute): VolumeUnit = bu(a)
 
-  def bl: VolumeUnit = VolumeUnitObjects.barrel
-  def bl(a: barrelAttribute): VolumeUnit = a match { 
+  def bbl: VolumeUnit = VolumeUnitObjects.barrel
+  def bbl(a: barrelAttribute): VolumeUnit = a match { 
     case LengthAttributes.US_fl => VolumeUnitObjects.`barrel(US_fl)`
     case LengthAttributes.US_dry => VolumeUnitObjects.`barrel(US_dry)`
     case LengthAttributes.imp => VolumeUnitObjects.`barrel(imp)`
   }
-  def bbl: VolumeUnit = VolumeUnitObjects.barrel
-  def bbl(a: barrelAttribute): VolumeUnit = bl(a)
+  def bl: VolumeUnit = VolumeUnitObjects.barrel
+  def bl(a: barrelAttribute): VolumeUnit = bbl(a)
 
   def fl_bl: VolumeUnit = VolumeUnitObjects.fluid_barrel
   def hhd: VolumeUnit = VolumeUnitObjects.hogshead

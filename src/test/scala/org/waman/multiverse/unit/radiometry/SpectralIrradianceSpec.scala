@@ -2,11 +2,8 @@ package org.waman.multiverse.unit.radiometry
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.angle.FrequencyUnits.Hz
-import org.waman.multiverse.unit.basic.AreaUnits._
-import org.waman.multiverse.unit.basic.TimeUnits.s
-import org.waman.multiverse.unit.mechanics.EnergyUnitObjects.erg
-import org.waman.multiverse.unit.mechanics.PowerUnits.W
+import org.waman.multiverse.unit.BasicUnits._
+import org.waman.multiverse.unit.MechanicalUnits._
 import org.waman.multiverse.unit.radiometry.SpectralIrradianceUnitObjects._
 import org.waman.multiverse.unit.radiometry.SpectralIrradianceUnits._
 

@@ -19,8 +19,30 @@
     {"name": "atomic mass unit", "symbol": "u", "aliases": ["AMU", "Da"], "interval": "1.66053892173e-27", "notExact":true},
     {"name": "electron mass", "symbol": "m_e", "interval": "9.1093829140e-31", "notExact":true},
 
-    {"name": "ounce", "symbol": "oz", "interval": "28", "baseUnit":"gram"},
-    {"name": "pound", "symbol": "lb", "aliases": ["lb_av"], "interval": "0.45359237"},
+    {"name": "grain", "symbol": "gr", "interval": "1/7000", "baseUnit": "pound"},
+
+    {"name": "dram", "symbol": "dr", "baseUnit": "dram(avoirdupois)",
+      "attributes": [
+        {"name": "avoirdupois", "aliases": ["dr_av"], "interval": "875/32", "baseUnit": "grain"},
+        {"name": "troy", "aliases": ["dr_t"], "interval": "60", "baseUnit": "grain"}
+      ]
+    },
+
+    {"name": "ounce", "symbol": "oz", "baseUnit": "ounce(avoirdupois)",
+      "attributes": [
+        {"name": "avoirdupois", "aliases": ["oz_av"], "interval": "1/16", "baseUnit": "pound"},
+        {"name": "troy", "aliases": ["oz_t"], "interval": "1/12", "baseUnit": "pound(troy)"}
+      ]
+    },
+
+    {"name": "pound", "symbol": "lb", "baseUnit": "pound(avoirdupois)",
+      "attributes": [
+        {"name": "avoirdupois", "aliases": ["lb_av"], "interval": "0.45359237"},
+        {"name": "troy", "aliases": ["lb_t"], "interval": "5760", "baseUnit": "grain"},
+        {"name": "metric", "interval": "500", "baseUnit": "gram"}
+      ]
+    },
+
     {"name": "long ton", "symbol": "long_tn", "interval": "2240", "baseUnit":"pound"},
     {"name": "short ton", "symbol": "sh_tn", "interval": "2000", "baseUnit": "pound"},
     {"name": "scruple", "symbol": "s_ap", "interval": "20", "baseUnit": "grain"},
@@ -28,17 +50,10 @@
     {"name": "metric carat", "symbol": "ct", "interval": "200", "baseUnit": "milligram"},
     {"name": "stone", "symbol": "st", "interval": "14", "baseUnit": "pound"},
 
-    {"name": "dram avoirdupois", "symbol": "dr_av", "interval": "875/32", "baseUnit": "grain"},
-    {"name": "grain", "symbol": "gr", "interval": "1/7000", "baseUnit": "pound"},
-    {"name": "long hundred weight", "symbol": "cwt", "aliases": ["long_cwt"], "interval": "112", "baseUnit": "dram_avoirdupois"},
-    {"name": "short hundred weight", "symbol": "sh_cwt", "interval": "100", "baseUnit": "dram_avoirdupois"},
-    {"name": "kip", "interval": "1000", "baseUnit": "dram_avoirdupois"},
-    {"name": "ounce avoirdupois", "symbol": "oz_av", "interval": "1/16", "baseUnit": "pound"},
-
-    {"name": "dram troy", "symbol": "dr_t", "interval": "60", "baseUnit": "grain"},
-    {"name": "ounce troy", "symbol": "oz_t", "interval": "1/12", "baseUnit": "pound_troy"},
-    {"name": "pound troy", "symbol": "lb_t", "interval": "5760", "baseUnit": "grain"},
-    {"name": "pennyweight", "symbol": "dwt", "aliases": ["pwt"], "interval": "1/20", "baseUnit": "ounce_troy"},
+    {"name": "short hundredweight", "symbol": "cwt", "aliases": ["sh_cwt", "US_cwt", "cental"], "interval": "100", "baseUnit": "pound(avoirdupois)"},
+    {"name": "long hundredweight", "symbol": "long_cwt", "aliases": ["(cwt)"], "interval": "112", "baseUnit": "pound(avoirdupois)"},
+    {"name": "kip", "interval": "1000", "baseUnit": "dram(avoirdupois)"},
+    {"name": "pennyweight", "symbol": "dwt", "aliases": ["pwt"], "interval": "1/20", "baseUnit": "ounce(troy)"},
 
     {"name": "long assay ton", "symbol": "long_AT", "aliases": ["AT"], "interval": "98/3", "baseUnit": "gram"},
     {"name": "short assay ton", "symbol": "sh_AT", "interval": "175/6", "baseUnit": "gram"},

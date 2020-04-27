@@ -1,9 +1,8 @@
 {
-  "description": "This can be used as a unit of torque and radiant energy (radiation).",
   "SIUnit": "joule",
   "dimension": {"M": 1, "L": 2, "T": -2},
 
-  "composites": ["Force * Length", "Length * Force"],
+  "composites": ["Force * Length", "Length * Force", "Power * Time", "Volume * Pressure"],
 
   "convertibles": [
     {"target": "AbsoluteTemperature", "from": "joule", "to": "kelvin", "factor": "1 / Constants.BoltzmannConstant"},
@@ -16,6 +15,10 @@
     {"name": "electronvolt", "symbol": "eV", "interval": "Constants.ElementaryCharge", "scalePrefixes": true, "notExact": true},
     {"name": "rydberg", "symbol": "Ry", "interval": "13.6056925330", "baseUnit": "electronvolt", "notExact": true},
     {"name": "atomic unit of energy", "symbol": "E_h", "interval": "2", "baseUnit": "rydberg", "notExact": true},
+
+    {"name": "watt hour", "symbol": "Wh", "baseUnit": "Power.watt * Time.hour"},
+    {"name": "kilowatt hour", "symbol": "kWh", "baseUnit": "Power.kilowatt * Time.hour"},
+    {"name": "litre atmosphere", "symbol": "sl", "baseUnit": "Volume.litre * Pressure.atmosphere"},
 
     {"name": "calorie", "symbol": "cal", "baseUnit": "calorie(th)",
       "attributes": [
@@ -30,6 +33,9 @@
     {"name": "calorie 20℃", "symbol": "cal_20℃", "interval": "4.182", "notExact": true},
 
     {"name": "kilocalorie", "symbol": "kcal", "aliases": ["Cal"], "interval": "1000", "baseUnit": "calorie"},
+    {"name": "tonne of coal equivalent", "symbol": "TCE", "interval": "7e9", "baseUnit": "calorie(th)"},
+    {"name": "tonne of oil equivalent", "symbol": "toe", "interval": "1e10", "baseUnit": "calorie(IT)"},
+    {"name": "ton of TNT", "symbol": "tTNT", "interval": "1e9", "baseUnit": "calorie(th)"},
 
     {"name": "british thermal unit", "symbol": "BTU", "baseUnit": "british_thermal_unit(IT)",
       "attributes": [
@@ -40,6 +46,7 @@
       ]
     },
 
-    {"name": "british thermal unit 59℉", "symbol": "BTU_59℉", "interval": "1.054804e3"}
+    {"name": "british thermal unit 59℉", "symbol": "BTU_59℉", "interval": "1.054804e3"},
+    {"name": "quad", "interval": "1e15", "baseUnit": "british_thermal_unit(IT)"}
   ]
 }

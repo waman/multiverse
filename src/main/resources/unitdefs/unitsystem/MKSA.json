@@ -1,7 +1,7 @@
 {
   "parent": "MKS",
 
-  "entries": [
+  "evalEntries": [
     {"quantity":  "Capacitance", "unit": "farad"},
     {"quantity":  "Charge", "unit": "coulomb"},
     {"quantity":  "Conductance", "unit": "siemens"},

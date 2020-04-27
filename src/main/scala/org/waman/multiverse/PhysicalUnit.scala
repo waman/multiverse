@@ -41,8 +41,12 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ this : U
   override def hashCode: Int = (name, zero, interval, dimension).##
 
   override def toString: String = {
-    val ali = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
-    val dim = DimensionSymbol.toStringWithSymbol(this.dimension)
+    val ali: String = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
+    val dim: String = DimensionSymbol.toStringWithSymbol(this.dimension)
+    val desc: String = this match {
+      case d: Description =>  ", description: " + d.description
+      case _ => ""
+    }
 
     if(this == getSIUnit) {
       s"$name ($symbol)$ali, dim: $dim"
@@ -51,12 +55,12 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ this : U
       val sZero = toReadableString(zero)
       this.interval match {
         case i if i.isOne =>
-          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = Δ($symbolSI)]$ali, dim: $dim"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = Δ($symbolSI)]$ali, dim: $dim$desc"
         case i if (-i).isOne =>
-          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = -Δ($symbolSI)]$ali, dim: $dim"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = -Δ($symbolSI)]$ali, dim: $dim$desc"
         case _ =>
           val sInterval = toReadableString(interval)
-          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]$ali, dim: $dim"
+          s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]$ali, dim: $dim$desc"
       }
   }
   }
@@ -65,6 +69,10 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ this : U
     this.dimension == other.dimension &&
       this.zero == other.zero &&
       this.interval == other.interval
+}
+
+trait Description {
+  def description: String
 }
 
 trait NotExact

@@ -5,6 +5,9 @@ import spire.math.Fractional
 import spire.implicits._
 import org.waman.multiverse._
 
+import org.waman.multiverse.unit.basic.Time
+import org.waman.multiverse.unit.basic.TimeUnit
+
 import org.waman.multiverse.unit.electrics.Current
 import org.waman.multiverse.unit.electrics.CurrentUnit
 
@@ -29,6 +32,8 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
 
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
 
+  def *(time: Time[A]): Energy[A] = new Energy(this.value * time.value, this.unit * time.unit)
+
   def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
 
   def /(area: Area[A]): Irradiance[A] = new Irradiance(this.value / area.value, this.unit / area.unit)
@@ -41,6 +46,9 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
 
   override def getSIUnit: PowerUnit = PowerUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = PowerUnit.dimension
+
+  def *(timeUnit: TimeUnit): EnergyUnit =
+    new AbstractProductUnit[EnergyUnit, PowerUnit, TimeUnit](PowerUnit.this, timeUnit) with EnergyUnit
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
     new AbstractQuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit

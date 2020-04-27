@@ -13,7 +13,7 @@ object UnitdefsConsistencyChecker {
   def checkNecessaryEntriesExist(us: UnitSystemJson, jsons: JsonResources, unitKind: String,
                                  cond: LinearUnitDefinitionJson => Boolean): Unit = {
     val emUnits = jsons.linearUnitDefs.filter(cond).map(_.id)
-    val entries = us.unitsystemInfo._entries.map(_.quantity)
+    val entries = us.unitsystemInfo._evalEntries.map(_.quantity)
     emUnits.foreach{ emu =>
       if (!entries.contains(emu))
         throw new RuntimeException(s"""${us.id} must contain the $unitKind unit "$emu".""")

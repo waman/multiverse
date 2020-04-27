@@ -71,7 +71,7 @@ object MassUnit extends UnitInfo[MassUnit]{
 
   import MassUnitObjects._
   def getUnits: Seq[MassUnit] =
-    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, atomic_mass_unit, electron_mass, ounce, pound, long_ton, short_ton, scruple, carat, metric_carat, stone, dram_avoirdupois, grain, long_hundred_weight, short_hundred_weight, kip, ounce_avoirdupois, dram_troy, ounce_troy, pound_troy, pennyweight, long_assay_ton, short_assay_ton, slug)
+    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, atomic_mass_unit, electron_mass, grain, dram, `dram(avoirdupois)`, `dram(troy)`, ounce, `ounce(avoirdupois)`, `ounce(troy)`, pound, `pound(avoirdupois)`, `pound(troy)`, `pound(metric)`, long_ton, short_ton, scruple, carat, metric_carat, stone, short_hundredweight, long_hundredweight, kip, pennyweight, long_assay_ton, short_assay_ton, slug)
 }
 
 /** For no aliase or user defined units */
@@ -82,6 +82,16 @@ class SimpleMassUnit(val name: String, val symbol: String, val interval: Real) e
 /** For units which has aliases */
 class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends MassUnit
+
+sealed trait dramAttribute
+sealed trait ounceAttribute
+sealed trait poundAttribute
+
+object MassAttributes{
+  final object avoirdupois extends dramAttribute with ounceAttribute with poundAttribute
+  final object troy extends dramAttribute with ounceAttribute with poundAttribute
+  final object metric extends poundAttribute
+}
 
 object MassUnitObjects{
   import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects._
@@ -114,24 +124,27 @@ object MassUnitObjects{
   final case object quintal extends SimpleMassUnit("quintal", "q", r"100" * kilogram.interval)
   final case object atomic_mass_unit extends DefaultMassUnit("atomic mass unit", "u", Seq("AMU", "Da"), r"1.66053892173e-27") with NotExact
   final case object electron_mass extends SimpleMassUnit("electron mass", "m_e", r"9.1093829140e-31") with NotExact
-  final case object ounce extends SimpleMassUnit("ounce", "oz", r"28" * gram.interval)
-  final case object pound extends DefaultMassUnit("pound", "lb", Seq("lb_av"), r"0.45359237")
+  final case object grain extends SimpleMassUnit("grain", "gr", r"1"/r"7000" * pound.interval)
+  final case object dram extends SimpleMassUnit("dram", "dr", `dram(avoirdupois)`.interval)
+  final case object `dram(avoirdupois)` extends DefaultMassUnit("dram(avoirdupois)", "dr(avoirdupois)", Seq("dr_av"), r"875"/r"32" * grain.interval)
+  final case object `dram(troy)` extends DefaultMassUnit("dram(troy)", "dr(troy)", Seq("dr_t"), r"60" * grain.interval)
+  final case object ounce extends SimpleMassUnit("ounce", "oz", `ounce(avoirdupois)`.interval)
+  final case object `ounce(avoirdupois)` extends DefaultMassUnit("ounce(avoirdupois)", "oz(avoirdupois)", Seq("oz_av"), r"1"/r"16" * pound.interval)
+  final case object `ounce(troy)` extends DefaultMassUnit("ounce(troy)", "oz(troy)", Seq("oz_t"), r"1"/r"12" * `pound(troy)`.interval)
+  final case object pound extends SimpleMassUnit("pound", "lb", `pound(avoirdupois)`.interval)
+  final case object `pound(avoirdupois)` extends DefaultMassUnit("pound(avoirdupois)", "lb(avoirdupois)", Seq("lb_av"), r"0.45359237")
+  final case object `pound(troy)` extends DefaultMassUnit("pound(troy)", "lb(troy)", Seq("lb_t"), r"5760" * grain.interval)
+  final case object `pound(metric)` extends SimpleMassUnit("pound(metric)", "lb(metric)", r"500" * gram.interval)
   final case object long_ton extends SimpleMassUnit("long ton", "long_tn", r"2240" * pound.interval)
   final case object short_ton extends SimpleMassUnit("short ton", "sh_tn", r"2000" * pound.interval)
   final case object scruple extends SimpleMassUnit("scruple", "s_ap", r"20" * grain.interval)
   final case object carat extends SimpleMassUnit("carat", "kt", r"19"/r"6" * grain.interval)
   final case object metric_carat extends SimpleMassUnit("metric carat", "ct", r"200" * milligram.interval)
   final case object stone extends SimpleMassUnit("stone", "st", r"14" * pound.interval)
-  final case object dram_avoirdupois extends SimpleMassUnit("dram avoirdupois", "dr_av", r"875"/r"32" * grain.interval)
-  final case object grain extends SimpleMassUnit("grain", "gr", r"1"/r"7000" * pound.interval)
-  final case object long_hundred_weight extends DefaultMassUnit("long hundred weight", "cwt", Seq("long_cwt"), r"112" * dram_avoirdupois.interval)
-  final case object short_hundred_weight extends SimpleMassUnit("short hundred weight", "sh_cwt", r"100" * dram_avoirdupois.interval)
-  final case object kip extends SimpleMassUnit("kip", "kip", r"1000" * dram_avoirdupois.interval)
-  final case object ounce_avoirdupois extends SimpleMassUnit("ounce avoirdupois", "oz_av", r"1"/r"16" * pound.interval)
-  final case object dram_troy extends SimpleMassUnit("dram troy", "dr_t", r"60" * grain.interval)
-  final case object ounce_troy extends SimpleMassUnit("ounce troy", "oz_t", r"1"/r"12" * pound_troy.interval)
-  final case object pound_troy extends SimpleMassUnit("pound troy", "lb_t", r"5760" * grain.interval)
-  final case object pennyweight extends DefaultMassUnit("pennyweight", "dwt", Seq("pwt"), r"1"/r"20" * ounce_troy.interval)
+  final case object short_hundredweight extends DefaultMassUnit("short hundredweight", "cwt", Seq("sh_cwt", "US_cwt", "cental"), r"100" * `pound(avoirdupois)`.interval)
+  final case object long_hundredweight extends DefaultMassUnit("long hundredweight", "long_cwt", Seq(""), r"112" * `pound(avoirdupois)`.interval)
+  final case object kip extends SimpleMassUnit("kip", "kip", r"1000" * `dram(avoirdupois)`.interval)
+  final case object pennyweight extends DefaultMassUnit("pennyweight", "dwt", Seq("pwt"), r"1"/r"20" * `ounce(troy)`.interval)
   final case object long_assay_ton extends DefaultMassUnit("long assay ton", "long_AT", Seq("AT"), r"98"/r"3" * gram.interval)
   final case object short_assay_ton extends SimpleMassUnit("short assay ton", "sh_AT", r"175"/r"6" * gram.interval)
   final case object slug extends SimpleMassUnit("slug", "slug", pound.interval * standard_gravity.interval / foot.interval)
@@ -169,25 +182,35 @@ object MassUnits{
   def AMU: MassUnit = MassUnitObjects.atomic_mass_unit
   def Da: MassUnit = MassUnitObjects.atomic_mass_unit
   def m_e: MassUnit = MassUnitObjects.electron_mass
+  def gr: MassUnit = MassUnitObjects.grain
+  def dr: MassUnit = MassUnitObjects.dram
+  def dr(a: dramAttribute): MassUnit = a match { 
+    case MassAttributes.avoirdupois => MassUnitObjects.`dram(avoirdupois)`
+    case MassAttributes.troy => MassUnitObjects.`dram(troy)`
+  }
   def oz: MassUnit = MassUnitObjects.ounce
+  def oz(a: ounceAttribute): MassUnit = a match { 
+    case MassAttributes.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
+    case MassAttributes.troy => MassUnitObjects.`ounce(troy)`
+  }
   def lb: MassUnit = MassUnitObjects.pound
-  def lb_av: MassUnit = MassUnitObjects.pound
+  def lb(a: poundAttribute): MassUnit = a match { 
+    case MassAttributes.avoirdupois => MassUnitObjects.`pound(avoirdupois)`
+    case MassAttributes.troy => MassUnitObjects.`pound(troy)`
+    case MassAttributes.metric => MassUnitObjects.`pound(metric)`
+  }
   def long_tn: MassUnit = MassUnitObjects.long_ton
   def sh_tn: MassUnit = MassUnitObjects.short_ton
   def s_ap: MassUnit = MassUnitObjects.scruple
   def kt: MassUnit = MassUnitObjects.carat
   def ct: MassUnit = MassUnitObjects.metric_carat
   def st: MassUnit = MassUnitObjects.stone
-  def dr_av: MassUnit = MassUnitObjects.dram_avoirdupois
-  def gr: MassUnit = MassUnitObjects.grain
-  def cwt: MassUnit = MassUnitObjects.long_hundred_weight
-  def long_cwt: MassUnit = MassUnitObjects.long_hundred_weight
-  def sh_cwt: MassUnit = MassUnitObjects.short_hundred_weight
+  def cwt: MassUnit = MassUnitObjects.short_hundredweight
+  def sh_cwt: MassUnit = MassUnitObjects.short_hundredweight
+  def US_cwt: MassUnit = MassUnitObjects.short_hundredweight
+  def cental: MassUnit = MassUnitObjects.short_hundredweight
+  def long_cwt: MassUnit = MassUnitObjects.long_hundredweight
   def kip: MassUnit = MassUnitObjects.kip
-  def oz_av: MassUnit = MassUnitObjects.ounce_avoirdupois
-  def dr_t: MassUnit = MassUnitObjects.dram_troy
-  def oz_t: MassUnit = MassUnitObjects.ounce_troy
-  def lb_t: MassUnit = MassUnitObjects.pound_troy
   def dwt: MassUnit = MassUnitObjects.pennyweight
   def pwt: MassUnit = MassUnitObjects.pennyweight
   def long_AT: MassUnit = MassUnitObjects.long_assay_ton

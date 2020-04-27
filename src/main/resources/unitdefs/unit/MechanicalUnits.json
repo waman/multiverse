@@ -1,0 +1,38 @@
+{
+  "description": "Usually used units of mechanics and fluid mechanics",
+  "unitEntries": [
+    {"symbol": "P", "unit": "DynamicViscosity.poise"},
+
+    {"symbol": "St", "unit": "KinematicViscosity.stokes"},
+
+    {"symbol": "Pa", "unit": "Pressure.pascal"},
+    {"symbol": "Ba", "unit": "Pressure.barye"},
+    {"symbol": "atm", "unit": "Pressure.atmosphere"},
+
+    {"symbol": "g_0", "unit": "Acceleration.standard_gravity"},
+    {"symbol": "Gal", "unit": "Acceleration.gal"},
+
+    {"symbol": "J", "unit": "Energy.joule"},
+    {"symbol": "kJ", "unit": "Energy.kilojoule"},
+    {"symbol": "erg", "unit": "Energy.erg"},
+    {"symbol": "cal", "unit": "Energy.calorie"},
+    {"symbol": "kcal", "unit": "Energy.kilocalorie"},
+    {"symbol": "Wh", "unit": "Energy.kilowatt_hour"},
+    {"symbol": "kWh", "unit": "Energy.kilowatt_hour"},
+    {"symbol": "tTNT", "unit": "Energy.ton_of_TNT"},
+    {"symbol": "eV", "unit": "Energy.electronvolt"},
+    {"symbol": "keV", "unit": "Energy.kiloelectronvolt"},
+    {"symbol": "MeV", "unit": "Energy.megaelectronvolt"},
+    {"symbol": "GeV", "unit": "Energy.gigaelectronvolt"},
+    {"symbol": "TeV", "unit": "Energy.teraelectronvolt"},
+
+    {"symbol": "N", "unit": "Force.newton"},
+    {"symbol": "dyn", "unit": "Force.dyne"},
+    {"symbol": "kgf", "unit": "Force.kilogram_force"},
+
+    {"symbol": "W", "unit": "Power.watt"},
+    {"symbol": "kW", "unit": "Power.kilowatt"},
+
+    {"symbol": "s2", "unit": "TimeSquared.second_squared"}
+  ]
+}

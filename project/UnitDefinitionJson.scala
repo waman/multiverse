@@ -6,10 +6,12 @@ trait RawUnitInfo[U <: UnitInfo]{
   def symbol: String
   def aliases: Array[String]
   def excludePrefixes: Array[String]
+  def description: String
 
   lazy val symbols: Seq[String] = this.symbol +: this._aliases
   lazy val _aliases: Seq[String] = GenerationUtil.toSeq(this.aliases)
   lazy val _excludePrefixes: Seq[String] = GenerationUtil.toSeq(this.excludePrefixes)
+  lazy val _description: String = if (this.description != null) this.description else ""
 
   def expandScalePrefixesAndAttributes(jsons: JsonResources): Seq[U]
 }
@@ -22,6 +24,7 @@ trait UnitInfo{
   def interval: String
   def baseUnit: String
   def attributes: Seq[Attribute]
+  def description: String
 }
 
 trait UnitCategory[RU <: RawUnitInfo[U], U <: UnitInfo]{
@@ -290,12 +293,12 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
         writer.write("  }\n")
       }
 
-      u.aliases.foreach { al =>
+      u.aliases.filterNot(isOptionalAliase).foreach { al => // ignore aliases like <<"aliases": ["(pt)"]>>
         val als = escapeSymbol(al)
         writer.write(s"""  def $als: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
 
         // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
-        if (u.attributes.nonEmpty && !als.contains("_")) {  // the second condition is for removing ones like cal_IT(IT)
+        if (u.attributes.nonEmpty) {
           writer.write(s"""  def $als(a: ${u.objectName}Attribute): ${id}Unit = $sym(a)\n\n""")
         }
       }

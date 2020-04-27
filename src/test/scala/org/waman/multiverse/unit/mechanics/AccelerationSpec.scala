@@ -3,7 +3,7 @@ package org.waman.multiverse.unit.mechanics
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.BasicUnits._
-import org.waman.multiverse.unit.MechanicsUnits._
+import org.waman.multiverse.unit.MechanicalUnits._
 
 class AccelerationSpec extends MultiverseCustomSpec {
 
