@@ -80,6 +80,7 @@ object CurrentUnitObjects{
 }
 
 object CurrentUnits{
+
   def A: CurrentUnit = CurrentUnitObjects.ampere
   def yA: CurrentUnit = CurrentUnitObjects.yoctoampere
   def zA: CurrentUnit = CurrentUnitObjects.zeptoampere

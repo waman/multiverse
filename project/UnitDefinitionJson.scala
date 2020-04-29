@@ -239,7 +239,10 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
   protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = ()
 
-  protected def attributeId: String = this.id
+  protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[U]): Seq[U] =
+    units.filter(_.attributes.nonEmpty)
+
+  protected def attributeContainer: String = this.id + "Units"
 
   private def generateUnitObjects(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
     writer.write(s"object ${id}UnitObjects{\n")
@@ -275,20 +278,23 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
   private def generateUnits(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
     writer.write(s"""object ${id}Units{\n""")
 
+    generateAttributeObjects(writer, jsons, units)
+    writer.write("\n")
+
     units.filterNot(_.name.contains("(")).foreach { u =>
       val sym = escapeSymbol(u.symbol)
 
       // def m: LengthUnit = LengthUnitObjects.metre
       writer.write(s"""  def $sym: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
 
-      // def xu(a: xunitAttribute): LengthUnit = a match {
-      //   case MetricAttributes.CuKα1 => LengthUnitObjects.`xunit(CuKα1)`
-      //   case MetricAttributes.MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
+      // def oz(a: ounceAttribute): MassUnit = a match {
+      //   case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
+      //   case MassUnits.troy => MassUnitObjects.`ounce(troy)`
       // }
       if (u.attributes.nonEmpty) {
         writer.write(s"""  def $sym(a: ${u.objectName}Attribute): ${id}Unit = a match { \n""")
         u.attributes.foreach { a =>
-          writer.write(s"""    case ${attributeId}Attributes.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
+          writer.write(s"""    case ${attributeContainer}.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
         }
         writer.write("  }\n")
       }
@@ -305,5 +311,13 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
     }
 
     writer.write("}")
+  }
+
+  protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
+    val attUnits = getUnitsWithAttributes(jsons, units)
+    val map = extractAttributeMap(attUnits)
+    map.foreach { u =>
+      writer.write(s"""  final object ${u._1} extends ${u._2.map(_ + "Attribute").mkString(" with ")}\n""")
+    }
   }
 }

@@ -57,6 +57,7 @@ object TimeSquaredUnitObjects{
 }
 
 object TimeSquaredUnits{
+
   def `s²`: TimeSquaredUnit = TimeSquaredUnitObjects.second_squared
   def s2: TimeSquaredUnit = TimeSquaredUnitObjects.second_squared
   def `sec²`: TimeSquaredUnit = TimeSquaredUnitObjects.second_squared

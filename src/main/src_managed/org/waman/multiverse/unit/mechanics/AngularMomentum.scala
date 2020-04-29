@@ -49,6 +49,7 @@ object AngularMomentumUnitObjects{
 }
 
 object AngularMomentumUnits{
+
   def h: AngularMomentumUnit = AngularMomentumUnitObjects.planck_constant
   def `ħ`: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
 }

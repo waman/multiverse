@@ -49,6 +49,7 @@ object DensityUnitObjects{
 }
 
 object DensityUnits{
+
   def H2O: DensityUnit = DensityUnitObjects.water
   def Hg: DensityUnit = DensityUnitObjects.mercury
 }

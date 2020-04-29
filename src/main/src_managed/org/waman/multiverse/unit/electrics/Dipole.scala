@@ -50,6 +50,7 @@ object DipoleUnitObjects{
 }
 
 object DipoleUnits{
+
   def D: DipoleUnit = DipoleUnitObjects.debye
   def ea_0: DipoleUnit = DipoleUnitObjects.atomic_unit_of_electric_dipole_moment
 }

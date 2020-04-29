@@ -95,6 +95,7 @@ object EquivalentDoseUnitObjects{
 }
 
 object EquivalentDoseUnits{
+
   def Sv: EquivalentDoseUnit = EquivalentDoseUnitObjects.sievert
   def ySv: EquivalentDoseUnit = EquivalentDoseUnitObjects.yoctosievert
   def zSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.zeptosievert

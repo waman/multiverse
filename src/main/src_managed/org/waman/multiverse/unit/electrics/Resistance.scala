@@ -71,6 +71,7 @@ object ResistanceUnitObjects{
 }
 
 object ResistanceUnits{
+
   def `Ω`: ResistanceUnit = ResistanceUnitObjects.ohm
   def ohm: ResistanceUnit = ResistanceUnitObjects.ohm
   def `yΩ`: ResistanceUnit = ResistanceUnitObjects.yoctoohm

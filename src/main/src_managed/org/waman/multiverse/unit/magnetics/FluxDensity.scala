@@ -87,6 +87,7 @@ object FluxDensityUnitObjects{
 }
 
 object FluxDensityUnits{
+
   def T: FluxDensityUnit = FluxDensityUnitObjects.tesla
   def yT: FluxDensityUnit = FluxDensityUnitObjects.yoctotesla
   def zT: FluxDensityUnit = FluxDensityUnitObjects.zeptotesla

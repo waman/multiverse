@@ -69,6 +69,7 @@ object EntropyUnitObjects{
 }
 
 object EntropyUnits{
+
   def nat: EntropyUnit = EntropyUnitObjects.nat
   def k_B: EntropyUnit = EntropyUnitObjects.nat
   def bit: EntropyUnit = EntropyUnitObjects.bit

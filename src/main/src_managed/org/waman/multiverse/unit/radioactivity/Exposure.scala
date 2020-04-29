@@ -48,5 +48,6 @@ object ExposureUnitObjects{
 }
 
 object ExposureUnits{
+
   def R: ExposureUnit = ExposureUnitObjects.roentgen
 }

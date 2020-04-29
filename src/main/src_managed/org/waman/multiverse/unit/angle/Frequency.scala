@@ -73,6 +73,7 @@ object FrequencyUnitObjects{
 }
 
 object FrequencyUnits{
+
   def Hz: FrequencyUnit = FrequencyUnitObjects.heltz
   def yHz: FrequencyUnit = FrequencyUnitObjects.yoctoheltz
   def zHz: FrequencyUnit = FrequencyUnitObjects.zeptoheltz

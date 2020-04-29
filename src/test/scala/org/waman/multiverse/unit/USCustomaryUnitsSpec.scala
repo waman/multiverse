@@ -102,7 +102,7 @@ class USCustomaryUnitsSpec extends MultiverseCustomSpec {
     }
 
     "Mass Units should have the correct values" in {
-      import org.waman.multiverse.unit.basic.MassAttributes._
+      import org.waman.multiverse.unit.basic.MassUnits._
       // Exercise
       val conversions =
         Table(

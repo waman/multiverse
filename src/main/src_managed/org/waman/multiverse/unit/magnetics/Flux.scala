@@ -103,6 +103,7 @@ object FluxUnitObjects{
 }
 
 object FluxUnits{
+
   def Wb: FluxUnit = FluxUnitObjects.weber
   def yWb: FluxUnit = FluxUnitObjects.yoctoweber
   def zWb: FluxUnit = FluxUnitObjects.zeptoweber

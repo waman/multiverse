@@ -243,31 +243,6 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
          |""".stripMargin)
   }
 
-  override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = {
-    val attUnits = getUnitsWithAttributes(jsons, units)
-    if (attUnits.isEmpty) return
-
-    attUnits.foreach { u =>
-      writer.write(
-        s"""sealed trait ${u.objectName}Attribute
-           |""".stripMargin)
-    }
-    writer.write("\n")
-
-    // [gregorian: Seq(month, year, decade, ...), julian: Seq(year, decade, ...), ...]
-    val map = attUnits.flatMap(u => u.attributes.map(a => (u.objectName, a.name)))
-      .groupBy(_._2)
-      .mapValues(v => v.map(_._1))
-    writer.write(s"object ${attributeId}Attributes{\n")
-    map.foreach { u =>
-      writer.write(s"""  final object ${u._1} extends ${u._2.map(_ + "Attribute").mkString(" with ")}\n""")
-    }
-    writer.write("}\n\n")
-  }
-
-  protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[LinearUnit]): Seq[LinearUnit] =
-    units.filter(_.attributes.nonEmpty)
-
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
     val interval = makeIntervalExpression(unit.interval, unit.baseUnit)
     val notExact = if (!unit.notExact) "" else " with NotExact"
@@ -285,10 +260,24 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
           s"""("${unit.name}", "${unit.symbol}", $aliases, $interval)$notExact\n""")
     }
   }
+
+  override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = {
+    val attUnits = getUnitsWithAttributes(jsons, units)
+    if (attUnits.isEmpty) return
+
+    attUnits.foreach { u =>
+      writer.write(
+        s"""sealed trait ${u.objectName}Attribute
+           |""".stripMargin)
+    }
+    writer.write("\n")
+  }
 }
 
 class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
+
+  override protected def attributeContainer: String = "LengthAttributes"
 
   override protected def generateQuantityMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
 
@@ -341,13 +330,25 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
   override protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[LinearUnit]): Seq[LinearUnit] =
     jsons.linearUnitDefs.filter(ud => ud.id == "Length" || ud.id == "Area" || ud.id == "Volume")
       .flatMap(_.unitCategory._units.filter(_._attributes.nonEmpty).map(_.toLinearUnit))
+
+  override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = {
+    super.generateAttributes(writer, jsons, units)
+
+    val attUnits = getUnitsWithAttributes(jsons, units)
+    writer.write("object LengthAttributes{\n")
+    super.generateAttributeObjects(writer, jsons, attUnits)
+    writer.write("}\n\n")
+  }
+
+  override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, attUnits: Seq[LinearUnit]): Unit = ()
 }
 
 class LengthPoweredUnitDefinitionJson(id: String, jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
 
-  override protected def attributeId: String = "Length"
+  override protected def attributeContainer: String = "LengthAttributes"
   override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
+  override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 }
 
 class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)

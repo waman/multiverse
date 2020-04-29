@@ -55,6 +55,7 @@ object LuminanceUnitObjects{
 }
 
 object LuminanceUnits{
+
   def sb: LuminanceUnit = LuminanceUnitObjects.stilb
   def Lb: LuminanceUnit = LuminanceUnitObjects.lambert
   def asb: LuminanceUnit = LuminanceUnitObjects.apo_stilb

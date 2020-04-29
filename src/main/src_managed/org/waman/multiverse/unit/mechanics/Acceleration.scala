@@ -48,6 +48,7 @@ object AccelerationUnitObjects{
 }
 
 object AccelerationUnits{
+
   def G: AccelerationUnit = AccelerationUnitObjects.standard_gravity
   def g_0: AccelerationUnit = AccelerationUnitObjects.standard_gravity
   def Gal: AccelerationUnit = AccelerationUnitObjects.gal

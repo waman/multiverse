@@ -74,6 +74,7 @@ object AmountOfSubstanceUnitObjects{
 }
 
 object AmountOfSubstanceUnits{
+
   def mol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.mole
   def ymol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.yoctomole
   def zmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.zeptomole

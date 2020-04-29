@@ -102,6 +102,7 @@ object ChargeUnitObjects{
 }
 
 object ChargeUnits{
+
   def C: ChargeUnit = ChargeUnitObjects.coulomb
   def yC: ChargeUnit = ChargeUnitObjects.yoctocoulomb
   def zC: ChargeUnit = ChargeUnitObjects.zeptocoulomb

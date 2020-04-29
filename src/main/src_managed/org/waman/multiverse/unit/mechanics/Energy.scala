@@ -93,13 +93,6 @@ class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[S
 sealed trait calorieAttribute
 sealed trait british_thermal_unitAttribute
 
-object EnergyAttributes{
-  final object mean extends calorieAttribute with british_thermal_unitAttribute
-  final object IT extends calorieAttribute with british_thermal_unitAttribute
-  final object ISO extends british_thermal_unitAttribute
-  final object th extends calorieAttribute with british_thermal_unitAttribute
-}
-
 object EnergyUnitObjects{
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.mechanics.PowerUnitObjects._
@@ -176,6 +169,11 @@ object EnergyUnitObjects{
 }
 
 object EnergyUnits{
+  final object mean extends calorieAttribute with british_thermal_unitAttribute
+  final object IT extends calorieAttribute with british_thermal_unitAttribute
+  final object ISO extends british_thermal_unitAttribute
+  final object th extends calorieAttribute with british_thermal_unitAttribute
+
   def J: EnergyUnit = EnergyUnitObjects.joule
   def yJ: EnergyUnit = EnergyUnitObjects.yoctojoule
   def zJ: EnergyUnit = EnergyUnitObjects.zeptojoule
@@ -230,9 +228,9 @@ object EnergyUnits{
   def sl: EnergyUnit = EnergyUnitObjects.litre_atmosphere
   def cal: EnergyUnit = EnergyUnitObjects.calorie
   def cal(a: calorieAttribute): EnergyUnit = a match { 
-    case EnergyAttributes.th => EnergyUnitObjects.`calorie(th)`
-    case EnergyAttributes.IT => EnergyUnitObjects.`calorie(IT)`
-    case EnergyAttributes.mean => EnergyUnitObjects.`calorie(mean)`
+    case EnergyUnits.th => EnergyUnitObjects.`calorie(th)`
+    case EnergyUnits.IT => EnergyUnitObjects.`calorie(IT)`
+    case EnergyUnits.mean => EnergyUnitObjects.`calorie(mean)`
   }
   def `cal_4℃`: EnergyUnit = EnergyUnitObjects.`calorie_4℃`
   def `cal_15℃`: EnergyUnit = EnergyUnitObjects.`calorie_15℃`
@@ -244,10 +242,10 @@ object EnergyUnits{
   def tTNT: EnergyUnit = EnergyUnitObjects.ton_of_TNT
   def BTU: EnergyUnit = EnergyUnitObjects.british_thermal_unit
   def BTU(a: british_thermal_unitAttribute): EnergyUnit = a match { 
-    case EnergyAttributes.ISO => EnergyUnitObjects.`british_thermal_unit(ISO)`
-    case EnergyAttributes.IT => EnergyUnitObjects.`british_thermal_unit(IT)`
-    case EnergyAttributes.mean => EnergyUnitObjects.`british_thermal_unit(mean)`
-    case EnergyAttributes.th => EnergyUnitObjects.`british_thermal_unit(th)`
+    case EnergyUnits.ISO => EnergyUnitObjects.`british_thermal_unit(ISO)`
+    case EnergyUnits.IT => EnergyUnitObjects.`british_thermal_unit(IT)`
+    case EnergyUnits.mean => EnergyUnitObjects.`british_thermal_unit(mean)`
+    case EnergyUnits.th => EnergyUnitObjects.`british_thermal_unit(th)`
   }
   def `BTU_59℉`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit_59℉`
   def quad: EnergyUnit = EnergyUnitObjects.quad

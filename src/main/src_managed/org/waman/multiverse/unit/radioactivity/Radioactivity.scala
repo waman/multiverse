@@ -88,6 +88,7 @@ object RadioactivityUnitObjects{
 }
 
 object RadioactivityUnits{
+
   def Bq: RadioactivityUnit = RadioactivityUnitObjects.becquerel
   def yBq: RadioactivityUnit = RadioactivityUnitObjects.yoctobecquerel
   def zBq: RadioactivityUnit = RadioactivityUnitObjects.zeptobecquerel

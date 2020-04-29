@@ -65,19 +65,6 @@ sealed trait yearAttribute
 sealed trait decadeAttribute
 sealed trait centuryAttribute
 
-object TimeAttributes{
-  final object topical extends centuryAttribute
-  final object sidereal extends dayAttribute with yearAttribute with decadeAttribute with centuryAttribute
-  final object gregorian extends monthAttribute with yearAttribute with decadeAttribute with centuryAttribute
-  final object tropical extends yearAttribute with decadeAttribute
-  final object full extends monthAttribute
-  final object common extends yearAttribute
-  final object leap extends yearAttribute
-  final object hollow extends monthAttribute
-  final object julian extends yearAttribute with decadeAttribute with centuryAttribute
-  final object synodic extends monthAttribute
-}
-
 object TimeUnitObjects{
 
   final case object second extends DefaultTimeUnit("second", "s", Seq("sec"), 1)
@@ -137,6 +124,17 @@ object TimeUnitObjects{
 }
 
 object TimeUnits{
+  final object topical extends centuryAttribute
+  final object sidereal extends dayAttribute with yearAttribute with decadeAttribute with centuryAttribute
+  final object gregorian extends monthAttribute with yearAttribute with decadeAttribute with centuryAttribute
+  final object tropical extends yearAttribute with decadeAttribute
+  final object full extends monthAttribute
+  final object common extends yearAttribute
+  final object leap extends yearAttribute
+  final object hollow extends monthAttribute
+  final object julian extends yearAttribute with decadeAttribute with centuryAttribute
+  final object synodic extends monthAttribute
+
   def s: TimeUnit = TimeUnitObjects.second
   def sec: TimeUnit = TimeUnitObjects.second
   def ys: TimeUnit = TimeUnitObjects.yoctosecond
@@ -187,24 +185,24 @@ object TimeUnits{
   def h: TimeUnit = TimeUnitObjects.hour
   def d: TimeUnit = TimeUnitObjects.day
   def d(a: dayAttribute): TimeUnit = a match { 
-    case TimeAttributes.sidereal => TimeUnitObjects.`day(sidereal)`
+    case TimeUnits.sidereal => TimeUnitObjects.`day(sidereal)`
   }
   def wk: TimeUnit = TimeUnitObjects.week
   def mo: TimeUnit = TimeUnitObjects.month
   def mo(a: monthAttribute): TimeUnit = a match { 
-    case TimeAttributes.gregorian => TimeUnitObjects.`month(gregorian)`
-    case TimeAttributes.full => TimeUnitObjects.`month(full)`
-    case TimeAttributes.hollow => TimeUnitObjects.`month(hollow)`
-    case TimeAttributes.synodic => TimeUnitObjects.`month(synodic)`
+    case TimeUnits.gregorian => TimeUnitObjects.`month(gregorian)`
+    case TimeUnits.full => TimeUnitObjects.`month(full)`
+    case TimeUnits.hollow => TimeUnitObjects.`month(hollow)`
+    case TimeUnits.synodic => TimeUnitObjects.`month(synodic)`
   }
   def yr: TimeUnit = TimeUnitObjects.year
   def yr(a: yearAttribute): TimeUnit = a match { 
-    case TimeAttributes.common => TimeUnitObjects.`year(common)`
-    case TimeAttributes.leap => TimeUnitObjects.`year(leap)`
-    case TimeAttributes.gregorian => TimeUnitObjects.`year(gregorian)`
-    case TimeAttributes.sidereal => TimeUnitObjects.`year(sidereal)`
-    case TimeAttributes.julian => TimeUnitObjects.`year(julian)`
-    case TimeAttributes.tropical => TimeUnitObjects.`year(tropical)`
+    case TimeUnits.common => TimeUnitObjects.`year(common)`
+    case TimeUnits.leap => TimeUnitObjects.`year(leap)`
+    case TimeUnits.gregorian => TimeUnitObjects.`year(gregorian)`
+    case TimeUnits.sidereal => TimeUnitObjects.`year(sidereal)`
+    case TimeUnits.julian => TimeUnitObjects.`year(julian)`
+    case TimeUnits.tropical => TimeUnitObjects.`year(tropical)`
   }
   def y: TimeUnit = TimeUnitObjects.year
   def y(a: yearAttribute): TimeUnit = yr(a)
@@ -214,17 +212,17 @@ object TimeUnits{
 
   def dec: TimeUnit = TimeUnitObjects.decade
   def dec(a: decadeAttribute): TimeUnit = a match { 
-    case TimeAttributes.gregorian => TimeUnitObjects.`decade(gregorian)`
-    case TimeAttributes.sidereal => TimeUnitObjects.`decade(sidereal)`
-    case TimeAttributes.julian => TimeUnitObjects.`decade(julian)`
-    case TimeAttributes.tropical => TimeUnitObjects.`decade(tropical)`
+    case TimeUnits.gregorian => TimeUnitObjects.`decade(gregorian)`
+    case TimeUnits.sidereal => TimeUnitObjects.`decade(sidereal)`
+    case TimeUnits.julian => TimeUnitObjects.`decade(julian)`
+    case TimeUnits.tropical => TimeUnitObjects.`decade(tropical)`
   }
   def century: TimeUnit = TimeUnitObjects.century
   def century(a: centuryAttribute): TimeUnit = a match { 
-    case TimeAttributes.gregorian => TimeUnitObjects.`century(gregorian)`
-    case TimeAttributes.sidereal => TimeUnitObjects.`century(sidereal)`
-    case TimeAttributes.julian => TimeUnitObjects.`century(julian)`
-    case TimeAttributes.topical => TimeUnitObjects.`century(topical)`
+    case TimeUnits.gregorian => TimeUnitObjects.`century(gregorian)`
+    case TimeUnits.sidereal => TimeUnitObjects.`century(sidereal)`
+    case TimeUnits.julian => TimeUnitObjects.`century(julian)`
+    case TimeUnits.topical => TimeUnitObjects.`century(topical)`
   }
   def S: TimeUnit = TimeUnitObjects.svedberg
   def md: TimeUnit = TimeUnitObjects.milliday

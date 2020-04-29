@@ -60,6 +60,7 @@ object VelocityUnitObjects{
 }
 
 object VelocityUnits{
+
   def c: VelocityUnit = VelocityUnitObjects.speed_of_light
   def M: VelocityUnit = VelocityUnitObjects.mach_number
   def kn: VelocityUnit = VelocityUnitObjects.knot

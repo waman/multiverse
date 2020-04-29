@@ -169,6 +169,7 @@ object VolumeUnitObjects{
 }
 
 object VolumeUnits{
+
   def `m³`: VolumeUnit = VolumeUnitObjects.cubic_metre
   def m3: VolumeUnit = VolumeUnitObjects.cubic_metre
   def `ym³`: VolumeUnit = VolumeUnitObjects.cubic_yoctometre

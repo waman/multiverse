@@ -105,4 +105,10 @@ object GenerationUtil{
   def headToLower(s: String): String = Character.toLowerCase(s.charAt(0)) + s.substring(1)
 
   def isOptionalAliase(a: String): Boolean = a.startsWith("(") && a.endsWith(")")
+
+  // [gregorian: Seq(month, year, decade, ...), julian: Seq(year, decade, ...), ...]
+  def extractAttributeMap[U <: UnitInfo](attUnits: Seq[U]): Map[String, Seq[String]] =
+    attUnits.flatMap(u => u.attributes.map(a => (u.objectName, a.name)))
+    .groupBy(_._2)
+    .mapValues(v => v.map(_._1))
 }

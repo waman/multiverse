@@ -66,6 +66,7 @@ object CapacitanceUnitObjects{
 }
 
 object CapacitanceUnits{
+
   def F: CapacitanceUnit = CapacitanceUnitObjects.farad
   def yF: CapacitanceUnit = CapacitanceUnitObjects.yoctofarad
   def zF: CapacitanceUnit = CapacitanceUnitObjects.zeptofarad

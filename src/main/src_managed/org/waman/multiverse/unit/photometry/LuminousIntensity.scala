@@ -74,6 +74,7 @@ object LuminousIntensityUnitObjects{
 }
 
 object LuminousIntensityUnits{
+
   def cd: LuminousIntensityUnit = LuminousIntensityUnitObjects.candela
   def ycd: LuminousIntensityUnit = LuminousIntensityUnitObjects.yoctocandela
   def zcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.zeptocandela

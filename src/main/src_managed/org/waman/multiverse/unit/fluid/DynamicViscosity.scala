@@ -67,6 +67,7 @@ object DynamicViscosityUnitObjects{
 }
 
 object DynamicViscosityUnits{
+
   def P: DynamicViscosityUnit = DynamicViscosityUnitObjects.poise
   def yP: DynamicViscosityUnit = DynamicViscosityUnitObjects.yoctopoise
   def zP: DynamicViscosityUnit = DynamicViscosityUnitObjects.zeptopoise

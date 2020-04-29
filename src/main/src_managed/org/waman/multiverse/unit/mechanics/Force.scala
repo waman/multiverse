@@ -126,6 +126,7 @@ object ForceUnitObjects{
 }
 
 object ForceUnits{
+
   def N: ForceUnit = ForceUnitObjects.newton
   def yN: ForceUnit = ForceUnitObjects.yoctonewton
   def zN: ForceUnit = ForceUnitObjects.zeptonewton

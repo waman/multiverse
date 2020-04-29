@@ -74,6 +74,7 @@ object LuminousFluxUnitObjects{
 }
 
 object LuminousFluxUnits{
+
   def lm: LuminousFluxUnit = LuminousFluxUnitObjects.lumen
   def ylm: LuminousFluxUnit = LuminousFluxUnitObjects.yoctolumen
   def zlm: LuminousFluxUnit = LuminousFluxUnitObjects.zeptolumen

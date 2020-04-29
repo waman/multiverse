@@ -99,7 +99,6 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
         //         ]}
         import unit.basic.TimeUnit
         import unit.basic.TimeUnits._
-        import unit.basic.TimeAttributes._
         // Exercise
         val conversions =
         Table(

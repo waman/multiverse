@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.electrics
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.basic.LengthUnits._
-import org.waman.multiverse.unit.electrics
 import org.waman.multiverse.unit.electrics.ChargeUnits._
 
 class DipoleSpec extends MultiverseCustomSpec {

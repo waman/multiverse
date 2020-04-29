@@ -70,6 +70,7 @@ object ConductanceUnitObjects{
 }
 
 object ConductanceUnits{
+
   def S: ConductanceUnit = ConductanceUnitObjects.siemens
   def mho: ConductanceUnit = ConductanceUnitObjects.siemens
   def `℧`: ConductanceUnit = ConductanceUnitObjects.siemens

@@ -68,6 +68,7 @@ object KinematicViscosityUnitObjects{
 }
 
 object KinematicViscosityUnits{
+
   def St: KinematicViscosityUnit = KinematicViscosityUnitObjects.stokes
   def ySt: KinematicViscosityUnit = KinematicViscosityUnitObjects.yoctostokes
   def zSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.zeptostokes

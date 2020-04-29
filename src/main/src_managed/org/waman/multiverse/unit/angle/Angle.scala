@@ -63,6 +63,7 @@ object AngleUnitObjects{
 }
 
 object AngleUnits{
+
   def rad: AngleUnit = AngleUnitObjects.radian
   def `°`: AngleUnit = AngleUnitObjects.degree
   def deg: AngleUnit = AngleUnitObjects.degree

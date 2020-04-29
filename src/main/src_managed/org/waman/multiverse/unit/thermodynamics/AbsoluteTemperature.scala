@@ -79,6 +79,7 @@ object AbsoluteTemperatureUnitObjects{
 }
 
 object AbsoluteTemperatureUnits{
+
   def K: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kelvin
   def yK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.yoctokelvin
   def zK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.zeptokelvin

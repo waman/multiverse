@@ -87,6 +87,7 @@ object AbsorbedDoseUnitObjects{
 }
 
 object AbsorbedDoseUnits{
+
   def Gy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gray
   def yGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yoctogray
   def zGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zeptogray

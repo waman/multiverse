@@ -60,6 +60,7 @@ object SolidAngleUnitObjects{
 }
 
 object SolidAngleUnits{
+
   def sr: SolidAngleUnit = SolidAngleUnitObjects.steradian
   def ysr: SolidAngleUnit = SolidAngleUnitObjects.yoctosteradian
   def zsr: SolidAngleUnit = SolidAngleUnitObjects.zeptosteradian

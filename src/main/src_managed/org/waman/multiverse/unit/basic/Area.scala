@@ -133,6 +133,7 @@ object AreaUnitObjects{
 }
 
 object AreaUnits{
+
   def `m²`: AreaUnit = AreaUnitObjects.square_metre
   def m2: AreaUnit = AreaUnitObjects.square_metre
   def `ym²`: AreaUnit = AreaUnitObjects.square_yoctometre

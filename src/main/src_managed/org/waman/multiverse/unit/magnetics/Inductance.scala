@@ -66,6 +66,7 @@ object InductanceUnitObjects{
 }
 
 object InductanceUnits{
+
   def H: InductanceUnit = InductanceUnitObjects.henry
   def yH: InductanceUnit = InductanceUnitObjects.yoctohenry
   def zH: InductanceUnit = InductanceUnitObjects.zeptohenry

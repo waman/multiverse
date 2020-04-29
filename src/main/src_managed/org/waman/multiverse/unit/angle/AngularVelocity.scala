@@ -56,6 +56,7 @@ object AngularVelocityUnitObjects{
 }
 
 object AngularVelocityUnits{
+
   def cps: AngularVelocityUnit = AngularVelocityUnitObjects.cycle_per_second
   def rpm: AngularVelocityUnit = AngularVelocityUnitObjects.revolution_per_minute
 }

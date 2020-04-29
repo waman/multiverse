@@ -3,7 +3,6 @@ package org.waman.multiverse.unit.mechanics
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.mechanics.EnergyUnits._
-import org.waman.multiverse.unit.mechanics.EnergyAttributes.IT
 
 class EnergySpec extends MultiverseCustomSpec {
 

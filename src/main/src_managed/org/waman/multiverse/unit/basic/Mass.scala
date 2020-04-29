@@ -87,12 +87,6 @@ sealed trait dramAttribute
 sealed trait ounceAttribute
 sealed trait poundAttribute
 
-object MassAttributes{
-  final object avoirdupois extends dramAttribute with ounceAttribute with poundAttribute
-  final object troy extends dramAttribute with ounceAttribute with poundAttribute
-  final object metric extends poundAttribute
-}
-
 object MassUnitObjects{
   import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects._
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
@@ -151,6 +145,10 @@ object MassUnitObjects{
 }
 
 object MassUnits{
+  final object avoirdupois extends dramAttribute with ounceAttribute with poundAttribute
+  final object troy extends dramAttribute with ounceAttribute with poundAttribute
+  final object metric extends poundAttribute
+
   def kg: MassUnit = MassUnitObjects.kilogram
   def Kg: MassUnit = MassUnitObjects.kilogram
   def g: MassUnit = MassUnitObjects.gram
@@ -185,19 +183,19 @@ object MassUnits{
   def gr: MassUnit = MassUnitObjects.grain
   def dr: MassUnit = MassUnitObjects.dram
   def dr(a: dramAttribute): MassUnit = a match { 
-    case MassAttributes.avoirdupois => MassUnitObjects.`dram(avoirdupois)`
-    case MassAttributes.troy => MassUnitObjects.`dram(troy)`
+    case MassUnits.avoirdupois => MassUnitObjects.`dram(avoirdupois)`
+    case MassUnits.troy => MassUnitObjects.`dram(troy)`
   }
   def oz: MassUnit = MassUnitObjects.ounce
   def oz(a: ounceAttribute): MassUnit = a match { 
-    case MassAttributes.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
-    case MassAttributes.troy => MassUnitObjects.`ounce(troy)`
+    case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
+    case MassUnits.troy => MassUnitObjects.`ounce(troy)`
   }
   def lb: MassUnit = MassUnitObjects.pound
   def lb(a: poundAttribute): MassUnit = a match { 
-    case MassAttributes.avoirdupois => MassUnitObjects.`pound(avoirdupois)`
-    case MassAttributes.troy => MassUnitObjects.`pound(troy)`
-    case MassAttributes.metric => MassUnitObjects.`pound(metric)`
+    case MassUnits.avoirdupois => MassUnitObjects.`pound(avoirdupois)`
+    case MassUnits.troy => MassUnitObjects.`pound(troy)`
+    case MassUnits.metric => MassUnitObjects.`pound(metric)`
   }
   def long_tn: MassUnit = MassUnitObjects.long_ton
   def sh_tn: MassUnit = MassUnitObjects.short_ton

@@ -70,6 +70,7 @@ object IlluminanceUnitObjects{
 }
 
 object IlluminanceUnits{
+
   def lx: IlluminanceUnit = IlluminanceUnitObjects.lux
   def ylx: IlluminanceUnit = IlluminanceUnitObjects.yoctolux
   def zlx: IlluminanceUnit = IlluminanceUnitObjects.zeptolux

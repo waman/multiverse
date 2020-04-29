@@ -97,6 +97,7 @@ object PressureUnitObjects{
 }
 
 object PressureUnits{
+
   def Pa: PressureUnit = PressureUnitObjects.pascal
   def yPa: PressureUnit = PressureUnitObjects.yoctopascal
   def zPa: PressureUnit = PressureUnitObjects.zeptopascal

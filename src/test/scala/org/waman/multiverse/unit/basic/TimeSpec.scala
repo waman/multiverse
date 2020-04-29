@@ -1,14 +1,12 @@
 package org.waman.multiverse.unit.basic
 
 import org.waman.multiverse.MultiverseCustomSpec
-import org.waman.multiverse.unit.basic.TimeAttributes.gregorian
-import org.waman.multiverse.unit.basic.TimeUnits._
 import org.waman.multiverse.implicits._
 
 class TimeSpec extends MultiverseCustomSpec {
 
   "Quantity" - {
-    import org.waman.multiverse.unit.basic.TimeAttributes._
+    import org.waman.multiverse.unit.basic.TimeUnits._
 
     "3.0 <<time unit>> should be converted to the equivalent value in second" in {
       // Exercise

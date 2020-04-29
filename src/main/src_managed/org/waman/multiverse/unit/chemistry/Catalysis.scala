@@ -69,6 +69,7 @@ object CatalysisUnitObjects{
 }
 
 object CatalysisUnits{
+
   def kat: CatalysisUnit = CatalysisUnitObjects.katal
   def ykat: CatalysisUnit = CatalysisUnitObjects.yoctokatal
   def zkat: CatalysisUnit = CatalysisUnitObjects.zeptokatal

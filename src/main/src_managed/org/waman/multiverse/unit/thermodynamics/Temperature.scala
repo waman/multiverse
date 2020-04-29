@@ -78,6 +78,7 @@ object TemperatureUnitObjects{
 }
 
 object TemperatureUnits{
+
   def K: TemperatureUnit = TemperatureUnitObjects.kelvin
   def yK: TemperatureUnit = TemperatureUnitObjects.yoctokelvin
   def zK: TemperatureUnit = TemperatureUnitObjects.zeptokelvin

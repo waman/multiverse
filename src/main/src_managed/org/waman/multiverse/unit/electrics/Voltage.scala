@@ -85,6 +85,7 @@ object VoltageUnitObjects{
 }
 
 object VoltageUnits{
+
   def V: VoltageUnit = VoltageUnitObjects.volt
   def yV: VoltageUnit = VoltageUnitObjects.yoctovolt
   def zV: VoltageUnit = VoltageUnitObjects.zeptovolt

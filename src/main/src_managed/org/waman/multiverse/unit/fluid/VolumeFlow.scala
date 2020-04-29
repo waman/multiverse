@@ -57,6 +57,7 @@ object VolumeFlowUnitObjects{
 }
 
 object VolumeFlowUnits{
+
   def LPM: VolumeFlowUnit = VolumeFlowUnitObjects.litre_per_minute
   def GPM: VolumeFlowUnit = VolumeFlowUnitObjects.gallon_per_minute
   def GPH: VolumeFlowUnit = VolumeFlowUnitObjects.gallon_per_hour

@@ -83,13 +83,6 @@ class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[St
 
 sealed trait horsepowerAttribute
 
-object PowerAttributes{
-  final object boiler extends horsepowerAttribute
-  final object mechanical extends horsepowerAttribute
-  final object metric extends horsepowerAttribute
-  final object electrical extends horsepowerAttribute
-}
-
 object PowerUnitObjects{
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
   import org.waman.multiverse.unit.mechanics.ForceUnitObjects._
@@ -130,6 +123,11 @@ object PowerUnitObjects{
 }
 
 object PowerUnits{
+  final object boiler extends horsepowerAttribute
+  final object mechanical extends horsepowerAttribute
+  final object metric extends horsepowerAttribute
+  final object electrical extends horsepowerAttribute
+
   def W: PowerUnit = PowerUnitObjects.watt
   def yW: PowerUnit = PowerUnitObjects.yoctowatt
   def zW: PowerUnit = PowerUnitObjects.zeptowatt
@@ -155,10 +153,10 @@ object PowerUnits{
   def YW: PowerUnit = PowerUnitObjects.yottawatt
   def hp: PowerUnit = PowerUnitObjects.horsepower
   def hp(a: horsepowerAttribute): PowerUnit = a match { 
-    case PowerAttributes.mechanical => PowerUnitObjects.`horsepower(mechanical)`
-    case PowerAttributes.metric => PowerUnitObjects.`horsepower(metric)`
-    case PowerAttributes.electrical => PowerUnitObjects.`horsepower(electrical)`
-    case PowerAttributes.boiler => PowerUnitObjects.`horsepower(boiler)`
+    case PowerUnits.mechanical => PowerUnitObjects.`horsepower(mechanical)`
+    case PowerUnits.metric => PowerUnitObjects.`horsepower(metric)`
+    case PowerUnits.electrical => PowerUnitObjects.`horsepower(electrical)`
+    case PowerUnits.boiler => PowerUnitObjects.`horsepower(boiler)`
   }
   def HP: PowerUnit = PowerUnitObjects.horsepower
   def HP(a: horsepowerAttribute): PowerUnit = hp(a)
