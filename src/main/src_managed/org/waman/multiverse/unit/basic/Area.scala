@@ -209,7 +209,7 @@ object AreaUnits{
   def sq_in: AreaUnit = AreaUnitObjects.square_inch
   def `li²`: AreaUnit = AreaUnitObjects.square_link
   def `li²`(a: square_linkAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`square_link(US)`
+    case MetricAttributes.US => AreaUnitObjects.`square_link(US)`
   }
   def li2: AreaUnit = AreaUnitObjects.square_link
   def li2(a: square_linkAttribute): AreaUnit = `li²`(a)
@@ -228,7 +228,7 @@ object AreaUnits{
 
   def `ft²`: AreaUnit = AreaUnitObjects.square_foot
   def `ft²`(a: square_footAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`square_foot(US)`
+    case MetricAttributes.US => AreaUnitObjects.`square_foot(US)`
   }
   def ft2: AreaUnit = AreaUnitObjects.square_foot
   def ft2(a: square_footAttribute): AreaUnit = `ft²`(a)
@@ -238,7 +238,7 @@ object AreaUnits{
 
   def `ch²`: AreaUnit = AreaUnitObjects.square_chain
   def `ch²`(a: square_chainAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`square_chain(US)`
+    case MetricAttributes.US => AreaUnitObjects.`square_chain(US)`
   }
   def ch2: AreaUnit = AreaUnitObjects.square_chain
   def ch2(a: square_chainAttribute): AreaUnit = `ch²`(a)
@@ -251,7 +251,7 @@ object AreaUnits{
   def sq_yd: AreaUnit = AreaUnitObjects.square_yard
   def `rd²`: AreaUnit = AreaUnitObjects.square_rod
   def `rd²`(a: square_rodAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`square_rod(US)`
+    case MetricAttributes.US => AreaUnitObjects.`square_rod(US)`
   }
   def rd2: AreaUnit = AreaUnitObjects.square_rod
   def rd2(a: square_rodAttribute): AreaUnit = `rd²`(a)
@@ -261,7 +261,7 @@ object AreaUnits{
 
   def `mi²`: AreaUnit = AreaUnitObjects.square_mile
   def `mi²`(a: square_mileAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`square_mile(US)`
+    case MetricAttributes.US => AreaUnitObjects.`square_mile(US)`
   }
   def mi2: AreaUnit = AreaUnitObjects.square_mile
   def mi2(a: square_mileAttribute): AreaUnit = `mi²`(a)
@@ -271,7 +271,7 @@ object AreaUnits{
 
   def ac: AreaUnit = AreaUnitObjects.acre
   def ac(a: acreAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`acre(US)`
+    case MetricAttributes.US => AreaUnitObjects.`acre(US)`
   }
   def ro: AreaUnit = AreaUnitObjects.rood
   def circ_mil: AreaUnit = AreaUnitObjects.circular_mil
@@ -279,7 +279,7 @@ object AreaUnits{
   def bd: AreaUnit = AreaUnitObjects.board
   def section: AreaUnit = AreaUnitObjects.section
   def section(a: sectionAttribute): AreaUnit = a match { 
-    case LengthAttributes.US => AreaUnitObjects.`section(US)`
+    case MetricAttributes.US => AreaUnitObjects.`section(US)`
   }
   def twp: AreaUnit = AreaUnitObjects.township
 }

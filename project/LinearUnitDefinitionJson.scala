@@ -1,5 +1,6 @@
 import java.io.{File, BufferedWriter => BW}
 
+import GenerationUtil.extractAttributeMap
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
@@ -274,10 +275,12 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
   }
 }
 
-class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
+class LengthUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
 
-  override protected def attributeContainer: String = "LengthAttributes"
+  import GenerationUtil._
+
+  override protected def attributeContainerID: String = "MetricAttributes"
 
   override protected def generateQuantityMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
 
@@ -334,20 +337,26 @@ class LengthUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String
   override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = {
     super.generateAttributes(writer, jsons, units)
 
+  //  object MetricAttributes{
+  //    final object MoKα1 extends xunitAttribute
+  //    final object Adm extends nautical_mileAttribute
+  //    ...
+  //  }
     val attUnits = getUnitsWithAttributes(jsons, units)
-    writer.write("object LengthAttributes{\n")
+    writer.write("object MetricAttributes{\n")
     super.generateAttributeObjects(writer, jsons, attUnits)
     writer.write("}\n\n")
   }
 
-  override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, attUnits: Seq[LinearUnit]): Unit = ()
+  override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 }
 
-class LengthPoweredUnitDefinitionJson(id: String, jsonFile: File, destDir: File, subpackage: String)
+class LengthPoweredUnitDefinitionDefinitionJson(id: String, jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
 
-  override protected def attributeContainer: String = "LengthAttributes"
+  override protected def attributeContainerID: String = "MetricAttributes"
   override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
+
   override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 }
 

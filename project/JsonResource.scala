@@ -31,10 +31,10 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
         json.getName match {
 //          case "aliases.json" => new AliasesJson(json, destDir, subpackage)
           case "Temperature.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
-          case "Length.json" => new LengthUnitDefinitionJson(json, destDir, subpackage)
+          case "Length.json" => new LengthUnitDefinitionDefinitionJson(json, destDir, subpackage)
           case "Area.json" | "Volume.json" =>
             val s = json.getName.replace(".json", "")
-            new LengthPoweredUnitDefinitionJson(s, json, destDir, subpackage)
+            new LengthPoweredUnitDefinitionDefinitionJson(s, json, destDir, subpackage)
           case "Time.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
           case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
         }

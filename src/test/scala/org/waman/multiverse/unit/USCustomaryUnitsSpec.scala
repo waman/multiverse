@@ -3,7 +3,7 @@ package org.waman.multiverse.unit
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.BasicUnits.{min => _, _}
-import org.waman.multiverse.unit.basic.{Area, AreaUnits, Length, Mass, MassUnits, Volume, VolumeUnits}
+import org.waman.multiverse.unit.basic._
 
 class USCustomaryUnitsSpec extends MultiverseCustomSpec {
 
@@ -190,7 +190,7 @@ class USCustomaryUnitsSpec extends MultiverseCustomSpec {
     }
 
     "Area Units should have the correct values" in {
-      import org.waman.multiverse.unit.basic.LengthAttributes.US
+      import org.waman.multiverse.unit.basic.MetricAttributes._
       // Exercise
       val conversions =
         Table(

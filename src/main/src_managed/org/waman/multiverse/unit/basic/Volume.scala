@@ -261,70 +261,70 @@ object VolumeUnits{
   def per: VolumeUnit = VolumeUnitObjects.perch
   def minim: VolumeUnit = VolumeUnitObjects.minim
   def minim(a: minimAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`minim(US)`
-    case LengthAttributes.imp => VolumeUnitObjects.`minim(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`minim(US)`
+    case MetricAttributes.imp => VolumeUnitObjects.`minim(imp)`
   }
   def tsp: VolumeUnit = VolumeUnitObjects.teaspoon
   def Tbsp: VolumeUnit = VolumeUnitObjects.tablespoon
   def fl_oz: VolumeUnit = VolumeUnitObjects.fluid_ounce
   def fl_oz(a: fluid_ounceAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`fluid_ounce(US)`
-    case LengthAttributes.imp => VolumeUnitObjects.`fluid_ounce(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`fluid_ounce(US)`
+    case MetricAttributes.imp => VolumeUnitObjects.`fluid_ounce(imp)`
   }
   def jig: VolumeUnit = VolumeUnitObjects.shot
   def gi: VolumeUnit = VolumeUnitObjects.gill
   def gi(a: gillAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`gill(US)`
-    case LengthAttributes.imp => VolumeUnitObjects.`gill(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`gill(US)`
+    case MetricAttributes.imp => VolumeUnitObjects.`gill(imp)`
   }
   def cp: VolumeUnit = VolumeUnitObjects.cup
   def cp(a: cupAttribute): VolumeUnit = a match { 
-    case LengthAttributes.metric => VolumeUnitObjects.`cup(metric)`
-    case LengthAttributes.US => VolumeUnitObjects.`cup(US)`
+    case MetricAttributes.metric => VolumeUnitObjects.`cup(metric)`
+    case MetricAttributes.US => VolumeUnitObjects.`cup(US)`
   }
   def pt: VolumeUnit = VolumeUnitObjects.pint
   def pt(a: pintAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US_fl => VolumeUnitObjects.`pint(US_fl)`
-    case LengthAttributes.US_dry => VolumeUnitObjects.`pint(US_dry)`
-    case LengthAttributes.imp => VolumeUnitObjects.`pint(imp)`
+    case MetricAttributes.US_fl => VolumeUnitObjects.`pint(US_fl)`
+    case MetricAttributes.US_dry => VolumeUnitObjects.`pint(US_dry)`
+    case MetricAttributes.imp => VolumeUnitObjects.`pint(imp)`
   }
   def qt: VolumeUnit = VolumeUnitObjects.quart
   def qt(a: quartAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US_fl => VolumeUnitObjects.`quart(US_fl)`
-    case LengthAttributes.US_dry => VolumeUnitObjects.`quart(US_dry)`
-    case LengthAttributes.imp => VolumeUnitObjects.`quart(imp)`
+    case MetricAttributes.US_fl => VolumeUnitObjects.`quart(US_fl)`
+    case MetricAttributes.US_dry => VolumeUnitObjects.`quart(US_dry)`
+    case MetricAttributes.imp => VolumeUnitObjects.`quart(imp)`
   }
   def pot: VolumeUnit = VolumeUnitObjects.pottle
   def pot(a: pottleAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`pottle(US)`
-    case LengthAttributes.imp => VolumeUnitObjects.`pottle(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`pottle(US)`
+    case MetricAttributes.imp => VolumeUnitObjects.`pottle(imp)`
   }
   def gal: VolumeUnit = VolumeUnitObjects.gallon
   def gal(a: gallonAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`gallon(US)`
-    case LengthAttributes.US_fl => VolumeUnitObjects.`gallon(US_fl)`
-    case LengthAttributes.US_dry => VolumeUnitObjects.`gallon(US_dry)`
-    case LengthAttributes.imp => VolumeUnitObjects.`gallon(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`gallon(US)`
+    case MetricAttributes.US_fl => VolumeUnitObjects.`gallon(US_fl)`
+    case MetricAttributes.US_dry => VolumeUnitObjects.`gallon(US_dry)`
+    case MetricAttributes.imp => VolumeUnitObjects.`gallon(imp)`
   }
   def pk: VolumeUnit = VolumeUnitObjects.peck
   def pk(a: peckAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US_dry => VolumeUnitObjects.`peck(US_dry)`
-    case LengthAttributes.imp => VolumeUnitObjects.`peck(imp)`
+    case MetricAttributes.US_dry => VolumeUnitObjects.`peck(US_dry)`
+    case MetricAttributes.imp => VolumeUnitObjects.`peck(imp)`
   }
   def bu: VolumeUnit = VolumeUnitObjects.bushel
   def bu(a: bushelAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`bushel(US)`
-    case LengthAttributes.US_lvl => VolumeUnitObjects.`bushel(US_lvl)`
-    case LengthAttributes.imp => VolumeUnitObjects.`bushel(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`bushel(US)`
+    case MetricAttributes.US_lvl => VolumeUnitObjects.`bushel(US_lvl)`
+    case MetricAttributes.imp => VolumeUnitObjects.`bushel(imp)`
   }
   def bsh: VolumeUnit = VolumeUnitObjects.bushel
   def bsh(a: bushelAttribute): VolumeUnit = bu(a)
 
   def bbl: VolumeUnit = VolumeUnitObjects.barrel
   def bbl(a: barrelAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US_fl => VolumeUnitObjects.`barrel(US_fl)`
-    case LengthAttributes.US_dry => VolumeUnitObjects.`barrel(US_dry)`
-    case LengthAttributes.imp => VolumeUnitObjects.`barrel(imp)`
+    case MetricAttributes.US_fl => VolumeUnitObjects.`barrel(US_fl)`
+    case MetricAttributes.US_dry => VolumeUnitObjects.`barrel(US_dry)`
+    case MetricAttributes.imp => VolumeUnitObjects.`barrel(imp)`
   }
   def bl: VolumeUnit = VolumeUnitObjects.barrel
   def bl(a: barrelAttribute): VolumeUnit = bbl(a)
@@ -332,13 +332,13 @@ object VolumeUnits{
   def fl_bl: VolumeUnit = VolumeUnitObjects.fluid_barrel
   def hhd: VolumeUnit = VolumeUnitObjects.hogshead
   def hhd(a: hogsheadAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`hogshead(US)`
-    case LengthAttributes.imp => VolumeUnitObjects.`hogshead(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`hogshead(US)`
+    case MetricAttributes.imp => VolumeUnitObjects.`hogshead(imp)`
   }
   def fl_dr: VolumeUnit = VolumeUnitObjects.fluid_dram
   def fl_dr(a: fluid_dramAttribute): VolumeUnit = a match { 
-    case LengthAttributes.US => VolumeUnitObjects.`fluid_dram(US)`
-    case LengthAttributes.imp => VolumeUnitObjects.`fluid_dram(imp)`
+    case MetricAttributes.US => VolumeUnitObjects.`fluid_dram(US)`
+    case MetricAttributes.imp => VolumeUnitObjects.`fluid_dram(imp)`
   }
   def fl_s: VolumeUnit = VolumeUnitObjects.fluid_scruple
   def bkt: VolumeUnit = VolumeUnitObjects.bucket

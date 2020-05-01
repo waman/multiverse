@@ -1,4 +1,4 @@
-import java.io.File
+import java.io.{BufferedWriter, File}
 import java.nio.charset.Charset
 
 import com.google.gson.Gson

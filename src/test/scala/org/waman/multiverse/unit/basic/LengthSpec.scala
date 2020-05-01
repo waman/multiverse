@@ -3,13 +3,13 @@ package org.waman.multiverse.unit.basic
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.basic.MetricAttributes._
 
 class LengthSpec extends MultiverseCustomSpec {
 
   "Unit" - {
 
     "Units with attributes" - {
-      import org.waman.multiverse.unit.basic.LengthAttributes._
 
       "The name property should return the proper string" in {
         // Exercise
@@ -61,8 +61,6 @@ class LengthSpec extends MultiverseCustomSpec {
   "Quantity" - {
 
     "3.0 <<length unit>> should be converted to the equivalent value in metre" in {
-      // SetUp
-      import org.waman.multiverse.unit.basic.LengthAttributes._
       // Exercise
       val conversions =
         Table(
@@ -85,7 +83,6 @@ class LengthSpec extends MultiverseCustomSpec {
 
     "3.0(m) should be converted to the equivalent value in other length units" in {
       // SetUp
-      import org.waman.multiverse.unit.basic.LengthAttributes._
       val q = 3.0 (m)
       // Exercise
       val conversions =

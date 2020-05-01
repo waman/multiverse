@@ -242,7 +242,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
   protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[U]): Seq[U] =
     units.filter(_.attributes.nonEmpty)
 
-  protected def attributeContainer: String = this.id + "Units"
+  protected def attributeContainerID: String = this.id + "Units"
 
   private def generateUnitObjects(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
     writer.write(s"object ${id}UnitObjects{\n")
@@ -294,7 +294,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       if (u.attributes.nonEmpty) {
         writer.write(s"""  def $sym(a: ${u.objectName}Attribute): ${id}Unit = a match { \n""")
         u.attributes.foreach { a =>
-          writer.write(s"""    case ${attributeContainer}.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
+          writer.write(s"""    case ${attributeContainerID}.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
         }
         writer.write("  }\n")
       }

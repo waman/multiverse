@@ -4,7 +4,7 @@ import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.basic.LengthUnits._
 import org.waman.multiverse.unit.basic.AreaUnits._
-import org.waman.multiverse.unit.basic.LengthAttributes._
+import org.waman.multiverse.unit.basic.MetricAttributes._
 import spire.implicits._
 
 class AreaSpec extends MultiverseCustomSpec {

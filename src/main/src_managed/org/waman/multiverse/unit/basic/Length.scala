@@ -132,7 +132,7 @@ sealed trait barrelAttribute
 sealed trait hogsheadAttribute
 sealed trait fluid_dramAttribute
 
-object LengthAttributes{
+object MetricAttributes{
   final object MoKα1 extends xunitAttribute
   final object Adm extends nautical_mileAttribute
   final object US extends square_linkAttribute with square_footAttribute with square_chainAttribute with square_rodAttribute with square_mileAttribute with acreAttribute with sectionAttribute with linkAttribute with footAttribute with rodAttribute with chainAttribute with mileAttribute with cableAttribute with leagueAttribute with furlongAttribute with minimAttribute with fluid_ounceAttribute with gillAttribute with cupAttribute with pottleAttribute with gallonAttribute with bushelAttribute with hogsheadAttribute with fluid_dramAttribute
@@ -243,8 +243,8 @@ object LengthUnits{
   def a_0: LengthUnit = LengthUnitObjects.atomic_unit_of_length
   def xu: LengthUnit = LengthUnitObjects.xunit
   def xu(a: xunitAttribute): LengthUnit = a match { 
-    case LengthAttributes.CuKα1 => LengthUnitObjects.`xunit(CuKα1)`
-    case LengthAttributes.MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
+    case MetricAttributes.CuKα1 => LengthUnitObjects.`xunit(CuKα1)`
+    case MetricAttributes.MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
   }
   def l_p: LengthUnit = LengthUnitObjects.planck_length
   def AU: LengthUnit = LengthUnitObjects.astronomical_unit
@@ -262,43 +262,43 @@ object LengthUnits{
   def in: LengthUnit = LengthUnitObjects.inch
   def li: LengthUnit = LengthUnitObjects.link
   def li(a: linkAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`link(US)`
+    case MetricAttributes.US => LengthUnitObjects.`link(US)`
   }
   def lnk: LengthUnit = LengthUnitObjects.link
   def lnk(a: linkAttribute): LengthUnit = li(a)
 
   def ft: LengthUnit = LengthUnitObjects.foot
   def ft(a: footAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`foot(US)`
+    case MetricAttributes.US => LengthUnitObjects.`foot(US)`
   }
   def yd: LengthUnit = LengthUnitObjects.yard
   def ell: LengthUnit = LengthUnitObjects.ell
   def ftm: LengthUnit = LengthUnitObjects.fathom
   def rd: LengthUnit = LengthUnitObjects.rod
   def rd(a: rodAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`rod(US)`
+    case MetricAttributes.US => LengthUnitObjects.`rod(US)`
   }
   def rope: LengthUnit = LengthUnitObjects.rope
   def ch: LengthUnit = LengthUnitObjects.chain
   def ch(a: chainAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`chain(US)`
+    case MetricAttributes.US => LengthUnitObjects.`chain(US)`
   }
   def mi: LengthUnit = LengthUnitObjects.mile
   def mi(a: mileAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`mile(US)`
+    case MetricAttributes.US => LengthUnitObjects.`mile(US)`
   }
   def cb: LengthUnit = LengthUnitObjects.cable
   def cb(a: cableAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`cable(US)`
-    case LengthAttributes.imp => LengthUnitObjects.`cable(imp)`
+    case MetricAttributes.US => LengthUnitObjects.`cable(US)`
+    case MetricAttributes.imp => LengthUnitObjects.`cable(imp)`
   }
   def lea: LengthUnit = LengthUnitObjects.league
   def lea(a: leagueAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`league(US)`
+    case MetricAttributes.US => LengthUnitObjects.`league(US)`
   }
   def NM: LengthUnit = LengthUnitObjects.nautical_mile
   def NM(a: nautical_mileAttribute): LengthUnit = a match { 
-    case LengthAttributes.Adm => LengthUnitObjects.`nautical_mile(Adm)`
+    case MetricAttributes.Adm => LengthUnitObjects.`nautical_mile(Adm)`
   }
   def nmi: LengthUnit = LengthUnitObjects.nautical_mile
   def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
@@ -311,6 +311,6 @@ object LengthUnits{
   def Fr: LengthUnit = LengthUnitObjects.french
   def fur: LengthUnit = LengthUnitObjects.furlong
   def fur(a: furlongAttribute): LengthUnit = a match { 
-    case LengthAttributes.US => LengthUnitObjects.`furlong(US)`
+    case MetricAttributes.US => LengthUnitObjects.`furlong(US)`
   }
 }

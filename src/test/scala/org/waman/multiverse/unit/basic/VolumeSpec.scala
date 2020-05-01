@@ -1,12 +1,12 @@
 package org.waman.multiverse.unit.basic
 
+import spire.implicits._
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.basic.LengthUnits._
 import org.waman.multiverse.unit.basic.AreaUnits._
-import org.waman.multiverse.unit.basic.LengthAttributes._
 import org.waman.multiverse.unit.basic.VolumeUnits._
-import spire.implicits._
+import org.waman.multiverse.unit.basic.MetricAttributes._
 
 class VolumeSpec extends MultiverseCustomSpec {
 
