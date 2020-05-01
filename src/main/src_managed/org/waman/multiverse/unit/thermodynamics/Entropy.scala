@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.thermodynamics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Entropy[A: Fractional](val value: A, val unit: EntropyUnit)
   override protected def newQuantity(value: A, unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
 }
 
-/** null */
 trait EntropyUnit extends LinearUnit[EntropyUnit]{
 
   override def getSIUnit: EntropyUnit = EntropyUnit.getSIUnit
@@ -42,6 +41,9 @@ class DefaultEntropyUnit(val name: String, val symbol: String, val aliases: Seq[
   extends EntropyUnit
 
 object EntropyUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
 
   final case object nat extends DefaultEntropyUnit("nat", "nat", Seq("k_B"), Constants.BoltzmannConstant)

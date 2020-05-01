@@ -4,7 +4,7 @@ import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
 case class HomogeneousUnitCategory(description: String, SIUnit: String, dimension: Dimension, composites: Array[String],
-                                                     convertibles: Array[Convertible], units: Array[RawHomogeneousUnit])
+                                                     convertibles: Array[RawConvertible], units: Array[RawHomogeneousUnit])
     extends UnitCategory[RawHomogeneousUnit, HomogeneousUnit]
 
 case class RawHomogeneousUnit(name: String, symbol: String, aliases: Array[String],
@@ -40,6 +40,7 @@ case class HomogeneousUnit(name: String, objectName: String, symbol: String, ali
                            zero: String, interval: String, description: String) extends UnitInfo{
   override def attributes: Seq[Attribute] = Nil
   override def baseUnit: String = null
+  override def intervalExpression: String = this.interval
 }
 
 class HomogeneousUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)

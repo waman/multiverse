@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.radioactivity
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
 }
 
-/** null */
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
 
   override def getSIUnit: RadioactivityUnit = RadioactivityUnit.getSIUnit
@@ -41,6 +40,9 @@ class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases
   extends RadioactivityUnit
 
 object RadioactivityUnitObjects{
+
+  import spire.implicits._
+
 
   final case object becquerel extends SimpleRadioactivityUnit("becquerel", "Bq", 1)
   final case object yoctobecquerel extends SimpleRadioactivityUnit("yoctobecquerel", "yBq", r"1e-24")

@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.fluid
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUn
   override protected def newQuantity(value: A, unit: DynamicViscosityUnit): DynamicViscosity[A] = new DynamicViscosity(value, unit)
 }
 
-/** null */
 trait DynamicViscosityUnit extends LinearUnit[DynamicViscosityUnit]{
 
   override def getSIUnit: DynamicViscosityUnit = DynamicViscosityUnit.getSIUnit
@@ -42,6 +41,9 @@ class DefaultDynamicViscosityUnit(val name: String, val symbol: String, val alia
   extends DynamicViscosityUnit
 
 object DynamicViscosityUnitObjects{
+
+  import spire.implicits._
+
 
   final case object poise extends SimpleDynamicViscosityUnit("poise", "P", r"0.1")
   final case object yoctopoise extends SimpleDynamicViscosityUnit("yoctopoise", "yP", r"0.1" * r"1e-24")

@@ -2,6 +2,7 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
+
 import org.waman.multiverse._
 
 
@@ -11,7 +12,6 @@ class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
   override protected def newQuantity(value: A, unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
 }
 
-/** null */
 trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit]{
 
   override def getSIUnit: TimeSquaredUnit = TimeSquaredUnit.getSIUnit
@@ -41,6 +41,7 @@ class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: 
   extends TimeSquaredUnit
 
 object TimeSquaredUnitObjects{
+
   import org.waman.multiverse.unit.basic.TimeUnitObjects._
 
   final case object second_squared extends DefaultTimeSquaredUnit("second squared", "s²", Seq("s2", "sec²", "sec2"), second.interval**2)

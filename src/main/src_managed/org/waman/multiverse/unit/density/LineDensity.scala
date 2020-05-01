@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.density
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class LineDensity[A: Fractional](val value: A, val unit: LineDensityUnit)
   override protected def newQuantity(value: A, unit: LineDensityUnit): LineDensity[A] = new LineDensity(value, unit)
 }
 
-/** null */
 trait LineDensityUnit extends LinearUnit[LineDensityUnit]{
 
   override def getSIUnit: LineDensityUnit = LineDensityUnit.getSIUnit
@@ -43,6 +42,9 @@ class DefaultLineDensityUnit(val name: String, val symbol: String, val aliases: 
   extends LineDensityUnit
 
 object LineDensityUnitObjects{
+
+  import spire.implicits._
+
 
   final case object denier extends SimpleLineDensityUnit("denier", "D", r"1"/r"9e6")
   final case object tex extends SimpleLineDensityUnit("tex", "tex", r"1e-6")

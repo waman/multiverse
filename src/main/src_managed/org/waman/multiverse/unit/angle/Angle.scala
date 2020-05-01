@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.angle
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.basic.TimeUnit
 class Angle[A: Fractional](val value: A, val unit: AngleUnit)
     extends LinearQuantity[Angle[A], A, AngleUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: AngleUnit): Angle[A] = new Angle(value, unit)
 
   def /(time: Time[A]): AngularVelocity[A] = new AngularVelocity(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait AngleUnit extends LinearUnit[AngleUnit]{
 
   override def getSIUnit: AngleUnit = AngleUnit.getSIUnit
@@ -48,6 +50,9 @@ class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[St
   extends AngleUnit
 
 object AngleUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
 
   final case object radian extends SimpleAngleUnit("radian", "rad", 1)

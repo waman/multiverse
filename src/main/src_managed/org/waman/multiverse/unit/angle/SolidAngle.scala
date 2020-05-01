@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.angle
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class SolidAngle[A: Fractional](val value: A, val unit: SolidAngleUnit)
   override protected def newQuantity(value: A, unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
 }
 
-/** null */
 trait SolidAngleUnit extends LinearUnit[SolidAngleUnit]{
 
   override def getSIUnit: SolidAngleUnit = SolidAngleUnit.getSIUnit
@@ -40,6 +39,9 @@ class DefaultSolidAngleUnit(val name: String, val symbol: String, val aliases: S
   extends SolidAngleUnit
 
 object SolidAngleUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.angle.AngleUnitObjects._
 

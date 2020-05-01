@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.photometry
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.basic.AreaUnit
 class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
     extends LinearQuantity[LuminousFlux[A], A, LuminousFluxUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: LuminousFluxUnit): LuminousFlux[A] = new LuminousFlux(value, unit)
 
   def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
 }
 
-/** null */
 trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
 
   override def getSIUnit: LuminousFluxUnit = LuminousFluxUnit.getSIUnit
@@ -49,6 +51,9 @@ class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases:
   extends LuminousFluxUnit
 
 object LuminousFluxUnitObjects{
+
+  import spire.implicits._
+
 
   final case object lumen extends SimpleLuminousFluxUnit("lumen", "lm", 1)
   final case object yoctolumen extends SimpleLuminousFluxUnit("yoctolumen", "ylm", r"1e-24")

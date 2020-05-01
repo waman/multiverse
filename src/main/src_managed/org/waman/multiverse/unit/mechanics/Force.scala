@@ -2,17 +2,21 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
 
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
+
 
 import org.waman.multiverse.unit.fluid.Pressure
 import org.waman.multiverse.unit.fluid.PressureUnit
@@ -20,6 +24,8 @@ import org.waman.multiverse.unit.fluid.PressureUnit
 
 class Force[A: Fractional](val value: A, val unit: ForceUnit)
     extends LinearQuantity[Force[A], A, ForceUnit] {
+
+  import spire.implicits._
 
   override protected def newQuantity(value: A, unit: ForceUnit): Force[A] = new Force(value, unit)
 
@@ -30,7 +36,6 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
   def /(area: Area[A]): Pressure[A] = new Pressure(this.value / area.value, this.unit / area.unit)
 }
 
-/** null */
 trait ForceUnit extends LinearUnit[ForceUnit]{
 
   override def getSIUnit: ForceUnit = ForceUnit.getSIUnit
@@ -68,6 +73,9 @@ class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[St
   extends ForceUnit
 
 object ForceUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects._
   import org.waman.multiverse.unit.basic.MassUnitObjects._
   import org.waman.multiverse.unit.basic.LengthUnitObjects._

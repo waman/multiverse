@@ -2,11 +2,13 @@ package org.waman.multiverse.unit.electrics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
+
 
 import org.waman.multiverse.unit.magnetics.Flux
 import org.waman.multiverse.unit.magnetics.FluxUnit
@@ -15,6 +17,8 @@ import org.waman.multiverse.unit.magnetics.FluxUnit
 class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
     extends LinearQuantity[Voltage[A], A, VoltageUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: VoltageUnit): Voltage[A] = new Voltage(value, unit)
 
   def *(time: Time[A]): Flux[A] = new Flux(this.value * time.value, this.unit * time.unit)
@@ -22,7 +26,6 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
   def /(current: Current[A]): Resistance[A] = new Resistance(this.value / current.value, this.unit / current.unit)
 }
 
-/** null */
 trait VoltageUnit extends LinearUnit[VoltageUnit]{
 
   override def getSIUnit: VoltageUnit = VoltageUnit.getSIUnit
@@ -57,6 +60,9 @@ class DefaultVoltageUnit(val name: String, val symbol: String, val aliases: Seq[
   extends VoltageUnit
 
 object VoltageUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
 
   final case object volt extends SimpleVoltageUnit("volt", "V", 1)

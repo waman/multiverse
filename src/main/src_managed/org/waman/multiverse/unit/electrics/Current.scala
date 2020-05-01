@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.electrics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,6 +13,8 @@ import org.waman.multiverse.unit.basic.TimeUnit
 class Current[A: Fractional](val value: A, val unit: CurrentUnit)
     extends LinearQuantity[Current[A], A, CurrentUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: CurrentUnit): Current[A] = new Current(value, unit)
 
   def *(time: Time[A]): Charge[A] = new Charge(this.value * time.value, this.unit * time.unit)
@@ -19,7 +22,6 @@ class Current[A: Fractional](val value: A, val unit: CurrentUnit)
   def /(voltage: Voltage[A]): Conductance[A] = new Conductance(this.value / voltage.value, this.unit / voltage.unit)
 }
 
-/** null */
 trait CurrentUnit extends LinearUnit[CurrentUnit]{
 
   override def getSIUnit: CurrentUnit = CurrentUnit.getSIUnit
@@ -54,6 +56,9 @@ class DefaultCurrentUnit(val name: String, val symbol: String, val aliases: Seq[
   extends CurrentUnit
 
 object CurrentUnitObjects{
+
+  import spire.implicits._
+
 
   final case object ampere extends SimpleCurrentUnit("ampere", "A", 1)
   final case object yoctoampere extends SimpleCurrentUnit("yoctoampere", "yA", r"1e-24")

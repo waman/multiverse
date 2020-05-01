@@ -2,12 +2,14 @@ package org.waman.multiverse.unit.thermodynamics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
 class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
     extends HomogeneousQuantity[A, TemperatureUnit] {
+
+  import spire.implicits._
 
 
   def toAbsoluteTemperature: AbsoluteTemperature[A] = new AbsoluteTemperature(
@@ -16,7 +18,6 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
 
 }
 
-/** null */
 trait TemperatureUnit extends HomogeneousUnit[TemperatureUnit]{
 
   override def getSIUnit: TemperatureUnit = TemperatureUnit.getSIUnit
@@ -45,6 +46,9 @@ class DefaultTemperatureUnit(val name: String, val symbol: String, val aliases: 
   extends TemperatureUnit
 
 object TemperatureUnitObjects{
+
+  import spire.implicits._
+
 
   final case object kelvin extends SimpleTemperatureUnit("kelvin", "K", 0, 1)
   final case object yoctokelvin extends SimpleTemperatureUnit("yoctokelvin", "yK", 0, 1 * r"1e-24")

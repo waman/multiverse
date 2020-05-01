@@ -2,14 +2,17 @@ package org.waman.multiverse.unit.basic
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.angle.Frequency
 import org.waman.multiverse.unit.angle.FrequencyUnit
 
+
 import org.waman.multiverse.unit.radiometry.AreaFrequency
 import org.waman.multiverse.unit.radiometry.AreaFrequencyUnit
+
 
 import org.waman.multiverse.unit.fluid.KinematicViscosity
 import org.waman.multiverse.unit.fluid.KinematicViscosityUnit
@@ -17,6 +20,8 @@ import org.waman.multiverse.unit.fluid.KinematicViscosityUnit
 
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
     extends LinearQuantity[Area[A], A, AreaUnit] {
+
+  import spire.implicits._
 
   override protected def newQuantity(value: A, unit: AreaUnit): Area[A] = new Area(value, unit)
 
@@ -27,7 +32,6 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
   def /(time: Time[A]): KinematicViscosity[A] = new KinematicViscosity(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait AreaUnit extends LinearUnit[AreaUnit]{
 
   override def getSIUnit: AreaUnit = AreaUnit.getSIUnit
@@ -65,6 +69,9 @@ class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[Str
   extends AreaUnit
 
 object AreaUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
 

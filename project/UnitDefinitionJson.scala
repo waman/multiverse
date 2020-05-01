@@ -22,7 +22,10 @@ trait UnitInfo{
   def symbol: String
   def aliases: Seq[String]
   def interval: String
+  /** This is (also) used for constructing imports */
   def baseUnit: String
+  /** In LinearUnitDefinition, this is constructed by interval an baseUnit. In Homogeneous one, this is interval */
+  def intervalExpression: String
   def attributes: Seq[Attribute]
   def description: String
 }
@@ -32,10 +35,10 @@ trait UnitCategory[RU <: RawUnitInfo[U], U <: UnitInfo]{
   def SIUnit: String
   def dimension: Dimension
   def units: Array[RU]
-  def convertibles: Array[Convertible]
+  def convertibles: Array[RawConvertible]
 
   lazy val _units: Seq[RU] = GenerationUtil.toSeq(this.units)
-  lazy val _convertibles: Seq[Convertible] = GenerationUtil.toSeq(this.convertibles)
+  def _convertibles(thisId: String): Seq[Convertible] = GenerationUtil.toSeq(this.convertibles).map(_.refine(thisId))
 }
 
 case class Dimension(M: Int, L: Int, T: Int, I: Int, Θ: Int, N: Int, J: Int){
@@ -43,10 +46,37 @@ case class Dimension(M: Int, L: Int, T: Int, I: Int, Θ: Int, N: Int, J: Int){
     Map("M" -> M, "L" -> L, "T" -> T, "I" -> I, "Θ" -> Θ, "N" -> N, "J" -> J).filter(_._2 != 0)
 }
 
-case class Convertible(target: String, from: String, to: String, algorithm: String, factor: String){
+case class RawConvertible(target: String, from: String, to: String, algorithm: String, factor: String){
   require(algorithm != null || factor != null)
   require(algorithm == null || factor == null)
+
+  import GenerationUtil._
+
+  def refine(thisId: String): Convertible = {
+    val extraTypes = Seq(this.from, this.to).flatMap(extractUnitTypes).map(_._1)
+
+    val newFrom =
+      if (this.from.contains('.')) refineUnitNamesInConvertible(this.from)
+      else s"""${thisId}UnitObjects.$from"""
+
+    val newTo =
+      if (this.to.contains('.')) refineUnitNamesInConvertible(this.to)
+      else s"""${target}UnitObjects.$to"""
+
+    if (this.algorithm != null && this.algorithm == "reciprocal")
+      Convertible(target, newFrom, newTo, isReciprocal = true, None, extraTypes)
+    else {
+      val f =
+        if (this.factor == null) None // Temperature <-> AbsoluteTemperature
+        else Some(refineNumbers(this.factor))
+
+      Convertible(target, newFrom, newTo, isReciprocal = false, f, extraTypes)
+    }
+  }
 }
+
+case class Convertible(target: String, from: String, to: String, isReciprocal: Boolean,
+                       factor: Option[String], extraTypes: Seq[String])
 
 abstract class UnitDefinitionJson(val unitType: String, jsonFile: File, destDir: File, val subpackage: String)
   extends SourceGeneratorJson(jsonFile, destDir){
@@ -91,16 +121,8 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
          |
          |import spire.math.Real
          |import spire.math.Fractional
-         |""".stripMargin)
-
-    this.id match {
-      case "TimeSquared" | "Torque" | "VolumeFlow" | "EquivalentDoseRate" | "Radiance" | "RadiantEnergyDensity" =>
-      case _ =>
-        writer.write("import spire.implicits._\n")
-    }
-
-    writer.write(
-      s"""import $rootPackage._
+         |
+         |import $rootPackage._
          |
          |""".stripMargin)
 
@@ -118,67 +140,76 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
          |
          |""".stripMargin)
 
-    generateQuantityExtraContents(writer, jsons, op)
+    val convs = this.unitCategory._convertibles(this.id)
+    val factors = convs.map(_.factor).collect{ case Some(f) => f }
 
-    if (this.unitCategory._convertibles.filter(_.factor != null).exists(_.factor.contains("Constants")))
+    //***** imports *****
+    val spireImplicitsOutputted =
+      if (convs.exists(_.isReciprocal) ||
+          factors.exists(f => f.contains("r\"") || f.contains("1") || f.contains("Constants"))) {
+        writer.write("  import spire.implicits._\n\n")
+        true
+      } else false
+
+    if (factors.exists(_.contains("Constants")))
       writer.write(s"""  import $rootPackage.unit.Constants\n""")
 
-    this.unitCategory._convertibles.foreach{ conv =>
+    convs.foreach{ conv =>
       val targetUD = jsons.searchUnitDefinition(conv.target)
 
       if (targetUD.subpackage != this.subpackage) {
-        writer.write(s"""  import $rootPackage.unit.${targetUD.subpackage}.${targetUD.id}\n""")
-
-        if (!conv.to.contains('.'))
-          writer.write(s"""  import $rootPackage.unit.${targetUD.subpackage}.${targetUD.id}UnitObjects\n""")
+        writer.write(
+          s"""  import $rootPackage.unit.${targetUD.subpackage}.${targetUD.id}
+             |  import $rootPackage.unit.${targetUD.subpackage}.${targetUD.id}UnitObjects
+             |""".stripMargin)
       }
 
-      val extraTypes = Seq(conv.from, conv.to).flatMap(extractUnitTypes)
-      foreachUnitDefinition(extraTypes.map(_._1), jsons){ ud =>
+      foreachUnitDefinition(conv.extraTypes, jsons){ ud =>
         if (ud.subpackage != this.subpackage)
           writer.write(s"""  import $rootPackage.unit.${ud.subpackage}.${ud.id}UnitObjects\n""")
       }
 
-      val from =
-        if (conv.from.contains('.')) refineUnitNamesInConvertible(conv.from)
-        else s"""${id}UnitObjects.${conv.from}"""
-
-      val to =
-        if (conv.to.contains('.')) refineUnitNamesInConvertible(conv.to)
-        else s"""${conv.target}UnitObjects.${conv.to}"""
-
-      if (conv.algorithm != null && conv.algorithm == "reciprocal"){
+      //***** methods *****
+      if (conv.isReciprocal){
         writer.write(
           s"""
              |  def to${conv.target}: ${conv.target}[A] =
-             |    new ${conv.target}(apply($from).reciprocal, $to)
+             |    new ${conv.target}(apply(${conv.from}).reciprocal, ${conv.to})
              |
              |""".stripMargin)
 
       } else {
-        val factor =
-          if (conv.factor == null) ""  // for Temperature <-> AbsoluteTemperature or AngularMomentum <-> Action
-          else s""" * implicitly[Fractional[A]].fromReal(${refineNumbers(conv.factor)})"""
+        val factor = conv.factor match {
+          case None => ""
+          case Some(f) => s""" * implicitly[Fractional[A]].fromReal($f)"""
+        }
 
         writer.write(
           s"""
              |  def to${conv.target}: ${conv.target}[A] = new ${conv.target}(
-             |      apply($from)$factor,
-             |      $to)
+             |      apply(${conv.from})$factor,
+             |      ${conv.to})
              |
              |""".stripMargin)
       }
     }
+
+    generateQuantityExtraContents(writer, jsons, op, spireImplicitsOutputted)
+
     writer.write("}\n\n")
   }
 
   protected def parentQuantityDecl: String
-  protected def generateQuantityExtraContents(writer: BW, jsons: JsonResources, op: OP): Unit = ()
+  protected def generateQuantityExtraContents(
+    writer: BW, jsons: JsonResources, op: OP, spireImplicitsOutputted: Boolean): Unit = ()
 
   private def generateUnitTrait(writer: BW, jsons: JsonResources, op: OP): Unit = {
+    if (this.unitCategory.description != null) {
+      writer.write(s"/** ${this.unitCategory.description} */\n")
+    }
+
     writer.write(
-      s"""/** ${this.unitCategory.description} */
-         |trait ${id}Unit extends ${unitType}Unit[${id}Unit]{
+      s"""trait ${id}Unit extends ${unitType}Unit[${id}Unit]{
          |
          |  override def getSIUnit: ${id}Unit = ${id}Unit.getSIUnit
          |  override def dimension: Map[DimensionSymbol, Int] = ${id}Unit.dimension
@@ -245,9 +276,13 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
   protected def attributeContainerID: String = this.id + "Units"
 
   private def generateUnitObjects(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
-    writer.write(s"object ${id}UnitObjects{\n")
+    writer.write(s"object ${id}UnitObjects{\n\n")
 
-    if (units.filter(_.interval != null).exists(_.interval.contains("Constants")))
+    if (units.map(_.intervalExpression).exists(s => s == "1" || s.contains("r\""))) {
+      writer.write("  import spire.implicits._\n\n")
+    }
+
+    if (units.exists(_.intervalExpression.contains("Constants")))
       writer.write(s"""  import $rootPackage.unit.Constants\n""")
 
     val types = units.filter(_.baseUnit != null).map(_.baseUnit).flatMap(extractUnitTypes)
@@ -264,16 +299,6 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
   }
 
   protected def generateUnitCaseObject(writer: BW, unit: U): Unit
-
-  protected def makeIntervalExpression(interval: String, baseUnit: String): String =
-    if (baseUnit == null) {
-      if (interval == null) "1" else refineNumbers(interval)
-
-    } else {
-      val baseUnitInterval = refineUnitNamesInBaseUnit(baseUnit)
-      if (interval == null) baseUnitInterval
-      else s"""${refineNumbers(interval)} * $baseUnitInterval"""
-    }
 
   private def generateUnits(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
     writer.write(s"""object ${id}Units{\n""")
@@ -294,7 +319,7 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       if (u.attributes.nonEmpty) {
         writer.write(s"""  def $sym(a: ${u.objectName}Attribute): ${id}Unit = a match { \n""")
         u.attributes.foreach { a =>
-          writer.write(s"""    case ${attributeContainerID}.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
+          writer.write(s"""    case $attributeContainerID.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
         }
         writer.write("  }\n")
       }

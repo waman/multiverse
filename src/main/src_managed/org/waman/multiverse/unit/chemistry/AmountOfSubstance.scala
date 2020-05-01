@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.chemistry
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.basic.TimeUnit
 class AmountOfSubstance[A: Fractional](val value: A, val unit: AmountOfSubstanceUnit)
     extends LinearQuantity[AmountOfSubstance[A], A, AmountOfSubstanceUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: AmountOfSubstanceUnit): AmountOfSubstance[A] = new AmountOfSubstance(value, unit)
 
   def /(time: Time[A]): Catalysis[A] = new Catalysis(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait AmountOfSubstanceUnit extends LinearUnit[AmountOfSubstanceUnit]{
 
   override def getSIUnit: AmountOfSubstanceUnit = AmountOfSubstanceUnit.getSIUnit
@@ -49,6 +51,9 @@ class DefaultAmountOfSubstanceUnit(val name: String, val symbol: String, val ali
   extends AmountOfSubstanceUnit
 
 object AmountOfSubstanceUnitObjects{
+
+  import spire.implicits._
+
 
   final case object mole extends SimpleAmountOfSubstanceUnit("mole", "mol", 1)
   final case object yoctomole extends SimpleAmountOfSubstanceUnit("yoctomole", "ymol", r"1e-24")

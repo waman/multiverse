@@ -2,21 +2,22 @@ package org.waman.multiverse.unit.electrics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
 class Resistance[A: Fractional](val value: A, val unit: ResistanceUnit)
     extends LinearQuantity[Resistance[A], A, ResistanceUnit] {
 
-  override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
+  import spire.implicits._
+
 
   def toConductance: Conductance[A] =
     new Conductance(apply(ResistanceUnitObjects.ohm).reciprocal, ConductanceUnitObjects.siemens)
 
+  override protected def newQuantity(value: A, unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
 }
 
-/** null */
 trait ResistanceUnit extends LinearUnit[ResistanceUnit]{
 
   override def getSIUnit: ResistanceUnit = ResistanceUnit.getSIUnit
@@ -45,6 +46,9 @@ class DefaultResistanceUnit(val name: String, val symbol: String, val aliases: S
   extends ResistanceUnit
 
 object ResistanceUnitObjects{
+
+  import spire.implicits._
+
 
   final case object ohm extends DefaultResistanceUnit("ohm", "Ω", Seq("ohm"), 1)
   final case object yoctoohm extends DefaultResistanceUnit("yoctoohm", "yΩ", Seq("yohm"), r"1e-24")

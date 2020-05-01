@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.radiometry
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class AreaFrequency[A: Fractional](val value: A, val unit: AreaFrequencyUnit)
   override protected def newQuantity(value: A, unit: AreaFrequencyUnit): AreaFrequency[A] = new AreaFrequency(value, unit)
 }
 
-/** null */
 trait AreaFrequencyUnit extends LinearUnit[AreaFrequencyUnit]{
 
   override def getSIUnit: AreaFrequencyUnit = AreaFrequencyUnit.getSIUnit
@@ -42,6 +41,7 @@ class DefaultAreaFrequencyUnit(val name: String, val symbol: String, val aliases
   extends AreaFrequencyUnit
 
 object AreaFrequencyUnitObjects{
+
 
 }
 

@@ -2,20 +2,23 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
-import org.waman.multiverse.unit.basic.Mass
+
 import org.waman.multiverse.unit.basic.MassUnit
+
 
 import org.waman.multiverse.unit.radioactivity.AbsorbedDose
 import org.waman.multiverse.unit.radioactivity.AbsorbedDoseUnit
 
-import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperature
+
 import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnit
+
 
 import org.waman.multiverse.unit.thermodynamics.Entropy
 import org.waman.multiverse.unit.thermodynamics.EntropyUnit
@@ -24,15 +27,8 @@ import org.waman.multiverse.unit.thermodynamics.EntropyUnit
 class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
     extends LinearQuantity[Energy[A], A, EnergyUnit] {
 
-  override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
+  import spire.implicits._
 
-  def *(time: Time[A]): AngularMomentum[A] = new AngularMomentum(this.value * time.value, this.unit * time.unit)
-
-  def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
-
-  def /(mass: Mass[A]): AbsorbedDose[A] = new AbsorbedDose(this.value / mass.value, this.unit / mass.unit)
-
-  def /(absoluteTemperature: AbsoluteTemperature[A]): Entropy[A] = new Entropy(this.value / absoluteTemperature.value, this.unit / absoluteTemperature.unit)
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperature
   import org.waman.multiverse.unit.thermodynamics.AbsoluteTemperatureUnitObjects
@@ -48,9 +44,17 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
       apply(EnergyUnitObjects.joule) * implicitly[Fractional[A]].fromReal(r"1" / (Constants.SpeedOfLight * Constants.SpeedOfLight)),
       MassUnitObjects.kilogram)
 
+  override protected def newQuantity(value: A, unit: EnergyUnit): Energy[A] = new Energy(value, unit)
+
+  def *(time: Time[A]): AngularMomentum[A] = new AngularMomentum(this.value * time.value, this.unit * time.unit)
+
+  def /(time: Time[A]): Power[A] = new Power(this.value / time.value, this.unit / time.unit)
+
+  def /(mass: Mass[A]): AbsorbedDose[A] = new AbsorbedDose(this.value / mass.value, this.unit / mass.unit)
+
+  def /(absoluteTemperature: AbsoluteTemperature[A]): Entropy[A] = new Entropy(this.value / absoluteTemperature.value, this.unit / absoluteTemperature.unit)
 }
 
-/** null */
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
@@ -94,6 +98,9 @@ sealed trait calorieAttribute
 sealed trait british_thermal_unitAttribute
 
 object EnergyUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.mechanics.PowerUnitObjects._
   import org.waman.multiverse.unit.basic.TimeUnitObjects._

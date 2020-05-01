@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.magnetics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class FluxDensity[A: Fractional](val value: A, val unit: FluxDensityUnit)
   override protected def newQuantity(value: A, unit: FluxDensityUnit): FluxDensity[A] = new FluxDensity(value, unit)
 }
 
-/** null */
 trait FluxDensityUnit extends LinearUnit[FluxDensityUnit]{
 
   override def getSIUnit: FluxDensityUnit = FluxDensityUnit.getSIUnit
@@ -41,6 +40,9 @@ class DefaultFluxDensityUnit(val name: String, val symbol: String, val aliases: 
   extends FluxDensityUnit
 
 object FluxDensityUnitObjects{
+
+  import spire.implicits._
+
 
   final case object tesla extends SimpleFluxDensityUnit("tesla", "T", 1)
   final case object yoctotesla extends SimpleFluxDensityUnit("yoctotesla", "yT", r"1e-24")

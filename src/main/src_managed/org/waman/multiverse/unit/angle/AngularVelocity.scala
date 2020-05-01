@@ -2,14 +2,15 @@ package org.waman.multiverse.unit.angle
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
 class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit)
     extends LinearQuantity[AngularVelocity[A], A, AngularVelocityUnit] {
 
-  override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
@@ -17,9 +18,9 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
       apply(AngleUnitObjects.radian / TimeUnitObjects.second) * implicitly[Fractional[A]].fromReal(r"1" / (r"2" * Constants.Pi)),
       FrequencyUnitObjects.heltz)
 
+  override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
 }
 
-/** null */
 trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{
 
   override def getSIUnit: AngularVelocityUnit = AngularVelocityUnit.getSIUnit
@@ -49,6 +50,9 @@ class DefaultAngularVelocityUnit(val name: String, val symbol: String, val alias
   extends AngularVelocityUnit
 
 object AngularVelocityUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
 
   final case object cycle_per_second extends SimpleAngularVelocityUnit("cycle per second", "cps", r"2" * Constants.Pi)

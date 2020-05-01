@@ -2,11 +2,13 @@ package org.waman.multiverse.unit.magnetics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
+
 
 import org.waman.multiverse.unit.electrics.Current
 import org.waman.multiverse.unit.electrics.CurrentUnit
@@ -15,6 +17,8 @@ import org.waman.multiverse.unit.electrics.CurrentUnit
 class Flux[A: Fractional](val value: A, val unit: FluxUnit)
     extends LinearQuantity[Flux[A], A, FluxUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: FluxUnit): Flux[A] = new Flux(value, unit)
 
   def /(area: Area[A]): FluxDensity[A] = new FluxDensity(this.value / area.value, this.unit / area.unit)
@@ -22,7 +26,6 @@ class Flux[A: Fractional](val value: A, val unit: FluxUnit)
   def /(current: Current[A]): Inductance[A] = new Inductance(this.value / current.value, this.unit / current.unit)
 }
 
-/** null */
 trait FluxUnit extends LinearUnit[FluxUnit]{
 
   override def getSIUnit: FluxUnit = FluxUnit.getSIUnit
@@ -57,6 +60,9 @@ class DefaultFluxUnit(val name: String, val symbol: String, val aliases: Seq[Str
   extends FluxUnit
 
 object FluxUnitObjects{
+
+  import spire.implicits._
+
 
   final case object weber extends SimpleFluxUnit("weber", "Wb", 1)
   final case object yoctoweber extends SimpleFluxUnit("yoctoweber", "yWb", r"1e-24")

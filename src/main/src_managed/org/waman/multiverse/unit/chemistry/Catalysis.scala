@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.chemistry
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Catalysis[A: Fractional](val value: A, val unit: CatalysisUnit)
   override protected def newQuantity(value: A, unit: CatalysisUnit): Catalysis[A] = new Catalysis(value, unit)
 }
 
-/** null */
 trait CatalysisUnit extends LinearUnit[CatalysisUnit]{
 
   override def getSIUnit: CatalysisUnit = CatalysisUnit.getSIUnit
@@ -41,6 +40,9 @@ class DefaultCatalysisUnit(val name: String, val symbol: String, val aliases: Se
   extends CatalysisUnit
 
 object CatalysisUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.chemistry.AmountOfSubstanceUnitObjects._
   import org.waman.multiverse.unit.basic.TimeUnitObjects._
 

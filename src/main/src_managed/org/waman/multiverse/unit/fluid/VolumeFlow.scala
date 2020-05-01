@@ -2,6 +2,7 @@ package org.waman.multiverse.unit.fluid
 
 import spire.math.Real
 import spire.math.Fractional
+
 import org.waman.multiverse._
 
 
@@ -11,7 +12,6 @@ class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit)
   override protected def newQuantity(value: A, unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
 }
 
-/** null */
 trait VolumeFlowUnit extends LinearUnit[VolumeFlowUnit]{
 
   override def getSIUnit: VolumeFlowUnit = VolumeFlowUnit.getSIUnit
@@ -42,6 +42,7 @@ class DefaultVolumeFlowUnit(val name: String, val symbol: String, val aliases: S
   extends VolumeFlowUnit
 
 object VolumeFlowUnitObjects{
+
   import org.waman.multiverse.unit.basic.VolumeUnitObjects._
   import org.waman.multiverse.unit.basic.TimeUnitObjects._
 

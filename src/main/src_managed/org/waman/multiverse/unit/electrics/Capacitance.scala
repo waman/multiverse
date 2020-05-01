@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.electrics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Capacitance[A: Fractional](val value: A, val unit: CapacitanceUnit)
   override protected def newQuantity(value: A, unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
 }
 
-/** null */
 trait CapacitanceUnit extends LinearUnit[CapacitanceUnit]{
 
   override def getSIUnit: CapacitanceUnit = CapacitanceUnit.getSIUnit
@@ -41,6 +40,9 @@ class DefaultCapacitanceUnit(val name: String, val symbol: String, val aliases: 
   extends CapacitanceUnit
 
 object CapacitanceUnitObjects{
+
+  import spire.implicits._
+
 
   final case object farad extends SimpleCapacitanceUnit("farad", "F", 1)
   final case object yoctofarad extends SimpleCapacitanceUnit("yoctofarad", "yF", r"1e-24")

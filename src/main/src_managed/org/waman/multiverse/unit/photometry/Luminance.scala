@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.photometry
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
   override protected def newQuantity(value: A, unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
 }
 
-/** null */
 trait LuminanceUnit extends LinearUnit[LuminanceUnit]{
 
   override def getSIUnit: LuminanceUnit = LuminanceUnit.getSIUnit
@@ -42,6 +41,9 @@ class DefaultLuminanceUnit(val name: String, val symbol: String, val aliases: Se
   extends LuminanceUnit
 
 object LuminanceUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.photometry.LuminousIntensityUnitObjects._
   import org.waman.multiverse.unit.basic.AreaUnitObjects._

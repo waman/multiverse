@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.electrics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Dipole[A: Fractional](val value: A, val unit: DipoleUnit)
   override protected def newQuantity(value: A, unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
 }
 
-/** null */
 trait DipoleUnit extends LinearUnit[DipoleUnit]{
 
   override def getSIUnit: DipoleUnit = DipoleUnit.getSIUnit
@@ -42,6 +41,9 @@ class DefaultDipoleUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends DipoleUnit
 
 object DipoleUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.electrics.ChargeUnitObjects._
 

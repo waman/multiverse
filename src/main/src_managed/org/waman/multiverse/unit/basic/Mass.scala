@@ -2,20 +2,25 @@ package org.waman.multiverse.unit.basic
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
 
+
 import org.waman.multiverse.unit.mechanics.Force
 import org.waman.multiverse.unit.mechanics.ForceUnit
+
 
 import org.waman.multiverse.unit.mechanics.MassTorque
 import org.waman.multiverse.unit.mechanics.MassTorqueUnit
 
+
 import org.waman.multiverse.unit.density.Density
 import org.waman.multiverse.unit.density.DensityUnit
+
 
 import org.waman.multiverse.unit.density.LineDensity
 import org.waman.multiverse.unit.density.LineDensityUnit
@@ -23,6 +28,16 @@ import org.waman.multiverse.unit.density.LineDensityUnit
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
     extends LinearQuantity[Mass[A], A, MassUnit] {
+
+  import spire.implicits._
+
+  import org.waman.multiverse.unit.Constants
+  import org.waman.multiverse.unit.mechanics.Energy
+  import org.waman.multiverse.unit.mechanics.EnergyUnitObjects
+
+  def toEnergy: Energy[A] = new Energy(
+      apply(MassUnitObjects.kilogram) * implicitly[Fractional[A]].fromReal(Constants.SpeedOfLight * Constants.SpeedOfLight),
+      EnergyUnitObjects.joule)
 
   override protected def newQuantity(value: A, unit: MassUnit): Mass[A] = new Mass(value, unit)
 
@@ -33,17 +48,8 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
   def /(volume: Volume[A]): Density[A] = new Density(this.value / volume.value, this.unit / volume.unit)
 
   def /(length: Length[A]): LineDensity[A] = new LineDensity(this.value / length.value, this.unit / length.unit)
-  import org.waman.multiverse.unit.Constants
-  import org.waman.multiverse.unit.mechanics.Energy
-  import org.waman.multiverse.unit.mechanics.EnergyUnitObjects
-
-  def toEnergy: Energy[A] = new Energy(
-      apply(MassUnitObjects.kilogram) * implicitly[Fractional[A]].fromReal(Constants.SpeedOfLight * Constants.SpeedOfLight),
-      EnergyUnitObjects.joule)
-
 }
 
-/** null */
 trait MassUnit extends LinearUnit[MassUnit]{
 
   override def getSIUnit: MassUnit = MassUnit.getSIUnit
@@ -88,6 +94,9 @@ sealed trait ounceAttribute
 sealed trait poundAttribute
 
 object MassUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.mechanics.AccelerationUnitObjects._
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
 

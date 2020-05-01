@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.radioactivity
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.basic.TimeUnit
 class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
     extends LinearQuantity[EquivalentDose[A], A, EquivalentDoseUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: EquivalentDoseUnit): EquivalentDose[A] = new EquivalentDose(value, unit)
 
   def /(time: Time[A]): EquivalentDoseRate[A] = new EquivalentDoseRate(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
 
   override def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnit.getSIUnit
@@ -49,6 +51,9 @@ class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliase
   extends EquivalentDoseUnit
 
 object EquivalentDoseUnitObjects{
+
+  import spire.implicits._
+
 
   final case object sievert extends SimpleEquivalentDoseUnit("sievert", "Sv", 1)
   final case object yoctosievert extends SimpleEquivalentDoseUnit("yoctosievert", "ySv", r"1e-24")

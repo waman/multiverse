@@ -2,26 +2,33 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
 import org.waman.multiverse.unit.electrics.Current
 import org.waman.multiverse.unit.electrics.CurrentUnit
+
 
 import org.waman.multiverse.unit.electrics.Voltage
 import org.waman.multiverse.unit.electrics.VoltageUnit
 
+
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
+
 
 import org.waman.multiverse.unit.radiometry.Irradiance
 import org.waman.multiverse.unit.radiometry.IrradianceUnit
 
+
 import org.waman.multiverse.unit.radiometry.AreaFrequency
 import org.waman.multiverse.unit.radiometry.AreaFrequencyUnit
+
 
 import org.waman.multiverse.unit.radiometry.SpectralIrradiance
 import org.waman.multiverse.unit.radiometry.SpectralIrradianceUnit
@@ -29,6 +36,8 @@ import org.waman.multiverse.unit.radiometry.SpectralIrradianceUnit
 
 class Power[A: Fractional](val value: A, val unit: PowerUnit)
     extends LinearQuantity[Power[A], A, PowerUnit] {
+
+  import spire.implicits._
 
   override protected def newQuantity(value: A, unit: PowerUnit): Power[A] = new Power(value, unit)
 
@@ -84,6 +93,9 @@ class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[St
 sealed trait horsepowerAttribute
 
 object PowerUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
   import org.waman.multiverse.unit.mechanics.ForceUnitObjects._
   import org.waman.multiverse.unit.basic.TimeUnitObjects._

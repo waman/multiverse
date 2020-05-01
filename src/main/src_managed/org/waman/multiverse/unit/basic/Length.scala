@@ -2,17 +2,21 @@ package org.waman.multiverse.unit.basic
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.mechanics.Force
 import org.waman.multiverse.unit.mechanics.ForceUnit
 
+
 import org.waman.multiverse.unit.mechanics.Energy
 import org.waman.multiverse.unit.mechanics.EnergyUnit
 
+
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
+
 
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
@@ -20,6 +24,8 @@ import org.waman.multiverse.unit.mechanics.AccelerationUnit
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
+
+  import spire.implicits._
 
   override protected def newQuantity(value: A, unit: LengthUnit): Length[A] = new Length(value, unit)
 
@@ -145,6 +151,9 @@ object MetricAttributes{
 }
 
 object LengthUnitObjects{
+
+  import spire.implicits._
+
 
   final case object metre extends SimpleLengthUnit("metre", "m", 1)
   final case object yoctometre extends SimpleLengthUnit("yoctometre", "ym", r"1e-24")

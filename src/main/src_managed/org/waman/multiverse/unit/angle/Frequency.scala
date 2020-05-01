@@ -2,14 +2,15 @@ package org.waman.multiverse.unit.angle
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
 class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
     extends LinearQuantity[Frequency[A], A, FrequencyUnit] {
 
-  override protected def newQuantity(value: A, unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.basic.TimeUnitObjects
 
@@ -17,9 +18,9 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
       apply(FrequencyUnitObjects.heltz) * implicitly[Fractional[A]].fromReal(r"2" * Constants.Pi),
       AngleUnitObjects.radian / TimeUnitObjects.second)
 
+  override protected def newQuantity(value: A, unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
 }
 
-/** null */
 trait FrequencyUnit extends LinearUnit[FrequencyUnit]{
 
   override def getSIUnit: FrequencyUnit = FrequencyUnit.getSIUnit
@@ -48,6 +49,9 @@ class DefaultFrequencyUnit(val name: String, val symbol: String, val aliases: Se
   extends FrequencyUnit
 
 object FrequencyUnitObjects{
+
+  import spire.implicits._
+
 
   final case object heltz extends SimpleFrequencyUnit("heltz", "Hz", 1)
   final case object yoctoheltz extends SimpleFrequencyUnit("yoctoheltz", "yHz", r"1e-24")

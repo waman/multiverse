@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.radioactivity
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
   override protected def newQuantity(value: A, unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
 }
 
-/** null */
 trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{
 
   override def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnit.getSIUnit
@@ -41,6 +40,9 @@ class DefaultAbsorbedDoseUnit(val name: String, val symbol: String, val aliases:
   extends AbsorbedDoseUnit
 
 object AbsorbedDoseUnitObjects{
+
+  import spire.implicits._
+
 
   final case object gray extends SimpleAbsorbedDoseUnit("gray", "Gy", 1)
   final case object yoctogray extends SimpleAbsorbedDoseUnit("yoctogray", "yGy", r"1e-24")

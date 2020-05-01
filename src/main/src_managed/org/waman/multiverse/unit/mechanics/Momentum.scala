@@ -2,11 +2,13 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Area
 import org.waman.multiverse.unit.basic.AreaUnit
+
 
 import org.waman.multiverse.unit.fluid.DynamicViscosity
 import org.waman.multiverse.unit.fluid.DynamicViscosityUnit
@@ -15,12 +17,13 @@ import org.waman.multiverse.unit.fluid.DynamicViscosityUnit
 class Momentum[A: Fractional](val value: A, val unit: MomentumUnit)
     extends LinearQuantity[Momentum[A], A, MomentumUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: MomentumUnit): Momentum[A] = new Momentum(value, unit)
 
   def /(area: Area[A]): DynamicViscosity[A] = new DynamicViscosity(this.value / area.value, this.unit / area.unit)
 }
 
-/** null */
 trait MomentumUnit extends LinearUnit[MomentumUnit]{
 
   override def getSIUnit: MomentumUnit = MomentumUnit.getSIUnit
@@ -52,6 +55,7 @@ class DefaultMomentumUnit(val name: String, val symbol: String, val aliases: Seq
   extends MomentumUnit
 
 object MomentumUnitObjects{
+
 
 }
 

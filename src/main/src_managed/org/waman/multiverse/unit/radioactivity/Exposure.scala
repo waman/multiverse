@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.radioactivity
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
   override protected def newQuantity(value: A, unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
 }
 
-/** null */
 trait ExposureUnit extends LinearUnit[ExposureUnit]{
 
   override def getSIUnit: ExposureUnit = ExposureUnit.getSIUnit
@@ -43,6 +42,9 @@ class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq
   extends ExposureUnit
 
 object ExposureUnitObjects{
+
+  import spire.implicits._
+
 
   final case object roentgen extends SimpleExposureUnit("roentgen", "R", r"2.58e-4")
 }

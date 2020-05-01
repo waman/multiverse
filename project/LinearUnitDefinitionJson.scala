@@ -1,11 +1,10 @@
 import java.io.{File, BufferedWriter => BW}
 
-import GenerationUtil.extractAttributeMap
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
 case class LinearUnitCategory(description: String, SIUnit: String, dimension: Dimension,
-                              composites: Array[String], convertibles: Array[Convertible], units: Array[RawLinearUnit])
+                              composites: Array[String], convertibles: Array[RawConvertible], units: Array[RawLinearUnit])
     extends UnitCategory[RawLinearUnit, LinearUnit]{
 
   lazy val _composites: Composites =
@@ -126,6 +125,20 @@ case class LinearUnit(name: String, objectName: String, symbol: String, aliases:
                       interval: String, baseUnit: String, notExact: Boolean, attributes: Seq[Attribute], description: String)
     extends UnitInfo{
   require(this.attributes != null)
+
+  lazy val intervalExpression: String = makeIntervalExpression(this.interval, this.baseUnit)
+
+  import GenerationUtil._
+
+  private def makeIntervalExpression(interval: String, baseUnit: String): String =
+    if (baseUnit == null) {
+      if (interval == null) "1" else refineNumbers(interval)
+
+    } else {
+      val baseUnitInterval = refineUnitNamesInBaseUnit(baseUnit)
+      if (interval == null) baseUnitInterval
+      else s"""${refineNumbers(interval)} * $baseUnitInterval"""
+    }
 }
 
 class OperationInfo(id: String, jsons: JsonResources){
@@ -161,21 +174,38 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
   override protected def createOptions(jsons: JsonResources): OperationInfo = new OperationInfo(this.id, jsons)
 
   override def generateExtraGlobalImports(writer: BW, jsons: JsonResources, op: OperationInfo): Unit = {
+
     val ops = op.ops.flatMap(p => Seq(p._1, p._2)).map(_.id)
     foreachUnitDefinition(ops, jsons){ ud =>
       if (ud.subpackage != this.subpackage) {
-        writer.write(
-          s"""import $rootPackage.unit.${ud.subpackage}.${ud.id}
-             |import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit
-             |
-             |""".stripMargin)
+        if (this.id == "Energy" && (ud.id == "AbsoluteTemperature" || ud.id == "Mass")) {
+          // TODO: remove unused imports in Energy
+          writer.write(
+            s"""
+               |import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit
+               |
+               |""".stripMargin)
+        } else {
+          writer.write(
+            s"""
+               |import $rootPackage.unit.${ud.subpackage}.${ud.id}
+               |import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit
+               |
+               |""".stripMargin)
+        }
       }
     }
   }
 
   override protected def parentQuantityDecl: String = s"""LinearQuantity[$id[A], A, ${id}Unit]"""
 
-  override protected def generateQuantityExtraContents(writer: BW, jsons: JsonResources, op: OperationInfo): Unit = {
+  override protected def generateQuantityExtraContents(
+      writer: BW, jsons: JsonResources, op: OperationInfo, spireImplicitsOutputted: Boolean): Unit = {
+
+    if (!spireImplicitsOutputted && op.ops.nonEmpty) {
+      writer.write("  import spire.implicits._\n\n")
+    }
+
     writer.write(
       s"""  override protected def newQuantity(value: A, unit: ${id}Unit): $id[A] = new $id(value, unit)
          |""".stripMargin)
@@ -202,7 +232,6 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
          |  def *($secondId: $secondType[A]): $resultType[A] = new $resultType(this.value * $secondId.value, this.unit * $secondId.unit)
          |""".stripMargin)
   }
-
 
   override protected def generateUnitTraitExtraContents(writer: BW, jsons: JsonResources, op: OperationInfo): Unit = {
     op.mul.foreach(generateUnitMultiplication(writer, _))
@@ -245,20 +274,19 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
   }
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
-    val interval = makeIntervalExpression(unit.interval, unit.baseUnit)
     val notExact = if (!unit.notExact) "" else " with NotExact"
 
     if (unit.aliases.isEmpty){
       // final case object metre extends SimpleLengthUnit("metre", "m", Nil, r"1")
       writer.write(
         s"""  final case object ${unit.objectName} extends Simple${id}Unit""" +
-          s"""("${unit.name}", "${unit.symbol}", $interval)$notExact\n""")
+          s"""("${unit.name}", "${unit.symbol}", ${unit.intervalExpression})$notExact\n""")
     }else{
       // final case object metre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), r"1e-6")
       val aliases = unit.aliases.filterNot(isOptionalAliase).mkString("Seq(\"", "\", \"", "\")")
       writer.write(
         s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
-          s"""("${unit.name}", "${unit.symbol}", $aliases, $interval)$notExact\n""")
+          s"""("${unit.name}", "${unit.symbol}", $aliases, ${unit.intervalExpression})$notExact\n""")
     }
   }
 
@@ -277,8 +305,6 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
 
 class LengthUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
-
-  import GenerationUtil._
 
   override protected def attributeContainerID: String = "MetricAttributes"
 
@@ -351,7 +377,7 @@ class LengthUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpacka
   override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 }
 
-class LengthPoweredUnitDefinitionDefinitionJson(id: String, jsonFile: File, destDir: File, subpackage: String)
+class LengthPoweredUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
 
   override protected def attributeContainerID: String = "MetricAttributes"

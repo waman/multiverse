@@ -2,14 +2,15 @@ package org.waman.multiverse.unit.thermodynamics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
 class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTemperatureUnit)
     extends LinearQuantity[AbsoluteTemperature[A], A, AbsoluteTemperatureUnit] {
 
-  override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.mechanics.Energy
   import org.waman.multiverse.unit.mechanics.EnergyUnitObjects
@@ -23,9 +24,9 @@ class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTempera
       apply(AbsoluteTemperatureUnitObjects.kelvin),
       TemperatureUnitObjects.kelvin)
 
+  override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
 }
 
-/** null */
 trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{
 
   override def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnit.getSIUnit
@@ -54,6 +55,9 @@ class DefaultAbsoluteTemperatureUnit(val name: String, val symbol: String, val a
   extends AbsoluteTemperatureUnit
 
 object AbsoluteTemperatureUnitObjects{
+
+  import spire.implicits._
+
 
   final case object kelvin extends SimpleAbsoluteTemperatureUnit("kelvin", "K", 1)
   final case object yoctokelvin extends SimpleAbsoluteTemperatureUnit("yoctokelvin", "yK", r"1e-24")

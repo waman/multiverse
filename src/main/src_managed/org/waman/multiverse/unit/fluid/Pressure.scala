@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.fluid
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.basic.TimeUnit
 class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
     extends LinearQuantity[Pressure[A], A, PressureUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: PressureUnit): Pressure[A] = new Pressure(value, unit)
 
   def *(time: Time[A]): DynamicViscosity[A] = new DynamicViscosity(this.value * time.value, this.unit * time.unit)
 }
 
-/** null */
 trait PressureUnit extends LinearUnit[PressureUnit]{
 
   override def getSIUnit: PressureUnit = PressureUnit.getSIUnit
@@ -49,6 +51,9 @@ class DefaultPressureUnit(val name: String, val symbol: String, val aliases: Seq
   extends PressureUnit
 
 object PressureUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.mechanics.ForceUnitObjects._
   import org.waman.multiverse.unit.basic.AreaUnitObjects._
   import org.waman.multiverse.unit.density.DensityUnitObjects._

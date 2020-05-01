@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.radiometry
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -42,6 +42,9 @@ class DefaultSpectralIrradianceUnit(val name: String, val symbol: String, val al
   extends SpectralIrradianceUnit
 
 object SpectralIrradianceUnitObjects{
+
+  import spire.implicits._
+
 
   final case object jansky extends SimpleSpectralIrradianceUnit("jansky", "Jy", r"1e-26")
   final case object solar_flux_unit extends SimpleSpectralIrradianceUnit("solar flux unit", "sfu", r"1e-22")

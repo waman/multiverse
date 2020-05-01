@@ -2,6 +2,7 @@ package org.waman.multiverse.unit.radioactivity
 
 import spire.math.Real
 import spire.math.Fractional
+
 import org.waman.multiverse._
 
 
@@ -11,7 +12,6 @@ class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRa
   override protected def newQuantity(value: A, unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
 }
 
-/** null */
 trait EquivalentDoseRateUnit extends LinearUnit[EquivalentDoseRateUnit]{
 
   override def getSIUnit: EquivalentDoseRateUnit = EquivalentDoseRateUnit.getSIUnit
@@ -40,6 +40,7 @@ class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val al
   extends EquivalentDoseRateUnit
 
 object EquivalentDoseRateUnitObjects{
+
 
 }
 

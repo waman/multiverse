@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
   override protected def newQuantity(value: A, unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
 }
 
-/** null */
 trait AccelerationUnit extends LinearUnit[AccelerationUnit]{
 
   override def getSIUnit: AccelerationUnit = AccelerationUnit.getSIUnit
@@ -42,6 +41,9 @@ class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases:
   extends AccelerationUnit
 
 object AccelerationUnitObjects{
+
+  import spire.implicits._
+
 
   final case object standard_gravity extends DefaultAccelerationUnit("standard gravity", "G", Seq("g_0"), r"9.80665")
   final case object gal extends SimpleAccelerationUnit("gal", "Gal", r"1e-2")

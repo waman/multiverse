@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.basic
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.mechanics.TimeSquared
 import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
@@ -12,13 +13,14 @@ import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: TimeUnit): Time[A] = new Time(value, unit)
 
   def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
   def squared: TimeSquared[A] = this * this
 }
 
-/** null */
 trait TimeUnit extends LinearUnit[TimeUnit]{
 
   override def getSIUnit: TimeUnit = TimeUnit.getSIUnit
@@ -66,6 +68,9 @@ sealed trait decadeAttribute
 sealed trait centuryAttribute
 
 object TimeUnitObjects{
+
+  import spire.implicits._
+
 
   final case object second extends DefaultTimeUnit("second", "s", Seq("sec"), 1)
   final case object yoctosecond extends DefaultTimeUnit("yoctosecond", "ys", Seq("ysec"), r"1e-24")

@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.magnetics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
 
 
@@ -12,7 +12,6 @@ class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
   override protected def newQuantity(value: A, unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
 }
 
-/** null */
 trait InductanceUnit extends LinearUnit[InductanceUnit]{
 
   override def getSIUnit: InductanceUnit = InductanceUnit.getSIUnit
@@ -41,6 +40,9 @@ class DefaultInductanceUnit(val name: String, val symbol: String, val aliases: S
   extends InductanceUnit
 
 object InductanceUnitObjects{
+
+  import spire.implicits._
+
 
   final case object henry extends SimpleInductanceUnit("henry", "H", 1)
   final case object yoctohenry extends SimpleInductanceUnit("yoctohenry", "yH", r"1e-24")

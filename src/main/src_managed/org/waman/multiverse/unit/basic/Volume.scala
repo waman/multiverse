@@ -2,14 +2,17 @@ package org.waman.multiverse.unit.basic
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.fluid.Pressure
 import org.waman.multiverse.unit.fluid.PressureUnit
 
+
 import org.waman.multiverse.unit.mechanics.Energy
 import org.waman.multiverse.unit.mechanics.EnergyUnit
+
 
 import org.waman.multiverse.unit.fluid.VolumeFlow
 import org.waman.multiverse.unit.fluid.VolumeFlowUnit
@@ -18,6 +21,8 @@ import org.waman.multiverse.unit.fluid.VolumeFlowUnit
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
     extends LinearQuantity[Volume[A], A, VolumeUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: VolumeUnit): Volume[A] = new Volume(value, unit)
 
   def *(pressure: Pressure[A]): Energy[A] = new Energy(this.value * pressure.value, this.unit * pressure.unit)
@@ -25,7 +30,6 @@ class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
   def /(time: Time[A]): VolumeFlow[A] = new VolumeFlow(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait VolumeUnit extends LinearUnit[VolumeUnit]{
 
   override def getSIUnit: VolumeUnit = VolumeUnit.getSIUnit
@@ -60,6 +64,9 @@ class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends VolumeUnit
 
 object VolumeUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
   import org.waman.multiverse.unit.basic.AreaUnitObjects._
 

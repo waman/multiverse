@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.basic
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.mechanics.Acceleration
 import org.waman.multiverse.unit.mechanics.AccelerationUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.mechanics.AccelerationUnit
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
     extends LinearQuantity[Velocity[A], A, VelocityUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
 
   def /(time: Time[A]): Acceleration[A] = new Acceleration(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait VelocityUnit extends LinearUnit[VelocityUnit]{
 
   override def getSIUnit: VelocityUnit = VelocityUnit.getSIUnit
@@ -49,6 +51,9 @@ class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq
   extends VelocityUnit
 
 object VelocityUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
   import org.waman.multiverse.unit.basic.LengthUnitObjects._
   import org.waman.multiverse.unit.basic.TimeUnitObjects._

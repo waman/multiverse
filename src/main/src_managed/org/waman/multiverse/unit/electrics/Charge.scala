@@ -2,17 +2,21 @@ package org.waman.multiverse.unit.electrics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Length
 import org.waman.multiverse.unit.basic.LengthUnit
 
+
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
 
+
 import org.waman.multiverse.unit.basic.Mass
 import org.waman.multiverse.unit.basic.MassUnit
+
 
 import org.waman.multiverse.unit.radioactivity.Exposure
 import org.waman.multiverse.unit.radioactivity.ExposureUnit
@@ -20,6 +24,8 @@ import org.waman.multiverse.unit.radioactivity.ExposureUnit
 
 class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
     extends LinearQuantity[Charge[A], A, ChargeUnit] {
+
+  import spire.implicits._
 
   override protected def newQuantity(value: A, unit: ChargeUnit): Charge[A] = new Charge(value, unit)
 
@@ -32,7 +38,6 @@ class Charge[A: Fractional](val value: A, val unit: ChargeUnit)
   def /(mass: Mass[A]): Exposure[A] = new Exposure(this.value / mass.value, this.unit / mass.unit)
 }
 
-/** null */
 trait ChargeUnit extends LinearUnit[ChargeUnit]{
 
   override def getSIUnit: ChargeUnit = ChargeUnit.getSIUnit
@@ -73,6 +78,9 @@ class DefaultChargeUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends ChargeUnit
 
 object ChargeUnitObjects{
+
+  import spire.implicits._
+
   import org.waman.multiverse.unit.Constants
 
   final case object coulomb extends SimpleChargeUnit("coulomb", "C", 1)

@@ -2,8 +2,9 @@ package org.waman.multiverse.unit.mechanics
 
 import spire.math.Real
 import spire.math.Fractional
-import spire.implicits._
+
 import org.waman.multiverse._
+
 
 import org.waman.multiverse.unit.basic.Time
 import org.waman.multiverse.unit.basic.TimeUnit
@@ -12,12 +13,13 @@ import org.waman.multiverse.unit.basic.TimeUnit
 class MassTorque[A: Fractional](val value: A, val unit: MassTorqueUnit)
     extends LinearQuantity[MassTorque[A], A, MassTorqueUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: MassTorqueUnit): MassTorque[A] = new MassTorque(value, unit)
 
   def /(time: Time[A]): Momentum[A] = new Momentum(this.value / time.value, this.unit / time.unit)
 }
 
-/** null */
 trait MassTorqueUnit extends LinearUnit[MassTorqueUnit]{
 
   override def getSIUnit: MassTorqueUnit = MassTorqueUnit.getSIUnit
@@ -50,6 +52,7 @@ class DefaultMassTorqueUnit(val name: String, val symbol: String, val aliases: S
   extends MassTorqueUnit
 
 object MassTorqueUnitObjects{
+
 
 }
 
