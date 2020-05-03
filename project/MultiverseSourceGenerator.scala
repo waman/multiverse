@@ -5,7 +5,7 @@ object MultiverseSourceGenerator {
 
   import GenerationUtil._
 
-  private val destPath = new File("org/waman/multiverse")
+  private val destPath = new File(rootPackage.replace('.', File.separatorChar))
 
   // unitdefs: src/main/resources/unitdefs
   // srcManaged: src/main/src_managed

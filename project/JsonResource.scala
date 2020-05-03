@@ -9,7 +9,7 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
   private val unitDir = "unit"+File.separator
 
   def apply(json: File): JsonResource = {
-    val destRoot = IO.resolve(srcManaged, destPath)  // src/main/src_managed/org/waman/multiverse
+    val destRoot = IO.resolve(srcManaged, destPath)  // src/main/src_managed/waman/multiverse
     IO.relativize(unitdefs, json.getParentFile) match {
       case Some("") =>
         json.getName match {

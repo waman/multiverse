@@ -1,20 +1,20 @@
-package org.waman.multiverse
+package waman.multiverse
 
 import scala.language.implicitConversions
 import spire.math._
 
-import org.waman.multiverse.unit.angle._
-import org.waman.multiverse.unit.basic._
-import org.waman.multiverse.unit.chemistry._
-import org.waman.multiverse.unit.density._
-import org.waman.multiverse.unit.electrics._
-import org.waman.multiverse.unit.fluid._
-import org.waman.multiverse.unit.magnetics._
-import org.waman.multiverse.unit.mechanics._
-import org.waman.multiverse.unit.photometry._
-import org.waman.multiverse.unit.radioactivity._
-import org.waman.multiverse.unit.radiometry._
-import org.waman.multiverse.unit.thermodynamics._
+import waman.multiverse.unit.angle._
+import waman.multiverse.unit.basic._
+import waman.multiverse.unit.chemistry._
+import waman.multiverse.unit.density._
+import waman.multiverse.unit.electrics._
+import waman.multiverse.unit.fluid._
+import waman.multiverse.unit.magnetics._
+import waman.multiverse.unit.mechanics._
+import waman.multiverse.unit.photometry._
+import waman.multiverse.unit.radioactivity._
+import waman.multiverse.unit.radiometry._
+import waman.multiverse.unit.thermodynamics._
 
 package object implicits {
 
