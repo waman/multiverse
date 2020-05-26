@@ -26,7 +26,7 @@ trait VelocityUnit extends LinearUnit[VelocityUnit]{
   override def dimension: Map[DimensionSymbol, Int] = VelocityUnit.dimension
 
   def /(timeUnit: TimeUnit): AccelerationUnit =
-    new AbstractQuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit](VelocityUnit.this, timeUnit) with AccelerationUnit
+    new QuotientUnit[AccelerationUnit, VelocityUnit, TimeUnit](VelocityUnit.this, timeUnit) with AccelerationUnit
 }
 
 object VelocityUnit extends UnitInfo[VelocityUnit]{

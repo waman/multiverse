@@ -73,17 +73,17 @@ trait LengthUnit extends LinearUnit[LengthUnit]{
     if(this == lengthUnit)
       this.squared
     else
-      new AbstractProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
+      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
 
 
   def *(forceUnit: ForceUnit): EnergyUnit =
-    new AbstractProductUnit[EnergyUnit, LengthUnit, ForceUnit](LengthUnit.this, forceUnit) with EnergyUnit
+    new ProductUnit[EnergyUnit, LengthUnit, ForceUnit](LengthUnit.this, forceUnit) with EnergyUnit
 
   def /(timeUnit: TimeUnit): VelocityUnit =
-    new AbstractQuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
+    new QuotientUnit[VelocityUnit, LengthUnit, TimeUnit](LengthUnit.this, timeUnit) with VelocityUnit
 
   def /(timeSquaredUnit: TimeSquaredUnit): AccelerationUnit =
-    new AbstractQuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit](LengthUnit.this, timeSquaredUnit) with AccelerationUnit
+    new QuotientUnit[AccelerationUnit, LengthUnit, TimeSquaredUnit](LengthUnit.this, timeSquaredUnit) with AccelerationUnit
 }
 
 object LengthUnit extends UnitInfo[LengthUnit]{

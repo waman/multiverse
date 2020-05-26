@@ -61,16 +61,16 @@ trait EnergyUnit extends LinearUnit[EnergyUnit]{
   override def dimension: Map[DimensionSymbol, Int] = EnergyUnit.dimension
 
   def *(timeUnit: TimeUnit): AngularMomentumUnit =
-    new AbstractProductUnit[AngularMomentumUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with AngularMomentumUnit
+    new ProductUnit[AngularMomentumUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with AngularMomentumUnit
 
   def /(timeUnit: TimeUnit): PowerUnit =
-    new AbstractQuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
+    new QuotientUnit[PowerUnit, EnergyUnit, TimeUnit](EnergyUnit.this, timeUnit) with PowerUnit
 
   def /(massUnit: MassUnit): AbsorbedDoseUnit =
-    new AbstractQuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
+    new QuotientUnit[AbsorbedDoseUnit, EnergyUnit, MassUnit](EnergyUnit.this, massUnit) with AbsorbedDoseUnit
 
   def /(absoluteTemperatureUnit: AbsoluteTemperatureUnit): EntropyUnit =
-    new AbstractQuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
+    new QuotientUnit[EntropyUnit, EnergyUnit, AbsoluteTemperatureUnit](EnergyUnit.this, absoluteTemperatureUnit) with EntropyUnit
 }
 
 object EnergyUnit extends UnitInfo[EnergyUnit]{

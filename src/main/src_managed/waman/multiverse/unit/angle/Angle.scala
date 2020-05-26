@@ -26,7 +26,7 @@ trait AngleUnit extends LinearUnit[AngleUnit]{
   override def dimension: Map[DimensionSymbol, Int] = AngleUnit.dimension
 
   def /(timeUnit: TimeUnit): AngularVelocityUnit =
-    new AbstractQuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit](AngleUnit.this, timeUnit) with AngularVelocityUnit
+    new QuotientUnit[AngularVelocityUnit, AngleUnit, TimeUnit](AngleUnit.this, timeUnit) with AngularVelocityUnit
 }
 
 object AngleUnit extends UnitInfo[AngleUnit]{

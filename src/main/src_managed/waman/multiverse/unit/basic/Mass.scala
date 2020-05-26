@@ -56,16 +56,16 @@ trait MassUnit extends LinearUnit[MassUnit]{
   override def dimension: Map[DimensionSymbol, Int] = MassUnit.dimension
 
   def *(accelerationUnit: AccelerationUnit): ForceUnit =
-    new AbstractProductUnit[ForceUnit, MassUnit, AccelerationUnit](MassUnit.this, accelerationUnit) with ForceUnit
+    new ProductUnit[ForceUnit, MassUnit, AccelerationUnit](MassUnit.this, accelerationUnit) with ForceUnit
 
   def *(lengthUnit: LengthUnit): MassTorqueUnit =
-    new AbstractProductUnit[MassTorqueUnit, MassUnit, LengthUnit](MassUnit.this, lengthUnit) with MassTorqueUnit
+    new ProductUnit[MassTorqueUnit, MassUnit, LengthUnit](MassUnit.this, lengthUnit) with MassTorqueUnit
 
   def /(volumeUnit: VolumeUnit): DensityUnit =
-    new AbstractQuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
+    new QuotientUnit[DensityUnit, MassUnit, VolumeUnit](MassUnit.this, volumeUnit) with DensityUnit
 
   def /(lengthUnit: LengthUnit): LineDensityUnit =
-    new AbstractQuotientUnit[LineDensityUnit, MassUnit, LengthUnit](MassUnit.this, lengthUnit) with LineDensityUnit
+    new QuotientUnit[LineDensityUnit, MassUnit, LengthUnit](MassUnit.this, lengthUnit) with LineDensityUnit
 }
 
 object MassUnit extends UnitInfo[MassUnit]{

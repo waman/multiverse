@@ -44,16 +44,16 @@ trait ChargeUnit extends LinearUnit[ChargeUnit]{
   override def dimension: Map[DimensionSymbol, Int] = ChargeUnit.dimension
 
   def *(lengthUnit: LengthUnit): DipoleUnit =
-    new AbstractProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
+    new ProductUnit[DipoleUnit, ChargeUnit, LengthUnit](ChargeUnit.this, lengthUnit) with DipoleUnit
 
   def /(voltageUnit: VoltageUnit): CapacitanceUnit =
-    new AbstractQuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit](ChargeUnit.this, voltageUnit) with CapacitanceUnit
+    new QuotientUnit[CapacitanceUnit, ChargeUnit, VoltageUnit](ChargeUnit.this, voltageUnit) with CapacitanceUnit
 
   def /(timeUnit: TimeUnit): CurrentUnit =
-    new AbstractQuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
+    new QuotientUnit[CurrentUnit, ChargeUnit, TimeUnit](ChargeUnit.this, timeUnit) with CurrentUnit
 
   def /(massUnit: MassUnit): ExposureUnit =
-    new AbstractQuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
+    new QuotientUnit[ExposureUnit, ChargeUnit, MassUnit](ChargeUnit.this, massUnit) with ExposureUnit
 }
 
 object ChargeUnit extends UnitInfo[ChargeUnit]{

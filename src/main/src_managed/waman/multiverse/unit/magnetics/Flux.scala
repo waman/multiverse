@@ -32,10 +32,10 @@ trait FluxUnit extends LinearUnit[FluxUnit]{
   override def dimension: Map[DimensionSymbol, Int] = FluxUnit.dimension
 
   def /(areaUnit: AreaUnit): FluxDensityUnit =
-    new AbstractQuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit](FluxUnit.this, areaUnit) with FluxDensityUnit
+    new QuotientUnit[FluxDensityUnit, FluxUnit, AreaUnit](FluxUnit.this, areaUnit) with FluxDensityUnit
 
   def /(currentUnit: CurrentUnit): InductanceUnit =
-    new AbstractQuotientUnit[InductanceUnit, FluxUnit, CurrentUnit](FluxUnit.this, currentUnit) with InductanceUnit
+    new QuotientUnit[InductanceUnit, FluxUnit, CurrentUnit](FluxUnit.this, currentUnit) with InductanceUnit
 }
 
 object FluxUnit extends UnitInfo[FluxUnit]{

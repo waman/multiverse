@@ -26,7 +26,7 @@ trait MassTorqueUnit extends LinearUnit[MassTorqueUnit]{
   override def dimension: Map[DimensionSymbol, Int] = MassTorqueUnit.dimension
 
   def /(timeUnit: TimeUnit): MomentumUnit =
-    new AbstractQuotientUnit[MomentumUnit, MassTorqueUnit, TimeUnit](MassTorqueUnit.this, timeUnit) with MomentumUnit
+    new QuotientUnit[MomentumUnit, MassTorqueUnit, TimeUnit](MassTorqueUnit.this, timeUnit) with MomentumUnit
 }
 
 object MassTorqueUnit extends UnitInfo[MassTorqueUnit]{

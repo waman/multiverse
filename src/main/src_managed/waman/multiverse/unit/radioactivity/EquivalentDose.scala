@@ -26,7 +26,7 @@ trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
   override def dimension: Map[DimensionSymbol, Int] = EquivalentDoseUnit.dimension
 
   def /(timeUnit: TimeUnit): EquivalentDoseRateUnit =
-    new AbstractQuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit](EquivalentDoseUnit.this, timeUnit) with EquivalentDoseRateUnit
+    new QuotientUnit[EquivalentDoseRateUnit, EquivalentDoseUnit, TimeUnit](EquivalentDoseUnit.this, timeUnit) with EquivalentDoseRateUnit
 }
 
 object EquivalentDoseUnit extends UnitInfo[EquivalentDoseUnit]{

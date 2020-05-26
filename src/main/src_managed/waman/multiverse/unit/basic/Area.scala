@@ -38,13 +38,13 @@ trait AreaUnit extends LinearUnit[AreaUnit]{
   override def dimension: Map[DimensionSymbol, Int] = AreaUnit.dimension
 
   def *(lengthUnit: LengthUnit): VolumeUnit =
-    new AbstractProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
+    new ProductUnit[VolumeUnit, AreaUnit, LengthUnit](AreaUnit.this, lengthUnit) with VolumeUnit
 
   def *(frequencyUnit: FrequencyUnit): AreaFrequencyUnit =
-    new AbstractProductUnit[AreaFrequencyUnit, AreaUnit, FrequencyUnit](AreaUnit.this, frequencyUnit) with AreaFrequencyUnit
+    new ProductUnit[AreaFrequencyUnit, AreaUnit, FrequencyUnit](AreaUnit.this, frequencyUnit) with AreaFrequencyUnit
 
   def /(timeUnit: TimeUnit): KinematicViscosityUnit =
-    new AbstractQuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit](AreaUnit.this, timeUnit) with KinematicViscosityUnit
+    new QuotientUnit[KinematicViscosityUnit, AreaUnit, TimeUnit](AreaUnit.this, timeUnit) with KinematicViscosityUnit
 }
 
 object AreaUnit extends UnitInfo[AreaUnit]{

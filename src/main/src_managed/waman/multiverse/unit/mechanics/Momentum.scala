@@ -30,7 +30,7 @@ trait MomentumUnit extends LinearUnit[MomentumUnit]{
   override def dimension: Map[DimensionSymbol, Int] = MomentumUnit.dimension
 
   def /(areaUnit: AreaUnit): DynamicViscosityUnit =
-    new AbstractQuotientUnit[DynamicViscosityUnit, MomentumUnit, AreaUnit](MomentumUnit.this, areaUnit) with DynamicViscosityUnit
+    new QuotientUnit[DynamicViscosityUnit, MomentumUnit, AreaUnit](MomentumUnit.this, areaUnit) with DynamicViscosityUnit
 }
 
 object MomentumUnit extends UnitInfo[MomentumUnit]{

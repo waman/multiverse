@@ -28,10 +28,10 @@ trait CurrentUnit extends LinearUnit[CurrentUnit]{
   override def dimension: Map[DimensionSymbol, Int] = CurrentUnit.dimension
 
   def *(timeUnit: TimeUnit): ChargeUnit =
-    new AbstractProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
+    new ProductUnit[ChargeUnit, CurrentUnit, TimeUnit](CurrentUnit.this, timeUnit) with ChargeUnit
 
   def /(voltageUnit: VoltageUnit): ConductanceUnit =
-    new AbstractQuotientUnit[ConductanceUnit, CurrentUnit, VoltageUnit](CurrentUnit.this, voltageUnit) with ConductanceUnit
+    new QuotientUnit[ConductanceUnit, CurrentUnit, VoltageUnit](CurrentUnit.this, voltageUnit) with ConductanceUnit
 }
 
 object CurrentUnit extends UnitInfo[CurrentUnit]{

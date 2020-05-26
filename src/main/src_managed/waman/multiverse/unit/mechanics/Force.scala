@@ -42,13 +42,13 @@ trait ForceUnit extends LinearUnit[ForceUnit]{
   override def dimension: Map[DimensionSymbol, Int] = ForceUnit.dimension
 
   def *(lengthUnit: LengthUnit): EnergyUnit =
-    new AbstractProductUnit[EnergyUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with EnergyUnit
+    new ProductUnit[EnergyUnit, ForceUnit, LengthUnit](ForceUnit.this, lengthUnit) with EnergyUnit
 
   def *(timeUnit: TimeUnit): MomentumUnit =
-    new AbstractProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
+    new ProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
 
   def /(areaUnit: AreaUnit): PressureUnit =
-    new AbstractQuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit
+    new QuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit
 }
 
 object ForceUnit extends UnitInfo[ForceUnit]{

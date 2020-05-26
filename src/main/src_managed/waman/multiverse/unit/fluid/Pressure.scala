@@ -26,7 +26,7 @@ trait PressureUnit extends LinearUnit[PressureUnit]{
   override def dimension: Map[DimensionSymbol, Int] = PressureUnit.dimension
 
   def *(timeUnit: TimeUnit): DynamicViscosityUnit =
-    new AbstractProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit](PressureUnit.this, timeUnit) with DynamicViscosityUnit
+    new ProductUnit[DynamicViscosityUnit, PressureUnit, TimeUnit](PressureUnit.this, timeUnit) with DynamicViscosityUnit
 }
 
 object PressureUnit extends UnitInfo[PressureUnit]{

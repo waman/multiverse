@@ -36,10 +36,10 @@ trait VolumeUnit extends LinearUnit[VolumeUnit]{
   override def dimension: Map[DimensionSymbol, Int] = VolumeUnit.dimension
 
   def *(pressureUnit: PressureUnit): EnergyUnit =
-    new AbstractProductUnit[EnergyUnit, VolumeUnit, PressureUnit](VolumeUnit.this, pressureUnit) with EnergyUnit
+    new ProductUnit[EnergyUnit, VolumeUnit, PressureUnit](VolumeUnit.this, pressureUnit) with EnergyUnit
 
   def /(timeUnit: TimeUnit): VolumeFlowUnit =
-    new AbstractQuotientUnit[VolumeFlowUnit, VolumeUnit, TimeUnit](VolumeUnit.this, timeUnit) with VolumeFlowUnit
+    new QuotientUnit[VolumeFlowUnit, VolumeUnit, TimeUnit](VolumeUnit.this, timeUnit) with VolumeFlowUnit
 }
 
 object VolumeUnit extends UnitInfo[VolumeUnit]{

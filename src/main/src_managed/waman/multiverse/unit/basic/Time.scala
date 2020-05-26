@@ -37,7 +37,7 @@ trait TimeUnit extends LinearUnit[TimeUnit]{
     if(this == timeUnit)
       this.squared
     else
-      new AbstractProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
+      new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
 }
 
 object TimeUnit extends UnitInfo[TimeUnit]{

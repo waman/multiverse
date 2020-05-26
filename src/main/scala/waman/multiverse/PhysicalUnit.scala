@@ -9,7 +9,7 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   def symbol: String
   def aliases: Seq[String]
   /** Return <code>this.symbol +: this.aliases </code>*/
-  def symbols: Seq[String] = symbol +: aliases
+  final def symbols: Seq[String] = symbol +: aliases
 
   def getSIUnit: U
 

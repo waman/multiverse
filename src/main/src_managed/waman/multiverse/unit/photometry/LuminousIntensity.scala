@@ -26,7 +26,7 @@ trait LuminousIntensityUnit extends LinearUnit[LuminousIntensityUnit]{
   override def dimension: Map[DimensionSymbol, Int] = LuminousIntensityUnit.dimension
 
   def /(areaUnit: AreaUnit): LuminanceUnit =
-    new AbstractQuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit](LuminousIntensityUnit.this, areaUnit) with LuminanceUnit
+    new QuotientUnit[LuminanceUnit, LuminousIntensityUnit, AreaUnit](LuminousIntensityUnit.this, areaUnit) with LuminanceUnit
 }
 
 object LuminousIntensityUnit extends UnitInfo[LuminousIntensityUnit]{

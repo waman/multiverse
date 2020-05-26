@@ -32,10 +32,10 @@ trait VoltageUnit extends LinearUnit[VoltageUnit]{
   override def dimension: Map[DimensionSymbol, Int] = VoltageUnit.dimension
 
   def *(timeUnit: TimeUnit): FluxUnit =
-    new AbstractProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
+    new ProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
 
   def /(currentUnit: CurrentUnit): ResistanceUnit =
-    new AbstractQuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
+    new QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
 }
 
 object VoltageUnit extends UnitInfo[VoltageUnit]{

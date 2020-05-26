@@ -57,16 +57,16 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
   override def dimension: Map[DimensionSymbol, Int] = PowerUnit.dimension
 
   def *(timeUnit: TimeUnit): EnergyUnit =
-    new AbstractProductUnit[EnergyUnit, PowerUnit, TimeUnit](PowerUnit.this, timeUnit) with EnergyUnit
+    new ProductUnit[EnergyUnit, PowerUnit, TimeUnit](PowerUnit.this, timeUnit) with EnergyUnit
 
   def /(currentUnit: CurrentUnit): VoltageUnit =
-    new AbstractQuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
+    new QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
 
   def /(areaUnit: AreaUnit): IrradianceUnit =
-    new AbstractQuotientUnit[IrradianceUnit, PowerUnit, AreaUnit](PowerUnit.this, areaUnit) with IrradianceUnit
+    new QuotientUnit[IrradianceUnit, PowerUnit, AreaUnit](PowerUnit.this, areaUnit) with IrradianceUnit
 
   def /(areaFrequencyUnit: AreaFrequencyUnit): SpectralIrradianceUnit =
-    new AbstractQuotientUnit[SpectralIrradianceUnit, PowerUnit, AreaFrequencyUnit](PowerUnit.this, areaFrequencyUnit) with SpectralIrradianceUnit
+    new QuotientUnit[SpectralIrradianceUnit, PowerUnit, AreaFrequencyUnit](PowerUnit.this, areaFrequencyUnit) with SpectralIrradianceUnit
 }
 
 object PowerUnit extends UnitInfo[PowerUnit]{

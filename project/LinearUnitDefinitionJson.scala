@@ -243,7 +243,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
       writer.write(
         s"""
            |  def /(${denoId}Unit: ${denoType}Unit): ${resultType}Unit =
-           |    new AbstractQuotientUnit[${resultType}Unit, ${id}Unit, ${denoType}Unit](${id}Unit.this, ${denoId}Unit) with ${resultType}Unit
+           |    new QuotientUnit[${resultType}Unit, ${id}Unit, ${denoType}Unit](${id}Unit.this, ${denoId}Unit) with ${resultType}Unit
            |""".stripMargin)
     }
   }
@@ -255,7 +255,7 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
     writer.write(
       s"""
          |  def *(${secondId}Unit: ${secondType}Unit): ${resultType}Unit =
-         |    new AbstractProductUnit[${resultType}Unit, ${id}Unit, ${secondType}Unit](${id}Unit.this, ${secondId}Unit) with ${resultType}Unit
+         |    new ProductUnit[${resultType}Unit, ${id}Unit, ${secondType}Unit](${id}Unit.this, ${secondId}Unit) with ${resultType}Unit
          |""".stripMargin)
   }
 
@@ -349,7 +349,7 @@ class LengthUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpacka
           |    if(this == lengthUnit)
           |      this.squared
           |    else
-          |      new AbstractProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
+          |      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
           |
           |""".stripMargin)
     }else{
@@ -410,7 +410,7 @@ class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
            |    if(this == timeUnit)
            |      this.squared
            |    else
-           |      new AbstractProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
+           |      new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
            |""".stripMargin)
     }else{
       super.generateUnitMultiplication(writer, p)

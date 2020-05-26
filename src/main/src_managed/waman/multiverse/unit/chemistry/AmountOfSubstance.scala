@@ -26,7 +26,7 @@ trait AmountOfSubstanceUnit extends LinearUnit[AmountOfSubstanceUnit]{
   override def dimension: Map[DimensionSymbol, Int] = AmountOfSubstanceUnit.dimension
 
   def /(timeUnit: TimeUnit): CatalysisUnit =
-    new AbstractQuotientUnit[CatalysisUnit, AmountOfSubstanceUnit, TimeUnit](AmountOfSubstanceUnit.this, timeUnit) with CatalysisUnit
+    new QuotientUnit[CatalysisUnit, AmountOfSubstanceUnit, TimeUnit](AmountOfSubstanceUnit.this, timeUnit) with CatalysisUnit
 }
 
 object AmountOfSubstanceUnit extends UnitInfo[AmountOfSubstanceUnit]{

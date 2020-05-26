@@ -26,7 +26,7 @@ trait IrradianceUnit extends LinearUnit[IrradianceUnit]{
   override def dimension: Map[DimensionSymbol, Int] = IrradianceUnit.dimension
 
   def /(frequencyUnit: FrequencyUnit): SpectralIrradianceUnit =
-    new AbstractQuotientUnit[SpectralIrradianceUnit, IrradianceUnit, FrequencyUnit](IrradianceUnit.this, frequencyUnit) with SpectralIrradianceUnit
+    new QuotientUnit[SpectralIrradianceUnit, IrradianceUnit, FrequencyUnit](IrradianceUnit.this, frequencyUnit) with SpectralIrradianceUnit
 }
 
 object IrradianceUnit extends UnitInfo[IrradianceUnit]{
