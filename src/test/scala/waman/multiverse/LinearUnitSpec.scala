@@ -3,6 +3,7 @@ package waman.multiverse
 import waman.multiverse.unit.BasicUnits._
 import waman.multiverse.unit.basic.LengthUnits.a_0
 import waman.multiverse.unit.MechanicalUnits._
+import waman.multiverse.unit.basic.VolumeUnitObjects
 
 class LinearUnitSpec extends MultiverseCustomSpec{
 
@@ -89,5 +90,16 @@ class LinearUnitSpec extends MultiverseCustomSpec{
         sut should equal(expected)
       }
     }
+  }
+
+  "Description" in {
+    // Exercise
+    val sut = VolumeUnitObjects.barrel
+    // Verify
+    sut.description.length should not equal 0
+    sut.description should equal ("oil barrel")
+
+    VolumeUnitObjects.`barrel(US_fl)` should not be a [Description]
+    VolumeUnitObjects.millilitre should not be a [Description]
   }
 }

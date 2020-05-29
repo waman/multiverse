@@ -23,15 +23,15 @@ case class RawHomogeneousUnit(name: String, symbol: String, aliases: Array[Strin
       val nm = this.symbol +: _aliases
 
       // In this case, always name == objectName
-      HomogeneousUnit(this.name, this.name, this.symbol, _aliases, _zero, _interval, this._description) +:
+      HomogeneousUnit(this.name, this.name, this.symbol, _aliases, _zero, _interval, this.description) +:
         prefixes.map{ p =>
           val al = (p.prefix +: p._aliases).flatMap(ps => nm.map(ns => ps + ns)).tail
           val name = p.name + this.name
-          HomogeneousUnit(name, name, p.prefix + this.symbol, al, _zero, s"""${_interval} * r"${p.scale}"""", this._description)
+          HomogeneousUnit(name, name, p.prefix + this.symbol, al, _zero, s"""${_interval} * r"${p.scale}"""", this.description)
         }
     }else{
       Seq(
-        HomogeneousUnit(this.name, toObjectName(this.name), this.symbol, _aliases, _zero, _interval, this._description))
+        HomogeneousUnit(this.name, toObjectName(this.name), this.symbol, _aliases, _zero, _interval, this.description))
     }
   }
 }

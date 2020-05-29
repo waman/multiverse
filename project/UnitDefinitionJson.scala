@@ -11,7 +11,6 @@ trait RawUnitInfo[U <: UnitInfo]{
   lazy val symbols: Seq[String] = this.symbol +: this._aliases
   lazy val _aliases: Seq[String] = GenerationUtil.toSeq(this.aliases)
   lazy val _excludePrefixes: Seq[String] = GenerationUtil.toSeq(this.excludePrefixes)
-  lazy val _description: String = if (this.description != null) this.description else ""
 
   def expandScalePrefixesAndAttributes(jsons: JsonResources): Seq[U]
 }
