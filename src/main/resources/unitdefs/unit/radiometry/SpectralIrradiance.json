@@ -1,9 +1,9 @@
 {
   "description": "This unit is, exactly speaking, spectral irradiance in frequency.",
-  "SIUnit": "Irradiance / Frequency",
+  "SIUnit": "Power / AreaFrequency",
   "dimension": {"M": 1, "T": -2},
 
-  "composites": ["Irradiance / Frequency", "Power / AreaFrequency"],
+  "composites": ["Power / AreaFrequency", "Irradiance / Frequency"],
 
   "units": [
     {"name": "jansky", "symbol": "Jy", "interval": "1e-26"},

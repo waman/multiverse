@@ -24,8 +24,8 @@ object SpectralIrradianceUnit extends UnitInfo[SpectralIrradianceUnit]{
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> -2, M -> 1).withDefaultValue(0)
 
-  import waman.multiverse.unit.angle.FrequencyUnit
-  val getSIUnit: SpectralIrradianceUnit = IrradianceUnit.getSIUnit / FrequencyUnit.getSIUnit
+  import waman.multiverse.unit.mechanics.PowerUnit
+  val getSIUnit: SpectralIrradianceUnit = PowerUnit.getSIUnit / AreaFrequencyUnit.getSIUnit
 
   import SpectralIrradianceUnitObjects._
   def getUnits: Seq[SpectralIrradianceUnit] =

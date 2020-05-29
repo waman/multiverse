@@ -7,7 +7,7 @@ object ImplicitsGenerator {
   import GenerationUtil._
 
   def generate(jsons: JsonResources, srcManaged: File): File = {
-    val destDir = IO.resolve(srcManaged, new File("org/waman/multiverse/implicits"))
+    val destDir = IO.resolve(srcManaged, new File(rootPackage.replaceAll("\\.", "/") + "/implicits"))
     if (!destDir.exists()) IO.createDirectory(destDir)
 
     val destFile = IO.resolve(destDir, new File("package.scala"))
@@ -37,7 +37,9 @@ object ImplicitsGenerator {
       }
 
       writer.write(
-        s"""}
+        s"""
+           |    def apply(unit: TypelessLinearUnit): TypelessLinearQuantity[A] = new TypelessLinearQuantity(value, unit)
+           |  }
            |
            |  // An integral value (like 1(m), not 1.0(m)) create a Quantity[Real] instance
            |  implicit def convertIntToQuantityFactory(value: Int): QuantityFactory[Real] =

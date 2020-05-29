@@ -71,7 +71,9 @@ package object implicits {
     def apply(unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
     def apply(unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
     def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)
-}
+
+    def apply(unit: TypelessLinearUnit): TypelessLinearQuantity[A] = new TypelessLinearQuantity(value, unit)
+  }
 
   // An integral value (like 1(m), not 1.0(m)) create a Quantity[Real] instance
   implicit def convertIntToQuantityFactory(value: Int): QuantityFactory[Real] =

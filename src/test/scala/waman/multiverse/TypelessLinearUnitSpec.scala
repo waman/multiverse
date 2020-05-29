@@ -1,6 +1,7 @@
 package waman.multiverse
 
 import spire.math.Real
+import waman.multiverse.implicits._
 import waman.multiverse.unit.BasicUnits._
 import waman.multiverse.unit.MechanicalUnits._
 
@@ -173,6 +174,53 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
       // Verify
       sut shouldBe a [TypelessQuotientUnit]
       sut.isEquivalentTo(v) should be (true)
+    }
+  }
+
+  "Quantity" - {
+
+    "apply method" - {
+
+      "3.0(km/L) should be converted to the equivalent value in another unit" in {
+        // SetUp
+        val q = 3.0 (km/L)
+        // Exercise
+        val sut = q(m/m3)
+        // Verify
+        sut should equal (%%%%(3e6))
+      }
+
+      "apply method should throw an IllegalArgumentException when the argument has the different dimension" in {
+        // SetUp
+        val q = 3.0 (km/L)
+        // Exercise
+        a [IllegalArgumentException] should be thrownBy {
+          q(km/m2)
+        }
+      }
+    }
+
+    "+ operator" - {
+
+      "3.0(km/L) should be converted to the equivalent value in another unit" in {
+        // SetUp
+        val q0 = 3.0 (km/L)
+        val q1 = 5.0 (m/L)
+        // Exercise
+        val sut = q0 + q1
+        // Verify
+        sut(km/L) should equal (%%%%(3.005))
+      }
+
+      "+ operator should throw an IllegalArgumentException when the argument has the different dimension" in {
+        // SetUp
+        val q0 = 3.0 (km/L)
+        val q1 = 5.0 (km/m2)
+        // Exercise
+        a [IllegalArgumentException] should be thrownBy {
+          q0 + q1
+        }
+      }
     }
   }
 }
