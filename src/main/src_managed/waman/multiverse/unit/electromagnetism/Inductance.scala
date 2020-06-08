@@ -1,4 +1,4 @@
-package waman.multiverse.unit.magnetics
+package waman.multiverse.unit.electromagnetism
 
 import spire.math.Real
 import spire.math.Fractional

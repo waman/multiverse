@@ -10,12 +10,12 @@ import waman.multiverse.unit.basic.Time
 import waman.multiverse.unit.basic.TimeUnit
 
 
-import waman.multiverse.unit.electrics.Current
-import waman.multiverse.unit.electrics.CurrentUnit
+import waman.multiverse.unit.electromagnetism.ElectricCurrent
+import waman.multiverse.unit.electromagnetism.ElectricCurrentUnit
 
 
-import waman.multiverse.unit.electrics.Voltage
-import waman.multiverse.unit.electrics.VoltageUnit
+import waman.multiverse.unit.electromagnetism.Voltage
+import waman.multiverse.unit.electromagnetism.VoltageUnit
 
 
 import waman.multiverse.unit.basic.Area
@@ -43,7 +43,7 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
 
   def *(time: Time[A]): Energy[A] = new Energy(this.value * time.value, this.unit * time.unit)
 
-  def /(current: Current[A]): Voltage[A] = new Voltage(this.value / current.value, this.unit / current.unit)
+  def /(electricCurrent: ElectricCurrent[A]): Voltage[A] = new Voltage(this.value / electricCurrent.value, this.unit / electricCurrent.unit)
 
   def /(area: Area[A]): Irradiance[A] = new Irradiance(this.value / area.value, this.unit / area.unit)
 
@@ -59,8 +59,8 @@ trait PowerUnit extends LinearUnit[PowerUnit]{
   def *(timeUnit: TimeUnit): EnergyUnit =
     new ProductUnit[EnergyUnit, PowerUnit, TimeUnit](PowerUnit.this, timeUnit) with EnergyUnit
 
-  def /(currentUnit: CurrentUnit): VoltageUnit =
-    new QuotientUnit[VoltageUnit, PowerUnit, CurrentUnit](PowerUnit.this, currentUnit) with VoltageUnit
+  def /(electricCurrentUnit: ElectricCurrentUnit): VoltageUnit =
+    new QuotientUnit[VoltageUnit, PowerUnit, ElectricCurrentUnit](PowerUnit.this, electricCurrentUnit) with VoltageUnit
 
   def /(areaUnit: AreaUnit): IrradianceUnit =
     new QuotientUnit[IrradianceUnit, PowerUnit, AreaUnit](PowerUnit.this, areaUnit) with IrradianceUnit

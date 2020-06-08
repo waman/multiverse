@@ -8,7 +8,12 @@ object Constants{
   val SpeedOfLight: Real = r"299792458"
   val PlanckConstant: Real = r"6.62607015e-34"
   val ElementaryCharge: Real = r"1.602176634e-19"
+  val ElectronMass: Real = r"9.1093829140e-31"
   val BohrRadius: Real = r"5.2917721090380e-11"
   val BoltzmannConstant: Real = r"1.380649e-23"
-  val AvogadroConstant: Real = r"6.02214076e-23"
+  val AvogadroConstant: Real = r"6.02214076e23"
+  val FineStructureConstant: Real = r"0.007297352569311"
+  val GravitationalConstant: Real = r"6.6743015e-11"
+  val RydbergConstant: Real = r"10973731.56816021"
+  val VacuumPermittivity: Real = r"8.854187812813e-12"
 }

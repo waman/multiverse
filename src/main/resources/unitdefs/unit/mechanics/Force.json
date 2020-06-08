@@ -10,6 +10,7 @@
     {"name": "kilogram force", "symbol": "kgf", "aliases": ["kp", "Gf"], "baseUnit": "Acceleration.standard_gravity", "notExact": true},
     {"name": "milligrave force", "symbol": "mGf", "aliases": ["gf"], "interval": "1e-3",
       "baseUnit": "Acceleration.standard_gravity", "notExact": true},
+    {"name": "atomic unit of force", "interval": "8.23872206e-8", "notExact": true},
 
     {"name": "ounce force", "symbol": "ozf", "baseUnit": "Mass.ounce * Acceleration.standard_gravity"},
     {"name": "pound force", "symbol": "lbf", "baseUnit": "Mass.pound * Acceleration.standard_gravity"},

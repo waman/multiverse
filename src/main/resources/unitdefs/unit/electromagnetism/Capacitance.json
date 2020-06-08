@@ -2,7 +2,7 @@
   "SIUnit":"farad",
   "dimension": {"M": -1, "L": -2, "T": 4, "I": 2},
 
-  "composites": ["Charge / Voltage"],
+  "composites": ["ElectricCharge / Voltage"],
 
   "units": [
     {"name":"farad", "symbol":"F", "scalePrefixes":true}

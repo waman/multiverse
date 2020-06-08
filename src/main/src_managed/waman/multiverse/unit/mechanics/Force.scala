@@ -60,7 +60,7 @@ object ForceUnit extends UnitInfo[ForceUnit]{
 
   import ForceUnitObjects._
   def getUnits: Seq[ForceUnit] =
-    Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, yoctodyne, zeptodyne, attodyne, femtodyne, picodyne, nanodyne, microdyne, millidyne, centidyne, decidyne, decadyne, hectodyne, kilodyne, megadyne, gigadyne, teradyne, petadyne, exadyne, zettadyne, yottadyne, kilogram_force, milligrave_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
+    Seq(newton, yoctonewton, zeptonewton, attonewton, femtonewton, piconewton, nanonewton, micronewton, millinewton, centinewton, decinewton, decanewton, hectonewton, kilonewton, meganewton, giganewton, teranewton, petanewton, exanewton, zettanewton, yottanewton, dyne, yoctodyne, zeptodyne, attodyne, femtodyne, picodyne, nanodyne, microdyne, millidyne, centidyne, decidyne, decadyne, hectodyne, kilodyne, megadyne, gigadyne, teradyne, petadyne, exadyne, zettadyne, yottadyne, kilogram_force, milligrave_force, atomic_unit_of_force, ounce_force, pound_force, poundal, kip_force, short_ton_force, long_ton_force, sthene)
 }
 
 /** For no aliase or user defined units */
@@ -124,6 +124,7 @@ object ForceUnitObjects{
   final case object yottadyne extends SimpleForceUnit("yottadyne", "Ydyn", r"1e-5" * r"1e24")
   final case object kilogram_force extends DefaultForceUnit("kilogram force", "kgf", Seq("kp", "Gf"), standard_gravity.interval) with NotExact
   final case object milligrave_force extends DefaultForceUnit("milligrave force", "mGf", Seq("gf"), r"1e-3" * standard_gravity.interval) with NotExact
+  final case object atomic_unit_of_force extends SimpleForceUnit("atomic unit of force", "atomic_unit_of_force", r"8.23872206e-8") with NotExact
   final case object ounce_force extends SimpleForceUnit("ounce force", "ozf", ounce.interval * standard_gravity.interval)
   final case object pound_force extends SimpleForceUnit("pound force", "lbf", pound.interval * standard_gravity.interval)
   final case object poundal extends SimpleForceUnit("poundal", "pdl", pound.interval * foot.interval)
@@ -186,6 +187,7 @@ object ForceUnits{
   def Gf: ForceUnit = ForceUnitObjects.kilogram_force
   def mGf: ForceUnit = ForceUnitObjects.milligrave_force
   def gf: ForceUnit = ForceUnitObjects.milligrave_force
+  def atomic_unit_of_force: ForceUnit = ForceUnitObjects.atomic_unit_of_force
   def ozf: ForceUnit = ForceUnitObjects.ounce_force
   def lbf: ForceUnit = ForceUnitObjects.pound_force
   def pdl: ForceUnit = ForceUnitObjects.poundal

@@ -49,7 +49,7 @@ object TimeUnit extends UnitInfo[TimeUnit]{
 
   import TimeUnitObjects._
   def getUnits: Seq[TimeUnit] =
-    Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, planck_time)
+    Seq(second, yoctosecond, zeptosecond, attosecond, femtosecond, picosecond, nanosecond, microsecond, millisecond, centisecond, decisecond, decasecond, hectosecond, kilosecond, megasecond, gigasecond, terasecond, petasecond, exasecond, zettasecond, yottasecond, minute, hour, day, `day(sidereal)`, week, month, `month(gregorian)`, `month(full)`, `month(hollow)`, `month(synodic)`, year, `year(common)`, `year(leap)`, `year(gregorian)`, `year(sidereal)`, `year(julian)`, `year(tropical)`, decade, `decade(gregorian)`, `decade(sidereal)`, `decade(julian)`, `decade(tropical)`, century, `century(gregorian)`, `century(sidereal)`, `century(julian)`, `century(topical)`, svedberg, milliday, jitty, jitty_alternative, fortnight, atomic_unit_of_time, planck_time)
 }
 
 /** For no aliase or user defined units */
@@ -125,6 +125,7 @@ object TimeUnitObjects{
   final case object jitty extends SimpleTimeUnit("jitty", "j", r"1"/r"60")
   final case object jitty_alternative extends SimpleTimeUnit("jitty_alternative", "ja", centisecond.interval)
   final case object fortnight extends SimpleTimeUnit("fortnight", "fn", r"2" * week.interval)
+  final case object atomic_unit_of_time extends SimpleTimeUnit("atomic unit of time", "au", r"2.418884254e-17") with NotExact
   final case object planck_time extends SimpleTimeUnit("planck time", "t_p", r"5.3910632e-44") with NotExact
 }
 
@@ -234,5 +235,6 @@ object TimeUnits{
   def j: TimeUnit = TimeUnitObjects.jitty
   def ja: TimeUnit = TimeUnitObjects.jitty_alternative
   def fn: TimeUnit = TimeUnitObjects.fortnight
+  def au: TimeUnit = TimeUnitObjects.atomic_unit_of_time
   def t_p: TimeUnit = TimeUnitObjects.planck_time
 }

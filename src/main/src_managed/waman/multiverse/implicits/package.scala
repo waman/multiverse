@@ -7,9 +7,8 @@ import waman.multiverse.unit.angle._
 import waman.multiverse.unit.basic._
 import waman.multiverse.unit.chemistry._
 import waman.multiverse.unit.density._
-import waman.multiverse.unit.electrics._
+import waman.multiverse.unit.electromagnetism._
 import waman.multiverse.unit.fluid._
-import waman.multiverse.unit.magnetics._
 import waman.multiverse.unit.mechanics._
 import waman.multiverse.unit.photometry._
 import waman.multiverse.unit.radioactivity._
@@ -35,19 +34,19 @@ package object implicits {
     def apply(unit: DensityUnit): Density[A] = new Density(value, unit)
     def apply(unit: LineDensityUnit): LineDensity[A] = new LineDensity(value, unit)
     def apply(unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
-    def apply(unit: ChargeUnit): Charge[A] = new Charge(value, unit)
-    def apply(unit: ConductanceUnit): Conductance[A] = new Conductance(value, unit)
-    def apply(unit: CurrentUnit): Current[A] = new Current(value, unit)
-    def apply(unit: DipoleUnit): Dipole[A] = new Dipole(value, unit)
-    def apply(unit: ResistanceUnit): Resistance[A] = new Resistance(value, unit)
+    def apply(unit: ElectricalConductanceUnit): ElectricalConductance[A] = new ElectricalConductance(value, unit)
+    def apply(unit: ElectricalResistanceUnit): ElectricalResistance[A] = new ElectricalResistance(value, unit)
+    def apply(unit: ElectricChargeUnit): ElectricCharge[A] = new ElectricCharge(value, unit)
+    def apply(unit: ElectricCurrentUnit): ElectricCurrent[A] = new ElectricCurrent(value, unit)
+    def apply(unit: ElectricDipoleUnit): ElectricDipole[A] = new ElectricDipole(value, unit)
+    def apply(unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
+    def apply(unit: MagneticFluxUnit): MagneticFlux[A] = new MagneticFlux(value, unit)
+    def apply(unit: MagneticFluxDensityUnit): MagneticFluxDensity[A] = new MagneticFluxDensity(value, unit)
     def apply(unit: VoltageUnit): Voltage[A] = new Voltage(value, unit)
     def apply(unit: DynamicViscosityUnit): DynamicViscosity[A] = new DynamicViscosity(value, unit)
     def apply(unit: KinematicViscosityUnit): KinematicViscosity[A] = new KinematicViscosity(value, unit)
     def apply(unit: PressureUnit): Pressure[A] = new Pressure(value, unit)
     def apply(unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
-    def apply(unit: FluxUnit): Flux[A] = new Flux(value, unit)
-    def apply(unit: FluxDensityUnit): FluxDensity[A] = new FluxDensity(value, unit)
-    def apply(unit: InductanceUnit): Inductance[A] = new Inductance(value, unit)
     def apply(unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
     def apply(unit: AngularMomentumUnit): AngularMomentum[A] = new AngularMomentum(value, unit)
     def apply(unit: EnergyUnit): Energy[A] = new Energy(value, unit)

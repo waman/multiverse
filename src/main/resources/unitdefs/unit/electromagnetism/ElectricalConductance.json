@@ -2,10 +2,10 @@
   "SIUnit": "siemens",
   "dimension": {"M": -1, "L": -2, "T": 3, "I": 2},
 
-  "composites": ["Current / Voltage"],
+  "composites": ["ElectricCurrent / Voltage"],
 
   "convertibles": [
-    {"target": "Resistance", "from": "siemens", "to": "ohm", "algorithm": "reciprocal"}
+    {"target": "ElectricalResistance", "from": "siemens", "to": "ohm", "algorithm": "reciprocal"}
   ],
 
   "units":[

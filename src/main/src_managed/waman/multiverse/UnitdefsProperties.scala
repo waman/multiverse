@@ -1,7 +1,7 @@
 package waman.multiverse
 
 object UnitdefsProperties{
-  val version: String = "0.3"
+  val version: String = "0.4"
 
   def getUnitInfo: Seq[UnitInfo[_]] = Seq(
     unit.angle.AngleUnit,
@@ -18,20 +18,20 @@ object UnitdefsProperties{
     unit.chemistry.CatalysisUnit,
     unit.density.DensityUnit,
     unit.density.LineDensityUnit,
-    unit.electrics.CapacitanceUnit,
-    unit.electrics.ChargeUnit,
-    unit.electrics.ConductanceUnit,
-    unit.electrics.CurrentUnit,
-    unit.electrics.DipoleUnit,
-    unit.electrics.ResistanceUnit,
-    unit.electrics.VoltageUnit,
+    unit.electromagnetism.CapacitanceUnit,
+    unit.electromagnetism.ElectricalConductanceUnit,
+    unit.electromagnetism.ElectricalResistanceUnit,
+    unit.electromagnetism.ElectricChargeUnit,
+    unit.electromagnetism.ElectricCurrentUnit,
+    unit.electromagnetism.ElectricDipoleUnit,
+    unit.electromagnetism.InductanceUnit,
+    unit.electromagnetism.MagneticFluxUnit,
+    unit.electromagnetism.MagneticFluxDensityUnit,
+    unit.electromagnetism.VoltageUnit,
     unit.fluid.DynamicViscosityUnit,
     unit.fluid.KinematicViscosityUnit,
     unit.fluid.PressureUnit,
     unit.fluid.VolumeFlowUnit,
-    unit.magnetics.FluxUnit,
-    unit.magnetics.FluxDensityUnit,
-    unit.magnetics.InductanceUnit,
     unit.mechanics.AccelerationUnit,
     unit.mechanics.AngularMomentumUnit,
     unit.mechanics.EnergyUnit,

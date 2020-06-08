@@ -3,7 +3,12 @@
   {"name":"SpeedOfLight", "value":"299792458"},
   {"name": "PlanckConstant", "value": "6.62607015e-34"},
   {"name":"ElementaryCharge", "value":"1.602176634e-19"},
+  {"name": "ElectronMass", "value": "9.1093829140e-31"},
   {"name": "BohrRadius", "value": "5.2917721090380e-11"},
   {"name": "BoltzmannConstant", "value": "1.380649e-23"},
-  {"name": "AvogadroConstant", "value": "6.02214076e-23"}
+  {"name": "AvogadroConstant", "value": "6.02214076e23"},
+  {"name": "FineStructureConstant", "value": "0.007297352569311"},
+  {"name": "GravitationalConstant", "value": "6.6743015e-11"},
+  {"name": "RydbergConstant", "value": "10973731.56816021"},
+  {"name": "VacuumPermittivity", "value": "8.854187812813e-12"}
 ]

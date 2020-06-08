@@ -23,9 +23,9 @@ object ExposureUnit extends UnitInfo[ExposureUnit]{
   val dimension: Map[DimensionSymbol, Int] =
     Map[DimensionSymbol, Int](T -> 1, M -> -1, I -> 1).withDefaultValue(0)
 
-  import waman.multiverse.unit.electrics.ChargeUnit
+  import waman.multiverse.unit.electromagnetism.ElectricChargeUnit
   import waman.multiverse.unit.basic.MassUnit
-  val getSIUnit: ExposureUnit = ChargeUnit.getSIUnit / MassUnit.getSIUnit
+  val getSIUnit: ExposureUnit = ElectricChargeUnit.getSIUnit / MassUnit.getSIUnit
 
   import ExposureUnitObjects._
   def getUnits: Seq[ExposureUnit] =

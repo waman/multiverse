@@ -1,4 +1,4 @@
-package waman.multiverse.unit.electrics
+package waman.multiverse.unit.electromagnetism
 
 import spire.math.Real
 import spire.math.Fractional
@@ -10,10 +10,6 @@ import waman.multiverse.unit.basic.Time
 import waman.multiverse.unit.basic.TimeUnit
 
 
-import waman.multiverse.unit.magnetics.Flux
-import waman.multiverse.unit.magnetics.FluxUnit
-
-
 class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
     extends LinearQuantity[Voltage[A], A, VoltageUnit] {
 
@@ -21,9 +17,9 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
 
   override protected def newQuantity(value: A, unit: VoltageUnit): Voltage[A] = new Voltage(value, unit)
 
-  def *(time: Time[A]): Flux[A] = new Flux(this.value * time.value, this.unit * time.unit)
+  def *(time: Time[A]): MagneticFlux[A] = new MagneticFlux(this.value * time.value, this.unit * time.unit)
 
-  def /(current: Current[A]): Resistance[A] = new Resistance(this.value / current.value, this.unit / current.unit)
+  def /(electricCurrent: ElectricCurrent[A]): ElectricalResistance[A] = new ElectricalResistance(this.value / electricCurrent.value, this.unit / electricCurrent.unit)
 }
 
 trait VoltageUnit extends LinearUnit[VoltageUnit]{
@@ -31,11 +27,11 @@ trait VoltageUnit extends LinearUnit[VoltageUnit]{
   override def getSIUnit: VoltageUnit = VoltageUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = VoltageUnit.dimension
 
-  def *(timeUnit: TimeUnit): FluxUnit =
-    new ProductUnit[FluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with FluxUnit
+  def *(timeUnit: TimeUnit): MagneticFluxUnit =
+    new ProductUnit[MagneticFluxUnit, VoltageUnit, TimeUnit](VoltageUnit.this, timeUnit) with MagneticFluxUnit
 
-  def /(currentUnit: CurrentUnit): ResistanceUnit =
-    new QuotientUnit[ResistanceUnit, VoltageUnit, CurrentUnit](VoltageUnit.this, currentUnit) with ResistanceUnit
+  def /(electricCurrentUnit: ElectricCurrentUnit): ElectricalResistanceUnit =
+    new QuotientUnit[ElectricalResistanceUnit, VoltageUnit, ElectricCurrentUnit](VoltageUnit.this, electricCurrentUnit) with ElectricalResistanceUnit
 }
 
 object VoltageUnit extends UnitInfo[VoltageUnit]{

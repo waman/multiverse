@@ -150,7 +150,7 @@ object EnergyUnitObjects{
   final case object exaelectronvolt extends SimpleEnergyUnit("exaelectronvolt", "EeV", Constants.ElementaryCharge * r"1e18") with NotExact
   final case object zettaelectronvolt extends SimpleEnergyUnit("zettaelectronvolt", "ZeV", Constants.ElementaryCharge * r"1e21") with NotExact
   final case object yottaelectronvolt extends SimpleEnergyUnit("yottaelectronvolt", "YeV", Constants.ElementaryCharge * r"1e24") with NotExact
-  final case object rydberg extends SimpleEnergyUnit("rydberg", "Ry", r"13.6056925330" * electronvolt.interval) with NotExact
+  final case object rydberg extends SimpleEnergyUnit("rydberg", "Ry", Constants.RydbergConstant * Constants.PlanckConstant * Constants.SpeedOfLight) with NotExact
   final case object atomic_unit_of_energy extends SimpleEnergyUnit("atomic unit of energy", "E_h", r"2" * rydberg.interval) with NotExact
   final case object watt_hour extends SimpleEnergyUnit("watt hour", "Wh", watt.interval * hour.interval)
   final case object kilowatt_hour extends SimpleEnergyUnit("kilowatt hour", "kWh", kilowatt.interval * hour.interval)

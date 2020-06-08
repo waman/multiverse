@@ -1,7 +1,7 @@
 package waman.multiverse
 
 import waman.multiverse.unit.basic.LengthUnit
-import waman.multiverse.unit.electrics.VoltageUnit
+import waman.multiverse.unit.electromagnetism.VoltageUnit
 import waman.multiverse.unit.photometry.LuminanceUnit
 import waman.multiverse.unit.mechanics.{EnergyUnit, TimeSquaredUnit}
 import waman.multiverse.unit.thermodynamics.TemperatureUnit

@@ -48,11 +48,13 @@ object AngularMomentumUnitObjects{
   import waman.multiverse.unit.Constants
 
   final case object planck_constant extends SimpleAngularMomentumUnit("planck constant", "h", Constants.PlanckConstant)
-  final case object reduced_planck_constant extends SimpleAngularMomentumUnit("reduced planck constant", "ħ", Constants.PlanckConstant / r"2.0" / Constants.Pi)
+  final case object reduced_planck_constant extends DefaultAngularMomentumUnit("reduced planck constant", "ħ", Seq("hbar", "atomic_unit_of_action"), Constants.PlanckConstant / r"2.0" / Constants.Pi)
 }
 
 object AngularMomentumUnits{
 
   def h: AngularMomentumUnit = AngularMomentumUnitObjects.planck_constant
   def `ħ`: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
+  def hbar: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
+  def atomic_unit_of_action: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
 }

@@ -2,24 +2,34 @@ package waman.multiverse.source_generation
 
 import spire.math.Real
 import spire.implicits._
-import waman.multiverse
-import multiverse.implicits._
-import multiverse.unit
-import multiverse.MultiverseCustomSpec
-import unit.Constants
-import unit.basic.{LengthUnitObjects, LengthUnits}
-import unit.thermodynamics.EntropyUnit
-import unit.thermodynamics.EntropyUnits.{ban, bit, nat}
+import waman.multiverse.implicits._
+import waman.multiverse.MultiverseCustomSpec
+import waman.multiverse.unit.Constants
+import waman.multiverse.unit.basic.{LengthUnitObjects, LengthUnits}
+import waman.multiverse.unit.thermodynamics.EntropyUnit
+import waman.multiverse.unit.thermodynamics.EntropyUnits.{ban, bit, nat}
 
 class SourceGenerationSpec extends MultiverseCustomSpec {
 
-  "JSON" - {
+  "Constants" - {
+
+    "Constants.Pi should have the collect value" in {
+      // SetUp
+      val expected = Real.pi
+      // Exercise
+      val sut = Constants.Pi
+      // Verify
+      sut should equal(expected)
+    }
+  }
+
+  "General Units" - {
 
     "aliases" - {
 
       "Product unit should have the combinated aliases" in {
-        import unit.electrics.ChargeUnits.statC
-        import unit.basic.LengthUnits.NM
+        import waman.multiverse.unit.electromagnetism.ElectricChargeUnits.statC
+        import waman.multiverse.unit.basic.LengthUnits.NM
         // SetUp
         val expected = Seq("statC*nmi", "Fr*NM", "Fr*nmi", "esu*NM", "esu*nmi")
         // Exercise
@@ -30,7 +40,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
       }
 
       "Quotient unit should have combinated aliases" in {
-        import unit.BasicUnits._
+        import waman.multiverse.unit.BasicUnits._
         // SetUp
         val expected = Seq("Km/s", "Km/sec", "km/sec")
         // Exercise
@@ -41,7 +51,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
       }
 
       "Prefixed unit should have combinated aliases of a base unit and prefix" in {
-        import unit.basic.TimeUnitObjects
+        import waman.multiverse.unit.basic.TimeUnitObjects
         // SetUp
         val expected = Seq("μsec", "mcs", "mcsec")
         // Exercise
@@ -70,8 +80,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "interval" - {
 
       "The interval value should be correct when the interval string is a product of constant and number" in {
-        import unit.electrics.ChargeUnitObjects.statcoulomb
-        import unit.electrics.DipoleUnitObjects.debye
+        import waman.multiverse.unit.electromagnetism.ElectricChargeUnitObjects.statcoulomb
+        import waman.multiverse.unit.electromagnetism.ElectricDipoleUnitObjects.debye
         // Exercise
         val sut = debye.interval
         // Verify
@@ -80,7 +90,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
 
 
       "The interval value should be correct when the interval string is a quotient of constant and number" in {
-        import unit.electrics.VoltageUnitObjects.statvolt
+        import waman.multiverse.unit.electromagnetism.VoltageUnitObjects.statvolt
         // Exercise
         val sut = statvolt.interval
         // Verify
@@ -97,8 +107,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
         //          {"name":"gregorian", "interval":"365.2425", "baseUnit":"day"},
         //          ...
         //         ]}
-        import unit.basic.TimeUnit
-        import unit.basic.TimeUnits._
+        import waman.multiverse.unit.basic.TimeUnit
+        import waman.multiverse.unit.basic.TimeUnits._
         // Exercise
         val conversions =
         Table(
@@ -127,16 +137,16 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "convertible" - {
 
       "'reciprocal' convertible should work well" in {
-        import unit.electrics.ConductanceUnits._
-        import unit.electrics.ResistanceUnits._
+        import waman.multiverse.unit.electromagnetism.ElectricalConductanceUnits._
+        import waman.multiverse.unit.electromagnetism.ElectricalResistanceUnits._
         // Exercise
         val conversions =
           Table(
             ("sut", "expected"),
-            (3.0(S).toResistance(ohm), 1.0 / 3.0),
-            (3.0(mS).toResistance(mohm), 1.0e6 / 3.0),
-            (3.0(ohm).toConductance(S), 1.0 / 3.0),
-            (3.0(kohm).toConductance(kS), 1.0e-6 / 3.0)
+            (3.0(S).toElectricalResistance(ohm), 1.0 / 3.0),
+            (3.0(mS).toElectricalResistance(mohm), 1.0e6 / 3.0),
+            (3.0(ohm).toElectricalConductance(S), 1.0 / 3.0),
+            (3.0(kohm).toElectricalConductance(kS), 1.0e-6 / 3.0)
           )
         forAll(conversions){ (sut: Double, expected: Double) =>
           // Verify
@@ -146,7 +156,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     }
   }
 
-  "Units" - {
+  "Specific Units" - {
 
     "Length" - {
 
@@ -162,10 +172,10 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
 
     "Area" - {
 
-      import unit.basic.LengthUnits._
-      import unit.basic.AreaUnit
-      import unit.basic.AreaUnitObjects
-      import unit.basic.AreaUnits._
+      import waman.multiverse.unit.basic.LengthUnits._
+      import waman.multiverse.unit.basic.AreaUnit
+      import waman.multiverse.unit.basic.AreaUnitObjects
+      import waman.multiverse.unit.basic.AreaUnits._
 
       "square_metre should have the proper symbol and some aliases" in {
         // SetUp
@@ -205,10 +215,10 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     }
 
     "Volume" - {
-      import unit.basic.LengthUnits._
-      import unit.basic.VolumeUnit
-      import unit.basic.VolumeUnitObjects
-      import unit.basic.VolumeUnits._
+      import waman.multiverse.unit.basic.LengthUnits._
+      import waman.multiverse.unit.basic.VolumeUnit
+      import waman.multiverse.unit.basic.VolumeUnitObjects
+      import waman.multiverse.unit.basic.VolumeUnits._
 
       "metre_cubic should have the proper symbol and some aliases" in {
         // SetUp
@@ -249,10 +259,10 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
 
     "TimeSquared" - {
 
-      import unit.basic.TimeUnits._
-      import unit.mechanics.TimeSquaredUnit
-      import unit.mechanics.TimeSquaredUnitObjects
-      import unit.mechanics.TimeSquaredUnits._
+      import waman.multiverse.unit.basic.TimeUnits._
+      import waman.multiverse.unit.mechanics.TimeSquaredUnit
+      import waman.multiverse.unit.mechanics.TimeSquaredUnitObjects
+      import waman.multiverse.unit.mechanics.TimeSquaredUnits._
 
       "second_squared should have the proper symbol and some aliases" in {
         // SetUp
@@ -321,8 +331,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "getSIUnit method" - {
 
       "The getSIUnit method return the composite (quotient) unit m/s" in {
-        import unit.BasicUnits._
-        import unit.basic.VelocityUnit
+        import waman.multiverse.unit.BasicUnits._
+        import waman.multiverse.unit.basic.VelocityUnit
         // SetUp
         val expected = m/s
         // Exercise
@@ -335,8 +345,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "getUnits method" - {
 
       "The getUnits method of VelocityUnits should return Seq(c, M)" in {
-        import unit.basic.VelocityUnit
-        import unit.basic.VelocityUnits._
+        import waman.multiverse.unit.basic.VelocityUnit
+        import waman.multiverse.unit.basic.VelocityUnits._
         // Exercise
         val sut = VelocityUnit.getUnits
         // Verify

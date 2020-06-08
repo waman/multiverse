@@ -97,6 +97,7 @@ object MassUnitObjects{
 
   import spire.implicits._
 
+  import waman.multiverse.unit.Constants
   import waman.multiverse.unit.mechanics.AccelerationUnitObjects._
   import waman.multiverse.unit.basic.LengthUnitObjects._
 
@@ -126,7 +127,7 @@ object MassUnitObjects{
   final case object gamma extends SimpleMassUnit("gamma", "γ", microgram.interval)
   final case object quintal extends SimpleMassUnit("quintal", "q", r"100" * kilogram.interval)
   final case object atomic_mass_unit extends DefaultMassUnit("atomic mass unit", "u", Seq("AMU", "Da"), r"1.66053892173e-27") with NotExact
-  final case object electron_mass extends SimpleMassUnit("electron mass", "m_e", r"9.1093829140e-31") with NotExact
+  final case object electron_mass extends SimpleMassUnit("electron mass", "m_e", Constants.ElectronMass) with NotExact
   final case object grain extends SimpleMassUnit("grain", "gr", r"1"/r"7000" * pound.interval)
   final case object dram extends SimpleMassUnit("dram", "dr", `dram(avoirdupois)`.interval)
   final case object `dram(avoirdupois)` extends DefaultMassUnit("dram(avoirdupois)", "dr(avoirdupois)", Seq("dr_av"), r"875"/r"32" * grain.interval)

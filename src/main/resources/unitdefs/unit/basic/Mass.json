@@ -17,7 +17,7 @@
     {"name": "quintal", "symbol": "q", "interval": "100", "baseUnit": "kilogram"},
 
     {"name": "atomic mass unit", "symbol": "u", "aliases": ["AMU", "Da"], "interval": "1.66053892173e-27", "notExact":true},
-    {"name": "electron mass", "symbol": "m_e", "interval": "9.1093829140e-31", "notExact":true},
+    {"name": "electron mass", "symbol": "m_e", "interval": "Constants.ElectronMass", "notExact":true},
 
     {"name": "grain", "symbol": "gr", "interval": "1/7000", "baseUnit": "pound"},
 

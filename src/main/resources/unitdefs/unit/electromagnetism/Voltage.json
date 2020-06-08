@@ -2,7 +2,7 @@
   "SIUnit": "volt",
   "dimension": {"M": 1, "L": 2, "T": -3, "I": -1},
 
-  "composites": ["Power / Current"],
+  "composites": ["Power / ElectricCurrent"],
 
   "units": [
     {"name": "volt", "symbol": "V", "scalePrefixes": true},

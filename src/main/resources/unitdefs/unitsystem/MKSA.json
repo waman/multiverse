@@ -3,17 +3,17 @@
 
   "evalEntries": [
     {"quantity":  "Capacitance", "unit": "farad"},
-    {"quantity":  "Charge", "unit": "coulomb"},
-    {"quantity":  "Conductance", "unit": "siemens"},
-    {"quantity":  "Current", "unit": "ampere"},
-    {"quantity":  "Dipole", "unit": "debye"},
-    {"quantity":  "Resistance", "unit": "ohm"},
+    {"quantity":  "ElectricCharge", "unit": "coulomb"},
+    {"quantity":  "ElectricalConductance", "unit": "siemens"},
+    {"quantity":  "ElectricCurrent", "unit": "ampere"},
+    {"quantity":  "ElectricDipole", "unit": "debye"},
+    {"quantity":  "ElectricalResistance", "unit": "ohm"},
     {"quantity":  "Voltage", "unit": "volt"},
 
-    {"quantity":  "Flux", "unit": "weber"},
-    {"quantity":  "FluxDensity", "unit": "tesla"},
+    {"quantity":  "MagneticFlux", "unit": "weber"},
+    {"quantity":  "MagneticFluxDensity", "unit": "tesla"},
     {"quantity":  "Inductance", "unit": "henry"},
 
-    {"quantity":  "Exposure", "unit": "Charge.coulomb / Mass.kilogram"}
+    {"quantity":  "Exposure", "unit": "ElectricCharge.coulomb / Mass.kilogram"}
   ]
 }
