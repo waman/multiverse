@@ -30,10 +30,14 @@ class ConstantsJson(json: File, destDir: File) extends SourceGeneratorJson(json,
            |""".stripMargin)
 
       consts.foreach { c =>
-        if (c.name == "Pi")
-          writer.write(s"""  val Pi: Real = Real.pi\n""")
-        else
-          writer.write(s"""  val ${c.name}: Real = r"${c.value}"\n""")
+        c.name match {
+          case "Pi" =>
+            writer.write(s"""  val Pi: Real = Real.pi\n""")
+          case "ReducedPlanckConstant" =>
+            writer.write(s"""  val ${c.name}: Real = PlanckConstant / (Real.two * Real.pi)\n""")
+          case _ =>
+            writer.write(s"""  val ${c.name}: Real = r"${c.value}"\n""")
+        }
       }
 
       writer.write("}")

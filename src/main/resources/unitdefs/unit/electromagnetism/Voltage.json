@@ -6,7 +6,7 @@
 
   "units": [
     {"name": "volt", "symbol": "V", "scalePrefixes": true},
-    {"name": "statvolt", "symbol": "statV", "interval": "Constants.SpeedOfLight / 1e6"},
-    {"name": "abvolt", "symbol": "abV", "interval": "1e-8"}
+    {"name": "abvolt", "symbol": "abV", "interval": "1e-8"},
+    {"name": "statvolt", "symbol": "statV", "interval": "Constants.SpeedOfLight * 1e-6"}
   ]
 }

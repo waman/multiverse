@@ -25,6 +25,13 @@ import waman.multiverse.unit.mechanics.AccelerationUnit
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
 
+  import waman.multiverse.unit.electromagnetism.Capacitance
+  import waman.multiverse.unit.electromagnetism.CapacitanceUnitObjects
+
+  def toCapacitance: Capacitance[A] = new Capacitance(
+      apply(LengthUnitObjects.centimetre),
+      CapacitanceUnitObjects.statfarad)
+
   import spire.implicits._
 
   override protected def newQuantity(value: A, unit: LengthUnit): Length[A] = new Length(value, unit)
@@ -178,7 +185,7 @@ object LengthUnitObjects{
   final case object yottametre extends SimpleLengthUnit("yottametre", "Ym", r"1e24")
   final case object micron extends SimpleLengthUnit("micron", "µ", r"1e-6")
   final case object angstrom extends SimpleLengthUnit("angstrom", "Å", r"1e-10")
-  final case object atomic_unit_of_length extends SimpleLengthUnit("atomic unit of length", "a_0", r"5.291772109217e-11") with NotExact
+  final case object atomic_unit_of_length extends SimpleLengthUnit("atomic unit of length", "a0", r"5.291772109217e-11") with NotExact
   final case object xunit extends SimpleLengthUnit("xunit", "xu", r"1.0021e-13") with NotExact
   final case object `xunit(CuKα1)` extends SimpleLengthUnit("xunit(CuKα1)", "xu(CuKα1)", r"1.0020769928e-13") with NotExact
   final case object `xunit(MoKα1)` extends SimpleLengthUnit("xunit(MoKα1)", "xu(MoKα1)", r"1.0020995553e-13") with NotExact
@@ -249,7 +256,7 @@ object LengthUnits{
   def Ym: LengthUnit = LengthUnitObjects.yottametre
   def `µ`: LengthUnit = LengthUnitObjects.micron
   def `Å`: LengthUnit = LengthUnitObjects.angstrom
-  def a_0: LengthUnit = LengthUnitObjects.atomic_unit_of_length
+  def a0: LengthUnit = LengthUnitObjects.atomic_unit_of_length
   def xu: LengthUnit = LengthUnitObjects.xunit
   def xu(a: xunitAttribute): LengthUnit = a match { 
     case MetricAttributes.CuKα1 => LengthUnitObjects.`xunit(CuKα1)`

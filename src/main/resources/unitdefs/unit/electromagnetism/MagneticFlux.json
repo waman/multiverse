@@ -6,6 +6,7 @@
 
   "units": [
     {"name": "weber"  , "symbol": "Wb", "scalePrefixes": true},
-    {"name": "maxwell", "symbol": "Mx", "interval": "1e-8", "scalePrefixes": true}
+    {"name": "maxwell", "symbol": "Mx", "interval": "1e-8", "scalePrefixes": true},
+    {"name": "statweber", "symbol": "statWb", "interval": "Constants.SpeedOfLight * 1e-6"}
   ]
 }

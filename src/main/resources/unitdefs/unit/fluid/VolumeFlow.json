@@ -10,10 +10,10 @@
     {"name": "gallon per hour", "symbol": "GPH", "baseUnit": "Volume.gallon(US_fl) / Time.hour"},
     {"name": "gallon per day", "symbol": "GPD", "baseUnit": "Volume.gallon(US_fl) / Time.day"},
 
-    {"name": "cubic_centimetre per second", "symbol": "ccs", "baseUnit": "Volume.cubic_centimetre / Time.second"},
-    {"name": "cubic_centimetre per minute", "symbol": "ccm", "baseUnit": "Volume.cubic_centimetre / Time.minute"},
-    {"name": "cubic_foot per second", "symbol": "cfs", "baseUnit": "Volume.cubic_foot / Time.second"},
-    {"name": "cubic_foot per minute", "symbol": "cfm", "aliases": ["CFM"], "baseUnit": "Volume.cubic_foot / Time.minute"},
-    {"name": "cubic_foot per hour", "symbol": "cfh", "baseUnit": "Volume.cubic_foot / Time.hour"}
+    {"name": "cubic centimetre per second", "symbol": "ccs", "baseUnit": "Volume.cubic_centimetre / Time.second"},
+    {"name": "cubic centimetre per minute", "symbol": "ccm", "baseUnit": "Volume.cubic_centimetre / Time.minute"},
+    {"name": "cubic foot per second", "symbol": "cfs", "baseUnit": "Volume.cubic_foot / Time.second"},
+    {"name": "cubic foot per minute", "symbol": "cfm", "aliases": ["CFM"], "baseUnit": "Volume.cubic_foot / Time.minute"},
+    {"name": "cubic oot per hour", "symbol": "cfh", "baseUnit": "Volume.cubic_foot / Time.hour"}
   ]
 }

@@ -30,7 +30,6 @@
     {"quantity": "TimeSquared", "unit": "second_squared"},
 
     {"quantity": "Irradiance", "unit": "Energy.erg / Time.second / Area.square_centimetre"},
-    {"quantity": "AreaFrequency", "unit": "Area.square_centimetre * Frequency.heltz"},
     {"quantity": "SpectralIrradiance", "unit": "Energy.erg / Time.second / Area.square_centimetre / Frequency.heltz"},
 
     {"quantity": "AbsorbedDose", "unit": "rad"},

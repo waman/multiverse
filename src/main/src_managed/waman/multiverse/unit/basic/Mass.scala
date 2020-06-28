@@ -77,7 +77,7 @@ object MassUnit extends UnitInfo[MassUnit]{
 
   import MassUnitObjects._
   def getUnits: Seq[MassUnit] =
-    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, atomic_mass_unit, electron_mass, grain, dram, `dram(avoirdupois)`, `dram(troy)`, ounce, `ounce(avoirdupois)`, `ounce(troy)`, pound, `pound(avoirdupois)`, `pound(troy)`, `pound(metric)`, long_ton, short_ton, scruple, carat, metric_carat, stone, short_hundredweight, long_hundredweight, kip, pennyweight, long_assay_ton, short_assay_ton, slug)
+    Seq(kilogram, gram, yoctogram, zeptogram, attogram, femtogram, picogram, nanogram, microgram, milligram, centigram, decigram, decagram, hectogram, megagram, gigagram, teragram, petagram, exagram, zettagram, yottagram, tonne, grave, gamma, quintal, dalton, electron_mass, grain, dram, `dram(avoirdupois)`, `dram(troy)`, ounce, `ounce(avoirdupois)`, `ounce(troy)`, pound, `pound(avoirdupois)`, `pound(troy)`, `pound(metric)`, long_ton, short_ton, scruple, carat, metric_carat, stone, short_hundredweight, long_hundredweight, kip, pennyweight, long_assay_ton, short_assay_ton, slug)
 }
 
 /** For no aliase or user defined units */
@@ -126,7 +126,9 @@ object MassUnitObjects{
   final case object grave extends SimpleMassUnit("grave", "gv", 1)
   final case object gamma extends SimpleMassUnit("gamma", "γ", microgram.interval)
   final case object quintal extends SimpleMassUnit("quintal", "q", r"100" * kilogram.interval)
-  final case object atomic_mass_unit extends DefaultMassUnit("atomic mass unit", "u", Seq("AMU", "Da"), r"1.66053892173e-27") with NotExact
+  final case object dalton extends DefaultMassUnit("dalton", "Da", Seq("u", "AMU"), Constants.AtomicMassUnit) with NotExact with Description {
+    def description: String = "atomic mass unit"
+  }
   final case object electron_mass extends SimpleMassUnit("electron mass", "m_e", Constants.ElectronMass) with NotExact
   final case object grain extends SimpleMassUnit("grain", "gr", r"1"/r"7000" * pound.interval)
   final case object dram extends SimpleMassUnit("dram", "dr", `dram(avoirdupois)`.interval)
@@ -186,9 +188,9 @@ object MassUnits{
   def gv: MassUnit = MassUnitObjects.grave
   def `γ`: MassUnit = MassUnitObjects.gamma
   def q: MassUnit = MassUnitObjects.quintal
-  def u: MassUnit = MassUnitObjects.atomic_mass_unit
-  def AMU: MassUnit = MassUnitObjects.atomic_mass_unit
-  def Da: MassUnit = MassUnitObjects.atomic_mass_unit
+  def Da: MassUnit = MassUnitObjects.dalton
+  def u: MassUnit = MassUnitObjects.dalton
+  def AMU: MassUnit = MassUnitObjects.dalton
   def m_e: MassUnit = MassUnitObjects.electron_mass
   def gr: MassUnit = MassUnitObjects.grain
   def dr: MassUnit = MassUnitObjects.dram

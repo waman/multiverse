@@ -14,6 +14,14 @@ import waman.multiverse.unit.basic.Time
 import waman.multiverse.unit.basic.TimeUnit
 
 
+import waman.multiverse.unit.electromagnetism.MagneticFlux
+import waman.multiverse.unit.electromagnetism.MagneticFluxUnit
+
+
+import waman.multiverse.unit.electromagnetism.MagneticFieldStrength
+import waman.multiverse.unit.electromagnetism.MagneticFieldStrengthUnit
+
+
 import waman.multiverse.unit.basic.Area
 import waman.multiverse.unit.basic.AreaUnit
 
@@ -33,6 +41,8 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
 
   def *(time: Time[A]): Momentum[A] = new Momentum(this.value * time.value, this.unit * time.unit)
 
+  def /(magneticFlux: MagneticFlux[A]): MagneticFieldStrength[A] = new MagneticFieldStrength(this.value / magneticFlux.value, this.unit / magneticFlux.unit)
+
   def /(area: Area[A]): Pressure[A] = new Pressure(this.value / area.value, this.unit / area.unit)
 }
 
@@ -46,6 +56,9 @@ trait ForceUnit extends LinearUnit[ForceUnit]{
 
   def *(timeUnit: TimeUnit): MomentumUnit =
     new ProductUnit[MomentumUnit, ForceUnit, TimeUnit](ForceUnit.this, timeUnit) with MomentumUnit
+
+  def /(magneticFluxUnit: MagneticFluxUnit): MagneticFieldStrengthUnit =
+    new QuotientUnit[MagneticFieldStrengthUnit, ForceUnit, MagneticFluxUnit](ForceUnit.this, magneticFluxUnit) with MagneticFieldStrengthUnit
 
   def /(areaUnit: AreaUnit): PressureUnit =
     new QuotientUnit[PressureUnit, ForceUnit, AreaUnit](ForceUnit.this, areaUnit) with PressureUnit

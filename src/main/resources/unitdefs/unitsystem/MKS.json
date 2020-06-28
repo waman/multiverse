@@ -32,7 +32,6 @@
     {"quantity": "TimeSquared", "unit": "second_squared"},
 
     {"quantity": "Irradiance", "unit": "Power.watt / Area.square_metre"},
-    {"quantity": "AreaFrequency", "unit": "Area.square_metre * Frequency.heltz"},
     {"quantity": "SpectralIrradiance", "unit": "Power.watt / Area.square_metre / Frequency.heltz"},
 
     {"quantity": "AbsorbedDose", "unit": "gray"},

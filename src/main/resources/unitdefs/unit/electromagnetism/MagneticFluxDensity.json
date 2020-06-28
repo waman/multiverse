@@ -6,6 +6,7 @@
 
   "units": [
     {"name": "tesla", "symbol": "T", "scalePrefixes": true},
-    {"name": "gauss", "symbol": "G", "interval": "1e-4", "scalePrefixes": true}
+    {"name": "gauss", "symbol": "G", "aliases": ["Gs"], "interval": "1e-4", "scalePrefixes": true},
+    {"name": "stattesla", "symbol": "statT", "interval": "Constants.SpeedOfLight * 1e-2"}
   ]
 }

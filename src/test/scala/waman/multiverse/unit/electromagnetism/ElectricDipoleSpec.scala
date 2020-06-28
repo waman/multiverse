@@ -40,7 +40,7 @@ class ElectricDipoleSpec extends MultiverseCustomSpec {
           ("dipole", "expected"),
           (3.0(C*m), 3.0),
           (3.0(D), 3.0 * 3.33564095e-30),
-          (3.0(ea_0), 3.0 * 8.47835281e-30)
+          (3.0(ea0), 3.0 * 8.47835281e-30)
         )
       // Verify
       forAll(conversions) { (sut: ElectricDipole[Double], expected: Double) =>
@@ -57,7 +57,7 @@ class ElectricDipoleSpec extends MultiverseCustomSpec {
           ("dipole", "expected"),
           (q(C*m), 3.0),
           (q(D), 3.0 / 3.33564095e-30),
-          (q(ea_0), 3.0 / 8.47835281e-30)
+          (q(ea0), 3.0 / 8.47835281e-30)
         )
       // Verify
       forAll(conversions) { (sut: Double, expected: Double) =>

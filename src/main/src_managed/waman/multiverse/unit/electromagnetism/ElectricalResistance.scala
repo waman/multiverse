@@ -33,7 +33,7 @@ object ElectricalResistanceUnit extends UnitInfo[ElectricalResistanceUnit]{
 
   import ElectricalResistanceUnitObjects._
   def getUnits: Seq[ElectricalResistanceUnit] =
-    Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm)
+    Seq(ohm, yoctoohm, zeptoohm, attoohm, femtoohm, picoohm, nanoohm, microohm, milliohm, centiohm, deciohm, decaohm, hectoohm, kiloohm, megaohm, gigaohm, teraohm, petaohm, exaohm, zettaohm, yottaohm, abohm, statohm)
 }
 
 /** For no aliase or user defined units */
@@ -49,6 +49,7 @@ object ElectricalResistanceUnitObjects{
 
   import spire.implicits._
 
+  import waman.multiverse.unit.Constants
 
   final case object ohm extends DefaultElectricalResistanceUnit("ohm", "Ω", Seq("ohm"), 1)
   final case object yoctoohm extends DefaultElectricalResistanceUnit("yoctoohm", "yΩ", Seq("yohm"), r"1e-24")
@@ -72,6 +73,9 @@ object ElectricalResistanceUnitObjects{
   final case object zettaohm extends DefaultElectricalResistanceUnit("zettaohm", "ZΩ", Seq("Zohm"), r"1e21")
   final case object yottaohm extends DefaultElectricalResistanceUnit("yottaohm", "YΩ", Seq("Yohm"), r"1e24")
   final case object abohm extends DefaultElectricalResistanceUnit("abohm", "abΩ", Seq("abohm"), r"1e-9")
+  final case object statohm extends DefaultElectricalResistanceUnit("statohm", "statΩ", Seq("statohm"), Constants.SpeedOfLight * Constants.SpeedOfLight * r"1e-5") with Description {
+    def description: String = "Formal unit for Gaussian and ESU CGS unit system."
+  }
 }
 
 object ElectricalResistanceUnits{
@@ -124,4 +128,6 @@ object ElectricalResistanceUnits{
   def Yohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.yottaohm
   def `abΩ`: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.abohm
   def abohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.abohm
+  def `statΩ`: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.statohm
+  def statohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.statohm
 }

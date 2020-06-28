@@ -87,7 +87,7 @@ object PressureUnitObjects{
   final case object bar extends SimplePressureUnit("bar", "bar", r"1e5")
   final case object pieze extends SimplePressureUnit("pieze", "pz", r"1000")
   final case object torr extends SimplePressureUnit("torr", "torr", r"1"/r"760" * atmosphere.interval)
-  final case object kip_per_square_inch extends SimplePressureUnit("kip per square_inch", "ksi", kip_force.interval / square_inch.interval)
+  final case object kip_per_square_inch extends SimplePressureUnit("kip per square inch", "ksi", kip_force.interval / square_inch.interval)
   final case object pound_per_square_foot extends SimplePressureUnit("pound per square foot", "psf", pound_force.interval / square_foot.interval)
   final case object pound_per_square_inch extends SimplePressureUnit("pound per square inch", "psi", pound_force.interval / square_inch.interval)
   final case object micrometre_of_mercury extends DefaultPressureUnit("micrometre of mercury", "μmHg", Seq("mcmHg"), mercury.interval * micrometre.interval * standard_gravity.interval)

@@ -11,6 +11,7 @@ import waman.multiverse.unit.angle._
 import waman.multiverse.unit.angle._
 import waman.multiverse.unit.chemistry._
 import waman.multiverse.unit.thermodynamics._
+import waman.multiverse.unit.thermodynamics._
 
 /**
  * Usually used units of length, area, volume, mass, time, angle, frequency, temperature, e.t.c.
@@ -63,5 +64,5 @@ object BasicUnits{
   def THz: FrequencyUnit = FrequencyUnitObjects.teraheltz
   def mol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.mole
   def degC: TemperatureUnit = TemperatureUnitObjects.celsius
-  def K: TemperatureUnit = TemperatureUnitObjects.kelvin
+  def K: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kelvin
 }

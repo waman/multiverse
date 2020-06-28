@@ -2,16 +2,17 @@
   "parent": "MKS",
 
   "evalEntries": [
-    {"quantity":  "Capacitance", "unit": "farad"},
     {"quantity":  "ElectricCharge", "unit": "coulomb"},
-    {"quantity":  "ElectricalConductance", "unit": "siemens"},
     {"quantity":  "ElectricCurrent", "unit": "ampere"},
+    {"quantity":  "Voltage", "unit": "volt"},
     {"quantity":  "ElectricDipole", "unit": "debye"},
     {"quantity":  "ElectricalResistance", "unit": "ohm"},
-    {"quantity":  "Voltage", "unit": "volt"},
+    {"quantity":  "ElectricalConductance", "unit": "siemens"},
+    {"quantity":  "Capacitance", "unit": "farad"},
 
     {"quantity":  "MagneticFlux", "unit": "weber"},
     {"quantity":  "MagneticFluxDensity", "unit": "tesla"},
+    {"quantity":  "MagneticFieldStrength", "unit": "ElectricCurrent.ampere / Length.metre"},
     {"quantity":  "Inductance", "unit": "henry"},
 
     {"quantity":  "Exposure", "unit": "ElectricCharge.coulomb / Mass.kilogram"}

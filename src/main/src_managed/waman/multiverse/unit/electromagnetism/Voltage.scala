@@ -43,7 +43,7 @@ object VoltageUnit extends UnitInfo[VoltageUnit]{
 
   import VoltageUnitObjects._
   def getUnits: Seq[VoltageUnit] =
-    Seq(volt, yoctovolt, zeptovolt, attovolt, femtovolt, picovolt, nanovolt, microvolt, millivolt, centivolt, decivolt, decavolt, hectovolt, kilovolt, megavolt, gigavolt, teravolt, petavolt, exavolt, zettavolt, yottavolt, statvolt, abvolt)
+    Seq(volt, yoctovolt, zeptovolt, attovolt, femtovolt, picovolt, nanovolt, microvolt, millivolt, centivolt, decivolt, decavolt, hectovolt, kilovolt, megavolt, gigavolt, teravolt, petavolt, exavolt, zettavolt, yottavolt, abvolt, statvolt)
 }
 
 /** For no aliase or user defined units */
@@ -82,8 +82,8 @@ object VoltageUnitObjects{
   final case object exavolt extends SimpleVoltageUnit("exavolt", "EV", r"1e18")
   final case object zettavolt extends SimpleVoltageUnit("zettavolt", "ZV", r"1e21")
   final case object yottavolt extends SimpleVoltageUnit("yottavolt", "YV", r"1e24")
-  final case object statvolt extends SimpleVoltageUnit("statvolt", "statV", Constants.SpeedOfLight / r"1e6")
   final case object abvolt extends SimpleVoltageUnit("abvolt", "abV", r"1e-8")
+  final case object statvolt extends SimpleVoltageUnit("statvolt", "statV", Constants.SpeedOfLight * r"1e-6")
 }
 
 object VoltageUnits{
@@ -111,6 +111,6 @@ object VoltageUnits{
   def EV: VoltageUnit = VoltageUnitObjects.exavolt
   def ZV: VoltageUnit = VoltageUnitObjects.zettavolt
   def YV: VoltageUnit = VoltageUnitObjects.yottavolt
-  def statV: VoltageUnit = VoltageUnitObjects.statvolt
   def abV: VoltageUnit = VoltageUnitObjects.abvolt
+  def statV: VoltageUnit = VoltageUnitObjects.statvolt
 }

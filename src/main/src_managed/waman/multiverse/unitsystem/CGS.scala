@@ -27,7 +27,6 @@ import waman.multiverse.unit.mechanics.Momentum
 import waman.multiverse.unit.mechanics.Power
 import waman.multiverse.unit.mechanics.TimeSquared
 import waman.multiverse.unit.radiometry.Irradiance
-import waman.multiverse.unit.radiometry.AreaFrequency
 import waman.multiverse.unit.radiometry.SpectralIrradiance
 import waman.multiverse.unit.radioactivity.AbsorbedDose
 import waman.multiverse.unit.radioactivity.EquivalentDose
@@ -79,7 +78,6 @@ trait CGS extends UnitSystem{
   implicit def evaluatePower[A: Fractional](q: Power[A]): A = q(erg / second)
   implicit def evaluateTimeSquared[A: Fractional](q: TimeSquared[A]): A = q(second_squared)
   implicit def evaluateIrradiance[A: Fractional](q: Irradiance[A]): A = q(erg / second / square_centimetre)
-  implicit def evaluateAreaFrequency[A: Fractional](q: AreaFrequency[A]): A = q(square_centimetre * heltz)
   implicit def evaluateSpectralIrradiance[A: Fractional](q: SpectralIrradiance[A]): A = q(erg / second / square_centimetre / heltz)
   implicit def evaluateAbsorbedDose[A: Fractional](q: AbsorbedDose[A]): A = q(rad)
   implicit def evaluateEquivalentDose[A: Fractional](q: EquivalentDose[A]): A = q(roentgen_equivalent_man)

@@ -10,16 +10,14 @@ import waman.multiverse.unit.mechanics.{AngularMomentumUnits, EnergyUnitObjects,
 
 class ConstantsSpec extends MultiverseCustomSpec {
 
-  "α ~ 1/137" in {
-    FineStructureConstant.toDouble should equal (%(1.0/137.0))
+  "a_0 (Bohr radius) ~ ħ/m_e cα" in {
+    val sut = Constants.BohrRadius.toDouble
+    val expected = (PlanckConstant / (ElectronMass * SpeedOfLight * FineStructureConstant * Real.two * Real.pi)).toDouble
+    sut should equal (%%%(expected))
+    sut should equal (%%%%(5.2917721090380e-11))
   }
 
-  "e * N_A ~ 96500" in {
-    val sut = (ElementaryCharge * AvogadroConstant).toDouble
-    sut should equal (%%%(96485.3383))
-  }
-
-  "Planck time ~ √(Gh/(2πc^5))" in {
+  "Planck time ~ √(Gh/2πc^5)" in {
     val sut = TimeUnitObjects.planck_time.interval.toDouble
     val expected = (GravitationalConstant * PlanckConstant / (Real.two * Real.pi * (SpeedOfLight**5))).sqrt.toDouble
     sut should equal (%%%%(expected))
@@ -30,6 +28,28 @@ class ConstantsSpec extends MultiverseCustomSpec {
     val sut = Constants.RydbergConstant.toDouble
     val expected = (ElectronMass * (ElementaryCharge**4) / ((VacuumPermittivity**2) * (PlanckConstant**3) * SpeedOfLight * 8 )).toDouble
     sut should equal (%%%(expected))
+  }
+
+  "k (Coulomb constant) ~ 1 / (4πε_0)" in {
+    val sut = Constants.CoulombConstant.toDouble
+    val expected = (Real.one / (Real.pi * VacuumPermittivity * 4 )).toDouble
+    sut should equal (%%%(expected))
+  }
+
+  "α ~ 1/137" in {
+    FineStructureConstant.toDouble should equal (%(1.0/137.0))
+  }
+
+  "e * N_A ~ 96500" in {
+    val sut = (ElementaryCharge * AvogadroConstant).toDouble
+    sut should equal (%%%(96485.3383))
+  }
+
+  "Bohr magneton ~ eħ/2m_e" in {
+    val sut = Constants.BohrMagneton.toDouble
+    val expected = (ElementaryCharge * PlanckConstant / (ElectronMass * Real(4) * Real.pi)).toDouble
+    sut should equal (%%%(expected))
+    sut should equal (%%%%(9.27400999457e-24))
   }
 
   "atomic units" - {
@@ -74,6 +94,36 @@ class ConstantsSpec extends MultiverseCustomSpec {
       val expected = (ElementaryCharge * BohrRadius).toDouble
       sut should equal (%%%%(expected))
       sut should equal (%%%(8.47835281e-30))
+    }
+  }
+
+  "Physical constants in CGS" in {
+    import waman.multiverse.implicits._
+    import waman.multiverse.unit.BasicUnits._
+    import waman.multiverse.unit.basic.MassUnits.u
+    import waman.multiverse.unit.basic.LengthUnits.a0
+    import waman.multiverse.unit.MechanicalUnits._
+    import waman.multiverse.unit.ElectromagneticUnits._
+    // Exercise
+    val conversions =
+      Table(
+        ("current", "expected"),
+        (1(u)(g), 1.6605390666050e-24),
+        (BohrMagneton(J/T)(erg/G), 9.274010078e-21),
+        (BohrMagneton(J/T)(statA*cm2), 2.78027800e-10),
+        (1(a0)(cm), 5.2917720859e-9),
+        (BoltzmannConstant(J/K)(erg/K), 1.380649e-16),
+        (ElectronMass(kg)(g), 9.10938375015e-28),
+        (1(e)(statC), 4.80320427e-10),
+        (1(e)(abC), 1.602176634e-20),
+        (GravitationalConstant(N*m2/(kg*kg))(dyn*cm2/(g*g)), 6.67430e-8),
+        (PlanckConstant(J*s)(erg*s), 6.62606885e-27),
+        (ReducedPlanckConstant(J*s)(erg*s), 1.054571817e-27),
+        (SpeedOfLight(m/s)(cm/s), 2.99792458e10)
+      )
+    // Verify
+    forAll(conversions) { (sut: Real, expected: Double) =>
+      sut.toDouble should equal(%%%(expected))
     }
   }
 }

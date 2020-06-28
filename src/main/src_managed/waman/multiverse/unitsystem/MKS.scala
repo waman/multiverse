@@ -27,7 +27,6 @@ import waman.multiverse.unit.mechanics.Momentum
 import waman.multiverse.unit.mechanics.Power
 import waman.multiverse.unit.mechanics.TimeSquared
 import waman.multiverse.unit.radiometry.Irradiance
-import waman.multiverse.unit.radiometry.AreaFrequency
 import waman.multiverse.unit.radiometry.SpectralIrradiance
 import waman.multiverse.unit.radioactivity.AbsorbedDose
 import waman.multiverse.unit.radioactivity.EquivalentDose
@@ -80,7 +79,6 @@ trait MKS extends UnitSystem{
   implicit def evaluatePower[A: Fractional](q: Power[A]): A = q(watt)
   implicit def evaluateTimeSquared[A: Fractional](q: TimeSquared[A]): A = q(second_squared)
   implicit def evaluateIrradiance[A: Fractional](q: Irradiance[A]): A = q(watt / square_metre)
-  implicit def evaluateAreaFrequency[A: Fractional](q: AreaFrequency[A]): A = q(square_metre * heltz)
   implicit def evaluateSpectralIrradiance[A: Fractional](q: SpectralIrradiance[A]): A = q(watt / square_metre / heltz)
   implicit def evaluateAbsorbedDose[A: Fractional](q: AbsorbedDose[A]): A = q(gray)
   implicit def evaluateEquivalentDose[A: Fractional](q: EquivalentDose[A]): A = q(sievert)

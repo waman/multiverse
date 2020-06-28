@@ -27,7 +27,7 @@ object InductanceUnit extends UnitInfo[InductanceUnit]{
 
   import InductanceUnitObjects._
   def getUnits: Seq[InductanceUnit] =
-    Seq(henry, yoctohenry, zeptohenry, attohenry, femtohenry, picohenry, nanohenry, microhenry, millihenry, centihenry, decihenry, decahenry, hectohenry, kilohenry, megahenry, gigahenry, terahenry, petahenry, exahenry, zettahenry, yottahenry)
+    Seq(henry, yoctohenry, zeptohenry, attohenry, femtohenry, picohenry, nanohenry, microhenry, millihenry, centihenry, decihenry, decahenry, hectohenry, kilohenry, megahenry, gigahenry, terahenry, petahenry, exahenry, zettahenry, yottahenry, abhenry, stathenry)
 }
 
 /** For no aliase or user defined units */
@@ -43,6 +43,7 @@ object InductanceUnitObjects{
 
   import spire.implicits._
 
+  import waman.multiverse.unit.Constants
 
   final case object henry extends SimpleInductanceUnit("henry", "H", 1)
   final case object yoctohenry extends SimpleInductanceUnit("yoctohenry", "yH", r"1e-24")
@@ -65,6 +66,10 @@ object InductanceUnitObjects{
   final case object exahenry extends SimpleInductanceUnit("exahenry", "EH", r"1e18")
   final case object zettahenry extends SimpleInductanceUnit("zettahenry", "ZH", r"1e21")
   final case object yottahenry extends SimpleInductanceUnit("yottahenry", "YH", r"1e24")
+  final case object abhenry extends SimpleInductanceUnit("abhenry", "abH", r"1e-9")
+  final case object stathenry extends SimpleInductanceUnit("stathenry", "statH", Constants.SpeedOfLight * Constants.SpeedOfLight * r"1e-5") with Description {
+    def description: String = "Formal unit for Gaussian and ESU CGS unit system."
+  }
 }
 
 object InductanceUnits{
@@ -92,4 +97,6 @@ object InductanceUnits{
   def EH: InductanceUnit = InductanceUnitObjects.exahenry
   def ZH: InductanceUnit = InductanceUnitObjects.zettahenry
   def YH: InductanceUnit = InductanceUnitObjects.yottahenry
+  def abH: InductanceUnit = InductanceUnitObjects.abhenry
+  def statH: InductanceUnit = InductanceUnitObjects.stathenry
 }

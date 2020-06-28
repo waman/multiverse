@@ -1,6 +1,6 @@
 {
   "SIUnit": "coulomb",
-  "dimension": {"T":1, "I":1},
+  "dimension": {"T": 1, "I": 1},
 
   "composites": ["ElectricCurrent * Time"],
 

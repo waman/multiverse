@@ -10,6 +10,10 @@ import waman.multiverse.unit.basic.Time
 import waman.multiverse.unit.basic.TimeUnit
 
 
+import waman.multiverse.unit.basic.Length
+import waman.multiverse.unit.basic.LengthUnit
+
+
 class ElectricCurrent[A: Fractional](val value: A, val unit: ElectricCurrentUnit)
     extends LinearQuantity[ElectricCurrent[A], A, ElectricCurrentUnit] {
 
@@ -20,6 +24,8 @@ class ElectricCurrent[A: Fractional](val value: A, val unit: ElectricCurrentUnit
   def *(time: Time[A]): ElectricCharge[A] = new ElectricCharge(this.value * time.value, this.unit * time.unit)
 
   def /(voltage: Voltage[A]): ElectricalConductance[A] = new ElectricalConductance(this.value / voltage.value, this.unit / voltage.unit)
+
+  def /(length: Length[A]): MagneticFieldStrength[A] = new MagneticFieldStrength(this.value / length.value, this.unit / length.unit)
 }
 
 trait ElectricCurrentUnit extends LinearUnit[ElectricCurrentUnit]{
@@ -32,6 +38,9 @@ trait ElectricCurrentUnit extends LinearUnit[ElectricCurrentUnit]{
 
   def /(voltageUnit: VoltageUnit): ElectricalConductanceUnit =
     new QuotientUnit[ElectricalConductanceUnit, ElectricCurrentUnit, VoltageUnit](ElectricCurrentUnit.this, voltageUnit) with ElectricalConductanceUnit
+
+  def /(lengthUnit: LengthUnit): MagneticFieldStrengthUnit =
+    new QuotientUnit[MagneticFieldStrengthUnit, ElectricCurrentUnit, LengthUnit](ElectricCurrentUnit.this, lengthUnit) with MagneticFieldStrengthUnit
 }
 
 object ElectricCurrentUnit extends UnitInfo[ElectricCurrentUnit]{
@@ -43,7 +52,7 @@ object ElectricCurrentUnit extends UnitInfo[ElectricCurrentUnit]{
 
   import ElectricCurrentUnitObjects._
   def getUnits: Seq[ElectricCurrentUnit] =
-    Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere)
+    Seq(ampere, yoctoampere, zeptoampere, attoampere, femtoampere, picoampere, nanoampere, microampere, milliampere, centiampere, deciampere, decaampere, hectoampere, kiloampere, megaampere, gigaampere, teraampere, petaampere, exaampere, zettaampere, yottaampere, abampere, statampere)
 }
 
 /** For no aliase or user defined units */
@@ -59,6 +68,7 @@ object ElectricCurrentUnitObjects{
 
   import spire.implicits._
 
+  import waman.multiverse.unit.Constants
 
   final case object ampere extends SimpleElectricCurrentUnit("ampere", "A", 1)
   final case object yoctoampere extends SimpleElectricCurrentUnit("yoctoampere", "yA", r"1e-24")
@@ -81,7 +91,8 @@ object ElectricCurrentUnitObjects{
   final case object exaampere extends SimpleElectricCurrentUnit("exaampere", "EA", r"1e18")
   final case object zettaampere extends SimpleElectricCurrentUnit("zettaampere", "ZA", r"1e21")
   final case object yottaampere extends SimpleElectricCurrentUnit("yottaampere", "YA", r"1e24")
-  final case object abampere extends SimpleElectricCurrentUnit("abampere", "abamp", r"10")
+  final case object abampere extends DefaultElectricCurrentUnit("abampere", "abA", Seq("abamp", "Bi"), r"10")
+  final case object statampere extends SimpleElectricCurrentUnit("statampere", "statA", r"0.1" / Constants.SpeedOfLight)
 }
 
 object ElectricCurrentUnits{
@@ -109,5 +120,8 @@ object ElectricCurrentUnits{
   def EA: ElectricCurrentUnit = ElectricCurrentUnitObjects.exaampere
   def ZA: ElectricCurrentUnit = ElectricCurrentUnitObjects.zettaampere
   def YA: ElectricCurrentUnit = ElectricCurrentUnitObjects.yottaampere
+  def abA: ElectricCurrentUnit = ElectricCurrentUnitObjects.abampere
   def abamp: ElectricCurrentUnit = ElectricCurrentUnitObjects.abampere
+  def Bi: ElectricCurrentUnit = ElectricCurrentUnitObjects.abampere
+  def statA: ElectricCurrentUnit = ElectricCurrentUnitObjects.statampere
 }

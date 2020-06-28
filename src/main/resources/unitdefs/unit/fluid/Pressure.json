@@ -15,7 +15,7 @@
 
     {"name": "torr", "interval": "1/760", "baseUnit": "atmosphere"},
 
-    {"name": "kip per square_inch", "symbol": "ksi", "baseUnit": "Force.kip_force / Area.square_inch"},
+    {"name": "kip per square inch", "symbol": "ksi", "baseUnit": "Force.kip_force / Area.square_inch"},
     {"name": "pound per square foot", "symbol": "psf", "baseUnit": "Force.pound_force / Area.square_foot"},
     {"name": "pound per square inch", "symbol": "psi", "baseUnit": "Force.pound_force / Area.square_inch"},
 

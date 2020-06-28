@@ -57,6 +57,6 @@
     {"symbol": "mol", "unit": "AmountOfSubstance.mole"},
 
     {"symbol": "degC", "unit": "Temperature.celsius"},
-    {"symbol": "K", "unit": "Temperature.kelvin"}
+    {"symbol": "K", "unit": "AbsoluteTemperature.kelvin"}
   ]
 }

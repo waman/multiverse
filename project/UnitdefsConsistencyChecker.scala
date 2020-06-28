@@ -3,9 +3,9 @@ object UnitdefsConsistencyChecker {
   def test(jsons: JsonResources): Unit = {
     jsons.unitsystems.foreach{
       case u if u.id == "MKS" || u.id == "CGS" =>
-        checkNecessaryEntriesExist(u, jsons, "mechanical", isMechanicalUnit)
+        checkNecessaryEntriesExist(u, jsons, "mechanical", isNecessaryMechanicalUnit)
       case u if u.id == "MKSA" =>
-        checkNecessaryEntriesExist(u, jsons, "electromagnetic", isElectromagneticUnit)
+        checkNecessaryEntriesExist(u, jsons, "electromagnetic", isNecessaryElectromagneticUnit)
       case _ =>
     }
   }
@@ -20,11 +20,18 @@ object UnitdefsConsistencyChecker {
     }
   }
 
-  private def isMechanicalUnit(ud: LinearUnitDefinitionJson): Boolean = {
+  private val auxiliaryMechanicalUnits = List("AreaFrequency", "TimePerLength", "TimeSquaredPerLength")
+
+  private def isNecessaryMechanicalUnit(ud: LinearUnitDefinitionJson): Boolean = {
+    if (auxiliaryMechanicalUnits.contains(ud.id))
+      return false
+
     val dim = ud.unitCategory.dimension
-    dim.I == 0 && dim.J == 0 && dim.Θ == 0 && dim.N == 0
+    !auxiliaryMechanicalUnits.contains(ud.id) && dim.I == 0 && dim.J == 0 && dim.Θ == 0 && dim.N == 0
   }
 
-  private def isElectromagneticUnit(ud: LinearUnitDefinitionJson): Boolean =
-    ud.unitCategory.dimension.I != 0
+  private val auxiliaryElectromagneticUnits = List("ElectricalConductance")
+
+  private def isNecessaryElectromagneticUnit(ud: LinearUnitDefinitionJson): Boolean =
+    !auxiliaryElectromagneticUnits.contains(ud.id) && ud.unitCategory.dimension.I != 0
 }

@@ -10,6 +10,10 @@ import waman.multiverse.unit.mechanics.TimeSquared
 import waman.multiverse.unit.mechanics.TimeSquaredUnit
 
 
+import waman.multiverse.unit.electromagnetism.TimePerLength
+import waman.multiverse.unit.electromagnetism.TimePerLengthUnit
+
+
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
 
@@ -19,6 +23,8 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 
   def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
   def squared: TimeSquared[A] = this * this
+
+  def /(length: Length[A]): TimePerLength[A] = new TimePerLength(this.value / length.value, this.unit / length.unit)
 }
 
 trait TimeUnit extends LinearUnit[TimeUnit]{
@@ -38,6 +44,9 @@ trait TimeUnit extends LinearUnit[TimeUnit]{
       this.squared
     else
       new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
+
+  def /(lengthUnit: LengthUnit): TimePerLengthUnit =
+    new QuotientUnit[TimePerLengthUnit, TimeUnit, LengthUnit](TimeUnit.this, lengthUnit) with TimePerLengthUnit
 }
 
 object TimeUnit extends UnitInfo[TimeUnit]{

@@ -3,12 +3,16 @@
   "SIUnit": "metre",
   "dimension": {"L":1},
 
+   "convertibles": [
+     {"target": "Capacitance", "from": "Length.centimetre", "to": "statfarad"}
+   ],
+
   "units": [
       {"name": "metre", "symbol": "m", "scalePrefixes": true},
 
       {"name": "micron", "symbol": "µ", "interval": "1e-6"},
       {"name": "angstrom", "symbol": "Å", "interval": "1e-10"},
-      {"name": "atomic unit of length", "symbol": "a_0", "interval": "5.291772109217e-11", "notExact": true},
+      {"name": "atomic unit of length", "symbol": "a0", "interval": "5.291772109217e-11", "notExact": true},
       {"name": "xunit", "symbol": "xu", "interval": "1.0021e-13", "notExact": true,
         "attributes": [
           {"name": "CuKα1", "interval": "1.0020769928e-13", "notExact": true},

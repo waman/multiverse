@@ -48,11 +48,11 @@ object ElectricDipoleUnitObjects{
   import waman.multiverse.unit.electromagnetism.ElectricChargeUnitObjects._
 
   final case object debye extends SimpleElectricDipoleUnit("debye", "D", r"1e-20" * statcoulomb.interval)
-  final case object atomic_unit_of_electric_dipole_moment extends SimpleElectricDipoleUnit("atomic unit of electric dipole moment", "ea_0", Constants.ElementaryCharge * Constants.BohrRadius) with NotExact
+  final case object atomic_unit_of_electric_dipole_moment extends SimpleElectricDipoleUnit("atomic unit of electric dipole moment", "ea0", Constants.ElementaryCharge * Constants.BohrRadius) with NotExact
 }
 
 object ElectricDipoleUnits{
 
   def D: ElectricDipoleUnit = ElectricDipoleUnitObjects.debye
-  def ea_0: ElectricDipoleUnit = ElectricDipoleUnitObjects.atomic_unit_of_electric_dipole_moment
+  def ea0: ElectricDipoleUnit = ElectricDipoleUnitObjects.atomic_unit_of_electric_dipole_moment
 }

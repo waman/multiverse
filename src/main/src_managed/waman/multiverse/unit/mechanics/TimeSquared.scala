@@ -6,16 +6,31 @@ import spire.math.Fractional
 import waman.multiverse._
 
 
+import waman.multiverse.unit.basic.Length
+import waman.multiverse.unit.basic.LengthUnit
+
+
+import waman.multiverse.unit.electromagnetism.TimeSquaredPerLength
+import waman.multiverse.unit.electromagnetism.TimeSquaredPerLengthUnit
+
+
 class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
     extends LinearQuantity[TimeSquared[A], A, TimeSquaredUnit] {
 
+  import spire.implicits._
+
   override protected def newQuantity(value: A, unit: TimeSquaredUnit): TimeSquared[A] = new TimeSquared(value, unit)
+
+  def /(length: Length[A]): TimeSquaredPerLength[A] = new TimeSquaredPerLength(this.value / length.value, this.unit / length.unit)
 }
 
 trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit]{
 
   override def getSIUnit: TimeSquaredUnit = TimeSquaredUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = TimeSquaredUnit.dimension
+
+  def /(lengthUnit: LengthUnit): TimeSquaredPerLengthUnit =
+    new QuotientUnit[TimeSquaredPerLengthUnit, TimeSquaredUnit, LengthUnit](TimeSquaredUnit.this, lengthUnit) with TimeSquaredPerLengthUnit
 }
 
 object TimeSquaredUnit extends UnitInfo[TimeSquaredUnit]{

@@ -29,7 +29,7 @@ object VolumeFlowUnit extends UnitInfo[VolumeFlowUnit]{
 
   import VolumeFlowUnitObjects._
   def getUnits: Seq[VolumeFlowUnit] =
-    Seq(litre_per_minute, gallon_per_minute, gallon_per_hour, gallon_per_day, cubic_centimetre_per_second, cubic_centimetre_per_minute, cubic_foot_per_second, cubic_foot_per_minute, cubic_foot_per_hour)
+    Seq(litre_per_minute, gallon_per_minute, gallon_per_hour, gallon_per_day, cubic_centimetre_per_second, cubic_centimetre_per_minute, cubic_foot_per_second, cubic_foot_per_minute, cubic_oot_per_hour)
 }
 
 /** For no aliase or user defined units */
@@ -50,11 +50,11 @@ object VolumeFlowUnitObjects{
   final case object gallon_per_minute extends SimpleVolumeFlowUnit("gallon per minute", "GPM", `gallon(US_fl)`.interval / minute.interval)
   final case object gallon_per_hour extends SimpleVolumeFlowUnit("gallon per hour", "GPH", `gallon(US_fl)`.interval / hour.interval)
   final case object gallon_per_day extends SimpleVolumeFlowUnit("gallon per day", "GPD", `gallon(US_fl)`.interval / day.interval)
-  final case object cubic_centimetre_per_second extends SimpleVolumeFlowUnit("cubic_centimetre per second", "ccs", cubic_centimetre.interval / second.interval)
-  final case object cubic_centimetre_per_minute extends SimpleVolumeFlowUnit("cubic_centimetre per minute", "ccm", cubic_centimetre.interval / minute.interval)
-  final case object cubic_foot_per_second extends SimpleVolumeFlowUnit("cubic_foot per second", "cfs", cubic_foot.interval / second.interval)
-  final case object cubic_foot_per_minute extends DefaultVolumeFlowUnit("cubic_foot per minute", "cfm", Seq("CFM"), cubic_foot.interval / minute.interval)
-  final case object cubic_foot_per_hour extends SimpleVolumeFlowUnit("cubic_foot per hour", "cfh", cubic_foot.interval / hour.interval)
+  final case object cubic_centimetre_per_second extends SimpleVolumeFlowUnit("cubic centimetre per second", "ccs", cubic_centimetre.interval / second.interval)
+  final case object cubic_centimetre_per_minute extends SimpleVolumeFlowUnit("cubic centimetre per minute", "ccm", cubic_centimetre.interval / minute.interval)
+  final case object cubic_foot_per_second extends SimpleVolumeFlowUnit("cubic foot per second", "cfs", cubic_foot.interval / second.interval)
+  final case object cubic_foot_per_minute extends DefaultVolumeFlowUnit("cubic foot per minute", "cfm", Seq("CFM"), cubic_foot.interval / minute.interval)
+  final case object cubic_oot_per_hour extends SimpleVolumeFlowUnit("cubic oot per hour", "cfh", cubic_foot.interval / hour.interval)
 }
 
 object VolumeFlowUnits{
@@ -68,5 +68,5 @@ object VolumeFlowUnits{
   def cfs: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_second
   def cfm: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_minute
   def CFM: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_minute
-  def cfh: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_hour
+  def cfh: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_oot_per_hour
 }

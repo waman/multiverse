@@ -43,7 +43,7 @@ object MagneticFluxUnit extends UnitInfo[MagneticFluxUnit]{
 
   import MagneticFluxUnitObjects._
   def getUnits: Seq[MagneticFluxUnit] =
-    Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell)
+    Seq(weber, yoctoweber, zeptoweber, attoweber, femtoweber, picoweber, nanoweber, microweber, milliweber, centiweber, deciweber, decaweber, hectoweber, kiloweber, megaweber, gigaweber, teraweber, petaweber, exaweber, zettaweber, yottaweber, maxwell, yoctomaxwell, zeptomaxwell, attomaxwell, femtomaxwell, picomaxwell, nanomaxwell, micromaxwell, millimaxwell, centimaxwell, decimaxwell, decamaxwell, hectomaxwell, kilomaxwell, megamaxwell, gigamaxwell, teramaxwell, petamaxwell, examaxwell, zettamaxwell, yottamaxwell, statweber)
 }
 
 /** For no aliase or user defined units */
@@ -59,6 +59,7 @@ object MagneticFluxUnitObjects{
 
   import spire.implicits._
 
+  import waman.multiverse.unit.Constants
 
   final case object weber extends SimpleMagneticFluxUnit("weber", "Wb", 1)
   final case object yoctoweber extends SimpleMagneticFluxUnit("yoctoweber", "yWb", r"1e-24")
@@ -102,6 +103,7 @@ object MagneticFluxUnitObjects{
   final case object examaxwell extends SimpleMagneticFluxUnit("examaxwell", "EMx", r"1e-8" * r"1e18")
   final case object zettamaxwell extends SimpleMagneticFluxUnit("zettamaxwell", "ZMx", r"1e-8" * r"1e21")
   final case object yottamaxwell extends SimpleMagneticFluxUnit("yottamaxwell", "YMx", r"1e-8" * r"1e24")
+  final case object statweber extends SimpleMagneticFluxUnit("statweber", "statWb", Constants.SpeedOfLight * r"1e-6")
 }
 
 object MagneticFluxUnits{
@@ -152,4 +154,5 @@ object MagneticFluxUnits{
   def EMx: MagneticFluxUnit = MagneticFluxUnitObjects.examaxwell
   def ZMx: MagneticFluxUnit = MagneticFluxUnitObjects.zettamaxwell
   def YMx: MagneticFluxUnit = MagneticFluxUnitObjects.yottamaxwell
+  def statWb: MagneticFluxUnit = MagneticFluxUnitObjects.statweber
 }

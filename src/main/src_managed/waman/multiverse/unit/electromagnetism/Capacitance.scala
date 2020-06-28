@@ -27,7 +27,7 @@ object CapacitanceUnit extends UnitInfo[CapacitanceUnit]{
 
   import CapacitanceUnitObjects._
   def getUnits: Seq[CapacitanceUnit] =
-    Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad)
+    Seq(farad, yoctofarad, zeptofarad, attofarad, femtofarad, picofarad, nanofarad, microfarad, millifarad, centifarad, decifarad, decafarad, hectofarad, kilofarad, megafarad, gigafarad, terafarad, petafarad, exafarad, zettafarad, yottafarad, abfarad, statfarad)
 }
 
 /** For no aliase or user defined units */
@@ -43,6 +43,7 @@ object CapacitanceUnitObjects{
 
   import spire.implicits._
 
+  import waman.multiverse.unit.Constants
 
   final case object farad extends SimpleCapacitanceUnit("farad", "F", 1)
   final case object yoctofarad extends SimpleCapacitanceUnit("yoctofarad", "yF", r"1e-24")
@@ -65,6 +66,10 @@ object CapacitanceUnitObjects{
   final case object exafarad extends SimpleCapacitanceUnit("exafarad", "EF", r"1e18")
   final case object zettafarad extends SimpleCapacitanceUnit("zettafarad", "ZF", r"1e21")
   final case object yottafarad extends SimpleCapacitanceUnit("yottafarad", "YF", r"1e24")
+  final case object abfarad extends SimpleCapacitanceUnit("abfarad", "abF", r"1e9")
+  final case object statfarad extends SimpleCapacitanceUnit("statfarad", "statF", Constants.SpeedOfLight * Constants.SpeedOfLight * r"1e-5") with Description {
+    def description: String = "Formal unit for Gaussian and ESU CGS unit system."
+  }
 }
 
 object CapacitanceUnits{
@@ -92,4 +97,6 @@ object CapacitanceUnits{
   def EF: CapacitanceUnit = CapacitanceUnitObjects.exafarad
   def ZF: CapacitanceUnit = CapacitanceUnitObjects.zettafarad
   def YF: CapacitanceUnit = CapacitanceUnitObjects.yottafarad
+  def abF: CapacitanceUnit = CapacitanceUnitObjects.abfarad
+  def statF: CapacitanceUnit = CapacitanceUnitObjects.statfarad
 }

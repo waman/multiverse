@@ -1,7 +1,7 @@
 package waman.multiverse
 
 import waman.multiverse.unit.BasicUnits._
-import waman.multiverse.unit.basic.LengthUnits.a_0
+import waman.multiverse.unit.basic.LengthUnits.a0
 import waman.multiverse.unit.MechanicalUnits._
 import waman.multiverse.unit.basic.VolumeUnitObjects
 
@@ -52,7 +52,7 @@ class LinearUnitSpec extends MultiverseCustomSpec{
           (km, "kilometre (km) [1(km) = 1,000(m)], aliases: [Km], dim: L"),
           (km/s, "kilometre per second (km/s) [1(km/s) = 1,000(m/s)], aliases: [Km/s, km/sec, Km/sec], dim: LT⁻¹"),  // quotient unit
           (W/(cm2*Hz), "watt per square centimetre times heltz (W/(cm²*Hz)) [1(W/(cm²*Hz)) = 10,000(W/(m²*Hz))], aliases: [W/(cm2*Hz)], dim: MT⁻²"), // LiteralComposite
-          (a_0, "atomic unit of length (a_0) [1(a_0) ≈ 0.00000000005291772109217(m)], dim: L")  // NotExact unit
+          (a0, "atomic unit of length (a0) [1(a0) ≈ 0.00000000005291772109217(m)], dim: L")  // NotExact unit
         )
 
       forAll(conversions){ (unit: PhysicalUnit[_], expected: String) =>
