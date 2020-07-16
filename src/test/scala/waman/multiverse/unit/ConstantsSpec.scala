@@ -116,7 +116,7 @@ class ConstantsSpec extends MultiverseCustomSpec {
         (ElectronMass(kg)(g), 9.10938375015e-28),
         (1(e)(statC), 4.80320427e-10),
         (1(e)(abC), 1.602176634e-20),
-        (GravitationalConstant(N*m2/(kg*kg))(dyn*cm2/(g*g)), 6.67430e-8),
+        (GravitationalConstant(N*m2/(kg^2))(dyn*cm2/(g^2)), 6.67430e-8),
         (PlanckConstant(J*s)(erg*s), 6.62606885e-27),
         (ReducedPlanckConstant(J*s)(erg*s), 1.054571817e-27),
         (SpeedOfLight(m/s)(cm/s), 2.99792458e10)

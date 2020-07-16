@@ -33,8 +33,10 @@ class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
           case "Temperature.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
           case "Length.json" => new LengthUnitDefinitionDefinitionJson(json, destDir, subpackage)
           case "Area.json" | "Volume.json" =>
-            new LengthPoweredUnitDefinitionDefinitionJson(json, destDir, subpackage)
+            val unitName = json.getName.replaceAll(".json", "")
+            new LengthPoweredUnitDefinitionJson(json, destDir, subpackage, unitName)
           case "Time.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
+          case "TimeSquared.json" => new TimeSquaredUnitDefinitionJson(json, destDir, subpackage)
           case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
         }
 

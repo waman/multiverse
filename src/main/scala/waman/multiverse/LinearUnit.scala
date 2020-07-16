@@ -1,10 +1,40 @@
 package waman.multiverse
 
 import spire.math.Real
+import waman.multiverse.typeless.{SimpleTypelessLinearUnit, TypelessLinearUnit}
 
 trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{ this: U =>
 
   override final def zero: Real = Real.zero
+
+  /** Use only <code>interval</code> property for evaluation (not use <code>name</code> property),
+    * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
+  override def compare(that: U): Int = this.interval.compare(that.interval)
+
+  def *[V <: LinearUnit[V]](secondUnit: V): TypelessLinearUnit =
+    this.asTypeless.multiply(secondUnit.asTypeless)
+
+  def ^(n: Int): TypelessLinearUnit = this.asTypeless^n
+
+  /** Equivalent to ^ operator. */
+  final def **(n: Int): TypelessLinearUnit = this^n
+
+  def /[V <: LinearUnit[V]](denominatorUnit: V): TypelessLinearUnit =
+    this.asTypeless.divide(denominatorUnit.asTypeless)
+
+  def reciprocal: TypelessLinearUnit = this.asTypeless.reciprocal
+
+  def asTypeless: TypelessLinearUnit = new SimpleTypelessLinearUnit(this)
+
+  def max(that: U): U = if((this compare that) >= 0) this else that
+  def min(that: U): U = if((this compare that) <= 0) this else that
+
+  /**
+    * Return true if <code>this.dimension == other.dimension && this.interval == other.interval</code>,
+    *  otherwise false. (Note: <code>name</code> property is not used for evaluation not like <code>equals</code> method.)
+    */
+  def isEquivalentTo(other: LinearUnit[_]): Boolean =
+    this.dimension == other.dimension && this.interval == other.interval
 
   /** Evaluate via <code>name</code>, <code>interval</code> and <code>dimension</code> properties
     * (not <code>symbol</code>). */
@@ -39,33 +69,19 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
         s"$name ($symbol) [1($symbol) = $sInterval(${getSIUnit.symbol})]$ali, dim: $dim$desc"
     }
   }
-
-  /** Use only <code>interval</code> property for evaluation (not use <code>name</code> property),
-    * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
-  override def compare(that: U): Int = this.interval.compare(that.interval)
-
-  def *[V <: LinearUnit[V]](secondUnit: V): TypelessLinearUnit =
-    TypelessLinearUnit(this).multiply(TypelessLinearUnit(secondUnit))
-
-  def /[V <: LinearUnit[V]](denominatorUnit: V): TypelessLinearUnit =
-    TypelessLinearUnit(this).divide(TypelessLinearUnit(denominatorUnit))
-
-  def max(that: U): U = if((this compare that) >= 0) this else that
-  def min(that: U): U = if((this compare that) <= 0) this else that
-
-  /**
-    * Return true if <code>this.dimension == other.dimension && this.interval == other.interval</code>,
-    *  otherwise false. (Note: <code>name</code> property is not used for evaluation not like <code>equals</code> method.)
-    */
-  def isEquivalentTo(other: LinearUnit[_]): Boolean =
-    this.dimension == other.dimension && this.interval == other.interval
 }
 
 // For symbol property of QuotientUnit: m/(s*ms)
 trait LiteralComposite
 
-abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
-  (val firstUnit: A, val secondUnit: B)
+object LiteralComposite {
+  def mkSymbol(u: LinearUnit[_]): String = u match {
+    case _: LiteralComposite => s"(${u.symbol})"
+    case _ => u.symbol
+  }
+}
+
+abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]](val firstUnit: A, val secondUnit: B)
   extends LinearUnit[U] with LiteralComposite { this: U =>
 
   override val name: String = s"${firstUnit.name} times ${secondUnit.name}"
@@ -84,37 +100,17 @@ abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUn
   override def dimension: Map[DimensionSymbol, Int] =
     DimensionSymbol.values.map(s => (s, firstUnit.dimension(s) + secondUnit.dimension(s))).toMap
 
-  override def equals(other: Any): Boolean = other match {
-    case that: ProductUnit[_, _, _] =>
-      (that canEqual this) &&
-        firstUnit == that.firstUnit &&
-        secondUnit == that.secondUnit
-    case _ => false
-  }
-
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[ProductUnit[_, _, _]]
-
-  override def hashCode: Int = (firstUnit, "*", secondUnit).##
+  override def asTypeless: TypelessLinearUnit =
+     this.firstUnit.asTypeless * this.secondUnit.asTypeless
 }
 
 abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
   (val numeratorUnit: A, val denominatorUnit: B)
   extends LinearUnit[U] with LiteralComposite { this: U =>
 
-  override val name: String = newName
+  override val name: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
 
-  protected def newName: String = s"${numeratorUnit.name} per ${denominatorUnit.name}"
-
-  override val symbol: String = newSymbol
-
-  object LiteralComposite {
-    def mkSymbol(u: LinearUnit[_]): String = u match {
-      case _: LiteralComposite => s"(${u.symbol})"
-      case _ => u.symbol
-    }
-  }
-
-  protected def newSymbol: String = this.denominatorUnit match {
+  override val symbol: String = this.denominatorUnit match {
     case _: LiteralComposite =>
       s"${this.numeratorUnit.symbol}/(${this.denominatorUnit.symbol})"
     case _ =>
@@ -138,15 +134,6 @@ abstract class QuotientUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearU
   override def dimension: Map[DimensionSymbol, Int] =
     DimensionSymbol.values.map(s => (s, numeratorUnit.dimension(s) - denominatorUnit.dimension(s))).toMap
 
-  override def equals(other: Any): Boolean = other match {
-    case that: QuotientUnit[_, _, _] =>
-      (that canEqual this) &&
-        numeratorUnit == that.numeratorUnit &&
-        denominatorUnit == that.denominatorUnit
-    case _ => false
-  }
-
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[QuotientUnit[_, _, _]]
-
-  override def hashCode: Int = (numeratorUnit, "/", denominatorUnit).##
+  override def asTypeless: TypelessLinearUnit =
+    this.numeratorUnit.asTypeless / this.denominatorUnit.asTypeless
 }

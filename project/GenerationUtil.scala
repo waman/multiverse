@@ -1,4 +1,4 @@
-import java.io.{BufferedWriter, File}
+import java.io.File
 import java.nio.charset.Charset
 
 import com.google.gson.Gson
@@ -86,6 +86,12 @@ object GenerationUtil{
       }
       extraOperation(id, unit)
     })
+
+  // "Length.metre^2 => "metre"
+  def refineUnitNamesInPoweredBaseUnit(s: String): String = {
+    val ss = s.split('^')(0).split('.')(1) // "metre"
+    if (ss.contains('(')) s"`$ss`" else ss
+  }
 
   def isCompositeUnit(s: String): Boolean = s.contains('*') || s.contains('/')
 

@@ -15,6 +15,8 @@ import waman.multiverse.unit.radioactivity._
 import waman.multiverse.unit.radiometry._
 import waman.multiverse.unit.thermodynamics._
 
+import waman.multiverse.typeless._
+
 package object implicits {
 
   implicit class QuantityFactory[A: Fractional](val value: A){

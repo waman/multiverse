@@ -1,9 +1,10 @@
-package waman.multiverse
+package waman.multiverse.typeless
 
 import spire.math.Real
 import waman.multiverse.implicits._
 import waman.multiverse.unit.BasicUnits._
 import waman.multiverse.unit.MechanicalUnits._
+import waman.multiverse.{LinearUnit, MultiverseCustomSpec}
 
 class TypelessLinearUnitSpec extends MultiverseCustomSpec{
 
@@ -15,6 +16,9 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
         (cm/m) shouldBe a [TypelessQuotientUnit]
         (cm*min) shouldBe a [TypelessProductUnit]
         (km/L) shouldBe a [TypelessQuotientUnit]
+        km.reciprocal shouldBe a [TypelessReciprocalUnit]
+        km3.asTypeless shouldBe a [TypelessPowerUnit]
+        (km^4) shouldBe a [TypelessPowerUnit]
       }
 
       "m/m should be the Dimless" in {
@@ -73,11 +77,14 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
             ((km/L)*L, "km"),
             ((km/L)*cm3, "km*cm³/L"),
             ((km/L)/m, "km/(L*m)"),
-            ((km/L)/km, "1/L"),
+            ((km/L)/km, "L⁻¹"),
+
+            // power
+            ((cm*min)*min, "cm*min²"),
 
             // more complex
             ((cm*min)*min/min, "cm*min"),
-            ((cm*min)*min/cm, "min*min"),
+            ((cm*min)*min/cm, "min²"),
             ((km/L)*(L/s), "km/s"),
             ((km/L)*(kg/km), "kg/L"),
             ((km/L)/(s/L), "km/s"),
@@ -159,7 +166,7 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
         // SetUp
         val v = N*m
         // Exercise
-        val sut = TypelessLinearUnit(v)
+        val sut = v.asTypeless
         // Verify
         sut shouldBe a [TypelessProductUnit]
         sut.isEquivalentTo(v) should be (true)
@@ -170,7 +177,7 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
       // SetUp
       val v = m/s
       // Exercise
-      val sut = TypelessLinearUnit(v)
+      val sut = v.asTypeless
       // Verify
       sut shouldBe a [TypelessQuotientUnit]
       sut.isEquivalentTo(v) should be (true)

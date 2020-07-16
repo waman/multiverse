@@ -1,6 +1,7 @@
-package waman.multiverse
+package waman.multiverse.typeless
 
 import spire.math.Fractional
+import waman.multiverse.{LinearQuantity, Quantity}
 
 class TypelessLinearQuantity[A: Fractional](val value: A, val unit: TypelessLinearUnit)
   extends LinearQuantity[TypelessLinearQuantity[A], A, TypelessLinearUnit] {

@@ -26,6 +26,8 @@ object ImplicitsGenerator {
 
       writer.write(
         s"""
+           |import $rootPackage.typeless._
+           |
            |package object implicits {
            |
            |  implicit class QuantityFactory[A: Fractional](val value: A){

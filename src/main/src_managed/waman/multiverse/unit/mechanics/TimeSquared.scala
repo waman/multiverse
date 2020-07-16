@@ -59,17 +59,17 @@ object TimeSquaredUnitObjects{
 
   import waman.multiverse.unit.basic.TimeUnitObjects._
 
-  final case object second_squared extends DefaultTimeSquaredUnit("second squared", "s²", Seq("s2", "sec²", "sec2"), second.interval**2)
-  final case object yoctosecond_squared extends DefaultTimeSquaredUnit("yoctosecond squared", "ys²", Seq("ys2", "ysec²", "ysec2"), yoctosecond.interval**2)
-  final case object zeptosecond_squared extends DefaultTimeSquaredUnit("zeptosecond squared", "zs²", Seq("zs2", "zsec²", "zsec2"), zeptosecond.interval**2)
-  final case object attosecond_squared extends DefaultTimeSquaredUnit("attosecond squared", "as²", Seq("as2", "asec²", "asec2"), attosecond.interval**2)
-  final case object femtosecond_squared extends DefaultTimeSquaredUnit("femtosecond squared", "fs²", Seq("fs2", "fsec²", "fsec2"), femtosecond.interval**2)
-  final case object picosecond_squared extends DefaultTimeSquaredUnit("picosecond squared", "ps²", Seq("ps2", "psec²", "psec2"), picosecond.interval**2)
-  final case object nanosecond_squared extends DefaultTimeSquaredUnit("nanosecond squared", "ns²", Seq("ns2", "nsec²", "nsec2"), nanosecond.interval**2)
-  final case object microsecond_squared extends DefaultTimeSquaredUnit("microsecond squared", "μs²", Seq("μs2", "μsec²", "μsec2", "mcs²", "mcs2", "mcsec²", "mcsec2"), microsecond.interval**2)
-  final case object millisecond_squared extends DefaultTimeSquaredUnit("millisecond squared", "ms²", Seq("ms2", "msec²", "msec2"), millisecond.interval**2)
-  final case object centisecond_squared extends DefaultTimeSquaredUnit("centisecond squared", "cs²", Seq("cs2", "csec²", "csec2"), centisecond.interval**2)
-  final case object decisecond_squared extends DefaultTimeSquaredUnit("decisecond squared", "ds²", Seq("ds2", "dsec²", "dsec2"), decisecond.interval**2)
+  final case object second_squared extends TimePoweredTimeSquaredUnit(second, Seq("s2", "sec²", "sec2"))
+  final case object yoctosecond_squared extends TimePoweredTimeSquaredUnit(yoctosecond, Seq("ys2", "ysec²", "ysec2"))
+  final case object zeptosecond_squared extends TimePoweredTimeSquaredUnit(zeptosecond, Seq("zs2", "zsec²", "zsec2"))
+  final case object attosecond_squared extends TimePoweredTimeSquaredUnit(attosecond, Seq("as2", "asec²", "asec2"))
+  final case object femtosecond_squared extends TimePoweredTimeSquaredUnit(femtosecond, Seq("fs2", "fsec²", "fsec2"))
+  final case object picosecond_squared extends TimePoweredTimeSquaredUnit(picosecond, Seq("ps2", "psec²", "psec2"))
+  final case object nanosecond_squared extends TimePoweredTimeSquaredUnit(nanosecond, Seq("ns2", "nsec²", "nsec2"))
+  final case object microsecond_squared extends TimePoweredTimeSquaredUnit(microsecond, Seq("μs2", "μsec²", "μsec2", "mcs²", "mcs2", "mcsec²", "mcsec2"))
+  final case object millisecond_squared extends TimePoweredTimeSquaredUnit(millisecond, Seq("ms2", "msec²", "msec2"))
+  final case object centisecond_squared extends TimePoweredTimeSquaredUnit(centisecond, Seq("cs2", "csec²", "csec2"))
+  final case object decisecond_squared extends TimePoweredTimeSquaredUnit(decisecond, Seq("ds2", "dsec²", "dsec2"))
 }
 
 object TimeSquaredUnits{

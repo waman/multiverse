@@ -24,13 +24,6 @@ object DimensionSymbol{
     case _ => None
   }
 
-  private val uppers = "⁰¹²³⁴⁵⁶⁷⁸⁹⁻"
-
-  private def toUppers(c: Char): Char = c match {
-    case '-' => uppers.charAt(10)
-    case n => uppers.charAt(n - '0')
-  }
-
   def toStringWithUnit(d: Map[DimensionSymbol, Int]): String = toString(d, _.unit, " ")
 
   def toStringWithSymbol(d: Map[DimensionSymbol, Int]): String = toString(d, _.toString, "")
@@ -40,6 +33,6 @@ object DimensionSymbol{
     else
       values.map(s => (s, d(s))).filter(_._2 != 0).map{
         case (s, 1) => f(s)
-        case (s, n) => f(s) + n.toString.map(toUppers).mkString("")
+        case (s, n) => f(s) + toSuperscripts(n)
       }.mkString(sep)
 }

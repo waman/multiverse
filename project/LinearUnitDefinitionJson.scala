@@ -382,13 +382,28 @@ class LengthUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpacka
   override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 }
 
-class LengthPoweredUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
+class LengthPoweredUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String, unitName: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
+
+  import GenerationUtil._
+
+  private val powerPrefix = if (unitName == "Area") "square" else "cubic"
 
   override protected def attributeContainerID: String = "MetricAttributes"
   override protected def generateAttributes(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
 
   override protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[LinearUnit]): Unit = ()
+
+  override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
+    if (unit.name.startsWith(powerPrefix)) {
+      val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit)  // Length.metre^2 => LengthUnitObjects.metre
+      val aliases = unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+      writer.write(
+        s"""  final case object ${unit.objectName} extends LengthPowered${unitName}Unit($baseUnit, $aliases)\n""")
+    } else {
+      super.generateUnitCaseObject(writer, unit)
+    }
+  }
 }
 
 class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
@@ -420,4 +435,17 @@ class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     }else{
       super.generateUnitMultiplication(writer, p)
     }
+}
+
+class TimeSquaredUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
+  extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
+
+  import GenerationUtil._
+
+  override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
+    val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit)  // Time.second^2 => TimeUnitObjects.second
+    val aliases = unit.aliases.mkString("Seq(\"", "\", \"", "\")")
+    writer.write(
+      s"""  final case object ${unit.objectName} extends TimePoweredTimeSquaredUnit($baseUnit, $aliases)\n""")
+  }
 }
