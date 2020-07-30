@@ -324,42 +324,11 @@ class LengthUnitDefinitionDefinitionJson(jsonFile: File, destDir: File, subpacka
            |""".stripMargin)
   }
 
+  override protected def getAdditionalTraitsOfUnit: Seq[String] = Seq("LengthUnitCanSquare", "LengthUnitCanCubic")
+
   override protected def generateUnitMultiplication(writer:BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit =
-    if (p._1.id == "Length") {
-      writer.write(
-        """  def squared: AreaUnit =
-          |    new AreaUnit{
-          |      override val name: String = "square " + LengthUnit.this.name
-          |      override val symbol: String = LengthUnit.this.symbol + "²"
-          |      override val interval: Real = LengthUnit.this.interval**2
-          |      override def aliases: Seq[String] = LengthUnit.this.symbols.map(_+".squared")
-          |
-          |      override def *(lengthUnit: LengthUnit): VolumeUnit = {
-          |        if (lengthUnit == LengthUnit.this)
-          |          LengthUnit.this.cubic
-          |        else
-          |          super.*(lengthUnit)
-          |      }
-          |    }
-          |
-          |  def cubic: VolumeUnit =
-          |    new VolumeUnit{
-          |      override val name: String = "cubic " + LengthUnit.this.name
-          |      override val symbol: String = LengthUnit.this.symbol + "³"
-          |      override val interval: Real = LengthUnit.this.interval**3
-          |      override def aliases: Seq[String] = LengthUnit.this.symbols.map(_+".cubic")
-          |    }
-          |
-          |  def *(lengthUnit: LengthUnit): AreaUnit =
-          |    if(this == lengthUnit)
-          |      this.squared
-          |    else
-          |      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
-          |
-          |""".stripMargin)
-    }else{
+    if (p._1.id != "Length")
       super.generateUnitMultiplication(writer, p)
-    }
 
   override protected def getUnitsWithAttributes(jsons: JsonResources, units: Seq[LinearUnit]): Seq[LinearUnit] =
     jsons.linearUnitDefs.filter(ud => ud.id == "Length" || ud.id == "Area" || ud.id == "Volume")
@@ -404,10 +373,16 @@ class LengthPoweredUnitDefinitionJson(jsonFile: File, destDir: File, subpackage:
       super.generateUnitCaseObject(writer, unit)
     }
   }
+
+  override protected def getReturnedTypeOfUnits(u: LinearUnit): String =
+    if (u.name.startsWith(powerPrefix)) s"LengthPowered${unitName}Unit"
+    else super.getReturnedTypeOfUnits(u)
 }
 
 class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
     extends LinearUnitDefinitionJson(jsonFile, destDir, subpackage){
+
+  override protected def getAdditionalTraitsOfUnit: Seq[String] = Seq("TimeUnitCanSquare")
 
   override protected def generateQuantityMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit = {
     super.generateQuantityMultiplication(writer, p)
@@ -416,25 +391,8 @@ class TimeUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
   }
 
   override protected def generateUnitMultiplication(writer: BW, p: (UnitDefinitionJson, UnitDefinitionJson)): Unit =
-    if (p._1.id == "Time") {
-      writer.write(
-        s"""  def squared: TimeSquaredUnit =
-           |    new TimeSquaredUnit{
-           |      override val name: String = TimeUnit.this.name + " squared"
-           |      override val symbol: String = TimeUnit.this.symbol + "²"
-           |      override val interval: Real = TimeUnit.this.interval**2
-           |      override def aliases: Seq[String] = TimeUnit.this.symbols.map(_+".squared")
-           |    }
-           |
-           |  def *(timeUnit: TimeUnit): TimeSquaredUnit =
-           |    if(this == timeUnit)
-           |      this.squared
-           |    else
-           |      new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
-           |""".stripMargin)
-    }else{
+    if (p._1.id != "Time")
       super.generateUnitMultiplication(writer, p)
-    }
 }
 
 class TimeSquaredUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: String)
@@ -448,4 +406,8 @@ class TimeSquaredUnitDefinitionJson(jsonFile: File, destDir: File, subpackage: S
     writer.write(
       s"""  final case object ${unit.objectName} extends TimePoweredTimeSquaredUnit($baseUnit, $aliases)\n""")
   }
+
+  override protected def getReturnedTypeOfUnits(u: LinearUnit): String =
+    if (u.name.endsWith("squared")) "TimePoweredTimeSquaredUnit"
+    else super.getReturnedTypeOfUnits(u)
 }

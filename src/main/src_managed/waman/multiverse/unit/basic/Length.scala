@@ -49,39 +49,10 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
 }
 
 /** 'US' attribute contains 'US Survey' metric. */
-trait LengthUnit extends LinearUnit[LengthUnit]{
+trait LengthUnit extends LinearUnit[LengthUnit] with LengthUnitCanSquare with LengthUnitCanCubic{
 
   override def getSIUnit: LengthUnit = LengthUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = LengthUnit.dimension
-  def squared: AreaUnit =
-    new AreaUnit{
-      override val name: String = "square " + LengthUnit.this.name
-      override val symbol: String = LengthUnit.this.symbol + "²"
-      override val interval: Real = LengthUnit.this.interval**2
-      override def aliases: Seq[String] = LengthUnit.this.symbols.map(_+".squared")
-
-      override def *(lengthUnit: LengthUnit): VolumeUnit = {
-        if (lengthUnit == LengthUnit.this)
-          LengthUnit.this.cubic
-        else
-          super.*(lengthUnit)
-      }
-    }
-
-  def cubic: VolumeUnit =
-    new VolumeUnit{
-      override val name: String = "cubic " + LengthUnit.this.name
-      override val symbol: String = LengthUnit.this.symbol + "³"
-      override val interval: Real = LengthUnit.this.interval**3
-      override def aliases: Seq[String] = LengthUnit.this.symbols.map(_+".cubic")
-    }
-
-  def *(lengthUnit: LengthUnit): AreaUnit =
-    if(this == lengthUnit)
-      this.squared
-    else
-      new ProductUnit[AreaUnit, LengthUnit, LengthUnit](LengthUnit.this, lengthUnit) with AreaUnit
-
 
   def *(forceUnit: ForceUnit): EnergyUnit =
     new ProductUnit[EnergyUnit, LengthUnit, ForceUnit](LengthUnit.this, forceUnit) with EnergyUnit

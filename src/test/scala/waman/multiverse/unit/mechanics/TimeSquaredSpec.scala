@@ -72,6 +72,13 @@ class TimeSquaredSpec extends MultiverseCustomSpec {
       }
     }
 
+    "The baseUnit property of time-squared TimeSquared unit should return the proper TimeUnit" in {
+      // Exercise
+      val sut = s2.baseUnit
+      // Verify
+      sut.name should be ("second")
+    }
+
     "Dimension of a square of a time unit should equal the dimension of TimeSquared unit" in {
       // SetUp
       val expected = TimeSquaredUnit.dimension

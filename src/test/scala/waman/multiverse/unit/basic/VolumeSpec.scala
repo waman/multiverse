@@ -89,6 +89,13 @@ class VolumeSpec extends MultiverseCustomSpec {
       }
     }
 
+    "The baseUnit property of cubit-length volume unit should return the proper LengthUnit" in {
+      // Exercise
+      val sut = in3.baseUnit
+      // Verify
+      sut.name should be ("inch")
+    }
+
     "Dimension of a cubic of a length unit should equal the dimension of volume unit" in {
       // SetUp
       val expected = VolumeUnit.dimension

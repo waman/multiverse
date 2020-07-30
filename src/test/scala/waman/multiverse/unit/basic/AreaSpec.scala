@@ -57,7 +57,7 @@ class AreaSpec extends MultiverseCustomSpec {
           (m*mm, "m*mm"),
 
           (ft2, "ft²"),
-          (ft2(US), "ft²(US)")
+          (ft2(US), "ft(US)²")
         )
       // Verify
       forAll(conversions){ (sut: AreaUnit, expected: String) =>
@@ -82,6 +82,13 @@ class AreaSpec extends MultiverseCustomSpec {
       forAll(conversions){ (sut: AreaUnit, expected: Seq[String]) =>
         sut.aliases should contain theSameElementsAs expected
       }
+    }
+
+    "The baseUnit property of square-length area unit should return the proper LengthUnit" in {
+      // Exercise
+      val sut = in2.baseUnit
+      // Verify
+      sut.name should be ("inch")
     }
 
     "Dimension of a square of a length unit should equal the dimension of area unit" in {

@@ -207,8 +207,10 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
       writer.write(s"/** ${this.unitCategory.description} */\n")
     }
 
+    val additionalTraits = getAdditionalTraitsOfUnit.map(" with " + _).mkString("")
+
     writer.write(
-      s"""trait ${id}Unit extends ${unitType}Unit[${id}Unit]{
+      s"""trait ${id}Unit extends ${unitType}Unit[${id}Unit]$additionalTraits{
          |
          |  override def getSIUnit: ${id}Unit = ${id}Unit.getSIUnit
          |  override def dimension: Map[DimensionSymbol, Int] = ${id}Unit.dimension
@@ -218,6 +220,8 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
     writer.write("}\n\n")
   }
+
+  protected def getAdditionalTraitsOfUnit: Seq[String] = Seq()
 
   protected def generateUnitTraitExtraContents(writer: BW, jsons: JsonResources, op: OP): Unit = ()
 
@@ -307,16 +311,17 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
     units.filterNot(_.name.contains("(")).foreach { u =>
       val sym = escapeSymbol(u.symbol)
+      val rType = getReturnedTypeOfUnits(u)
 
       // def m: LengthUnit = LengthUnitObjects.metre
-      writer.write(s"""  def $sym: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
+      writer.write(s"""  def $sym: $rType = ${id}UnitObjects.${u.objectName}\n""")
 
       // def oz(a: ounceAttribute): MassUnit = a match {
       //   case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
       //   case MassUnits.troy => MassUnitObjects.`ounce(troy)`
       // }
       if (u.attributes.nonEmpty) {
-        writer.write(s"""  def $sym(a: ${u.objectName}Attribute): ${id}Unit = a match { \n""")
+        writer.write(s"""  def $sym(a: ${u.objectName}Attribute): $rType = a match { \n""")
         u.attributes.foreach { a =>
           writer.write(s"""    case $attributeContainerID.${a.name} => ${id}UnitObjects.`${u.objectName}(${a.name})`\n""")
         }
@@ -325,17 +330,19 @@ abstract class UnitDefinitionJsonAdapter[UC <: UnitCategory[RU, U], RU <: RawUni
 
       u.aliases.filterNot(isOptionalAliase).foreach { al => // ignore aliases like <<"aliases": ["(pt)"]>>
         val als = escapeSymbol(al)
-        writer.write(s"""  def $als: ${id}Unit = ${id}UnitObjects.${u.objectName}\n""")
+        writer.write(s"""  def $als: $rType = ${id}UnitObjects.${u.objectName}\n""")
 
         // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
         if (u.attributes.nonEmpty) {
-          writer.write(s"""  def $als(a: ${u.objectName}Attribute): ${id}Unit = $sym(a)\n\n""")
+          writer.write(s"""  def $als(a: ${u.objectName}Attribute): $rType = $sym(a)\n\n""")
         }
       }
     }
 
     writer.write("}")
   }
+
+  protected def getReturnedTypeOfUnits(u: U): String = s"${id}Unit"
 
   protected def generateAttributeObjects(writer: BW, jsons: JsonResources, units: Seq[U]): Unit = {
     val attUnits = getUnitsWithAttributes(jsons, units)

@@ -1,17 +1,9 @@
 package waman.multiverse.unit.basic
 
-import spire.math.Real
-import spire.math.Fractional
-
+import spire.math.{Fractional, Real}
 import waman.multiverse._
-
-
+import waman.multiverse.unit.electromagnetism.{TimePerLength, TimePerLengthUnit}
 import waman.multiverse.unit.mechanics.TimeSquared
-import waman.multiverse.unit.mechanics.TimeSquaredUnit
-
-
-import waman.multiverse.unit.electromagnetism.TimePerLength
-import waman.multiverse.unit.electromagnetism.TimePerLengthUnit
 
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
@@ -27,23 +19,10 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
   def /(length: Length[A]): TimePerLength[A] = new TimePerLength(this.value / length.value, this.unit / length.unit)
 }
 
-trait TimeUnit extends LinearUnit[TimeUnit]{
+trait TimeUnit extends LinearUnit[TimeUnit] with TimeUnitCanSquare{
 
   override def getSIUnit: TimeUnit = TimeUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = TimeUnit.dimension
-  def squared: TimeSquaredUnit =
-    new TimeSquaredUnit{
-      override val name: String = TimeUnit.this.name + " squared"
-      override val symbol: String = TimeUnit.this.symbol + "²"
-      override val interval: Real = TimeUnit.this.interval**2
-      override def aliases: Seq[String] = TimeUnit.this.symbols.map(_+".squared")
-    }
-
-  def *(timeUnit: TimeUnit): TimeSquaredUnit =
-    if(this == timeUnit)
-      this.squared
-    else
-      new ProductUnit[TimeSquaredUnit, TimeUnit, TimeUnit](TimeUnit.this, timeUnit) with TimeSquaredUnit
 
   def /(lengthUnit: LengthUnit): TimePerLengthUnit =
     new QuotientUnit[TimePerLengthUnit, TimeUnit, LengthUnit](TimeUnit.this, lengthUnit) with TimePerLengthUnit

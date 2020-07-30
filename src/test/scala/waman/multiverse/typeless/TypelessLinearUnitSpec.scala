@@ -13,16 +13,30 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
     "Types" - {
 
       "Sample units should have the proper type" in {
-        (cm/m) shouldBe a [TypelessQuotientUnit]
-        (cm*min) shouldBe a [TypelessProductUnit]
-        (km/L) shouldBe a [TypelessQuotientUnit]
-        km.reciprocal shouldBe a [TypelessReciprocalUnit]
-        km3.asTypeless shouldBe a [TypelessPowerUnit]
-        (km^4) shouldBe a [TypelessPowerUnit]
-      }
+        import waman.multiverse.typeless.implicits._
+        import waman.multiverse.unit.ElectromagneticUnits.C
 
-      "m/m should be the Dimless" in {
+        // Dimless
         (m/m) should be (Dimless)
+        m^0 should be (Dimless)
+
+        // Product
+        (cm*min) shouldBe a [TypelessProductUnit]
+        (C*m).asTypeless shouldBe a [TypelessProductUnit]
+        // Quotient
+        (km/L) shouldBe a [TypelessQuotientUnit]
+        (cm/m) shouldBe a [TypelessQuotientUnit]
+        (km/h).asTypeless shouldBe a [TypelessQuotientUnit]
+        // Reciprocal
+        km.reciprocal shouldBe a [TypelessReciprocalUnit]
+        (1/km) shouldBe a [TypelessReciprocalUnit]  // require importing waman.multiverse.typeless.implicits._
+        km^(-1) shouldBe a [TypelessReciprocalUnit]
+        // Power
+        (mm^4) shouldBe a [TypelessPowerUnit]
+        km3.asTypeless shouldBe a [TypelessPowerUnit]
+        m2.asTypeless shouldBe a [TypelessPowerUnit]
+        m3.asTypeless shouldBe a [TypelessPowerUnit]
+        s2.asTypeless shouldBe a [TypelessPowerUnit]
       }
     }
 
@@ -33,17 +47,27 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
           Table(
             ("unit", "expected"),
             (Dimless, "dimensionless unit"),  // Dimless
-            (cm/m, "centimetre per metre"),
+            (cm*min, "centimetre times minute"),  // product
+            (km/L, "kilometre per litre"),  // quotient
+            (km.reciprocal, "one per kilometre"),  //reciprocal
+            // power
+            (km^0, "dimensionless unit"),
+            (km^1, "kilometre"),
+            (km^2, "square kilometre"),
+            (km^3, "cubic kilometre"),
+            (km^4, "4th power of kilometre"),
+            (km^(-1), "one per kilometre"),
+            (km^(-2), "one per square kilometre"),
+            (km^(-3), "one per cubic kilometre"),
+            (km^(-4), "one per 4th power of kilometre"),
 
             // product
-            (cm*min, "centimetre times minute"),
             ((cm*min)*L, "centimetre times minute times litre"),
             ((cm*min)/L, "centimetre times minute per litre"),
             ((cm*min)/cm, "minute"),
             ((cm*min)/min, "centimetre"),
 
             // quotient
-            (km/L, "kilometre per litre"),
             ((km/L)*L, "kilometre"),
             ((km/L)*cm3, "kilometre times cubic centimetre per litre"),  // km*cm³/L
             ((km/L)/m, "kilometre per litre times metre"),  // km/(L*m)
@@ -63,26 +87,35 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
           Table(
             ("unit", "expected"),
             (Dimless, "[null]"),  // Dimless
-            (cm/m, "cm/m"),
+            (cm*min, "cm*min"),  // product
+            (km/L, "km/L"),  // quotient
+            (km.reciprocal, "km⁻¹"),  //reciprocal
+            (km^4, "km⁴"),  // power
 
+            // more complex
             // product
-            (cm*min, "cm*min"),
             ((cm*min)*L, "cm*min*L"),
             ((cm*min)/L, "cm*min/L"),
             ((cm*min)/cm, "min"),
             ((cm*min)/min, "cm"),
+            (cm*cm3, "cm⁴"),
+            (cm3*cm, "cm⁴"),
+            (cm2*cm3, "cm⁵"),
 
             // quotient
-            (km/L, "km/L"),
             ((km/L)*L, "km"),
             ((km/L)*cm3, "km*cm³/L"),
             ((km/L)/m, "km/(L*m)"),
             ((km/L)/km, "L⁻¹"),
+            (cm3/cm, "cm²"),
+            (cm2/cm3, "cm⁻¹"),
+            (cm/cm3, "cm⁻²"),
+            (cm2/(cm^5), "cm⁻³"),
 
             // power
             ((cm*min)*min, "cm*min²"),
 
-            // more complex
+            // more more complex
             ((cm*min)*min/min, "cm*min"),
             ((cm*min)*min/cm, "min²"),
             ((km/L)*(L/s), "km/s"),
@@ -99,16 +132,41 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
         }
       }
 
-      "the getSIUnit method should have the proper unit instance" in {
+      "the dimension property should have the proper value" in {
+        import waman.multiverse.{DimensionSymbol => DS}
         val conversions =
           Table(
             ("unit", "expected"),
-            (Dimless, Dimless),  // Dimless
-            (cm/m, Dimless),
+            (Dimless, Map()),  // Dimless
+            (cm*min, Map(DS.L -> 1, DS.T -> 1)),  // product
+            (km/L, Map(DS.L -> -2)),  // quotient
+            (km.reciprocal, Map(DS.L -> -1)),  //reciprocal
+            (km^4, Map(DS.L -> 4))  // power
+          )
 
+        forAll(conversions){ (unit: TypelessLinearUnit, expected: Map[_ <: DS, Int]) =>
+          // Exercise
+          val sut = unit.dimension
+          //Verify
+          sut should equal (expected)
+        }
+      }
+
+      "the getSIUnit method should have the proper unit instance" in {
+        import waman.multiverse.typeless.implicits._
+        val conversions =
+          Table(
+            ("unit", "expected"),
+//            (Dimless, Dimless),  // Dimless
+//            (cm*min, m*s), // product
+            (km/L, m^(-2)),  // quotient
+            (cm/m, Dimless),
+            (1/km, m^(-1)),  //reciprocal
+            (km^4, m^4),  // power
+
+            // more complex
             // product
-            (cm*min, m*s),
-            ((cm*min)*L, m*s*m3),
+            ((cm*min)*L, (m^4)*s),
             ((cm*min)/L, m*s/m3),
             ((cm*min)/cm, s),
             ((cm*min)/min, m),
@@ -117,8 +175,8 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
             (km/L, m/m3),
             ((km/L)*L, m),
             ((km/L)*cm3, m),
-            ((km/L)/m, Dimless/m3),
-            ((km/L)/km, Dimless/m3)
+            ((km/L)/m, 1/m3),
+            ((km/L)/km, 1/m3)
           )
 
         forAll(conversions){ (unit: TypelessLinearUnit, expected: LinearUnit[_]) =>

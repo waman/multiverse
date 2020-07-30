@@ -1,6 +1,5 @@
 package waman.multiverse.typeless
 
-import spire.implicits._
 import spire.math.Real
 import waman.multiverse._
 
@@ -86,12 +85,16 @@ sealed trait TypelessLinearUnit extends LinearUnit[TypelessLinearUnit]{
   private[typeless] def divideOption(deno: SimpleTypelessLinearUnit): Option[TypelessLinearUnit]
 }
 
+// SimpleTypelessLinearUnit | TypelessProductUnit | TypelessPowerUnit
 private[typeless] sealed trait FlatTypelessLinearUnit extends TypelessLinearUnit {
 
-  override def ^(n: Int): TypelessLinearUnit =
-    if (n == 0) Dimless
-    else if (n > 0) positivePower(n)
-    else positivePower(-n).reciprocal
+  override def ^(n: Int): TypelessLinearUnit = n match {
+    case 0 => Dimless
+    case 1 => this
+    case -1 => this.reciprocal
+    case _ if n < -1 => this.positivePower(-n).reciprocal
+    case _ =>  this.positivePower(n)
+  }
 
   private[typeless] def positivePower(n: Int): FlatTypelessLinearUnit
 
@@ -168,7 +171,7 @@ class TypelessProductUnit(firstUnit: FlatTypelessLinearUnit, secondUnit: FlatTyp
   extends ProductUnit[TypelessLinearUnit, TypelessLinearUnit, TypelessLinearUnit](firstUnit, secondUnit)
     with FlatTypelessLinearUnit {
 
-  override def getSIUnit: TypelessLinearUnit = this.firstUnit.getSIUnit * this.secondUnit.getSIUnit
+  override def getSIUnit: TypelessLinearUnit = this.firstUnit.getSIUnit.multiply(this.secondUnit.getSIUnit)
   override lazy val dimension: Map[DimensionSymbol, Int] = super.dimension.filter(_._2 != 0).withDefaultValue(0)
 
   override private[typeless] def positivePower(n: Int): FlatTypelessLinearUnit =
@@ -199,7 +202,7 @@ class TypelessQuotientUnit(numeratorUnit: FlatTypelessLinearUnit, denominatorUni
   extends QuotientUnit[TypelessLinearUnit, TypelessLinearUnit, TypelessLinearUnit](numeratorUnit, denominatorUnit)
     with TypelessLinearUnit {
 
-  override def getSIUnit: TypelessLinearUnit = this.numeratorUnit.getSIUnit / this.denominatorUnit.getSIUnit
+  override def getSIUnit: TypelessLinearUnit = this.numeratorUnit.getSIUnit.divide(this.denominatorUnit.getSIUnit)
   override lazy val dimension: Map[DimensionSymbol, Int] = super.dimension.filter(_._2 != 0).withDefaultValue(0)
 
   override def ^(n: Int): TypelessLinearUnit =
@@ -253,12 +256,21 @@ class TypelessReciprocalUnit(val baseUnit: FlatTypelessLinearUnit)
     with TypelessLinearUnit {
 
   override val name: String = s"one per ${baseUnit.name}"
-  override val symbol: String = baseUnit.symbol + toSuperscripts(-1)
+
+  override val symbol: String = this.baseUnit match {
+    case p: TypelessPowerUnit => p.baseUnit.symbol + toSuperscripts(-p.power)
+    case _ => baseUnit.symbol + toSuperscripts(-1)
+  }
+
   override val interval: Real = baseUnit.interval.reciprocal
 
-  override def aliases: Seq[String] = {
-    val ps = toSuperscripts(-1)
-    baseUnit.aliases.map(_ + ps)
+  override def aliases: Seq[String] = this.baseUnit match {
+    case p: TypelessPowerUnit =>
+      val ps = toSuperscripts(-p.power)
+      p.baseUnit.aliases.map(_ + ps)
+    case _ =>
+      val ps = toSuperscripts(-1)
+      baseUnit.aliases.map(_ + ps)
   }
 
   override def getSIUnit: TypelessLinearUnit = this.baseUnit.getSIUnit.reciprocal
@@ -276,7 +288,7 @@ class TypelessReciprocalUnit(val baseUnit: FlatTypelessLinearUnit)
   override private[typeless] def multiplyOption(second: SimpleTypelessLinearUnit): Option[TypelessLinearUnit] =
     this.baseUnit.divideOption(second) match {
       case Some(Dimless) => Some(Dimless)
-      case Some(y) => Some(y.reciprocal)
+      case Some(x) => Some(x.reciprocal)
       case None => Some(new TypelessQuotientUnit(second, this.baseUnit))
     }
 
@@ -286,7 +298,10 @@ class TypelessReciprocalUnit(val baseUnit: FlatTypelessLinearUnit)
   }
 
   override private [multiverse] def divideOption(deno: SimpleTypelessLinearUnit): Option[TypelessLinearUnit] =
-    Some(new TypelessProductUnit(this.baseUnit, deno).reciprocal)
+    this.baseUnit.multiplyOption(deno) match {
+      case Some(x) => Some(x.reciprocal)
+      case None => Some(new TypelessProductUnit(this.baseUnit, deno).reciprocal)
+    }
 
   override protected def newSimpleQuotient(deno: SimpleTypelessLinearUnit): TypelessLinearUnit = {
     require(requirement = false, "maybe unreached")
@@ -303,14 +318,10 @@ class TypelessPowerUnit(val baseUnit: SimpleTypelessLinearUnit, val power: Int)
 
   require(power > 1)
 
-  override val name: String = {
-    val postfix = power match {
-      case 1 | -1 => "st"
-      case 2 | -2 => "nd"
-      case 3 | -3 => "rd"
-      case _ => "th"
-    }
-    s"$power$postfix power of ${baseUnit.name}"
+  override val name: String =  power match {
+    case 2 => "square " + baseUnit.name
+    case 3 => "cubic " + baseUnit.name
+    case _ => s"${power}th power of ${baseUnit.name}"
   }
 
   override val symbol: String = baseUnit.symbol + toSuperscripts(power)
@@ -324,7 +335,7 @@ class TypelessPowerUnit(val baseUnit: SimpleTypelessLinearUnit, val power: Int)
   override def getSIUnit: TypelessLinearUnit = this.baseUnit.getSIUnit ^ power
 
   override lazy val dimension: Map[DimensionSymbol, Int] =
-    this.baseUnit.dimension.map(e => (e._1, e._2 ** power)).withDefaultValue(0)
+    this.baseUnit.dimension.map(e => (e._1, e._2 * power)).withDefaultValue(0)
 
   override private[typeless] def positivePower(n: Int): FlatTypelessLinearUnit =
     new TypelessPowerUnit(this.baseUnit, this.power*n)
