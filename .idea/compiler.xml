@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="11">
       <module name="multiverse" target="11" />
+      <module name="root" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

@@ -1,11 +1,11 @@
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.12"
 
 //***** Custom settings *****
 val javaVersion = settingKey[String]("javac source/target version")
 
 val encoding = settingKey[String]("source encoding")
 
-javaVersion := "10"
+javaVersion := "11"
 
 encoding := "UTF-8"
 

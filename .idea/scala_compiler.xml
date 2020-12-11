@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="multiverse_947" />
-    <profile name="sbt 2" modules="multiverse">
+    <profile name="sbt 2" modules="multiverse,root">
       <option name="deprecationWarnings" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <option name="featureWarnings" value="true" />
