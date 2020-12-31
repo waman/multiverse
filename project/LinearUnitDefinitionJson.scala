@@ -178,13 +178,20 @@ class LinearUnitDefinitionJson(jsonFile: File, destDir:  File, subpackage: Strin
     val ops = op.ops.flatMap(p => Seq(p._1, p._2)).map(_.id)
     foreachUnitDefinition(ops, jsons){ ud =>
       if (ud.subpackage != this.subpackage) {
+        // TODO: remove unused imports in Energy and Time
         if (this.id == "Energy" && (ud.id == "AbsoluteTemperature" || ud.id == "Mass")) {
-          // TODO: remove unused imports in Energy
           writer.write(
             s"""
                |import $rootPackage.unit.${ud.subpackage}.${ud.id}Unit
                |
                |""".stripMargin)
+        } else if (this.id == "Time" && ud.id == "TimeSquared"){
+          writer.write(
+            s"""
+               |import $rootPackage.unit.${ud.subpackage}.${ud.id}
+               |
+               |""".stripMargin
+          )
         } else {
           writer.write(
             s"""

@@ -8,7 +8,7 @@ import scala.util.matching.Regex
 
 object GenerationUtil{
 
-  val rootPackage: String = "multiverse"
+  val rootPackage: String = "org.waman.multiverse"
   val gson: Gson = new Gson
   val utf8: Charset = Charset.forName("UTF-8")
 
