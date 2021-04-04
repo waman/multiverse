@@ -3,8 +3,8 @@ lazy val scala212 = "2.12.12"
 //lazy val scala211 = "2.11.12"
 //lazy val supportedScalaVersions = List(scala213, scala212, scala211)
 
-ThisBuild / name := "multiverse"
-ThisBuild / version := "0.12"
+// ThisBuild / name := "multiverse"
+ThisBuild / version := "0.13-SNAPSHOT"
 ThisBuild / organization := "org.waman"
 ThisBuild / scalaVersion := scala212
 
@@ -42,7 +42,7 @@ lazy val root = (project in file(".")).withId("multiverse")
 Compile / sourceManaged := file((Compile / sourceDirectory).value.getAbsolutePath + "/src_managed")
 
 Compile / sourceGenerators += Def.task {
-  val info = (Compile / resourceDirectory).value / "unitdefs"
+  val info = (Compile / resourceDirectory).value / "unitdefs/json_simplified"
   val srcManaged = (Compile / sourceManaged).value
   MultiverseSourceGenerator.generate(info, srcManaged)
 }.taskValue

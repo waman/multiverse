@@ -1,10 +1,10 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.unit.basic.LengthUnit
-import org.waman.multiverse.unit.electromagnetism.VoltageUnit
-import org.waman.multiverse.unit.mechanics.{EnergyUnit, TimeSquaredUnit}
-import org.waman.multiverse.unit.photometry.LuminanceUnit
-import org.waman.multiverse.unit.thermodynamics.TemperatureUnit
+import org.waman.multiverse.unit.defs.LengthUnit
+import org.waman.multiverse.unit.defs.em.VoltageUnit
+import org.waman.multiverse.unit.defs.mechanics.{EnergyUnit, TimeSquaredUnit}
+import org.waman.multiverse.unit.defs.photometry.LuminanceUnit
+import org.waman.multiverse.unit.defs.thermo.TemperatureUnit
 
 class DimensionSymbolSpec extends MultiverseCustomSpec{
 

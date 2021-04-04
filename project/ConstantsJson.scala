@@ -5,23 +5,23 @@ import sbt.io.IO
 
 case class Constant(name: String, value: String)
 
-class ConstantsJson(json: File, destDir: File) extends SourceGeneratorJson(json, destDir) {
+class ConstantsJson(json: File) extends JsonResource(json) {
 
   import GenerationUtil._
 
   val constantsType: Class[_ >: Array[Constant]] = new TypeToken[Array[Constant]]() {}.getRawType
 
-  val destFilename: String = "Constants.scala"
-  val packageName: String = GenerationUtil.rootPackage + ".unit"
-
   val consts: Array[Constant] = IO.reader(jsonFile, utf8) { reader =>
     gson.fromJson(reader, constantsType).asInstanceOf[Array[Constant]]
   }
 
-  override protected def doGenerate(jsons: JsonResources): Unit =
+  override protected def getDestFile(destRoot: File): File =
+    IO.resolve(destRoot, new File("Constants.scala"))
+
+  override protected def doGenerate(destFile: File): Unit =
     IO.writer(destFile, "", utf8, append = false) { writer =>
       writer.write(
-        s"""package $packageName
+        s"""package $rootPackage
            |
            |import spire.math.Real
            |import spire.implicits._

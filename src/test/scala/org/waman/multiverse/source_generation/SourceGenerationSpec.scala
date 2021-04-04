@@ -1,14 +1,15 @@
 package org.waman.multiverse.source_generation
 
-import org.waman.multiverse.unit.basic.LengthUnitObjects.pica
+import org.waman.multiverse.unit.defs.LengthUnitObjects.pica
 import spire.math.Real
 import spire.implicits._
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.MultiverseCustomSpec
-import org.waman.multiverse.unit.Constants
-import org.waman.multiverse.unit.basic.{LengthUnitObjects, LengthUnits}
-import org.waman.multiverse.unit.thermodynamics.EntropyUnit
-import org.waman.multiverse.unit.thermodynamics.EntropyUnits.{ban, bit, nat}
+import org.waman.multiverse.Constants
+import org.waman.multiverse.unit.defs.mechanics.{TimeSquaredUnit, TimeSquaredUnitObjects}
+import org.waman.multiverse.unit.defs.{LengthUnitObjects, LengthUnits}
+import org.waman.multiverse.unit.defs.thermo.EntropyUnit
+import org.waman.multiverse.unit.defs.thermo.EntropyUnits.{ban, bit, nat}
 
 class SourceGenerationSpec extends MultiverseCustomSpec {
 
@@ -29,8 +30,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "aliases" - {
 
       "Product unit should have the combinated aliases" in {
-        import org.waman.multiverse.unit.electromagnetism.ElectricChargeUnits.statC
-        import org.waman.multiverse.unit.basic.LengthUnits.NM
+        import org.waman.multiverse.unit.defs.em.ElectricChargeUnits.statC
+        import org.waman.multiverse.unit.defs.LengthUnits.NM
         // SetUp
         val expected = Seq("statC*nmi", "Fr*NM", "Fr*nmi", "esu*NM", "esu*nmi")
         // Exercise
@@ -41,7 +42,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
       }
 
       "Quotient unit should have combinated aliases" in {
-        import org.waman.multiverse.unit.BasicUnits._
+        import org.waman.multiverse.unit.custom.BasicUnits._
         // SetUp
         val expected = Seq("Km/s", "Km/sec", "km/sec")
         // Exercise
@@ -52,7 +53,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
       }
 
       "Prefixed unit should have combinated aliases of a base unit and prefix" in {
-        import org.waman.multiverse.unit.basic.TimeUnitObjects
+        import org.waman.multiverse.unit.defs.TimeUnitObjects
         // SetUp
         val expected = Seq("μsec", "mcs", "mcsec")
         // Exercise
@@ -81,8 +82,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "interval" - {
 
       "The interval value should be correct when the interval string is a product of constant and number" in {
-        import org.waman.multiverse.unit.electromagnetism.ElectricChargeUnitObjects.statcoulomb
-        import org.waman.multiverse.unit.electromagnetism.ElectricDipoleUnitObjects.debye
+        import org.waman.multiverse.unit.defs.em.ElectricChargeUnitObjects.statcoulomb
+        import org.waman.multiverse.unit.defs.em.ElectricDipoleUnitObjects.debye
         // Exercise
         val sut = debye.interval
         // Verify
@@ -91,7 +92,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
 
 
       "The interval value should be correct when the interval string is a quotient of constant and number" in {
-        import org.waman.multiverse.unit.electromagnetism.VoltageUnitObjects.statvolt
+        import org.waman.multiverse.unit.defs.em.VoltageUnitObjects.statvolt
         // Exercise
         val sut = statvolt.interval
         // Verify
@@ -108,8 +109,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
         //          {"name":"gregorian", "interval":"365.2425", "baseUnit":"day"},
         //          ...
         //         ]}
-        import org.waman.multiverse.unit.basic.TimeUnit
-        import org.waman.multiverse.unit.basic.TimeUnits._
+        import org.waman.multiverse.unit.defs.TimeUnit
+        import org.waman.multiverse.unit.defs.TimeUnits._
         // Exercise
         val conversions =
         Table(
@@ -129,7 +130,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "excludePrefixes" - {
 
       "millibyte unit should not be defined (excludePrefixes should work well)" in {
-        import org.waman.multiverse.unit.thermodynamics.EntropyUnitObjects
+        import org.waman.multiverse.unit.defs.thermo.EntropyUnitObjects
         "EntropyUnitObjects.kilobyte" should compile
         "EntropyUnitObjects.millibyte" shouldNot compile
       }
@@ -138,8 +139,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "convertible" - {
 
       "'reciprocal' convertible should work well" in {
-        import org.waman.multiverse.unit.electromagnetism.ElectricalConductanceUnits._
-        import org.waman.multiverse.unit.electromagnetism.ElectricalResistanceUnits._
+        import org.waman.multiverse.unit.defs.em.ElectricalConductanceUnits._
+        import org.waman.multiverse.unit.defs.em.ElectricalResistanceUnits._
         // Exercise
         val conversions =
           Table(
@@ -174,9 +175,9 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "Area" - {
 
       import LengthUnits._
-      import org.waman.multiverse.unit.basic.AreaUnitObjects
-      import org.waman.multiverse.unit.basic.AreaUnit
-      import org.waman.multiverse.unit.basic.AreaUnits._
+      import org.waman.multiverse.unit.defs.AreaUnitObjects
+      import org.waman.multiverse.unit.defs.AreaUnit
+      import org.waman.multiverse.unit.defs.AreaUnits._
 
       "square_metre should have the proper symbol and some aliases" in {
         // SetUp
@@ -217,9 +218,9 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
 
     "Volume" - {
       import LengthUnits._
-      import org.waman.multiverse.unit.basic.VolumeUnitObjects
-      import org.waman.multiverse.unit.basic.VolumeUnit
-      import org.waman.multiverse.unit.basic.VolumeUnits._
+      import org.waman.multiverse.unit.defs.VolumeUnitObjects
+      import org.waman.multiverse.unit.defs.VolumeUnit
+      import org.waman.multiverse.unit.defs.VolumeUnits._
 
       "metre_cubic should have the proper symbol and some aliases" in {
         // SetUp
@@ -260,10 +261,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
 
     "TimeSquared" - {
 
-      import org.waman.multiverse.unit.basic.TimeUnits._
-      import org.waman.multiverse.unit.mechanics.TimeSquaredUnitObjects
-      import org.waman.multiverse.unit.mechanics.TimeSquaredUnit
-      import org.waman.multiverse.unit.mechanics.TimeSquaredUnits._
+      import org.waman.multiverse.unit.defs.TimeUnits._
+      import org.waman.multiverse.unit.defs.mechanics.TimeSquaredUnits._
 
       "second_squared should have the proper symbol and some aliases" in {
         // SetUp
@@ -332,8 +331,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "getSIUnit method" - {
 
       "The getSIUnit method return the composite (quotient) unit m/s" in {
-        import org.waman.multiverse.unit.BasicUnits._
-        import org.waman.multiverse.unit.basic.VelocityUnit
+        import org.waman.multiverse.unit.custom.BasicUnits._
+        import org.waman.multiverse.unit.defs.VelocityUnit
         // SetUp
         val expected = m/s
         // Exercise
@@ -346,8 +345,8 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "getUnits method" - {
 
       "The getUnits method of VelocityUnits should return Seq(c, M)" in {
-        import org.waman.multiverse.unit.basic.VelocityUnit
-        import org.waman.multiverse.unit.basic.VelocityUnits._
+        import org.waman.multiverse.unit.defs.VelocityUnit
+        import org.waman.multiverse.unit.defs.VelocityUnits._
         // Exercise
         val sut = VelocityUnit.getUnits
         // Verify

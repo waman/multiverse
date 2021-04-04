@@ -6,8 +6,8 @@ object ImplicitsGenerator {
 
   import GenerationUtil._
 
-  def generate(jsons: JsonResources, srcManaged: File): File = {
-    val destDir = IO.resolve(srcManaged, new File(rootPackage.replaceAll("\\.", "/") + "/implicits"))
+  def generate(destRoot: File, jsons: JsonResources): File = {
+    val destDir = IO.resolve(destRoot, new File("implicits"))
     if (!destDir.exists()) IO.createDirectory(destDir)
 
     val destFile = IO.resolve(destDir, new File("package.scala"))
@@ -18,10 +18,11 @@ object ImplicitsGenerator {
            |import scala.language.implicitConversions
            |import spire.math._
            |
+           |import $rootPackage.unit.defs._
            |""".stripMargin)
 
-      jsons.unitDefs.map(_.subpackage).distinct.foreach{ sp =>
-        writer.write(s"""import $rootPackage.unit.$sp._\n""")
+      jsons.unitdefs.map(_.subpackage).distinct.filter(_ != "").foreach{ sp =>
+        writer.write(s"""import $rootPackage.unit.defs.$sp._\n""")
       }
 
       writer.write(
@@ -34,7 +35,7 @@ object ImplicitsGenerator {
            |
            |""".stripMargin)
 
-      jsons.unitDefs.map(_.id).foreach{ id =>
+      jsons.unitdefs.map(_.id).foreach{ id =>
         writer.write(s"""    def apply(unit: ${id}Unit): $id[A] = new $id(value, unit)\n""")
       }
 

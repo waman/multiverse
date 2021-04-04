@@ -1,8 +1,8 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.unit.BasicUnits._
-import org.waman.multiverse.unit.MechanicalUnits._
-import org.waman.multiverse.unit.basic.LengthUnits.a0
+import org.waman.multiverse.unit.custom.BasicUnits._
+import org.waman.multiverse.unit.custom.MechanicalUnits._
+import org.waman.multiverse.unit.defs.LengthUnits.a0
 
 class LinearUnitSpec extends MultiverseCustomSpec{
 
@@ -73,7 +73,7 @@ class LinearUnitSpec extends MultiverseCustomSpec{
     }
 
     "isEquivalentTo method should return true if two units have the same dimension and interval" in {
-      import org.waman.multiverse.unit.basic.LengthUnitObjects._
+      import org.waman.multiverse.unit.defs.LengthUnitObjects._
       // SetUp
       val conversions =
         Table(
@@ -92,7 +92,7 @@ class LinearUnitSpec extends MultiverseCustomSpec{
   }
 
   "Description" in {
-    import org.waman.multiverse.unit.basic.VolumeUnitObjects
+    import org.waman.multiverse.unit.defs.VolumeUnitObjects
     // Exercise
     val sut = VolumeUnitObjects.barrel
     // Verify

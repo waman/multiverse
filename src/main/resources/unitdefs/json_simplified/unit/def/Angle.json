@@ -1,0 +1,87 @@
+{
+  "SIUnit": "radian",
+  "dimension": {},
+  "units": [
+    {
+      "name": "radian",
+      "symbol": "rad"
+    },
+    {
+      "name": "degree",
+      "symbol": "°",
+      "aliases": [
+        "deg"
+      ],
+      "interval": "2 * Constants.Pi / 360"
+    },
+    {
+      "name": "arcmin",
+      "aliases": [
+        "MOA"
+      ],
+      "interval": "1/60",
+      "baseUnit": "degree",
+      "symbol": "arcmin"
+    },
+    {
+      "name": "arcsec",
+      "aliases": [
+        "as"
+      ],
+      "interval": "1/60",
+      "baseUnit": "arcmin",
+      "symbol": "arcsec"
+    },
+    {
+      "name": "gradian",
+      "symbol": "ᵍ",
+      "aliases": [
+        "grad",
+        "gon"
+      ],
+      "interval": "2 * Constants.Pi / 400"
+    },
+    {
+      "name": "turn",
+      "symbol": "tr",
+      "interval": "2 * Constants.Pi"
+    },
+    {
+      "name": "sign",
+      "interval": "30",
+      "baseUnit": "degree",
+      "symbol": "sign"
+    },
+    {
+      "name": "octant",
+      "interval": "45",
+      "baseUnit": "degree",
+      "symbol": "octant"
+    },
+    {
+      "name": "sextant",
+      "interval": "60",
+      "baseUnit": "degree",
+      "symbol": "sextant"
+    },
+    {
+      "name": "quadrant",
+      "interval": "90",
+      "baseUnit": "degree",
+      "symbol": "quadrant"
+    }
+  ],
+  "operations": [
+    {
+      "operation": "/",
+      "argument": "Time",
+      "result": "AngularVelocity"
+    }
+  ],
+  "use": {
+    "constants": true,
+    "subpackages": [
+      "angle"
+    ]
+  }
+}

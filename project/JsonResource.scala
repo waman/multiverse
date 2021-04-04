@@ -2,86 +2,75 @@ import java.io.File
 
 import sbt.io.IO
 
-class JsonResourceFactory(unitdefs: File, srcManaged: File, destPath: File){
-  // unitdefs: src/main/resources/unitdefs
-  // srcManaged: src/main/src_managed
+class JsonResources(val jsons: Seq[JsonResource],
+//                    val properties: PropertiesJson,  // generate another way
+                    val scalePrefixJson: ScalePrefixesJson,
+                    val constantsJson: ConstantsJson,
+                    val unitdefs: Seq[UnitdefJson],
+                    val customUnits: Seq[CustomUnitsJson],
+                    val unitsystems: Seq[UnitSystemJson]){
 
-  private val unitDir = "unit"+File.separator
+  def generate(destRoot: File): Seq[File] = jsons.map(_.generate(destRoot))
+}
 
-  def apply(json: File): JsonResource = {
-    val destRoot = IO.resolve(srcManaged, destPath)  // src/main/src_managed/waman/multiverse
-    IO.relativize(unitdefs, json.getParentFile) match {
-      case Some("") =>
-        json.getName match {
-          case "ScalePrefixes.json" => new ScalePrefixJson(json, destRoot)
-          case "Properties.json" => new PropertiesJson(json, destRoot)
-          case x => throw new RuntimeException(s"Unknown json file appears: $x")
+object JsonResources {
+
+  def apply(jsonRoot: File): JsonResources = {
+    def jsonFile(s: String): File = IO.resolve(jsonRoot, new File(s))
+    def jsonFiles(dir: String): Seq[File] = IO.resolve(jsonRoot, new File(dir)).listFiles().toSeq
+
+//    val props = new PropertiesJson(jsonFile("Properties.json"))
+    val scales = new ScalePrefixesJson(jsonFile("ScalePrefixes.json"))
+    val consts = new ConstantsJson(jsonFile("Constants.json"))
+
+    val unitdefs = getUnitdefs(jsonRoot)
+
+    val customs = jsonFiles(s"unit/custom").map(new CustomUnitsJson(_))
+    val unitsystems = jsonFiles("unitsystem").map(new UnitSystemJson(_))
+
+    val jsons = scales +: consts +: unitdefs ++: customs ++: unitsystems ++: Nil
+    new JsonResources(jsons, scales, consts, unitdefs, customs, unitsystems)
+  }
+
+  private def getUnitdefs(jsonRoot: File): Seq[UnitdefJson] = {
+    def readUnitdefs(f: File, subpackage: String): Seq[UnitdefJson] = {
+      if (f.isDirectory) {
+        val sp = subpackage match {
+          case null => ""
+          case "" => f.getName
+          case _ => subpackage+"."+f.getName
         }
+        f.listFiles().flatMap(readUnitdefs(_, sp))
 
-      case Some("unit") =>
-        json.getName match {
-          case "Constants.json" => new ConstantsJson(json, IO.resolve(destRoot, new File("unit")))
-          case _ => new UnitsJson(json, IO.resolve(destRoot, new File("unit")))
-        }
-
-      case Some(s) if s.contains(unitDir) =>
-        val subpackage = s.replace(unitDir, "") // basic
-        val destDir = IO.resolve(destRoot, new File(s)) // src/main/src_managed/org/waman/multiverse/unit/basic
-
-        json.getName match {
-//          case "aliases.json" => new AliasesJson(json, destDir, subpackage)
-          case "Temperature.json" => new HomogeneousUnitDefinitionJson(json, destDir, subpackage)
-          case "Length.json" => new LengthUnitDefinitionDefinitionJson(json, destDir, subpackage)
+      } else {
+        val ud: UnitdefJson = f.getName match {
+          case "Temperature.json" => new HomogeneousUnitdefJson(f, subpackage)
+          case "Length.json" => new LengthUnitdefJson(f, subpackage)
           case "Area.json" | "Volume.json" =>
-            val unitName = json.getName.replaceAll(".json", "")
-            new LengthPoweredUnitDefinitionJson(json, destDir, subpackage, unitName)
-          case "Time.json" => new TimeUnitDefinitionJson(json, destDir, subpackage)
-          case "TimeSquared.json" => new TimeSquaredUnitDefinitionJson(json, destDir, subpackage)
-          case _ => new LinearUnitDefinitionJson(json, destDir, subpackage)
+            val unitName = f.getName.replaceAll(".json", "")
+            new LengthPoweredUnitdefJson(f, subpackage, unitName)
+          case "Time.json" => new TimeUnitdefJson(f, subpackage)
+          case "TimeSquared.json" => new TimeSquaredUnitdefJson(f, subpackage)
+          case _ => new LinearUnitdefJson(f, subpackage)
         }
-
-      case Some("unitsystem") =>
-        new UnitSystemJson(json, IO.resolve(destRoot, new File("unitsystem")))
-
-      case x => throw new RuntimeException(s"""Unknown json file appears: $x""")
+        Seq(ud)
+      }
     }
+
+    val defDir = IO.resolve(jsonRoot, new File(s"unit/def"))
+    readUnitdefs(defDir, null)
   }
 }
 
-class JsonResources(val jsons: Seq[JsonResource]){
+abstract class JsonResource(val jsonFile: File){
 
-  def extractResources[U <: JsonResource](cls: Class[U]): Seq[U] =
-    jsons.filter(cls.isInstance(_)).map(cls.cast(_))
-
-  def searchUnitDefinition(id: String): UnitDefinitionJson =
-    unitDefs.find(_.id == id) match {
-      case Some(ud) => ud
-      case _ => throw new RuntimeException(s"""Unknown unit appears: $id""")
-    }
-
-  val scalePrefixJson: ScalePrefixJson = jsons.find(_.isInstanceOf[ScalePrefixJson]).get.asInstanceOf[ScalePrefixJson]
-  val unitDefs: Seq[UnitDefinitionJson] = extractResources(classOf[UnitDefinitionJson])
-  val linearUnitDefs: Seq[LinearUnitDefinitionJson] = extractResources(classOf[LinearUnitDefinitionJson])
-  val unitsystems: Seq[UnitSystemJson] = extractResources(classOf[UnitSystemJson])
-
-  def generate(): Seq[File] = extractResources(classOf[SourceGeneratorJson]).map(_.generate(this))
-}
-
-abstract class JsonResource(val jsonFile: File)
-
-abstract class SourceGeneratorJson(jsonFile: File, destDir: File)
-    extends JsonResource (jsonFile){
-
-  def destFilename: String
-
-  lazy val destFile: File = IO.resolve(destDir, new File(destFilename))
-  def packageName: String
-
-  def generate(jsons: JsonResources): File = {
-    doGenerate(jsons)
-    println("[GENERATE] " + this.destFile)
-    this.destFile
+  def generate(destRoot: File): File = {
+    val destFile = getDestFile(destRoot)
+    doGenerate(destFile)
+    println("[GENERATE] " + destFile)
+    destFile
   }
 
-  protected def doGenerate(jsons: JsonResources): Unit
+  protected def getDestFile(destRoot: File): File
+  protected def doGenerate(destFile: File): Unit
 }

@@ -3,17 +3,17 @@ package org.waman.multiverse
 import scala.language.implicitConversions
 import spire.math._
 
-import org.waman.multiverse.unit.angle._
-import org.waman.multiverse.unit.basic._
-import org.waman.multiverse.unit.chemistry._
-import org.waman.multiverse.unit.density._
-import org.waman.multiverse.unit.electromagnetism._
-import org.waman.multiverse.unit.fluid._
-import org.waman.multiverse.unit.mechanics._
-import org.waman.multiverse.unit.photometry._
-import org.waman.multiverse.unit.radioactivity._
-import org.waman.multiverse.unit.radiometry._
-import org.waman.multiverse.unit.thermodynamics._
+import org.waman.multiverse.unit.defs._
+import org.waman.multiverse.unit.defs.angle._
+import org.waman.multiverse.unit.defs.chem._
+import org.waman.multiverse.unit.defs.density._
+import org.waman.multiverse.unit.defs.em._
+import org.waman.multiverse.unit.defs.fluid._
+import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.photometry._
+import org.waman.multiverse.unit.defs.radioactivity._
+import org.waman.multiverse.unit.defs.radiometry._
+import org.waman.multiverse.unit.defs.thermo._
 
 import org.waman.multiverse.typeless._
 
@@ -21,20 +21,15 @@ package object implicits {
 
   implicit class QuantityFactory[A: Fractional](val value: A){
 
-    def apply(unit: AngleUnit): Angle[A] = new Angle(value, unit)
     def apply(unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
     def apply(unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
     def apply(unit: SolidAngleUnit): SolidAngle[A] = new SolidAngle(value, unit)
+    def apply(unit: AngleUnit): Angle[A] = new Angle(value, unit)
     def apply(unit: AreaUnit): Area[A] = new Area(value, unit)
-    def apply(unit: LengthUnit): Length[A] = new Length(value, unit)
-    def apply(unit: MassUnit): Mass[A] = new Mass(value, unit)
-    def apply(unit: TimeUnit): Time[A] = new Time(value, unit)
-    def apply(unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
-    def apply(unit: VolumeUnit): Volume[A] = new Volume(value, unit)
     def apply(unit: AmountOfSubstanceUnit): AmountOfSubstance[A] = new AmountOfSubstance(value, unit)
     def apply(unit: CatalysisUnit): Catalysis[A] = new Catalysis(value, unit)
-    def apply(unit: DensityUnit): Density[A] = new Density(value, unit)
     def apply(unit: LineDensityUnit): LineDensity[A] = new LineDensity(value, unit)
+    def apply(unit: DensityUnit): Density[A] = new Density(value, unit)
     def apply(unit: CapacitanceUnit): Capacitance[A] = new Capacitance(value, unit)
     def apply(unit: ElectricalConductanceUnit): ElectricalConductance[A] = new ElectricalConductance(value, unit)
     def apply(unit: ElectricalResistanceUnit): ElectricalResistance[A] = new ElectricalResistance(value, unit)
@@ -52,6 +47,8 @@ package object implicits {
     def apply(unit: KinematicViscosityUnit): KinematicViscosity[A] = new KinematicViscosity(value, unit)
     def apply(unit: PressureUnit): Pressure[A] = new Pressure(value, unit)
     def apply(unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
+    def apply(unit: LengthUnit): Length[A] = new Length(value, unit)
+    def apply(unit: MassUnit): Mass[A] = new Mass(value, unit)
     def apply(unit: AccelerationUnit): Acceleration[A] = new Acceleration(value, unit)
     def apply(unit: AngularMomentumUnit): AngularMomentum[A] = new AngularMomentum(value, unit)
     def apply(unit: EnergyUnit): Energy[A] = new Energy(value, unit)
@@ -75,6 +72,9 @@ package object implicits {
     def apply(unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
     def apply(unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
     def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)
+    def apply(unit: TimeUnit): Time[A] = new Time(value, unit)
+    def apply(unit: VelocityUnit): Velocity[A] = new Velocity(value, unit)
+    def apply(unit: VolumeUnit): Volume[A] = new Volume(value, unit)
 
     def apply(unit: TypelessLinearUnit): TypelessLinearQuantity[A] = new TypelessLinearQuantity(value, unit)
   }

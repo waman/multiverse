@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
-import org.waman.multiverse.unit.thermodynamics.TemperatureUnit
-import org.waman.multiverse.unit.thermodynamics.TemperatureUnits._
+import org.waman.multiverse.unit.defs.thermo.TemperatureUnit
+import org.waman.multiverse.unit.defs.thermo.TemperatureUnits._
 
 class HomogeneousUnitSpec extends MultiverseCustomSpec{
 
@@ -12,7 +12,7 @@ class HomogeneousUnitSpec extends MultiverseCustomSpec{
         Table(
           ("temperature unit", "expected"),
           (K, "kelvin (K), dim: Θ"),  // SI unit
-          (degC , "celsius (℃) [0(℃) = 273.15(K), Δ(℃) = Δ(K)], aliases: [°C, degC], dim: Θ"),
+//          (degC , "celsius (℃) [0(℃) = 273.15(K), Δ(℃) = Δ(K)], aliases: [°C, degC], dim: Θ"),
           (degF, "fahrenheit (℉) [0(℉) = 45967/180(K), Δ(℉) = 5/9*Δ(K)], aliases: [°F, degF], dim: Θ"),
         )
 

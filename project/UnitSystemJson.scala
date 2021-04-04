@@ -1,75 +1,70 @@
 import java.io.{File, BufferedWriter => BW}
-
 import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class UnitSystemInfo(description: String, parent: String, evalEntries: Array[Entry]){
+import scala.util.matching.Regex
+
+case class UnitSystem(description: String, parent: String, evaluations: Array[EvalEntry], use: Use){
   def _parent: String = if (this.parent != null) this.parent else "UnitSystem"
-  lazy val _evalEntries: Seq[Entry] = GenerationUtil.toSeq(evalEntries)
+  lazy val _evaluations: Seq[EvalEntry] = GenerationUtil.toSeq(this.evaluations)
 }
 
-case class Entry(quantity: String, unit: String)
+case class EvalEntry(quantity: String, unit: String)
 
-class UnitSystemJson(jsonFile: File, destDir: File)
-  extends SourceGeneratorJson(jsonFile, destDir){
+class UnitSystemJson(jsonFile: File) extends JsonResource(jsonFile){
 
   import GenerationUtil._
 
   val id: String = jsonFile.getName.replace(".json", "")  // MKS
-  val destFilename: String =  id + ".scala"// MKS.scala
-  val packageName: String = GenerationUtil.rootPackage + ".unitsystem"
 
-  val unitsystemInfoType: Class[_ >: UnitSystemInfo] = new TypeToken[UnitSystemInfo]() {}.getRawType
+  val unitsystemType: Class[_ >: UnitSystem] = new TypeToken[UnitSystem]() {}.getRawType
 
-  val unitsystemInfo: UnitSystemInfo = IO.reader(jsonFile, utf8) { reader =>
-    gson.fromJson(reader, unitsystemInfoType).asInstanceOf[UnitSystemInfo]
+  val unitsystem: UnitSystem = IO.reader(jsonFile, utf8) { reader =>
+    gson.fromJson(reader, unitsystemType).asInstanceOf[UnitSystem]
   }
 
-  override protected def doGenerate(jsons: JsonResources): Unit = {
-    IO.writer(this.destFile, "", utf8, append = false) { writer: BW =>
+  override protected def getDestFile(destRoot: File): File =
+    IO.resolve(destRoot, new File(s"unitsystem/$id.scala"))
+
+  override protected def doGenerate(destFile: File): Unit = {
+    IO.writer(destFile, "", utf8, append = false) { writer: BW =>
       writer.write(
-        s"""package $packageName
+        s"""package $rootPackage.unitsystem
            |
            |import scala.language.implicitConversions
            |
            |""".stripMargin)
 
-      this.unitsystemInfo._evalEntries.foreach{ e =>
-        val ud = jsons.searchUnitDefinition(e.quantity)
-        writer.write(
-          s"""import $rootPackage.unit.${ud.subpackage}.${e.quantity}\n""")
+      if (this.unitsystem.use != null) {
+        this.unitsystem.use._subpackages.foreach{ sp =>
+          if (sp == "")
+            writer.write(s"""import $rootPackage.unit.defs._\n""")
+          else
+            writer.write(s"""import $rootPackage.unit.defs.$sp._\n""")
+        }
+        if (this.unitsystem.use._subpackages.nonEmpty) writer.write("\n")
       }
 
-      writer.write("\n")
-
-      this.unitsystemInfo._evalEntries.flatMap {
-        case e if isCompositeUnit(e.unit) => extractUnitTypes(e.unit)
-        case e => Seq((e.quantity, e.unit))
-      }.distinct.foreach{ e =>
-        val ud = jsons.searchUnitDefinition(e._1)
-        writer.write(s"""import $rootPackage.unit.${ud.subpackage}.${e._1}UnitObjects.${e._2}\n""")
-      }
-
-      writer.write("\n")
-
-      if (this.unitsystemInfo.description != null) {
+      if (this.unitsystem.description != null) {
         writer.write(
           s"""/**
-             | * ${this.unitsystemInfo.description}
-             | */
-             |""".stripMargin)
+             | * ${this.unitsystem.description}
+             | */""".stripMargin)
       }
 
       writer.write(
-        s"""trait $id extends ${this.unitsystemInfo._parent}{
+        s"""
+           |trait $id extends ${this.unitsystem._parent}{
            |""".stripMargin)
 
-      this.unitsystemInfo._evalEntries.foreach{ e =>
-        val evalUnit =
-          if (isCompositeUnit(e.unit)) refineUnitNamesInUnitSystem(e.unit)
-          else e.unit
+      this.unitsystem._evaluations.foreach{ e =>
+        val refinedUnit = regexUnitName.replaceAllIn(e.unit, m => {
+          val uType = if (m.group(1) != null) m.group(1) else e.quantity
+          val uName = m.group(2)
+          s"""${uType}UnitObjects.$uName"""
+        })
 
-        writer.write(s"""  implicit def evaluate${e.quantity}[A: Fractional](q: ${e.quantity}[A]): A = q($evalUnit)\n""")
+        writer.write(s"""  implicit def evaluate${e.quantity}[A: Fractional](q: ${e.quantity}[A]): A = q($refinedUnit)\n""")
       }
 
       writer.write(

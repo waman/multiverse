@@ -2,7 +2,7 @@ package org.waman.multiverse.unitsystem
 
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.BasicUnits._
+import org.waman.multiverse.unit.defs.LengthUnits.km
 
 class SISpec extends MultiverseCustomSpec{
 

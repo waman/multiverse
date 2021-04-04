@@ -2,8 +2,8 @@ package org.waman.multiverse.typeless
 
 import spire.math.Real
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.BasicUnits._
-import org.waman.multiverse.unit.MechanicalUnits._
+import org.waman.multiverse.unit.custom.BasicUnits._
+import org.waman.multiverse.unit.custom.MechanicalUnits._
 import org.waman.multiverse.{LinearUnit, MultiverseCustomSpec}
 
 class TypelessLinearUnitSpec extends MultiverseCustomSpec{
@@ -14,7 +14,7 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
 
       "Sample units should have the proper type" in {
         import org.waman.multiverse.typeless.implicits._
-        import org.waman.multiverse.unit.ElectromagneticUnits.C
+        import org.waman.multiverse.unit.custom.ElectromagneticUnits.C
 
         // Dimless
         (m/m) should be (Dimless)
