@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.Constants
 
@@ -49,7 +48,6 @@ class DefaultVelocityUnit(val name: String, val symbol: String, val aliases: Seq
   extends VelocityUnit
   
 object VelocityUnitObjects{
-  import spire.implicits._
 
   final case object speed_of_light extends SimpleVelocityUnit("speed of light", "c", Constants.SpeedOfLight)
   final case object mach_number extends SimpleVelocityUnit("mach number", "M", r"340") with NotExact

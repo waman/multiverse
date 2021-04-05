@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class LuminousIntensity[A: Fractional](val value: A, val unit: LuminousIntensityUnit)
@@ -48,7 +47,6 @@ class DefaultLuminousIntensityUnit(val name: String, val symbol: String, val ali
   extends LuminousIntensityUnit
   
 object LuminousIntensityUnitObjects{
-  import spire.implicits._
 
   final case object candela extends SimpleLuminousIntensityUnit("candela", "cd", 1)
   final case object yoctocandela extends SimpleLuminousIntensityUnit("yoctocandela", "ycd", r"1e-24")

@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 class ElectricalConductance[A: Fractional](val value: A, val unit: ElectricalConductanceUnit)
     extends LinearQuantity[ElectricalConductance[A], A, ElectricalConductanceUnit] {
 
@@ -45,7 +44,6 @@ class DefaultElectricalConductanceUnit(val name: String, val symbol: String, val
   extends ElectricalConductanceUnit
   
 object ElectricalConductanceUnitObjects{
-  import spire.implicits._
 
   final case object siemens extends DefaultElectricalConductanceUnit("siemens", "S", Seq("mho", "℧"), 1)
   final case object yoctosiemens extends DefaultElectricalConductanceUnit("yoctosiemens", "yS", Seq("ymho", "y℧"), r"1e-24")

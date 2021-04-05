@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -43,7 +42,6 @@ class DefaultSolidAngleUnit(val name: String, val symbol: String, val aliases: S
   extends SolidAngleUnit
   
 object SolidAngleUnitObjects{
-  import spire.implicits._
 
   final case object steradian extends SimpleSolidAngleUnit("steradian", "sr", 1)
   final case object yoctosteradian extends SimpleSolidAngleUnit("yoctosteradian", "ysr", r"1e-24")

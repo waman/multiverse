@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -45,7 +44,6 @@ class DefaultAngularMomentumUnit(val name: String, val symbol: String, val alias
   extends AngularMomentumUnit
   
 object AngularMomentumUnitObjects{
-  import spire.implicits._
 
   final case object planck_constant extends SimpleAngularMomentumUnit("planck constant", "h", Constants.PlanckConstant)
   final case object reduced_planck_constant extends DefaultAngularMomentumUnit("reduced planck constant", "ħ", Seq("hbar", "atomic_unit_of_action"), Constants.PlanckConstant / r"2.0" / Constants.Pi)

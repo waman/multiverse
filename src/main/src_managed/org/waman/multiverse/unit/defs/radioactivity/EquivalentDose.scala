@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
@@ -48,7 +47,6 @@ class DefaultEquivalentDoseUnit(val name: String, val symbol: String, val aliase
   extends EquivalentDoseUnit
   
 object EquivalentDoseUnitObjects{
-  import spire.implicits._
 
   final case object sievert extends SimpleEquivalentDoseUnit("sievert", "Sv", 1)
   final case object yoctosievert extends SimpleEquivalentDoseUnit("yoctosievert", "ySv", r"1e-24")

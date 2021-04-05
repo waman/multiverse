@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.fluid._
 import org.waman.multiverse.unit.defs.angle._
 import org.waman.multiverse.unit.defs.radiometry._
@@ -61,7 +60,6 @@ class DefaultAreaUnit(val name: String, val symbol: String, val aliases: Seq[Str
   extends AreaUnit
   
 object AreaUnitObjects{
-  import spire.implicits._
 
   final case object square_metre extends LengthPoweredAreaUnit(LengthUnitObjects.metre, Seq("m2"))
   final case object square_yoctometre extends LengthPoweredAreaUnit(LengthUnitObjects.yoctometre, Seq("ym2"))

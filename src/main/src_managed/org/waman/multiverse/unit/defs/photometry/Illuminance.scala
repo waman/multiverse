@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class Illuminance[A: Fractional](val value: A, val unit: IlluminanceUnit)
@@ -43,7 +42,6 @@ class DefaultIlluminanceUnit(val name: String, val symbol: String, val aliases: 
   extends IlluminanceUnit
   
 object IlluminanceUnitObjects{
-  import spire.implicits._
 
   final case object lux extends SimpleIlluminanceUnit("lux", "lx", 1)
   final case object yoctolux extends SimpleIlluminanceUnit("yoctolux", "ylx", r"1e-24")

@@ -1,10 +1,8 @@
 package org.waman.multiverse.unit.defs.radioactivity
 
 import spire.math._
-import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRateUnit)
@@ -42,7 +40,6 @@ class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val al
   extends EquivalentDoseRateUnit
   
 object EquivalentDoseRateUnitObjects{
-  import spire.implicits._
 
 }
 

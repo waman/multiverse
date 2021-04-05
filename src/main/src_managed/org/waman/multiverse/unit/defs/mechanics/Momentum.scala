@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.fluid._
 
@@ -48,7 +47,6 @@ class DefaultMomentumUnit(val name: String, val symbol: String, val aliases: Seq
   extends MomentumUnit
   
 object MomentumUnitObjects{
-  import spire.implicits._
 
 }
 

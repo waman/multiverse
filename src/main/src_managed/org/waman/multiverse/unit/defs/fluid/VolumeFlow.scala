@@ -1,10 +1,8 @@
 package org.waman.multiverse.unit.defs.fluid
 
 import spire.math._
-import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit)
@@ -43,7 +41,6 @@ class DefaultVolumeFlowUnit(val name: String, val symbol: String, val aliases: S
   extends VolumeFlowUnit
   
 object VolumeFlowUnitObjects{
-  import spire.implicits._
 
   final case object litre_per_minute extends SimpleVolumeFlowUnit("litre per minute", "LPM", VolumeUnitObjects.litre.interval / TimeUnitObjects.minute.interval)
   final case object gallon_per_minute extends SimpleVolumeFlowUnit("gallon per minute", "GPM", VolumeUnitObjects.`gallon(US_fl)`.interval / TimeUnitObjects.minute.interval)

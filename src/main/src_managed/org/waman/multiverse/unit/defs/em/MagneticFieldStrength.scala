@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -44,7 +43,6 @@ class DefaultMagneticFieldStrengthUnit(val name: String, val symbol: String, val
   extends MagneticFieldStrengthUnit
   
 object MagneticFieldStrengthUnitObjects{
-  import spire.implicits._
 
   final case object oersted extends SimpleMagneticFieldStrengthUnit("oersted", "Oe", r"1e3" / (r"4" * Constants.Pi))
 }

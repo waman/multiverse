@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -44,7 +43,6 @@ class DefaultElectricDipoleUnit(val name: String, val symbol: String, val aliase
   extends ElectricDipoleUnit
   
 object ElectricDipoleUnitObjects{
-  import spire.implicits._
 
   final case object debye extends SimpleElectricDipoleUnit("debye", "D", r"1e-20" * ElectricChargeUnitObjects.statcoulomb.interval)
   final case object atomic_unit_of_electric_dipole_moment extends SimpleElectricDipoleUnit("atomic unit of electric dipole moment", "ea0", Constants.ElementaryCharge * Constants.BohrRadius) with NotExact

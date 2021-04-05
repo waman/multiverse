@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
     extends HomogeneousQuantity[A, TemperatureUnit] {
 
@@ -44,7 +43,6 @@ class DefaultTemperatureUnit(val name: String, val symbol: String, val aliases: 
   extends TemperatureUnit
 
 object TemperatureUnitObjects{
-  import spire.implicits._
 
   final case object kelvin extends SimpleTemperatureUnit("kelvin", "K", r"0", r"1")
   final case object yoctokelvin extends SimpleTemperatureUnit("yoctokelvin", "yK", r"0", r"1e-24")

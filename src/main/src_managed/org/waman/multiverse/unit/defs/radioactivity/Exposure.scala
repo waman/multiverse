@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs._
 
@@ -44,7 +43,6 @@ class DefaultExposureUnit(val name: String, val symbol: String, val aliases: Seq
   extends ExposureUnit
   
 object ExposureUnitObjects{
-  import spire.implicits._
 
   final case object roentgen extends SimpleExposureUnit("roentgen", "R", r"2.58e-4")
 }

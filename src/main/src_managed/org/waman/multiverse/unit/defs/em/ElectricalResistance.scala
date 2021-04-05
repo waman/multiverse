@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.Constants
 
 class ElectricalResistance[A: Fractional](val value: A, val unit: ElectricalResistanceUnit)
@@ -47,7 +46,6 @@ class DefaultElectricalResistanceUnit(val name: String, val symbol: String, val 
   extends ElectricalResistanceUnit
   
 object ElectricalResistanceUnitObjects{
-  import spire.implicits._
 
   final case object ohm extends DefaultElectricalResistanceUnit("ohm", "Ω", Seq("ohm"), 1)
   final case object yoctoohm extends DefaultElectricalResistanceUnit("yoctoohm", "yΩ", Seq("yohm"), r"1e-24")

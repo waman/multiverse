@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.thermo._
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.radioactivity._
@@ -77,7 +76,6 @@ class DefaultEnergyUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends EnergyUnit
   
 object EnergyUnitObjects{
-  import spire.implicits._
 
   final case object joule extends SimpleEnergyUnit("joule", "J", 1)
   final case object yoctojoule extends SimpleEnergyUnit("yoctojoule", "yJ", r"1e-24")

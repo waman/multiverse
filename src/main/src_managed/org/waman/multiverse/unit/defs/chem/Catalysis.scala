@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class Catalysis[A: Fractional](val value: A, val unit: CatalysisUnit)
@@ -43,7 +42,6 @@ class DefaultCatalysisUnit(val name: String, val symbol: String, val aliases: Se
   extends CatalysisUnit
   
 object CatalysisUnitObjects{
-  import spire.implicits._
 
   final case object katal extends SimpleCatalysisUnit("katal", "kat", 1)
   final case object yoctokatal extends SimpleCatalysisUnit("yoctokatal", "ykat", r"1e-24")

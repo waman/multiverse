@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -49,7 +48,6 @@ class DefaultAngularVelocityUnit(val name: String, val symbol: String, val alias
   extends AngularVelocityUnit
   
 object AngularVelocityUnitObjects{
-  import spire.implicits._
 
   final case object cycle_per_second extends SimpleAngularVelocityUnit("cycle per second", "cps", r"2" * Constants.Pi)
   final case object revolution_per_minute extends SimpleAngularVelocityUnit("revolution per minute", "rpm", r"2" * Constants.Pi / r"60")

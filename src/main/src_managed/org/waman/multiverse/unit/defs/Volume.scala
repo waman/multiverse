@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.fluid._
 import org.waman.multiverse.unit.defs.mechanics._
 
@@ -54,7 +53,6 @@ class DefaultVolumeUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends VolumeUnit
   
 object VolumeUnitObjects{
-  import spire.implicits._
 
   final case object cubic_metre extends LengthPoweredVolumeUnit(LengthUnitObjects.metre, Seq("m3"))
   final case object cubic_yoctometre extends LengthPoweredVolumeUnit(LengthUnitObjects.yoctometre, Seq("ym3"))

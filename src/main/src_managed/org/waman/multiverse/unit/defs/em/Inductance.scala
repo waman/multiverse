@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.Constants
 
 class Inductance[A: Fractional](val value: A, val unit: InductanceUnit)
@@ -43,7 +42,6 @@ class DefaultInductanceUnit(val name: String, val symbol: String, val aliases: S
   extends InductanceUnit
   
 object InductanceUnitObjects{
-  import spire.implicits._
 
   final case object henry extends SimpleInductanceUnit("henry", "H", 1)
   final case object yoctohenry extends SimpleInductanceUnit("yoctohenry", "yH", r"1e-24")

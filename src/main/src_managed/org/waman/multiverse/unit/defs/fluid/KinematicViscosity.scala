@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class KinematicViscosity[A: Fractional](val value: A, val unit: KinematicViscosityUnit)
@@ -43,7 +42,6 @@ class DefaultKinematicViscosityUnit(val name: String, val symbol: String, val al
   extends KinematicViscosityUnit
   
 object KinematicViscosityUnitObjects{
-  import spire.implicits._
 
   final case object stokes extends SimpleKinematicViscosityUnit("stokes", "St", r"1e-4")
   final case object yoctostokes extends SimpleKinematicViscosityUnit("yoctostokes", "ySt", r"1e-4" * r"1e-24")

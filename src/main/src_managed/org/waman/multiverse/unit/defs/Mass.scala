@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.unit.defs.density._
 import org.waman.multiverse.Constants
@@ -70,7 +69,6 @@ class DefaultMassUnit(val name: String, val symbol: String, val aliases: Seq[Str
   extends MassUnit
   
 object MassUnitObjects{
-  import spire.implicits._
 
   final case object kilogram extends DefaultMassUnit("kilogram", "kg", Seq("Kg"), 1)
   final case object gram extends SimpleMassUnit("gram", "g", r"1e-3")

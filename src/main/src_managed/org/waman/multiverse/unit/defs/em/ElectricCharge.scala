@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.radioactivity._
 import org.waman.multiverse.Constants
@@ -65,7 +64,6 @@ class DefaultElectricChargeUnit(val name: String, val symbol: String, val aliase
   extends ElectricChargeUnit
   
 object ElectricChargeUnitObjects{
-  import spire.implicits._
 
   final case object coulomb extends SimpleElectricChargeUnit("coulomb", "C", 1)
   final case object yoctocoulomb extends SimpleElectricChargeUnit("yoctocoulomb", "yC", r"1e-24")

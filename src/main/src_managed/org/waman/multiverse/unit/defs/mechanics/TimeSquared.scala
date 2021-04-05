@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.em._
 
@@ -49,7 +48,6 @@ class DefaultTimeSquaredUnit(val name: String, val symbol: String, val aliases: 
   extends TimeSquaredUnit
   
 object TimeSquaredUnitObjects{
-  import spire.implicits._
 
   final case object second_squared extends TimePoweredTimeSquaredUnit(TimeUnitObjects.second, Seq("s2", "sec²", "sec2"))
   final case object yoctosecond_squared extends TimePoweredTimeSquaredUnit(TimeUnitObjects.yoctosecond, Seq("ys2", "ysec²", "ysec2"))

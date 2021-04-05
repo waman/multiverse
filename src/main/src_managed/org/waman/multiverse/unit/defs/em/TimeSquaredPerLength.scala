@@ -1,10 +1,8 @@
 package org.waman.multiverse.unit.defs.em
 
 import spire.math._
-import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.unit.defs._
 
@@ -49,7 +47,6 @@ class DefaultTimeSquaredPerLengthUnit(val name: String, val symbol: String, val 
   extends TimeSquaredPerLengthUnit
   
 object TimeSquaredPerLengthUnitObjects{
-  import spire.implicits._
 
 }
 

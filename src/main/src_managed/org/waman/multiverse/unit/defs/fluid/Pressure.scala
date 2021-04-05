@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.mechanics._
 
@@ -49,7 +48,6 @@ class DefaultPressureUnit(val name: String, val symbol: String, val aliases: Seq
   extends PressureUnit
   
 object PressureUnitObjects{
-  import spire.implicits._
 
   final case object pascal extends SimplePressureUnit("pascal", "Pa", 1)
   final case object yoctopascal extends SimplePressureUnit("yoctopascal", "yPa", r"1e-24")

@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
     extends LinearQuantity[Density[A], A, DensityUnit] {
 
@@ -41,7 +40,6 @@ class DefaultDensityUnit(val name: String, val symbol: String, val aliases: Seq[
   extends DensityUnit
   
 object DensityUnitObjects{
-  import spire.implicits._
 
   final case object water extends SimpleDensityUnit("water", "H2O", r"999.972")
   final case object mercury extends SimpleDensityUnit("mercury", "Hg", r"13.5951")

@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.Constants
 
@@ -54,7 +53,6 @@ class DefaultAbsoluteTemperatureUnit(val name: String, val symbol: String, val a
   extends AbsoluteTemperatureUnit
   
 object AbsoluteTemperatureUnitObjects{
-  import spire.implicits._
 
   final case object kelvin extends SimpleAbsoluteTemperatureUnit("kelvin", "K", 1)
   final case object yoctokelvin extends SimpleAbsoluteTemperatureUnit("yoctokelvin", "yK", r"1e-24")

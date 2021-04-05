@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.radiometry._
@@ -67,7 +66,6 @@ class DefaultPowerUnit(val name: String, val symbol: String, val aliases: Seq[St
   extends PowerUnit
   
 object PowerUnitObjects{
-  import spire.implicits._
 
   final case object watt extends SimplePowerUnit("watt", "W", 1)
   final case object yoctowatt extends SimplePowerUnit("yoctowatt", "yW", r"1e-24")

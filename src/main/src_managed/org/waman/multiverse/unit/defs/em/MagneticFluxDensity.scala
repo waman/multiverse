@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.Constants
 
 class MagneticFluxDensity[A: Fractional](val value: A, val unit: MagneticFluxDensityUnit)
@@ -43,7 +42,6 @@ class DefaultMagneticFluxDensityUnit(val name: String, val symbol: String, val a
   extends MagneticFluxDensityUnit
   
 object MagneticFluxDensityUnitObjects{
-  import spire.implicits._
 
   final case object tesla extends SimpleMagneticFluxDensityUnit("tesla", "T", 1)
   final case object yoctotesla extends SimpleMagneticFluxDensityUnit("yoctotesla", "yT", r"1e-24")

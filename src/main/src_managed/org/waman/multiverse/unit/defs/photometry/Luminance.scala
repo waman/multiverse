@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -44,7 +43,6 @@ class DefaultLuminanceUnit(val name: String, val symbol: String, val aliases: Se
   extends LuminanceUnit
   
 object LuminanceUnitObjects{
-  import spire.implicits._
 
   final case object stilb extends SimpleLuminanceUnit("stilb", "sb", r"1e4")
   final case object lambert extends SimpleLuminanceUnit("lambert", "Lb", r"1e4" / Constants.Pi)

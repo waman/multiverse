@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.angle._
 import org.waman.multiverse.Constants
 
@@ -48,7 +47,6 @@ class DefaultAngleUnit(val name: String, val symbol: String, val aliases: Seq[St
   extends AngleUnit
   
 object AngleUnitObjects{
-  import spire.implicits._
 
   final case object radian extends SimpleAngleUnit("radian", "rad", 1)
   final case object degree extends DefaultAngleUnit("degree", "°", Seq("deg"), r"2" * Constants.Pi / r"360")

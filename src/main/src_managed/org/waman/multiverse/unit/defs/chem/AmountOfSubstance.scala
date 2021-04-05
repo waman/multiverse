@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class AmountOfSubstance[A: Fractional](val value: A, val unit: AmountOfSubstanceUnit)
@@ -48,7 +47,6 @@ class DefaultAmountOfSubstanceUnit(val name: String, val symbol: String, val ali
   extends AmountOfSubstanceUnit
   
 object AmountOfSubstanceUnitObjects{
-  import spire.implicits._
 
   final case object mole extends SimpleAmountOfSubstanceUnit("mole", "mol", 1)
   final case object yoctomole extends SimpleAmountOfSubstanceUnit("yoctomole", "ymol", r"1e-24")

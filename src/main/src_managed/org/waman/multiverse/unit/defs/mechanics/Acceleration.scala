@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
@@ -43,7 +42,6 @@ class DefaultAccelerationUnit(val name: String, val symbol: String, val aliases:
   extends AccelerationUnit
   
 object AccelerationUnitObjects{
-  import spire.implicits._
 
   final case object standard_gravity extends DefaultAccelerationUnit("standard gravity", "G", Seq("g0"), r"9.80665")
   final case object gal extends SimpleAccelerationUnit("gal", "Gal", r"1e-2")

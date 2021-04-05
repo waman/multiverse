@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
@@ -41,7 +40,6 @@ class DefaultRadioactivityUnit(val name: String, val symbol: String, val aliases
   extends RadioactivityUnit
   
 object RadioactivityUnitObjects{
-  import spire.implicits._
 
   final case object becquerel extends SimpleRadioactivityUnit("becquerel", "Bq", 1)
   final case object yoctobecquerel extends SimpleRadioactivityUnit("yoctobecquerel", "yBq", r"1e-24")

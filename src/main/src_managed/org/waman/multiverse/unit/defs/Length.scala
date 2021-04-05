@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs.mechanics._
 
@@ -70,7 +69,6 @@ class DefaultLengthUnit(val name: String, val symbol: String, val aliases: Seq[S
   extends LengthUnit
   
 object LengthUnitObjects{
-  import spire.implicits._
 
   final case object metre extends SimpleLengthUnit("metre", "m", 1)
   final case object yoctometre extends SimpleLengthUnit("yoctometre", "ym", r"1e-24")

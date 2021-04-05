@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class LineDensity[A: Fractional](val value: A, val unit: LineDensityUnit)
@@ -43,7 +42,6 @@ class DefaultLineDensityUnit(val name: String, val symbol: String, val aliases: 
   extends LineDensityUnit
   
 object LineDensityUnitObjects{
-  import spire.implicits._
 
   final case object denier extends SimpleLineDensityUnit("denier", "D", r"9e-6")
   final case object tex extends SimpleLineDensityUnit("tex", "tex", r"1e-6")

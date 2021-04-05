@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.Constants
 
@@ -44,7 +43,6 @@ class DefaultEntropyUnit(val name: String, val symbol: String, val aliases: Seq[
   extends EntropyUnit
   
 object EntropyUnitObjects{
-  import spire.implicits._
 
   final case object nat extends DefaultEntropyUnit("nat", "nat", Seq("k_B"), Constants.BoltzmannConstant)
   final case object bit extends DefaultEntropyUnit("bit", "bit", Seq("Sh"), Real(2).log() * nat.interval)

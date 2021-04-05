@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.fluid._
@@ -65,7 +64,6 @@ class DefaultForceUnit(val name: String, val symbol: String, val aliases: Seq[St
   extends ForceUnit
   
 object ForceUnitObjects{
-  import spire.implicits._
 
   final case object newton extends SimpleForceUnit("newton", "N", 1)
   final case object yoctonewton extends SimpleForceUnit("yoctonewton", "yN", r"1e-24")

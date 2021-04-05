@@ -1,10 +1,8 @@
 package org.waman.multiverse.unit.defs.em
 
 import spire.math._
-import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class TimePerLength[A: Fractional](val value: A, val unit: TimePerLengthUnit)
@@ -48,7 +46,6 @@ class DefaultTimePerLengthUnit(val name: String, val symbol: String, val aliases
   extends TimePerLengthUnit
   
 object TimePerLengthUnitObjects{
-  import spire.implicits._
 
 }
 

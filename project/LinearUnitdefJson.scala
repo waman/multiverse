@@ -69,6 +69,9 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
     gson.fromJson(reader, unitCategoryType).asInstanceOf[LinearUnitCategory]
   }
 
+  override def needSpireImplicits: Boolean = 
+    super.needSpireImplicits || this.unitCategory._operations.nonEmpty
+
   override protected def parentQuantityDeclaration: String = s"""LinearQuantity[$id[A], A, ${id}Unit]"""
 
   override protected def generateQuantityOperations(writer: BW): Unit = {

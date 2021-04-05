@@ -1,10 +1,8 @@
 package org.waman.multiverse.unit.defs.radiometry
 
 import spire.math._
-import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.angle._
 
@@ -43,7 +41,6 @@ class DefaultAreaFrequencyUnit(val name: String, val symbol: String, val aliases
   extends AreaFrequencyUnit
   
 object AreaFrequencyUnitObjects{
-  import spire.implicits._
 
 }
 

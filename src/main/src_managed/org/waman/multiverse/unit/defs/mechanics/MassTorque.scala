@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class MassTorque[A: Fractional](val value: A, val unit: MassTorqueUnit)
@@ -47,7 +46,6 @@ class DefaultMassTorqueUnit(val name: String, val symbol: String, val aliases: S
   extends MassTorqueUnit
   
 object MassTorqueUnitObjects{
-  import spire.implicits._
 
 }
 

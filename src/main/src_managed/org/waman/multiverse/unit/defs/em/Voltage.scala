@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -54,7 +53,6 @@ class DefaultVoltageUnit(val name: String, val symbol: String, val aliases: Seq[
   extends VoltageUnit
   
 object VoltageUnitObjects{
-  import spire.implicits._
 
   final case object volt extends SimpleVoltageUnit("volt", "V", 1)
   final case object yoctovolt extends SimpleVoltageUnit("yoctovolt", "yV", r"1e-24")

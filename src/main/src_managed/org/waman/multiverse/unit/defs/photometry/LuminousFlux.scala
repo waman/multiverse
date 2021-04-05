@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 
 class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
@@ -48,7 +47,6 @@ class DefaultLuminousFluxUnit(val name: String, val symbol: String, val aliases:
   extends LuminousFluxUnit
   
 object LuminousFluxUnitObjects{
-  import spire.implicits._
 
   final case object lumen extends SimpleLuminousFluxUnit("lumen", "lm", 1)
   final case object yoctolumen extends SimpleLuminousFluxUnit("yoctolumen", "ylm", r"1e-24")

@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.Constants
 
@@ -54,7 +53,6 @@ class DefaultMagneticFluxUnit(val name: String, val symbol: String, val aliases:
   extends MagneticFluxUnit
   
 object MagneticFluxUnitObjects{
-  import spire.implicits._
 
   final case object weber extends SimpleMagneticFluxUnit("weber", "Wb", 1)
   final case object yoctoweber extends SimpleMagneticFluxUnit("yoctoweber", "yWb", r"1e-24")

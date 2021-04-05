@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 
 class SpectralIrradiance[A: Fractional](val value: A, val unit: SpectralIrradianceUnit)
@@ -44,7 +43,6 @@ class DefaultSpectralIrradianceUnit(val name: String, val symbol: String, val al
   extends SpectralIrradianceUnit
   
 object SpectralIrradianceUnitObjects{
-  import spire.implicits._
 
   final case object jansky extends SimpleSpectralIrradianceUnit("jansky", "Jy", r"1e-26")
   final case object solar_flux_unit extends SimpleSpectralIrradianceUnit("solar flux unit", "sfu", r"1e-22")

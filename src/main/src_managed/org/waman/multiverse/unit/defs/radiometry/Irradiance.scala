@@ -4,7 +4,6 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.angle._
@@ -49,7 +48,6 @@ class DefaultIrradianceUnit(val name: String, val symbol: String, val aliases: S
   extends IrradianceUnit
   
 object IrradianceUnitObjects{
-  import spire.implicits._
 
 }
 

@@ -91,10 +91,14 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
       s"""package $packageName
          |
          |import spire.math._
-         |import spire.implicits._
-         |
+         |""".stripMargin)
+
+    if (needSpireImplicits)
+      writer.write("import spire.implicits._\n")
+
+    writer.write(
+      s"""
          |import $rootPackage._
-         |
          |""".stripMargin)
 
     if (this.unitCategory.use == null) return
@@ -111,6 +115,9 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
 
     writer.write("\n")
   }
+
+  protected def needSpireImplicits: Boolean = 
+    this.unitCategory._units.filter(u => u.interval != null).nonEmpty
 
   private def generateQuantity(writer: BW): Unit = {
     writer.write(
@@ -224,7 +231,6 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
     writer.write(
       s"""
           |object ${id}UnitObjects{
-          |  import spire.implicits._
           |
           |""".stripMargin)
 
