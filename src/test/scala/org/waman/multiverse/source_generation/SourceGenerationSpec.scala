@@ -5,13 +5,23 @@ import spire.math.Real
 import spire.implicits._
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.MultiverseCustomSpec
-import org.waman.multiverse.Constants
+import org.waman.multiverse._
 import org.waman.multiverse.unit.defs.mechanics.{TimeSquaredUnit, TimeSquaredUnitObjects}
 import org.waman.multiverse.unit.defs.{LengthUnitObjects, LengthUnits}
 import org.waman.multiverse.unit.defs.thermo.EntropyUnit
 import org.waman.multiverse.unit.defs.thermo.EntropyUnits.{ban, bit, nat}
 
 class SourceGenerationSpec extends MultiverseCustomSpec {
+
+  "Properties" - {
+
+    "The value of UnitdefsProperties.version should be the style of version number" in {
+      // Exercise
+    val sut = UnitdefsProperties.version.matches("""\d+\.\d+(\-\w+)?""")
+      // Verify
+      sut should equal (true)
+    }
+  }
 
   "Constants" - {
 

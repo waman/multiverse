@@ -22,11 +22,17 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   def cubic: Volume[A] = this * this * this
 
 
+  def *(electricCharge: ElectricCharge[A]): ElectricDipole[A] = new ElectricDipole(this.value * electricCharge.value, electricCharge.unit * this.unit)
+
   def /(timeSquared: TimeSquared[A]): Acceleration[A] = new Acceleration(this.value / timeSquared.value, this.unit / timeSquared.unit)
 
   def *(force: Force[A]): Energy[A] = new Energy(this.value * force.value, this.unit * force.unit)
 
+  def *(mass: Mass[A]): MassTorque[A] = new MassTorque(this.value * mass.value, mass.unit * this.unit)
+
   def /(time: Time[A]): Velocity[A] = new Velocity(this.value / time.value, this.unit / time.unit)
+
+  def *(area: Area[A]): Volume[A] = new Volume(this.value * area.value, area.unit * this.unit)
 }
 
 /** 'US' attribute contains 'US Survey' metric. */

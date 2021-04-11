@@ -112,4 +112,28 @@ class QuantitySpec extends MultiverseCustomSpec{
     // Verify
     sut should be(r"0.75" (m))
   }
+
+  "Quantity multiplication: 3.0(kg) * 2.0(m/s2) = 6.0(N)" in {
+    import org.waman.multiverse.unit.custom.MechanicalUnits._
+    // Exercise
+    val sut = r"3.0"(kg) * r"2.0"(m/s2)
+    // Verify
+    sut(N) should be (r"6.0")
+  }
+
+  "Quantity multiplication (reversed): 2.0(m/s2) * 3.0(kg) = 6.0(N)" in {
+    import org.waman.multiverse.unit.custom.MechanicalUnits._
+    // Exercise
+    val sut = r"2.0"(m/s2) * r"3.0"(kg)
+    // Verify
+    sut(N) should be (r"6.0")
+    sut.unit should be (kg*(m/s2))
+  }
+
+  "Quantity division: 5.0(m) / 2.0(s) = 250(cm/s)" in {
+    // Exercise
+    val sut = r"5.0"(m) / r"2.0"(s)
+    // Verify
+    sut(cm/s) should be (r"250")
+  }
 }

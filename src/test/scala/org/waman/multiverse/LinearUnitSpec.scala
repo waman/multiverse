@@ -102,4 +102,28 @@ class LinearUnitSpec extends MultiverseCustomSpec{
     VolumeUnitObjects.`barrel(US_fl)` should not be a [Description]
     VolumeUnitObjects.millilitre should not be a [Description]
   }
+
+  "Unit multiplication: kg*(m/s2) = N" in {
+    import org.waman.multiverse.unit.custom.MechanicalUnits._
+    // Exercise
+    val sut = kg * (m/s2)
+    // Verify
+    sut.isEquivalentTo(N) should be (true)
+  }
+
+  "Unit multiplication (reversed): (m/s2) * kg result in a typeless unit" in {
+    import org.waman.multiverse.unit.custom.MechanicalUnits._
+    import org.waman.multiverse.typeless._
+    // Exercise
+    val sut = (m/s2) * kg
+    // Verify
+    sut should be (a [TypelessLinearUnit])
+  }
+
+  "Unit division: m/s = mm/ms" in {
+    // Exercise
+    val sut = m/s
+    // Verify
+    sut.isEquivalentTo(mm/ms) should be (true)
+  }
 }

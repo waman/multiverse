@@ -5,6 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs._
+import org.waman.multiverse.unit.defs.radiometry._
 import org.waman.multiverse.Constants
 
 class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
@@ -16,6 +17,8 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
       AngleUnitObjects.radian / TimeUnitObjects.second)
 
   override protected def newQuantity(value: A, unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
+
+  def *(area: Area[A]): AreaFrequency[A] = new AreaFrequency(this.value * area.value, area.unit * this.unit)
 }
 
 trait FrequencyUnit extends LinearUnit[FrequencyUnit]{

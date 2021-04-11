@@ -11,6 +11,8 @@ class MassTorque[A: Fractional](val value: A, val unit: MassTorqueUnit)
 
   override protected def newQuantity(value: A, unit: MassTorqueUnit): MassTorque[A] = new MassTorque(value, unit)
 
+  def /(timeSquared: TimeSquared[A]): Force[A] = new Force(this.value / timeSquared.value, this.unit / timeSquared.unit)
+
   def /(time: Time[A]): Momentum[A] = new Momentum(this.value / time.value, this.unit / time.unit)
 }
 
@@ -18,6 +20,9 @@ trait MassTorqueUnit extends LinearUnit[MassTorqueUnit]{
 
   override def getSIUnit: MassTorqueUnit = MassTorqueUnit.getSIUnit
   override def dimension: Map[DimensionSymbol, Int] = MassTorqueUnit.dimension
+
+  def /(timeSquaredUnit: TimeSquaredUnit): ForceUnit =
+    new QuotientUnit[ForceUnit, MassTorqueUnit, TimeSquaredUnit](MassTorqueUnit.this, timeSquaredUnit) with ForceUnit
 
   def /(timeUnit: TimeUnit): MomentumUnit =
     new QuotientUnit[MomentumUnit, MassTorqueUnit, TimeUnit](MassTorqueUnit.this, timeUnit) with MomentumUnit

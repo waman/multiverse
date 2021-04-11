@@ -11,7 +11,6 @@ object MultiverseSourceGenerator {
   def generate(jsonRoot: File, srcManaged: File): Seq[File] = {
 
     val jsons = JsonResources(jsonRoot)
-    UnitdefsConsistencyChecker.test(jsons)
 
     // destRoot: src/main/src_managed/org/waman/multiverse
     val destRoot = IO.resolve(srcManaged, new File(rootPackage.replace('.', '/')))

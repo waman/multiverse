@@ -12,6 +12,9 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
     * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
   override def compare(that: U): Int = this.interval.compare(that.interval)
 
+  /**
+    * This multiplication returns a typeless unit.
+    */
   def *[V <: LinearUnit[V]](secondUnit: V): TypelessLinearUnit =
     this.asTypeless.multiply(secondUnit.asTypeless)
 
@@ -20,6 +23,9 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
   /** Equivalent to ^ operator. */
   final def **(n: Int): TypelessLinearUnit = this^n
 
+  /**
+    * This division returns a typeless unit.
+    */
   def /[V <: LinearUnit[V]](denominatorUnit: V): TypelessLinearUnit =
     this.asTypeless.divide(denominatorUnit.asTypeless)
 

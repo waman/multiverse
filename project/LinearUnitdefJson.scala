@@ -17,7 +17,7 @@ case class LinearUnitCategory(description: String,
   def _attributes: Seq[Attribute] = toSeq(this.attributes)
 }
 
-case class Operation(operation: String, argument: String, result: String)
+case class Operation(operation: String, argument: String, result: String, reverse: Boolean)
 case class Attribute(name: String, parents: Array[String]){
   require(parents.nonEmpty)
 }
@@ -89,27 +89,29 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
     val resultType = ope.result
     val arg = headToLower(argType)
     //  like 'def /(time: Time[A]): Velocity[A] = new Velocity(this.value / time.value, this.unit / time.unit)
+    val resultUnit = if (!ope.reverse) s"this.unit $op $arg.unit" else s"$arg.unit $op this.unit"
     writer.write(
       s"""
-         |  def $op($arg: $argType[A]): $resultType[A] = new $resultType(this.value $op $arg.value, this.unit $op $arg.unit)
+         |  def $op($arg: $argType[A]): $resultType[A] = new $resultType(this.value $op $arg.value, $resultUnit)
          |""".stripMargin)
   }
 
   override protected def generateUnitOperations(writer: BW): Unit =
     this.unitCategory._operations.foreach(generateUnitOperation(writer, _))
 
-  protected def generateUnitOperation(writer: BW, ope: Operation): Unit = {
-    val op = ope.operation
-    val name = if (op == "*") "Product" else "Quotient"
-    val argType = ope.argument
-    val resultType = ope.result
-    val arg = headToLower(argType)
-    writer.write(
-      s"""
-         |  def $op(${arg}Unit: ${argType}Unit): ${resultType}Unit =
-         |    new ${name}Unit[${resultType}Unit, ${id}Unit, ${argType}Unit](${id}Unit.this, ${arg}Unit) with ${resultType}Unit
-         |""".stripMargin)
-  }
+  protected def generateUnitOperation(writer: BW, ope: Operation): Unit =
+    if (!ope.reverse){
+      val op = ope.operation
+      val name = if (op == "*") "Product" else "Quotient"
+      val argType = ope.argument
+      val resultType = ope.result
+      val arg = headToLower(argType)
+      writer.write(
+        s"""
+           |  def $op(${arg}Unit: ${argType}Unit): ${resultType}Unit =
+           |    new ${name}Unit[${resultType}Unit, ${id}Unit, ${argType}Unit](${id}Unit.this, ${arg}Unit) with ${resultType}Unit
+           |""".stripMargin)
+    }
 
   override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
     writer.write(

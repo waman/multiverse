@@ -5,6 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs.em._
+import org.waman.multiverse.unit.defs.fluid._
 import org.waman.multiverse.unit.defs.mechanics._
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
@@ -12,7 +13,19 @@ class Time[A: Fractional](val value: A, val unit: TimeUnit)
 
   override protected def newQuantity(value: A, unit: TimeUnit): Time[A] = new Time(value, unit)
 
+  def *(electricCurrent: ElectricCurrent[A]): ElectricCharge[A] = new ElectricCharge(this.value * electricCurrent.value, electricCurrent.unit * this.unit)
+
+  def *(voltage: Voltage[A]): MagneticFlux[A] = new MagneticFlux(this.value * voltage.value, voltage.unit * this.unit)
+
   def /(length: Length[A]): TimePerLength[A] = new TimePerLength(this.value / length.value, this.unit / length.unit)
+
+  def *(pressure: Pressure[A]): DynamicViscosity[A] = new DynamicViscosity(this.value * pressure.value, pressure.unit * this.unit)
+
+  def *(energy: Energy[A]): AngularMomentum[A] = new AngularMomentum(this.value * energy.value, energy.unit * this.unit)
+
+  def *(power: Power[A]): Energy[A] = new Energy(this.value * power.value, power.unit * this.unit)
+
+  def *(force: Force[A]): Momentum[A] = new Momentum(this.value * force.value, force.unit * this.unit)
 
   def *(time: Time[A]): TimeSquared[A] = new TimeSquared(this.value * time.value, this.unit * time.unit)
   def squared: TimeSquared[A] = this * this
