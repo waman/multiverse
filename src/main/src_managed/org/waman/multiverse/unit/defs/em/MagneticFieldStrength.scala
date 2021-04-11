@@ -50,5 +50,6 @@ object MagneticFieldStrengthUnitObjects{
 
 object MagneticFieldStrengthUnits{
 
+  /** oersted */
   def Oe: MagneticFieldStrengthUnit = MagneticFieldStrengthUnitObjects.oersted
 }

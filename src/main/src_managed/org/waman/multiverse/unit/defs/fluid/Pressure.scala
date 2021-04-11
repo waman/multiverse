@@ -95,52 +95,100 @@ object PressureUnitObjects{
 
 object PressureUnits{
 
+  /** pascal */
   def Pa: PressureUnit = PressureUnitObjects.pascal
+  /** yoctopascal */
   def yPa: PressureUnit = PressureUnitObjects.yoctopascal
+  /** zeptopascal */
   def zPa: PressureUnit = PressureUnitObjects.zeptopascal
+  /** attopascal */
   def aPa: PressureUnit = PressureUnitObjects.attopascal
+  /** femtopascal */
   def fPa: PressureUnit = PressureUnitObjects.femtopascal
+  /** picopascal */
   def pPa: PressureUnit = PressureUnitObjects.picopascal
+  /** nanopascal */
   def nPa: PressureUnit = PressureUnitObjects.nanopascal
+  /** micropascal */
   def μPa: PressureUnit = PressureUnitObjects.micropascal
+  /** micropascal */
   def mcPa: PressureUnit = PressureUnitObjects.micropascal
+  /** millipascal */
   def mPa: PressureUnit = PressureUnitObjects.millipascal
+  /** centipascal */
   def cPa: PressureUnit = PressureUnitObjects.centipascal
+  /** decipascal */
   def dPa: PressureUnit = PressureUnitObjects.decipascal
+  /** decapascal */
   def daPa: PressureUnit = PressureUnitObjects.decapascal
+  /** hectopascal */
   def hPa: PressureUnit = PressureUnitObjects.hectopascal
+  /** kilopascal */
   def kPa: PressureUnit = PressureUnitObjects.kilopascal
+  /** kilopascal */
   def KPa: PressureUnit = PressureUnitObjects.kilopascal
+  /** megapascal */
   def MPa: PressureUnit = PressureUnitObjects.megapascal
+  /** gigapascal */
   def GPa: PressureUnit = PressureUnitObjects.gigapascal
+  /** terapascal */
   def TPa: PressureUnit = PressureUnitObjects.terapascal
+  /** petapascal */
   def PPa: PressureUnit = PressureUnitObjects.petapascal
+  /** exapascal */
   def EPa: PressureUnit = PressureUnitObjects.exapascal
+  /** zettapascal */
   def ZPa: PressureUnit = PressureUnitObjects.zettapascal
+  /** yottapascal */
   def YPa: PressureUnit = PressureUnitObjects.yottapascal
+  /** barye */
   def Ba: PressureUnit = PressureUnitObjects.barye
+  /** atmosphere */
   def atm: PressureUnit = PressureUnitObjects.atmosphere
+  /** atmosphere technical */
   def at: PressureUnit = PressureUnitObjects.atmosphere_technical
+  /** bar */
   def bar: PressureUnit = PressureUnitObjects.bar
+  /** pieze */
   def pz: PressureUnit = PressureUnitObjects.pieze
+  /** torr */
   def torr: PressureUnit = PressureUnitObjects.torr
+  /** kip per square inch */
   def ksi: PressureUnit = PressureUnitObjects.kip_per_square_inch
+  /** pound per square foot */
   def psf: PressureUnit = PressureUnitObjects.pound_per_square_foot
+  /** pound per square inch */
   def psi: PressureUnit = PressureUnitObjects.pound_per_square_inch
+  /** micrometre of mercury */
   def μmHg: PressureUnit = PressureUnitObjects.micrometre_of_mercury
+  /** micrometre of mercury */
   def mcmHg: PressureUnit = PressureUnitObjects.micrometre_of_mercury
+  /** millimetre of mercury */
   def mmHg: PressureUnit = PressureUnitObjects.millimetre_of_mercury
+  /** centimetre of mercury */
   def cmHg: PressureUnit = PressureUnitObjects.centimetre_of_mercury
+  /** inch of mercury */
   def inHg: PressureUnit = PressureUnitObjects.inch_of_mercury
+  /** foot of mercury */
   def ftHg: PressureUnit = PressureUnitObjects.foot_of_mercury
+  /** millimetre of water */
   def `mmH₂O`: PressureUnit = PressureUnitObjects.millimetre_of_water
+  /** millimetre of water */
   def mmH2O: PressureUnit = PressureUnitObjects.millimetre_of_water
+  /** millimetre of water */
   def mmAq: PressureUnit = PressureUnitObjects.millimetre_of_water
+  /** centimetre of water */
   def `cmH₂O`: PressureUnit = PressureUnitObjects.centimetre_of_water
+  /** centimetre of water */
   def cmH2O: PressureUnit = PressureUnitObjects.centimetre_of_water
+  /** centimetre of water */
   def cmAq: PressureUnit = PressureUnitObjects.centimetre_of_water
+  /** inch of water */
   def `inH₂O`: PressureUnit = PressureUnitObjects.inch_of_water
+  /** inch of water */
   def inH2O: PressureUnit = PressureUnitObjects.inch_of_water
+  /** foot of water */
   def `ftH₂O`: PressureUnit = PressureUnitObjects.foot_of_water
+  /** foot of water */
   def ftH2O: PressureUnit = PressureUnitObjects.foot_of_water
 }

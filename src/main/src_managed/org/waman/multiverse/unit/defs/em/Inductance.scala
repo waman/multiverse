@@ -73,29 +73,54 @@ object InductanceUnitObjects{
 
 object InductanceUnits{
 
+  /** henry */
   def H: InductanceUnit = InductanceUnitObjects.henry
+  /** yoctohenry */
   def yH: InductanceUnit = InductanceUnitObjects.yoctohenry
+  /** zeptohenry */
   def zH: InductanceUnit = InductanceUnitObjects.zeptohenry
+  /** attohenry */
   def aH: InductanceUnit = InductanceUnitObjects.attohenry
+  /** femtohenry */
   def fH: InductanceUnit = InductanceUnitObjects.femtohenry
+  /** picohenry */
   def pH: InductanceUnit = InductanceUnitObjects.picohenry
+  /** nanohenry */
   def nH: InductanceUnit = InductanceUnitObjects.nanohenry
+  /** microhenry */
   def μH: InductanceUnit = InductanceUnitObjects.microhenry
+  /** microhenry */
   def mcH: InductanceUnit = InductanceUnitObjects.microhenry
+  /** millihenry */
   def mH: InductanceUnit = InductanceUnitObjects.millihenry
+  /** centihenry */
   def cH: InductanceUnit = InductanceUnitObjects.centihenry
+  /** decihenry */
   def dH: InductanceUnit = InductanceUnitObjects.decihenry
+  /** decahenry */
   def daH: InductanceUnit = InductanceUnitObjects.decahenry
+  /** hectohenry */
   def hH: InductanceUnit = InductanceUnitObjects.hectohenry
+  /** kilohenry */
   def kH: InductanceUnit = InductanceUnitObjects.kilohenry
+  /** kilohenry */
   def KH: InductanceUnit = InductanceUnitObjects.kilohenry
+  /** megahenry */
   def MH: InductanceUnit = InductanceUnitObjects.megahenry
+  /** gigahenry */
   def GH: InductanceUnit = InductanceUnitObjects.gigahenry
+  /** terahenry */
   def TH: InductanceUnit = InductanceUnitObjects.terahenry
+  /** petahenry */
   def PH: InductanceUnit = InductanceUnitObjects.petahenry
+  /** exahenry */
   def EH: InductanceUnit = InductanceUnitObjects.exahenry
+  /** zettahenry */
   def ZH: InductanceUnit = InductanceUnitObjects.zettahenry
+  /** yottahenry */
   def YH: InductanceUnit = InductanceUnitObjects.yottahenry
+  /** abhenry */
   def abH: InductanceUnit = InductanceUnitObjects.abhenry
+  /** stathenry */
   def statH: InductanceUnit = InductanceUnitObjects.stathenry
 }

@@ -74,27 +74,50 @@ object LuminousFluxUnitObjects{
 
 object LuminousFluxUnits{
 
+  /** lumen */
   def lm: LuminousFluxUnit = LuminousFluxUnitObjects.lumen
+  /** yoctolumen */
   def ylm: LuminousFluxUnit = LuminousFluxUnitObjects.yoctolumen
+  /** zeptolumen */
   def zlm: LuminousFluxUnit = LuminousFluxUnitObjects.zeptolumen
+  /** attolumen */
   def alm: LuminousFluxUnit = LuminousFluxUnitObjects.attolumen
+  /** femtolumen */
   def flm: LuminousFluxUnit = LuminousFluxUnitObjects.femtolumen
+  /** picolumen */
   def plm: LuminousFluxUnit = LuminousFluxUnitObjects.picolumen
+  /** nanolumen */
   def nlm: LuminousFluxUnit = LuminousFluxUnitObjects.nanolumen
+  /** microlumen */
   def μlm: LuminousFluxUnit = LuminousFluxUnitObjects.microlumen
+  /** microlumen */
   def mclm: LuminousFluxUnit = LuminousFluxUnitObjects.microlumen
+  /** millilumen */
   def mlm: LuminousFluxUnit = LuminousFluxUnitObjects.millilumen
+  /** centilumen */
   def clm: LuminousFluxUnit = LuminousFluxUnitObjects.centilumen
+  /** decilumen */
   def dlm: LuminousFluxUnit = LuminousFluxUnitObjects.decilumen
+  /** decalumen */
   def dalm: LuminousFluxUnit = LuminousFluxUnitObjects.decalumen
+  /** hectolumen */
   def hlm: LuminousFluxUnit = LuminousFluxUnitObjects.hectolumen
+  /** kilolumen */
   def klm: LuminousFluxUnit = LuminousFluxUnitObjects.kilolumen
+  /** kilolumen */
   def Klm: LuminousFluxUnit = LuminousFluxUnitObjects.kilolumen
+  /** megalumen */
   def Mlm: LuminousFluxUnit = LuminousFluxUnitObjects.megalumen
+  /** gigalumen */
   def Glm: LuminousFluxUnit = LuminousFluxUnitObjects.gigalumen
+  /** teralumen */
   def Tlm: LuminousFluxUnit = LuminousFluxUnitObjects.teralumen
+  /** petalumen */
   def Plm: LuminousFluxUnit = LuminousFluxUnitObjects.petalumen
+  /** exalumen */
   def Elm: LuminousFluxUnit = LuminousFluxUnitObjects.exalumen
+  /** zettalumen */
   def Zlm: LuminousFluxUnit = LuminousFluxUnitObjects.zettalumen
+  /** yottalumen */
   def Ylm: LuminousFluxUnit = LuminousFluxUnitObjects.yottalumen
 }

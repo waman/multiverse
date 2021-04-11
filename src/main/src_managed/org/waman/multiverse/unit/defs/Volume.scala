@@ -166,218 +166,383 @@ object VolumeUnitObjects{
 
 object VolumeUnits{
 
+  /** cubic metre */
   def `m³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_metre
+  /** cubic metre */
   def m3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_metre
+  /** cubic yoctometre */
   def `ym³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yoctometre
+  /** cubic yoctometre */
   def ym3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yoctometre
+  /** cubic zeptometre */
   def `zm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_zeptometre
+  /** cubic zeptometre */
   def zm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_zeptometre
+  /** cubic attometre */
   def `am³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_attometre
+  /** cubic attometre */
   def am3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_attometre
+  /** cubic femtometre */
   def `fm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_femtometre
+  /** cubic femtometre */
   def fm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_femtometre
+  /** cubic picometre */
   def `pm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_picometre
+  /** cubic picometre */
   def pm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_picometre
+  /** cubic nanometre */
   def `nm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_nanometre
+  /** cubic nanometre */
   def nm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_nanometre
+  /** cubic micrometre */
   def `μm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_micrometre
+  /** cubic micrometre */
   def `mcm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_micrometre
+  /** cubic micrometre */
   def μm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_micrometre
+  /** cubic micrometre */
   def mcm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_micrometre
+  /** cubic millimetre */
   def `mm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_millimetre
+  /** cubic millimetre */
   def mm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_millimetre
+  /** cubic centimetre */
   def `cm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_centimetre
+  /** cubic centimetre */
   def cm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_centimetre
+  /** cubic decimetre */
   def `dm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_decimetre
+  /** cubic decimetre */
   def dm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_decimetre
+  /** cubic decametre */
   def `dam³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_decametre
+  /** cubic decametre */
   def dam3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_decametre
+  /** cubic hectometre */
   def `hm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_hectometre
+  /** cubic hectometre */
   def hm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_hectometre
+  /** cubic kilometre */
   def `km³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_kilometre
+  /** cubic kilometre */
   def `Km³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_kilometre
+  /** cubic kilometre */
   def km3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_kilometre
+  /** cubic kilometre */
   def Km3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_kilometre
+  /** cubic megametre */
   def `Mm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_megametre
+  /** cubic megametre */
   def Mm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_megametre
+  /** cubic gigametre */
   def `Gm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_gigametre
+  /** cubic gigametre */
   def Gm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_gigametre
+  /** cubic terametre */
   def `Tm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_terametre
+  /** cubic terametre */
   def Tm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_terametre
+  /** cubic petametre */
   def `Pm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_petametre
+  /** cubic petametre */
   def Pm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_petametre
+  /** cubic exametre */
   def `Em³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_exametre
+  /** cubic exametre */
   def Em3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_exametre
+  /** cubic zettametre */
   def `Zm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_zettametre
+  /** cubic zettametre */
   def Zm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_zettametre
+  /** cubic yottametre */
   def `Ym³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yottametre
+  /** cubic yottametre */
   def Ym3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yottametre
+  /** litre */
   def L: VolumeUnit = VolumeUnitObjects.litre
+  /** yoctolitre */
   def yL: VolumeUnit = VolumeUnitObjects.yoctolitre
+  /** zeptolitre */
   def zL: VolumeUnit = VolumeUnitObjects.zeptolitre
+  /** attolitre */
   def aL: VolumeUnit = VolumeUnitObjects.attolitre
+  /** femtolitre */
   def fL: VolumeUnit = VolumeUnitObjects.femtolitre
+  /** picolitre */
   def pL: VolumeUnit = VolumeUnitObjects.picolitre
+  /** nanolitre */
   def nL: VolumeUnit = VolumeUnitObjects.nanolitre
+  /** microlitre */
   def μL: VolumeUnit = VolumeUnitObjects.microlitre
+  /** microlitre */
   def mcL: VolumeUnit = VolumeUnitObjects.microlitre
+  /** millilitre */
   def mL: VolumeUnit = VolumeUnitObjects.millilitre
+  /** centilitre */
   def cL: VolumeUnit = VolumeUnitObjects.centilitre
+  /** decilitre */
   def dL: VolumeUnit = VolumeUnitObjects.decilitre
+  /** decalitre */
   def daL: VolumeUnit = VolumeUnitObjects.decalitre
+  /** hectolitre */
   def hL: VolumeUnit = VolumeUnitObjects.hectolitre
+  /** kilolitre */
   def kL: VolumeUnit = VolumeUnitObjects.kilolitre
+  /** kilolitre */
   def KL: VolumeUnit = VolumeUnitObjects.kilolitre
+  /** megalitre */
   def ML: VolumeUnit = VolumeUnitObjects.megalitre
+  /** gigalitre */
   def GL: VolumeUnit = VolumeUnitObjects.gigalitre
+  /** teralitre */
   def TL: VolumeUnit = VolumeUnitObjects.teralitre
+  /** petalitre */
   def PL: VolumeUnit = VolumeUnitObjects.petalitre
+  /** exalitre */
   def EL: VolumeUnit = VolumeUnitObjects.exalitre
+  /** zettalitre */
   def ZL: VolumeUnit = VolumeUnitObjects.zettalitre
+  /** yottalitre */
   def YL: VolumeUnit = VolumeUnitObjects.yottalitre
+  /** lambda */
   def λ: VolumeUnit = VolumeUnitObjects.lambda
+  /** cubic inch */
   def `in³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_inch
+  /** cubic inch */
   def in3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_inch
+  /** cubic inch */
   def cu_in: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_inch
+  /** cubic foot */
   def `ft³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_foot
+  /** cubic foot */
   def ft3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_foot
+  /** cubic foot */
   def cu_ft: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_foot
+  /** cubic yard */
   def `yd³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yard
+  /** cubic yard */
   def yd3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yard
+  /** cubic yard */
   def cu_yd: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_yard
+  /** cubic fathom */
   def `ftm³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_fathom
+  /** cubic fathom */
   def ftm3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_fathom
+  /** cubic fathom */
   def cu_fm: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_fathom
+  /** cubic mile */
   def `mi³`: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_mile
+  /** cubic mile */
   def mi3: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_mile
+  /** cubic mile */
   def cu_mi: LengthPoweredVolumeUnit = VolumeUnitObjects.cubic_mile
+  /** acre foot */
   def acre_ft: VolumeUnit = VolumeUnitObjects.acre_foot
+  /** board foot */
   def fbm: VolumeUnit = VolumeUnitObjects.board_foot
+  /** gallon_beer */
   def beer_gal: VolumeUnit = VolumeUnitObjects.gallon_beer
+  /** perch */
   def per: VolumeUnit = VolumeUnitObjects.perch
+  /** minim */
   def minim: VolumeUnit = VolumeUnitObjects.minim
-  def minim(a: minimAttribute): VolumeUnit = a match { 
+  /** minim(US)<br/>minim(imp) */
+  def minim(a: minimAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`minim(US)`
     case MetricAttributes.imp => VolumeUnitObjects.`minim(imp)`
   }
+  /** minim(US) */
   def `minim(US)`: VolumeUnit = VolumeUnitObjects.`minim(US)`
+  /** minim(imp) */
   def `minim(imp)`: VolumeUnit = VolumeUnitObjects.`minim(imp)`
+  /** teaspoon */
   def tsp: VolumeUnit = VolumeUnitObjects.teaspoon
+  /** tablespoon */
   def Tbsp: VolumeUnit = VolumeUnitObjects.tablespoon
+  /** fluid ounce */
   def fl_oz: VolumeUnit = VolumeUnitObjects.fluid_ounce
-  def fl_oz(a: fluid_ounceAttribute): VolumeUnit = a match { 
+  /** fluid_ounce(US)<br/>fluid_ounce(imp) */
+  def fl_oz(a: fluid_ounceAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`fluid_ounce(US)`
     case MetricAttributes.imp => VolumeUnitObjects.`fluid_ounce(imp)`
   }
+  /** fluid ounce(US) */
   def `fl_oz(US)`: VolumeUnit = VolumeUnitObjects.`fluid_ounce(US)`
+  /** fluid ounce(US) */
   def US_fl_oz: VolumeUnit = VolumeUnitObjects.`fluid_ounce(US)`
+  /** fluid ounce(imp) */
   def `fl_oz(imp)`: VolumeUnit = VolumeUnitObjects.`fluid_ounce(imp)`
+  /** shot */
   def jig: VolumeUnit = VolumeUnitObjects.shot
+  /** gill */
   def gi: VolumeUnit = VolumeUnitObjects.gill
-  def gi(a: gillAttribute): VolumeUnit = a match { 
+  /** gill(US)<br/>gill(imp) */
+  def gi(a: gillAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`gill(US)`
     case MetricAttributes.imp => VolumeUnitObjects.`gill(imp)`
   }
+  /** gill(US) */
   def `gi(US)`: VolumeUnit = VolumeUnitObjects.`gill(US)`
+  /** gill(imp) */
   def `gi(imp)`: VolumeUnit = VolumeUnitObjects.`gill(imp)`
+  /** gill(imp) */
   def nog: VolumeUnit = VolumeUnitObjects.`gill(imp)`
+  /** cup */
   def cp: VolumeUnit = VolumeUnitObjects.cup
-  def cp(a: cupAttribute): VolumeUnit = a match { 
+  /** cup(metric)<br/>cup(US) */
+  def cp(a: cupAttribute): VolumeUnit = a match {
     case MetricAttributes.metric => VolumeUnitObjects.`cup(metric)`
     case MetricAttributes.US => VolumeUnitObjects.`cup(US)`
   }
+  /** cup(metric) */
   def `cp(metric)`: VolumeUnit = VolumeUnitObjects.`cup(metric)`
+  /** cup(US) */
   def `cp(US)`: VolumeUnit = VolumeUnitObjects.`cup(US)`
+  /** pint */
   def pt: VolumeUnit = VolumeUnitObjects.pint
-  def pt(a: pintAttribute): VolumeUnit = a match { 
+  /** pint(US_fl)<br/>pint(US_dry)<br/>pint(imp) */
+  def pt(a: pintAttribute): VolumeUnit = a match {
     case MetricAttributes.US_fl => VolumeUnitObjects.`pint(US_fl)`
     case MetricAttributes.US_dry => VolumeUnitObjects.`pint(US_dry)`
     case MetricAttributes.imp => VolumeUnitObjects.`pint(imp)`
   }
+  /** pint(US_fl) */
   def `pt(US_fl)`: VolumeUnit = VolumeUnitObjects.`pint(US_fl)`
+  /** pint(US_dry) */
   def `pt(US_dry)`: VolumeUnit = VolumeUnitObjects.`pint(US_dry)`
+  /** pint(imp) */
   def `pt(imp)`: VolumeUnit = VolumeUnitObjects.`pint(imp)`
+  /** quart */
   def qt: VolumeUnit = VolumeUnitObjects.quart
-  def qt(a: quartAttribute): VolumeUnit = a match { 
+  /** quart(US_fl)<br/>quart(US_dry)<br/>quart(imp) */
+  def qt(a: quartAttribute): VolumeUnit = a match {
     case MetricAttributes.US_fl => VolumeUnitObjects.`quart(US_fl)`
     case MetricAttributes.US_dry => VolumeUnitObjects.`quart(US_dry)`
     case MetricAttributes.imp => VolumeUnitObjects.`quart(imp)`
   }
+  /** quart(US_fl) */
   def `qt(US_fl)`: VolumeUnit = VolumeUnitObjects.`quart(US_fl)`
+  /** quart(US_dry) */
   def `qt(US_dry)`: VolumeUnit = VolumeUnitObjects.`quart(US_dry)`
+  /** quart(imp) */
   def `qt(imp)`: VolumeUnit = VolumeUnitObjects.`quart(imp)`
+  /** pottle */
   def pot: VolumeUnit = VolumeUnitObjects.pottle
-  def pot(a: pottleAttribute): VolumeUnit = a match { 
+  /** pottle(US)<br/>pottle(imp) */
+  def pot(a: pottleAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`pottle(US)`
     case MetricAttributes.imp => VolumeUnitObjects.`pottle(imp)`
   }
+  /** pottle(US) */
   def `pot(US)`: VolumeUnit = VolumeUnitObjects.`pottle(US)`
+  /** pottle(imp) */
   def `pot(imp)`: VolumeUnit = VolumeUnitObjects.`pottle(imp)`
+  /** gallon */
   def gal: VolumeUnit = VolumeUnitObjects.gallon
-  def gal(a: gallonAttribute): VolumeUnit = a match { 
+  /** gallon(US)<br/>gallon(US_fl)<br/>gallon(US_dry)<br/>gallon(imp) */
+  def gal(a: gallonAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`gallon(US)`
     case MetricAttributes.US_fl => VolumeUnitObjects.`gallon(US_fl)`
     case MetricAttributes.US_dry => VolumeUnitObjects.`gallon(US_dry)`
     case MetricAttributes.imp => VolumeUnitObjects.`gallon(imp)`
   }
+  /** gallon(US) */
   def `gal(US)`: VolumeUnit = VolumeUnitObjects.`gallon(US)`
+  /** gallon(US_fl) */
   def `gal(US_fl)`: VolumeUnit = VolumeUnitObjects.`gallon(US_fl)`
+  /** gallon(US_fl) */
   def US_gal: VolumeUnit = VolumeUnitObjects.`gallon(US_fl)`
+  /** gallon(US_dry) */
   def `gal(US_dry)`: VolumeUnit = VolumeUnitObjects.`gallon(US_dry)`
+  /** gallon(imp) */
   def `gal(imp)`: VolumeUnit = VolumeUnitObjects.`gallon(imp)`
+  /** gallon(imp) */
   def imp_gal: VolumeUnit = VolumeUnitObjects.`gallon(imp)`
+  /** peck */
   def pk: VolumeUnit = VolumeUnitObjects.peck
-  def pk(a: peckAttribute): VolumeUnit = a match { 
+  /** peck(US_dry)<br/>peck(imp) */
+  def pk(a: peckAttribute): VolumeUnit = a match {
     case MetricAttributes.US_dry => VolumeUnitObjects.`peck(US_dry)`
     case MetricAttributes.imp => VolumeUnitObjects.`peck(imp)`
   }
+  /** peck(US_dry) */
   def `pk(US_dry)`: VolumeUnit = VolumeUnitObjects.`peck(US_dry)`
+  /** peck(imp) */
   def `pk(imp)`: VolumeUnit = VolumeUnitObjects.`peck(imp)`
+  /** bushel */
   def bu: VolumeUnit = VolumeUnitObjects.bushel
-  def bu(a: bushelAttribute): VolumeUnit = a match { 
+  /** bushel(US)<br/>bushel(US_lvl)<br/>bushel(imp) */
+  def bu(a: bushelAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`bushel(US)`
     case MetricAttributes.US_lvl => VolumeUnitObjects.`bushel(US_lvl)`
     case MetricAttributes.imp => VolumeUnitObjects.`bushel(imp)`
   }
+  /** bushel */
   def bsh: VolumeUnit = VolumeUnitObjects.bushel
+  /**   bushel(US)<br/>  bushel(US_lvl)<br/>  bushel(imp) */
   def bsh(a: bushelAttribute): VolumeUnit = bu(a)
-
+  /** bushel(US) */
   def `bu(US)`: VolumeUnit = VolumeUnitObjects.`bushel(US)`
+  /** bushel(US) */
   def `bsh(US)`: VolumeUnit = VolumeUnitObjects.`bushel(US)`
+  /** bushel(US_lvl) */
   def `bu(US_lvl)`: VolumeUnit = VolumeUnitObjects.`bushel(US_lvl)`
+  /** bushel(US_lvl) */
   def `bsh(US_lvl)`: VolumeUnit = VolumeUnitObjects.`bushel(US_lvl)`
+  /** bushel(imp) */
   def `bu(imp)`: VolumeUnit = VolumeUnitObjects.`bushel(imp)`
+  /** bushel(imp) */
   def `bsh(imp)`: VolumeUnit = VolumeUnitObjects.`bushel(imp)`
+  /** barrel */
   def bbl: VolumeUnit = VolumeUnitObjects.barrel
-  def bbl(a: barrelAttribute): VolumeUnit = a match { 
+  /** barrel(US_fl)<br/>barrel(US_dry)<br/>barrel(imp) */
+  def bbl(a: barrelAttribute): VolumeUnit = a match {
     case MetricAttributes.US_fl => VolumeUnitObjects.`barrel(US_fl)`
     case MetricAttributes.US_dry => VolumeUnitObjects.`barrel(US_dry)`
     case MetricAttributes.imp => VolumeUnitObjects.`barrel(imp)`
   }
+  /** barrel */
   def bl: VolumeUnit = VolumeUnitObjects.barrel
+  /**   barrel(US_fl)<br/>  barrel(US_dry)<br/>  barrel(imp) */
   def bl(a: barrelAttribute): VolumeUnit = bbl(a)
-
+  /** barrel(US_fl) */
   def `bbl(US_fl)`: VolumeUnit = VolumeUnitObjects.`barrel(US_fl)`
+  /** barrel(US_fl) */
   def `bl(US_fl)`: VolumeUnit = VolumeUnitObjects.`barrel(US_fl)`
+  /** barrel(US_dry) */
   def `bbl(US_dry)`: VolumeUnit = VolumeUnitObjects.`barrel(US_dry)`
+  /** barrel(US_dry) */
   def `bl(US_dry)`: VolumeUnit = VolumeUnitObjects.`barrel(US_dry)`
+  /** barrel(imp) */
   def `bbl(imp)`: VolumeUnit = VolumeUnitObjects.`barrel(imp)`
+  /** barrel(imp) */
   def `bl(imp)`: VolumeUnit = VolumeUnitObjects.`barrel(imp)`
+  /** fluid barrel */
   def fl_bl: VolumeUnit = VolumeUnitObjects.fluid_barrel
+  /** hogshead */
   def hhd: VolumeUnit = VolumeUnitObjects.hogshead
-  def hhd(a: hogsheadAttribute): VolumeUnit = a match { 
+  /** hogshead(US)<br/>hogshead(imp) */
+  def hhd(a: hogsheadAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`hogshead(US)`
     case MetricAttributes.imp => VolumeUnitObjects.`hogshead(imp)`
   }
+  /** hogshead(US) */
   def `hhd(US)`: VolumeUnit = VolumeUnitObjects.`hogshead(US)`
+  /** hogshead(imp) */
   def `hhd(imp)`: VolumeUnit = VolumeUnitObjects.`hogshead(imp)`
+  /** fluid dram */
   def fl_dr: VolumeUnit = VolumeUnitObjects.fluid_dram
-  def fl_dr(a: fluid_dramAttribute): VolumeUnit = a match { 
+  /** fluid_dram(US)<br/>fluid_dram(imp) */
+  def fl_dr(a: fluid_dramAttribute): VolumeUnit = a match {
     case MetricAttributes.US => VolumeUnitObjects.`fluid_dram(US)`
     case MetricAttributes.imp => VolumeUnitObjects.`fluid_dram(imp)`
   }
+  /** fluid dram(US) */
   def `fl_dr(US)`: VolumeUnit = VolumeUnitObjects.`fluid_dram(US)`
+  /** fluid dram(imp) */
   def `fl_dr(imp)`: VolumeUnit = VolumeUnitObjects.`fluid_dram(imp)`
+  /** fluid scruple */
   def fl_s: VolumeUnit = VolumeUnitObjects.fluid_scruple
+  /** bucket */
   def bkt: VolumeUnit = VolumeUnitObjects.bucket
 }

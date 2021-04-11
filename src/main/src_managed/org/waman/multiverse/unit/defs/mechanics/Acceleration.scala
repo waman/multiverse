@@ -52,7 +52,10 @@ object AccelerationUnitObjects{
 
 object AccelerationUnits{
 
+  /** standard gravity */
   def G: AccelerationUnit = AccelerationUnitObjects.standard_gravity
+  /** standard gravity */
   def g0: AccelerationUnit = AccelerationUnitObjects.standard_gravity
+  /** gal */
   def Gal: AccelerationUnit = AccelerationUnitObjects.gal
 }

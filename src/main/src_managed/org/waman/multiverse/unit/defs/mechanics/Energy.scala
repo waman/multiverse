@@ -154,93 +154,173 @@ object EnergyUnits{
   final object mean extends calorieAttribute with british_thermal_unitAttribute
   final object ISO extends british_thermal_unitAttribute
 
+  /** joule */
   def J: EnergyUnit = EnergyUnitObjects.joule
+  /** yoctojoule */
   def yJ: EnergyUnit = EnergyUnitObjects.yoctojoule
+  /** zeptojoule */
   def zJ: EnergyUnit = EnergyUnitObjects.zeptojoule
+  /** attojoule */
   def aJ: EnergyUnit = EnergyUnitObjects.attojoule
+  /** femtojoule */
   def fJ: EnergyUnit = EnergyUnitObjects.femtojoule
+  /** picojoule */
   def pJ: EnergyUnit = EnergyUnitObjects.picojoule
+  /** nanojoule */
   def nJ: EnergyUnit = EnergyUnitObjects.nanojoule
+  /** microjoule */
   def μJ: EnergyUnit = EnergyUnitObjects.microjoule
+  /** microjoule */
   def mcJ: EnergyUnit = EnergyUnitObjects.microjoule
+  /** millijoule */
   def mJ: EnergyUnit = EnergyUnitObjects.millijoule
+  /** centijoule */
   def cJ: EnergyUnit = EnergyUnitObjects.centijoule
+  /** decijoule */
   def dJ: EnergyUnit = EnergyUnitObjects.decijoule
+  /** decajoule */
   def daJ: EnergyUnit = EnergyUnitObjects.decajoule
+  /** hectojoule */
   def hJ: EnergyUnit = EnergyUnitObjects.hectojoule
+  /** kilojoule */
   def kJ: EnergyUnit = EnergyUnitObjects.kilojoule
+  /** kilojoule */
   def KJ: EnergyUnit = EnergyUnitObjects.kilojoule
+  /** megajoule */
   def MJ: EnergyUnit = EnergyUnitObjects.megajoule
+  /** gigajoule */
   def GJ: EnergyUnit = EnergyUnitObjects.gigajoule
+  /** terajoule */
   def TJ: EnergyUnit = EnergyUnitObjects.terajoule
+  /** petajoule */
   def PJ: EnergyUnit = EnergyUnitObjects.petajoule
+  /** exajoule */
   def EJ: EnergyUnit = EnergyUnitObjects.exajoule
+  /** zettajoule */
   def ZJ: EnergyUnit = EnergyUnitObjects.zettajoule
+  /** yottajoule */
   def YJ: EnergyUnit = EnergyUnitObjects.yottajoule
+  /** erg */
   def erg: EnergyUnit = EnergyUnitObjects.erg
+  /** electronvolt */
   def eV: EnergyUnit = EnergyUnitObjects.electronvolt
+  /** yoctoelectronvolt */
   def yeV: EnergyUnit = EnergyUnitObjects.yoctoelectronvolt
+  /** zeptoelectronvolt */
   def zeV: EnergyUnit = EnergyUnitObjects.zeptoelectronvolt
+  /** attoelectronvolt */
   def aeV: EnergyUnit = EnergyUnitObjects.attoelectronvolt
+  /** femtoelectronvolt */
   def feV: EnergyUnit = EnergyUnitObjects.femtoelectronvolt
+  /** picoelectronvolt */
   def peV: EnergyUnit = EnergyUnitObjects.picoelectronvolt
+  /** nanoelectronvolt */
   def neV: EnergyUnit = EnergyUnitObjects.nanoelectronvolt
+  /** microelectronvolt */
   def μeV: EnergyUnit = EnergyUnitObjects.microelectronvolt
+  /** microelectronvolt */
   def mceV: EnergyUnit = EnergyUnitObjects.microelectronvolt
+  /** millielectronvolt */
   def meV: EnergyUnit = EnergyUnitObjects.millielectronvolt
+  /** centielectronvolt */
   def ceV: EnergyUnit = EnergyUnitObjects.centielectronvolt
+  /** decielectronvolt */
   def deV: EnergyUnit = EnergyUnitObjects.decielectronvolt
+  /** decaelectronvolt */
   def daeV: EnergyUnit = EnergyUnitObjects.decaelectronvolt
+  /** hectoelectronvolt */
   def heV: EnergyUnit = EnergyUnitObjects.hectoelectronvolt
+  /** kiloelectronvolt */
   def keV: EnergyUnit = EnergyUnitObjects.kiloelectronvolt
+  /** kiloelectronvolt */
   def KeV: EnergyUnit = EnergyUnitObjects.kiloelectronvolt
+  /** megaelectronvolt */
   def MeV: EnergyUnit = EnergyUnitObjects.megaelectronvolt
+  /** gigaelectronvolt */
   def GeV: EnergyUnit = EnergyUnitObjects.gigaelectronvolt
+  /** teraelectronvolt */
   def TeV: EnergyUnit = EnergyUnitObjects.teraelectronvolt
+  /** petaelectronvolt */
   def PeV: EnergyUnit = EnergyUnitObjects.petaelectronvolt
+  /** exaelectronvolt */
   def EeV: EnergyUnit = EnergyUnitObjects.exaelectronvolt
+  /** zettaelectronvolt */
   def ZeV: EnergyUnit = EnergyUnitObjects.zettaelectronvolt
+  /** yottaelectronvolt */
   def YeV: EnergyUnit = EnergyUnitObjects.yottaelectronvolt
+  /** rydberg */
   def Ry: EnergyUnit = EnergyUnitObjects.rydberg
+  /** atomic unit of energy */
   def E_h: EnergyUnit = EnergyUnitObjects.atomic_unit_of_energy
+  /** watt hour */
   def Wh: EnergyUnit = EnergyUnitObjects.watt_hour
+  /** kilowatt hour */
   def kWh: EnergyUnit = EnergyUnitObjects.kilowatt_hour
+  /** litre atmosphere */
   def sl: EnergyUnit = EnergyUnitObjects.litre_atmosphere
+  /** calorie */
   def cal: EnergyUnit = EnergyUnitObjects.calorie
-  def cal(a: calorieAttribute): EnergyUnit = a match { 
+  /** calorie(th)<br/>calorie(IT)<br/>calorie(mean) */
+  def cal(a: calorieAttribute): EnergyUnit = a match {
     case EnergyUnits.th => EnergyUnitObjects.`calorie(th)`
     case EnergyUnits.IT => EnergyUnitObjects.`calorie(IT)`
     case EnergyUnits.mean => EnergyUnitObjects.`calorie(mean)`
   }
+  /** calorie(th) */
   def `cal(th)`: EnergyUnit = EnergyUnitObjects.`calorie(th)`
+  /** calorie(th) */
   def cal_th: EnergyUnit = EnergyUnitObjects.`calorie(th)`
+  /** calorie(IT) */
   def `cal(IT)`: EnergyUnit = EnergyUnitObjects.`calorie(IT)`
+  /** calorie(IT) */
   def cal_IT: EnergyUnit = EnergyUnitObjects.`calorie(IT)`
+  /** calorie(mean) */
   def `cal(mean)`: EnergyUnit = EnergyUnitObjects.`calorie(mean)`
+  /** calorie(mean) */
   def cal_mean: EnergyUnit = EnergyUnitObjects.`calorie(mean)`
+  /** calorie 4℃ */
   def `cal_4℃`: EnergyUnit = EnergyUnitObjects.`calorie_4℃`
+  /** calorie 15℃ */
   def `cal_15℃`: EnergyUnit = EnergyUnitObjects.`calorie_15℃`
+  /** calorie 20℃ */
   def `cal_20℃`: EnergyUnit = EnergyUnitObjects.`calorie_20℃`
+  /** kilocalorie */
   def kcal: EnergyUnit = EnergyUnitObjects.kilocalorie
+  /** kilocalorie */
   def Cal: EnergyUnit = EnergyUnitObjects.kilocalorie
+  /** tonne of coal equivalent */
   def TCE: EnergyUnit = EnergyUnitObjects.tonne_of_coal_equivalent
+  /** tonne of oil equivalent */
   def toe: EnergyUnit = EnergyUnitObjects.tonne_of_oil_equivalent
+  /** ton of TNT */
   def tTNT: EnergyUnit = EnergyUnitObjects.ton_of_TNT
+  /** british thermal unit */
   def BTU: EnergyUnit = EnergyUnitObjects.british_thermal_unit
-  def BTU(a: british_thermal_unitAttribute): EnergyUnit = a match { 
+  /** british_thermal_unit(ISO)<br/>british_thermal_unit(IT)<br/>british_thermal_unit(mean)<br/>british_thermal_unit(th) */
+  def BTU(a: british_thermal_unitAttribute): EnergyUnit = a match {
     case EnergyUnits.ISO => EnergyUnitObjects.`british_thermal_unit(ISO)`
     case EnergyUnits.IT => EnergyUnitObjects.`british_thermal_unit(IT)`
     case EnergyUnits.mean => EnergyUnitObjects.`british_thermal_unit(mean)`
     case EnergyUnits.th => EnergyUnitObjects.`british_thermal_unit(th)`
   }
+  /** british thermal unit(ISO) */
   def `BTU(ISO)`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(ISO)`
+  /** british thermal unit(ISO) */
   def BTU_ISO: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(ISO)`
+  /** british thermal unit(IT) */
   def `BTU(IT)`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(IT)`
+  /** british thermal unit(IT) */
   def BTU_IT: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(IT)`
+  /** british thermal unit(mean) */
   def `BTU(mean)`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(mean)`
+  /** british thermal unit(mean) */
   def BTU_mean: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(mean)`
+  /** british thermal unit(th) */
   def `BTU(th)`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(th)`
+  /** british thermal unit(th) */
   def BTU_th: EnergyUnit = EnergyUnitObjects.`british_thermal_unit(th)`
+  /** british thermal unit 59℉ */
   def `BTU_59℉`: EnergyUnit = EnergyUnitObjects.`british_thermal_unit_59℉`
+  /** quad */
   def quad: EnergyUnit = EnergyUnitObjects.quad
 }

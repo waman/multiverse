@@ -61,19 +61,34 @@ object SolidAngleUnitObjects{
 
 object SolidAngleUnits{
 
+  /** steradian */
   def sr: SolidAngleUnit = SolidAngleUnitObjects.steradian
+  /** yoctosteradian */
   def ysr: SolidAngleUnit = SolidAngleUnitObjects.yoctosteradian
+  /** zeptosteradian */
   def zsr: SolidAngleUnit = SolidAngleUnitObjects.zeptosteradian
+  /** attosteradian */
   def asr: SolidAngleUnit = SolidAngleUnitObjects.attosteradian
+  /** femtosteradian */
   def fsr: SolidAngleUnit = SolidAngleUnitObjects.femtosteradian
+  /** picosteradian */
   def psr: SolidAngleUnit = SolidAngleUnitObjects.picosteradian
+  /** nanosteradian */
   def nsr: SolidAngleUnit = SolidAngleUnitObjects.nanosteradian
+  /** microsteradian */
   def μsr: SolidAngleUnit = SolidAngleUnitObjects.microsteradian
+  /** microsteradian */
   def mcsr: SolidAngleUnit = SolidAngleUnitObjects.microsteradian
+  /** millisteradian */
   def msr: SolidAngleUnit = SolidAngleUnitObjects.millisteradian
+  /** centisteradian */
   def csr: SolidAngleUnit = SolidAngleUnitObjects.centisteradian
+  /** decisteradian */
   def dsr: SolidAngleUnit = SolidAngleUnitObjects.decisteradian
+  /** spat */
   def spat: SolidAngleUnit = SolidAngleUnitObjects.spat
+  /** square degree */
   def `deg²`: SolidAngleUnit = SolidAngleUnitObjects.square_degree
+  /** square degree */
   def deg2: SolidAngleUnit = SolidAngleUnitObjects.square_degree
 }

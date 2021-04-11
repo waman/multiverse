@@ -78,27 +78,50 @@ object FrequencyUnitObjects{
 
 object FrequencyUnits{
 
+  /** heltz */
   def Hz: FrequencyUnit = FrequencyUnitObjects.heltz
+  /** yoctoheltz */
   def yHz: FrequencyUnit = FrequencyUnitObjects.yoctoheltz
+  /** zeptoheltz */
   def zHz: FrequencyUnit = FrequencyUnitObjects.zeptoheltz
+  /** attoheltz */
   def aHz: FrequencyUnit = FrequencyUnitObjects.attoheltz
+  /** femtoheltz */
   def fHz: FrequencyUnit = FrequencyUnitObjects.femtoheltz
+  /** picoheltz */
   def pHz: FrequencyUnit = FrequencyUnitObjects.picoheltz
+  /** nanoheltz */
   def nHz: FrequencyUnit = FrequencyUnitObjects.nanoheltz
+  /** microheltz */
   def μHz: FrequencyUnit = FrequencyUnitObjects.microheltz
+  /** microheltz */
   def mcHz: FrequencyUnit = FrequencyUnitObjects.microheltz
+  /** milliheltz */
   def mHz: FrequencyUnit = FrequencyUnitObjects.milliheltz
+  /** centiheltz */
   def cHz: FrequencyUnit = FrequencyUnitObjects.centiheltz
+  /** deciheltz */
   def dHz: FrequencyUnit = FrequencyUnitObjects.deciheltz
+  /** decaheltz */
   def daHz: FrequencyUnit = FrequencyUnitObjects.decaheltz
+  /** hectoheltz */
   def hHz: FrequencyUnit = FrequencyUnitObjects.hectoheltz
+  /** kiloheltz */
   def kHz: FrequencyUnit = FrequencyUnitObjects.kiloheltz
+  /** kiloheltz */
   def KHz: FrequencyUnit = FrequencyUnitObjects.kiloheltz
+  /** megaheltz */
   def MHz: FrequencyUnit = FrequencyUnitObjects.megaheltz
+  /** gigaheltz */
   def GHz: FrequencyUnit = FrequencyUnitObjects.gigaheltz
+  /** teraheltz */
   def THz: FrequencyUnit = FrequencyUnitObjects.teraheltz
+  /** petaheltz */
   def PHz: FrequencyUnit = FrequencyUnitObjects.petaheltz
+  /** exaheltz */
   def EHz: FrequencyUnit = FrequencyUnitObjects.exaheltz
+  /** zettaheltz */
   def ZHz: FrequencyUnit = FrequencyUnitObjects.zettaheltz
+  /** yottaheltz */
   def YHz: FrequencyUnit = FrequencyUnitObjects.yottaheltz
 }

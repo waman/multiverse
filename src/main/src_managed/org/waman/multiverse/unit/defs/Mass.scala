@@ -134,83 +134,152 @@ object MassUnits{
   final object troy extends dramAttribute with ounceAttribute with poundAttribute
   final object metric extends poundAttribute
 
+  /** kilogram */
   def kg: MassUnit = MassUnitObjects.kilogram
+  /** kilogram */
   def Kg: MassUnit = MassUnitObjects.kilogram
+  /** gram */
   def g: MassUnit = MassUnitObjects.gram
+  /** yoctogram */
   def yg: MassUnit = MassUnitObjects.yoctogram
+  /** zeptogram */
   def zg: MassUnit = MassUnitObjects.zeptogram
+  /** attogram */
   def ag: MassUnit = MassUnitObjects.attogram
+  /** femtogram */
   def fg: MassUnit = MassUnitObjects.femtogram
+  /** picogram */
   def pg: MassUnit = MassUnitObjects.picogram
+  /** nanogram */
   def ng: MassUnit = MassUnitObjects.nanogram
+  /** microgram */
   def μg: MassUnit = MassUnitObjects.microgram
+  /** microgram */
   def mcg: MassUnit = MassUnitObjects.microgram
+  /** milligram */
   def mg: MassUnit = MassUnitObjects.milligram
+  /** centigram */
   def cg: MassUnit = MassUnitObjects.centigram
+  /** decigram */
   def dg: MassUnit = MassUnitObjects.decigram
+  /** decagram */
   def dag: MassUnit = MassUnitObjects.decagram
+  /** hectogram */
   def hg: MassUnit = MassUnitObjects.hectogram
+  /** megagram */
   def Mg: MassUnit = MassUnitObjects.megagram
+  /** gigagram */
   def Gg: MassUnit = MassUnitObjects.gigagram
+  /** teragram */
   def Tg: MassUnit = MassUnitObjects.teragram
+  /** petagram */
   def Pg: MassUnit = MassUnitObjects.petagram
+  /** exagram */
   def Eg: MassUnit = MassUnitObjects.exagram
+  /** zettagram */
   def Zg: MassUnit = MassUnitObjects.zettagram
+  /** yottagram */
   def Yg: MassUnit = MassUnitObjects.yottagram
+  /** tonne */
   def t: MassUnit = MassUnitObjects.tonne
+  /** grave */
   def gv: MassUnit = MassUnitObjects.grave
+  /** gamma */
   def γ: MassUnit = MassUnitObjects.gamma
+  /** quintal */
   def q: MassUnit = MassUnitObjects.quintal
+  /** dalton */
   def Da: MassUnit = MassUnitObjects.dalton
+  /** dalton */
   def u: MassUnit = MassUnitObjects.dalton
+  /** dalton */
   def AMU: MassUnit = MassUnitObjects.dalton
+  /** electron mass */
   def m_e: MassUnit = MassUnitObjects.electron_mass
+  /** grain */
   def gr: MassUnit = MassUnitObjects.grain
+  /** dram */
   def dr: MassUnit = MassUnitObjects.dram
-  def dr(a: dramAttribute): MassUnit = a match { 
+  /** dram(avoirdupois)<br/>dram(troy) */
+  def dr(a: dramAttribute): MassUnit = a match {
     case MassUnits.avoirdupois => MassUnitObjects.`dram(avoirdupois)`
     case MassUnits.troy => MassUnitObjects.`dram(troy)`
   }
+  /** dram(avoirdupois) */
   def `dr(avoirdupois)`: MassUnit = MassUnitObjects.`dram(avoirdupois)`
+  /** dram(avoirdupois) */
   def dr_av: MassUnit = MassUnitObjects.`dram(avoirdupois)`
+  /** dram(troy) */
   def `dr(troy)`: MassUnit = MassUnitObjects.`dram(troy)`
+  /** dram(troy) */
   def dr_t: MassUnit = MassUnitObjects.`dram(troy)`
+  /** ounce */
   def oz: MassUnit = MassUnitObjects.ounce
-  def oz(a: ounceAttribute): MassUnit = a match { 
+  /** ounce(avoirdupois)<br/>ounce(troy) */
+  def oz(a: ounceAttribute): MassUnit = a match {
     case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
     case MassUnits.troy => MassUnitObjects.`ounce(troy)`
   }
+  /** ounce(avoirdupois) */
   def `oz(avoirdupois)`: MassUnit = MassUnitObjects.`ounce(avoirdupois)`
+  /** ounce(avoirdupois) */
   def oz_av: MassUnit = MassUnitObjects.`ounce(avoirdupois)`
+  /** ounce(troy) */
   def `oz(troy)`: MassUnit = MassUnitObjects.`ounce(troy)`
+  /** ounce(troy) */
   def oz_t: MassUnit = MassUnitObjects.`ounce(troy)`
+  /** pound */
   def lb: MassUnit = MassUnitObjects.pound
-  def lb(a: poundAttribute): MassUnit = a match { 
+  /** pound(avoirdupois)<br/>pound(troy)<br/>pound(metric) */
+  def lb(a: poundAttribute): MassUnit = a match {
     case MassUnits.avoirdupois => MassUnitObjects.`pound(avoirdupois)`
     case MassUnits.troy => MassUnitObjects.`pound(troy)`
     case MassUnits.metric => MassUnitObjects.`pound(metric)`
   }
+  /** pound(avoirdupois) */
   def `lb(avoirdupois)`: MassUnit = MassUnitObjects.`pound(avoirdupois)`
+  /** pound(avoirdupois) */
   def lb_av: MassUnit = MassUnitObjects.`pound(avoirdupois)`
+  /** pound(troy) */
   def `lb(troy)`: MassUnit = MassUnitObjects.`pound(troy)`
+  /** pound(troy) */
   def lb_t: MassUnit = MassUnitObjects.`pound(troy)`
+  /** pound(metric) */
   def `lb(metric)`: MassUnit = MassUnitObjects.`pound(metric)`
+  /** long ton */
   def long_tn: MassUnit = MassUnitObjects.long_ton
+  /** short ton */
   def sh_tn: MassUnit = MassUnitObjects.short_ton
+  /** scruple */
   def s_ap: MassUnit = MassUnitObjects.scruple
+  /** carat */
   def kt: MassUnit = MassUnitObjects.carat
+  /** metric carat */
   def ct: MassUnit = MassUnitObjects.metric_carat
+  /** stone */
   def st: MassUnit = MassUnitObjects.stone
+  /** short hundredweight */
   def cwt: MassUnit = MassUnitObjects.short_hundredweight
+  /** short hundredweight */
   def sh_cwt: MassUnit = MassUnitObjects.short_hundredweight
+  /** short hundredweight */
   def US_cwt: MassUnit = MassUnitObjects.short_hundredweight
+  /** short hundredweight */
   def cental: MassUnit = MassUnitObjects.short_hundredweight
+  /** long hundredweight */
   def long_cwt: MassUnit = MassUnitObjects.long_hundredweight
+  /** kip */
   def kip: MassUnit = MassUnitObjects.kip
+  /** pennyweight */
   def dwt: MassUnit = MassUnitObjects.pennyweight
+  /** pennyweight */
   def pwt: MassUnit = MassUnitObjects.pennyweight
+  /** long assay ton */
   def long_AT: MassUnit = MassUnitObjects.long_assay_ton
+  /** long assay ton */
   def AT: MassUnit = MassUnitObjects.long_assay_ton
+  /** short assay ton */
   def sh_AT: MassUnit = MassUnitObjects.short_assay_ton
+  /** slug */
   def slug: MassUnit = MassUnitObjects.slug
 }

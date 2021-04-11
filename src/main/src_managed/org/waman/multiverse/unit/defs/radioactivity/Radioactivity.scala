@@ -89,51 +89,98 @@ object RadioactivityUnitObjects{
 
 object RadioactivityUnits{
 
+  /** becquerel */
   def Bq: RadioactivityUnit = RadioactivityUnitObjects.becquerel
+  /** yoctobecquerel */
   def yBq: RadioactivityUnit = RadioactivityUnitObjects.yoctobecquerel
+  /** zeptobecquerel */
   def zBq: RadioactivityUnit = RadioactivityUnitObjects.zeptobecquerel
+  /** attobecquerel */
   def aBq: RadioactivityUnit = RadioactivityUnitObjects.attobecquerel
+  /** femtobecquerel */
   def fBq: RadioactivityUnit = RadioactivityUnitObjects.femtobecquerel
+  /** picobecquerel */
   def pBq: RadioactivityUnit = RadioactivityUnitObjects.picobecquerel
+  /** nanobecquerel */
   def nBq: RadioactivityUnit = RadioactivityUnitObjects.nanobecquerel
+  /** microbecquerel */
   def μBq: RadioactivityUnit = RadioactivityUnitObjects.microbecquerel
+  /** microbecquerel */
   def mcBq: RadioactivityUnit = RadioactivityUnitObjects.microbecquerel
+  /** millibecquerel */
   def mBq: RadioactivityUnit = RadioactivityUnitObjects.millibecquerel
+  /** centibecquerel */
   def cBq: RadioactivityUnit = RadioactivityUnitObjects.centibecquerel
+  /** decibecquerel */
   def dBq: RadioactivityUnit = RadioactivityUnitObjects.decibecquerel
+  /** decabecquerel */
   def daBq: RadioactivityUnit = RadioactivityUnitObjects.decabecquerel
+  /** hectobecquerel */
   def hBq: RadioactivityUnit = RadioactivityUnitObjects.hectobecquerel
+  /** kilobecquerel */
   def kBq: RadioactivityUnit = RadioactivityUnitObjects.kilobecquerel
+  /** kilobecquerel */
   def KBq: RadioactivityUnit = RadioactivityUnitObjects.kilobecquerel
+  /** megabecquerel */
   def MBq: RadioactivityUnit = RadioactivityUnitObjects.megabecquerel
+  /** gigabecquerel */
   def GBq: RadioactivityUnit = RadioactivityUnitObjects.gigabecquerel
+  /** terabecquerel */
   def TBq: RadioactivityUnit = RadioactivityUnitObjects.terabecquerel
+  /** petabecquerel */
   def PBq: RadioactivityUnit = RadioactivityUnitObjects.petabecquerel
+  /** exabecquerel */
   def EBq: RadioactivityUnit = RadioactivityUnitObjects.exabecquerel
+  /** zettabecquerel */
   def ZBq: RadioactivityUnit = RadioactivityUnitObjects.zettabecquerel
+  /** yottabecquerel */
   def YBq: RadioactivityUnit = RadioactivityUnitObjects.yottabecquerel
+  /** curie */
   def Ci: RadioactivityUnit = RadioactivityUnitObjects.curie
+  /** yoctocurie */
   def yCi: RadioactivityUnit = RadioactivityUnitObjects.yoctocurie
+  /** zeptocurie */
   def zCi: RadioactivityUnit = RadioactivityUnitObjects.zeptocurie
+  /** attocurie */
   def aCi: RadioactivityUnit = RadioactivityUnitObjects.attocurie
+  /** femtocurie */
   def fCi: RadioactivityUnit = RadioactivityUnitObjects.femtocurie
+  /** picocurie */
   def pCi: RadioactivityUnit = RadioactivityUnitObjects.picocurie
+  /** nanocurie */
   def nCi: RadioactivityUnit = RadioactivityUnitObjects.nanocurie
+  /** microcurie */
   def μCi: RadioactivityUnit = RadioactivityUnitObjects.microcurie
+  /** microcurie */
   def mcCi: RadioactivityUnit = RadioactivityUnitObjects.microcurie
+  /** millicurie */
   def mCi: RadioactivityUnit = RadioactivityUnitObjects.millicurie
+  /** centicurie */
   def cCi: RadioactivityUnit = RadioactivityUnitObjects.centicurie
+  /** decicurie */
   def dCi: RadioactivityUnit = RadioactivityUnitObjects.decicurie
+  /** decacurie */
   def daCi: RadioactivityUnit = RadioactivityUnitObjects.decacurie
+  /** hectocurie */
   def hCi: RadioactivityUnit = RadioactivityUnitObjects.hectocurie
+  /** kilocurie */
   def kCi: RadioactivityUnit = RadioactivityUnitObjects.kilocurie
+  /** kilocurie */
   def KCi: RadioactivityUnit = RadioactivityUnitObjects.kilocurie
+  /** megacurie */
   def MCi: RadioactivityUnit = RadioactivityUnitObjects.megacurie
+  /** gigacurie */
   def GCi: RadioactivityUnit = RadioactivityUnitObjects.gigacurie
+  /** teracurie */
   def TCi: RadioactivityUnit = RadioactivityUnitObjects.teracurie
+  /** petacurie */
   def PCi: RadioactivityUnit = RadioactivityUnitObjects.petacurie
+  /** exacurie */
   def ECi: RadioactivityUnit = RadioactivityUnitObjects.exacurie
+  /** zettacurie */
   def ZCi: RadioactivityUnit = RadioactivityUnitObjects.zettacurie
+  /** yottacurie */
   def YCi: RadioactivityUnit = RadioactivityUnitObjects.yottacurie
+  /** rutherford */
   def Rd: RadioactivityUnit = RadioactivityUnitObjects.rutherford
 }

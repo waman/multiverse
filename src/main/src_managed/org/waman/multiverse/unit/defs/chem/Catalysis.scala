@@ -70,29 +70,54 @@ object CatalysisUnitObjects{
 
 object CatalysisUnits{
 
+  /** katal */
   def kat: CatalysisUnit = CatalysisUnitObjects.katal
+  /** yoctokatal */
   def ykat: CatalysisUnit = CatalysisUnitObjects.yoctokatal
+  /** zeptokatal */
   def zkat: CatalysisUnit = CatalysisUnitObjects.zeptokatal
+  /** attokatal */
   def akat: CatalysisUnit = CatalysisUnitObjects.attokatal
+  /** femtokatal */
   def fkat: CatalysisUnit = CatalysisUnitObjects.femtokatal
+  /** picokatal */
   def pkat: CatalysisUnit = CatalysisUnitObjects.picokatal
+  /** nanokatal */
   def nkat: CatalysisUnit = CatalysisUnitObjects.nanokatal
+  /** microkatal */
   def μkat: CatalysisUnit = CatalysisUnitObjects.microkatal
+  /** microkatal */
   def mckat: CatalysisUnit = CatalysisUnitObjects.microkatal
+  /** millikatal */
   def mkat: CatalysisUnit = CatalysisUnitObjects.millikatal
+  /** centikatal */
   def ckat: CatalysisUnit = CatalysisUnitObjects.centikatal
+  /** decikatal */
   def dkat: CatalysisUnit = CatalysisUnitObjects.decikatal
+  /** decakatal */
   def dakat: CatalysisUnit = CatalysisUnitObjects.decakatal
+  /** hectokatal */
   def hkat: CatalysisUnit = CatalysisUnitObjects.hectokatal
+  /** kilokatal */
   def kkat: CatalysisUnit = CatalysisUnitObjects.kilokatal
+  /** kilokatal */
   def Kkat: CatalysisUnit = CatalysisUnitObjects.kilokatal
+  /** megakatal */
   def Mkat: CatalysisUnit = CatalysisUnitObjects.megakatal
+  /** gigakatal */
   def Gkat: CatalysisUnit = CatalysisUnitObjects.gigakatal
+  /** terakatal */
   def Tkat: CatalysisUnit = CatalysisUnitObjects.terakatal
+  /** petakatal */
   def Pkat: CatalysisUnit = CatalysisUnitObjects.petakatal
+  /** exakatal */
   def Ekat: CatalysisUnit = CatalysisUnitObjects.exakatal
+  /** zettakatal */
   def Zkat: CatalysisUnit = CatalysisUnitObjects.zettakatal
+  /** yottakatal */
   def Ykat: CatalysisUnit = CatalysisUnitObjects.yottakatal
+  /** enzyme unit */
   def U: CatalysisUnit = CatalysisUnitObjects.enzyme_unit
+  /** enzyme unit */
   def IU: CatalysisUnit = CatalysisUnitObjects.enzyme_unit
 }

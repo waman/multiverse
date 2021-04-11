@@ -73,29 +73,54 @@ object CapacitanceUnitObjects{
 
 object CapacitanceUnits{
 
+  /** farad */
   def F: CapacitanceUnit = CapacitanceUnitObjects.farad
+  /** yoctofarad */
   def yF: CapacitanceUnit = CapacitanceUnitObjects.yoctofarad
+  /** zeptofarad */
   def zF: CapacitanceUnit = CapacitanceUnitObjects.zeptofarad
+  /** attofarad */
   def aF: CapacitanceUnit = CapacitanceUnitObjects.attofarad
+  /** femtofarad */
   def fF: CapacitanceUnit = CapacitanceUnitObjects.femtofarad
+  /** picofarad */
   def pF: CapacitanceUnit = CapacitanceUnitObjects.picofarad
+  /** nanofarad */
   def nF: CapacitanceUnit = CapacitanceUnitObjects.nanofarad
+  /** microfarad */
   def μF: CapacitanceUnit = CapacitanceUnitObjects.microfarad
+  /** microfarad */
   def mcF: CapacitanceUnit = CapacitanceUnitObjects.microfarad
+  /** millifarad */
   def mF: CapacitanceUnit = CapacitanceUnitObjects.millifarad
+  /** centifarad */
   def cF: CapacitanceUnit = CapacitanceUnitObjects.centifarad
+  /** decifarad */
   def dF: CapacitanceUnit = CapacitanceUnitObjects.decifarad
+  /** decafarad */
   def daF: CapacitanceUnit = CapacitanceUnitObjects.decafarad
+  /** hectofarad */
   def hF: CapacitanceUnit = CapacitanceUnitObjects.hectofarad
+  /** kilofarad */
   def kF: CapacitanceUnit = CapacitanceUnitObjects.kilofarad
+  /** kilofarad */
   def KF: CapacitanceUnit = CapacitanceUnitObjects.kilofarad
+  /** megafarad */
   def MF: CapacitanceUnit = CapacitanceUnitObjects.megafarad
+  /** gigafarad */
   def GF: CapacitanceUnit = CapacitanceUnitObjects.gigafarad
+  /** terafarad */
   def TF: CapacitanceUnit = CapacitanceUnitObjects.terafarad
+  /** petafarad */
   def PF: CapacitanceUnit = CapacitanceUnitObjects.petafarad
+  /** exafarad */
   def EF: CapacitanceUnit = CapacitanceUnitObjects.exafarad
+  /** zettafarad */
   def ZF: CapacitanceUnit = CapacitanceUnitObjects.zettafarad
+  /** yottafarad */
   def YF: CapacitanceUnit = CapacitanceUnitObjects.yottafarad
+  /** abfarad */
   def abF: CapacitanceUnit = CapacitanceUnitObjects.abfarad
+  /** statfarad */
   def statF: CapacitanceUnit = CapacitanceUnitObjects.statfarad
 }

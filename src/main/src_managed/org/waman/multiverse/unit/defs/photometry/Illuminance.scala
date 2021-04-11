@@ -71,29 +71,54 @@ object IlluminanceUnitObjects{
 
 object IlluminanceUnits{
 
+  /** lux */
   def lx: IlluminanceUnit = IlluminanceUnitObjects.lux
+  /** yoctolux */
   def ylx: IlluminanceUnit = IlluminanceUnitObjects.yoctolux
+  /** zeptolux */
   def zlx: IlluminanceUnit = IlluminanceUnitObjects.zeptolux
+  /** attolux */
   def alx: IlluminanceUnit = IlluminanceUnitObjects.attolux
+  /** femtolux */
   def flx: IlluminanceUnit = IlluminanceUnitObjects.femtolux
+  /** picolux */
   def plx: IlluminanceUnit = IlluminanceUnitObjects.picolux
+  /** nanolux */
   def nlx: IlluminanceUnit = IlluminanceUnitObjects.nanolux
+  /** microlux */
   def μlx: IlluminanceUnit = IlluminanceUnitObjects.microlux
+  /** microlux */
   def mclx: IlluminanceUnit = IlluminanceUnitObjects.microlux
+  /** millilux */
   def mlx: IlluminanceUnit = IlluminanceUnitObjects.millilux
+  /** centilux */
   def clx: IlluminanceUnit = IlluminanceUnitObjects.centilux
+  /** decilux */
   def dlx: IlluminanceUnit = IlluminanceUnitObjects.decilux
+  /** decalux */
   def dalx: IlluminanceUnit = IlluminanceUnitObjects.decalux
+  /** hectolux */
   def hlx: IlluminanceUnit = IlluminanceUnitObjects.hectolux
+  /** kilolux */
   def klx: IlluminanceUnit = IlluminanceUnitObjects.kilolux
+  /** kilolux */
   def Klx: IlluminanceUnit = IlluminanceUnitObjects.kilolux
+  /** megalux */
   def Mlx: IlluminanceUnit = IlluminanceUnitObjects.megalux
+  /** gigalux */
   def Glx: IlluminanceUnit = IlluminanceUnitObjects.gigalux
+  /** teralux */
   def Tlx: IlluminanceUnit = IlluminanceUnitObjects.teralux
+  /** petalux */
   def Plx: IlluminanceUnit = IlluminanceUnitObjects.petalux
+  /** exalux */
   def Elx: IlluminanceUnit = IlluminanceUnitObjects.exalux
+  /** zettalux */
   def Zlx: IlluminanceUnit = IlluminanceUnitObjects.zettalux
+  /** yottalux */
   def Ylx: IlluminanceUnit = IlluminanceUnitObjects.yottalux
+  /** phot */
   def ph: IlluminanceUnit = IlluminanceUnitObjects.phot
+  /** foot candle */
   def fc: IlluminanceUnit = IlluminanceUnitObjects.foot_candle
 }

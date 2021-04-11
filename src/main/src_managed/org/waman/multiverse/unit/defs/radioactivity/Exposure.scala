@@ -50,5 +50,6 @@ object ExposureUnitObjects{
 
 object ExposureUnits{
 
+  /** roentgen */
   def R: ExposureUnit = ExposureUnitObjects.roentgen
 }

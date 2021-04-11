@@ -95,35 +95,66 @@ object ElectricChargeUnitObjects{
 
 object ElectricChargeUnits{
 
+  /** coulomb */
   def C: ElectricChargeUnit = ElectricChargeUnitObjects.coulomb
+  /** yoctocoulomb */
   def yC: ElectricChargeUnit = ElectricChargeUnitObjects.yoctocoulomb
+  /** zeptocoulomb */
   def zC: ElectricChargeUnit = ElectricChargeUnitObjects.zeptocoulomb
+  /** attocoulomb */
   def aC: ElectricChargeUnit = ElectricChargeUnitObjects.attocoulomb
+  /** femtocoulomb */
   def fC: ElectricChargeUnit = ElectricChargeUnitObjects.femtocoulomb
+  /** picocoulomb */
   def pC: ElectricChargeUnit = ElectricChargeUnitObjects.picocoulomb
+  /** nanocoulomb */
   def nC: ElectricChargeUnit = ElectricChargeUnitObjects.nanocoulomb
+  /** microcoulomb */
   def μC: ElectricChargeUnit = ElectricChargeUnitObjects.microcoulomb
+  /** microcoulomb */
   def mcC: ElectricChargeUnit = ElectricChargeUnitObjects.microcoulomb
+  /** millicoulomb */
   def mC: ElectricChargeUnit = ElectricChargeUnitObjects.millicoulomb
+  /** centicoulomb */
   def cC: ElectricChargeUnit = ElectricChargeUnitObjects.centicoulomb
+  /** decicoulomb */
   def dC: ElectricChargeUnit = ElectricChargeUnitObjects.decicoulomb
+  /** decacoulomb */
   def daC: ElectricChargeUnit = ElectricChargeUnitObjects.decacoulomb
+  /** hectocoulomb */
   def hC: ElectricChargeUnit = ElectricChargeUnitObjects.hectocoulomb
+  /** kilocoulomb */
   def kC: ElectricChargeUnit = ElectricChargeUnitObjects.kilocoulomb
+  /** kilocoulomb */
   def KC: ElectricChargeUnit = ElectricChargeUnitObjects.kilocoulomb
+  /** megacoulomb */
   def MC: ElectricChargeUnit = ElectricChargeUnitObjects.megacoulomb
+  /** gigacoulomb */
   def GC: ElectricChargeUnit = ElectricChargeUnitObjects.gigacoulomb
+  /** teracoulomb */
   def TC: ElectricChargeUnit = ElectricChargeUnitObjects.teracoulomb
+  /** petacoulomb */
   def PC: ElectricChargeUnit = ElectricChargeUnitObjects.petacoulomb
+  /** exacoulomb */
   def EC: ElectricChargeUnit = ElectricChargeUnitObjects.exacoulomb
+  /** zettacoulomb */
   def ZC: ElectricChargeUnit = ElectricChargeUnitObjects.zettacoulomb
+  /** yottacoulomb */
   def YC: ElectricChargeUnit = ElectricChargeUnitObjects.yottacoulomb
+  /** atomic unit of charge */
   def au: ElectricChargeUnit = ElectricChargeUnitObjects.atomic_unit_of_charge
+  /** atomic unit of charge */
   def e: ElectricChargeUnit = ElectricChargeUnitObjects.atomic_unit_of_charge
+  /** abcoulomb */
   def abC: ElectricChargeUnit = ElectricChargeUnitObjects.abcoulomb
+  /** abcoulomb */
   def emu: ElectricChargeUnit = ElectricChargeUnitObjects.abcoulomb
+  /** statcoulomb */
   def statC: ElectricChargeUnit = ElectricChargeUnitObjects.statcoulomb
+  /** statcoulomb */
   def Fr: ElectricChargeUnit = ElectricChargeUnitObjects.statcoulomb
+  /** statcoulomb */
   def esu: ElectricChargeUnit = ElectricChargeUnitObjects.statcoulomb
+  /** faraday */
   def F: ElectricChargeUnit = ElectricChargeUnitObjects.faraday
 }

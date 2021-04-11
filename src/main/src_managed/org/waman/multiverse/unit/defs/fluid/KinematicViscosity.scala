@@ -69,27 +69,50 @@ object KinematicViscosityUnitObjects{
 
 object KinematicViscosityUnits{
 
+  /** stokes */
   def St: KinematicViscosityUnit = KinematicViscosityUnitObjects.stokes
+  /** yoctostokes */
   def ySt: KinematicViscosityUnit = KinematicViscosityUnitObjects.yoctostokes
+  /** zeptostokes */
   def zSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.zeptostokes
+  /** attostokes */
   def aSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.attostokes
+  /** femtostokes */
   def fSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.femtostokes
+  /** picostokes */
   def pSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.picostokes
+  /** nanostokes */
   def nSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.nanostokes
+  /** microstokes */
   def μSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.microstokes
+  /** microstokes */
   def mcSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.microstokes
+  /** millistokes */
   def mSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.millistokes
+  /** centistokes */
   def cSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.centistokes
+  /** decistokes */
   def dSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.decistokes
+  /** decastokes */
   def daSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.decastokes
+  /** hectostokes */
   def hSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.hectostokes
+  /** kilostokes */
   def kSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.kilostokes
+  /** kilostokes */
   def KSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.kilostokes
+  /** megastokes */
   def MSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.megastokes
+  /** gigastokes */
   def GSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.gigastokes
+  /** terastokes */
   def TSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.terastokes
+  /** petastokes */
   def PSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.petastokes
+  /** exastokes */
   def ESt: KinematicViscosityUnit = KinematicViscosityUnitObjects.exastokes
+  /** zettastokes */
   def ZSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.zettastokes
+  /** yottastokes */
   def YSt: KinematicViscosityUnit = KinematicViscosityUnitObjects.yottastokes
 }

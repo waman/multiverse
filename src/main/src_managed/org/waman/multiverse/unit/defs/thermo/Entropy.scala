@@ -71,30 +71,56 @@ object EntropyUnitObjects{
 
 object EntropyUnits{
 
+  /** nat */
   def nat: EntropyUnit = EntropyUnitObjects.nat
+  /** nat */
   def k_B: EntropyUnit = EntropyUnitObjects.nat
+  /** bit */
   def bit: EntropyUnit = EntropyUnitObjects.bit
+  /** bit */
   def Sh: EntropyUnit = EntropyUnitObjects.bit
+  /** ban */
   def ban: EntropyUnit = EntropyUnitObjects.ban
+  /** ban */
   def Hart: EntropyUnit = EntropyUnitObjects.ban
+  /** byte */
   def B: EntropyUnit = EntropyUnitObjects.byte
+  /** decabyte */
   def daB: EntropyUnit = EntropyUnitObjects.decabyte
+  /** hectobyte */
   def hB: EntropyUnit = EntropyUnitObjects.hectobyte
+  /** kilobyte */
   def kB: EntropyUnit = EntropyUnitObjects.kilobyte
+  /** kilobyte */
   def KB: EntropyUnit = EntropyUnitObjects.kilobyte
+  /** megabyte */
   def MB: EntropyUnit = EntropyUnitObjects.megabyte
+  /** gigabyte */
   def GB: EntropyUnit = EntropyUnitObjects.gigabyte
+  /** terabyte */
   def TB: EntropyUnit = EntropyUnitObjects.terabyte
+  /** petabyte */
   def PB: EntropyUnit = EntropyUnitObjects.petabyte
+  /** exabyte */
   def EB: EntropyUnit = EntropyUnitObjects.exabyte
+  /** zettabyte */
   def ZB: EntropyUnit = EntropyUnitObjects.zettabyte
+  /** yottabyte */
   def YB: EntropyUnit = EntropyUnitObjects.yottabyte
+  /** kibibyte */
   def KiB: EntropyUnit = EntropyUnitObjects.kibibyte
+  /** mebibyte */
   def MiB: EntropyUnit = EntropyUnitObjects.mebibyte
+  /** gibibyte */
   def GiB: EntropyUnit = EntropyUnitObjects.gibibyte
+  /** tebibyte */
   def TiB: EntropyUnit = EntropyUnitObjects.tebibyte
+  /** pebibyte */
   def PiB: EntropyUnit = EntropyUnitObjects.pebibyte
+  /** exbibyte */
   def EiB: EntropyUnit = EntropyUnitObjects.exbibyte
+  /** zebibyte */
   def ZiB: EntropyUnit = EntropyUnitObjects.zebibyte
+  /** yobibyte */
   def YiB: EntropyUnit = EntropyUnitObjects.yobibyte
 }

@@ -80,27 +80,50 @@ object AbsoluteTemperatureUnitObjects{
 
 object AbsoluteTemperatureUnits{
 
+  /** kelvin */
   def K: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kelvin
+  /** yoctokelvin */
   def yK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.yoctokelvin
+  /** zeptokelvin */
   def zK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.zeptokelvin
+  /** attokelvin */
   def aK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.attokelvin
+  /** femtokelvin */
   def fK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.femtokelvin
+  /** picokelvin */
   def pK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.picokelvin
+  /** nanokelvin */
   def nK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.nanokelvin
+  /** microkelvin */
   def μK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.microkelvin
+  /** microkelvin */
   def mcK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.microkelvin
+  /** millikelvin */
   def mK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.millikelvin
+  /** centikelvin */
   def cK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.centikelvin
+  /** decikelvin */
   def dK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.decikelvin
+  /** decakelvin */
   def daK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.decakelvin
+  /** hectokelvin */
   def hK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.hectokelvin
+  /** kilokelvin */
   def kK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kilokelvin
+  /** kilokelvin */
   def KK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kilokelvin
+  /** megakelvin */
   def MK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.megakelvin
+  /** gigakelvin */
   def GK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.gigakelvin
+  /** terakelvin */
   def TK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.terakelvin
+  /** petakelvin */
   def PK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.petakelvin
+  /** exakelvin */
   def EK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.exakelvin
+  /** zettakelvin */
   def ZK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.zettakelvin
+  /** yottakelvin */
   def YK: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.yottakelvin
 }

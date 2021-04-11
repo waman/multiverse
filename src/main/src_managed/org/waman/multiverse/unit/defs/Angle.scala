@@ -63,19 +63,34 @@ object AngleUnitObjects{
 
 object AngleUnits{
 
+  /** radian */
   def rad: AngleUnit = AngleUnitObjects.radian
+  /** degree */
   def `°`: AngleUnit = AngleUnitObjects.degree
+  /** degree */
   def deg: AngleUnit = AngleUnitObjects.degree
+  /** arcmin */
   def arcmin: AngleUnit = AngleUnitObjects.arcmin
+  /** arcmin */
   def MOA: AngleUnit = AngleUnitObjects.arcmin
+  /** arcsec */
   def arcsec: AngleUnit = AngleUnitObjects.arcsec
+  /** arcsec */
   def as: AngleUnit = AngleUnitObjects.arcsec
+  /** gradian */
   def ᵍ: AngleUnit = AngleUnitObjects.gradian
+  /** gradian */
   def grad: AngleUnit = AngleUnitObjects.gradian
+  /** gradian */
   def gon: AngleUnit = AngleUnitObjects.gradian
+  /** turn */
   def tr: AngleUnit = AngleUnitObjects.turn
+  /** sign */
   def sign: AngleUnit = AngleUnitObjects.sign
+  /** octant */
   def octant: AngleUnit = AngleUnitObjects.octant
+  /** sextant */
   def sextant: AngleUnit = AngleUnitObjects.sextant
+  /** quadrant */
   def quadrant: AngleUnit = AngleUnitObjects.quadrant
 }

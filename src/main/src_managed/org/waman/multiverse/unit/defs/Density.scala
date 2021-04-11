@@ -48,6 +48,8 @@ object DensityUnitObjects{
 
 object DensityUnits{
 
+  /** water */
   def H2O: DensityUnit = DensityUnitObjects.water
+  /** mercury */
   def Hg: DensityUnit = DensityUnitObjects.mercury
 }

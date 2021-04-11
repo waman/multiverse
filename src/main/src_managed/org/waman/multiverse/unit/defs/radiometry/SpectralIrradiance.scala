@@ -51,6 +51,8 @@ object SpectralIrradianceUnitObjects{
 
 object SpectralIrradianceUnits{
 
+  /** jansky */
   def Jy: SpectralIrradianceUnit = SpectralIrradianceUnitObjects.jansky
+  /** solar flux unit */
   def sfu: SpectralIrradianceUnit = SpectralIrradianceUnitObjects.solar_flux_unit
 }

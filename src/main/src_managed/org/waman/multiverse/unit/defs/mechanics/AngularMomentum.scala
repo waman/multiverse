@@ -52,8 +52,12 @@ object AngularMomentumUnitObjects{
 
 object AngularMomentumUnits{
 
+  /** planck constant */
   def h: AngularMomentumUnit = AngularMomentumUnitObjects.planck_constant
+  /** reduced planck constant */
   def ħ: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
+  /** reduced planck constant */
   def hbar: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
+  /** reduced planck constant */
   def atomic_unit_of_action: AngularMomentumUnit = AngularMomentumUnitObjects.reduced_planck_constant
 }

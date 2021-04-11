@@ -106,48 +106,85 @@ object PowerUnits{
   final object electrical extends horsepowerAttribute
   final object boiler extends horsepowerAttribute
 
+  /** watt */
   def W: PowerUnit = PowerUnitObjects.watt
+  /** yoctowatt */
   def yW: PowerUnit = PowerUnitObjects.yoctowatt
+  /** zeptowatt */
   def zW: PowerUnit = PowerUnitObjects.zeptowatt
+  /** attowatt */
   def aW: PowerUnit = PowerUnitObjects.attowatt
+  /** femtowatt */
   def fW: PowerUnit = PowerUnitObjects.femtowatt
+  /** picowatt */
   def pW: PowerUnit = PowerUnitObjects.picowatt
+  /** nanowatt */
   def nW: PowerUnit = PowerUnitObjects.nanowatt
+  /** microwatt */
   def μW: PowerUnit = PowerUnitObjects.microwatt
+  /** microwatt */
   def mcW: PowerUnit = PowerUnitObjects.microwatt
+  /** milliwatt */
   def mW: PowerUnit = PowerUnitObjects.milliwatt
+  /** centiwatt */
   def cW: PowerUnit = PowerUnitObjects.centiwatt
+  /** deciwatt */
   def dW: PowerUnit = PowerUnitObjects.deciwatt
+  /** decawatt */
   def daW: PowerUnit = PowerUnitObjects.decawatt
+  /** hectowatt */
   def hW: PowerUnit = PowerUnitObjects.hectowatt
+  /** kilowatt */
   def kW: PowerUnit = PowerUnitObjects.kilowatt
+  /** kilowatt */
   def KW: PowerUnit = PowerUnitObjects.kilowatt
+  /** megawatt */
   def MW: PowerUnit = PowerUnitObjects.megawatt
+  /** gigawatt */
   def GW: PowerUnit = PowerUnitObjects.gigawatt
+  /** terawatt */
   def TW: PowerUnit = PowerUnitObjects.terawatt
+  /** petawatt */
   def PW: PowerUnit = PowerUnitObjects.petawatt
+  /** exawatt */
   def EW: PowerUnit = PowerUnitObjects.exawatt
+  /** zettawatt */
   def ZW: PowerUnit = PowerUnitObjects.zettawatt
+  /** yottawatt */
   def YW: PowerUnit = PowerUnitObjects.yottawatt
+  /** horsepower */
   def hp: PowerUnit = PowerUnitObjects.horsepower
-  def hp(a: horsepowerAttribute): PowerUnit = a match { 
+  /** horsepower(mechanical)<br/>horsepower(metric)<br/>horsepower(electrical)<br/>horsepower(boiler) */
+  def hp(a: horsepowerAttribute): PowerUnit = a match {
     case PowerUnits.mechanical => PowerUnitObjects.`horsepower(mechanical)`
     case PowerUnits.metric => PowerUnitObjects.`horsepower(metric)`
     case PowerUnits.electrical => PowerUnitObjects.`horsepower(electrical)`
     case PowerUnits.boiler => PowerUnitObjects.`horsepower(boiler)`
   }
+  /** horsepower */
   def HP: PowerUnit = PowerUnitObjects.horsepower
+  /**   horsepower(mechanical)<br/>  horsepower(metric)<br/>  horsepower(electrical)<br/>  horsepower(boiler) */
   def HP(a: horsepowerAttribute): PowerUnit = hp(a)
-
+  /** horsepower(mechanical) */
   def `hp(mechanical)`: PowerUnit = PowerUnitObjects.`horsepower(mechanical)`
+  /** horsepower(mechanical) */
   def `HP(mechanical)`: PowerUnit = PowerUnitObjects.`horsepower(mechanical)`
+  /** horsepower(metric) */
   def `hp(metric)`: PowerUnit = PowerUnitObjects.`horsepower(metric)`
+  /** horsepower(metric) */
   def PS: PowerUnit = PowerUnitObjects.`horsepower(metric)`
+  /** horsepower(electrical) */
   def `hp(electrical)`: PowerUnit = PowerUnitObjects.`horsepower(electrical)`
+  /** horsepower(electrical) */
   def `HP(electrical)`: PowerUnit = PowerUnitObjects.`horsepower(electrical)`
+  /** horsepower(boiler) */
   def `hp(boiler)`: PowerUnit = PowerUnitObjects.`horsepower(boiler)`
+  /** horsepower(boiler) */
   def `HP(boiler)`: PowerUnit = PowerUnitObjects.`horsepower(boiler)`
+  /** lusec */
   def lusec: PowerUnit = PowerUnitObjects.lusec
+  /** poncelet */
   def p: PowerUnit = PowerUnitObjects.poncelet
+  /** square foot equivalent direct radiation */
   def sq_ft_EDR: PowerUnit = PowerUnitObjects.square_foot_equivalent_direct_radiation
 }

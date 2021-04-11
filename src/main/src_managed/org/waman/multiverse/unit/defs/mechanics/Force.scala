@@ -122,65 +122,126 @@ object ForceUnitObjects{
 
 object ForceUnits{
 
+  /** newton */
   def N: ForceUnit = ForceUnitObjects.newton
+  /** yoctonewton */
   def yN: ForceUnit = ForceUnitObjects.yoctonewton
+  /** zeptonewton */
   def zN: ForceUnit = ForceUnitObjects.zeptonewton
+  /** attonewton */
   def aN: ForceUnit = ForceUnitObjects.attonewton
+  /** femtonewton */
   def fN: ForceUnit = ForceUnitObjects.femtonewton
+  /** piconewton */
   def pN: ForceUnit = ForceUnitObjects.piconewton
+  /** nanonewton */
   def nN: ForceUnit = ForceUnitObjects.nanonewton
+  /** micronewton */
   def μN: ForceUnit = ForceUnitObjects.micronewton
+  /** micronewton */
   def mcN: ForceUnit = ForceUnitObjects.micronewton
+  /** millinewton */
   def mN: ForceUnit = ForceUnitObjects.millinewton
+  /** centinewton */
   def cN: ForceUnit = ForceUnitObjects.centinewton
+  /** decinewton */
   def dN: ForceUnit = ForceUnitObjects.decinewton
+  /** decanewton */
   def daN: ForceUnit = ForceUnitObjects.decanewton
+  /** hectonewton */
   def hN: ForceUnit = ForceUnitObjects.hectonewton
+  /** kilonewton */
   def kN: ForceUnit = ForceUnitObjects.kilonewton
+  /** kilonewton */
   def KN: ForceUnit = ForceUnitObjects.kilonewton
+  /** meganewton */
   def MN: ForceUnit = ForceUnitObjects.meganewton
+  /** giganewton */
   def GN: ForceUnit = ForceUnitObjects.giganewton
+  /** teranewton */
   def TN: ForceUnit = ForceUnitObjects.teranewton
+  /** petanewton */
   def PN: ForceUnit = ForceUnitObjects.petanewton
+  /** exanewton */
   def EN: ForceUnit = ForceUnitObjects.exanewton
+  /** zettanewton */
   def ZN: ForceUnit = ForceUnitObjects.zettanewton
+  /** yottanewton */
   def YN: ForceUnit = ForceUnitObjects.yottanewton
+  /** dyne */
   def dyn: ForceUnit = ForceUnitObjects.dyne
+  /** yoctodyne */
   def ydyn: ForceUnit = ForceUnitObjects.yoctodyne
+  /** zeptodyne */
   def zdyn: ForceUnit = ForceUnitObjects.zeptodyne
+  /** attodyne */
   def adyn: ForceUnit = ForceUnitObjects.attodyne
+  /** femtodyne */
   def fdyn: ForceUnit = ForceUnitObjects.femtodyne
+  /** picodyne */
   def pdyn: ForceUnit = ForceUnitObjects.picodyne
+  /** nanodyne */
   def ndyn: ForceUnit = ForceUnitObjects.nanodyne
+  /** microdyne */
   def μdyn: ForceUnit = ForceUnitObjects.microdyne
+  /** microdyne */
   def mcdyn: ForceUnit = ForceUnitObjects.microdyne
+  /** millidyne */
   def mdyn: ForceUnit = ForceUnitObjects.millidyne
+  /** centidyne */
   def cdyn: ForceUnit = ForceUnitObjects.centidyne
+  /** decidyne */
   def ddyn: ForceUnit = ForceUnitObjects.decidyne
+  /** decadyne */
   def dadyn: ForceUnit = ForceUnitObjects.decadyne
+  /** hectodyne */
   def hdyn: ForceUnit = ForceUnitObjects.hectodyne
+  /** kilodyne */
   def kdyn: ForceUnit = ForceUnitObjects.kilodyne
+  /** kilodyne */
   def Kdyn: ForceUnit = ForceUnitObjects.kilodyne
+  /** megadyne */
   def Mdyn: ForceUnit = ForceUnitObjects.megadyne
+  /** gigadyne */
   def Gdyn: ForceUnit = ForceUnitObjects.gigadyne
+  /** teradyne */
   def Tdyn: ForceUnit = ForceUnitObjects.teradyne
+  /** petadyne */
   def Pdyn: ForceUnit = ForceUnitObjects.petadyne
+  /** exadyne */
   def Edyn: ForceUnit = ForceUnitObjects.exadyne
+  /** zettadyne */
   def Zdyn: ForceUnit = ForceUnitObjects.zettadyne
+  /** yottadyne */
   def Ydyn: ForceUnit = ForceUnitObjects.yottadyne
+  /** kilogram force */
   def kgf: ForceUnit = ForceUnitObjects.kilogram_force
+  /** kilogram force */
   def kp: ForceUnit = ForceUnitObjects.kilogram_force
+  /** kilogram force */
   def Gf: ForceUnit = ForceUnitObjects.kilogram_force
+  /** milligrave force */
   def mGf: ForceUnit = ForceUnitObjects.milligrave_force
+  /** milligrave force */
   def gf: ForceUnit = ForceUnitObjects.milligrave_force
+  /** atomic unit of force */
   def atomic_unit_of_force: ForceUnit = ForceUnitObjects.atomic_unit_of_force
+  /** ounce force */
   def ozf: ForceUnit = ForceUnitObjects.ounce_force
+  /** pound force */
   def lbf: ForceUnit = ForceUnitObjects.pound_force
+  /** poundal */
   def pdl: ForceUnit = ForceUnitObjects.poundal
+  /** kip force */
   def kipf: ForceUnit = ForceUnitObjects.kip_force
+  /** kip force */
   def klbf: ForceUnit = ForceUnitObjects.kip_force
+  /** short ton force */
   def sh_tnf: ForceUnit = ForceUnitObjects.short_ton_force
+  /** long ton force */
   def tnf: ForceUnit = ForceUnitObjects.long_ton_force
+  /** long ton force */
   def long_tnf: ForceUnit = ForceUnitObjects.long_ton_force
+  /** sthene */
   def sn: ForceUnit = ForceUnitObjects.sthene
 }

@@ -95,50 +95,96 @@ object EquivalentDoseUnitObjects{
 
 object EquivalentDoseUnits{
 
+  /** sievert */
   def Sv: EquivalentDoseUnit = EquivalentDoseUnitObjects.sievert
+  /** yoctosievert */
   def ySv: EquivalentDoseUnit = EquivalentDoseUnitObjects.yoctosievert
+  /** zeptosievert */
   def zSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.zeptosievert
+  /** attosievert */
   def aSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.attosievert
+  /** femtosievert */
   def fSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.femtosievert
+  /** picosievert */
   def pSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.picosievert
+  /** nanosievert */
   def nSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.nanosievert
+  /** microsievert */
   def μSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.microsievert
+  /** microsievert */
   def mcSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.microsievert
+  /** millisievert */
   def mSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.millisievert
+  /** centisievert */
   def cSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.centisievert
+  /** decisievert */
   def dSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.decisievert
+  /** decasievert */
   def daSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.decasievert
+  /** hectosievert */
   def hSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.hectosievert
+  /** kilosievert */
   def kSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.kilosievert
+  /** kilosievert */
   def KSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.kilosievert
+  /** megasievert */
   def MSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.megasievert
+  /** gigasievert */
   def GSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.gigasievert
+  /** terasievert */
   def TSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.terasievert
+  /** petasievert */
   def PSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.petasievert
+  /** exasievert */
   def ESv: EquivalentDoseUnit = EquivalentDoseUnitObjects.exasievert
+  /** zettasievert */
   def ZSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.zettasievert
+  /** yottasievert */
   def YSv: EquivalentDoseUnit = EquivalentDoseUnitObjects.yottasievert
+  /** roentgen equivalent man */
   def rem: EquivalentDoseUnit = EquivalentDoseUnitObjects.roentgen_equivalent_man
+  /** yoctoroentgen equivalent man */
   def yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yoctoroentgen_equivalent_man
+  /** zeptoroentgen equivalent man */
   def zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zeptoroentgen_equivalent_man
+  /** attoroentgen equivalent man */
   def arem: EquivalentDoseUnit = EquivalentDoseUnitObjects.attoroentgen_equivalent_man
+  /** femtoroentgen equivalent man */
   def frem: EquivalentDoseUnit = EquivalentDoseUnitObjects.femtoroentgen_equivalent_man
+  /** picoroentgen equivalent man */
   def prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.picoroentgen_equivalent_man
+  /** nanoroentgen equivalent man */
   def nrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.nanoroentgen_equivalent_man
+  /** microroentgen equivalent man */
   def μrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.microroentgen_equivalent_man
+  /** microroentgen equivalent man */
   def mcrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.microroentgen_equivalent_man
+  /** milliroentgen equivalent man */
   def mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.milliroentgen_equivalent_man
+  /** centiroentgen equivalent man */
   def crem: EquivalentDoseUnit = EquivalentDoseUnitObjects.centiroentgen_equivalent_man
+  /** deciroentgen equivalent man */
   def drem: EquivalentDoseUnit = EquivalentDoseUnitObjects.deciroentgen_equivalent_man
+  /** decaroentgen equivalent man */
   def darem: EquivalentDoseUnit = EquivalentDoseUnitObjects.decaroentgen_equivalent_man
+  /** hectoroentgen equivalent man */
   def hrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.hectoroentgen_equivalent_man
+  /** kiloroentgen equivalent man */
   def krem: EquivalentDoseUnit = EquivalentDoseUnitObjects.kiloroentgen_equivalent_man
+  /** kiloroentgen equivalent man */
   def Krem: EquivalentDoseUnit = EquivalentDoseUnitObjects.kiloroentgen_equivalent_man
+  /** megaroentgen equivalent man */
   def Mrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.megaroentgen_equivalent_man
+  /** gigaroentgen equivalent man */
   def Grem: EquivalentDoseUnit = EquivalentDoseUnitObjects.gigaroentgen_equivalent_man
+  /** teraroentgen equivalent man */
   def Trem: EquivalentDoseUnit = EquivalentDoseUnitObjects.teraroentgen_equivalent_man
+  /** petaroentgen equivalent man */
   def Prem: EquivalentDoseUnit = EquivalentDoseUnitObjects.petaroentgen_equivalent_man
+  /** exaroentgen equivalent man */
   def Erem: EquivalentDoseUnit = EquivalentDoseUnitObjects.exaroentgen_equivalent_man
+  /** zettaroentgen equivalent man */
   def Zrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.zettaroentgen_equivalent_man
+  /** yottaroentgen equivalent man */
   def Yrem: EquivalentDoseUnit = EquivalentDoseUnitObjects.yottaroentgen_equivalent_man
 }

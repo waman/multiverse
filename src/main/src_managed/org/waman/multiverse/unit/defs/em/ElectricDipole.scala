@@ -51,6 +51,8 @@ object ElectricDipoleUnitObjects{
 
 object ElectricDipoleUnits{
 
+  /** debye */
   def D: ElectricDipoleUnit = ElectricDipoleUnitObjects.debye
+  /** atomic unit of electric dipole moment */
   def ea0: ElectricDipoleUnit = ElectricDipoleUnitObjects.atomic_unit_of_electric_dipole_moment
 }

@@ -91,74 +91,144 @@ object MagneticFluxDensityUnitObjects{
 
 object MagneticFluxDensityUnits{
 
+  /** tesla */
   def T: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.tesla
+  /** yoctotesla */
   def yT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.yoctotesla
+  /** zeptotesla */
   def zT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.zeptotesla
+  /** attotesla */
   def aT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.attotesla
+  /** femtotesla */
   def fT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.femtotesla
+  /** picotesla */
   def pT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.picotesla
+  /** nanotesla */
   def nT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.nanotesla
+  /** microtesla */
   def μT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.microtesla
+  /** microtesla */
   def mcT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.microtesla
+  /** millitesla */
   def mT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.millitesla
+  /** centitesla */
   def cT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.centitesla
+  /** decitesla */
   def dT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.decitesla
+  /** decatesla */
   def daT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.decatesla
+  /** hectotesla */
   def hT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.hectotesla
+  /** kilotesla */
   def kT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.kilotesla
+  /** kilotesla */
   def KT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.kilotesla
+  /** megatesla */
   def MT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.megatesla
+  /** gigatesla */
   def GT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.gigatesla
+  /** teratesla */
   def TT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.teratesla
+  /** petatesla */
   def PT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.petatesla
+  /** exatesla */
   def ET: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.exatesla
+  /** zettatesla */
   def ZT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.zettatesla
+  /** yottatesla */
   def YT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.yottatesla
+  /** gauss */
   def G: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.gauss
+  /** gauss */
   def Gs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.gauss
+  /** yoctogauss */
   def yG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.yoctogauss
+  /** yoctogauss */
   def yGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.yoctogauss
+  /** zeptogauss */
   def zG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.zeptogauss
+  /** zeptogauss */
   def zGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.zeptogauss
+  /** attogauss */
   def aG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.attogauss
+  /** attogauss */
   def aGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.attogauss
+  /** femtogauss */
   def fG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.femtogauss
+  /** femtogauss */
   def fGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.femtogauss
+  /** picogauss */
   def pG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.picogauss
+  /** picogauss */
   def pGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.picogauss
+  /** nanogauss */
   def nG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.nanogauss
+  /** nanogauss */
   def nGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.nanogauss
+  /** microgauss */
   def μG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.microgauss
+  /** microgauss */
   def mcG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.microgauss
+  /** microgauss */
   def μGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.microgauss
+  /** microgauss */
   def mcGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.microgauss
+  /** milligauss */
   def mG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.milligauss
+  /** milligauss */
   def mGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.milligauss
+  /** centigauss */
   def cG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.centigauss
+  /** centigauss */
   def cGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.centigauss
+  /** decigauss */
   def dG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.decigauss
+  /** decigauss */
   def dGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.decigauss
+  /** decagauss */
   def daG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.decagauss
+  /** decagauss */
   def daGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.decagauss
+  /** hectogauss */
   def hG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.hectogauss
+  /** hectogauss */
   def hGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.hectogauss
+  /** kilogauss */
   def kG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.kilogauss
+  /** kilogauss */
   def KG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.kilogauss
+  /** kilogauss */
   def kGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.kilogauss
+  /** kilogauss */
   def KGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.kilogauss
+  /** megagauss */
   def MG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.megagauss
+  /** megagauss */
   def MGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.megagauss
+  /** gigagauss */
   def GG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.gigagauss
+  /** gigagauss */
   def GGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.gigagauss
+  /** teragauss */
   def TG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.teragauss
+  /** teragauss */
   def TGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.teragauss
+  /** petagauss */
   def PG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.petagauss
+  /** petagauss */
   def PGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.petagauss
+  /** exagauss */
   def EG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.exagauss
+  /** exagauss */
   def EGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.exagauss
+  /** zettagauss */
   def ZG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.zettagauss
+  /** zettagauss */
   def ZGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.zettagauss
+  /** yottagauss */
   def YG: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.yottagauss
+  /** yottagauss */
   def YGs: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.yottagauss
+  /** stattesla */
   def statT: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.stattesla
 }

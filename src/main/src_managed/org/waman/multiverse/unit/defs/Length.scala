@@ -146,116 +146,202 @@ object LengthUnitObjects{
 
 object LengthUnits{
 
+  /** metre */
   def m: LengthUnit = LengthUnitObjects.metre
+  /** yoctometre */
   def ym: LengthUnit = LengthUnitObjects.yoctometre
+  /** zeptometre */
   def zm: LengthUnit = LengthUnitObjects.zeptometre
+  /** attometre */
   def am: LengthUnit = LengthUnitObjects.attometre
+  /** femtometre */
   def fm: LengthUnit = LengthUnitObjects.femtometre
+  /** picometre */
   def pm: LengthUnit = LengthUnitObjects.picometre
+  /** nanometre */
   def nm: LengthUnit = LengthUnitObjects.nanometre
+  /** micrometre */
   def μm: LengthUnit = LengthUnitObjects.micrometre
+  /** micrometre */
   def mcm: LengthUnit = LengthUnitObjects.micrometre
+  /** millimetre */
   def mm: LengthUnit = LengthUnitObjects.millimetre
+  /** centimetre */
   def cm: LengthUnit = LengthUnitObjects.centimetre
+  /** decimetre */
   def dm: LengthUnit = LengthUnitObjects.decimetre
+  /** decametre */
   def dam: LengthUnit = LengthUnitObjects.decametre
+  /** hectometre */
   def hm: LengthUnit = LengthUnitObjects.hectometre
+  /** kilometre */
   def km: LengthUnit = LengthUnitObjects.kilometre
+  /** kilometre */
   def Km: LengthUnit = LengthUnitObjects.kilometre
+  /** megametre */
   def Mm: LengthUnit = LengthUnitObjects.megametre
+  /** gigametre */
   def Gm: LengthUnit = LengthUnitObjects.gigametre
+  /** terametre */
   def Tm: LengthUnit = LengthUnitObjects.terametre
+  /** petametre */
   def Pm: LengthUnit = LengthUnitObjects.petametre
+  /** exametre */
   def Em: LengthUnit = LengthUnitObjects.exametre
+  /** zettametre */
   def Zm: LengthUnit = LengthUnitObjects.zettametre
+  /** yottametre */
   def Ym: LengthUnit = LengthUnitObjects.yottametre
+  /** micron */
   def µ: LengthUnit = LengthUnitObjects.micron
+  /** angstrom */
   def Å: LengthUnit = LengthUnitObjects.angstrom
+  /** atomic unit of length */
   def a0: LengthUnit = LengthUnitObjects.atomic_unit_of_length
+  /** xunit */
   def xu: LengthUnit = LengthUnitObjects.xunit
-  def xu(a: xunitAttribute): LengthUnit = a match { 
+  /** xunit(CuKα1)<br/>xunit(MoKα1) */
+  def xu(a: xunitAttribute): LengthUnit = a match {
     case MetricAttributes.CuKα1 => LengthUnitObjects.`xunit(CuKα1)`
     case MetricAttributes.MoKα1 => LengthUnitObjects.`xunit(MoKα1)`
   }
+  /** xunit(CuKα1) */
   def `xu(CuKα1)`: LengthUnit = LengthUnitObjects.`xunit(CuKα1)`
+  /** xunit(MoKα1) */
   def `xu(MoKα1)`: LengthUnit = LengthUnitObjects.`xunit(MoKα1)`
+  /** planck length */
   def l_p: LengthUnit = LengthUnitObjects.planck_length
+  /** astronomical unit */
   def AU: LengthUnit = LengthUnitObjects.astronomical_unit
+  /** astronomical unit */
   def ua: LengthUnit = LengthUnitObjects.astronomical_unit
+  /** light year */
   def ly: LengthUnit = LengthUnitObjects.light_year
+  /** parsec */
   def pc: LengthUnit = LengthUnitObjects.parsec
+  /** mil */
   def mil: LengthUnit = LengthUnitObjects.mil
+  /** mil */
   def thou: LengthUnit = LengthUnitObjects.mil
+  /** twip */
   def twp: LengthUnit = LengthUnitObjects.twip
+  /** point */
   def pt: LengthUnit = LengthUnitObjects.point
+  /** point */
   def p: LengthUnit = LengthUnitObjects.point
+  /** pica */
   def pica: LengthUnit = LengthUnitObjects.pica
+  /** pica */
   def P: LengthUnit = LengthUnitObjects.pica
+  /** line */
   def ln: LengthUnit = LengthUnitObjects.line
+  /** inch */
   def in: LengthUnit = LengthUnitObjects.inch
+  /** link */
   def li: LengthUnit = LengthUnitObjects.link
-  def li(a: linkAttribute): LengthUnit = a match { 
+  /** link(US) */
+  def li(a: linkAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`link(US)`
   }
+  /** link */
   def lnk: LengthUnit = LengthUnitObjects.link
+  /**   link(US) */
   def lnk(a: linkAttribute): LengthUnit = li(a)
-
+  /** link(US) */
   def `li(US)`: LengthUnit = LengthUnitObjects.`link(US)`
+  /** link(US) */
   def `lnk(US)`: LengthUnit = LengthUnitObjects.`link(US)`
+  /** foot */
   def ft: LengthUnit = LengthUnitObjects.foot
-  def ft(a: footAttribute): LengthUnit = a match { 
+  /** foot(US) */
+  def ft(a: footAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`foot(US)`
   }
+  /** foot(US) */
   def `ft(US)`: LengthUnit = LengthUnitObjects.`foot(US)`
+  /** yard */
   def yd: LengthUnit = LengthUnitObjects.yard
+  /** ell */
   def ell: LengthUnit = LengthUnitObjects.ell
+  /** fathom */
   def ftm: LengthUnit = LengthUnitObjects.fathom
+  /** rod */
   def rd: LengthUnit = LengthUnitObjects.rod
-  def rd(a: rodAttribute): LengthUnit = a match { 
+  /** rod(US) */
+  def rd(a: rodAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`rod(US)`
   }
+  /** rod(US) */
   def `rd(US)`: LengthUnit = LengthUnitObjects.`rod(US)`
+  /** rope */
   def rope: LengthUnit = LengthUnitObjects.rope
+  /** chain */
   def ch: LengthUnit = LengthUnitObjects.chain
-  def ch(a: chainAttribute): LengthUnit = a match { 
+  /** chain(US) */
+  def ch(a: chainAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`chain(US)`
   }
+  /** chain(US) */
   def `ch(US)`: LengthUnit = LengthUnitObjects.`chain(US)`
+  /** mile */
   def mi: LengthUnit = LengthUnitObjects.mile
-  def mi(a: mileAttribute): LengthUnit = a match { 
+  /** mile(US) */
+  def mi(a: mileAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`mile(US)`
   }
+  /** mile(US) */
   def `mi(US)`: LengthUnit = LengthUnitObjects.`mile(US)`
+  /** cable */
   def cb: LengthUnit = LengthUnitObjects.cable
-  def cb(a: cableAttribute): LengthUnit = a match { 
+  /** cable(US)<br/>cable(imp) */
+  def cb(a: cableAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`cable(US)`
     case MetricAttributes.imp => LengthUnitObjects.`cable(imp)`
   }
+  /** cable(US) */
   def `cb(US)`: LengthUnit = LengthUnitObjects.`cable(US)`
+  /** cable(imp) */
   def `cb(imp)`: LengthUnit = LengthUnitObjects.`cable(imp)`
+  /** league */
   def lea: LengthUnit = LengthUnitObjects.league
-  def lea(a: leagueAttribute): LengthUnit = a match { 
+  /** league(US) */
+  def lea(a: leagueAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`league(US)`
   }
+  /** league(US) */
   def `lea(US)`: LengthUnit = LengthUnitObjects.`league(US)`
+  /** nautical mile */
   def NM: LengthUnit = LengthUnitObjects.nautical_mile
-  def NM(a: nautical_mileAttribute): LengthUnit = a match { 
+  /** nautical_mile(Adm) */
+  def NM(a: nautical_mileAttribute): LengthUnit = a match {
     case MetricAttributes.Adm => LengthUnitObjects.`nautical_mile(Adm)`
   }
+  /** nautical mile */
   def nmi: LengthUnit = LengthUnitObjects.nautical_mile
+  /**   nautical_mile(Adm) */
   def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
-
+  /** nautical mile(Adm) */
   def `NM(Adm)`: LengthUnit = LengthUnitObjects.`nautical_mile(Adm)`
+  /** nautical mile(Adm) */
   def `nmi(Adm)`: LengthUnit = LengthUnitObjects.`nautical_mile(Adm)`
+  /** nautical league */
   def NL: LengthUnit = LengthUnitObjects.nautical_league
+  /** nautical league */
   def nl: LengthUnit = LengthUnitObjects.nautical_league
+  /** metric foot */
   def mf: LengthUnit = LengthUnitObjects.metric_foot
+  /** short metric foot */
   def smf: LengthUnit = LengthUnitObjects.short_metric_foot
+  /** long metric foot */
   def lmf: LengthUnit = LengthUnitObjects.long_metric_foot
+  /** french */
   def Fr: LengthUnit = LengthUnitObjects.french
+  /** furlong */
   def fur: LengthUnit = LengthUnitObjects.furlong
-  def fur(a: furlongAttribute): LengthUnit = a match { 
+  /** furlong(US) */
+  def fur(a: furlongAttribute): LengthUnit = a match {
     case MetricAttributes.US => LengthUnitObjects.`furlong(US)`
   }
+  /** furlong(US) */
   def `fur(US)`: LengthUnit = LengthUnitObjects.`furlong(US)`
 }

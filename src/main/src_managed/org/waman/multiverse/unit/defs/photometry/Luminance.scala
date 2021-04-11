@@ -55,10 +55,16 @@ object LuminanceUnitObjects{
 
 object LuminanceUnits{
 
+  /** stilb */
   def sb: LuminanceUnit = LuminanceUnitObjects.stilb
+  /** lambert */
   def Lb: LuminanceUnit = LuminanceUnitObjects.lambert
+  /** apo stilb */
   def asb: LuminanceUnit = LuminanceUnitObjects.apo_stilb
+  /** skot */
   def sk: LuminanceUnit = LuminanceUnitObjects.skot
+  /** bril */
   def bril: LuminanceUnit = LuminanceUnitObjects.bril
+  /** foot lambert */
   def fLb: LuminanceUnit = LuminanceUnitObjects.foot_lambert
 }

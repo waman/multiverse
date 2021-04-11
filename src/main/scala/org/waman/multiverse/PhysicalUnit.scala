@@ -12,6 +12,7 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   final def symbols: Seq[String] = symbol +: aliases
 
   def getSIUnit: U
+  def isSIUnit: Boolean = getSIUnit == this
 
   /** Returen the unit dimension in SI unit */
   def dimension: Map[DimensionSymbol, Int]

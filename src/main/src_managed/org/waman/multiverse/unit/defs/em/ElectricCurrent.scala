@@ -87,31 +87,58 @@ object ElectricCurrentUnitObjects{
 
 object ElectricCurrentUnits{
 
+  /** ampere */
   def A: ElectricCurrentUnit = ElectricCurrentUnitObjects.ampere
+  /** yoctoampere */
   def yA: ElectricCurrentUnit = ElectricCurrentUnitObjects.yoctoampere
+  /** zeptoampere */
   def zA: ElectricCurrentUnit = ElectricCurrentUnitObjects.zeptoampere
+  /** attoampere */
   def aA: ElectricCurrentUnit = ElectricCurrentUnitObjects.attoampere
+  /** femtoampere */
   def fA: ElectricCurrentUnit = ElectricCurrentUnitObjects.femtoampere
+  /** picoampere */
   def pA: ElectricCurrentUnit = ElectricCurrentUnitObjects.picoampere
+  /** nanoampere */
   def nA: ElectricCurrentUnit = ElectricCurrentUnitObjects.nanoampere
+  /** microampere */
   def μA: ElectricCurrentUnit = ElectricCurrentUnitObjects.microampere
+  /** microampere */
   def mcA: ElectricCurrentUnit = ElectricCurrentUnitObjects.microampere
+  /** milliampere */
   def mA: ElectricCurrentUnit = ElectricCurrentUnitObjects.milliampere
+  /** centiampere */
   def cA: ElectricCurrentUnit = ElectricCurrentUnitObjects.centiampere
+  /** deciampere */
   def dA: ElectricCurrentUnit = ElectricCurrentUnitObjects.deciampere
+  /** decaampere */
   def daA: ElectricCurrentUnit = ElectricCurrentUnitObjects.decaampere
+  /** hectoampere */
   def hA: ElectricCurrentUnit = ElectricCurrentUnitObjects.hectoampere
+  /** kiloampere */
   def kA: ElectricCurrentUnit = ElectricCurrentUnitObjects.kiloampere
+  /** kiloampere */
   def KA: ElectricCurrentUnit = ElectricCurrentUnitObjects.kiloampere
+  /** megaampere */
   def MA: ElectricCurrentUnit = ElectricCurrentUnitObjects.megaampere
+  /** gigaampere */
   def GA: ElectricCurrentUnit = ElectricCurrentUnitObjects.gigaampere
+  /** teraampere */
   def TA: ElectricCurrentUnit = ElectricCurrentUnitObjects.teraampere
+  /** petaampere */
   def PA: ElectricCurrentUnit = ElectricCurrentUnitObjects.petaampere
+  /** exaampere */
   def EA: ElectricCurrentUnit = ElectricCurrentUnitObjects.exaampere
+  /** zettaampere */
   def ZA: ElectricCurrentUnit = ElectricCurrentUnitObjects.zettaampere
+  /** yottaampere */
   def YA: ElectricCurrentUnit = ElectricCurrentUnitObjects.yottaampere
+  /** abampere */
   def abA: ElectricCurrentUnit = ElectricCurrentUnitObjects.abampere
+  /** abampere */
   def abamp: ElectricCurrentUnit = ElectricCurrentUnitObjects.abampere
+  /** abampere */
   def Bi: ElectricCurrentUnit = ElectricCurrentUnitObjects.abampere
+  /** statampere */
   def statA: ElectricCurrentUnit = ElectricCurrentUnitObjects.statampere
 }

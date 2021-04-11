@@ -74,27 +74,50 @@ object LuminousIntensityUnitObjects{
 
 object LuminousIntensityUnits{
 
+  /** candela */
   def cd: LuminousIntensityUnit = LuminousIntensityUnitObjects.candela
+  /** yoctocandela */
   def ycd: LuminousIntensityUnit = LuminousIntensityUnitObjects.yoctocandela
+  /** zeptocandela */
   def zcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.zeptocandela
+  /** attocandela */
   def acd: LuminousIntensityUnit = LuminousIntensityUnitObjects.attocandela
+  /** femtocandela */
   def fcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.femtocandela
+  /** picocandela */
   def pcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.picocandela
+  /** nanocandela */
   def ncd: LuminousIntensityUnit = LuminousIntensityUnitObjects.nanocandela
+  /** microcandela */
   def μcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.microcandela
+  /** microcandela */
   def mccd: LuminousIntensityUnit = LuminousIntensityUnitObjects.microcandela
+  /** millicandela */
   def mcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.millicandela
+  /** centicandela */
   def ccd: LuminousIntensityUnit = LuminousIntensityUnitObjects.centicandela
+  /** decicandela */
   def dcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.decicandela
+  /** decacandela */
   def dacd: LuminousIntensityUnit = LuminousIntensityUnitObjects.decacandela
+  /** hectocandela */
   def hcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.hectocandela
+  /** kilocandela */
   def kcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.kilocandela
+  /** kilocandela */
   def Kcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.kilocandela
+  /** megacandela */
   def Mcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.megacandela
+  /** gigacandela */
   def Gcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.gigacandela
+  /** teracandela */
   def Tcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.teracandela
+  /** petacandela */
   def Pcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.petacandela
+  /** exacandela */
   def Ecd: LuminousIntensityUnit = LuminousIntensityUnitObjects.exacandela
+  /** zettacandela */
   def Zcd: LuminousIntensityUnit = LuminousIntensityUnitObjects.zettacandela
+  /** yottacandela */
   def Ycd: LuminousIntensityUnit = LuminousIntensityUnitObjects.yottacandela
 }

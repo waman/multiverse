@@ -82,29 +82,54 @@ object VoltageUnitObjects{
 
 object VoltageUnits{
 
+  /** volt */
   def V: VoltageUnit = VoltageUnitObjects.volt
+  /** yoctovolt */
   def yV: VoltageUnit = VoltageUnitObjects.yoctovolt
+  /** zeptovolt */
   def zV: VoltageUnit = VoltageUnitObjects.zeptovolt
+  /** attovolt */
   def aV: VoltageUnit = VoltageUnitObjects.attovolt
+  /** femtovolt */
   def fV: VoltageUnit = VoltageUnitObjects.femtovolt
+  /** picovolt */
   def pV: VoltageUnit = VoltageUnitObjects.picovolt
+  /** nanovolt */
   def nV: VoltageUnit = VoltageUnitObjects.nanovolt
+  /** microvolt */
   def μV: VoltageUnit = VoltageUnitObjects.microvolt
+  /** microvolt */
   def mcV: VoltageUnit = VoltageUnitObjects.microvolt
+  /** millivolt */
   def mV: VoltageUnit = VoltageUnitObjects.millivolt
+  /** centivolt */
   def cV: VoltageUnit = VoltageUnitObjects.centivolt
+  /** decivolt */
   def dV: VoltageUnit = VoltageUnitObjects.decivolt
+  /** decavolt */
   def daV: VoltageUnit = VoltageUnitObjects.decavolt
+  /** hectovolt */
   def hV: VoltageUnit = VoltageUnitObjects.hectovolt
+  /** kilovolt */
   def kV: VoltageUnit = VoltageUnitObjects.kilovolt
+  /** kilovolt */
   def KV: VoltageUnit = VoltageUnitObjects.kilovolt
+  /** megavolt */
   def MV: VoltageUnit = VoltageUnitObjects.megavolt
+  /** gigavolt */
   def GV: VoltageUnit = VoltageUnitObjects.gigavolt
+  /** teravolt */
   def TV: VoltageUnit = VoltageUnitObjects.teravolt
+  /** petavolt */
   def PV: VoltageUnit = VoltageUnitObjects.petavolt
+  /** exavolt */
   def EV: VoltageUnit = VoltageUnitObjects.exavolt
+  /** zettavolt */
   def ZV: VoltageUnit = VoltageUnitObjects.zettavolt
+  /** yottavolt */
   def YV: VoltageUnit = VoltageUnitObjects.yottavolt
+  /** abvolt */
   def abV: VoltageUnit = VoltageUnitObjects.abvolt
+  /** statvolt */
   def statV: VoltageUnit = VoltageUnitObjects.statvolt
 }

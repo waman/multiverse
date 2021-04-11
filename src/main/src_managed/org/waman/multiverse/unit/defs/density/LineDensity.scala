@@ -50,6 +50,8 @@ object LineDensityUnitObjects{
 
 object LineDensityUnits{
 
+  /** denier */
   def D: LineDensityUnit = LineDensityUnitObjects.denier
+  /** tex */
   def tex: LineDensityUnit = LineDensityUnitObjects.tex
 }

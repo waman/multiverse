@@ -77,54 +77,104 @@ object ElectricalResistanceUnitObjects{
 
 object ElectricalResistanceUnits{
 
+  /** ohm */
   def Ω: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.ohm
+  /** ohm */
   def ohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.ohm
+  /** yoctoohm */
   def yΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.yoctoohm
+  /** yoctoohm */
   def yohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.yoctoohm
+  /** zeptoohm */
   def zΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.zeptoohm
+  /** zeptoohm */
   def zohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.zeptoohm
+  /** attoohm */
   def aΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.attoohm
+  /** attoohm */
   def aohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.attoohm
+  /** femtoohm */
   def fΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.femtoohm
+  /** femtoohm */
   def fohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.femtoohm
+  /** picoohm */
   def pΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.picoohm
+  /** picoohm */
   def pohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.picoohm
+  /** nanoohm */
   def nΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.nanoohm
+  /** nanoohm */
   def nohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.nanoohm
+  /** microohm */
   def μΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.microohm
+  /** microohm */
   def mcΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.microohm
+  /** microohm */
   def μohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.microohm
+  /** microohm */
   def mcohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.microohm
+  /** milliohm */
   def mΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.milliohm
+  /** milliohm */
   def mohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.milliohm
+  /** centiohm */
   def cΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.centiohm
+  /** centiohm */
   def cohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.centiohm
+  /** deciohm */
   def dΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.deciohm
+  /** deciohm */
   def dohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.deciohm
+  /** decaohm */
   def daΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.decaohm
+  /** decaohm */
   def daohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.decaohm
+  /** hectoohm */
   def hΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.hectoohm
+  /** hectoohm */
   def hohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.hectoohm
+  /** kiloohm */
   def kΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.kiloohm
+  /** kiloohm */
   def KΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.kiloohm
+  /** kiloohm */
   def kohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.kiloohm
+  /** kiloohm */
   def Kohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.kiloohm
+  /** megaohm */
   def MΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.megaohm
+  /** megaohm */
   def Mohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.megaohm
+  /** gigaohm */
   def GΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.gigaohm
+  /** gigaohm */
   def Gohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.gigaohm
+  /** teraohm */
   def TΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.teraohm
+  /** teraohm */
   def Tohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.teraohm
+  /** petaohm */
   def PΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.petaohm
+  /** petaohm */
   def Pohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.petaohm
+  /** exaohm */
   def EΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.exaohm
+  /** exaohm */
   def Eohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.exaohm
+  /** zettaohm */
   def ZΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.zettaohm
+  /** zettaohm */
   def Zohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.zettaohm
+  /** yottaohm */
   def YΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.yottaohm
+  /** yottaohm */
   def Yohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.yottaohm
+  /** abohm */
   def abΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.abohm
+  /** abohm */
   def abohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.abohm
+  /** statohm */
   def statΩ: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.statohm
+  /** statohm */
   def statohm: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.statohm
 }

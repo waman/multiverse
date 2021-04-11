@@ -128,172 +128,300 @@ object AreaUnitObjects{
 
 object AreaUnits{
 
+  /** square metre */
   def `m²`: LengthPoweredAreaUnit = AreaUnitObjects.square_metre
+  /** square metre */
   def m2: LengthPoweredAreaUnit = AreaUnitObjects.square_metre
+  /** square yoctometre */
   def `ym²`: LengthPoweredAreaUnit = AreaUnitObjects.square_yoctometre
+  /** square yoctometre */
   def ym2: LengthPoweredAreaUnit = AreaUnitObjects.square_yoctometre
+  /** square zeptometre */
   def `zm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_zeptometre
+  /** square zeptometre */
   def zm2: LengthPoweredAreaUnit = AreaUnitObjects.square_zeptometre
+  /** square attometre */
   def `am²`: LengthPoweredAreaUnit = AreaUnitObjects.square_attometre
+  /** square attometre */
   def am2: LengthPoweredAreaUnit = AreaUnitObjects.square_attometre
+  /** square femtometre */
   def `fm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_femtometre
+  /** square femtometre */
   def fm2: LengthPoweredAreaUnit = AreaUnitObjects.square_femtometre
+  /** square picometre */
   def `pm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_picometre
+  /** square picometre */
   def pm2: LengthPoweredAreaUnit = AreaUnitObjects.square_picometre
+  /** square nanometre */
   def `nm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_nanometre
+  /** square nanometre */
   def nm2: LengthPoweredAreaUnit = AreaUnitObjects.square_nanometre
+  /** square micrometre */
   def `μm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_micrometre
+  /** square micrometre */
   def `mcm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_micrometre
+  /** square micrometre */
   def μm2: LengthPoweredAreaUnit = AreaUnitObjects.square_micrometre
+  /** square micrometre */
   def mcm2: LengthPoweredAreaUnit = AreaUnitObjects.square_micrometre
+  /** square millimetre */
   def `mm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_millimetre
+  /** square millimetre */
   def mm2: LengthPoweredAreaUnit = AreaUnitObjects.square_millimetre
+  /** square centimetre */
   def `cm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_centimetre
+  /** square centimetre */
   def cm2: LengthPoweredAreaUnit = AreaUnitObjects.square_centimetre
+  /** square decimetre */
   def `dm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_decimetre
+  /** square decimetre */
   def dm2: LengthPoweredAreaUnit = AreaUnitObjects.square_decimetre
+  /** square decametre */
   def `dam²`: LengthPoweredAreaUnit = AreaUnitObjects.square_decametre
+  /** square decametre */
   def dam2: LengthPoweredAreaUnit = AreaUnitObjects.square_decametre
+  /** square hectometre */
   def `hm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_hectometre
+  /** square hectometre */
   def hm2: LengthPoweredAreaUnit = AreaUnitObjects.square_hectometre
+  /** square kilometre */
   def `km²`: LengthPoweredAreaUnit = AreaUnitObjects.square_kilometre
+  /** square kilometre */
   def `Km²`: LengthPoweredAreaUnit = AreaUnitObjects.square_kilometre
+  /** square kilometre */
   def km2: LengthPoweredAreaUnit = AreaUnitObjects.square_kilometre
+  /** square kilometre */
   def Km2: LengthPoweredAreaUnit = AreaUnitObjects.square_kilometre
+  /** square megametre */
   def `Mm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_megametre
+  /** square megametre */
   def Mm2: LengthPoweredAreaUnit = AreaUnitObjects.square_megametre
+  /** square gigametre */
   def `Gm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_gigametre
+  /** square gigametre */
   def Gm2: LengthPoweredAreaUnit = AreaUnitObjects.square_gigametre
+  /** square terametre */
   def `Tm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_terametre
+  /** square terametre */
   def Tm2: LengthPoweredAreaUnit = AreaUnitObjects.square_terametre
+  /** square petametre */
   def `Pm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_petametre
+  /** square petametre */
   def Pm2: LengthPoweredAreaUnit = AreaUnitObjects.square_petametre
+  /** square exametre */
   def `Em²`: LengthPoweredAreaUnit = AreaUnitObjects.square_exametre
+  /** square exametre */
   def Em2: LengthPoweredAreaUnit = AreaUnitObjects.square_exametre
+  /** square zettametre */
   def `Zm²`: LengthPoweredAreaUnit = AreaUnitObjects.square_zettametre
+  /** square zettametre */
   def Zm2: LengthPoweredAreaUnit = AreaUnitObjects.square_zettametre
+  /** square yottametre */
   def `Ym²`: LengthPoweredAreaUnit = AreaUnitObjects.square_yottametre
+  /** square yottametre */
   def Ym2: LengthPoweredAreaUnit = AreaUnitObjects.square_yottametre
+  /** are */
   def a: AreaUnit = AreaUnitObjects.are
+  /** hectare */
   def ha: AreaUnit = AreaUnitObjects.hectare
+  /** barn */
   def b: AreaUnit = AreaUnitObjects.barn
+  /** yoctobarn */
   def yb: AreaUnit = AreaUnitObjects.yoctobarn
+  /** zeptobarn */
   def zb: AreaUnit = AreaUnitObjects.zeptobarn
+  /** attobarn */
   def ab: AreaUnit = AreaUnitObjects.attobarn
+  /** femtobarn */
   def fb: AreaUnit = AreaUnitObjects.femtobarn
+  /** picobarn */
   def pb: AreaUnit = AreaUnitObjects.picobarn
+  /** nanobarn */
   def nb: AreaUnit = AreaUnitObjects.nanobarn
+  /** microbarn */
   def μb: AreaUnit = AreaUnitObjects.microbarn
+  /** microbarn */
   def mcb: AreaUnit = AreaUnitObjects.microbarn
+  /** millibarn */
   def mb: AreaUnit = AreaUnitObjects.millibarn
+  /** kilobarn */
   def kb: AreaUnit = AreaUnitObjects.kilobarn
+  /** kilobarn */
   def Kb: AreaUnit = AreaUnitObjects.kilobarn
+  /** megabarn */
   def Mb: AreaUnit = AreaUnitObjects.megabarn
+  /** gigabarn */
   def Gb: AreaUnit = AreaUnitObjects.gigabarn
+  /** terabarn */
   def Tb: AreaUnit = AreaUnitObjects.terabarn
+  /** petabarn */
   def Pb: AreaUnit = AreaUnitObjects.petabarn
+  /** exabarn */
   def Eb: AreaUnit = AreaUnitObjects.exabarn
+  /** zettabarn */
   def Zb: AreaUnit = AreaUnitObjects.zettabarn
+  /** yottabarn */
   def Yb: AreaUnit = AreaUnitObjects.yottabarn
+  /** square mil */
   def `mil²`: LengthPoweredAreaUnit = AreaUnitObjects.square_mil
+  /** square mil */
   def mil2: LengthPoweredAreaUnit = AreaUnitObjects.square_mil
+  /** square mil */
   def sq_mil: LengthPoweredAreaUnit = AreaUnitObjects.square_mil
+  /** square inch */
   def `in²`: LengthPoweredAreaUnit = AreaUnitObjects.square_inch
+  /** square inch */
   def in2: LengthPoweredAreaUnit = AreaUnitObjects.square_inch
+  /** square inch */
   def sq_in: LengthPoweredAreaUnit = AreaUnitObjects.square_inch
+  /** square link */
   def `li²`: LengthPoweredAreaUnit = AreaUnitObjects.square_link
-  def `li²`(a: square_linkAttribute): LengthPoweredAreaUnit = a match { 
+  /** square_link(US) */
+  def `li²`(a: square_linkAttribute): LengthPoweredAreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`square_link(US)`
   }
+  /** square link */
   def li2: LengthPoweredAreaUnit = AreaUnitObjects.square_link
+  /**   square_link(US) */
   def li2(a: square_linkAttribute): LengthPoweredAreaUnit = `li²`(a)
-
+  /** square link */
   def `lnk²`: LengthPoweredAreaUnit = AreaUnitObjects.square_link
+  /**   square_link(US) */
   def `lnk²`(a: square_linkAttribute): LengthPoweredAreaUnit = `li²`(a)
-
+  /** square link */
   def lnk2: LengthPoweredAreaUnit = AreaUnitObjects.square_link
+  /**   square_link(US) */
   def lnk2(a: square_linkAttribute): LengthPoweredAreaUnit = `li²`(a)
-
+  /** square link */
   def sq_li: LengthPoweredAreaUnit = AreaUnitObjects.square_link
+  /**   square_link(US) */
   def sq_li(a: square_linkAttribute): LengthPoweredAreaUnit = `li²`(a)
-
+  /** square link */
   def sq_lnk: LengthPoweredAreaUnit = AreaUnitObjects.square_link
+  /**   square_link(US) */
   def sq_lnk(a: square_linkAttribute): LengthPoweredAreaUnit = `li²`(a)
-
+  /** square link(US) */
   def `li²(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_link(US)`
+  /** square link(US) */
   def `li2(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_link(US)`
+  /** square link(US) */
   def `lnk²(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_link(US)`
+  /** square link(US) */
   def `lnk2(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_link(US)`
+  /** square link(US) */
   def `sq_li(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_link(US)`
+  /** square link(US) */
   def `sq_lnk(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_link(US)`
+  /** square foot */
   def `ft²`: LengthPoweredAreaUnit = AreaUnitObjects.square_foot
-  def `ft²`(a: square_footAttribute): LengthPoweredAreaUnit = a match { 
+  /** square_foot(US) */
+  def `ft²`(a: square_footAttribute): LengthPoweredAreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`square_foot(US)`
   }
+  /** square foot */
   def ft2: LengthPoweredAreaUnit = AreaUnitObjects.square_foot
+  /**   square_foot(US) */
   def ft2(a: square_footAttribute): LengthPoweredAreaUnit = `ft²`(a)
-
+  /** square foot */
   def sq_ft: LengthPoweredAreaUnit = AreaUnitObjects.square_foot
+  /**   square_foot(US) */
   def sq_ft(a: square_footAttribute): LengthPoweredAreaUnit = `ft²`(a)
-
+  /** square foot(US) */
   def `ft²(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_foot(US)`
+  /** square foot(US) */
   def `ft2(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_foot(US)`
+  /** square foot(US) */
   def `sq_ft(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_foot(US)`
+  /** square chain */
   def `ch²`: LengthPoweredAreaUnit = AreaUnitObjects.square_chain
-  def `ch²`(a: square_chainAttribute): LengthPoweredAreaUnit = a match { 
+  /** square_chain(US) */
+  def `ch²`(a: square_chainAttribute): LengthPoweredAreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`square_chain(US)`
   }
+  /** square chain */
   def ch2: LengthPoweredAreaUnit = AreaUnitObjects.square_chain
+  /**   square_chain(US) */
   def ch2(a: square_chainAttribute): LengthPoweredAreaUnit = `ch²`(a)
-
+  /** square chain */
   def sq_ch: LengthPoweredAreaUnit = AreaUnitObjects.square_chain
+  /**   square_chain(US) */
   def sq_ch(a: square_chainAttribute): LengthPoweredAreaUnit = `ch²`(a)
-
+  /** square chain(US) */
   def `ch²(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_chain(US)`
+  /** square chain(US) */
   def `ch2(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_chain(US)`
+  /** square chain(US) */
   def `sq_ch(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_chain(US)`
+  /** square yard */
   def `yd²`: LengthPoweredAreaUnit = AreaUnitObjects.square_yard
+  /** square yard */
   def yd2: LengthPoweredAreaUnit = AreaUnitObjects.square_yard
+  /** square yard */
   def sq_yd: LengthPoweredAreaUnit = AreaUnitObjects.square_yard
+  /** square rod */
   def `rd²`: LengthPoweredAreaUnit = AreaUnitObjects.square_rod
-  def `rd²`(a: square_rodAttribute): LengthPoweredAreaUnit = a match { 
+  /** square_rod(US) */
+  def `rd²`(a: square_rodAttribute): LengthPoweredAreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`square_rod(US)`
   }
+  /** square rod */
   def rd2: LengthPoweredAreaUnit = AreaUnitObjects.square_rod
+  /**   square_rod(US) */
   def rd2(a: square_rodAttribute): LengthPoweredAreaUnit = `rd²`(a)
-
+  /** square rod */
   def sq_rd: LengthPoweredAreaUnit = AreaUnitObjects.square_rod
+  /**   square_rod(US) */
   def sq_rd(a: square_rodAttribute): LengthPoweredAreaUnit = `rd²`(a)
-
+  /** square rod(US) */
   def `rd²(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_rod(US)`
+  /** square rod(US) */
   def `rd2(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_rod(US)`
+  /** square rod(US) */
   def `sq_rd(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_rod(US)`
+  /** square mile */
   def `mi²`: LengthPoweredAreaUnit = AreaUnitObjects.square_mile
-  def `mi²`(a: square_mileAttribute): LengthPoweredAreaUnit = a match { 
+  /** square_mile(US) */
+  def `mi²`(a: square_mileAttribute): LengthPoweredAreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`square_mile(US)`
   }
+  /** square mile */
   def mi2: LengthPoweredAreaUnit = AreaUnitObjects.square_mile
+  /**   square_mile(US) */
   def mi2(a: square_mileAttribute): LengthPoweredAreaUnit = `mi²`(a)
-
+  /** square mile */
   def sq_mi: LengthPoweredAreaUnit = AreaUnitObjects.square_mile
+  /**   square_mile(US) */
   def sq_mi(a: square_mileAttribute): LengthPoweredAreaUnit = `mi²`(a)
-
+  /** square mile(US) */
   def `mi²(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_mile(US)`
+  /** square mile(US) */
   def `mi2(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_mile(US)`
+  /** square mile(US) */
   def `sq_mi(US)`: LengthPoweredAreaUnit = AreaUnitObjects.`square_mile(US)`
+  /** acre */
   def ac: AreaUnit = AreaUnitObjects.acre
-  def ac(a: acreAttribute): AreaUnit = a match { 
+  /** acre(US) */
+  def ac(a: acreAttribute): AreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`acre(US)`
   }
+  /** acre(US) */
   def `ac(US)`: AreaUnit = AreaUnitObjects.`acre(US)`
+  /** rood */
   def ro: AreaUnit = AreaUnitObjects.rood
+  /** circular mil */
   def circ_mil: AreaUnit = AreaUnitObjects.circular_mil
+  /** circular inch */
   def circ_in: AreaUnit = AreaUnitObjects.circular_inch
+  /** board */
   def bd: AreaUnit = AreaUnitObjects.board
+  /** section */
   def section: AreaUnit = AreaUnitObjects.section
-  def section(a: sectionAttribute): AreaUnit = a match { 
+  /** section(US) */
+  def section(a: sectionAttribute): AreaUnit = a match {
     case MetricAttributes.US => AreaUnitObjects.`section(US)`
   }
+  /** section(US) */
   def `section(US)`: AreaUnit = AreaUnitObjects.`section(US)`
+  /** township */
   def twp: AreaUnit = AreaUnitObjects.township
 }

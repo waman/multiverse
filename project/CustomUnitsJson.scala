@@ -55,9 +55,11 @@ class CustomUnitsJson(jsonFile: File) extends JsonResource(jsonFile){
       this.units._units.foreach{ entry =>
         val u = entry.unit.split('.')
         val uType = u(0)
-        val uName = escape(u(1))
+        val uName = u(1)
         writer.write(
-          s"""  def ${entry.symbol}: ${uType}Unit = ${uType}UnitObjects.$uName\n""")
+          s"""  /** $uName */
+             |  def ${entry.symbol}: ${uType}Unit = ${uType}UnitObjects.${escape(uName)}
+             |""".stripMargin)
       }
 
       writer.write("}")

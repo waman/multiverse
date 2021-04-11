@@ -71,73 +71,142 @@ object ElectricalConductanceUnitObjects{
 
 object ElectricalConductanceUnits{
 
+  /** siemens */
   def S: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.siemens
+  /** siemens */
   def mho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.siemens
+  /** siemens */
   def `℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.siemens
+  /** yoctosiemens */
   def yS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.yoctosiemens
+  /** yoctosiemens */
   def ymho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.yoctosiemens
+  /** yoctosiemens */
   def `y℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.yoctosiemens
+  /** zeptosiemens */
   def zS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.zeptosiemens
+  /** zeptosiemens */
   def zmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.zeptosiemens
+  /** zeptosiemens */
   def `z℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.zeptosiemens
+  /** attosiemens */
   def aS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.attosiemens
+  /** attosiemens */
   def amho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.attosiemens
+  /** attosiemens */
   def `a℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.attosiemens
+  /** femtosiemens */
   def fS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.femtosiemens
+  /** femtosiemens */
   def fmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.femtosiemens
+  /** femtosiemens */
   def `f℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.femtosiemens
+  /** picosiemens */
   def pS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.picosiemens
+  /** picosiemens */
   def pmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.picosiemens
+  /** picosiemens */
   def `p℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.picosiemens
+  /** nanosiemens */
   def nS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.nanosiemens
+  /** nanosiemens */
   def nmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.nanosiemens
+  /** nanosiemens */
   def `n℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.nanosiemens
+  /** microsiemens */
   def μS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.microsiemens
+  /** microsiemens */
   def mcS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.microsiemens
+  /** microsiemens */
   def μmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.microsiemens
+  /** microsiemens */
   def mcmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.microsiemens
+  /** microsiemens */
   def `μ℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.microsiemens
+  /** microsiemens */
   def `mc℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.microsiemens
+  /** millisiemens */
   def mS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.millisiemens
+  /** millisiemens */
   def mmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.millisiemens
+  /** millisiemens */
   def `m℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.millisiemens
+  /** centisiemens */
   def cS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.centisiemens
+  /** centisiemens */
   def cmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.centisiemens
+  /** centisiemens */
   def `c℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.centisiemens
+  /** decisiemens */
   def dS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.decisiemens
+  /** decisiemens */
   def dmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.decisiemens
+  /** decisiemens */
   def `d℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.decisiemens
+  /** decasiemens */
   def daS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.decasiemens
+  /** decasiemens */
   def damho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.decasiemens
+  /** decasiemens */
   def `da℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.decasiemens
+  /** hectosiemens */
   def hS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.hectosiemens
+  /** hectosiemens */
   def hmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.hectosiemens
+  /** hectosiemens */
   def `h℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.hectosiemens
+  /** kilosiemens */
   def kS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.kilosiemens
+  /** kilosiemens */
   def KS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.kilosiemens
+  /** kilosiemens */
   def kmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.kilosiemens
+  /** kilosiemens */
   def Kmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.kilosiemens
+  /** kilosiemens */
   def `k℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.kilosiemens
+  /** kilosiemens */
   def `K℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.kilosiemens
+  /** megasiemens */
   def MS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.megasiemens
+  /** megasiemens */
   def Mmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.megasiemens
+  /** megasiemens */
   def `M℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.megasiemens
+  /** gigasiemens */
   def GS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.gigasiemens
+  /** gigasiemens */
   def Gmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.gigasiemens
+  /** gigasiemens */
   def `G℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.gigasiemens
+  /** terasiemens */
   def TS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.terasiemens
+  /** terasiemens */
   def Tmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.terasiemens
+  /** terasiemens */
   def `T℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.terasiemens
+  /** petasiemens */
   def PS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.petasiemens
+  /** petasiemens */
   def Pmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.petasiemens
+  /** petasiemens */
   def `P℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.petasiemens
+  /** exasiemens */
   def ES: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.exasiemens
+  /** exasiemens */
   def Emho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.exasiemens
+  /** exasiemens */
   def `E℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.exasiemens
+  /** zettasiemens */
   def ZS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.zettasiemens
+  /** zettasiemens */
   def Zmho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.zettasiemens
+  /** zettasiemens */
   def `Z℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.zettasiemens
+  /** yottasiemens */
   def YS: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.yottasiemens
+  /** yottasiemens */
   def Ymho: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.yottasiemens
+  /** yottasiemens */
   def `Y℧`: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.yottasiemens
 }

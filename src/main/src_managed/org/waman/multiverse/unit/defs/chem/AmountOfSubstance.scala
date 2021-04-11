@@ -74,27 +74,50 @@ object AmountOfSubstanceUnitObjects{
 
 object AmountOfSubstanceUnits{
 
+  /** mole */
   def mol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.mole
+  /** yoctomole */
   def ymol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.yoctomole
+  /** zeptomole */
   def zmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.zeptomole
+  /** attomole */
   def amol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.attomole
+  /** femtomole */
   def fmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.femtomole
+  /** picomole */
   def pmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.picomole
+  /** nanomole */
   def nmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.nanomole
+  /** micromole */
   def μmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.micromole
+  /** micromole */
   def mcmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.micromole
+  /** millimole */
   def mmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.millimole
+  /** centimole */
   def cmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.centimole
+  /** decimole */
   def dmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.decimole
+  /** decamole */
   def damol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.decamole
+  /** hectomole */
   def hmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.hectomole
+  /** kilomole */
   def kmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.kilomole
+  /** kilomole */
   def Kmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.kilomole
+  /** megamole */
   def Mmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.megamole
+  /** gigamole */
   def Gmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.gigamole
+  /** teramole */
   def Tmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.teramole
+  /** petamole */
   def Pmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.petamole
+  /** examole */
   def Emol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.examole
+  /** zettamole */
   def Zmol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.zettamole
+  /** yottamole */
   def Ymol: AmountOfSubstanceUnit = AmountOfSubstanceUnitObjects.yottamole
 }

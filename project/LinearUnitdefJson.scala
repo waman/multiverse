@@ -169,15 +169,24 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
       val sym = escape(u.symbol)
       val rType = getReturnedTypeOfUnits(u)
 
-      // def m: LengthUnit = LengthUnitObjects.metre
-      writer.write(s"""  def $sym: $rType = ${id}UnitObjects.${u.objectName}\n""")
+      // /** kilometre */
+      // def km: LengthUnit = LengthUnitObjects.killometre
+      writer.write(
+        s"""  /** ${u.name} */
+            |  def $sym: $rType = ${id}UnitObjects.${u.objectName}
+            |""".stripMargin)
 
       if (u._attributes.nonEmpty) {
+        // /** ounce(avoirdupois)<br/>ounce(troy) */
         // def oz(a: ounceAttribute): MassUnit = a match {
         //   case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
         //   case MassUnits.troy => MassUnitObjects.`ounce(troy)`
         // }
-        writer.write(s"""  def $sym(a: ${u.objectName}Attribute): $rType = a match { \n""")
+        val doc = u._attributes.map(a => s"${u.objectName}($a)").mkString("<br/>")
+        writer.write(
+          s"""  /** $doc */
+             |  def $sym(a: ${u.objectName}Attribute): $rType = a match {
+             |""".stripMargin)
         u._attributes.foreach { a =>
           writer.write(s"""    case $attributeContainerID.$a => ${id}UnitObjects.`${u.objectName}($a)`\n""")
         }
@@ -186,10 +195,17 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
 
       u._aliases.foreach { al =>
         val als = escape(al)
-        writer.write(s"""  def $als: $rType = ${id}UnitObjects.${u.objectName}\n""")
+        writer.write(
+          s"""  /** ${u.name} */
+               |  def $als: $rType = ${id}UnitObjects.${u.objectName}
+               |""".stripMargin)
         if (u._attributes.nonEmpty) {
           // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
-          writer.write(s"""  def $als(a: ${u.objectName}Attribute): $rType = $sym(a)\n\n""")
+          val doc = u._attributes.map(a => s"  ${u.objectName}($a)").mkString("<br/>")
+          writer.write(
+            s"""  /** $doc */
+               |  def $als(a: ${u.objectName}Attribute): $rType = $sym(a)
+               |""".stripMargin)
         }
       }
     }

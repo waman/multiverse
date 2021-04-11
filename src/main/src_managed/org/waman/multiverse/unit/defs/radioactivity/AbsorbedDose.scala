@@ -88,50 +88,96 @@ object AbsorbedDoseUnitObjects{
 
 object AbsorbedDoseUnits{
 
+  /** gray */
   def Gy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gray
+  /** yoctogray */
   def yGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yoctogray
+  /** zeptogray */
   def zGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zeptogray
+  /** attogray */
   def aGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.attogray
+  /** femtogray */
   def fGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.femtogray
+  /** picogray */
   def pGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.picogray
+  /** nanogray */
   def nGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.nanogray
+  /** microgray */
   def μGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microgray
+  /** microgray */
   def mcGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microgray
+  /** milligray */
   def mGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.milligray
+  /** centigray */
   def cGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.centigray
+  /** decigray */
   def dGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decigray
+  /** decagray */
   def daGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decagray
+  /** hectogray */
   def hGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.hectogray
+  /** kilogray */
   def kGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilogray
+  /** kilogray */
   def KGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilogray
+  /** megagray */
   def MGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.megagray
+  /** gigagray */
   def GGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gigagray
+  /** teragray */
   def TGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.teragray
+  /** petagray */
   def PGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.petagray
+  /** exagray */
   def EGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.exagray
+  /** zettagray */
   def ZGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zettagray
+  /** yottagray */
   def YGy: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yottagray
+  /** rad */
   def rad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.rad
+  /** yoctorad */
   def yrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yoctorad
+  /** zeptorad */
   def zrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zeptorad
+  /** attorad */
   def arad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.attorad
+  /** femtorad */
   def frad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.femtorad
+  /** picorad */
   def prad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.picorad
+  /** nanorad */
   def nrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.nanorad
+  /** microrad */
   def μrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
+  /** microrad */
   def mcrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.microrad
+  /** millirad */
   def mrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.millirad
+  /** centirad */
   def crad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.centirad
+  /** decirad */
   def drad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decirad
+  /** decarad */
   def darad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.decarad
+  /** hectorad */
   def hrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.hectorad
+  /** kilorad */
   def krad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
+  /** kilorad */
   def Krad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.kilorad
+  /** megarad */
   def Mrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.megarad
+  /** gigarad */
   def Grad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gigarad
+  /** terarad */
   def Trad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.terarad
+  /** petarad */
   def Prad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.petarad
+  /** exarad */
   def Erad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.exarad
+  /** zettarad */
   def Zrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.zettarad
+  /** yottarad */
   def Yrad: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.yottarad
 }

@@ -58,9 +58,14 @@ object VelocityUnitObjects{
 
 object VelocityUnits{
 
+  /** speed of light */
   def c: VelocityUnit = VelocityUnitObjects.speed_of_light
+  /** mach number */
   def M: VelocityUnit = VelocityUnitObjects.mach_number
+  /** knot */
   def kn: VelocityUnit = VelocityUnitObjects.knot
+  /** knot */
   def kt: VelocityUnit = VelocityUnitObjects.knot
+  /** kine */
   def kine: VelocityUnit = VelocityUnitObjects.kine
 }

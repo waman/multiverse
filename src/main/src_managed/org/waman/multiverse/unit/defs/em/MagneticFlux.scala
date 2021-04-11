@@ -102,51 +102,98 @@ object MagneticFluxUnitObjects{
 
 object MagneticFluxUnits{
 
+  /** weber */
   def Wb: MagneticFluxUnit = MagneticFluxUnitObjects.weber
+  /** yoctoweber */
   def yWb: MagneticFluxUnit = MagneticFluxUnitObjects.yoctoweber
+  /** zeptoweber */
   def zWb: MagneticFluxUnit = MagneticFluxUnitObjects.zeptoweber
+  /** attoweber */
   def aWb: MagneticFluxUnit = MagneticFluxUnitObjects.attoweber
+  /** femtoweber */
   def fWb: MagneticFluxUnit = MagneticFluxUnitObjects.femtoweber
+  /** picoweber */
   def pWb: MagneticFluxUnit = MagneticFluxUnitObjects.picoweber
+  /** nanoweber */
   def nWb: MagneticFluxUnit = MagneticFluxUnitObjects.nanoweber
+  /** microweber */
   def μWb: MagneticFluxUnit = MagneticFluxUnitObjects.microweber
+  /** microweber */
   def mcWb: MagneticFluxUnit = MagneticFluxUnitObjects.microweber
+  /** milliweber */
   def mWb: MagneticFluxUnit = MagneticFluxUnitObjects.milliweber
+  /** centiweber */
   def cWb: MagneticFluxUnit = MagneticFluxUnitObjects.centiweber
+  /** deciweber */
   def dWb: MagneticFluxUnit = MagneticFluxUnitObjects.deciweber
+  /** decaweber */
   def daWb: MagneticFluxUnit = MagneticFluxUnitObjects.decaweber
+  /** hectoweber */
   def hWb: MagneticFluxUnit = MagneticFluxUnitObjects.hectoweber
+  /** kiloweber */
   def kWb: MagneticFluxUnit = MagneticFluxUnitObjects.kiloweber
+  /** kiloweber */
   def KWb: MagneticFluxUnit = MagneticFluxUnitObjects.kiloweber
+  /** megaweber */
   def MWb: MagneticFluxUnit = MagneticFluxUnitObjects.megaweber
+  /** gigaweber */
   def GWb: MagneticFluxUnit = MagneticFluxUnitObjects.gigaweber
+  /** teraweber */
   def TWb: MagneticFluxUnit = MagneticFluxUnitObjects.teraweber
+  /** petaweber */
   def PWb: MagneticFluxUnit = MagneticFluxUnitObjects.petaweber
+  /** exaweber */
   def EWb: MagneticFluxUnit = MagneticFluxUnitObjects.exaweber
+  /** zettaweber */
   def ZWb: MagneticFluxUnit = MagneticFluxUnitObjects.zettaweber
+  /** yottaweber */
   def YWb: MagneticFluxUnit = MagneticFluxUnitObjects.yottaweber
+  /** maxwell */
   def Mx: MagneticFluxUnit = MagneticFluxUnitObjects.maxwell
+  /** yoctomaxwell */
   def yMx: MagneticFluxUnit = MagneticFluxUnitObjects.yoctomaxwell
+  /** zeptomaxwell */
   def zMx: MagneticFluxUnit = MagneticFluxUnitObjects.zeptomaxwell
+  /** attomaxwell */
   def aMx: MagneticFluxUnit = MagneticFluxUnitObjects.attomaxwell
+  /** femtomaxwell */
   def fMx: MagneticFluxUnit = MagneticFluxUnitObjects.femtomaxwell
+  /** picomaxwell */
   def pMx: MagneticFluxUnit = MagneticFluxUnitObjects.picomaxwell
+  /** nanomaxwell */
   def nMx: MagneticFluxUnit = MagneticFluxUnitObjects.nanomaxwell
+  /** micromaxwell */
   def μMx: MagneticFluxUnit = MagneticFluxUnitObjects.micromaxwell
+  /** micromaxwell */
   def mcMx: MagneticFluxUnit = MagneticFluxUnitObjects.micromaxwell
+  /** millimaxwell */
   def mMx: MagneticFluxUnit = MagneticFluxUnitObjects.millimaxwell
+  /** centimaxwell */
   def cMx: MagneticFluxUnit = MagneticFluxUnitObjects.centimaxwell
+  /** decimaxwell */
   def dMx: MagneticFluxUnit = MagneticFluxUnitObjects.decimaxwell
+  /** decamaxwell */
   def daMx: MagneticFluxUnit = MagneticFluxUnitObjects.decamaxwell
+  /** hectomaxwell */
   def hMx: MagneticFluxUnit = MagneticFluxUnitObjects.hectomaxwell
+  /** kilomaxwell */
   def kMx: MagneticFluxUnit = MagneticFluxUnitObjects.kilomaxwell
+  /** kilomaxwell */
   def KMx: MagneticFluxUnit = MagneticFluxUnitObjects.kilomaxwell
+  /** megamaxwell */
   def MMx: MagneticFluxUnit = MagneticFluxUnitObjects.megamaxwell
+  /** gigamaxwell */
   def GMx: MagneticFluxUnit = MagneticFluxUnitObjects.gigamaxwell
+  /** teramaxwell */
   def TMx: MagneticFluxUnit = MagneticFluxUnitObjects.teramaxwell
+  /** petamaxwell */
   def PMx: MagneticFluxUnit = MagneticFluxUnitObjects.petamaxwell
+  /** examaxwell */
   def EMx: MagneticFluxUnit = MagneticFluxUnitObjects.examaxwell
+  /** zettamaxwell */
   def ZMx: MagneticFluxUnit = MagneticFluxUnitObjects.zettamaxwell
+  /** yottamaxwell */
   def YMx: MagneticFluxUnit = MagneticFluxUnitObjects.yottamaxwell
+  /** statweber */
   def statWb: MagneticFluxUnit = MagneticFluxUnitObjects.statweber
 }

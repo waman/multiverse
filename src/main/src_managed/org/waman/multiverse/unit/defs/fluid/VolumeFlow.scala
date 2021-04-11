@@ -56,14 +56,24 @@ object VolumeFlowUnitObjects{
 
 object VolumeFlowUnits{
 
+  /** litre per minute */
   def LPM: VolumeFlowUnit = VolumeFlowUnitObjects.litre_per_minute
+  /** gallon per minute */
   def GPM: VolumeFlowUnit = VolumeFlowUnitObjects.gallon_per_minute
+  /** gallon per hour */
   def GPH: VolumeFlowUnit = VolumeFlowUnitObjects.gallon_per_hour
+  /** gallon per day */
   def GPD: VolumeFlowUnit = VolumeFlowUnitObjects.gallon_per_day
+  /** cubic centimetre per second */
   def ccs: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_centimetre_per_second
+  /** cubic centimetre per minute */
   def ccm: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_centimetre_per_minute
+  /** cubic foot per second */
   def cfs: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_second
+  /** cubic foot per minute */
   def cfm: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_minute
+  /** cubic foot per minute */
   def CFM: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_foot_per_minute
+  /** cubic oot per hour */
   def cfh: VolumeFlowUnit = VolumeFlowUnitObjects.cubic_oot_per_hour
 }

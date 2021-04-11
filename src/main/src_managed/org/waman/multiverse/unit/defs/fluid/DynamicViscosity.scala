@@ -69,27 +69,50 @@ object DynamicViscosityUnitObjects{
 
 object DynamicViscosityUnits{
 
+  /** poise */
   def P: DynamicViscosityUnit = DynamicViscosityUnitObjects.poise
+  /** yoctopoise */
   def yP: DynamicViscosityUnit = DynamicViscosityUnitObjects.yoctopoise
+  /** zeptopoise */
   def zP: DynamicViscosityUnit = DynamicViscosityUnitObjects.zeptopoise
+  /** attopoise */
   def aP: DynamicViscosityUnit = DynamicViscosityUnitObjects.attopoise
+  /** femtopoise */
   def fP: DynamicViscosityUnit = DynamicViscosityUnitObjects.femtopoise
+  /** picopoise */
   def pP: DynamicViscosityUnit = DynamicViscosityUnitObjects.picopoise
+  /** nanopoise */
   def nP: DynamicViscosityUnit = DynamicViscosityUnitObjects.nanopoise
+  /** micropoise */
   def μP: DynamicViscosityUnit = DynamicViscosityUnitObjects.micropoise
+  /** micropoise */
   def mcP: DynamicViscosityUnit = DynamicViscosityUnitObjects.micropoise
+  /** millipoise */
   def mP: DynamicViscosityUnit = DynamicViscosityUnitObjects.millipoise
+  /** centipoise */
   def cP: DynamicViscosityUnit = DynamicViscosityUnitObjects.centipoise
+  /** decipoise */
   def dP: DynamicViscosityUnit = DynamicViscosityUnitObjects.decipoise
+  /** decapoise */
   def daP: DynamicViscosityUnit = DynamicViscosityUnitObjects.decapoise
+  /** hectopoise */
   def hP: DynamicViscosityUnit = DynamicViscosityUnitObjects.hectopoise
+  /** kilopoise */
   def kP: DynamicViscosityUnit = DynamicViscosityUnitObjects.kilopoise
+  /** kilopoise */
   def KP: DynamicViscosityUnit = DynamicViscosityUnitObjects.kilopoise
+  /** megapoise */
   def MP: DynamicViscosityUnit = DynamicViscosityUnitObjects.megapoise
+  /** gigapoise */
   def GP: DynamicViscosityUnit = DynamicViscosityUnitObjects.gigapoise
+  /** terapoise */
   def TP: DynamicViscosityUnit = DynamicViscosityUnitObjects.terapoise
+  /** petapoise */
   def PP: DynamicViscosityUnit = DynamicViscosityUnitObjects.petapoise
+  /** exapoise */
   def EP: DynamicViscosityUnit = DynamicViscosityUnitObjects.exapoise
+  /** zettapoise */
   def ZP: DynamicViscosityUnit = DynamicViscosityUnitObjects.zettapoise
+  /** yottapoise */
   def YP: DynamicViscosityUnit = DynamicViscosityUnitObjects.yottapoise
 }
