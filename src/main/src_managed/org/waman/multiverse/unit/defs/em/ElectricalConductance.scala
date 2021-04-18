@@ -4,6 +4,7 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
+
 class ElectricalConductance[A: Fractional](val value: A, val unit: ElectricalConductanceUnit)
     extends LinearQuantity[ElectricalConductance[A], A, ElectricalConductanceUnit] {
 
@@ -14,6 +15,7 @@ class ElectricalConductance[A: Fractional](val value: A, val unit: ElectricalCon
   override protected def newQuantity(value: A, unit: ElectricalConductanceUnit): ElectricalConductance[A] = new ElectricalConductance(value, unit)
 }
 
+/** None */
 trait ElectricalConductanceUnit extends LinearUnit[ElectricalConductanceUnit]{
 
   override def getSIUnit: ElectricalConductanceUnit = ElectricalConductanceUnit.getSIUnit
@@ -27,6 +29,7 @@ object ElectricalConductanceUnit extends UnitInfo[ElectricalConductanceUnit]{
     Map[DimensionSymbol, Int](T -> 3, M -> -1, I -> 2, L -> -2).withDefaultValue(0)
 
   def getSIUnit: ElectricalConductanceUnit = ElectricalConductanceUnitObjects.siemens
+
   import ElectricalConductanceUnitObjects._
 
   def getUnits: Seq[ElectricalConductanceUnit] =

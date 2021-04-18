@@ -16,6 +16,7 @@ class ElectricalResistance[A: Fractional](val value: A, val unit: ElectricalResi
   override protected def newQuantity(value: A, unit: ElectricalResistanceUnit): ElectricalResistance[A] = new ElectricalResistance(value, unit)
 }
 
+/** None */
 trait ElectricalResistanceUnit extends LinearUnit[ElectricalResistanceUnit]{
 
   override def getSIUnit: ElectricalResistanceUnit = ElectricalResistanceUnit.getSIUnit
@@ -29,6 +30,7 @@ object ElectricalResistanceUnit extends UnitInfo[ElectricalResistanceUnit]{
     Map[DimensionSymbol, Int](T -> -3, M -> 1, I -> -2, L -> 2).withDefaultValue(0)
 
   def getSIUnit: ElectricalResistanceUnit = ElectricalResistanceUnitObjects.ohm
+
   import ElectricalResistanceUnitObjects._
 
   def getUnits: Seq[ElectricalResistanceUnit] =

@@ -1,19 +1,15 @@
 import java.io.File
-
-import com.google.gson.reflect.TypeToken
 import sbt.io.IO
+import play.api.libs.json.{Json, Reads}
 
-case class Constant(name: String, value: String)
+case class Constant(name: String, value: Option[String])
 
-class ConstantsJson(json: File) extends JsonResource(json) {
+class ConstantsJson(jsonFile: File) extends JsonResource(jsonFile) {
 
   import GenerationUtil._
 
-  val constantsType: Class[_ >: Array[Constant]] = new TypeToken[Array[Constant]]() {}.getRawType
-
-  val consts: Array[Constant] = IO.reader(jsonFile, utf8) { reader =>
-    gson.fromJson(reader, constantsType).asInstanceOf[Array[Constant]]
-  }
+  implicit val constantReads: Reads[Constant] = Json.reads[Constant]
+  val consts: Seq[Constant] = readJson(jsonFile, _.validate[Seq[Constant]])
 
   override protected def getDestFile(destRoot: File): File =
     IO.resolve(destRoot, new File("Constants.scala"))
@@ -36,7 +32,7 @@ class ConstantsJson(json: File) extends JsonResource(json) {
           case "ReducedPlanckConstant" =>
             writer.write(s"""  val ${c.name}: Real = PlanckConstant / (Real.two * Real.pi)\n""")
           case _ =>
-            writer.write(s"""  val ${c.name}: Real = r"${c.value}"\n""")
+            writer.write(s"""  val ${c.name}: Real = r"${c.value.get}"\n""")
         }
       }
 

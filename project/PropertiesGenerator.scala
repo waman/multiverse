@@ -1,22 +1,18 @@
 import java.io.File
 
-import com.google.gson.reflect.TypeToken
 import sbt.io.IO
+
+import play.api.libs.json._
 
 case class Properties(version: String)
 
 object PropertiesGenerator {
 
-  val PropertiesType: Class[_ >: Properties] = new TypeToken[Properties]() {}.getRawType
-
   import GenerationUtil._
+  implicit val propertiesReads: Reads[Properties] = Json.reads[Properties]
 
   def generate(jsonRoot: File, destRoot: File, jsons: JsonResources): File = {
-    val propJson = IO.resolve(jsonRoot, new File("Properties.json"))
-    val properties: Properties = IO.reader(propJson, utf8) { reader =>
-      gson.fromJson(reader, PropertiesType).asInstanceOf[Properties]
-    }
-
+    val props = readJson(IO.resolve(jsonRoot, new File("Properties.json")), _.validate[Properties])
     val destFile = IO.resolve(destRoot, new File("UnitdefsProperties.scala"))
 
     IO.writer(destFile, "", utf8, append = false) { writer =>
@@ -24,7 +20,7 @@ object PropertiesGenerator {
         s"""package $rootPackage
            |
            |object UnitdefsProperties{
-           |  val version: String = "${properties.version}"
+           |  val version: String = "${props.version}"
            |
            |  def getUnitInfo: Seq[UnitInfo[_]] = Seq(
            |""".stripMargin)

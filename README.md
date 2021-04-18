@@ -22,7 +22,7 @@ multiverse ライブラリでは、**数値**に「(物理)**単位**」を付�
 import org.waman.multiverse.implicits._
 
 // 長さの PhysicalUnit オブジェクト（LengthUnit オブジェクト）をインポート
-import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.defs.LengthUnits._
 
 // 2メートルの「量」（ Quantity オブジェクト、Length オブジェクト）を生成
 val twoMetre = 2.0(m)
@@ -32,7 +32,7 @@ println(twoMetre)  // 「2.0(m)」と表示
 「量」を指定された「単位」に換算した数値を返します：
 ```
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.defs.LengthUnits._
 
 // 2マイル（国際マイル）の Length オブジェクトを生成
 val twoMile = 2.0(mi)
@@ -55,11 +55,11 @@ println(2.0(mi)(m))  // 「3218.688」と表示
 整数は精度を保つために実数 (`spire.math.Real`) として扱われます：
 ```
 import org.waman.multiverse.implicits._
-import org.waman.multiverse.unit.basic.LengthUnits._
+import org.waman.multiverse.unit.defs.LengthUnits._
 
 // 型を明示するためにインポート
 import spire.math.Real
-import org.waman.multiverse.unit.basic.Length
+import org.waman.multiverse.unit.defs.Length
 
 // 整数から Quantity オブジェクトを生成
 val twoMile: Length[Real] = 2(mi)

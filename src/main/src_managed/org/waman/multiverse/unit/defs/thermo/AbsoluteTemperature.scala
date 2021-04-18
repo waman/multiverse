@@ -23,6 +23,7 @@ class AbsoluteTemperature[A: Fractional](val value: A, val unit: AbsoluteTempera
   override protected def newQuantity(value: A, unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
 }
 
+/** None */
 trait AbsoluteTemperatureUnit extends LinearUnit[AbsoluteTemperatureUnit]{
 
   override def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnit.getSIUnit
@@ -36,6 +37,7 @@ object AbsoluteTemperatureUnit extends UnitInfo[AbsoluteTemperatureUnit]{
     Map[DimensionSymbol, Int](Θ -> 1).withDefaultValue(0)
 
   def getSIUnit: AbsoluteTemperatureUnit = AbsoluteTemperatureUnitObjects.kelvin
+
   import AbsoluteTemperatureUnitObjects._
 
   def getUnits: Seq[AbsoluteTemperatureUnit] =

@@ -17,7 +17,7 @@ class TimeSquaredPerLength[A: Fractional](val value: A, val unit: TimeSquaredPer
   override protected def newQuantity(value: A, unit: TimeSquaredPerLengthUnit): TimeSquaredPerLength[A] = new TimeSquaredPerLength(value, unit)
 }
 
-/** This unit is defined for inductance in ESU and Gaussian unit systems */
+/** Some(This unit is defined for inductance in ESU and Gaussian unit systems) */
 trait TimeSquaredPerLengthUnit extends LinearUnit[TimeSquaredPerLengthUnit]{
 
   override def getSIUnit: TimeSquaredPerLengthUnit = TimeSquaredPerLengthUnit.getSIUnit
@@ -32,8 +32,7 @@ object TimeSquaredPerLengthUnit extends UnitInfo[TimeSquaredPerLengthUnit]{
 
   val getSIUnit: TimeSquaredPerLengthUnit = TimeSquaredUnit.getSIUnit / LengthUnit.getSIUnit
 
-  def getUnits: Seq[TimeSquaredPerLengthUnit] =
-    Seq()
+  def getUnits: Seq[TimeSquaredPerLengthUnit] = Seq()
 }
 
 
@@ -46,11 +45,3 @@ class SimpleTimeSquaredPerLengthUnit(val name: String, val symbol: String, val i
 class DefaultTimeSquaredPerLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends TimeSquaredPerLengthUnit
   
-object TimeSquaredPerLengthUnitObjects{
-
-}
-
-
-object TimeSquaredPerLengthUnits{
-
-}

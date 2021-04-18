@@ -4,12 +4,14 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
+
 class Radioactivity[A: Fractional](val value: A, val unit: RadioactivityUnit)
     extends LinearQuantity[Radioactivity[A], A, RadioactivityUnit] {
 
   override protected def newQuantity(value: A, unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
 }
 
+/** None */
 trait RadioactivityUnit extends LinearUnit[RadioactivityUnit]{
 
   override def getSIUnit: RadioactivityUnit = RadioactivityUnit.getSIUnit
@@ -23,6 +25,7 @@ object RadioactivityUnit extends UnitInfo[RadioactivityUnit]{
     Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
 
   def getSIUnit: RadioactivityUnit = RadioactivityUnitObjects.becquerel
+
   import RadioactivityUnitObjects._
 
   def getUnits: Seq[RadioactivityUnit] =

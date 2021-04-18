@@ -35,7 +35,7 @@ class Length[A: Fractional](val value: A, val unit: LengthUnit)
   def *(area: Area[A]): Volume[A] = new Volume(this.value * area.value, area.unit * this.unit)
 }
 
-/** 'US' attribute contains 'US Survey' metric. */
+/** Some('US' attribute contains 'US Survey' metric.) */
 trait LengthUnit extends LinearUnit[LengthUnit] with LengthUnitCanSquare with LengthUnitCanCubic{
 
   override def getSIUnit: LengthUnit = LengthUnit.getSIUnit
@@ -58,6 +58,7 @@ object LengthUnit extends UnitInfo[LengthUnit]{
     Map[DimensionSymbol, Int](L -> 1).withDefaultValue(0)
 
   def getSIUnit: LengthUnit = LengthUnitObjects.metre
+
   import LengthUnitObjects._
 
   def getUnits: Seq[LengthUnit] =

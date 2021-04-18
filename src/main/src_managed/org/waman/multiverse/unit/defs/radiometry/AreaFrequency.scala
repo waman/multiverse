@@ -12,6 +12,7 @@ class AreaFrequency[A: Fractional](val value: A, val unit: AreaFrequencyUnit)
   override protected def newQuantity(value: A, unit: AreaFrequencyUnit): AreaFrequency[A] = new AreaFrequency(value, unit)
 }
 
+/** None */
 trait AreaFrequencyUnit extends LinearUnit[AreaFrequencyUnit]{
 
   override def getSIUnit: AreaFrequencyUnit = AreaFrequencyUnit.getSIUnit
@@ -26,8 +27,7 @@ object AreaFrequencyUnit extends UnitInfo[AreaFrequencyUnit]{
 
   val getSIUnit: AreaFrequencyUnit = AreaUnit.getSIUnit * FrequencyUnit.getSIUnit
 
-  def getUnits: Seq[AreaFrequencyUnit] =
-    Seq()
+  def getUnits: Seq[AreaFrequencyUnit] = Seq()
 }
 
 
@@ -40,11 +40,3 @@ class SimpleAreaFrequencyUnit(val name: String, val symbol: String, val interval
 class DefaultAreaFrequencyUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends AreaFrequencyUnit
   
-object AreaFrequencyUnitObjects{
-
-}
-
-
-object AreaFrequencyUnits{
-
-}

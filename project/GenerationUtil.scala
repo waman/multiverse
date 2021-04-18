@@ -1,13 +1,20 @@
-import com.google.gson.Gson
+import play.api.libs.json.{JsError, JsResult, JsSuccess, JsValue, Json}
+import sbt.io.IO
 
+import java.io.File
 import java.nio.charset.Charset
 import scala.util.matching.Regex
 
 object GenerationUtil{
 
   val rootPackage: String = "org.waman.multiverse"
-  val gson: Gson = new Gson
   val utf8: Charset = Charset.forName("UTF-8")
+
+  def readJson[A](jsonFile: File, f: JsValue => JsResult[A]): A =
+    f(Json.parse(IO.read(jsonFile, utf8))) match {
+      case JsSuccess(result, _) => result
+      case JsError(errors) => throw new RuntimeException(errors.mkString("\n"))
+    }
 
   val regexCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
 

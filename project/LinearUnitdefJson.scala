@@ -1,86 +1,80 @@
 import java.io.{File, BufferedWriter => BW}
+import play.api.libs.json.{Json, Reads}
 
-import com.google.gson.reflect.TypeToken
-import sbt.io.IO
+case class LinearUnitdef(description: Option[String],
+                         SIUnit: String,
+                         dimension: Dimension,
+                         convertibles: Option[Seq[Convertible]],
+                         units: Option[Seq[LinearUnit]],
+                         operations: Option[Seq[Operation]],
+                         attributes: Option[Seq[Attribute]],
+                         use: Option[Use]) extends Unitdef[LinearUnit]
 
-case class LinearUnitCategory(description: String,
-                              SIUnit: String,
-                              dimension: Dimension,
-                              convertibles: Array[Convertible],
-                              units: Array[LinearUnit],
-                              operations: Array[Operation],
-                              attributes: Array[Attribute],
-                              use: Use) extends UnitCategory[LinearUnit]{
-
-  import GenerationUtil._
-  def _operations: Seq[Operation] = toSeq(this.operations)
-  def _attributes: Seq[Attribute] = toSeq(this.attributes)
-}
-
-case class Operation(operation: String, argument: String, result: String, reverse: Boolean)
-case class Attribute(name: String, parents: Array[String]){
-  require(parents.nonEmpty)
-}
+case class Operation(operation: String, argument: String, result: String, reverse: Option[Boolean])
+case class Attribute(name: String, parents: Seq[String])
 
 case class LinearUnit(name: String,
-                      attribute: String,
+                      attribute: Option[String],
                       symbol: String,
-                      aliases: Array[String],
-                      interval: String,
-                      baseUnit: String,
-                      attributes: Array[String],
-                      notExact: Boolean,
-                      description: String) extends UnitInfo{
+                      aliases: Option[Seq[String]],
+                      interval: Option[String],
+                      baseUnit: Option[String],
+                      attributes: Option[Seq[String]],
+                      notExact: Option[Boolean],
+                      description: Option[String]) extends UnitInfo{
 
   import GenerationUtil._
 
-  lazy val objectName: String =
-    if (this.attribute != null) toObjectName(s"$name($attribute)")
-    else toObjectName(this.name)
-
-  def _attributes: Seq[String] = toSeq(this.attributes)
+  lazy val objectName: String = this.attribute match {
+    case Some(att) => toObjectName(s"$name($att)")
+    case _ => toObjectName(this.name)
+  }
 
   lazy val intervalExpression: String = 
-    if (this.baseUnit == null) {
-      if (this.interval == null) "1"
-      else refineNumbers(this.interval)
+    this.baseUnit match {
+      case Some(_baseUnit) =>
+        val baseUnitInterval = regexUnitName.replaceAllIn(_baseUnit, m => {
+          val uType = if (m.group(1) != null) m.group(1) + "UnitObjects." else ""
+          val uName = escape(m.group(2))
+          s"$uType$uName.interval"
+        }).replaceAll("""\^""", "**")  // Length.metre^2 => Length.metre.interval**2
 
-    } else {
-      val baseUnitInterval = regexUnitName.replaceAllIn(this.baseUnit, m => {
-        val uType = if (m.group(1) != null) m.group(1) + "UnitObjects." else ""
-        val uName = escape(m.group(2))
-        s"$uType$uName.interval"
-      }).replaceAll("""\^""", "**")  // Length.metre^2 => Length.metre.interval**2
-
-      if (this.interval == null) baseUnitInterval
-      else s"""${refineNumbers(this.interval)} * $baseUnitInterval"""
+        this.interval match {
+          case Some(_interval) => s"""${refineNumbers(_interval)} * $baseUnitInterval"""
+          case _ => baseUnitInterval
+        }
+      case _ =>
+        this.interval match {
+          case Some(i) => refineNumbers(i)
+          case _ => "1"
+        }
     }
 }
 
 class LinearUnitdefJson(jsonFile: File, subpackage: String)
-    extends UnitdefJsonAdapter[LinearUnitCategory, LinearUnit](
+    extends UnitdefJsonAdapter[LinearUnitdef, LinearUnit](
       jsonFile, subpackage, UnitType.Linear) {
 
   import GenerationUtil._
 
-  val unitCategoryType: Class[_ >: LinearUnitCategory] = new TypeToken[LinearUnitCategory]() {}.getRawType
-
-  val unitCategory: LinearUnitCategory = IO.reader(jsonFile, utf8) { reader =>
-    gson.fromJson(reader, unitCategoryType).asInstanceOf[LinearUnitCategory]
-  }
+  implicit val linearUnitReads: Reads[LinearUnit] = Json.reads[LinearUnit]
+  implicit val operationReads: Reads[Operation] = Json.reads[Operation]
+  implicit val attributeUnitReads: Reads[Attribute] = Json.reads[Attribute]
+  implicit val linearUnitdefReads: Reads[LinearUnitdef] = Json.reads[LinearUnitdef]
+  val unitdef: LinearUnitdef = readJson(jsonFile, _.validate[LinearUnitdef])
 
   override def needSpireImplicits: Boolean = 
-    super.needSpireImplicits || this.unitCategory._operations.nonEmpty
+    super.needSpireImplicits || this.unitdef.operations.nonEmpty
 
   override protected def parentQuantityDeclaration: String = s"""LinearQuantity[$id[A], A, ${id}Unit]"""
 
   override protected def generateQuantityOperations(writer: BW): Unit = {
-    val ops = this.unitCategory._operations
-
     writer.write(
       s"""  override protected def newQuantity(value: A, unit: ${id}Unit): $id[A] = new $id(value, unit)\n""")
 
-    ops.foreach(generateQuantityOperation(writer, _))
+    this.unitdef.operations.foreach{ ops =>
+      ops.foreach(generateQuantityOperation(writer, _))
+    }
   }
 
   protected def generateQuantityOperation(writer: BW, ope: Operation): Unit = {
@@ -88,8 +82,13 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
     val argType = ope.argument
     val resultType = ope.result
     val arg = headToLower(argType)
+
+    val resultUnit = ope.reverse match {
+      case Some(true) => s"$arg.unit $op this.unit"
+      case _ => s"this.unit $op $arg.unit"
+    }
+
     //  like 'def /(time: Time[A]): Velocity[A] = new Velocity(this.value / time.value, this.unit / time.unit)
-    val resultUnit = if (!ope.reverse) s"this.unit $op $arg.unit" else s"$arg.unit $op this.unit"
     writer.write(
       s"""
          |  def $op($arg: $argType[A]): $resultType[A] = new $resultType(this.value $op $arg.value, $resultUnit)
@@ -97,21 +96,27 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
   }
 
   override protected def generateUnitOperations(writer: BW): Unit =
-    this.unitCategory._operations.foreach(generateUnitOperation(writer, _))
-
-  protected def generateUnitOperation(writer: BW, ope: Operation): Unit =
-    if (!ope.reverse){
-      val op = ope.operation
-      val name = if (op == "*") "Product" else "Quotient"
-      val argType = ope.argument
-      val resultType = ope.result
-      val arg = headToLower(argType)
-      writer.write(
-        s"""
-           |  def $op(${arg}Unit: ${argType}Unit): ${resultType}Unit =
-           |    new ${name}Unit[${resultType}Unit, ${id}Unit, ${argType}Unit](${id}Unit.this, ${arg}Unit) with ${resultType}Unit
-           |""".stripMargin)
+    this.unitdef.operations.foreach{ ops =>
+      ops.foreach(generateUnitOperation(writer, _))
     }
+
+
+  protected def generateUnitOperation(writer: BW, ope: Operation): Unit = {
+    ope.reverse match {
+      case Some(true) =>  // do nothing
+      case  _ =>
+        val op = ope.operation
+        val name = if (op == "*") "Product" else "Quotient"
+        val argType = ope.argument
+        val resultType = ope.result
+        val arg = headToLower(argType)
+        writer.write(
+          s"""
+             |  def $op(${arg}Unit: ${argType}Unit): ${resultType}Unit =
+             |    new ${name}Unit[${resultType}Unit, ${id}Unit, ${argType}Unit](${id}Unit.this, ${arg}Unit) with ${resultType}Unit
+             |""".stripMargin)
+    }
+  }
 
   override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
     writer.write(
@@ -129,23 +134,30 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
   }
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
-    val notExact = if (!unit.notExact) "" else " with NotExact"
-    val desc = if (unit.description != null) {
-      s""" with Description {
-         |    def description: String = "${unit.description}"
-         |  }""".stripMargin
-    } else ""
+    val notExact = unit.notExact match {
+      case Some(true) => " with NotExact"
+      case _ => ""
+    }
 
-    if (unit._aliases.isEmpty){
-      // final case object metre extends SimpleLengthUnit("metre", "m", Nil, r"1")
-      writer.write(
-        s"""  final case object ${unit.objectName} extends Simple${id}Unit""" +
-          s"""("${unit.name}", "${unit.symbol}", ${unit.intervalExpression})$notExact$desc\n""")
-    }else{
-      // final case object metre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), r"1e-6")
-      writer.write(
-        s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
-          s"""("${unit.name}", "${unit.symbol}", ${unit.aliasesStr}, ${unit.intervalExpression})$notExact$desc\n""")
+    val desc = unit.description match {
+      case Some(_description) =>
+        s""" with Description {
+           |    def description: String = "${_description}"
+           |  }""".stripMargin
+      case _ => ""
+    }
+
+    unit.aliases match {
+      case Some(_) =>
+        // final case object metre extends DefaultLengthUnit("micrometre", "μm", Seq("mcm"), r"1e-6")
+        writer.write(
+          s"""  final case object ${unit.objectName} extends Default${id}Unit""" +
+            s"""("${unit.name}", "${unit.symbol}", ${unit.aliasesStr}, ${unit.intervalExpression})$notExact$desc\n""")
+      case _ =>
+        // final case object metre extends SimpleLengthUnit("metre", "m", Nil, r"1")
+        writer.write(
+          s"""  final case object ${unit.objectName} extends Simple${id}Unit""" +
+            s"""("${unit.name}", "${unit.symbol}", ${unit.intervalExpression})$notExact$desc\n""")
     }
   }
 
@@ -155,75 +167,81 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
   override protected def generateUnits(writer: BW): Unit = {
     generateAttributeTraits(writer)
 
-    val units = this.unitCategory._units
-
-    writer.write(
-      s"""
-         |object ${id}Units{
-         |""".stripMargin)
-
-    generateAttributeObjects(writer)
-    writer.write("\n")
-
-    units.filter(_.attribute == null).foreach { u =>
-      val sym = escape(u.symbol)
-      val rType = getReturnedTypeOfUnits(u)
-
-      // /** kilometre */
-      // def km: LengthUnit = LengthUnitObjects.killometre
+    this.unitdef.units.foreach{ units =>
       writer.write(
-        s"""  /** ${u.name} */
-            |  def $sym: $rType = ${id}UnitObjects.${u.objectName}
-            |""".stripMargin)
+        s"""
+           |object ${id}Units{
+           |""".stripMargin)
 
-      if (u._attributes.nonEmpty) {
-        // /** ounce(avoirdupois)<br/>ounce(troy) */
-        // def oz(a: ounceAttribute): MassUnit = a match {
-        //   case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
-        //   case MassUnits.troy => MassUnitObjects.`ounce(troy)`
-        // }
-        val doc = u._attributes.map(a => s"${u.objectName}($a)").mkString("<br/>")
-        writer.write(
-          s"""  /** $doc */
-             |  def $sym(a: ${u.objectName}Attribute): $rType = a match {
-             |""".stripMargin)
-        u._attributes.foreach { a =>
-          writer.write(s"""    case $attributeContainerID.$a => ${id}UnitObjects.`${u.objectName}($a)`\n""")
-        }
-        writer.write("  }\n")
-      }
+      generateAttributeObjects(writer)
+      writer.write("\n")
 
-      u._aliases.foreach { al =>
-        val als = escape(al)
+      units.filter(_.attribute.isEmpty).foreach { u =>
+        val sym = escape(u.symbol)
+        val rType = getReturnedTypeOfUnits(u)
+
+        // /** kilometre */
+        // def km: LengthUnit = LengthUnitObjects.killometre
         writer.write(
           s"""  /** ${u.name} */
-               |  def $als: $rType = ${id}UnitObjects.${u.objectName}
-               |""".stripMargin)
-        if (u._attributes.nonEmpty) {
-          // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
-          val doc = u._attributes.map(a => s"  ${u.objectName}($a)").mkString("<br/>")
+             |  def $sym: $rType = ${id}UnitObjects.${u.objectName}
+             |""".stripMargin)
+
+        u.attributes.foreach{ attributes =>
+          // /** ounce(avoirdupois)<br/>ounce(troy) */
+          // def oz(a: ounceAttribute): MassUnit = a match {
+          //   case MassUnits.avoirdupois => MassUnitObjects.`ounce(avoirdupois)`
+          //   case MassUnits.troy => MassUnitObjects.`ounce(troy)`
+          // }
+          val doc = attributes.map(a => s"${u.objectName}($a)").mkString("<br/>")
           writer.write(
             s"""  /** $doc */
-               |  def $als(a: ${u.objectName}Attribute): $rType = $sym(a)
+               |  def $sym(a: ${u.objectName}Attribute): $rType = a match {
                |""".stripMargin)
+          attributes.foreach { a =>
+            writer.write(s"""    case $attributeContainerID.$a => ${id}UnitObjects.`${u.objectName}($a)`\n""")
+          }
+          writer.write("  }\n")
+        }
+
+        u.aliases.foreach{ aliases =>
+          aliases.foreach { al =>
+            val als = escape(al)
+            writer.write(
+              s"""  /** ${u.name} */
+                 |  def $als: $rType = ${id}UnitObjects.${u.objectName}
+                 |""".stripMargin)
+            u.attributes.foreach{ attributes =>
+              // def nmi(a: nautical_mileAttribute): LengthUnit = NM(a)
+              val doc = attributes.map(a => s"  ${u.objectName}($a)").mkString("<br/>")
+              writer.write(
+                s"""  /** $doc */
+                   |  def $als(a: ${u.objectName}Attribute): $rType = $sym(a)
+                   |""".stripMargin)
+            }
+          }
         }
       }
+      writer.write("}")
     }
-
-    writer.write("}")
   }
 
   protected def generateAttributeTraits(writer: BW): Unit =
-    this.unitCategory._attributes.flatMap(a => a.parents).distinct.foreach{ u =>
-      writer.write(s"""sealed trait ${toObjectName(u)}Attribute\n""")
+    this.unitdef.attributes.foreach{ attributes =>
+      attributes.flatMap(a => a.parents).distinct.foreach{ u =>
+        writer.write(s"""sealed trait ${toObjectName(u)}Attribute\n""")
+      }
     }
 
   /* This method is overridden by Length and LengthPowered UnitdefsJson */
-  protected def generateAttributeObjects(writer: BW): Unit =
-    this.unitCategory._attributes.foreach{ att =>
-      val traits = att.parents.map(toObjectName(_) + "Attribute").mkString(" with ")
-      writer.write(s"""  final object ${att.name} extends $traits\n""")
+  protected def generateAttributeObjects(writer: BW): Unit = {
+    this.unitdef.attributes.foreach{ attributes =>
+      attributes.foreach{ att =>
+        val traits = att.parents.map(toObjectName(_) + "Attribute").mkString(" with ")
+        writer.write(s"""  final object ${att.name} extends $traits\n""")
+      }
     }
+  }
 
   /* This method is overridden by LengthPowered and TimeSquared UnitdefsJson */
   protected def getReturnedTypeOfUnits(u: LinearUnit): String = s"${id}Unit"
@@ -268,7 +286,7 @@ class LengthPoweredUnitdefJson(jsonFile: File, subpackage: String, unitName: Str
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
     if (unit.name.startsWith(powerPrefix)) {
-      val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit)  // Length.metre^2 => LengthUnitObjects.metre
+      val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit.get)  // Length.metre^2 => LengthUnitObjects.metre
       writer.write(
         s"""  final case object ${unit.objectName} extends """ +
           s"""LengthPowered${unitName}Unit(LengthUnitObjects.$baseUnit, ${unit.aliasesStr})\n""")
@@ -304,7 +322,7 @@ class TimeSquaredUnitdefJson(jsonFile: File, subpackage: String)
   import GenerationUtil._
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
-    val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit)  // Time.second^2 => TimeUnitObjects.second
+    val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit.get)  // Time.second^2 => TimeUnitObjects.second
     writer.write(
       s"""  final case object ${unit.objectName} extends """ +
         s"""TimePoweredTimeSquaredUnit(TimeUnitObjects.$baseUnit, ${unit.aliasesStr})\n""")

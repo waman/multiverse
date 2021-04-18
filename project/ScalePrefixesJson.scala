@@ -1,22 +1,17 @@
 import java.io.File
-
-import com.google.gson.reflect.TypeToken
 import sbt.io.IO
 
-case class ScalePrefix(name: String, prefix: String, aliases: Array[String], scale: String){
-  lazy val _aliases: Seq[String] =
-    if (aliases != null) aliases else Nil
-}
+import play.api.libs.json.Reads._
+import play.api.libs.json._
+
+case class ScalePrefix(name: String, prefix: String, aliases: Option[Seq[String]], scale: String)
 
 class ScalePrefixesJson(jsonFile: File) extends JsonResource(jsonFile){
 
   import GenerationUtil._
 
-  private val scalePrefixType: Class[_ >: Array[ScalePrefix]] = new TypeToken[Array[ScalePrefix]]() {}.getRawType
-
-  val scalePrefixes: Seq[ScalePrefix] = IO.reader(jsonFile, utf8) { reader =>
-    gson.fromJson(reader, scalePrefixType).asInstanceOf[Array[ScalePrefix]].toSeq
-  }
+  implicit val scalePrefixReads: Reads[ScalePrefix] = Json.reads[ScalePrefix]
+  val scalePrefixes: Seq[ScalePrefix] = readJson(jsonFile, _.validate[Seq[ScalePrefix]])
 
   override protected def getDestFile(destRoot: File): File =
     IO.resolve(destRoot, new File("ScalePrefixes.scala"))

@@ -34,6 +34,7 @@ class Energy[A: Fractional](val value: A, val unit: EnergyUnit)
   def /(absoluteTemperature: AbsoluteTemperature[A]): Entropy[A] = new Entropy(this.value / absoluteTemperature.value, this.unit / absoluteTemperature.unit)
 }
 
+/** None */
 trait EnergyUnit extends LinearUnit[EnergyUnit]{
 
   override def getSIUnit: EnergyUnit = EnergyUnit.getSIUnit
@@ -59,6 +60,7 @@ object EnergyUnit extends UnitInfo[EnergyUnit]{
     Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> 2).withDefaultValue(0)
 
   def getSIUnit: EnergyUnit = EnergyUnitObjects.joule
+
   import EnergyUnitObjects._
 
   def getUnits: Seq[EnergyUnit] =

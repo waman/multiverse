@@ -16,6 +16,7 @@ class Irradiance[A: Fractional](val value: A, val unit: IrradianceUnit)
   def /(frequency: Frequency[A]): SpectralIrradiance[A] = new SpectralIrradiance(this.value / frequency.value, this.unit / frequency.unit)
 }
 
+/** None */
 trait IrradianceUnit extends LinearUnit[IrradianceUnit]{
 
   override def getSIUnit: IrradianceUnit = IrradianceUnit.getSIUnit
@@ -33,8 +34,7 @@ object IrradianceUnit extends UnitInfo[IrradianceUnit]{
 
   val getSIUnit: IrradianceUnit = PowerUnit.getSIUnit / AreaUnit.getSIUnit
 
-  def getUnits: Seq[IrradianceUnit] =
-    Seq()
+  def getUnits: Seq[IrradianceUnit] = Seq()
 }
 
 
@@ -47,11 +47,3 @@ class SimpleIrradianceUnit(val name: String, val symbol: String, val interval: R
 class DefaultIrradianceUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends IrradianceUnit
   
-object IrradianceUnitObjects{
-
-}
-
-
-object IrradianceUnits{
-
-}

@@ -4,12 +4,14 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
+
 class Density[A: Fractional](val value: A, val unit: DensityUnit)
     extends LinearQuantity[Density[A], A, DensityUnit] {
 
   override protected def newQuantity(value: A, unit: DensityUnit): Density[A] = new Density(value, unit)
 }
 
+/** None */
 trait DensityUnit extends LinearUnit[DensityUnit]{
 
   override def getSIUnit: DensityUnit = DensityUnit.getSIUnit
@@ -23,6 +25,7 @@ object DensityUnit extends UnitInfo[DensityUnit]{
     Map[DimensionSymbol, Int](M -> 1, L -> -3).withDefaultValue(0)
 
   val getSIUnit: DensityUnit = MassUnit.getSIUnit / VolumeUnit.getSIUnit
+
   import DensityUnitObjects._
 
   def getUnits: Seq[DensityUnit] =

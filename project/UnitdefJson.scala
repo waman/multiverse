@@ -1,46 +1,40 @@
-import java.io.{File, BufferedWriter => BW}
+import play.api.libs.json.{Json, Reads}
 
+import java.io.{File, BufferedWriter => BW}
 import sbt.io.IO
 
-trait UnitCategory[U <: UnitInfo]{
-  def description: String
+trait Unitdef[U <: UnitInfo]{
+  def description: Option[String]
   def SIUnit: String
   def dimension: Dimension
-  def units: Array[U]
-  def convertibles: Array[Convertible]
-  def use: Use
-
-  import GenerationUtil._
-
-  lazy val _units: Seq[U] = toSeq(this.units)
-  def _convertibles: Seq[Convertible] = toSeq(this.convertibles)
+  def units: Option[Seq[U]]
+  def convertibles: Option[Seq[Convertible]]
+  def use: Option[Use]
 }
 
 trait UnitInfo{
   def name: String
   def symbol: String
-  def aliases: Array[String]
-  def interval: String
-  def description: String
-
-  import GenerationUtil._
+  def aliases: Option[Seq[String]]
+  def interval: Option[String]
+  def description: Option[String]
 
   def objectName: String
-  def _aliases: Seq[String] = toSeq(this.aliases)
 
-  def aliasesStr: String = this._aliases.mkString("Seq(\"", "\", \"", "\")")
+  def aliasesStr: String = this.aliases match {
+    case Some(_aliases) => _aliases.mkString("Seq(\"", "\", \"", "\")")
+    case _ => ""
+  }
 }
 
-case class Dimension(M: Int, L: Int, T: Int, I: Int, Θ: Int, N: Int, J: Int){
+case class Dimension(M: Option[Int], L: Option[Int], T: Option[Int], I: Option[Int], Θ: Option[Int], N: Option[Int], J: Option[Int]){
   def getEntries: Map[String, Int] =
-    Map("M" -> M, "L" -> L, "T" -> T, "I" -> I, "Θ" -> Θ, "N" -> N, "J" -> J).filter(_._2 != 0)
+    Map("M" -> M, "L" -> L, "T" -> T, "I" -> I, "Θ" -> Θ, "N" -> N, "J" -> J).filter(_._2.nonEmpty).mapValues(_.get)
 }
 
-case class Convertible(result: String, from: String, to: String, algorithm: String, factor: String)
+case class Convertible(result: String, from: String, to: String, algorithm: Option[String], factor: Option[String])
 
-case class Use(subpackages: Array[String], selfUnits: Boolean, constants: Boolean){
-  def _subpackages: Seq[String] = GenerationUtil.toSeq(this.subpackages)
-}
+case class Use(subpackages: Option[Seq[String]], constants: Option[Boolean])
 
 sealed abstract class UnitType(val name: String)
 
@@ -66,13 +60,17 @@ abstract class UnitdefJson(jsonFile: File, val subpackage: String, val unitType:
   }
 }
 
-abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
+abstract class UnitdefJsonAdapter[UD <: Unitdef[U], U <: UnitInfo]
     (jsonFile: File, subpackage: String, unitType: UnitType)
     extends UnitdefJson(jsonFile, subpackage, unitType){
 
   import GenerationUtil._
 
-  def unitCategory: UC
+  implicit val dimensionReads: Reads[Dimension] = Json.reads[Dimension]
+  implicit val convertibleReads: Reads[Convertible] = Json.reads[Convertible]
+  implicit val useReads: Reads[Use] = Json.reads[Use]
+
+  def unitdef: UD
 
   protected def doGenerate(destFile: File): Unit = {
     IO.writer(destFile, "", utf8, append = false) { writer: BW =>
@@ -101,23 +99,26 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
          |import $rootPackage._
          |""".stripMargin)
 
-    if (this.unitCategory.use == null) return
-    val use = this.unitCategory.use
-    use._subpackages.foreach{ sp =>
-      if (sp == "")
-        writer.write(s"""import $rootPackage.unit.defs._\n""")
-      else
-        writer.write(s"""import $rootPackage.unit.defs.$sp._\n""")
+    this.unitdef.use.foreach{ use =>
+      use.subpackages.foreach{ sps =>
+        sps.foreach{ sp =>
+          if (sp == "") writer.write(s"""import $rootPackage.unit.defs._\n""")
+          else              writer.write(s"""import $rootPackage.unit.defs.$sp._\n""")
+        }
+      }
+      use.constants match {
+        case Some(true) => writer.write(s"import $rootPackage.Constants\n")
+        case _ =>
+      }
     }
-    if (use.constants) {
-      writer.write(s"import $rootPackage.Constants\n")
-    }
-
     writer.write("\n")
   }
 
-  protected def needSpireImplicits: Boolean = 
-    this.unitCategory._units.filter(u => u.interval != null).nonEmpty
+  protected def needSpireImplicits: Boolean =
+    this.unitdef.units match {
+      case Some(_units) => _units.exists(u => u.interval.nonEmpty)
+      case  _ => false
+    }
 
   private def generateQuantity(writer: BW): Unit = {
     writer.write(
@@ -126,32 +127,38 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
          |
          |""".stripMargin)
 
-    this.unitCategory._convertibles.foreach{ conv =>
-      val res = conv.result
+    this.unitdef.convertibles.foreach{ convs =>
+      convs.foreach{ conv =>
+        val res = conv.result
 
-      def refineUnit(s: String, defaultType: String): String = regexUnitName.replaceAllIn(s, m => {
-        val rType = if (m.group(1) != null) m.group(1) else defaultType
-        val rName = m.group(2)
-        s"""${rType}UnitObjects.$rName"""
-      })
+        def refineUnit(s: String, defaultType: String): String = regexUnitName.replaceAllIn(s, m => {
+          val rType = if (m.group(1) != null) m.group(1) else defaultType
+          val rName = m.group(2)
+          s"""${rType}UnitObjects.$rName"""
+        })
 
-      if (conv.algorithm != null){
-        require(conv.algorithm == "reciprocal")
-        writer.write(
-          s"""
-             |  def to$res: $res[A] =
-             |    new $res(apply(${refineUnit(conv.from, this.id)}).reciprocal, ${refineUnit(conv.to, res)})
-             |
-             |""".stripMargin)
-      } else {
-        val factor = if (conv.factor != null) s""" * implicitly[Fractional[A]].fromReal(${conv.factor})""" else ""
-        writer.write(
-          s"""
-             |  def to$res: $res[A] = new $res(
-             |      apply(${refineUnit(conv.from, this.id)})$factor,
-             |      ${refineUnit(conv.to, res)})
-             |
-             |""".stripMargin)
+        conv.algorithm match {
+          case Some(algo) =>
+            require(algo == "reciprocal")
+            writer.write(
+              s"""
+                 |  def to$res: $res[A] =
+                 |    new $res(apply(${refineUnit(conv.from, this.id)}).reciprocal, ${refineUnit(conv.to, res)})
+                 |
+                 |""".stripMargin)
+          case _ =>
+            val factor = conv.factor match {
+              case Some(f) => s""" * implicitly[Fractional[A]].fromReal($f)"""
+              case _ => ""
+            }
+            writer.write(
+              s"""
+                 |  def to$res: $res[A] = new $res(
+                 |      apply(${refineUnit(conv.from, this.id)})$factor,
+                 |      ${refineUnit(conv.to, res)})
+                 |
+                 |""".stripMargin)
+        }
       }
     }
 
@@ -164,8 +171,8 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
   protected def generateQuantityOperations(writer: BW): Unit = ()
 
   private def generateUnitTrait(writer: BW): Unit = {
-    if (this.unitCategory.description != null) {
-      writer.write(s"/** ${this.unitCategory.description} */\n")
+    if (this.unitdef.description != null) {
+      writer.write(s"/** ${this.unitdef.description} */\n")
     }
 
     val additionalTraits = getAdditionalTraitsOfUnit.map(" with " + _).mkString("")
@@ -189,7 +196,7 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
     writer.write(s"""object ${id}Unit extends UnitInfo[${id}Unit]{\n""")
 
     //***** Dimension *****
-    val entries = this.unitCategory.dimension.getEntries
+    val entries = this.unitdef.dimension.getEntries
     if (entries.nonEmpty) writer.write("  import DimensionSymbol._\n")
 
     val dim = entries.map(e => s"""${e._1} -> ${e._2}""").mkString(", ")
@@ -200,7 +207,7 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
          |""".stripMargin)
 
     //***** SI Unit *****
-    val siUnit = this.unitCategory.SIUnit
+    val siUnit = this.unitdef.SIUnit
     if (siUnit.contains('*') || siUnit.contains('/')) {
       val regexCompositeUnit(first, op, second) = siUnit
 
@@ -216,34 +223,38 @@ abstract class UnitdefJsonAdapter[UC <: UnitCategory[U], U <: UnitInfo]
     }
 
     //***** Defined Units *****
-    if (this.unitCategory._units.nonEmpty) writer.write(s"""  import ${id}UnitObjects._\n""")
-    writer.write(
-      s"""
-         |  def getUnits: Seq[${id}Unit] =
-         |    ${this.unitCategory._units.map(_.objectName).mkString("Seq(", ", ", ")")}
-         |}
-         |""".stripMargin)
+    this.unitdef.units match {
+      case Some(units) =>
+        writer.write(
+          s"""
+             |  import ${id}UnitObjects._
+             |
+             |  def getUnits: Seq[${id}Unit] =
+             |    ${units.map(_.objectName).mkString("Seq(", ", ", ")")}
+             |}
+             |""".stripMargin)
+      case _ =>
+        writer.write(
+          s"""
+             |  def getUnits: Seq[${id}Unit] = Seq()
+             |}
+             |""".stripMargin)
+    }
   }
 
   protected def generateImplsOfUnitTrait(writer: BW): Unit
 
   private def generateUnitObjects(writer: BW): Unit = {
-    writer.write(
-      s"""
-          |object ${id}UnitObjects{
-          |
-          |""".stripMargin)
+    this.unitdef.units.foreach { units =>
+      writer.write(
+        s"""
+           |object ${id}UnitObjects{
+           |
+           |""".stripMargin)
 
-    val units = this.unitCategory._units
-
-//    if (units.filter(_.interval != null).map(_.interval).exists(s => s == "1" || s.contains("r\""))) {
-//      writer.write("  import spire.implicits._\n\n")
-//    }
-
-    //***** Unit Objects *****
-    units.foreach(generateUnitCaseObject(writer, _))
-
-    writer.write("}\n\n")
+      units.foreach(generateUnitCaseObject(writer, _))
+      writer.write("}\n\n")
+    }
   }
 
   protected def generateUnitCaseObject(writer: BW, u: U): Unit

@@ -17,7 +17,7 @@ object MetricAttributesGenerator {
       val metricUnitdefs = jsons.unitdefs.filter(ud => metricUnitsNames.contains(ud.id))
                                       .map(ud => ud.asInstanceOf[LinearUnitdefJson])
 
-      metricUnitdefs.flatMap(ud => ud.unitCategory.attributes.flatMap(a => a.parents))
+      metricUnitdefs.flatMap(ud => ud.unitdef.attributes.get.flatMap(a => a.parents))
           .distinct.foreach{ u =>
         writer.write(s"""sealed trait ${toObjectName(u)}Attribute\n""")
       }
@@ -32,7 +32,7 @@ object MetricAttributesGenerator {
           |object MetricAttributes{
           |""".stripMargin)
 
-      val attMap: Map[String, Seq[String]] = metricUnitdefs.flatMap(ud => ud.unitCategory._attributes)
+      val attMap: Map[String, Seq[String]] = metricUnitdefs.flatMap(ud => ud.unitdef.attributes.get)
                           .groupBy(_.name).mapValues(atts => atts.flatMap(_.parents))
 
       attMap.foreach{ case (name, parents) =>

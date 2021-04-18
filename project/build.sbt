@@ -1,16 +1,14 @@
-scalaVersion := "2.12.12"
+scalaVersion := "2.12.13"
 
 //***** Custom settings *****
 val javaVersion = settingKey[String]("javac source/target version")
-
 val encoding = settingKey[String]("source encoding")
 
-javaVersion := "11"
-
-encoding := "UTF-8"
+ThisBuild / javaVersion := "11"
+ThisBuild / encoding := "UTF-8"
 
 libraryDependencies ++= Seq(
-  "com.google.code.gson" % "gson" % "2.8.5"
+  "com.typesafe.play" %% "play-json" % "2.9.2"
 )
 
 //***** Options & Dependencies *****

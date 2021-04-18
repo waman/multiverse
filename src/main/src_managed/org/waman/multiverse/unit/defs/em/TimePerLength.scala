@@ -16,7 +16,7 @@ class TimePerLength[A: Fractional](val value: A, val unit: TimePerLengthUnit)
   override protected def newQuantity(value: A, unit: TimePerLengthUnit): TimePerLength[A] = new TimePerLength(value, unit)
 }
 
-/** This unit is defined for electrical resistance in ESU and Gaussian unit systems */
+/** Some(This unit is defined for electrical resistance in ESU and Gaussian unit systems) */
 trait TimePerLengthUnit extends LinearUnit[TimePerLengthUnit]{
 
   override def getSIUnit: TimePerLengthUnit = TimePerLengthUnit.getSIUnit
@@ -31,8 +31,7 @@ object TimePerLengthUnit extends UnitInfo[TimePerLengthUnit]{
 
   val getSIUnit: TimePerLengthUnit = TimeUnit.getSIUnit / LengthUnit.getSIUnit
 
-  def getUnits: Seq[TimePerLengthUnit] =
-    Seq()
+  def getUnits: Seq[TimePerLengthUnit] = Seq()
 }
 
 
@@ -45,11 +44,3 @@ class SimpleTimePerLengthUnit(val name: String, val symbol: String, val interval
 class DefaultTimePerLengthUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends TimePerLengthUnit
   
-object TimePerLengthUnitObjects{
-
-}
-
-
-object TimePerLengthUnits{
-
-}

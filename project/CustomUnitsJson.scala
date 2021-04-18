@@ -1,12 +1,8 @@
 import java.io.{File, BufferedWriter => BW}
-
-import com.google.gson.reflect.TypeToken
+import play.api.libs.json.{Json, Reads}
 import sbt.io.IO
 
-case class Units(description: String, units: Array[UnitEntry], use: Use){
-  def _units: Seq[UnitEntry] = GenerationUtil.toSeq(this.units)
-}
-
+case class CustomUnits(description: Option[String], units: Seq[UnitEntry], use: Option[Use])
 case class UnitEntry(symbol: String, unit: String)
 
 class CustomUnitsJson(jsonFile: File) extends JsonResource(jsonFile){
@@ -15,11 +11,10 @@ class CustomUnitsJson(jsonFile: File) extends JsonResource(jsonFile){
 
   val id: String = jsonFile.getName.replace(".json", "")  // BasicUnits
 
-  val unitsType: Class[_ >: Units] = new TypeToken[Units]() {}.getRawType
-
-  val units: Units = IO.reader(jsonFile, utf8) { reader =>
-    gson.fromJson(reader, unitsType).asInstanceOf[Units]
-  }
+  implicit val unitEntryReads: Reads[UnitEntry] = Json.reads[UnitEntry]
+  implicit val useReads: Reads[Use] = Json.reads[Use]
+  implicit val customUnitReads: Reads[CustomUnits] = Json.reads[CustomUnits]
+  val customUnits: CustomUnits = readJson(jsonFile, _.validate[CustomUnits])
 
   override protected def getDestFile(destRoot: File): File =
     IO.resolve(destRoot, new File(s"unit/custom/$id.scala"))
@@ -29,22 +24,17 @@ class CustomUnitsJson(jsonFile: File) extends JsonResource(jsonFile){
 
       writer.write(s"""package $rootPackage.unit.custom\n\n""")
 
-      if(this.units.use != null){
-        this.units.use._subpackages.foreach{ u =>
-          if (u == "")
-            writer.write(s"""import $rootPackage.unit.defs._\n""")
-          else
-            writer.write(s"""import $rootPackage.unit.defs.$u._\n""")
+      this.customUnits.use.foreach{ use =>
+        use.subpackages.foreach{ sps =>
+          sps.foreach{ u =>
+            if (u == "") writer.write(s"""import $rootPackage.unit.defs._\n""")
+            else             writer.write(s"""import $rootPackage.unit.defs.$u._\n""")
+          }
         }
       }
 
-      if (this.units.description != null) {
-        writer.write(
-          s"""
-             |/**
-             | * ${this.units.description}
-             | */""".stripMargin)
-
+      this.customUnits.description.foreach{ desc =>
+          writer.write(s"/** $desc */")
       }
 
       writer.write(
@@ -52,7 +42,7 @@ class CustomUnitsJson(jsonFile: File) extends JsonResource(jsonFile){
            |object $id{
            |""".stripMargin)
 
-      this.units._units.foreach{ entry =>
+      this.customUnits.units.foreach{ entry =>
         val u = entry.unit.split('.')
         val uType = u(0)
         val uName = u(1)

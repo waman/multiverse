@@ -1,15 +1,9 @@
 import java.io.{File, BufferedWriter => BW}
-import com.google.gson.reflect.TypeToken
+import play.api.libs.json.{Json, Reads}
 import sbt.io.IO
 
-import scala.util.matching.Regex
-
-case class UnitSystem(description: String, parent: String, evaluations: Array[EvalEntry], use: Use){
-  def _parent: String = if (this.parent != null) this.parent else "UnitSystem"
-  lazy val _evaluations: Seq[EvalEntry] = GenerationUtil.toSeq(this.evaluations)
-}
-
-case class EvalEntry(quantity: String, unit: String)
+case class UnitSystem(description: Option[String], parent: Option[String], evaluations: Seq[Evaluation], use: Option[Use])
+case class Evaluation(quantity: String, unit: String)
 
 class UnitSystemJson(jsonFile: File) extends JsonResource(jsonFile){
 
@@ -17,11 +11,10 @@ class UnitSystemJson(jsonFile: File) extends JsonResource(jsonFile){
 
   val id: String = jsonFile.getName.replace(".json", "")  // MKS
 
-  val unitsystemType: Class[_ >: UnitSystem] = new TypeToken[UnitSystem]() {}.getRawType
-
-  val unitsystem: UnitSystem = IO.reader(jsonFile, utf8) { reader =>
-    gson.fromJson(reader, unitsystemType).asInstanceOf[UnitSystem]
-  }
+  implicit val evaluationReads: Reads[Evaluation] = Json.reads[Evaluation]
+  implicit val useReads: Reads[Use] = Json.reads[Use]
+  implicit val unitsystemReads: Reads[UnitSystem] = Json.reads[UnitSystem]
+  val unitsystem: UnitSystem = readJson(jsonFile, _.validate[UnitSystem])
 
   override protected def getDestFile(destRoot: File): File =
     IO.resolve(destRoot, new File(s"unitsystem/$id.scala"))
@@ -35,29 +28,30 @@ class UnitSystemJson(jsonFile: File) extends JsonResource(jsonFile){
            |
            |""".stripMargin)
 
-      if (this.unitsystem.use != null) {
-        this.unitsystem.use._subpackages.foreach{ sp =>
-          if (sp == "")
-            writer.write(s"""import $rootPackage.unit.defs._\n""")
-          else
-            writer.write(s"""import $rootPackage.unit.defs.$sp._\n""")
-        }
-        if (this.unitsystem.use._subpackages.nonEmpty) writer.write("\n")
+      this.unitsystem.use.foreach{ use =>
+        use.subpackages.foreach{ sps =>
+          sps.foreach{ sp =>
+            if (sp == "") writer.write(s"""import $rootPackage.unit.defs._\n""")
+            else              writer.write(s"""import $rootPackage.unit.defs.$sp._\n""")
+            }
+          }
+          if (use.subpackages.nonEmpty) writer.write("\n")
       }
 
-      if (this.unitsystem.description != null) {
-        writer.write(
-          s"""/**
-             | * ${this.unitsystem.description}
-             | */""".stripMargin)
+      this.unitsystem.description.foreach{ desc =>
+        writer.write(s"""/** $desc */""")
       }
 
+      val parent = this.unitsystem.parent match {
+        case Some(_parent) => _parent
+        case  _ => "UnitSystem"
+      }
       writer.write(
         s"""
-           |trait $id extends ${this.unitsystem._parent}{
+           |trait $id extends $parent {
            |""".stripMargin)
 
-      this.unitsystem._evaluations.foreach{ e =>
+      this.unitsystem.evaluations.foreach{ e =>
         val refinedUnit = regexUnitName.replaceAllIn(e.unit, m => {
           val uType = if (m.group(1) != null) m.group(1) else e.quantity
           val uName = m.group(2)
