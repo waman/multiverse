@@ -27,6 +27,7 @@ class Mass[A: Fractional](val value: A, val unit: MassUnit)
   def *(length: Length[A]): MassTorque[A] = new MassTorque(this.value * length.value, this.unit * length.unit)
 }
 
+/** None */
 trait MassUnit extends LinearUnit[MassUnit]{
 
   override def getSIUnit: MassUnit = MassUnit.getSIUnit
@@ -52,6 +53,7 @@ object MassUnit extends UnitInfo[MassUnit]{
     Map[DimensionSymbol, Int](M -> 1).withDefaultValue(0)
 
   def getSIUnit: MassUnit = MassUnitObjects.kilogram
+
   import MassUnitObjects._
 
   def getUnits: Seq[MassUnit] =

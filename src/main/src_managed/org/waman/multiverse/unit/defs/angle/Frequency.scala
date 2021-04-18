@@ -21,6 +21,7 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
   def *(area: Area[A]): AreaFrequency[A] = new AreaFrequency(this.value * area.value, area.unit * this.unit)
 }
 
+/** None */
 trait FrequencyUnit extends LinearUnit[FrequencyUnit]{
 
   override def getSIUnit: FrequencyUnit = FrequencyUnit.getSIUnit
@@ -34,6 +35,7 @@ object FrequencyUnit extends UnitInfo[FrequencyUnit]{
     Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
 
   def getSIUnit: FrequencyUnit = FrequencyUnitObjects.heltz
+
   import FrequencyUnitObjects._
 
   def getUnits: Seq[FrequencyUnit] =

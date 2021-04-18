@@ -1,10 +1,7 @@
 package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs._
-
-/**
- * Units of US customary measurement systems.
- */
+/** Units of US customary measurement systems. */
 object USCustomaryUnits{
   /** point */
   def pt: LengthUnit = LengthUnitObjects.point

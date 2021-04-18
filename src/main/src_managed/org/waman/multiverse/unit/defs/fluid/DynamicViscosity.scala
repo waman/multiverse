@@ -12,6 +12,7 @@ class DynamicViscosity[A: Fractional](val value: A, val unit: DynamicViscosityUn
   override protected def newQuantity(value: A, unit: DynamicViscosityUnit): DynamicViscosity[A] = new DynamicViscosity(value, unit)
 }
 
+/** None */
 trait DynamicViscosityUnit extends LinearUnit[DynamicViscosityUnit]{
 
   override def getSIUnit: DynamicViscosityUnit = DynamicViscosityUnit.getSIUnit
@@ -25,6 +26,7 @@ object DynamicViscosityUnit extends UnitInfo[DynamicViscosityUnit]{
     Map[DimensionSymbol, Int](T -> -1, M -> 1, L -> -1).withDefaultValue(0)
 
   val getSIUnit: DynamicViscosityUnit = PressureUnit.getSIUnit * TimeUnit.getSIUnit
+
   import DynamicViscosityUnitObjects._
 
   def getUnits: Seq[DynamicViscosityUnit] =

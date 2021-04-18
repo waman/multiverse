@@ -21,6 +21,7 @@ class Area[A: Fractional](val value: A, val unit: AreaUnit)
   def *(length: Length[A]): Volume[A] = new Volume(this.value * length.value, this.unit * length.unit)
 }
 
+/** None */
 trait AreaUnit extends LinearUnit[AreaUnit]{
 
   override def getSIUnit: AreaUnit = AreaUnit.getSIUnit
@@ -43,6 +44,7 @@ object AreaUnit extends UnitInfo[AreaUnit]{
     Map[DimensionSymbol, Int](L -> 2).withDefaultValue(0)
 
   val getSIUnit: AreaUnit = LengthUnit.getSIUnit * LengthUnit.getSIUnit
+
   import AreaUnitObjects._
 
   def getUnits: Seq[AreaUnit] =

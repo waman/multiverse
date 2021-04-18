@@ -22,6 +22,7 @@ class Force[A: Fractional](val value: A, val unit: ForceUnit)
   def *(time: Time[A]): Momentum[A] = new Momentum(this.value * time.value, this.unit * time.unit)
 }
 
+/** None */
 trait ForceUnit extends LinearUnit[ForceUnit]{
 
   override def getSIUnit: ForceUnit = ForceUnit.getSIUnit
@@ -47,6 +48,7 @@ object ForceUnit extends UnitInfo[ForceUnit]{
     Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> 1).withDefaultValue(0)
 
   def getSIUnit: ForceUnit = ForceUnitObjects.newton
+
   import ForceUnitObjects._
 
   def getUnits: Seq[ForceUnit] =

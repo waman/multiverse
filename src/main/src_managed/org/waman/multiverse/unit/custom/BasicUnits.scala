@@ -4,10 +4,7 @@ import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.angle._
 import org.waman.multiverse.unit.defs.chem._
 import org.waman.multiverse.unit.defs.thermo._
-
-/**
- * Usually used units of length, area, volume, mass, time, angle, frequency, temperature, e.t.c.
- */
+/** Usually used units of length, area, volume, mass, time, angle, frequency, temperature, e.t.c. */
 object BasicUnits{
   /** nanometre */
   def nm: LengthUnit = LengthUnitObjects.nanometre

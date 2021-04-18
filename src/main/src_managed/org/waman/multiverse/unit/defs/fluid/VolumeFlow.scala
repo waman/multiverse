@@ -11,6 +11,7 @@ class VolumeFlow[A: Fractional](val value: A, val unit: VolumeFlowUnit)
   override protected def newQuantity(value: A, unit: VolumeFlowUnit): VolumeFlow[A] = new VolumeFlow(value, unit)
 }
 
+/** None */
 trait VolumeFlowUnit extends LinearUnit[VolumeFlowUnit]{
 
   override def getSIUnit: VolumeFlowUnit = VolumeFlowUnit.getSIUnit
@@ -24,6 +25,7 @@ object VolumeFlowUnit extends UnitInfo[VolumeFlowUnit]{
     Map[DimensionSymbol, Int](T -> -1, L -> 3).withDefaultValue(0)
 
   val getSIUnit: VolumeFlowUnit = VolumeUnit.getSIUnit / TimeUnit.getSIUnit
+
   import VolumeFlowUnitObjects._
 
   def getUnits: Seq[VolumeFlowUnit] =

@@ -13,6 +13,7 @@ class Exposure[A: Fractional](val value: A, val unit: ExposureUnit)
   override protected def newQuantity(value: A, unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
 }
 
+/** None */
 trait ExposureUnit extends LinearUnit[ExposureUnit]{
 
   override def getSIUnit: ExposureUnit = ExposureUnit.getSIUnit
@@ -26,6 +27,7 @@ object ExposureUnit extends UnitInfo[ExposureUnit]{
     Map[DimensionSymbol, Int](T -> 1, M -> -1, I -> 1).withDefaultValue(0)
 
   val getSIUnit: ExposureUnit = ElectricChargeUnit.getSIUnit / MassUnit.getSIUnit
+
   import ExposureUnitObjects._
 
   def getUnits: Seq[ExposureUnit] =

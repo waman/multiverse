@@ -17,6 +17,7 @@ class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
   def *(volume: Volume[A]): Energy[A] = new Energy(this.value * volume.value, volume.unit * this.unit)
 }
 
+/** None */
 trait PressureUnit extends LinearUnit[PressureUnit]{
 
   override def getSIUnit: PressureUnit = PressureUnit.getSIUnit
@@ -33,6 +34,7 @@ object PressureUnit extends UnitInfo[PressureUnit]{
     Map[DimensionSymbol, Int](T -> -2, M -> 1, L -> -1).withDefaultValue(0)
 
   def getSIUnit: PressureUnit = PressureUnitObjects.pascal
+
   import PressureUnitObjects._
 
   def getUnits: Seq[PressureUnit] =

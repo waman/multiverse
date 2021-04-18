@@ -1,10 +1,7 @@
 package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs._
-
-/**
- * Units of US customary measurement systems (US Survey)
- */
+/** Units of US customary measurement systems (US Survey) */
 object USCustomarySurveyUnits{
   /** link(US) */
   def li: LengthUnit = LengthUnitObjects.`link(US)`

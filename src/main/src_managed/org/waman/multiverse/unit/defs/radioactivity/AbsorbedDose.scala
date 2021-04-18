@@ -4,12 +4,14 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
+
 class AbsorbedDose[A: Fractional](val value: A, val unit: AbsorbedDoseUnit)
     extends LinearQuantity[AbsorbedDose[A], A, AbsorbedDoseUnit] {
 
   override protected def newQuantity(value: A, unit: AbsorbedDoseUnit): AbsorbedDose[A] = new AbsorbedDose(value, unit)
 }
 
+/** None */
 trait AbsorbedDoseUnit extends LinearUnit[AbsorbedDoseUnit]{
 
   override def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnit.getSIUnit
@@ -23,6 +25,7 @@ object AbsorbedDoseUnit extends UnitInfo[AbsorbedDoseUnit]{
     Map[DimensionSymbol, Int](T -> -2, L -> 2).withDefaultValue(0)
 
   def getSIUnit: AbsorbedDoseUnit = AbsorbedDoseUnitObjects.gray
+
   import AbsorbedDoseUnitObjects._
 
   def getUnits: Seq[AbsorbedDoseUnit] =

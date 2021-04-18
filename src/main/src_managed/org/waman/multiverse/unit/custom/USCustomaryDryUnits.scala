@@ -1,10 +1,7 @@
 package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs._
-
-/**
- * Units of US customary measurement systems (Dry)
- */
+/** Units of US customary measurement systems (Dry) */
 object USCustomaryDryUnits{
   /** pint(US_dry) */
   def pt: VolumeUnit = VolumeUnitObjects.`pint(US_dry)`

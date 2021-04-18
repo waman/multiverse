@@ -2,10 +2,7 @@ package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.unit.defs.fluid._
-
-/**
- * Usually used units of mechanics and fluid mechanics
- */
+/** Usually used units of mechanics and fluid mechanics */
 object MechanicalUnits{
   /** second_squared */
   def s2: TimeSquaredUnit = TimeSquaredUnitObjects.second_squared

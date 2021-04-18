@@ -16,6 +16,7 @@ class MassTorque[A: Fractional](val value: A, val unit: MassTorqueUnit)
   def /(time: Time[A]): Momentum[A] = new Momentum(this.value / time.value, this.unit / time.unit)
 }
 
+/** None */
 trait MassTorqueUnit extends LinearUnit[MassTorqueUnit]{
 
   override def getSIUnit: MassTorqueUnit = MassTorqueUnit.getSIUnit
@@ -36,8 +37,7 @@ object MassTorqueUnit extends UnitInfo[MassTorqueUnit]{
 
   val getSIUnit: MassTorqueUnit = MassUnit.getSIUnit * LengthUnit.getSIUnit
 
-  def getUnits: Seq[MassTorqueUnit] =
-    Seq()
+  def getUnits: Seq[MassTorqueUnit] = Seq()
 }
 
 
@@ -50,11 +50,3 @@ class SimpleMassTorqueUnit(val name: String, val symbol: String, val interval: R
 class DefaultMassTorqueUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends MassTorqueUnit
   
-object MassTorqueUnitObjects{
-
-}
-
-
-object MassTorqueUnits{
-
-}

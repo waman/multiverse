@@ -19,6 +19,7 @@ class ElectricCurrent[A: Fractional](val value: A, val unit: ElectricCurrentUnit
   def /(length: Length[A]): MagneticFieldStrength[A] = new MagneticFieldStrength(this.value / length.value, this.unit / length.unit)
 }
 
+/** None */
 trait ElectricCurrentUnit extends LinearUnit[ElectricCurrentUnit]{
 
   override def getSIUnit: ElectricCurrentUnit = ElectricCurrentUnit.getSIUnit
@@ -41,6 +42,7 @@ object ElectricCurrentUnit extends UnitInfo[ElectricCurrentUnit]{
     Map[DimensionSymbol, Int](I -> 1).withDefaultValue(0)
 
   def getSIUnit: ElectricCurrentUnit = ElectricCurrentUnitObjects.ampere
+
   import ElectricCurrentUnitObjects._
 
   def getUnits: Seq[ElectricCurrentUnit] =

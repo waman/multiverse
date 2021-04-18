@@ -13,7 +13,7 @@ class AngularMomentum[A: Fractional](val value: A, val unit: AngularMomentumUnit
   override protected def newQuantity(value: A, unit: AngularMomentumUnit): AngularMomentum[A] = new AngularMomentum(value, unit)
 }
 
-/** This can be used as a unit of action. */
+/** Some(This can be used as a unit of action.) */
 trait AngularMomentumUnit extends LinearUnit[AngularMomentumUnit]{
 
   override def getSIUnit: AngularMomentumUnit = AngularMomentumUnit.getSIUnit
@@ -27,6 +27,7 @@ object AngularMomentumUnit extends UnitInfo[AngularMomentumUnit]{
     Map[DimensionSymbol, Int](T -> -1, M -> 1, L -> 2).withDefaultValue(0)
 
   val getSIUnit: AngularMomentumUnit = EnergyUnit.getSIUnit * TimeUnit.getSIUnit
+
   import AngularMomentumUnitObjects._
 
   def getUnits: Seq[AngularMomentumUnit] =

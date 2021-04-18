@@ -1,10 +1,7 @@
 package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs._
-
-/**
- * Usually used units of astronomics
- */
+/** Usually used units of astronomics */
 object AstronomicalUnits{
   /** astronomical_unit */
   def AU: LengthUnit = LengthUnitObjects.astronomical_unit

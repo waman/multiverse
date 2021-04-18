@@ -13,6 +13,7 @@ class Luminance[A: Fractional](val value: A, val unit: LuminanceUnit)
   override protected def newQuantity(value: A, unit: LuminanceUnit): Luminance[A] = new Luminance(value, unit)
 }
 
+/** None */
 trait LuminanceUnit extends LinearUnit[LuminanceUnit]{
 
   override def getSIUnit: LuminanceUnit = LuminanceUnit.getSIUnit
@@ -26,6 +27,7 @@ object LuminanceUnit extends UnitInfo[LuminanceUnit]{
     Map[DimensionSymbol, Int](J -> 1, L -> -2).withDefaultValue(0)
 
   val getSIUnit: LuminanceUnit = LuminousIntensityUnit.getSIUnit / AreaUnit.getSIUnit
+
   import LuminanceUnitObjects._
 
   def getUnits: Seq[LuminanceUnit] =

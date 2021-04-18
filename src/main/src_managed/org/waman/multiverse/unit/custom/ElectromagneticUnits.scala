@@ -1,10 +1,7 @@
 package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs.em._
-
-/**
- * Usually used units of electromagnetism
- */
+/** Usually used units of electromagnetism */
 object ElectromagneticUnits{
   /** coulomb */
   def C: ElectricChargeUnit = ElectricChargeUnitObjects.coulomb

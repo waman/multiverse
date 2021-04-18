@@ -11,7 +11,7 @@ import org.waman.multiverse.unit.defs.radiometry._
 import org.waman.multiverse.unit.defs.radioactivity._
 
 
-trait CGS extends UnitSystem{
+trait CGS extends UnitSystem {
   implicit def evaluateAngle[A: Fractional](q: Angle[A]): A = q(AngleUnitObjects.radian)
   implicit def evaluateAngularVelocity[A: Fractional](q: AngularVelocity[A]): A = q(AngleUnitObjects.radian / TimeUnitObjects.second)
   implicit def evaluateFrequency[A: Fractional](q: Frequency[A]): A = q(FrequencyUnitObjects.heltz)

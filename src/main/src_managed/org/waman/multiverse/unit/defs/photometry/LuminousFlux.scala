@@ -14,6 +14,7 @@ class LuminousFlux[A: Fractional](val value: A, val unit: LuminousFluxUnit)
   def /(area: Area[A]): Illuminance[A] = new Illuminance(this.value / area.value, this.unit / area.unit)
 }
 
+/** None */
 trait LuminousFluxUnit extends LinearUnit[LuminousFluxUnit]{
 
   override def getSIUnit: LuminousFluxUnit = LuminousFluxUnit.getSIUnit
@@ -30,6 +31,7 @@ object LuminousFluxUnit extends UnitInfo[LuminousFluxUnit]{
     Map[DimensionSymbol, Int](J -> 1).withDefaultValue(0)
 
   def getSIUnit: LuminousFluxUnit = LuminousFluxUnitObjects.lumen
+
   import LuminousFluxUnitObjects._
 
   def getUnits: Seq[LuminousFluxUnit] =

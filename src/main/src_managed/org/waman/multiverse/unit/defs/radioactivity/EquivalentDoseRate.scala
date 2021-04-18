@@ -11,6 +11,7 @@ class EquivalentDoseRate[A: Fractional](val value: A, val unit: EquivalentDoseRa
   override protected def newQuantity(value: A, unit: EquivalentDoseRateUnit): EquivalentDoseRate[A] = new EquivalentDoseRate(value, unit)
 }
 
+/** None */
 trait EquivalentDoseRateUnit extends LinearUnit[EquivalentDoseRateUnit]{
 
   override def getSIUnit: EquivalentDoseRateUnit = EquivalentDoseRateUnit.getSIUnit
@@ -25,8 +26,7 @@ object EquivalentDoseRateUnit extends UnitInfo[EquivalentDoseRateUnit]{
 
   val getSIUnit: EquivalentDoseRateUnit = EquivalentDoseUnit.getSIUnit / TimeUnit.getSIUnit
 
-  def getUnits: Seq[EquivalentDoseRateUnit] =
-    Seq()
+  def getUnits: Seq[EquivalentDoseRateUnit] = Seq()
 }
 
 
@@ -39,11 +39,3 @@ class SimpleEquivalentDoseRateUnit(val name: String, val symbol: String, val int
 class DefaultEquivalentDoseRateUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends EquivalentDoseRateUnit
   
-object EquivalentDoseRateUnitObjects{
-
-}
-
-
-object EquivalentDoseRateUnits{
-
-}

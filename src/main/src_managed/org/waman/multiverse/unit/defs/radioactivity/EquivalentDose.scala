@@ -14,6 +14,7 @@ class EquivalentDose[A: Fractional](val value: A, val unit: EquivalentDoseUnit)
   def /(time: Time[A]): EquivalentDoseRate[A] = new EquivalentDoseRate(this.value / time.value, this.unit / time.unit)
 }
 
+/** None */
 trait EquivalentDoseUnit extends LinearUnit[EquivalentDoseUnit]{
 
   override def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnit.getSIUnit
@@ -30,6 +31,7 @@ object EquivalentDoseUnit extends UnitInfo[EquivalentDoseUnit]{
     Map[DimensionSymbol, Int](T -> -2, L -> 2).withDefaultValue(0)
 
   def getSIUnit: EquivalentDoseUnit = EquivalentDoseUnitObjects.sievert
+
   import EquivalentDoseUnitObjects._
 
   def getUnits: Seq[EquivalentDoseUnit] =

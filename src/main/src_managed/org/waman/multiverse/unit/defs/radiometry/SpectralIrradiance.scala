@@ -12,7 +12,7 @@ class SpectralIrradiance[A: Fractional](val value: A, val unit: SpectralIrradian
   override protected def newQuantity(value: A, unit: SpectralIrradianceUnit): SpectralIrradiance[A] = new SpectralIrradiance(value, unit)
 }
 
-/** This unit is, exactly speaking, spectral irradiance in frequency. */
+/** Some(This unit is, exactly speaking, spectral irradiance in frequency.) */
 trait SpectralIrradianceUnit extends LinearUnit[SpectralIrradianceUnit]{
 
   override def getSIUnit: SpectralIrradianceUnit = SpectralIrradianceUnit.getSIUnit
@@ -26,6 +26,7 @@ object SpectralIrradianceUnit extends UnitInfo[SpectralIrradianceUnit]{
     Map[DimensionSymbol, Int](T -> -2, M -> 1).withDefaultValue(0)
 
   val getSIUnit: SpectralIrradianceUnit = PowerUnit.getSIUnit / AreaFrequencyUnit.getSIUnit
+
   import SpectralIrradianceUnitObjects._
 
   def getUnits: Seq[SpectralIrradianceUnit] =

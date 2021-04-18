@@ -12,6 +12,7 @@ class MagneticFluxDensity[A: Fractional](val value: A, val unit: MagneticFluxDen
   override protected def newQuantity(value: A, unit: MagneticFluxDensityUnit): MagneticFluxDensity[A] = new MagneticFluxDensity(value, unit)
 }
 
+/** None */
 trait MagneticFluxDensityUnit extends LinearUnit[MagneticFluxDensityUnit]{
 
   override def getSIUnit: MagneticFluxDensityUnit = MagneticFluxDensityUnit.getSIUnit
@@ -25,6 +26,7 @@ object MagneticFluxDensityUnit extends UnitInfo[MagneticFluxDensityUnit]{
     Map[DimensionSymbol, Int](T -> -2, M -> 1, I -> -1).withDefaultValue(0)
 
   def getSIUnit: MagneticFluxDensityUnit = MagneticFluxDensityUnitObjects.tesla
+
   import MagneticFluxDensityUnitObjects._
 
   def getUnits: Seq[MagneticFluxDensityUnit] =

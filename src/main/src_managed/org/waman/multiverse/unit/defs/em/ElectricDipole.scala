@@ -13,6 +13,7 @@ class ElectricDipole[A: Fractional](val value: A, val unit: ElectricDipoleUnit)
   override protected def newQuantity(value: A, unit: ElectricDipoleUnit): ElectricDipole[A] = new ElectricDipole(value, unit)
 }
 
+/** None */
 trait ElectricDipoleUnit extends LinearUnit[ElectricDipoleUnit]{
 
   override def getSIUnit: ElectricDipoleUnit = ElectricDipoleUnit.getSIUnit
@@ -26,6 +27,7 @@ object ElectricDipoleUnit extends UnitInfo[ElectricDipoleUnit]{
     Map[DimensionSymbol, Int](T -> 1, I -> 1, L -> 1).withDefaultValue(0)
 
   val getSIUnit: ElectricDipoleUnit = ElectricChargeUnit.getSIUnit * LengthUnit.getSIUnit
+
   import ElectricDipoleUnitObjects._
 
   def getUnits: Seq[ElectricDipoleUnit] =

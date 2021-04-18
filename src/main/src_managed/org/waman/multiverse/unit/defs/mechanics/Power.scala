@@ -23,7 +23,7 @@ class Power[A: Fractional](val value: A, val unit: PowerUnit)
   def /(areaFrequency: AreaFrequency[A]): SpectralIrradiance[A] = new SpectralIrradiance(this.value / areaFrequency.value, this.unit / areaFrequency.unit)
 }
 
-/** This can be used as a unit of radiant flux (radiation). */
+/** Some(This can be used as a unit of radiant flux (radiation).) */
 trait PowerUnit extends LinearUnit[PowerUnit]{
 
   override def getSIUnit: PowerUnit = PowerUnit.getSIUnit
@@ -49,6 +49,7 @@ object PowerUnit extends UnitInfo[PowerUnit]{
     Map[DimensionSymbol, Int](T -> -3, M -> 1, L -> 2).withDefaultValue(0)
 
   def getSIUnit: PowerUnit = PowerUnitObjects.watt
+
   import PowerUnitObjects._
 
   def getUnits: Seq[PowerUnit] =

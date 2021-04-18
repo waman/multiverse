@@ -14,6 +14,7 @@ class Acceleration[A: Fractional](val value: A, val unit: AccelerationUnit)
   def *(mass: Mass[A]): Force[A] = new Force(this.value * mass.value, mass.unit * this.unit)
 }
 
+/** None */
 trait AccelerationUnit extends LinearUnit[AccelerationUnit]{
 
   override def getSIUnit: AccelerationUnit = AccelerationUnit.getSIUnit
@@ -27,6 +28,7 @@ object AccelerationUnit extends UnitInfo[AccelerationUnit]{
     Map[DimensionSymbol, Int](T -> -2, L -> 1).withDefaultValue(0)
 
   val getSIUnit: AccelerationUnit = LengthUnit.getSIUnit / TimeSquaredUnit.getSIUnit
+
   import AccelerationUnitObjects._
 
   def getUnits: Seq[AccelerationUnit] =

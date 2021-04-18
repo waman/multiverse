@@ -4,6 +4,7 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
+
 class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
     extends HomogeneousQuantity[A, TemperatureUnit] {
 
@@ -14,6 +15,7 @@ class Temperature[A: Fractional](val value: A, val unit: TemperatureUnit)
 
 }
 
+/** None */
 trait TemperatureUnit extends HomogeneousUnit[TemperatureUnit]{
 
   override def getSIUnit: TemperatureUnit = TemperatureUnit.getSIUnit
@@ -27,6 +29,7 @@ object TemperatureUnit extends UnitInfo[TemperatureUnit]{
     Map[DimensionSymbol, Int](Θ -> 1).withDefaultValue(0)
 
   def getSIUnit: TemperatureUnit = TemperatureUnitObjects.kelvin
+
   import TemperatureUnitObjects._
 
   def getUnits: Seq[TemperatureUnit] =

@@ -15,6 +15,7 @@ class TimeSquared[A: Fractional](val value: A, val unit: TimeSquaredUnit)
   def /(length: Length[A]): TimeSquaredPerLength[A] = new TimeSquaredPerLength(this.value / length.value, this.unit / length.unit)
 }
 
+/** None */
 trait TimeSquaredUnit extends LinearUnit[TimeSquaredUnit]{
 
   override def getSIUnit: TimeSquaredUnit = TimeSquaredUnit.getSIUnit
@@ -31,6 +32,7 @@ object TimeSquaredUnit extends UnitInfo[TimeSquaredUnit]{
     Map[DimensionSymbol, Int](T -> 2).withDefaultValue(0)
 
   val getSIUnit: TimeSquaredUnit = TimeUnit.getSIUnit * TimeUnit.getSIUnit
+
   import TimeSquaredUnitObjects._
 
   def getUnits: Seq[TimeSquaredUnit] =

@@ -15,6 +15,7 @@ class Momentum[A: Fractional](val value: A, val unit: MomentumUnit)
   def /(area: Area[A]): DynamicViscosity[A] = new DynamicViscosity(this.value / area.value, this.unit / area.unit)
 }
 
+/** None */
 trait MomentumUnit extends LinearUnit[MomentumUnit]{
 
   override def getSIUnit: MomentumUnit = MomentumUnit.getSIUnit
@@ -32,8 +33,7 @@ object MomentumUnit extends UnitInfo[MomentumUnit]{
 
   val getSIUnit: MomentumUnit = ForceUnit.getSIUnit * TimeUnit.getSIUnit
 
-  def getUnits: Seq[MomentumUnit] =
-    Seq()
+  def getUnits: Seq[MomentumUnit] = Seq()
 }
 
 
@@ -46,11 +46,3 @@ class SimpleMomentumUnit(val name: String, val symbol: String, val interval: Rea
 class DefaultMomentumUnit(val name: String, val symbol: String, val aliases: Seq[String], val interval: Real)
   extends MomentumUnit
   
-object MomentumUnitObjects{
-
-}
-
-
-object MomentumUnits{
-
-}

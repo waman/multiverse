@@ -7,7 +7,7 @@ import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.radioactivity._
 
 
-trait EMU extends CGS{
+trait EMU extends CGS {
   implicit def evaluateElectricCharge[A: Fractional](q: ElectricCharge[A]): A = q(ElectricChargeUnitObjects.abcoulomb)
   implicit def evaluateElectricCurrent[A: Fractional](q: ElectricCurrent[A]): A = q(ElectricCurrentUnitObjects.abampere)
   implicit def evaluateVoltage[A: Fractional](q: Voltage[A]): A = q(VoltageUnitObjects.abvolt)

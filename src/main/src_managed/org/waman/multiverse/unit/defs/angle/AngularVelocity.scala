@@ -18,6 +18,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
   override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
 }
 
+/** None */
 trait AngularVelocityUnit extends LinearUnit[AngularVelocityUnit]{
 
   override def getSIUnit: AngularVelocityUnit = AngularVelocityUnit.getSIUnit
@@ -31,6 +32,7 @@ object AngularVelocityUnit extends UnitInfo[AngularVelocityUnit]{
     Map[DimensionSymbol, Int](T -> -1).withDefaultValue(0)
 
   val getSIUnit: AngularVelocityUnit = AngleUnit.getSIUnit / TimeUnit.getSIUnit
+
   import AngularVelocityUnitObjects._
 
   def getUnits: Seq[AngularVelocityUnit] =

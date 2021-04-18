@@ -10,10 +10,8 @@ import org.waman.multiverse.unit.defs.mechanics._
 import org.waman.multiverse.unit.defs.radiometry._
 import org.waman.multiverse.unit.defs.radioactivity._
 
-/**
- * Evaluate quantities by metre, kilogram, and second.
- */
-trait MKS extends UnitSystem{
+/** Evaluate quantities by metre, kilogram, and second. */
+trait MKS extends UnitSystem {
   implicit def evaluateAngle[A: Fractional](q: Angle[A]): A = q(AngleUnitObjects.radian)
   implicit def evaluateAngularVelocity[A: Fractional](q: AngularVelocity[A]): A = q(AngleUnitObjects.radian / TimeUnitObjects.second)
   implicit def evaluateFrequency[A: Fractional](q: Frequency[A]): A = q(FrequencyUnitObjects.heltz)

@@ -22,6 +22,7 @@ class ElectricCharge[A: Fractional](val value: A, val unit: ElectricChargeUnit)
   def /(mass: Mass[A]): Exposure[A] = new Exposure(this.value / mass.value, this.unit / mass.unit)
 }
 
+/** None */
 trait ElectricChargeUnit extends LinearUnit[ElectricChargeUnit]{
 
   override def getSIUnit: ElectricChargeUnit = ElectricChargeUnit.getSIUnit
@@ -47,6 +48,7 @@ object ElectricChargeUnit extends UnitInfo[ElectricChargeUnit]{
     Map[DimensionSymbol, Int](T -> 1, I -> 1).withDefaultValue(0)
 
   def getSIUnit: ElectricChargeUnit = ElectricChargeUnitObjects.coulomb
+
   import ElectricChargeUnitObjects._
 
   def getUnits: Seq[ElectricChargeUnit] =

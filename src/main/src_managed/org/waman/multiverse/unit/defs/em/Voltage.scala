@@ -17,6 +17,7 @@ class Voltage[A: Fractional](val value: A, val unit: VoltageUnit)
   def *(time: Time[A]): MagneticFlux[A] = new MagneticFlux(this.value * time.value, this.unit * time.unit)
 }
 
+/** None */
 trait VoltageUnit extends LinearUnit[VoltageUnit]{
 
   override def getSIUnit: VoltageUnit = VoltageUnit.getSIUnit
@@ -36,6 +37,7 @@ object VoltageUnit extends UnitInfo[VoltageUnit]{
     Map[DimensionSymbol, Int](T -> -3, M -> 1, I -> -1, L -> 2).withDefaultValue(0)
 
   def getSIUnit: VoltageUnit = VoltageUnitObjects.volt
+
   import VoltageUnitObjects._
 
   def getUnits: Seq[VoltageUnit] =

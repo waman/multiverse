@@ -13,6 +13,7 @@ class MagneticFieldStrength[A: Fractional](val value: A, val unit: MagneticField
   override protected def newQuantity(value: A, unit: MagneticFieldStrengthUnit): MagneticFieldStrength[A] = new MagneticFieldStrength(value, unit)
 }
 
+/** None */
 trait MagneticFieldStrengthUnit extends LinearUnit[MagneticFieldStrengthUnit]{
 
   override def getSIUnit: MagneticFieldStrengthUnit = MagneticFieldStrengthUnit.getSIUnit
@@ -26,6 +27,7 @@ object MagneticFieldStrengthUnit extends UnitInfo[MagneticFieldStrengthUnit]{
     Map[DimensionSymbol, Int](I -> 1, L -> -1).withDefaultValue(0)
 
   val getSIUnit: MagneticFieldStrengthUnit = ElectricCurrentUnit.getSIUnit / LengthUnit.getSIUnit
+
   import MagneticFieldStrengthUnitObjects._
 
   def getUnits: Seq[MagneticFieldStrengthUnit] =

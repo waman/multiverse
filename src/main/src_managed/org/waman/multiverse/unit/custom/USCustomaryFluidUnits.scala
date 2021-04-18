@@ -1,10 +1,7 @@
 package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs._
-
-/**
- * Units of US customary measurement systems (Liquid)
- */
+/** Units of US customary measurement systems (Liquid) */
 object USCustomaryFluidUnits{
   /** minim */
   def min: VolumeUnit = VolumeUnitObjects.minim
