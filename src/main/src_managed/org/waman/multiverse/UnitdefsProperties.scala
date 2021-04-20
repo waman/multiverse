@@ -1,7 +1,7 @@
 package org.waman.multiverse
 
 object UnitdefsProperties{
-  val version: String = "0.6-SNAPSHOT"
+  val version: String = "0.7"
 
   def getUnitInfo: Seq[UnitInfo[_]] = Seq(
     unit.defs.angle.AngularVelocityUnit,
