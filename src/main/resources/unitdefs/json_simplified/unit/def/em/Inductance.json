@@ -1,5 +1,5 @@
 {
-  "SIUnit": "henry",
+  "si_unit": "henry",
   "dimension": {
     "M": 1,
     "L": 2,
@@ -9,7 +9,8 @@
   "units": [
     {
       "name": "henry",
-      "symbol": "H"
+      "symbol": "H",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctohenry",
@@ -125,7 +126,7 @@
     {
       "name": "stathenry",
       "symbol": "statH",
-      "interval": "Constants.SpeedOfLight * Constants.SpeedOfLight * 1e-5",
+      "interval": "Constants.speed_of_light * Constants.speed_of_light * 1e-5",
       "description": "Formal unit for Gaussian and ESU CGS unit system."
     }
   ],

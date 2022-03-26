@@ -4,11 +4,12 @@ import scala.language.implicitConversions
 
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.angle._
-import org.waman.multiverse.unit.defs.density._
+import org.waman.multiverse.unit.defs.dens._
 import org.waman.multiverse.unit.defs.fluid._
-import org.waman.multiverse.unit.defs.mechanics._
-import org.waman.multiverse.unit.defs.radiometry._
-import org.waman.multiverse.unit.defs.radioactivity._
+import org.waman.multiverse.unit.defs.mech._
+import org.waman.multiverse.unit.defs.radio._
+import org.waman.multiverse.unit.defs.radio.freq._
+import org.waman.multiverse.unit.defs.ra._
 
 
 trait CGS extends UnitSystem {

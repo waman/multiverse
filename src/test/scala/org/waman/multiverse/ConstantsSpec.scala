@@ -5,7 +5,7 @@ import spire.math.Real
 import org.waman.multiverse.Constants._
 import org.waman.multiverse.unit.defs.TimeUnitObjects
 import org.waman.multiverse.unit.defs.em.{ElectricChargeUnitObjects, ElectricDipoleUnitObjects}
-import org.waman.multiverse.unit.defs.mechanics.{AngularMomentumUnits, EnergyUnitObjects, ForceUnitObjects}
+import org.waman.multiverse.unit.defs.mech.{AngularMomentumUnits, EnergyUnitObjects, ForceUnitObjects}
 
 class ConstantsSpec extends MultiverseCustomSpec {
 

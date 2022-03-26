@@ -5,7 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs.em._
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 
 class Length[A: Fractional](val value: A, val unit: LengthUnit)
     extends LinearQuantity[Length[A], A, LengthUnit] {
@@ -66,7 +66,7 @@ object LengthUnit extends UnitInfo[LengthUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleLengthUnit(val name: String, val symbol: String, val interval: Real) extends LengthUnit {
   override def aliases: Seq[String] = Nil
 }

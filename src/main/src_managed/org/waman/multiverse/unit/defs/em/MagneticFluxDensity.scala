@@ -34,7 +34,7 @@ object MagneticFluxDensityUnit extends UnitInfo[MagneticFluxDensityUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleMagneticFluxDensityUnit(val name: String, val symbol: String, val interval: Real) extends MagneticFluxDensityUnit {
   override def aliases: Seq[String] = Nil
 }

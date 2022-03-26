@@ -5,7 +5,7 @@ import sbt.io.IO
 
 trait Unitdef[U <: UnitInfo]{
   def description: Option[String]
-  def SIUnit: String
+  def si_unit: String
   def dimension: Dimension
   def units: Option[Seq[U]]
   def convertibles: Option[Seq[Convertible]]
@@ -78,7 +78,7 @@ abstract class UnitdefJsonAdapter[UD <: Unitdef[U], U <: UnitInfo]
       generateQuantity(writer)
       generateUnitTrait(writer)
       generateUnitCompanionObject(writer)
-      generateImplsOfUnitTrait(writer)
+      generateImplementationsOfUnitTrait(writer)
       generateUnitObjects(writer)
       generateUnits(writer)
     }
@@ -148,7 +148,7 @@ abstract class UnitdefJsonAdapter[UD <: Unitdef[U], U <: UnitInfo]
                  |""".stripMargin)
           case _ =>
             val factor = conv.factor match {
-              case Some(f) => s""" * implicitly[Fractional[A]].fromReal($f)"""
+              case Some(f) => s""" * implicitly[Fractional[A]].fromReal(${refineFactor(f)})"""
               case _ => ""
             }
             writer.write(
@@ -207,7 +207,7 @@ abstract class UnitdefJsonAdapter[UD <: Unitdef[U], U <: UnitInfo]
          |""".stripMargin)
 
     //***** SI Unit *****
-    val siUnit = this.unitdef.SIUnit
+    val siUnit = this.unitdef.si_unit
     if (siUnit.contains('*') || siUnit.contains('/')) {
       val regexCompositeUnit(first, op, second) = siUnit
 
@@ -242,7 +242,7 @@ abstract class UnitdefJsonAdapter[UD <: Unitdef[U], U <: UnitInfo]
     }
   }
 
-  protected def generateImplsOfUnitTrait(writer: BW): Unit
+  protected def generateImplementationsOfUnitTrait(writer: BW): Unit
 
   private def generateUnitObjects(writer: BW): Unit = {
     this.unitdef.units.foreach { units =>

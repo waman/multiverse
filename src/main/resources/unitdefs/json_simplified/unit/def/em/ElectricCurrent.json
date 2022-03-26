@@ -1,12 +1,13 @@
 {
-  "SIUnit": "ampere",
+  "si_unit": "ampere",
   "dimension": {
     "I": 1
   },
   "units": [
     {
       "name": "ampere",
-      "symbol": "A"
+      "symbol": "A",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctoampere",
@@ -126,7 +127,7 @@
     {
       "name": "statampere",
       "symbol": "statA",
-      "interval": "0.1 / Constants.SpeedOfLight"
+      "interval": "0.1 / Constants.speed_of_light"
     }
   ],
   "operations": [

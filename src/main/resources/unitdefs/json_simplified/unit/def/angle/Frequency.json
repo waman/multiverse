@@ -1,5 +1,5 @@
 {
-  "SIUnit": "heltz",
+  "si_unit": "heltz",
   "dimension": {
     "T": -1
   },
@@ -8,13 +8,14 @@
       "result": "AngularVelocity",
       "from": "heltz",
       "to": "Angle.radian / Time.second",
-      "factor": "2 * Constants.Pi"
+      "factor": "2 * Constants.pi"
     }
   ],
   "units": [
     {
       "name": "heltz",
-      "symbol": "Hz"
+      "symbol": "Hz",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctoheltz",
@@ -135,7 +136,7 @@
     "constants": true,
     "subpackages": [
       "",
-      "radiometry"
+      "radio.freq"
     ]
   }
 }

@@ -39,7 +39,7 @@ object AngleUnit extends UnitInfo[AngleUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleAngleUnit(val name: String, val symbol: String, val interval: Real) extends AngleUnit {
   override def aliases: Seq[String] = Nil
 }

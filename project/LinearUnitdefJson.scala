@@ -2,7 +2,7 @@ import java.io.{File, BufferedWriter => BW}
 import play.api.libs.json.{Json, Reads}
 
 case class LinearUnitdef(description: Option[String],
-                         SIUnit: String,
+                         si_unit: String,
                          dimension: Dimension,
                          convertibles: Option[Seq[Convertible]],
                          units: Option[Seq[LinearUnit]],
@@ -18,20 +18,20 @@ case class LinearUnit(name: String,
                       symbol: String,
                       aliases: Option[Seq[String]],
                       interval: Option[String],
-                      baseUnit: Option[String],
+                      base_unit: Option[String],
                       attributes: Option[Seq[String]],
-                      notExact: Option[Boolean],
+                      not_exact: Option[Boolean],
                       description: Option[String]) extends UnitInfo{
 
   import GenerationUtil._
 
   lazy val objectName: String = this.attribute match {
-    case Some(att) => toObjectName(s"$name($att)")
-    case _ => toObjectName(this.name)
+    case Some(att) => toSnakeCase(s"$name($att)")
+    case _ => toSnakeCase(this.name)
   }
 
   lazy val intervalExpression: String = 
-    this.baseUnit match {
+    this.base_unit match {
       case Some(_baseUnit) =>
         val baseUnitInterval = regexUnitName.replaceAllIn(_baseUnit, m => {
           val uType = if (m.group(1) != null) m.group(1) + "UnitObjects." else ""
@@ -40,12 +40,12 @@ case class LinearUnit(name: String,
         }).replaceAll("""\^""", "**")  // Length.metre^2 => Length.metre.interval**2
 
         this.interval match {
-          case Some(_interval) => s"""${refineNumbers(_interval)} * $baseUnitInterval"""
+          case Some(_interval) => s"""${refineFactor(_interval)} * $baseUnitInterval"""
           case _ => baseUnitInterval
         }
       case _ =>
         this.interval match {
-          case Some(i) => refineNumbers(i)
+          case Some(i) => refineFactor(i) 
           case _ => "1"
         }
     }
@@ -118,11 +118,11 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
     }
   }
 
-  override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
+  override protected def generateImplementationsOfUnitTrait(writer: BW): Unit = {
     writer.write(
       s"""
          |
-         |/** For no aliase or user defined units */
+         |/** For no alias or user defined units */
          |class Simple${id}Unit(val name: String, val symbol: String, val interval: Real) extends ${id}Unit {
          |  override def aliases: Seq[String] = Nil
          |}
@@ -134,7 +134,7 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
   }
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
-    val notExact = unit.notExact match {
+    val notExact = unit.not_exact match {
       case Some(true) => " with NotExact"
       case _ => ""
     }
@@ -229,7 +229,7 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
   protected def generateAttributeTraits(writer: BW): Unit =
     this.unitdef.attributes.foreach{ attributes =>
       attributes.flatMap(a => a.parents).distinct.foreach{ u =>
-        writer.write(s"""sealed trait ${toObjectName(u)}Attribute\n""")
+        writer.write(s"""sealed trait ${toSnakeCase(u)}Attribute\n""")
       }
     }
 
@@ -237,7 +237,7 @@ class LinearUnitdefJson(jsonFile: File, subpackage: String)
   protected def generateAttributeObjects(writer: BW): Unit = {
     this.unitdef.attributes.foreach{ attributes =>
       attributes.foreach{ att =>
-        val traits = att.parents.map(toObjectName(_) + "Attribute").mkString(" with ")
+        val traits = att.parents.map(toSnakeCase(_) + "Attribute").mkString(" with ")
         writer.write(s"""  final object ${att.name} extends $traits\n""")
       }
     }
@@ -286,7 +286,7 @@ class LengthPoweredUnitdefJson(jsonFile: File, subpackage: String, unitName: Str
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
     if (unit.name.startsWith(powerPrefix)) {
-      val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit.get)  // Length.metre^2 => LengthUnitObjects.metre
+      val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.base_unit.get)  // Length.metre^2 => LengthUnitObjects.metre
       writer.write(
         s"""  final case object ${unit.objectName} extends """ +
           s"""LengthPowered${unitName}Unit(LengthUnitObjects.$baseUnit, ${unit.aliasesStr})\n""")
@@ -322,7 +322,7 @@ class TimeSquaredUnitdefJson(jsonFile: File, subpackage: String)
   import GenerationUtil._
 
   override protected def generateUnitCaseObject(writer: BW, unit: LinearUnit): Unit = {
-    val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.baseUnit.get)  // Time.second^2 => TimeUnitObjects.second
+    val baseUnit = refineUnitNamesInPoweredBaseUnit(unit.base_unit.get)  // Time.second^2 => TimeUnitObjects.second
     writer.write(
       s"""  final case object ${unit.objectName} extends """ +
         s"""TimePoweredTimeSquaredUnit(TimeUnitObjects.$baseUnit, ${unit.aliasesStr})\n""")

@@ -34,7 +34,7 @@ object KinematicViscosityUnit extends UnitInfo[KinematicViscosityUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleKinematicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends KinematicViscosityUnit {
   override def aliases: Seq[String] = Nil
 }

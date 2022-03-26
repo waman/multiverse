@@ -12,7 +12,7 @@ class AngularVelocity[A: Fractional](val value: A, val unit: AngularVelocityUnit
 
 
   def toFrequency: Frequency[A] = new Frequency(
-      apply(AngleUnitObjects.radian / TimeUnitObjects.second) * implicitly[Fractional[A]].fromReal(1 / (2 * Constants.Pi)),
+      apply(AngleUnitObjects.radian / TimeUnitObjects.second) * implicitly[Fractional[A]].fromReal(r"1" / (r"2" * Constants.Pi)),
       FrequencyUnitObjects.heltz)
 
   override protected def newQuantity(value: A, unit: AngularVelocityUnit): AngularVelocity[A] = new AngularVelocity(value, unit)
@@ -40,7 +40,7 @@ object AngularVelocityUnit extends UnitInfo[AngularVelocityUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleAngularVelocityUnit(val name: String, val symbol: String, val interval: Real) extends AngularVelocityUnit {
   override def aliases: Seq[String] = Nil
 }

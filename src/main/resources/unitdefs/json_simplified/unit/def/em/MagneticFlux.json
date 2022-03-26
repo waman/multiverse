@@ -1,5 +1,5 @@
 {
-  "SIUnit": "weber",
+  "si_unit": "weber",
   "dimension": {
     "M": 1,
     "L": 2,
@@ -9,7 +9,8 @@
   "units": [
     {
       "name": "weber",
-      "symbol": "Wb"
+      "symbol": "Wb",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctoweber",
@@ -120,7 +121,8 @@
     {
       "name": "maxwell",
       "symbol": "Mx",
-      "interval": "1e-8"
+      "interval": "1e-8",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctomaxwell",
@@ -231,7 +233,7 @@
     {
       "name": "statweber",
       "symbol": "statWb",
-      "interval": "Constants.SpeedOfLight * 1e-6"
+      "interval": "Constants.speed_of_light * 1e-6"
     }
   ],
   "operations": [

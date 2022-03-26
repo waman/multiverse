@@ -4,7 +4,7 @@ import scala.language.implicitConversions
 
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs._
-import org.waman.multiverse.unit.defs.radioactivity._
+import org.waman.multiverse.unit.defs.ra._
 
 
 trait Gaussian extends CGS {

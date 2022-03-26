@@ -9,7 +9,7 @@ class ConstantsJson(jsonFile: File) extends JsonResource(jsonFile) {
   import GenerationUtil._
 
   implicit val constantReads: Reads[Constant] = Json.reads[Constant]
-  val consts: Seq[Constant] = readJson(jsonFile, _.validate[Seq[Constant]])
+  val constants: Seq[Constant] = readJson(jsonFile, _.validate[Seq[Constant]])
 
   override protected def getDestFile(destRoot: File): File =
     IO.resolve(destRoot, new File("Constants.scala"))
@@ -25,14 +25,15 @@ class ConstantsJson(jsonFile: File) extends JsonResource(jsonFile) {
            |object Constants{
            |""".stripMargin)
 
-      consts.foreach { c =>
+      constants.foreach { c =>
         c.name match {
-          case "Pi" =>
+          case "pi" =>
             writer.write(s"""  val Pi: Real = Real.pi\n""")
-          case "ReducedPlanckConstant" =>
-            writer.write(s"""  val ${c.name}: Real = PlanckConstant / (Real.two * Real.pi)\n""")
-          case _ =>
-            writer.write(s"""  val ${c.name}: Real = r"${c.value.get}"\n""")
+          case "reduced Planck constant" =>
+            writer.write(s"""  val ReducedPlanckConstant: Real = PlanckConstant / (Real.two * Real.pi)\n""")
+          case s =>
+            val name = toCamelCase(c.name, " ")
+            writer.write(s"""  val ${name}: Real = r"${c.value.get}"\n""")
         }
       }
 

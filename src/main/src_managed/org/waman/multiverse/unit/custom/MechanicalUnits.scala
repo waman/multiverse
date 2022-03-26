@@ -1,6 +1,6 @@
 package org.waman.multiverse.unit.custom
 
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 import org.waman.multiverse.unit.defs.fluid._
 /** Usually used units of mechanics and fluid mechanics */
 object MechanicalUnits{

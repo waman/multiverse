@@ -34,7 +34,7 @@ object SolidAngleUnit extends UnitInfo[SolidAngleUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleSolidAngleUnit(val name: String, val symbol: String, val interval: Real) extends SolidAngleUnit {
   override def aliases: Seq[String] = Nil
 }

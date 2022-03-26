@@ -1,6 +1,6 @@
 {
   "description": "'US' attribute contains 'US Survey' metric.",
-  "SIUnit": "metre",
+  "si_unit": "metre",
   "dimension": {
     "L": 1
   },
@@ -14,7 +14,8 @@
   "units": [
     {
       "name": "metre",
-      "symbol": "m"
+      "symbol": "m",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctometre",
@@ -136,13 +137,13 @@
       "name": "atomic unit of length",
       "symbol": "a0",
       "interval": "5.291772109217e-11",
-      "notExact": true
+      "not_exact": true
     },
     {
       "name": "xunit",
       "symbol": "xu",
       "interval": "1.0021e-13",
-      "notExact": true,
+      "not_exact": true,
       "attributes": [
         "CuKα1",
         "MoKα1"
@@ -152,19 +153,19 @@
       "name": "xunit(CuKα1)",
       "symbol": "xu(CuKα1)",
       "interval": "1.0020769928e-13",
-      "notExact": true
+      "not_exact": true
     },
     {
       "name": "xunit(MoKα1)",
       "symbol": "xu(MoKα1)",
       "interval": "1.0020995553e-13",
-      "notExact": true
+      "not_exact": true
     },
     {
       "name": "planck length",
       "symbol": "l_p",
       "interval": "1.61624e-35",
-      "notExact": true
+      "not_exact": true
     },
     {
       "name": "astronomical unit",
@@ -183,7 +184,7 @@
       "name": "parsec",
       "symbol": "pc",
       "interval": "3.08567782e16",
-      "notExact": true
+      "not_exact": true
     },
     {
       "name": "mil",
@@ -191,14 +192,14 @@
         "thou"
       ],
       "interval": "1/1000",
-      "baseUnit": "inch",
+      "base_unit": "inch",
       "symbol": "mil"
     },
     {
       "name": "twip",
       "symbol": "twp",
       "interval": "1/20",
-      "baseUnit": "point"
+      "base_unit": "point"
     },
     {
       "name": "point",
@@ -207,7 +208,7 @@
         "p"
       ],
       "interval": "1/72",
-      "baseUnit": "inch"
+      "base_unit": "inch"
     },
     {
       "name": "pica",
@@ -215,20 +216,20 @@
         "P"
       ],
       "interval": "12",
-      "baseUnit": "point",
+      "base_unit": "point",
       "symbol": "pica"
     },
     {
       "name": "line",
       "symbol": "ln",
       "interval": "1/12",
-      "baseUnit": "inch"
+      "base_unit": "inch"
     },
     {
       "name": "inch",
       "symbol": "in",
       "interval": "2.54",
-      "baseUnit": "centimetre"
+      "base_unit": "centimetre"
     },
     {
       "name": "link",
@@ -237,7 +238,7 @@
         "lnk"
       ],
       "interval": "0.66",
-      "baseUnit": "foot",
+      "base_unit": "foot",
       "attributes": [
         "US"
       ]
@@ -246,7 +247,7 @@
       "name": "link(US)",
       "symbol": "li(US)",
       "interval": "0.66",
-      "baseUnit": "foot(US)",
+      "base_unit": "foot(US)",
       "aliases": [
         "lnk(US)"
       ]
@@ -255,7 +256,7 @@
       "name": "foot",
       "symbol": "ft",
       "interval": "12",
-      "baseUnit": "inch",
+      "base_unit": "inch",
       "attributes": [
         "US"
       ]
@@ -269,25 +270,25 @@
       "name": "yard",
       "symbol": "yd",
       "interval": "3",
-      "baseUnit": "foot"
+      "base_unit": "foot"
     },
     {
       "name": "ell",
       "interval": "45",
-      "baseUnit": "inch",
+      "base_unit": "inch",
       "symbol": "ell"
     },
     {
       "name": "fathom",
       "symbol": "ftm",
       "interval": "2",
-      "baseUnit": "yard"
+      "base_unit": "yard"
     },
     {
       "name": "rod",
       "symbol": "rd",
       "interval": "16.5",
-      "baseUnit": "foot",
+      "base_unit": "foot",
       "attributes": [
         "US"
       ]
@@ -296,19 +297,19 @@
       "name": "rod(US)",
       "symbol": "rd(US)",
       "interval": "16.5",
-      "baseUnit": "foot(US)"
+      "base_unit": "foot(US)"
     },
     {
       "name": "rope",
       "interval": "20",
-      "baseUnit": "foot",
+      "base_unit": "foot",
       "symbol": "rope"
     },
     {
       "name": "chain",
       "symbol": "ch",
       "interval": "66",
-      "baseUnit": "foot",
+      "base_unit": "foot",
       "attributes": [
         "US"
       ]
@@ -317,13 +318,13 @@
       "name": "chain(US)",
       "symbol": "ch(US)",
       "interval": "66",
-      "baseUnit": "foot(US)"
+      "base_unit": "foot(US)"
     },
     {
       "name": "mile",
       "symbol": "mi",
       "interval": "1760",
-      "baseUnit": "yard",
+      "base_unit": "yard",
       "attributes": [
         "US"
       ]
@@ -332,13 +333,13 @@
       "name": "mile(US)",
       "symbol": "mi(US)",
       "interval": "5280",
-      "baseUnit": "foot(US)"
+      "base_unit": "foot(US)"
     },
     {
       "name": "cable",
       "symbol": "cb",
       "interval": "120",
-      "baseUnit": "fathom",
+      "base_unit": "fathom",
       "attributes": [
         "US",
         "imp"
@@ -348,19 +349,19 @@
       "name": "cable(US)",
       "symbol": "cb(US)",
       "interval": "720",
-      "baseUnit": "foot"
+      "base_unit": "foot"
     },
     {
       "name": "cable(imp)",
       "symbol": "cb(imp)",
       "interval": "608",
-      "baseUnit": "foot"
+      "base_unit": "foot"
     },
     {
       "name": "league",
       "symbol": "lea",
       "interval": "3",
-      "baseUnit": "mile",
+      "base_unit": "mile",
       "attributes": [
         "US"
       ]
@@ -369,7 +370,7 @@
       "name": "league(US)",
       "symbol": "lea(US)",
       "interval": "3",
-      "baseUnit": "mile(US)"
+      "base_unit": "mile(US)"
     },
     {
       "name": "nautical mile",
@@ -386,7 +387,7 @@
       "name": "nautical mile(Adm)",
       "symbol": "NM(Adm)",
       "interval": "6080",
-      "baseUnit": "foot",
+      "base_unit": "foot",
       "aliases": [
         "nmi(Adm)"
       ]
@@ -398,7 +399,7 @@
         "nl"
       ],
       "interval": "3",
-      "baseUnit": "nautical_mile"
+      "base_unit": "nautical_mile"
     },
     {
       "name": "metric foot",
@@ -419,13 +420,13 @@
       "name": "french",
       "symbol": "Fr",
       "interval": "1/3",
-      "baseUnit": "millimetre"
+      "base_unit": "millimetre"
     },
     {
       "name": "furlong",
       "symbol": "fur",
       "interval": "10",
-      "baseUnit": "chain",
+      "base_unit": "chain",
       "attributes": [
         "US"
       ]
@@ -434,7 +435,7 @@
       "name": "furlong(US)",
       "symbol": "fur(US)",
       "interval": "10",
-      "baseUnit": "chain(US)"
+      "base_unit": "chain(US)"
     }
   ],
   "operations": [
@@ -519,7 +520,7 @@
   "use": {
     "subpackages": [
       "em",
-      "mechanics"
+      "mech"
     ]
   }
 }

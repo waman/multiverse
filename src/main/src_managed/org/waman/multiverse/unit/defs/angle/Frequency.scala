@@ -5,7 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs._
-import org.waman.multiverse.unit.defs.radiometry._
+import org.waman.multiverse.unit.defs.radio.freq._
 import org.waman.multiverse.Constants
 
 class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
@@ -13,7 +13,7 @@ class Frequency[A: Fractional](val value: A, val unit: FrequencyUnit)
 
 
   def toAngularVelocity: AngularVelocity[A] = new AngularVelocity(
-      apply(FrequencyUnitObjects.heltz) * implicitly[Fractional[A]].fromReal(2 * Constants.Pi),
+      apply(FrequencyUnitObjects.heltz) * implicitly[Fractional[A]].fromReal(r"2" * Constants.Pi),
       AngleUnitObjects.radian / TimeUnitObjects.second)
 
   override protected def newQuantity(value: A, unit: FrequencyUnit): Frequency[A] = new Frequency(value, unit)
@@ -43,7 +43,7 @@ object FrequencyUnit extends UnitInfo[FrequencyUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleFrequencyUnit(val name: String, val symbol: String, val interval: Real) extends FrequencyUnit {
   override def aliases: Seq[String] = Nil
 }

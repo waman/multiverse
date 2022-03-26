@@ -4,7 +4,7 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 import org.waman.multiverse.Constants
 
 class Velocity[A: Fractional](val value: A, val unit: VelocityUnit)
@@ -40,7 +40,7 @@ object VelocityUnit extends UnitInfo[VelocityUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleVelocityUnit(val name: String, val symbol: String, val interval: Real) extends VelocityUnit {
   override def aliases: Seq[String] = Nil
 }

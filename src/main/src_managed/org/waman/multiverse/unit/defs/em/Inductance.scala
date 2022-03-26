@@ -34,7 +34,7 @@ object InductanceUnit extends UnitInfo[InductanceUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleInductanceUnit(val name: String, val symbol: String, val interval: Real) extends InductanceUnit {
   override def aliases: Seq[String] = Nil
 }

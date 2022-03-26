@@ -5,7 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs._
-import org.waman.multiverse.unit.defs.radioactivity._
+import org.waman.multiverse.unit.defs.ra._
 import org.waman.multiverse.Constants
 
 class ElectricCharge[A: Fractional](val value: A, val unit: ElectricChargeUnit)
@@ -56,7 +56,7 @@ object ElectricChargeUnit extends UnitInfo[ElectricChargeUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleElectricChargeUnit(val name: String, val symbol: String, val interval: Real) extends ElectricChargeUnit {
   override def aliases: Seq[String] = Nil
 }

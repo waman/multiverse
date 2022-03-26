@@ -1,5 +1,5 @@
 {
-  "SIUnit": "Area / Time",
+  "si_unit": "Area / Time",
   "dimension": {
     "L": 2,
     "T": -1
@@ -8,7 +8,8 @@
     {
       "name": "stokes",
       "symbol": "St",
-      "interval": "1e-4"
+      "interval": "1e-4",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctostokes",

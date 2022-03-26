@@ -1,5 +1,5 @@
 {
-  "SIUnit": "Length * Length",
+  "si_unit": "Length * Length",
   "dimension": {
     "L": 2
   },
@@ -10,7 +10,8 @@
       "aliases": [
         "m2"
       ],
-      "baseUnit": "Length.metre^2"
+      "base_unit": "Length.metre^2",
+      "scale_prefixes": "all"
     },
     {
       "name": "square yoctometre",
@@ -18,7 +19,7 @@
       "aliases": [
         "ym2"
       ],
-      "baseUnit": "Length.yoctometre^2"
+      "base_unit": "Length.yoctometre^2"
     },
     {
       "name": "square zeptometre",
@@ -26,7 +27,7 @@
       "aliases": [
         "zm2"
       ],
-      "baseUnit": "Length.zeptometre^2"
+      "base_unit": "Length.zeptometre^2"
     },
     {
       "name": "square attometre",
@@ -34,7 +35,7 @@
       "aliases": [
         "am2"
       ],
-      "baseUnit": "Length.attometre^2"
+      "base_unit": "Length.attometre^2"
     },
     {
       "name": "square femtometre",
@@ -42,7 +43,7 @@
       "aliases": [
         "fm2"
       ],
-      "baseUnit": "Length.femtometre^2"
+      "base_unit": "Length.femtometre^2"
     },
     {
       "name": "square picometre",
@@ -50,7 +51,7 @@
       "aliases": [
         "pm2"
       ],
-      "baseUnit": "Length.picometre^2"
+      "base_unit": "Length.picometre^2"
     },
     {
       "name": "square nanometre",
@@ -58,7 +59,7 @@
       "aliases": [
         "nm2"
       ],
-      "baseUnit": "Length.nanometre^2"
+      "base_unit": "Length.nanometre^2"
     },
     {
       "name": "square micrometre",
@@ -68,7 +69,7 @@
         "μm2",
         "mcm2"
       ],
-      "baseUnit": "Length.micrometre^2"
+      "base_unit": "Length.micrometre^2"
     },
     {
       "name": "square millimetre",
@@ -76,7 +77,7 @@
       "aliases": [
         "mm2"
       ],
-      "baseUnit": "Length.millimetre^2"
+      "base_unit": "Length.millimetre^2"
     },
     {
       "name": "square centimetre",
@@ -84,7 +85,7 @@
       "aliases": [
         "cm2"
       ],
-      "baseUnit": "Length.centimetre^2"
+      "base_unit": "Length.centimetre^2"
     },
     {
       "name": "square decimetre",
@@ -92,7 +93,7 @@
       "aliases": [
         "dm2"
       ],
-      "baseUnit": "Length.decimetre^2"
+      "base_unit": "Length.decimetre^2"
     },
     {
       "name": "square decametre",
@@ -100,7 +101,7 @@
       "aliases": [
         "dam2"
       ],
-      "baseUnit": "Length.decametre^2"
+      "base_unit": "Length.decametre^2"
     },
     {
       "name": "square hectometre",
@@ -108,7 +109,7 @@
       "aliases": [
         "hm2"
       ],
-      "baseUnit": "Length.hectometre^2"
+      "base_unit": "Length.hectometre^2"
     },
     {
       "name": "square kilometre",
@@ -118,7 +119,7 @@
         "km2",
         "Km2"
       ],
-      "baseUnit": "Length.kilometre^2"
+      "base_unit": "Length.kilometre^2"
     },
     {
       "name": "square megametre",
@@ -126,7 +127,7 @@
       "aliases": [
         "Mm2"
       ],
-      "baseUnit": "Length.megametre^2"
+      "base_unit": "Length.megametre^2"
     },
     {
       "name": "square gigametre",
@@ -134,7 +135,7 @@
       "aliases": [
         "Gm2"
       ],
-      "baseUnit": "Length.gigametre^2"
+      "base_unit": "Length.gigametre^2"
     },
     {
       "name": "square terametre",
@@ -142,7 +143,7 @@
       "aliases": [
         "Tm2"
       ],
-      "baseUnit": "Length.terametre^2"
+      "base_unit": "Length.terametre^2"
     },
     {
       "name": "square petametre",
@@ -150,7 +151,7 @@
       "aliases": [
         "Pm2"
       ],
-      "baseUnit": "Length.petametre^2"
+      "base_unit": "Length.petametre^2"
     },
     {
       "name": "square exametre",
@@ -158,7 +159,7 @@
       "aliases": [
         "Em2"
       ],
-      "baseUnit": "Length.exametre^2"
+      "base_unit": "Length.exametre^2"
     },
     {
       "name": "square zettametre",
@@ -166,7 +167,7 @@
       "aliases": [
         "Zm2"
       ],
-      "baseUnit": "Length.zettametre^2"
+      "base_unit": "Length.zettametre^2"
     },
     {
       "name": "square yottametre",
@@ -174,7 +175,7 @@
       "aliases": [
         "Ym2"
       ],
-      "baseUnit": "Length.yottametre^2"
+      "base_unit": "Length.yottametre^2"
     },
     {
       "name": "are",
@@ -189,7 +190,14 @@
     {
       "name": "barn",
       "symbol": "b",
-      "interval": "1e-28"
+      "interval": "1e-28",
+      "scale_prefixes": "all",
+      "exclude_prefixes": [
+        "c",
+        "d",
+        "da",
+        "h"
+      ]
     },
     {
       "name": "yoctobarn",
@@ -284,7 +292,7 @@
         "mil2",
         "sq_mil"
       ],
-      "baseUnit": "Length.mil^2"
+      "base_unit": "Length.mil^2"
     },
     {
       "name": "square inch",
@@ -293,7 +301,7 @@
         "in2",
         "sq_in"
       ],
-      "baseUnit": "Length.inch^2"
+      "base_unit": "Length.inch^2"
     },
     {
       "name": "square link",
@@ -305,7 +313,7 @@
         "sq_li",
         "sq_lnk"
       ],
-      "baseUnit": "Length.link^2",
+      "base_unit": "Length.link^2",
       "attributes": [
         "US"
       ]
@@ -313,7 +321,7 @@
     {
       "name": "square link(US)",
       "symbol": "li²(US)",
-      "baseUnit": "Length.link(US)^2",
+      "base_unit": "Length.link(US)^2",
       "aliases": [
         "li2(US)",
         "lnk²(US)",
@@ -329,7 +337,7 @@
         "ft2",
         "sq_ft"
       ],
-      "baseUnit": "Length.foot^2",
+      "base_unit": "Length.foot^2",
       "attributes": [
         "US"
       ]
@@ -337,7 +345,7 @@
     {
       "name": "square foot(US)",
       "symbol": "ft²(US)",
-      "baseUnit": "Length.foot(US)^2",
+      "base_unit": "Length.foot(US)^2",
       "aliases": [
         "ft2(US)",
         "sq_ft(US)"
@@ -350,7 +358,7 @@
         "ch2",
         "sq_ch"
       ],
-      "baseUnit": "Length.chain^2",
+      "base_unit": "Length.chain^2",
       "attributes": [
         "US"
       ]
@@ -358,7 +366,7 @@
     {
       "name": "square chain(US)",
       "symbol": "ch²(US)",
-      "baseUnit": "Length.chain(US)^2",
+      "base_unit": "Length.chain(US)^2",
       "aliases": [
         "ch2(US)",
         "sq_ch(US)"
@@ -371,7 +379,7 @@
         "yd2",
         "sq_yd"
       ],
-      "baseUnit": "Length.yard^2"
+      "base_unit": "Length.yard^2"
     },
     {
       "name": "square rod",
@@ -380,7 +388,7 @@
         "rd2",
         "sq_rd"
       ],
-      "baseUnit": "Length.rod^2",
+      "base_unit": "Length.rod^2",
       "attributes": [
         "US"
       ]
@@ -388,7 +396,7 @@
     {
       "name": "square rod(US)",
       "symbol": "rd²(US)",
-      "baseUnit": "Length.rod(US)^2",
+      "base_unit": "Length.rod(US)^2",
       "aliases": [
         "rd2(US)",
         "sq_rd(US)"
@@ -401,7 +409,7 @@
         "mi2",
         "sq_mi"
       ],
-      "baseUnit": "Length.mile^2",
+      "base_unit": "Length.mile^2",
       "attributes": [
         "US"
       ]
@@ -409,7 +417,7 @@
     {
       "name": "square mile(US)",
       "symbol": "mi²(US)",
-      "baseUnit": "Length.mile(US)^2",
+      "base_unit": "Length.mile(US)^2",
       "aliases": [
         "mi2(US)",
         "sq_mi(US)"
@@ -419,7 +427,7 @@
       "name": "acre",
       "symbol": "ac",
       "interval": "10",
-      "baseUnit": "square_chain",
+      "base_unit": "square_chain",
       "attributes": [
         "US"
       ]
@@ -428,35 +436,35 @@
       "name": "acre(US)",
       "symbol": "ac(US)",
       "interval": "10",
-      "baseUnit": "square_chain(US)"
+      "base_unit": "square_chain(US)"
     },
     {
       "name": "rood",
       "symbol": "ro",
       "interval": "1/4",
-      "baseUnit": "acre"
+      "base_unit": "acre"
     },
     {
       "name": "circular mil",
       "symbol": "circ_mil",
-      "interval": "Constants.Pi / 4",
-      "baseUnit": "square_mil"
+      "interval": "Constants.pi / 4",
+      "base_unit": "square_mil"
     },
     {
       "name": "circular inch",
       "symbol": "circ_in",
-      "interval": "Constants.Pi / 4",
-      "baseUnit": "square_inch"
+      "interval": "Constants.pi / 4",
+      "base_unit": "square_inch"
     },
     {
       "name": "board",
       "symbol": "bd",
-      "baseUnit": "Length.inch * Length.foot"
+      "base_unit": "Length.inch * Length.foot"
     },
     {
       "name": "section",
       "interval": "640",
-      "baseUnit": "acre",
+      "base_unit": "acre",
       "symbol": "section",
       "attributes": [
         "US"
@@ -466,13 +474,13 @@
       "name": "section(US)",
       "symbol": "section(US)",
       "interval": "640",
-      "baseUnit": "acre(US)"
+      "base_unit": "acre(US)"
     },
     {
       "name": "township",
       "symbol": "twp",
       "interval": "36",
-      "baseUnit": "section(US)"
+      "base_unit": "section(US)"
     }
   ],
   "operations": [
@@ -511,7 +519,7 @@
     "subpackages": [
       "fluid",
       "angle",
-      "radiometry"
+      "radio.freq"
     ]
   }
 }

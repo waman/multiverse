@@ -5,15 +5,16 @@ import spire.math._
 
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.angle._
-import org.waman.multiverse.unit.defs.chem._
-import org.waman.multiverse.unit.defs.density._
+import org.waman.multiverse.unit.defs.chm._
+import org.waman.multiverse.unit.defs.dens._
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs.fluid._
-import org.waman.multiverse.unit.defs.mechanics._
-import org.waman.multiverse.unit.defs.photometry._
-import org.waman.multiverse.unit.defs.radioactivity._
-import org.waman.multiverse.unit.defs.radiometry._
-import org.waman.multiverse.unit.defs.thermo._
+import org.waman.multiverse.unit.defs.mech._
+import org.waman.multiverse.unit.defs.photo._
+import org.waman.multiverse.unit.defs.ra._
+import org.waman.multiverse.unit.defs.radio.freq._
+import org.waman.multiverse.unit.defs.radio._
+import org.waman.multiverse.unit.defs.therm._
 
 import org.waman.multiverse.typeless._
 
@@ -67,8 +68,8 @@ package object implicits {
     def apply(unit: ExposureUnit): Exposure[A] = new Exposure(value, unit)
     def apply(unit: RadioactivityUnit): Radioactivity[A] = new Radioactivity(value, unit)
     def apply(unit: AreaFrequencyUnit): AreaFrequency[A] = new AreaFrequency(value, unit)
-    def apply(unit: IrradianceUnit): Irradiance[A] = new Irradiance(value, unit)
     def apply(unit: SpectralIrradianceUnit): SpectralIrradiance[A] = new SpectralIrradiance(value, unit)
+    def apply(unit: IrradianceUnit): Irradiance[A] = new Irradiance(value, unit)
     def apply(unit: AbsoluteTemperatureUnit): AbsoluteTemperature[A] = new AbsoluteTemperature(value, unit)
     def apply(unit: EntropyUnit): Entropy[A] = new Entropy(value, unit)
     def apply(unit: TemperatureUnit): Temperature[A] = new Temperature(value, unit)

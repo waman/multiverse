@@ -35,7 +35,7 @@ object ElectricDipoleUnit extends UnitInfo[ElectricDipoleUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleElectricDipoleUnit(val name: String, val symbol: String, val interval: Real) extends ElectricDipoleUnit {
   override def aliases: Seq[String] = Nil
 }

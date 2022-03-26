@@ -4,8 +4,8 @@ import spire.math._
 import spire.implicits._
 
 import org.waman.multiverse._
-import org.waman.multiverse.unit.defs.mechanics._
-import org.waman.multiverse.unit.defs.density._
+import org.waman.multiverse.unit.defs.mech._
+import org.waman.multiverse.unit.defs.dens._
 import org.waman.multiverse.Constants
 
 class Mass[A: Fractional](val value: A, val unit: MassUnit)
@@ -61,7 +61,7 @@ object MassUnit extends UnitInfo[MassUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleMassUnit(val name: String, val symbol: String, val interval: Real) extends MassUnit {
   override def aliases: Seq[String] = Nil
 }

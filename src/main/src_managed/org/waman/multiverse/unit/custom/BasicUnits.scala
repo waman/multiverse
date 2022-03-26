@@ -2,8 +2,8 @@ package org.waman.multiverse.unit.custom
 
 import org.waman.multiverse.unit.defs._
 import org.waman.multiverse.unit.defs.angle._
-import org.waman.multiverse.unit.defs.chem._
-import org.waman.multiverse.unit.defs.thermo._
+import org.waman.multiverse.unit.defs.chm._
+import org.waman.multiverse.unit.defs.therm._
 /** Usually used units of length, area, volume, mass, time, angle, frequency, temperature, e.t.c. */
 object BasicUnits{
   /** nanometre */

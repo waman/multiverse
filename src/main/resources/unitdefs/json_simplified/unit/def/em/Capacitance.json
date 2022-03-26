@@ -1,5 +1,5 @@
 {
-  "SIUnit": "farad",
+  "si_unit": "farad",
   "dimension": {
     "M": -1,
     "L": -2,
@@ -9,7 +9,8 @@
   "units": [
     {
       "name": "farad",
-      "symbol": "F"
+      "symbol": "F",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctofarad",
@@ -125,7 +126,7 @@
     {
       "name": "statfarad",
       "symbol": "statF",
-      "interval": "Constants.SpeedOfLight * Constants.SpeedOfLight * 1e-5",
+      "interval": "Constants.speed_of_light * Constants.speed_of_light * 1e-5",
       "description": "Formal unit for Gaussian and ESU CGS unit system."
     }
   ],

@@ -6,10 +6,10 @@ import spire.implicits._
 import org.waman.multiverse.implicits._
 import org.waman.multiverse.MultiverseCustomSpec
 import org.waman.multiverse._
-import org.waman.multiverse.unit.defs.mechanics.{TimeSquaredUnit, TimeSquaredUnitObjects}
+import org.waman.multiverse.unit.defs.mech.{TimeSquaredUnit, TimeSquaredUnitObjects}
 import org.waman.multiverse.unit.defs.{LengthUnitObjects, LengthUnits}
-import org.waman.multiverse.unit.defs.thermo.EntropyUnit
-import org.waman.multiverse.unit.defs.thermo.EntropyUnits.{ban, bit, nat}
+import org.waman.multiverse.unit.defs.therm.EntropyUnit
+import org.waman.multiverse.unit.defs.therm.EntropyUnits.{ban, bit, nat}
 
 class SourceGenerationSpec extends MultiverseCustomSpec {
 
@@ -140,7 +140,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "excludePrefixes" - {
 
       "millibyte unit should not be defined (excludePrefixes should work well)" in {
-        import org.waman.multiverse.unit.defs.thermo.EntropyUnitObjects
+        import org.waman.multiverse.unit.defs.therm.EntropyUnitObjects
         "EntropyUnitObjects.kilobyte" should compile
         "EntropyUnitObjects.millibyte" shouldNot compile
       }
@@ -272,7 +272,7 @@ class SourceGenerationSpec extends MultiverseCustomSpec {
     "TimeSquared" - {
 
       import org.waman.multiverse.unit.defs.TimeUnits._
-      import org.waman.multiverse.unit.defs.mechanics.TimeSquaredUnits._
+      import org.waman.multiverse.unit.defs.mech.TimeSquaredUnits._
 
       "second_squared should have the proper symbol and some aliases" in {
         // SetUp

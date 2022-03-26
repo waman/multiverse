@@ -1,5 +1,5 @@
 {
-  "SIUnit": "second",
+  "si_unit": "second",
   "dimension": {
     "T": 1
   },
@@ -9,7 +9,8 @@
       "symbol": "s",
       "aliases": [
         "sec"
-      ]
+      ],
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctosecond",
@@ -184,13 +185,13 @@
       "name": "hour",
       "symbol": "h",
       "interval": "60",
-      "baseUnit": "minute"
+      "base_unit": "minute"
     },
     {
       "name": "day",
       "symbol": "d",
       "interval": "24",
-      "baseUnit": "hour",
+      "base_unit": "hour",
       "attributes": [
         "sidereal"
       ]
@@ -199,19 +200,19 @@
       "name": "day(sidereal)",
       "symbol": "d(sidereal)",
       "interval": "23.9344699",
-      "baseUnit": "hour",
-      "notExact": true
+      "base_unit": "hour",
+      "not_exact": true
     },
     {
       "name": "week",
       "symbol": "wk",
       "interval": "7",
-      "baseUnit": "day"
+      "base_unit": "day"
     },
     {
       "name": "month",
       "symbol": "mo",
-      "baseUnit": "month(gregorian)",
+      "base_unit": "month(gregorian)",
       "attributes": [
         "gregorian",
         "full",
@@ -223,25 +224,25 @@
       "name": "month(gregorian)",
       "symbol": "mo(gregorian)",
       "interval": "30.436875",
-      "baseUnit": "day"
+      "base_unit": "day"
     },
     {
       "name": "month(full)",
       "symbol": "mo(full)",
       "interval": "30",
-      "baseUnit": "day"
+      "base_unit": "day"
     },
     {
       "name": "month(hollow)",
       "symbol": "mo(hollow)",
       "interval": "29",
-      "baseUnit": "day"
+      "base_unit": "day"
     },
     {
       "name": "month(synodic)",
       "symbol": "mo(synodic)",
       "interval": "29.530589",
-      "baseUnit": "day"
+      "base_unit": "day"
     },
     {
       "name": "year",
@@ -250,7 +251,7 @@
         "y",
         "a"
       ],
-      "baseUnit": "year(gregorian)",
+      "base_unit": "year(gregorian)",
       "attributes": [
         "common",
         "leap",
@@ -264,7 +265,7 @@
       "name": "year(common)",
       "symbol": "yr(common)",
       "interval": "365",
-      "baseUnit": "day",
+      "base_unit": "day",
       "aliases": [
         "y(common)",
         "a(common)"
@@ -274,7 +275,7 @@
       "name": "year(leap)",
       "symbol": "yr(leap)",
       "interval": "366",
-      "baseUnit": "day",
+      "base_unit": "day",
       "aliases": [
         "y(leap)",
         "a(leap)"
@@ -284,7 +285,7 @@
       "name": "year(gregorian)",
       "symbol": "yr(gregorian)",
       "interval": "365.2425",
-      "baseUnit": "day",
+      "base_unit": "day",
       "aliases": [
         "y(gregorian)",
         "a(gregorian)"
@@ -294,8 +295,8 @@
       "name": "year(sidereal)",
       "symbol": "yr(sidereal)",
       "interval": "365.256363",
-      "baseUnit": "day",
-      "notExact": true,
+      "base_unit": "day",
+      "not_exact": true,
       "aliases": [
         "y(sidereal)",
         "a(sidereal)"
@@ -305,7 +306,7 @@
       "name": "year(julian)",
       "symbol": "yr(julian)",
       "interval": "365.25",
-      "baseUnit": "day",
+      "base_unit": "day",
       "aliases": [
         "y(julian)",
         "a(julian)"
@@ -315,8 +316,8 @@
       "name": "year(tropical)",
       "symbol": "yr(tropical)",
       "interval": "365.256363",
-      "baseUnit": "day",
-      "notExact": true,
+      "base_unit": "day",
+      "not_exact": true,
       "aliases": [
         "y(tropical)",
         "a(tropical)"
@@ -325,7 +326,7 @@
     {
       "name": "decade",
       "symbol": "dec",
-      "baseUnit": "decade(gregorian)",
+      "base_unit": "decade(gregorian)",
       "attributes": [
         "gregorian",
         "sidereal",
@@ -337,29 +338,29 @@
       "name": "decade(gregorian)",
       "symbol": "dec(gregorian)",
       "interval": "10",
-      "baseUnit": "year(gregorian)"
+      "base_unit": "year(gregorian)"
     },
     {
       "name": "decade(sidereal)",
       "symbol": "dec(sidereal)",
       "interval": "10",
-      "baseUnit": "year(sidereal)"
+      "base_unit": "year(sidereal)"
     },
     {
       "name": "decade(julian)",
       "symbol": "dec(julian)",
       "interval": "10",
-      "baseUnit": "year(julian)"
+      "base_unit": "year(julian)"
     },
     {
       "name": "decade(tropical)",
       "symbol": "dec(tropical)",
       "interval": "10",
-      "baseUnit": "year(tropical)"
+      "base_unit": "year(tropical)"
     },
     {
       "name": "century",
-      "baseUnit": "century(gregorian)",
+      "base_unit": "century(gregorian)",
       "symbol": "century",
       "attributes": [
         "gregorian",
@@ -372,25 +373,25 @@
       "name": "century(gregorian)",
       "symbol": "century(gregorian)",
       "interval": "100",
-      "baseUnit": "year(gregorian)"
+      "base_unit": "year(gregorian)"
     },
     {
       "name": "century(sidereal)",
       "symbol": "century(sidereal)",
       "interval": "100",
-      "baseUnit": "year(sidereal)"
+      "base_unit": "year(sidereal)"
     },
     {
       "name": "century(julian)",
       "symbol": "century(julian)",
       "interval": "100",
-      "baseUnit": "year(julian)"
+      "base_unit": "year(julian)"
     },
     {
       "name": "century(topical)",
       "symbol": "century(topical)",
       "interval": "100",
-      "baseUnit": "year(tropical)"
+      "base_unit": "year(tropical)"
     },
     {
       "name": "svedberg",
@@ -401,7 +402,7 @@
       "name": "milliday",
       "symbol": "md",
       "interval": "0.001",
-      "baseUnit": "day"
+      "base_unit": "day"
     },
     {
       "name": "jitty",
@@ -411,25 +412,25 @@
     {
       "name": "jitty_alternative",
       "symbol": "ja",
-      "baseUnit": "centisecond"
+      "base_unit": "centisecond"
     },
     {
       "name": "fortnight",
       "symbol": "fn",
       "interval": "2",
-      "baseUnit": "week"
+      "base_unit": "week"
     },
     {
       "name": "atomic unit of time",
       "symbol": "au",
       "interval": "2.418884254e-17",
-      "notExact": true
+      "not_exact": true
     },
     {
       "name": "planck time",
       "symbol": "t_p",
       "interval": "5.3910632e-44",
-      "notExact": true
+      "not_exact": true
     }
   ],
   "operations": [
@@ -555,7 +556,7 @@
     "subpackages": [
       "em",
       "fluid",
-      "mechanics"
+      "mech"
     ]
   }
 }

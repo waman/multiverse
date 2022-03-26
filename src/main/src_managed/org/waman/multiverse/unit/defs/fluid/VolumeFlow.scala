@@ -33,7 +33,7 @@ object VolumeFlowUnit extends UnitInfo[VolumeFlowUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleVolumeFlowUnit(val name: String, val symbol: String, val interval: Real) extends VolumeFlowUnit {
   override def aliases: Seq[String] = Nil
 }

@@ -5,7 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs.fluid._
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 
 class Volume[A: Fractional](val value: A, val unit: VolumeUnit)
     extends LinearQuantity[Volume[A], A, VolumeUnit] {
@@ -45,7 +45,7 @@ object VolumeUnit extends UnitInfo[VolumeUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleVolumeUnit(val name: String, val symbol: String, val interval: Real) extends VolumeUnit {
   override def aliases: Seq[String] = Nil
 }

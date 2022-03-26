@@ -2,7 +2,7 @@ package org.waman.multiverse.unit.defs
 
 import spire.math.Real
 import org.waman.multiverse.ProductUnit
-import org.waman.multiverse.unit.defs.mechanics.TimeSquaredUnit
+import org.waman.multiverse.unit.defs.mech.TimeSquaredUnit
 
 private[defs] trait TimeUnitCanSquare { self: TimeUnit =>
 

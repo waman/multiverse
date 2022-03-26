@@ -1,5 +1,5 @@
 {
-  "SIUnit": "Pressure * Time",
+  "si_unit": "Pressure * Time",
   "dimension": {
     "M": 1,
     "L": -1,
@@ -9,7 +9,8 @@
     {
       "name": "poise",
       "symbol": "P",
-      "interval": "0.1"
+      "interval": "0.1",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctopoise",

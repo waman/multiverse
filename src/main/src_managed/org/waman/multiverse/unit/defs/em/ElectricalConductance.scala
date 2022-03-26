@@ -37,7 +37,7 @@ object ElectricalConductanceUnit extends UnitInfo[ElectricalConductanceUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleElectricalConductanceUnit(val name: String, val symbol: String, val interval: Real) extends ElectricalConductanceUnit {
   override def aliases: Seq[String] = Nil
 }

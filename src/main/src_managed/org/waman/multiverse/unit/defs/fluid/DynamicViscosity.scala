@@ -34,7 +34,7 @@ object DynamicViscosityUnit extends UnitInfo[DynamicViscosityUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleDynamicViscosityUnit(val name: String, val symbol: String, val interval: Real) extends DynamicViscosityUnit {
   override def aliases: Seq[String] = Nil
 }

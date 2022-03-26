@@ -1,5 +1,5 @@
 {
-  "SIUnit": "Area * Length",
+  "si_unit": "Area * Length",
   "dimension": {
     "L": 3
   },
@@ -10,7 +10,8 @@
       "aliases": [
         "m3"
       ],
-      "baseUnit": "Length.metre^3"
+      "base_unit": "Length.metre^3",
+      "scale_prefixes": "all"
     },
     {
       "name": "cubic yoctometre",
@@ -18,7 +19,7 @@
       "aliases": [
         "ym3"
       ],
-      "baseUnit": "Length.yoctometre^3"
+      "base_unit": "Length.yoctometre^3"
     },
     {
       "name": "cubic zeptometre",
@@ -26,7 +27,7 @@
       "aliases": [
         "zm3"
       ],
-      "baseUnit": "Length.zeptometre^3"
+      "base_unit": "Length.zeptometre^3"
     },
     {
       "name": "cubic attometre",
@@ -34,7 +35,7 @@
       "aliases": [
         "am3"
       ],
-      "baseUnit": "Length.attometre^3"
+      "base_unit": "Length.attometre^3"
     },
     {
       "name": "cubic femtometre",
@@ -42,7 +43,7 @@
       "aliases": [
         "fm3"
       ],
-      "baseUnit": "Length.femtometre^3"
+      "base_unit": "Length.femtometre^3"
     },
     {
       "name": "cubic picometre",
@@ -50,7 +51,7 @@
       "aliases": [
         "pm3"
       ],
-      "baseUnit": "Length.picometre^3"
+      "base_unit": "Length.picometre^3"
     },
     {
       "name": "cubic nanometre",
@@ -58,7 +59,7 @@
       "aliases": [
         "nm3"
       ],
-      "baseUnit": "Length.nanometre^3"
+      "base_unit": "Length.nanometre^3"
     },
     {
       "name": "cubic micrometre",
@@ -68,7 +69,7 @@
         "μm3",
         "mcm3"
       ],
-      "baseUnit": "Length.micrometre^3"
+      "base_unit": "Length.micrometre^3"
     },
     {
       "name": "cubic millimetre",
@@ -76,7 +77,7 @@
       "aliases": [
         "mm3"
       ],
-      "baseUnit": "Length.millimetre^3"
+      "base_unit": "Length.millimetre^3"
     },
     {
       "name": "cubic centimetre",
@@ -84,7 +85,7 @@
       "aliases": [
         "cm3"
       ],
-      "baseUnit": "Length.centimetre^3"
+      "base_unit": "Length.centimetre^3"
     },
     {
       "name": "cubic decimetre",
@@ -92,7 +93,7 @@
       "aliases": [
         "dm3"
       ],
-      "baseUnit": "Length.decimetre^3"
+      "base_unit": "Length.decimetre^3"
     },
     {
       "name": "cubic decametre",
@@ -100,7 +101,7 @@
       "aliases": [
         "dam3"
       ],
-      "baseUnit": "Length.decametre^3"
+      "base_unit": "Length.decametre^3"
     },
     {
       "name": "cubic hectometre",
@@ -108,7 +109,7 @@
       "aliases": [
         "hm3"
       ],
-      "baseUnit": "Length.hectometre^3"
+      "base_unit": "Length.hectometre^3"
     },
     {
       "name": "cubic kilometre",
@@ -118,7 +119,7 @@
         "km3",
         "Km3"
       ],
-      "baseUnit": "Length.kilometre^3"
+      "base_unit": "Length.kilometre^3"
     },
     {
       "name": "cubic megametre",
@@ -126,7 +127,7 @@
       "aliases": [
         "Mm3"
       ],
-      "baseUnit": "Length.megametre^3"
+      "base_unit": "Length.megametre^3"
     },
     {
       "name": "cubic gigametre",
@@ -134,7 +135,7 @@
       "aliases": [
         "Gm3"
       ],
-      "baseUnit": "Length.gigametre^3"
+      "base_unit": "Length.gigametre^3"
     },
     {
       "name": "cubic terametre",
@@ -142,7 +143,7 @@
       "aliases": [
         "Tm3"
       ],
-      "baseUnit": "Length.terametre^3"
+      "base_unit": "Length.terametre^3"
     },
     {
       "name": "cubic petametre",
@@ -150,7 +151,7 @@
       "aliases": [
         "Pm3"
       ],
-      "baseUnit": "Length.petametre^3"
+      "base_unit": "Length.petametre^3"
     },
     {
       "name": "cubic exametre",
@@ -158,7 +159,7 @@
       "aliases": [
         "Em3"
       ],
-      "baseUnit": "Length.exametre^3"
+      "base_unit": "Length.exametre^3"
     },
     {
       "name": "cubic zettametre",
@@ -166,7 +167,7 @@
       "aliases": [
         "Zm3"
       ],
-      "baseUnit": "Length.zettametre^3"
+      "base_unit": "Length.zettametre^3"
     },
     {
       "name": "cubic yottametre",
@@ -174,12 +175,13 @@
       "aliases": [
         "Ym3"
       ],
-      "baseUnit": "Length.yottametre^3"
+      "base_unit": "Length.yottametre^3"
     },
     {
       "name": "litre",
       "symbol": "L",
-      "interval": "1e-3"
+      "interval": "1e-3",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctolitre",
@@ -299,7 +301,7 @@
         "in3",
         "cu_in"
       ],
-      "baseUnit": "Length.inch^3"
+      "base_unit": "Length.inch^3"
     },
     {
       "name": "cubic foot",
@@ -308,7 +310,7 @@
         "ft3",
         "cu_ft"
       ],
-      "baseUnit": "Length.foot^3"
+      "base_unit": "Length.foot^3"
     },
     {
       "name": "cubic yard",
@@ -317,7 +319,7 @@
         "yd3",
         "cu_yd"
       ],
-      "baseUnit": "Length.yard^3"
+      "base_unit": "Length.yard^3"
     },
     {
       "name": "cubic fathom",
@@ -326,7 +328,7 @@
         "ftm3",
         "cu_fm"
       ],
-      "baseUnit": "Length.fathom^3"
+      "base_unit": "Length.fathom^3"
     },
     {
       "name": "cubic mile",
@@ -335,34 +337,34 @@
         "mi3",
         "cu_mi"
       ],
-      "baseUnit": "Length.mile^3"
+      "base_unit": "Length.mile^3"
     },
     {
       "name": "acre foot",
       "symbol": "acre_ft",
-      "baseUnit": "Area.acre * Length.foot"
+      "base_unit": "Area.acre * Length.foot"
     },
     {
       "name": "board foot",
       "symbol": "fbm",
       "interval": "144",
-      "baseUnit": "cubic_inch"
+      "base_unit": "cubic_inch"
     },
     {
       "name": "gallon_beer",
       "symbol": "beer_gal",
       "interval": "282",
-      "baseUnit": "cubic_inch"
+      "base_unit": "cubic_inch"
     },
     {
       "name": "perch",
       "symbol": "per",
       "interval": "33/2 * 3/2",
-      "baseUnit": "cubic_foot"
+      "base_unit": "cubic_foot"
     },
     {
       "name": "minim",
-      "baseUnit": "minim(US)",
+      "base_unit": "minim(US)",
       "symbol": "minim",
       "attributes": [
         "US",
@@ -373,25 +375,25 @@
       "name": "minim(US)",
       "symbol": "minim(US)",
       "interval": "1/480",
-      "baseUnit": "fluid_ounce(US)"
+      "base_unit": "fluid_ounce(US)"
     },
     {
       "name": "minim(imp)",
       "symbol": "minim(imp)",
       "interval": "1/480",
-      "baseUnit": "fluid_ounce(imp)"
+      "base_unit": "fluid_ounce(imp)"
     },
     {
       "name": "teaspoon",
       "symbol": "tsp",
       "interval": "80",
-      "baseUnit": "minim"
+      "base_unit": "minim"
     },
     {
       "name": "tablespoon",
       "symbol": "Tbsp",
       "interval": "3",
-      "baseUnit": "teaspoon"
+      "base_unit": "teaspoon"
     },
     {
       "name": "fluid ounce",
@@ -408,19 +410,19 @@
         "US_fl_oz"
       ],
       "interval": "1/128",
-      "baseUnit": "gallon(US_fl)"
+      "base_unit": "gallon(US_fl)"
     },
     {
       "name": "fluid ounce(imp)",
       "symbol": "fl_oz(imp)",
       "interval": "1/160",
-      "baseUnit": "gallon(imp)"
+      "base_unit": "gallon(imp)"
     },
     {
       "name": "shot",
       "symbol": "jig",
       "interval": "3",
-      "baseUnit": "tablespoon"
+      "base_unit": "tablespoon"
     },
     {
       "name": "gill",
@@ -434,7 +436,7 @@
       "name": "gill(US)",
       "symbol": "gi(US)",
       "interval": "4",
-      "baseUnit": "fluid_ounce(US)"
+      "base_unit": "fluid_ounce(US)"
     },
     {
       "name": "gill(imp)",
@@ -443,7 +445,7 @@
         "nog"
       ],
       "interval": "5",
-      "baseUnit": "fluid_ounce(imp)"
+      "base_unit": "fluid_ounce(imp)"
     },
     {
       "name": "cup",
@@ -462,7 +464,7 @@
       "name": "cup(US)",
       "symbol": "cp(US)",
       "interval": "2",
-      "baseUnit": "gill(US)"
+      "base_unit": "gill(US)"
     },
     {
       "name": "pint",
@@ -477,19 +479,19 @@
       "name": "pint(US_fl)",
       "symbol": "pt(US_fl)",
       "interval": "1/8",
-      "baseUnit": "gallon(US_fl)"
+      "base_unit": "gallon(US_fl)"
     },
     {
       "name": "pint(US_dry)",
       "symbol": "pt(US_dry)",
       "interval": "1/8",
-      "baseUnit": "gallon(US_dry)"
+      "base_unit": "gallon(US_dry)"
     },
     {
       "name": "pint(imp)",
       "symbol": "pt(imp)",
       "interval": "1/8",
-      "baseUnit": "gallon(imp)"
+      "base_unit": "gallon(imp)"
     },
     {
       "name": "quart",
@@ -504,19 +506,19 @@
       "name": "quart(US_fl)",
       "symbol": "qt(US_fl)",
       "interval": "1/4",
-      "baseUnit": "gallon(US_fl)"
+      "base_unit": "gallon(US_fl)"
     },
     {
       "name": "quart(US_dry)",
       "symbol": "qt(US_dry)",
       "interval": "1/4",
-      "baseUnit": "gallon(US_dry)"
+      "base_unit": "gallon(US_dry)"
     },
     {
       "name": "quart(imp)",
       "symbol": "qt(imp)",
       "interval": "1/4",
-      "baseUnit": "gallon(imp)"
+      "base_unit": "gallon(imp)"
     },
     {
       "name": "pottle",
@@ -530,18 +532,18 @@
       "name": "pottle(US)",
       "symbol": "pot(US)",
       "interval": "1/2",
-      "baseUnit": "gallon(US_fl)"
+      "base_unit": "gallon(US_fl)"
     },
     {
       "name": "pottle(imp)",
       "symbol": "pot(imp)",
       "interval": "1/2",
-      "baseUnit": "gallon(imp)"
+      "base_unit": "gallon(imp)"
     },
     {
       "name": "gallon",
       "symbol": "gal",
-      "baseUnit": "gallon(US_fl)",
+      "base_unit": "gallon(US_fl)",
       "attributes": [
         "US",
         "US_fl",
@@ -552,7 +554,7 @@
     {
       "name": "gallon(US)",
       "symbol": "gal(US)",
-      "baseUnit": "gallon(US_fl)"
+      "base_unit": "gallon(US_fl)"
     },
     {
       "name": "gallon(US_fl)",
@@ -561,13 +563,13 @@
         "US_gal"
       ],
       "interval": "231",
-      "baseUnit": "cubic_inch"
+      "base_unit": "cubic_inch"
     },
     {
       "name": "gallon(US_dry)",
       "symbol": "gal(US_dry)",
       "interval": "1/8",
-      "baseUnit": "bushel(US_lvl)"
+      "base_unit": "bushel(US_lvl)"
     },
     {
       "name": "gallon(imp)",
@@ -576,12 +578,12 @@
         "imp_gal"
       ],
       "interval": "4.54609",
-      "baseUnit": "litre"
+      "base_unit": "litre"
     },
     {
       "name": "peck",
       "symbol": "pk",
-      "baseUnit": "peck(US_dry)",
+      "base_unit": "peck(US_dry)",
       "attributes": [
         "US_dry",
         "imp"
@@ -591,13 +593,13 @@
       "name": "peck(US_dry)",
       "symbol": "pk(US_dry)",
       "interval": "1/4",
-      "baseUnit": "bushel(US_lvl)"
+      "base_unit": "bushel(US_lvl)"
     },
     {
       "name": "peck(imp)",
       "symbol": "pk(imp)",
       "interval": "2",
-      "baseUnit": "gallon(imp)"
+      "base_unit": "gallon(imp)"
     },
     {
       "name": "bushel",
@@ -605,7 +607,7 @@
       "aliases": [
         "bsh"
       ],
-      "baseUnit": "bushel(US_lvl)",
+      "base_unit": "bushel(US_lvl)",
       "attributes": [
         "US",
         "US_lvl",
@@ -616,7 +618,7 @@
       "name": "bushel(US)",
       "symbol": "bu(US)",
       "interval": "5/4",
-      "baseUnit": "bushel(US_lvl)",
+      "base_unit": "bushel(US_lvl)",
       "aliases": [
         "bsh(US)"
       ]
@@ -625,7 +627,7 @@
       "name": "bushel(US_lvl)",
       "symbol": "bu(US_lvl)",
       "interval": "2150.42",
-      "baseUnit": "cubic_inch",
+      "base_unit": "cubic_inch",
       "aliases": [
         "bsh(US_lvl)"
       ]
@@ -634,7 +636,7 @@
       "name": "bushel(imp)",
       "symbol": "bu(imp)",
       "interval": "8",
-      "baseUnit": "gallon(imp)",
+      "base_unit": "gallon(imp)",
       "aliases": [
         "bsh(imp)"
       ]
@@ -646,7 +648,7 @@
         "bl"
       ],
       "interval": "42",
-      "baseUnit": "gallon(US_fl)",
+      "base_unit": "gallon(US_fl)",
       "description": "oil barrel",
       "attributes": [
         "US_fl",
@@ -658,7 +660,7 @@
       "name": "barrel(US_fl)",
       "symbol": "bbl(US_fl)",
       "interval": "31.5",
-      "baseUnit": "gallon(US_fl)",
+      "base_unit": "gallon(US_fl)",
       "aliases": [
         "bl(US_fl)"
       ]
@@ -667,7 +669,7 @@
       "name": "barrel(US_dry)",
       "symbol": "bbl(US_dry)",
       "interval": "105",
-      "baseUnit": "quart(US_dry)",
+      "base_unit": "quart(US_dry)",
       "aliases": [
         "bl(US_dry)"
       ]
@@ -676,7 +678,7 @@
       "name": "barrel(imp)",
       "symbol": "bbl(imp)",
       "interval": "36",
-      "baseUnit": "gallon(imp)",
+      "base_unit": "gallon(imp)",
       "aliases": [
         "bl(imp)"
       ]
@@ -684,7 +686,7 @@
     {
       "name": "fluid barrel",
       "symbol": "fl_bl",
-      "baseUnit": "barrel(US_fl)",
+      "base_unit": "barrel(US_fl)",
       "description": "This unit is equivalent to barrel(US_fl)."
     },
     {
@@ -699,13 +701,13 @@
       "name": "hogshead(US)",
       "symbol": "hhd(US)",
       "interval": "2",
-      "baseUnit": "barrel(US_fl)"
+      "base_unit": "barrel(US_fl)"
     },
     {
       "name": "hogshead(imp)",
       "symbol": "hhd(imp)",
       "interval": "2",
-      "baseUnit": "barrel(imp)"
+      "base_unit": "barrel(imp)"
     },
     {
       "name": "fluid dram",
@@ -719,25 +721,25 @@
       "name": "fluid dram(US)",
       "symbol": "fl_dr(US)",
       "interval": "1/8",
-      "baseUnit": "fluid_ounce(US)"
+      "base_unit": "fluid_ounce(US)"
     },
     {
       "name": "fluid dram(imp)",
       "symbol": "fl_dr(imp)",
       "interval": "1/8",
-      "baseUnit": "fluid_ounce(imp)"
+      "base_unit": "fluid_ounce(imp)"
     },
     {
       "name": "fluid scruple",
       "symbol": "fl_s",
       "interval": "1/24",
-      "baseUnit": "fluid_ounce(imp)"
+      "base_unit": "fluid_ounce(imp)"
     },
     {
       "name": "bucket",
       "symbol": "bkt",
       "interval": "4",
-      "baseUnit": "gallon(imp)"
+      "base_unit": "gallon(imp)"
     }
   ],
   "operations": [
@@ -819,7 +821,7 @@
   "use": {
     "subpackages": [
       "fluid",
-      "mechanics"
+      "mech"
     ]
   }
 }

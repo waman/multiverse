@@ -2,7 +2,7 @@ import java.io.{File, BufferedWriter => BW}
 import play.api.libs.json.{Json, Reads}
 
 case class HomogeneousUnitdef(description: Option[String],
-                              SIUnit: String,
+                              si_unit: String,
                               dimension: Dimension,
                               convertibles: Option[Seq[Convertible]],
                               units: Option[Seq[HomogeneousUnit]],
@@ -15,7 +15,7 @@ case class HomogeneousUnit(name: String,
                            interval: Option[String],
                            description: Option[String]) extends UnitInfo{
 
-  lazy val objectName: String = GenerationUtil.toObjectName(this.name)
+  lazy val objectName: String = GenerationUtil.toSnakeCase(this.name)
 
   def _zero: String = this.zero match {
     case Some(_zero) => _zero
@@ -40,10 +40,10 @@ class HomogeneousUnitdefJson(jsonFile: File, subpackage: String)
 
   override protected def parentQuantityDeclaration: String = s"""HomogeneousQuantity[A, ${id}Unit]"""
 
-  override protected def generateImplsOfUnitTrait(writer: BW): Unit = {
+  override protected def generateImplementationsOfUnitTrait(writer: BW): Unit = {
     writer.write(
       s"""
-         |/** For no aliase or user defined units */
+         |/** For no alias or user defined units */
          |class Simple${id}Unit(val name: String, val symbol: String, val zero: Real, val interval: Real) extends ${id}Unit {
          |  override def aliases: Seq[String] = Nil
          |}
@@ -55,8 +55,8 @@ class HomogeneousUnitdefJson(jsonFile: File, subpackage: String)
   }
 
   override protected def generateUnitCaseObject(writer: BW, unit: HomogeneousUnit): Unit = {
-    val sZero = refineNumbers(unit._zero)
-    val sInterval = refineNumbers(unit._interval)
+    val sZero = refineFactor(unit._zero)
+    val sInterval = refineFactor(unit._interval)
     unit.aliases match{
       case Some(_) =>
         // final case object kelvin extends DefaultTemperatureUnit("celsius", "°C", Seq("degC", "℃"), r"273.15", r"1")

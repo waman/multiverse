@@ -6,7 +6,7 @@ import spire.implicits._
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs.fluid._
 import org.waman.multiverse.unit.defs.angle._
-import org.waman.multiverse.unit.defs.radiometry._
+import org.waman.multiverse.unit.defs.radio.freq._
 import org.waman.multiverse.Constants
 
 class Area[A: Fractional](val value: A, val unit: AreaUnit)
@@ -52,7 +52,7 @@ object AreaUnit extends UnitInfo[AreaUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleAreaUnit(val name: String, val symbol: String, val interval: Real) extends AreaUnit {
   override def aliases: Seq[String] = Nil
 }

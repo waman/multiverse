@@ -33,7 +33,7 @@ object DensityUnit extends UnitInfo[DensityUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleDensityUnit(val name: String, val symbol: String, val interval: Real) extends DensityUnit {
   override def aliases: Seq[String] = Nil
 }

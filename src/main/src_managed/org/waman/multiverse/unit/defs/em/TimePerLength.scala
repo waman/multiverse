@@ -35,7 +35,7 @@ object TimePerLengthUnit extends UnitInfo[TimePerLengthUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleTimePerLengthUnit(val name: String, val symbol: String, val interval: Real) extends TimePerLengthUnit {
   override def aliases: Seq[String] = Nil
 }

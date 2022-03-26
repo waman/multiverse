@@ -19,12 +19,17 @@ object GenerationUtil{
   val regexCompositeUnit: Regex = """(\w+)\s*([*/])\s*(\w+)""".r
 
   private val regexNum: Regex = """(-)?((\d+/\d+)|(\d+(\.\d+)?(e(-)?\d+)?))""".r
-  def refineNumbers(s: String): String = s match {
+  private val regexConst: Regex = """Constants\.\w+""".r
+  def refineFactor(s: String): String = s match {
     // TODO
     case "log(2)" => "Real(2).log()"  // Entropy.bit
     case "log(10)" => "Real(10).log()"  // Entropy.ban
     case "sqrt(1/10)" => """Real("1/10").sqrt()"""  // Length.metric_foot
-    case _ => regexNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
+    case _ => 
+      val t = regexNum.replaceAllIn(s, m => s"""r"${s.substring(m.start, m.end)}"""")
+      regexConst.replaceAllIn(t, m => {
+        "Constants." + toCamelCase(t.substring(m.start+10, m.end), "_")  // 10 is length of "Constants."
+      })
   }
 
   val regexUnitName: Regex = """(?:(\w+)\.)?(\w+(?:\(\w+\))?)""".r  // metre, Length.metre, Length.mile(US) etc.
@@ -38,7 +43,10 @@ object GenerationUtil{
 
   def toSeq[A](array: Array[A]): Seq[A] = if (array != null) array.toList else Nil
 
-  def toObjectName(s: String): String = escape(s.replace(' ', '_'))
+  def toCamelCase(s: String, sep: String): String = 
+    s.split(sep).map(s => s(0).toUpper + s.substring(1)).mkString("")
+
+  def toSnakeCase(s: String): String = escape(s.replace(' ', '_'))
 
   private val escapes = "()²³°℧₂℃℉"
 

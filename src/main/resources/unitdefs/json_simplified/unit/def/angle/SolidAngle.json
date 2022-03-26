@@ -1,10 +1,11 @@
 {
-  "SIUnit": "steradian",
+  "si_unit": "steradian",
   "dimension": {},
   "units": [
     {
       "name": "steradian",
-      "symbol": "sr"
+      "symbol": "sr",
+      "scale_prefixes": "smaller"
     },
     {
       "name": "yoctosteradian",
@@ -61,8 +62,8 @@
     },
     {
       "name": "spat",
-      "interval": "4 * Constants.Pi",
-      "baseUnit": "steradian",
+      "interval": "4 * Constants.pi",
+      "base_unit": "steradian",
       "symbol": "spat"
     },
     {
@@ -71,7 +72,7 @@
       "aliases": [
         "deg2"
       ],
-      "baseUnit": "Angle.degree * Angle.degree"
+      "base_unit": "Angle.degree * Angle.degree"
     }
   ],
   "use": {

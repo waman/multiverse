@@ -21,15 +21,15 @@ object JsonResources {
 
 //    val props = new PropertiesJson(jsonFile("Properties.json"))
     val scales = new ScalePrefixesJson(jsonFile("ScalePrefixes.json"))
-    val consts = new ConstantsJson(jsonFile("Constants.json"))
+    val constants = new ConstantsJson(jsonFile("Constants.json"))
 
     val unitdefs = getUnitdefs(jsonRoot)
 
     val customs = jsonFiles(s"unit/custom").map(new CustomUnitsJson(_))
     val unitsystems = jsonFiles("unitsystem").map(new UnitSystemJson(_))
 
-    val jsons = scales +: consts +: unitdefs ++: customs ++: unitsystems ++: Nil
-    new JsonResources(jsons, scales, consts, unitdefs, customs, unitsystems)
+    val jsons = scales +: constants +: unitdefs ++: customs ++: unitsystems ++: Nil
+    new JsonResources(jsons, scales, constants, unitdefs, customs, unitsystems)
   }
 
   private def getUnitdefs(jsonRoot: File): Seq[UnitdefJson] = {

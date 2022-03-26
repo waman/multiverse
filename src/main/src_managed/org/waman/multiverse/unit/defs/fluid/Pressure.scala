@@ -5,7 +5,7 @@ import spire.implicits._
 
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs._
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 
 class Pressure[A: Fractional](val value: A, val unit: PressureUnit)
     extends LinearQuantity[Pressure[A], A, PressureUnit] {
@@ -42,7 +42,7 @@ object PressureUnit extends UnitInfo[PressureUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimplePressureUnit(val name: String, val symbol: String, val interval: Real) extends PressureUnit {
   override def aliases: Seq[String] = Nil
 }

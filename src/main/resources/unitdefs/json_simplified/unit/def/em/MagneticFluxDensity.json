@@ -1,5 +1,5 @@
 {
-  "SIUnit": "tesla",
+  "si_unit": "tesla",
   "dimension": {
     "M": 1,
     "T": -2,
@@ -8,7 +8,8 @@
   "units": [
     {
       "name": "tesla",
-      "symbol": "T"
+      "symbol": "T",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctotesla",
@@ -122,7 +123,8 @@
       "aliases": [
         "Gs"
       ],
-      "interval": "1e-4"
+      "interval": "1e-4",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctogauss",
@@ -291,7 +293,7 @@
     {
       "name": "stattesla",
       "symbol": "statT",
-      "interval": "Constants.SpeedOfLight * 1e-2"
+      "interval": "Constants.speed_of_light * 1e-2"
     }
   ],
   "use": {

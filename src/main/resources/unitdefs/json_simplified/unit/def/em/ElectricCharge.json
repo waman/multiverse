@@ -1,5 +1,5 @@
 {
-  "SIUnit": "coulomb",
+  "si_unit": "coulomb",
   "dimension": {
     "T": 1,
     "I": 1
@@ -7,7 +7,8 @@
   "units": [
     {
       "name": "coulomb",
-      "symbol": "C"
+      "symbol": "C",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctocoulomb",
@@ -121,7 +122,7 @@
       "aliases": [
         "e"
       ],
-      "interval": "Constants.ElementaryCharge"
+      "interval": "Constants.elementary_charge"
     },
     {
       "name": "abcoulomb",
@@ -138,12 +139,12 @@
         "Fr",
         "esu"
       ],
-      "interval": "0.1 / Constants.SpeedOfLight"
+      "interval": "0.1 / Constants.speed_of_light"
     },
     {
       "name": "faraday",
       "symbol": "F",
-      "interval": "Constants.AvogadroConstant * Constants.ElementaryCharge"
+      "interval": "Constants.Avogadro_constant * Constants.elementary_charge"
     }
   ],
   "operations": [
@@ -172,7 +173,7 @@
     "constants": true,
     "subpackages": [
       "",
-      "radioactivity"
+      "ra"
     ]
   }
 }

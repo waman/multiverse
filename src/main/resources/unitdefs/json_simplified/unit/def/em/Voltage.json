@@ -1,5 +1,5 @@
 {
-  "SIUnit": "volt",
+  "si_unit": "volt",
   "dimension": {
     "M": 1,
     "L": 2,
@@ -9,7 +9,8 @@
   "units": [
     {
       "name": "volt",
-      "symbol": "V"
+      "symbol": "V",
+      "scale_prefixes": "all"
     },
     {
       "name": "yoctovolt",
@@ -125,7 +126,7 @@
     {
       "name": "statvolt",
       "symbol": "statV",
-      "interval": "Constants.SpeedOfLight * 1e-6"
+      "interval": "Constants.speed_of_light * 1e-6"
     }
   ],
   "operations": [

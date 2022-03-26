@@ -6,7 +6,7 @@ import spire.implicits._
 import org.waman.multiverse._
 import org.waman.multiverse.unit.defs.em._
 import org.waman.multiverse.unit.defs.fluid._
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 
 class Time[A: Fractional](val value: A, val unit: TimeUnit)
     extends LinearQuantity[Time[A], A, TimeUnit] {
@@ -56,7 +56,7 @@ object TimeUnit extends UnitInfo[TimeUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleTimeUnit(val name: String, val symbol: String, val interval: Real) extends TimeUnit {
   override def aliases: Seq[String] = Nil
 }

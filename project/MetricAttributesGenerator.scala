@@ -19,7 +19,7 @@ object MetricAttributesGenerator {
 
       metricUnitdefs.flatMap(ud => ud.unitdef.attributes.get.flatMap(a => a.parents))
           .distinct.foreach{ u =>
-        writer.write(s"""sealed trait ${toObjectName(u)}Attribute\n""")
+        writer.write(s"""sealed trait ${toSnakeCase(u)}Attribute\n""")
       }
 
       //    object MetricAttributes{
@@ -36,7 +36,7 @@ object MetricAttributesGenerator {
                           .groupBy(_.name).mapValues(atts => atts.flatMap(_.parents))
 
       attMap.foreach{ case (name, parents) =>
-        val traits = parents.map(toObjectName(_) + "Attribute").mkString(" with ")
+        val traits = parents.map(toSnakeCase(_) + "Attribute").mkString(" with ")
         writer.write(s"""  final object $name extends $traits\n""")
       }
 

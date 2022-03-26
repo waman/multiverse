@@ -3,7 +3,7 @@ package org.waman.multiverse.unit.defs.em
 import spire.math._
 
 import org.waman.multiverse._
-import org.waman.multiverse.unit.defs.mechanics._
+import org.waman.multiverse.unit.defs.mech._
 import org.waman.multiverse.unit.defs._
 
 class TimeSquaredPerLength[A: Fractional](val value: A, val unit: TimeSquaredPerLengthUnit)
@@ -36,7 +36,7 @@ object TimeSquaredPerLengthUnit extends UnitInfo[TimeSquaredPerLengthUnit]{
 }
 
 
-/** For no aliase or user defined units */
+/** For no alias or user defined units */
 class SimpleTimeSquaredPerLengthUnit(val name: String, val symbol: String, val interval: Real) extends TimeSquaredPerLengthUnit {
   override def aliases: Seq[String] = Nil
 }
