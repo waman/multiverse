@@ -8,8 +8,7 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
 
   override final def zero: Real = Real.zero
 
-  /** Use only <code>interval</code> property for evaluation (not use <code>name</code> property),
-    * so <code>x.compare(y) == 0</code> is not followed by <code>x.equals(y) == true<code>. */
+  /** Return <code>this.interval.compare(that.interval)</code> */
   override def compare(that: U): Int = this.interval.compare(that.interval)
 
   /**
@@ -36,27 +35,12 @@ trait LinearUnit[U <: LinearUnit[U]] extends HomogeneousUnit[U] with Ordered[U]{
   def max(that: U): U = if((this compare that) >= 0) this else that
   def min(that: U): U = if((this compare that) <= 0) this else that
 
-  /**
-    * Return true if <code>this.dimension == other.dimension && this.interval == other.interval</code>,
-    *  otherwise false. (Note: <code>name</code> property is not used for evaluation not like <code>equals</code> method.)
-    */
-  def isEquivalentTo(other: LinearUnit[_]): Boolean =
-    this.dimension == other.dimension && this.interval == other.interval
-
-  /** Evaluate via <code>name</code>, <code>interval</code> and <code>dimension</code> properties
-    * (not <code>symbol</code>). */
-  override def equals(other: Any): Boolean = other match {
-    case that: LinearUnit[_] =>
-      (that canEqual this) &&
-        name == that.name &&
-        interval == that.interval &&
-        dimension == that.dimension
-    case _ => false
-  }
-
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[LinearUnit[_]]
-
-  override def hashCode: Int = (name, interval, dimension).##
+  override def isEquivalentTo(other: PhysicalUnit[_]): Boolean = 
+    other match {
+      case that: LinearUnit[_] =>
+        this.isTheSameUnitTypeAs(that) && this.interval == that.interval
+      case _ => false
+    }
 
   override def toString: String = {
     val sInterval = toReadableString(interval)
@@ -88,7 +72,8 @@ object LiteralComposite {
   }
 }
 
-abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]](val firstUnit: A, val secondUnit: B)
+abstract class ProductUnit[U <: LinearUnit[U], A <: LinearUnit[A], B <: LinearUnit[B]]
+  (val firstUnit: A, val secondUnit: B)
   extends LinearUnit[U] with LiteralComposite { this: U =>
 
   override val name: String = s"${firstUnit.name} times ${secondUnit.name}"

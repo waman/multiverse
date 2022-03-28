@@ -11,23 +11,25 @@ class MultiverseCustomSpec  extends AnyFreeSpec with Matchers with TableDrivenPr
   //***** Utility methods *****
   def convertImplicitly[T](t: T): T = t
 
-  def %(expected: Double): Spread[Double] = %(expected, 2)
-  def %%(expected: Double): Spread[Double] = %(expected, 4)
-  def %%%(expected: Double): Spread[Double] = %(expected, 6)
-  def %%%%(expected: Double): Spread[Double] = %(expected, 8)
-  def %(expected: Double, n: Int): Spread[Double] = expected +- error(expected, n)
+  def %(expected: Double): Spread[Double] = error(expected, 2)
+  def %%(expected: Double): Spread[Double] = error(expected, 4)
+  def %%%(expected: Double): Spread[Double] = error(expected, 6)
+  def %%%%(expected: Double): Spread[Double] = error(expected, 8)
 
-  private def error(expected: Double, n: Int): Double = expected match {
-    case 0.0 => Math.pow(0.1, n)
-    case _ => expected.abs * Math.pow(0.1, n)
+  private def error(expected: Double, n: Int): Spread[Double] = {
+    val err = expected match {
+      case 0.0 => Math.pow(0.1, n)
+      case _ => expected.abs * Math.pow(0.1, n)
+    }
+    expected +- err
   }
 
   def truncateLast(s: String): String = s.substring(0, s.length-1)
 
   class ContainTheSameElementAsMatcherWithDetailErrorMessage[E](expected: Set[E])
-    extends Matcher[Traversable[E]]{
+    extends Matcher[Iterable[E]]{
 
-    override def apply(left: Traversable[E]): MatchResult = {
+    override def apply(left: Iterable[E]): MatchResult = {
       val sut = left.toSet
       val result = sut == expected
       val unexpectedElements = sut -- expected
@@ -43,6 +45,6 @@ class MultiverseCustomSpec  extends AnyFreeSpec with Matchers with TableDrivenPr
     }
   }
 
-  def containTheSameElementsAs[E](elem: Traversable[E]) =
+  def containTheSameElementsAs[E](elem: Iterable[E]) =
     new ContainTheSameElementAsMatcherWithDetailErrorMessage[E](elem.toSet)
 }

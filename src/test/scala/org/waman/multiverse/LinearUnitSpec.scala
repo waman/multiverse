@@ -3,40 +3,60 @@ package org.waman.multiverse
 import org.waman.multiverse.unit.custom.BasicUnits._
 import org.waman.multiverse.unit.custom.MechanicalUnits._
 import org.waman.multiverse.unit.defs.LengthUnits.a0
+      import org.waman.multiverse.unit.defs.LengthUnitObjects.micron
 
 class LinearUnitSpec extends MultiverseCustomSpec{
 
   "Equality" - {
 
-    "(mm/ms) should NOT equal (m/s)" in {
-      // Exercise
-      val sut = mm/ms == m/s
-      // Verify
-      sut should be (false)
+    "== operator should return the proper value" in {
+      val conversions =
+        Table(
+          ("eval", "expected"),
+          (m == m, true),
+          (μm == micron, false),
+          (m/s == m/s, true),
+          (mm/ms == m/s, false)
+        )
+
+      forAll(conversions){ (eval: Boolean, expected: Boolean) =>
+        //Verify
+        assert(eval == expected)
+      }
+    }
+
+    "hashCode() method should return the proper value" in {
+      val conversions =
+        Table(
+          ("eval", "expected"),
+          (m.hashCode == m.hashCode, true),
+          (μm.hashCode == micron.hashCode, false),
+          ((m/s).hashCode == (m/s).hashCode, true),
+          ((mm/ms).hashCode == (m/s).hashCode, false)
+        )
+
+      forAll(conversions){ (eval: Boolean, expected: Boolean) =>
+        //Verify
+        assert(eval == expected)
+      }
     }
   }
 
   "Order" - {
 
-    "(mm/ms) should DO equal (m/s) with the compare method" in {
-      // Exercise
-      val sut = (mm/ms).compare(m/s)
-      // Verify
-      sut should be (0)
-    }
+    "Methods of Comparable should return the proper value" in {
+      val conversions =
+        Table(
+          ("eval", "expected"),
+          ((mm/ms).compare(m/s) == 0, true),
+          (m < km, true),
+          (m < mm, false)
+        )
 
-    "(m) should be less than (km)" in {
-      // Exercise
-      val sut = m < km
-      // Verify
-      sut should be (true)
-    }
-
-    "(m) should not be less than (mm)" in {
-      // Exercise
-      val sut = m < mm
-      // Verify
-      sut should be (false)
+      forAll(conversions){ (eval: Boolean, expected: Boolean) =>
+        //Verify
+        assert(eval == expected)
+      }
     }
   }
 
@@ -67,24 +87,23 @@ class LinearUnitSpec extends MultiverseCustomSpec{
 
     "(mm/ms) should be equivalent to (m/s) unlike the equal method" in {
       // Exercise
-      val sut = (mm / ms).isEquivalentTo(m / s)
+      val sut = (mm/ms) ~= (m/s)
       // Verify
       sut should be(true)
     }
 
     "isEquivalentTo method should return true if two units have the same dimension and interval" in {
-      import org.waman.multiverse.unit.defs.LengthUnitObjects._
       // SetUp
       val conversions =
         Table(
           ("unit", "expected"),
           (micron, true),
-          (metre, false),
+          (m, false),
           (ms, false)
         )
       forAll(conversions) { (unit: LinearUnit[_], expected: Boolean) =>
         // Exercise
-        val sut = micrometre.isEquivalentTo(unit)
+        val sut = μm ~= unit
         // Verify
         sut should equal(expected)
       }
@@ -108,7 +127,7 @@ class LinearUnitSpec extends MultiverseCustomSpec{
     // Exercise
     val sut = kg * (m/s2)
     // Verify
-    sut.isEquivalentTo(N) should be (true)
+    (sut ~= N) should be (true)
   }
 
   "Unit multiplication (reversed): (m/s2) * kg result in a typeless unit" in {

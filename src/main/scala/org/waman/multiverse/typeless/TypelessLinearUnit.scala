@@ -12,6 +12,11 @@ sealed trait TypelessLinearUnit extends LinearUnit[TypelessLinearUnit]{
   def reciprocal: TypelessLinearUnit
   override def asTypeless: TypelessLinearUnit = this
 
+  override def isTheSameUnitTypeAs(that: PhysicalUnit[_]): Boolean = 
+    this.dimension == that.dimension
+
+  override def hashCode: Int = (this.dimension, this.name).##
+
   def multiply(second: TypelessLinearUnit): TypelessLinearUnit =
     second match {
       case Dimless => this
@@ -263,7 +268,7 @@ class TypelessReciprocalUnit(val baseUnit: FlatTypelessLinearUnit)
     case _ => baseUnit.symbol + toSuperscripts(-1)
   }
 
-  override val interval: Real = baseUnit.interval.reciprocal
+  override val interval: Real = baseUnit.interval.reciprocal()
 
   override def aliases: Seq[String] = this.baseUnit match {
     case p: TypelessPowerUnit =>

@@ -18,7 +18,8 @@ class ConstantsSpec extends MultiverseCustomSpec {
 
   "Planck time ~ √(Gh/2πc^5)" in {
     val sut = TimeUnitObjects.planck_time.interval.toDouble
-    val expected = (GravitationalConstant * PlanckConstant / (Real.two * Real.pi * (SpeedOfLight**5))).sqrt.toDouble
+    val expected = (GravitationalConstant * PlanckConstant
+                    / (Real.two * Real.pi * (SpeedOfLight**5))).sqrt().toDouble
     sut should equal (%%%%(expected))
     sut should equal (%%(5.39116e-44))
   }

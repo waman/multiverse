@@ -7,7 +7,6 @@ import org.waman.multiverse.implicits._
 import org.waman.multiverse.unit.defs.LengthUnits._
 import org.waman.multiverse.unit.defs.AreaUnits._
 import org.waman.multiverse.unit.defs.VolumeUnits._
-import org.waman.multiverse.unit.defs.MetricAttributes._
 
 class VolumeSpec extends MultiverseCustomSpec {
 

@@ -2,6 +2,7 @@ package org.waman.multiverse
 
 import spire.implicits._
 import spire.math.Real
+import org.waman.multiverse.typeless.TypelessLinearUnit
 
 trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   def name: String
@@ -14,8 +15,38 @@ trait PhysicalUnit[U <: PhysicalUnit[U]] { this: U =>
   def getSIUnit: U
   def isSIUnit: Boolean = getSIUnit == this
 
-  /** Returen the unit dimension in SI unit */
+  /** Return the unit dimension in SI unit */
   def dimension: Map[DimensionSymbol, Int]
+
+  /** Equivalent to <code>isEquivalentTo()</code> method. */
+  final def ~=(that: PhysicalUnit[_]): Boolean = this.isEquivalentTo(that)
+
+  def isEquivalentTo(that: PhysicalUnit[_]): Boolean
+
+  def isTheSameUnitTypeAs(other: PhysicalUnit[_]): Boolean = 
+    other match {
+      case that: TypelessLinearUnit =>
+        that.isTheSameUnitTypeAs(this)
+      case that =>
+        this.getSIUnit.eq(that.getSIUnit.asInstanceOf[AnyRef])
+    }
+
+  /** 
+   * Return true if <code>this</code> is the same unit type as <code>that</code>
+   * (the <code>isTheSameUnitTypeAs()</code> method returns true)
+   * and has the same name as <code>that</code>.
+   */
+  override def equals(other: Any): Boolean = other match {
+    case that: PhysicalUnit[_] => 
+      that.canEqual(this) &&
+        this.isTheSameUnitTypeAs(that) &&
+        this.name == that.name
+    case _ => false
+  }
+
+  def canEqual(other: Any): Boolean = other.isInstanceOf[PhysicalUnit[_]]
+
+  override def hashCode: Int = (this.getSIUnit.getClass.getName, this.name).##
 }
 
 // Maybe only temperature
@@ -24,22 +55,6 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ this : U
   def zero: Real
   /** interval in SI Unit */
   def interval: Real
-
-  /** Evaluate via <code>name</code>, <code>zero</zero>, <code>interval</code> and <code>dimension</code> properties
-    * (not <code>symbol</code>). */
-  override def equals(other: Any): Boolean = other match {
-    case that: HomogeneousUnit[_] =>
-      (that canEqual this) &&
-        name == that.name &&
-        dimension == that.dimension &&
-        zero == that.zero &&
-        interval == that.interval
-    case _ => false
-  }
-
-  def canEqual(other: Any): Boolean = other.isInstanceOf[PhysicalUnit[_]]
-
-  override def hashCode: Int = (name, zero, interval, dimension).##
 
   override def toString: String = {
     val ali: String = if (this.aliases.nonEmpty) this.aliases.mkString(", aliases: [", ", ", "]") else ""
@@ -63,13 +78,17 @@ trait HomogeneousUnit[U <: HomogeneousUnit[U]] extends PhysicalUnit[U]{ this : U
           val sInterval = toReadableString(interval)
           s"$name ($symbol) [0($symbol) = $sZero($symbolSI), Δ($symbol) = $sInterval*Δ($symbolSI)]$ali, dim: $dim$desc"
       }
-  }
+    }
   }
 
-  def isEquivalentTo(other: HomogeneousUnit[_]): Boolean =
-    this.dimension == other.dimension &&
-      this.zero == other.zero &&
-      this.interval == other.interval
+  override def isEquivalentTo(other: PhysicalUnit[_]): Boolean = 
+    other match {
+      case that: HomogeneousUnit[_] =>
+        this.isTheSameUnitTypeAs(that) &&
+          this.zero == that.zero &&
+          this.interval == that.interval
+      case _ => false
+    }
 }
 
 trait Description {

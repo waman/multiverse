@@ -20,14 +20,14 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
   def getSIValue: A = this(unit.getSIUnit)
 
   override def equals(other: Any): Boolean = other match {
-    case that: Quantity[A, U] =>
-      if(!(that canEqual this))
-        false
-      else if(this.unit == that.unit)
+    case that: Quantity[_, _] =>
+      if(!(that.canEqual(this))) return false
+      if(!this.unit.isTheSameUnitTypeAs(that.unit)) return false
+
+      if(this.unit ~= that.unit)
         this.value == that.value
-      else {
-        equalsInDifferentUnit(that)
-      }
+      else
+        equalsInDifferentUnit(that.asInstanceOf[Quantity[A, U]])
 
     case _ => false
   }
@@ -41,7 +41,7 @@ abstract class Quantity[A: Fractional, U <: PhysicalUnit[U]]
 
   override lazy val hashCode: Int = {
     val siUnit = unit.getSIUnit
-    (this(siUnit), siUnit).##
+    (siUnit, this(siUnit)).##
   }
 
   override def toString: String = toString("(", ")")

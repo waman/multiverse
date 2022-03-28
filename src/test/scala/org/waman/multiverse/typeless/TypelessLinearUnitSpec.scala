@@ -227,7 +227,7 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
         val sut = v.asTypeless
         // Verify
         sut shouldBe a [TypelessProductUnit]
-        sut.isEquivalentTo(v) should be (true)
+        (sut ~= v) should be (true)
       }
     }
 
@@ -238,7 +238,7 @@ class TypelessLinearUnitSpec extends MultiverseCustomSpec{
       val sut = v.asTypeless
       // Verify
       sut shouldBe a [TypelessQuotientUnit]
-      sut.isEquivalentTo(v) should be (true)
+      (sut ~= v) should be (true)
     }
   }
 
